@@ -643,6 +643,107 @@
         </div>
       </section>
 
+      <!-- Bento Daily Trading Activity Calendar (Collapsible Window) -->
+      <section class="bento-card overflow-hidden transition-all">
+        <!-- Calendar Header Bar with Collapsible Button and Month Nav -->
+        <div class="p-4 sm:p-5 flex flex-wrap items-center justify-between gap-3 bg-[#FAF7F0] dark:bg-[#352D25] border-b border-[#DDD3C3] dark:border-[#55483A]">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-[#557A5B]/15 text-[#557A5B] dark:bg-[#7FA57E]/20 dark:text-[#7FA57E] border border-[#557A5B]/30 dark:border-[#7FA57E]/30 flex items-center justify-center text-lg shrink-0">
+              📅
+            </div>
+            <div>
+              <div class="flex items-center gap-2 flex-wrap">
+                <h3 class="text-base font-extrabold text-[#302A22] dark:text-[#F1E8D8]">Trading Activity Calendar</h3>
+                <span id="calendarMonthBadge" class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#557A5B]/10 text-[#557A5B] dark:bg-[#7FA57E]/15 dark:text-[#7FA57E] border border-[#557A5B]/25 dark:border-[#7FA57E]/25 font-num">
+                  September 2026
+                </span>
+                <span id="calendarHeaderQuickSummary" class="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-lg bg-[#FFFDF8] dark:bg-[#40362C] border border-[#DDD3C3] dark:border-[#55483A] text-xs font-bold font-num text-[#756B5D] dark:text-[#B9AC99]">
+                  0 days • $0.00
+                </span>
+              </div>
+              <p class="text-xs text-[#756B5D] dark:text-[#B9AC99] mt-0.5">Real-world calendar days you logged in &amp; your daily trading results</p>
+            </div>
+          </div>
+
+          <div class="flex items-center gap-2 flex-wrap">
+            <!-- Month Stepper -->
+            <div class="inline-flex items-center gap-1 bg-[#FFFDF8] dark:bg-[#40362C] rounded-lg p-1 border border-[#DDD3C3] dark:border-[#55483A] font-num text-xs shadow-sm">
+              <button onclick="changeCalendarMonth(-1)" title="Previous Month" class="w-7 h-7 rounded hover:bg-[#FAF7F0] dark:hover:bg-[#352D25] text-[#302A22] dark:text-[#F1E8D8] flex items-center justify-center font-bold transition active:scale-90">
+                ‹
+              </button>
+              <button onclick="jumpToCurrentCalendarMonth()" title="Jump to Today" class="px-2.5 py-1 rounded hover:bg-[#FAF7F0] dark:hover:bg-[#352D25] text-[#302A22] dark:text-[#F1E8D8] font-bold text-xs transition">
+                Today
+              </button>
+              <button onclick="changeCalendarMonth(1)" title="Next Month" class="w-7 h-7 rounded hover:bg-[#FAF7F0] dark:hover:bg-[#352D25] text-[#302A22] dark:text-[#F1E8D8] flex items-center justify-center font-bold transition active:scale-90">
+                ›
+              </button>
+            </div>
+
+            <!-- Collapse / Expand Toggle Button -->
+            <button onclick="toggleCalendarCollapse()" id="btnToggleCalendar" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#FFFDF8] hover:bg-[#FAF7F0] dark:bg-[#40362C] dark:hover:bg-[#352D25] text-[#302A22] dark:text-[#F1E8D8] border border-[#DDD3C3] dark:border-[#55483A] font-bold text-xs transition shadow-sm active:scale-95">
+              <span id="calendarToggleIcon">▲</span>
+              <span id="calendarToggleText">Collapse</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Collapsible Content Window -->
+        <div id="calendarCollapseBody" class="p-4 sm:p-5 space-y-4">
+          
+          <!-- Monthly Summary Stats Bar -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3 text-xs">
+            <div class="p-2.5 rounded-xl bg-[#FFFDF8] dark:bg-[#40362C] border border-[#DDD3C3] dark:border-[#55483A]">
+              <span class="text-[10px] uppercase font-bold text-[#756B5D] dark:text-[#B9AC99] block">Days Traded</span>
+              <span id="calStatDaysTraded" class="text-base sm:text-lg font-black font-num text-[#302A22] dark:text-[#F1E8D8]">0 days</span>
+            </div>
+            <div class="p-2.5 rounded-xl bg-[#FFFDF8] dark:bg-[#40362C] border border-[#DDD3C3] dark:border-[#55483A]">
+              <span class="text-[10px] uppercase font-bold text-[#756B5D] dark:text-[#B9AC99] block">Green Days</span>
+              <span id="calStatGreenDays" class="text-base sm:text-lg font-black font-num text-[#557A5B] dark:text-[#7FA57E]">0</span>
+            </div>
+            <div class="p-2.5 rounded-xl bg-[#FFFDF8] dark:bg-[#40362C] border border-[#DDD3C3] dark:border-[#55483A]">
+              <span class="text-[10px] uppercase font-bold text-[#756B5D] dark:text-[#B9AC99] block">Red Days</span>
+              <span id="calStatRedDays" class="text-base sm:text-lg font-black font-num text-[#B65C52] dark:text-[#D77C70]">0</span>
+            </div>
+            <div class="p-2.5 rounded-xl bg-[#FFFDF8] dark:bg-[#40362C] border border-[#DDD3C3] dark:border-[#55483A]">
+              <span class="text-[10px] uppercase font-bold text-[#756B5D] dark:text-[#B9AC99] block">Calendar Net PnL</span>
+              <span id="calStatNetPnl" class="text-base sm:text-lg font-black font-num text-[#302A22] dark:text-[#F1E8D8]">$0.00</span>
+            </div>
+          </div>
+
+          <!-- Calendar Grid Container -->
+          <div class="overflow-x-auto calm-scrollbar">
+            <div class="min-w-[540px]">
+              <!-- Day of Week Headers -->
+              <div class="grid grid-cols-7 gap-2 mb-2 text-center text-[11px] font-bold uppercase tracking-wider text-[#756B5D] dark:text-[#B9AC99]">
+                <div>Mon</div>
+                <div>Tue</div>
+                <div>Wed</div>
+                <div>Thu</div>
+                <div>Fri</div>
+                <div>Sat</div>
+                <div>Sun</div>
+              </div>
+
+              <!-- Day Cells Grid -->
+              <div id="calendarDaysGrid" class="grid grid-cols-7 gap-2 font-num">
+                <!-- Dynamically populated via renderCalendarView() -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Calendar Footer / Legend -->
+          <div class="pt-2 border-t border-[#DDD3C3]/70 dark:border-[#55483A]/70 flex items-center justify-between gap-3 text-[11px] text-[#756B5D] dark:text-[#B9AC99] flex-wrap">
+            <div class="flex items-center gap-3">
+              <span class="inline-flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#557A5B] dark:bg-[#7FA57E]"></span> Green Day</span>
+              <span class="inline-flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#B65C52] dark:bg-[#D77C70]"></span> Red Day</span>
+              <span class="inline-flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full border-2 border-[#557A5B] dark:border-[#7FA57E]"></span> Today</span>
+            </div>
+            <span class="italic">💡 Click any logged day to jump to that session in your tracker!</span>
+          </div>
+
+        </div>
+      </section>
+
       <!-- Bento Master Session Ledger Table -->
       <section class="bento-card overflow-hidden">
         <div class="p-4 sm:p-5 border-b border-[#DDD3C3] dark:border-[#55483A] flex flex-wrap items-center justify-between gap-3 bg-[#FAF7F0] dark:bg-[#352D25]">
@@ -1250,9 +1351,17 @@ service cloud.firestore {
     let currentSession = parseInt(localStorage.getItem('pgl_session_v9')) || 1;
     let sessionLogs = JSON.parse(localStorage.getItem('pgl_session_logs_v9')) || { 1: 120.00 };
     let sessionTimestamps = JSON.parse(localStorage.getItem('pgl_timestamps_v9')) || {};
+    if (sessionLogs[1] !== undefined && !sessionTimestamps[1]) {
+      sessionTimestamps[1] = new Date().toISOString();
+      localStorage.setItem('pgl_timestamps_v9', JSON.stringify(sessionTimestamps));
+    }
     let sessionNotes = JSON.parse(localStorage.getItem('pgl_notes_v9')) || {};
     let lockedSessions = JSON.parse(localStorage.getItem('pgl_locked_sessions_v9')) || {};
     let showAllPacesInTable = localStorage.getItem('pgl_show_all_paces_v9') === 'true';
+
+    /* Daily Calendar View State */
+    let calendarViewDate = new Date();
+    let isCalendarCollapsed = localStorage.getItem('pgl_calendar_collapsed_v9') === 'true';
 
     /* Milestone Skim & Vault State */
     let milestoneFeatureEnabled = localStorage.getItem('pgl_milestone_enabled_v9') === 'true';
@@ -1749,6 +1858,7 @@ service cloud.firestore {
       }
 
       renderMilestoneCards(ladder, trueWealth);
+      renderCalendarView();
       renderMasterTable(ladder);
     }
 
@@ -1787,6 +1897,275 @@ service cloud.firestore {
         `;
         grid.appendChild(card);
       });
+    }
+
+    /* Daily Trading Activity Calendar Functions */
+    function toggleCalendarCollapse() {
+      isCalendarCollapsed = !isCalendarCollapsed;
+      localStorage.setItem('pgl_calendar_collapsed_v9', isCalendarCollapsed ? 'true' : 'false');
+      updateCalendarCollapseState();
+    }
+
+    function updateCalendarCollapseState() {
+      const body = document.getElementById('calendarCollapseBody');
+      const icon = document.getElementById('calendarToggleIcon');
+      const text = document.getElementById('calendarToggleText');
+      if (!body) return;
+
+      if (isCalendarCollapsed) {
+        body.classList.add('hidden');
+        if (icon) icon.innerText = '▼';
+        if (text) text.innerText = 'Expand';
+      } else {
+        body.classList.remove('hidden');
+        if (icon) icon.innerText = '▲';
+        if (text) text.innerText = 'Collapse';
+      }
+    }
+
+    function changeCalendarMonth(delta) {
+      calendarViewDate.setMonth(calendarViewDate.getMonth() + delta);
+      renderCalendarView();
+    }
+
+    function jumpToCurrentCalendarMonth() {
+      calendarViewDate = new Date();
+      renderCalendarView();
+    }
+
+    function getCalendarTradesMap() {
+      const map = {};
+      const ladder = getActiveLadder();
+
+      ladder.forEach(row => {
+        const s = row.s;
+        const loggedVal = sessionLogs[s];
+        if (loggedVal !== undefined) {
+          const prevDesk = getPrevDeskBalance(s);
+          const pnl = loggedVal - prevDesk;
+          const rawTs = sessionTimestamps[s];
+          let d = rawTs ? new Date(rawTs) : null;
+          if (!d || isNaN(d.getTime())) {
+            d = new Date();
+          }
+
+          const year = d.getFullYear();
+          const month = String(d.getMonth() + 1).padStart(2, '0');
+          const day = String(d.getDate()).padStart(2, '0');
+          const dateKey = `${year}-${month}-${day}`;
+
+          if (!map[dateKey]) {
+            map[dateKey] = {
+              dateKey,
+              year: d.getFullYear(),
+              month: d.getMonth(),
+              day: d.getDate(),
+              sessions: [],
+              totalPnl: 0,
+              latestBalance: loggedVal
+            };
+          }
+
+          map[dateKey].sessions.push({
+            session: s,
+            balance: loggedVal,
+            pnl: pnl,
+            timestamp: d,
+            note: sessionNotes[s] || ''
+          });
+          map[dateKey].totalPnl += pnl;
+          map[dateKey].latestBalance = loggedVal;
+        }
+      });
+
+      return map;
+    }
+
+    function renderCalendarView() {
+      const grid = document.getElementById('calendarDaysGrid');
+      const monthBadge = document.getElementById('calendarMonthBadge');
+      if (!grid) return;
+
+      updateCalendarCollapseState();
+
+      const year = calendarViewDate.getFullYear();
+      const month = calendarViewDate.getMonth();
+
+      const monthNames = [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+      ];
+
+      if (monthBadge) {
+        monthBadge.innerText = `${monthNames[month]} ${year}`;
+      }
+
+      const tradesMap = getCalendarTradesMap();
+
+      // Calculate monthly stats for the active calendar month
+      let daysTraded = 0;
+      let greenDays = 0;
+      let redDays = 0;
+      let netPnl = 0;
+
+      Object.values(tradesMap).forEach(entry => {
+        if (entry.year === year && entry.month === month) {
+          daysTraded++;
+          netPnl += entry.totalPnl;
+          if (entry.totalPnl > 0.001) greenDays++;
+          else if (entry.totalPnl < -0.001) redDays++;
+        }
+      });
+
+      const statDays = document.getElementById('calStatDaysTraded');
+      const statGreen = document.getElementById('calStatGreenDays');
+      const statRed = document.getElementById('calStatRedDays');
+      const statNet = document.getElementById('calStatNetPnl');
+      const quickSummary = document.getElementById('calendarHeaderQuickSummary');
+
+      if (statDays) statDays.innerText = `${daysTraded} day${daysTraded === 1 ? '' : 's'}`;
+      if (statGreen) statGreen.innerText = `${greenDays}`;
+      if (statRed) statRed.innerText = `${redDays}`;
+      if (statNet) {
+        statNet.innerText = `${netPnl >= 0 ? '+' : '-'}${fmt(Math.abs(netPnl))}`;
+        statNet.className = `text-base sm:text-lg font-black font-num ${
+          netPnl > 0.001 
+            ? 'text-[#557A5B] dark:text-[#7FA57E]' 
+            : (netPnl < -0.001 ? 'text-[#B65C52] dark:text-[#D77C70]' : 'text-[#302A22] dark:text-[#F1E8D8]')
+        }`;
+      }
+      if (quickSummary) {
+        quickSummary.innerText = `${daysTraded} day${daysTraded === 1 ? '' : 's'} • ${netPnl >= 0 ? '+' : '-'}${fmt(Math.abs(netPnl))}`;
+        quickSummary.className = `hidden sm:inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-lg bg-[#FFFDF8] dark:bg-[#40362C] border border-[#DDD3C3] dark:border-[#55483A] text-xs font-bold font-num ${
+          netPnl > 0.001 
+            ? 'text-[#557A5B] dark:text-[#7FA57E]' 
+            : (netPnl < -0.001 ? 'text-[#B65C52] dark:text-[#D77C70]' : 'text-[#756B5D] dark:text-[#B9AC99]')
+        }`;
+      }
+
+      // Date calculations for calendar grid (Monday-first)
+      const firstDayOfMonth = new Date(year, month, 1);
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+      const prevMonthDays = new Date(year, month, 0).getDate();
+
+      // Monday = 0, Tuesday = 1, ... Sunday = 6
+      const startDay = (firstDayOfMonth.getDay() + 6) % 7;
+      const totalCells = (startDay + daysInMonth > 35) ? 42 : 35;
+
+      grid.innerHTML = '';
+
+      const today = new Date();
+      const isCurrentMonthThisYear = today.getFullYear() === year && today.getMonth() === month;
+      const todayDate = today.getDate();
+
+      for (let i = 0; i < totalCells; i++) {
+        const cell = document.createElement('div');
+
+        if (i < startDay) {
+          // Previous Month Day
+          const prevDateNum = prevMonthDays - (startDay - 1 - i);
+          cell.className = "p-2 rounded-xl bg-[#FAF7F0]/40 dark:bg-[#352D25]/30 border border-[#DDD3C3]/30 dark:border-[#55483A]/30 min-h-[72px] sm:min-h-[82px] flex flex-col justify-between opacity-30 select-none";
+          cell.innerHTML = `<span class="text-xs font-semibold text-[#756B5D] dark:text-[#B9AC99]">${prevDateNum}</span>`;
+        } else if (i >= startDay + daysInMonth) {
+          // Next Month Day
+          const nextDateNum = i - (startDay + daysInMonth) + 1;
+          cell.className = "p-2 rounded-xl bg-[#FAF7F0]/40 dark:bg-[#352D25]/30 border border-[#DDD3C3]/30 dark:border-[#55483A]/30 min-h-[72px] sm:min-h-[82px] flex flex-col justify-between opacity-30 select-none";
+          cell.innerHTML = `<span class="text-xs font-semibold text-[#756B5D] dark:text-[#B9AC99]">${nextDateNum}</span>`;
+        } else {
+          // Current Month Day
+          const dayNum = i - startDay + 1;
+          const isToday = isCurrentMonthThisYear && dayNum === todayDate;
+          const dateKey = `${year}-${String(month + 1).padStart(2, '0')}-${String(dayNum).padStart(2, '0')}`;
+          const tradeData = tradesMap[dateKey];
+
+          if (tradeData) {
+            // Day with recorded trade(s)
+            const isGreen = tradeData.totalPnl > 0.001;
+            const isRed = tradeData.totalPnl < -0.001;
+            const sessionsBadge = tradeData.sessions.map(item => `S${item.session}`).join(', ');
+            const primarySession = tradeData.sessions[0].session;
+            const tooltip = tradeData.sessions.map(s => `Session ${s.session}: ${fmt(s.balance)} (${s.pnl >= 0 ? '+' : ''}${fmt(s.pnl)})${s.note ? ' - ' + s.note : ''}`).join('\n');
+
+            cell.className = `p-2 rounded-xl min-h-[72px] sm:min-h-[82px] flex flex-col justify-between cursor-pointer transition-all hover:scale-[1.02] active:scale-95 shadow-sm ${
+              isToday ? 'ring-2 ring-[#557A5B] dark:ring-[#7FA57E] ' : ''
+            }${
+              isGreen 
+                ? 'bg-[#557A5B]/10 hover:bg-[#557A5B]/15 border border-[#557A5B]/40 dark:bg-[#7FA57E]/15 dark:hover:bg-[#7FA57E]/25 dark:border-[#7FA57E]/40' 
+                : (isRed 
+                    ? 'bg-[#B65C52]/10 hover:bg-[#B65C52]/15 border border-[#B65C52]/40 dark:bg-[#D77C70]/15 dark:hover:bg-[#D77C70]/25 dark:border-[#D77C70]/40' 
+                    : 'bg-[#FFFDF8] hover:bg-[#FAF7F0] border border-[#DDD3C3] dark:bg-[#40362C] dark:hover:bg-[#352D25] dark:border-[#55483A]')
+            }`;
+
+            cell.title = tooltip;
+            cell.onclick = () => jumpToCalendarSession(primarySession, tradeData);
+
+            cell.innerHTML = `
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-black font-num ${isToday ? 'text-[#557A5B] dark:text-[#7FA57E]' : 'text-[#302A22] dark:text-[#F1E8D8]'}">
+                  ${dayNum}
+                </span>
+                <span class="px-1.5 py-0.5 rounded text-[9px] font-black ${
+                  isGreen 
+                    ? 'bg-[#557A5B] text-[#FFFDF8] dark:bg-[#7FA57E] dark:text-[#29231D]' 
+                    : (isRed ? 'bg-[#B65C52] text-[#FFFDF8] dark:bg-[#D77C70] dark:text-[#29231D]' : 'bg-[#756B5D] text-[#FFFDF8] dark:bg-[#B9AC99] dark:text-[#29231D]')
+                }">
+                  ${sessionsBadge}
+                </span>
+              </div>
+              <div class="my-auto py-0.5">
+                <div class="text-xs sm:text-sm font-black font-num tracking-tight truncate ${
+                  isGreen 
+                    ? 'text-[#557A5B] dark:text-[#7FA57E]' 
+                    : (isRed ? 'text-[#B65C52] dark:text-[#D77C70]' : 'text-[#756B5D] dark:text-[#B9AC99]')
+                }">
+                  ${tradeData.totalPnl >= 0 ? '+' : '-'}${fmt(Math.abs(tradeData.totalPnl))}
+                </div>
+              </div>
+              <div class="text-[9px] font-num text-[#756B5D] dark:text-[#B9AC99] truncate flex items-center justify-between">
+                <span>Desk: ${fmt(tradeData.latestBalance)}</span>
+                <span>${isGreen ? '🌱' : (isRed ? '🛡️' : '⚖️')}</span>
+              </div>
+            `;
+          } else {
+            // Day without recorded trade
+            cell.className = `p-2 rounded-xl bg-[#FFFDF8]/70 dark:bg-[#40362C]/40 border min-h-[72px] sm:min-h-[82px] flex flex-col justify-between transition ${
+              isToday 
+                ? 'border-2 border-[#557A5B] dark:border-[#7FA57E]' 
+                : 'border-[#DDD3C3]/60 dark:border-[#55483A]/60'
+            }`;
+
+            cell.innerHTML = `
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold font-num ${isToday ? 'text-[#557A5B] dark:text-[#7FA57E]' : 'text-[#756B5D] dark:text-[#B9AC99]'}">
+                  ${dayNum}
+                </span>
+                ${isToday ? '<span class="text-[9px] font-bold text-[#557A5B] dark:text-[#7FA57E] uppercase">Today</span>' : ''}
+              </div>
+              <div class="text-center text-[10px] text-[#756B5D]/40 dark:text-[#B9AC99]/40 italic my-auto select-none">
+                No session
+              </div>
+              <div></div>
+            `;
+          }
+        }
+
+        grid.appendChild(cell);
+      }
+    }
+
+    function jumpToCalendarSession(sessionNum, tradeData = null) {
+      currentSession = sessionNum;
+      localStorage.setItem('pgl_session_v9', currentSession);
+      renderTracker();
+
+      const pnlText = tradeData ? ` (${tradeData.totalPnl >= 0 ? '+' : ''}${fmt(tradeData.totalPnl)})` : '';
+      showToast(`Jumped to Session ${sessionNum}${pnlText} 🎯`);
+
+      const loggerEl = document.getElementById('sessionBalanceInput');
+      if (loggerEl) {
+        loggerEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        loggerEl.focus();
+      }
     }
 
     function renderMasterTable(ladder) {

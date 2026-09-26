@@ -17,123 +17,68 @@
             num: ['"Space Grotesk"', 'monospace']
           },
           colors: {
-            // Prevent pure white/black leaks
-            white: '#F5EBDD', // warm white
-            black: '#29241E', // deep espresso
-
-            // Naturalist Accents (Light / Dark)
-            nat: {
-              green: '#607B5B',
-              'green-dark': '#8CA887',
-              red: '#B86652',
-              'red-dark': '#D47F6C',
-              yellow: '#C2984D',
-              'yellow-dark': '#DEB76C',
-              blue: '#617D91',
-              'blue-dark': '#86A5BC',
-              purple: '#806A73',
-              'purple-dark': '#A8909A',
-              orange: '#A96745',
-              'orange-dark': '#CB8561'
-            },
-
             // Earthy Foundation Neutrals
-            secondary: '#DCD0BB',
-            stone: {
-              50: '#F5EBDD',  // Light elevated surface
-              100: '#F0E6D5', // Light primary surface / card
-              200: '#CFC1AA', // Light border / divider
-              250: '#DCD0BB', // Light secondary neutral
-              300: '#CFC1AA',
-              400: '#B4A58F', // Dark secondary text
-              500: '#716556', // Light secondary text
-              600: '#514638',
-              700: '#514638', // Dark border / divider
-              800: '#41382D', // Dark elevated surface
-              900: '#352E25', // Dark primary surface / card
-              950: '#29241E'  // Dark page background
+            canvas: { light: '#E8DDC9', dark: '#29241E' },
+            surface: { light: '#F0E6D5', dark: '#352E25' },
+            elevated: { light: '#F5EBDD', dark: '#41382D' },
+            secondary: { light: '#DCD0BB', dark: '#41382D' },
+            border: { light: '#CFC1AA', dark: '#514638' },
+            text: {
+              primary: { light: '#332B22', dark: '#E2D4BD' },
+              secondary: { light: '#716556', dark: '#B4A58F' }
             },
 
-            // Minor Decorative Organic Accents
-            olive: '#737653',
-            cedar: '#8A5F46',
-            rust: '#A96745',
-            sand: '#CBB58F',
-            fern: '#71856A',
-
-            // Semantic Aliases for backwards compatibility & clean utility usage
-            sage: {
-              50: 'rgba(96, 123, 91, 0.08)',
-              100: 'rgba(96, 123, 91, 0.15)',
-              200: '#CADBCA',
-              300: '#A4BFA2',
-              400: '#8CA887', // Dark Green
-              500: '#607B5B', // Light Green
-              600: '#4F674B',
-              700: '#3C4F3B',
-              800: '#283827',
-              900: 'rgba(140, 168, 135, 0.20)',
-              950: '#1D261C'
+            // Assigned Semantic Accents & Tints
+            moss: {
+              DEFAULT: '#607B5B',
+              light: '#789272',
+              tint: '#DCE5D7'
             },
             clay: {
-              50: 'rgba(169, 103, 69, 0.08)',
-              100: 'rgba(169, 103, 69, 0.15)',
-              200: '#E5C6B1',
-              300: '#D7AB8F',
-              400: '#CB8561', // Dark Orange
-              500: '#A96745', // Light Orange
-              600: '#96593B',
-              700: '#7A4725',
-              800: '#5A341B',
-              900: 'rgba(203, 133, 97, 0.20)',
-              950: '#28170B'
+              DEFAULT: '#B86652',
+              light: '#C77B68',
+              tint: '#EEDBD2'
             },
-            terracotta: {
-              50: 'rgba(184, 102, 82, 0.08)',
-              100: 'rgba(184, 102, 82, 0.15)',
-              200: '#E5AFA3',
-              300: '#DC9588',
-              400: '#D47F6C', // Dark Red
-              500: '#B86652', // Light Red
-              600: '#9E5544',
-              700: '#7E3E33',
-              800: '#5E2F26',
-              900: 'rgba(212, 127, 108, 0.20)',
-              950: '#2C1713'
+            ochre: {
+              DEFAULT: '#C2984D',
+              light: '#D0AA63',
+              tint: '#EEE2C5'
             },
-            amber: {
-              50: 'rgba(194, 152, 77, 0.08)',
-              100: 'rgba(194, 152, 77, 0.15)',
-              200: '#E8D5A2',
-              300: '#DEC37A',
-              400: '#DEB76C', // Dark Yellow
-              500: '#C2984D', // Light Yellow
-              600: '#A6803F',
-              700: '#87672B',
-              800: '#63491E',
-              900: 'rgba(222, 183, 108, 0.20)',
-              950: '#2B200C'
-            },
-            blue: {
-              50: 'rgba(97, 125, 145, 0.08)',
-              100: 'rgba(97, 125, 145, 0.15)',
-              400: '#86A5BC', // Dark Blue
-              500: '#617D91', // Light Blue
-              600: '#4C6374',
-              700: '#3C4E5A'
+            dustyblue: {
+              DEFAULT: '#617D91',
+              light: '#7894A6',
+              tint: '#DCE4E8'
             },
             purple: {
-              50: 'rgba(128, 106, 115, 0.08)',
-              100: 'rgba(128, 106, 115, 0.15)',
-              400: '#A8909A', // Dark Purple
-              500: '#806A73', // Light Purple
-              600: '#6C5962',
-              700: '#54444C'
+              DEFAULT: '#806A86',
+              light: '#9A849F',
+              tint: '#E4DCE5'
+            },
+            peach: {
+              DEFAULT: '#C98278',
+              light: '#D99B91',
+              tint: '#EED7D0'
+            },
+
+            // Backward-compat aliases
+            stone: {
+              50: '#F5EBDD',
+              100: '#F0E6D5',
+              200: '#CFC1AA',
+              250: '#DCD0BB',
+              300: '#CFC1AA',
+              400: '#B4A58F',
+              500: '#716556',
+              600: '#514638',
+              700: '#514638',
+              800: '#41382D',
+              900: '#352E25',
+              950: '#29241E'
             }
           }
         }
       }
-    }
+    };
   </script>
 
   <!-- Firebase App & Firestore Compat CDN (Realtime Multi-Device Sync) -->
@@ -156,31 +101,35 @@
       --text-secondary: #716556;
       --border-divider: #CFC1AA;
 
-      /* Semantic Natural Accents (Light Mode) */
-      --accent-green: #607B5B;
-      --accent-red: #B86652;
-      --accent-yellow: #C2984D;
+      /* Assigned Accent Colors (Light Mode) */
+      --accent-moss: #607B5B;
+      --accent-moss-light: #789272;
+      --accent-moss-tint: #DCE5D7;
+
+      --accent-clay: #B86652;
+      --accent-clay-light: #C77B68;
+      --accent-clay-tint: #EEDBD2;
+
+      --accent-ochre: #C2984D;
+      --accent-ochre-light: #D0AA63;
+      --accent-ochre-tint: #EEE2C5;
+
       --accent-blue: #617D91;
-      --accent-purple: #806A73;
-      --accent-orange: #A96745;
+      --accent-blue-light: #7894A6;
+      --accent-blue-tint: #DCE4E8;
 
-      /* Minor Decorative Colors */
-      --accent-olive: #737653;
-      --accent-cedar: #8A5F46;
-      --accent-rust: #A96745;
-      --accent-sand: #CBB58F;
-      --accent-fern: #71856A;
+      --accent-purple: #806A86;
+      --accent-purple-light: #9A849F;
+      --accent-purple-tint: #E4DCE5;
 
-      --accent-green-tint: rgba(96, 123, 91, 0.10);
-      --accent-red-tint: rgba(184, 102, 82, 0.10);
-      --accent-yellow-tint: rgba(194, 152, 77, 0.12);
-      --accent-blue-tint: rgba(97, 125, 145, 0.10);
-      --accent-purple-tint: rgba(128, 106, 115, 0.10);
-      --accent-orange-tint: rgba(169, 103, 69, 0.10);
+      --accent-peach: #C98278;
+      --accent-peach-light: #D99B91;
+      --accent-peach-tint: #EED7D0;
 
-      --shadow-warm-sm: 0 1px 3px 0 rgba(51, 43, 34, 0.04);
-      --shadow-warm-md: 0 4px 16px -2px rgba(51, 43, 34, 0.05), 0 2px 4px -1px rgba(51, 43, 34, 0.03);
-      --shadow-warm-lg: 0 12px 28px -4px rgba(51, 43, 34, 0.08);
+      /* Subtle Organic Shadows */
+      --shadow-warm-sm: 0 1px 3px 0 rgba(51, 43, 34, 0.04), 0 1px 2px 0 rgba(51, 43, 34, 0.02);
+      --shadow-warm-md: 0 4px 14px -2px rgba(51, 43, 34, 0.05), 0 2px 4px -1px rgba(51, 43, 34, 0.03);
+      --shadow-warm-hover: 0 6px 18px -2px rgba(51, 43, 34, 0.07), 0 2px 6px -1px rgba(51, 43, 34, 0.04);
     }
 
     .dark {
@@ -188,36 +137,39 @@
       --bg-canvas: #29241E;
       --bg-card: #352E25;
       --bg-elevated: #41382D;
-      --bg-secondary: #3B3329;
+      --bg-secondary: #41382D;
       --text-primary: #E2D4BD;
       --text-secondary: #B4A58F;
       --border-divider: #514638;
 
-      /* Semantic Natural Accents (Dark Mode) */
-      --accent-green: #8CA887;
-      --accent-red: #D47F6C;
-      --accent-yellow: #DEB76C;
-      --accent-blue: #86A5BC;
-      --accent-purple: #A8909A;
-      --accent-orange: #CB8561;
+      /* Assigned Accent Colors (Dark Mode) */
+      --accent-moss: #789272;
+      --accent-moss-light: #8CA887;
+      --accent-moss-tint: rgba(120, 146, 114, 0.16);
 
-      /* Minor Decorative Colors (Dark Mode) */
-      --accent-olive: #929570;
-      --accent-cedar: #A87B60;
-      --accent-rust: #CB8561;
-      --accent-sand: #D7C4A1;
-      --accent-fern: #8CA384;
+      --accent-clay: #C77B68;
+      --accent-clay-light: #D47F6C;
+      --accent-clay-tint: rgba(199, 123, 104, 0.16);
 
-      --accent-green-tint: rgba(140, 168, 135, 0.15);
-      --accent-red-tint: rgba(212, 127, 108, 0.15);
-      --accent-yellow-tint: rgba(222, 183, 108, 0.18);
-      --accent-blue-tint: rgba(134, 165, 188, 0.15);
-      --accent-purple-tint: rgba(168, 144, 154, 0.15);
-      --accent-orange-tint: rgba(203, 133, 97, 0.15);
+      --accent-ochre: #D0AA63;
+      --accent-ochre-light: #DEB76C;
+      --accent-ochre-tint: rgba(208, 170, 99, 0.16);
 
-      --shadow-warm-sm: 0 1px 3px 0 rgba(18, 14, 11, 0.35);
-      --shadow-warm-md: 0 4px 16px -2px rgba(18, 14, 11, 0.45);
-      --shadow-warm-lg: 0 12px 28px -4px rgba(18, 14, 11, 0.60);
+      --accent-blue: #7894A6;
+      --accent-blue-light: #86A5BC;
+      --accent-blue-tint: rgba(120, 148, 166, 0.16);
+
+      --accent-purple: #9A849F;
+      --accent-purple-light: #A8909A;
+      --accent-purple-tint: rgba(154, 132, 159, 0.16);
+
+      --accent-peach: #D99B91;
+      --accent-peach-light: #E4ADA4;
+      --accent-peach-tint: rgba(217, 155, 145, 0.16);
+
+      --shadow-warm-sm: 0 1px 3px 0 rgba(18, 14, 11, 0.30);
+      --shadow-warm-md: 0 4px 14px -2px rgba(18, 14, 11, 0.40);
+      --shadow-warm-hover: 0 6px 18px -2px rgba(18, 14, 11, 0.50);
     }
 
     body {
@@ -226,11 +178,11 @@
       font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
-      transition: background-color 0.25s ease, color 0.25s ease;
+      transition: background-color 220ms ease-out, color 220ms ease-out;
       position: relative;
     }
 
-    /* Subtle Tactile Editorial Paper / Grain Texture (Whisper-Quiet 3.5%) */
+    /* Subtle Tactile Organic Paper Grain (Quiet 3%) */
     body::before {
       content: "";
       position: fixed;
@@ -238,12 +190,28 @@
       width: 100vw;
       height: 100vh;
       pointer-events: none;
-      z-index: 9999;
-      opacity: 0.035;
+      z-index: 1;
+      opacity: 0.03;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
     }
     .dark body::before {
-      opacity: 0.045;
+      opacity: 0.04;
+    }
+
+    /* Background Organic Particles Canvas */
+    #organicParticlesCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    main {
+      position: relative;
+      z-index: 10;
     }
 
     .font-num {
@@ -252,12 +220,67 @@
       font-variant-numeric: tabular-nums;
     }
 
+    /* Bento Cards - Subtle, tactile, no harsh borders */
     .bento-card {
       background-color: var(--bg-card);
       border: 1px solid var(--border-divider);
       border-radius: 1.25rem;
-      box-shadow: var(--shadow-warm-md);
-      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: var(--shadow-warm-sm);
+      transition: transform 200ms ease-out, box-shadow 200ms ease-out, border-color 200ms ease-out;
+    }
+
+    /* Subtle Organic Hover & Press Micro-Interactions */
+    .interactive-card {
+      transition: transform 200ms ease-out, box-shadow 200ms ease-out, border-color 200ms ease-out, background-color 200ms ease-out;
+      cursor: pointer;
+    }
+    .interactive-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-warm-hover);
+    }
+    .interactive-card:active {
+      transform: translateY(1px) scale(0.98);
+    }
+
+    /* Buttons: 180-220ms smooth transition, subtle elevation & press */
+    button {
+      transition: transform 200ms ease-out, background-color 200ms ease-out, border-color 200ms ease-out, color 200ms ease-out, box-shadow 200ms ease-out;
+    }
+    button:hover:not(:disabled) {
+      transform: translateY(-1px);
+    }
+    button:active:not(:disabled) {
+      transform: translateY(1px) scale(0.98);
+    }
+
+    /* View transition: Subtle opacity + 6px translate (240ms) */
+    .view-transition {
+      animation: viewDriftIn 240ms ease-out forwards;
+    }
+    @keyframes viewDriftIn {
+      0% {
+        opacity: 0.65;
+        transform: translateY(6px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Milestone Unlock ripple/scale effect (One-time, non-looping) */
+    @keyframes milestoneUnlockGlow {
+      0% { transform: scale(0.97); }
+      50% { transform: scale(1.02); }
+      100% { transform: scale(1); }
+    }
+    .milestone-unlocked-enter {
+      animation: milestoneUnlockGlow 400ms ease-out 1;
+    }
+
+    /* Smooth Progress Bar Transitions */
+    .smooth-progress {
+      transition: width 500ms cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     input::-webkit-outer-spin-button,
@@ -285,10 +308,20 @@
     }
 
     .switch-checkbox:checked + .switch-label {
-      background-color: var(--accent-green);
+      background-color: var(--accent-moss);
     }
-    .switch-checkbox:checked + .switch-label .switch-toggle {
-      transform: translateX(1.25rem);
+
+    /* Accessibility: Respect prefers-reduced-motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, ::before, ::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      #organicParticlesCanvas {
+        display: none !important;
+      }
     }
   </style>
   <script>
@@ -299,21 +332,28 @@
 </head>
 <body class="min-h-screen pb-20 selection:bg-[#CFC1AA] dark:selection:bg-[#514638] selection:text-[#332B22] dark:selection:text-[#E2D4BD]">
 
+  <!-- Background Organic Drift Particles Canvas (5-10% Opacity) -->
+  <canvas id="organicParticlesCanvas" aria-hidden="true"></canvas>
+
   <main class="max-w-6xl mx-auto px-4 sm:px-6 pt-5 sm:pt-8 space-y-5 sm:space-y-6">
 
     <!-- Top Bento Header -->
     <header class="bento-card p-4 sm:p-5 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
       <div class="flex items-center gap-3.5">
-        <div class="w-11 h-11 rounded-xl bg-[#607B5B]/15 text-[#607B5B] dark:bg-[#8CA887]/20 dark:text-[#8CA887] border border-[#607B5B]/30 dark:border-[#8CA887]/30 flex items-center justify-center text-xl shadow-sm shrink-0">
-          🎯
+        <div class="w-11 h-11 rounded-xl bg-[#607B5B]/15 text-[#607B5B] dark:bg-[#789272]/20 dark:text-[#789272] border border-[#607B5B]/30 dark:border-[#789272]/30 flex items-center justify-center shadow-sm shrink-0">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="9" />
+            <circle cx="12" cy="12" r="5" />
+            <circle cx="12" cy="12" r="1.5" fill="currentColor" />
+          </svg>
         </div>
         <div>
           <div class="flex items-center gap-2 flex-wrap">
             <h1 class="text-xl sm:text-2xl font-black tracking-tight text-[#332B22] dark:text-[#E2D4BD]">
-              Welcome Dcniper 👋
+              Welcome Dcniper
             </h1>
-            <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold bg-[#607B5B]/10 text-[#607B5B] border border-[#607B5B]/30 dark:bg-[#8CA887]/15 dark:text-[#8CA887] dark:border-[#8CA887]/30">
-              <span class="w-1.5 h-1.5 rounded-full bg-[#607B5B] dark:bg-[#8CA887] animate-pulse"></span>
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold bg-[#607B5B]/10 text-[#607B5B] border border-[#607B5B]/30 dark:bg-[#789272]/15 dark:text-[#789272] dark:border-[#789272]/30">
+              <span class="w-1.5 h-1.5 rounded-full bg-[#607B5B] dark:bg-[#789272] animate-pulse"></span>
               <span id="headerLiveDate">26th September</span>
             </span>
           </div>
@@ -338,34 +378,48 @@
           </div>
 
           <!-- Link Sheet Button -->
-          <button onclick="openLinkSheetModal()" id="btnLinkSheet" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#617D91] hover:bg-[#506879] text-[#F5EBDD] dark:bg-[#86A5BC] dark:hover:bg-[#7492A7] dark:text-[#29241E] font-bold text-xs transition active:scale-95 shadow-sm">
-            <span>📊</span>
+          <button onclick="openLinkSheetModal()" id="btnLinkSheet" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#617D91] hover:bg-[#526C7F] text-[#F5EBDD] dark:bg-[#7894A6] dark:hover:bg-[#678395] dark:text-[#29241E] font-bold text-xs transition active:scale-95 shadow-sm">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2" />
+              <path d="M3 9h18" />
+              <path d="M9 21V9" />
+            </svg>
             <span>Link Sheet</span>
           </button>
         </div>
 
-        <!-- Vault Cash Chip -->
-        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-[#A96745]/10 dark:bg-[#CB8561]/15 border border-[#A96745]/30 dark:border-[#CB8561]/30 text-xs font-semibold shadow-sm font-num">
-          <span class="text-sm">🏦</span>
+        <!-- Vault Cash Chip (Pinky Peach) -->
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-[#C98278]/10 dark:bg-[#D99B91]/15 border border-[#C98278]/30 dark:border-[#D99B91]/30 text-xs font-semibold shadow-sm font-num">
+          <svg class="w-4 h-4 text-[#C98278] dark:text-[#D99B91]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 9h12l-1.5 10a2 2 0 0 1-2 2h-5a2 2 0 0 1-2-2L6 9z" />
+            <path d="M9 5a3 3 0 0 1 6 0v4H9V5z" />
+            <path d="M12 13v3" />
+          </svg>
           <div>
-            <span class="text-[#716556] dark:text-[#B4A58F] uppercase text-[9px] font-bold block tracking-wider">Piggy Bank</span>
-            <span id="headerVaultBalance" class="text-[#A96745] dark:text-[#CB8561] font-black text-xs sm:text-sm">$0.00</span>
+            <span class="text-[#716556] dark:text-[#B4A58F] uppercase text-[9px] font-bold block tracking-wider">Vault Saved</span>
+            <span id="headerVaultBalance" class="text-[#C98278] dark:text-[#D99B91] font-black text-xs sm:text-sm">$0.00</span>
           </div>
         </div>
 
-        <!-- True Wealth Chip -->
-        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-[#607B5B]/10 dark:bg-[#8CA887]/15 border border-[#607B5B]/30 dark:border-[#8CA887]/30 text-xs font-semibold shadow-sm font-num">
-          <span class="text-sm">💰</span>
+        <!-- Total Wealth Chip (Moss) -->
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-[#607B5B]/10 dark:bg-[#789272]/15 border border-[#607B5B]/30 dark:border-[#789272]/30 text-xs font-semibold shadow-sm font-num">
+          <svg class="w-4 h-4 text-[#607B5B] dark:text-[#789272]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22v-9" />
+            <path d="M12 13c0-4.97 4.03-9 9-9 0 4.97-4.03 9-9 9z" />
+            <path d="M12 17c0-3.31-2.69-6-6-6 0 3.31 2.69 6 6 6z" />
+          </svg>
           <div>
-            <span class="text-[#716556] dark:text-[#B4A58F] uppercase text-[9px] font-bold block tracking-wider">Total Wealth</span>
-            <span id="headerTrueWealth" class="text-[#607B5B] dark:text-[#8CA887] font-black text-xs sm:text-sm">$120.00</span>
+            <span class="text-[#716556] dark:text-[#B4A58F] uppercase text-[9px] font-bold block tracking-wider">Total Capital</span>
+            <span id="headerTrueWealth" class="text-[#607B5B] dark:text-[#789272] font-black text-xs sm:text-sm">$120.00</span>
           </div>
         </div>
 
         <!-- Light / Dark Mode Toggle -->
         <button onclick="toggleTheme()" id="themeToggleBtn" title="Toggle Light / Dark mode"
           class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#F5EBDD] hover:bg-[#F0E6D5] dark:bg-[#41382D] dark:hover:bg-[#352E25] border border-[#CFC1AA] dark:border-[#514638] text-[#332B22] dark:text-[#E2D4BD] transition active:scale-95 text-xs font-bold shadow-sm">
-          <span class="text-sm">🌙</span>
+          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z" />
+          </svg>
           <span class="hidden sm:inline">Theme</span>
         </button>
       </div>
@@ -375,16 +429,30 @@
     <nav class="flex items-center justify-between gap-3">
       <div class="inline-flex p-1 rounded-xl bg-[#F0E6D5] dark:bg-[#352E25] border border-[#CFC1AA] dark:border-[#514638] text-xs font-bold w-full sm:w-auto shadow-sm">
         <button onclick="switchTab('tracker')" id="nav-tracker" class="flex-1 sm:flex-initial px-5 sm:px-7 py-2 rounded-lg transition-all flex items-center justify-center gap-2 bg-[#F5EBDD] dark:bg-[#41382D] text-[#332B22] dark:text-[#E2D4BD] border border-[#CFC1AA] dark:border-[#514638] shadow-sm">
-          <span>📈</span>
+          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
+            <polyline points="16 7 22 7 22 13" />
+          </svg>
           <span>Daily Tracker</span>
         </button>
         <button onclick="switchTab('milestones')" id="nav-milestones" class="flex-1 sm:flex-initial px-5 sm:px-7 py-2 rounded-lg transition-all flex items-center justify-center gap-2 text-[#716556] dark:text-[#B4A58F] hover:text-[#332B22] dark:hover:text-[#E2D4BD]">
-          <span>🏦</span>
+          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 9h12l-1.5 10a2 2 0 0 1-2 2h-5a2 2 0 0 1-2-2L6 9z" />
+            <path d="M9 5a3 3 0 0 1 6 0v4H9V5z" />
+            <path d="M12 13v3" />
+          </svg>
           <span>Capital Vault</span>
-          <span id="navMilestoneIndicator" class="w-2 h-2 rounded-full bg-[#A96745] dark:bg-[#CB8561] hidden animate-pulse"></span>
+          <span id="navMilestoneIndicator" class="w-2 h-2 rounded-full bg-[#C98278] dark:bg-[#D99B91] hidden animate-pulse"></span>
         </button>
         <button onclick="switchTab('config')" id="nav-config" class="flex-1 sm:flex-initial px-5 sm:px-7 py-2 rounded-lg transition-all flex items-center justify-center gap-2 text-[#716556] dark:text-[#B4A58F] hover:text-[#332B22] dark:hover:text-[#E2D4BD]">
-          <span>⚙️</span>
+          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="4" y1="21" x2="4" y2="14" /><line x1="4" y1="10" x2="4" y2="3" />
+            <line x1="12" y1="21" x2="12" y2="12" /><line x1="12" y1="8" x2="12" y2="3" />
+            <line x1="20" y1="21" x2="20" y2="16" /><line x1="20" y1="12" x2="20" y2="3" />
+            <line x1="1" y1="14" x2="7" y2="14" />
+            <line x1="9" y1="8" x2="15" y2="8" />
+            <line x1="17" y1="16" x2="23" y2="16" />
+          </svg>
           <span>Settings</span>
         </button>
       </div>
@@ -441,22 +509,29 @@
                   class="w-full bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] focus:border-[#607B5B] dark:focus:border-[#8CA887] focus:bg-[#F5EBDD] dark:focus:bg-[#41382D] rounded-xl pl-10 pr-4 py-3 font-num text-3xl sm:text-4xl font-black text-[#332B22] dark:text-[#E2D4BD] focus:outline-none transition shadow-inner" />
               </div>
 
-              <p id="executionTimestampDisplay" class="text-[11px] text-[#716556] dark:text-[#B4A58F] font-num mt-2 flex items-center gap-1">
-                <span>🕒</span>
+              <p id="executionTimestampDisplay" class="text-[11px] text-[#716556] dark:text-[#B4A58F] font-num mt-2 flex items-center gap-1.5">
+                <svg class="w-3.5 h-3.5 inline-block opacity-75 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="9" /><polyline points="12 7 12 12 15 15" />
+                </svg>
                 <span>Timestamp: In progress</span>
               </p>
             </div>
 
             <!-- Action Buttons Bar -->
             <div class="pt-3 border-t border-[#CFC1AA] dark:border-[#514638] flex items-center justify-between gap-2 flex-wrap">
-              <button onclick="fillTargetForActiveSession()" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-[#607B5B]/10 hover:bg-[#607B5B]/20 text-[#607B5B] dark:bg-[#8CA887]/15 dark:hover:bg-[#8CA887]/25 dark:text-[#8CA887] font-bold transition active:scale-95 border border-[#607B5B]/30 dark:border-[#8CA887]/30 text-xs">
-                <span>✨</span>
+              <button onclick="fillTargetForActiveSession()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#607B5B]/10 hover:bg-[#607B5B]/20 text-[#607B5B] dark:bg-[#789272]/15 dark:hover:bg-[#789272]/25 dark:text-[#789272] font-bold transition active:scale-95 border border-[#607B5B]/30 dark:border-[#789272]/30 text-xs">
+                <svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3z"/>
+                </svg>
                 <span>Fill Active Target (<span id="btnTargetPreview" class="font-num">$120.00</span>)</span>
               </button>
 
               <!-- Lock / Unlock Session Button -->
-              <button onclick="toggleLockActiveSession()" id="btnLockSession" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-[#A96745] hover:bg-[#96593B] text-[#F5EBDD] dark:bg-[#CB8561] dark:hover:bg-[#BD7957] dark:text-[#29241E] font-bold transition active:scale-95 text-xs shadow-sm">
-                <span>🔒</span>
+              <button onclick="toggleLockActiveSession()" id="btnLockSession" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-[#C2984D] hover:bg-[#B3893F] text-[#F5EBDD] dark:bg-[#D0AA63] dark:hover:bg-[#C2984D] dark:text-[#29241E] font-bold transition active:scale-95 text-xs shadow-sm">
+                <svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="5" y="11" width="14" height="10" rx="2" />
+                  <path d="M8 11V7a4 4 0 0 1 8 0v4" />
+                </svg>
                 <span>Lock In Session</span>
               </button>
             </div>
@@ -473,20 +548,32 @@
                 <div class="inline-flex items-center p-0.5 rounded-lg bg-[#E8DDC9] dark:bg-[#29241E] border border-[#CFC1AA] dark:border-[#514638] gap-1">
                   <button type="button" onclick="switchTodayCardTab('pnl')" id="todayTabBtn_pnl"
                     class="px-2.5 py-1 rounded-md text-xs font-bold transition flex items-center gap-1 bg-[#F5EBDD] dark:bg-[#41382D] text-[#332B22] dark:text-[#E2D4BD] shadow-xs">
-                    <span>📈</span>
+                    <svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
+                      <polyline points="16 7 22 7 22 13" />
+                    </svg>
                     <span>Today's PnL</span>
                   </button>
                   <button type="button" onclick="switchTodayCardTab('suggestive')" id="todayTabBtn_suggestive"
                     class="px-2.5 py-1 rounded-md text-xs font-bold transition flex items-center gap-1 text-[#716556] dark:text-[#B4A58F] hover:text-[#332B22] dark:hover:text-[#E2D4BD]">
-                    <span>🍑</span>
+                    <svg class="w-3.5 h-3.5 shrink-0 text-[#C98278] dark:text-[#D99B91]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M6 9h12l-1.5 10a2 2 0 0 1-2 2h-5a2 2 0 0 1-2-2L6 9z" />
+                      <path d="M9 5a3 3 0 0 1 6 0v4H9V5z" />
+                      <circle cx="12" cy="14" r="1.5" />
+                    </svg>
                     <span>Savings Target</span>
                   </button>
                 </div>
 
                 <!-- Calendar View Switcher Button in Console Hub -->
                 <button onclick="openCalendarInHub()" id="btnOpenCalendarInBox2" title="Switch to Calendar View in Hub"
-                  class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#617D91]/10 hover:bg-[#617D91]/20 text-[#617D91] dark:bg-[#86A5BC]/15 dark:hover:bg-[#86A5BC]/25 dark:text-[#86A5BC] border border-[#617D91]/30 dark:border-[#86A5BC]/30 font-bold text-xs transition active:scale-95 shadow-sm">
-                  <span>📅</span>
+                  class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#617D91]/10 hover:bg-[#617D91]/20 text-[#617D91] dark:bg-[#7894A6]/15 dark:hover:bg-[#7894A6]/25 dark:text-[#7894A6] border border-[#617D91]/30 dark:border-[#7894A6]/30 font-bold text-xs transition active:scale-95 shadow-sm">
+                  <svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="4" width="18" height="18" rx="2" />
+                    <line x1="16" y1="2" x2="16" y2="6" />
+                    <line x1="8" y1="2" x2="8" y2="6" />
+                    <line x1="3" y1="10" x2="21" y2="10" />
+                  </svg>
                   <span>Calendar View</span>
                 </button>
               </div>
@@ -511,48 +598,59 @@
                   </div>
                 </div>
 
-                <p class="text-xs text-[#716556] dark:text-[#B4A58F] font-medium pt-1" id="sessionPnlVibe">
-                  🌱 Clean slate! Enter today's closing balance to see your score.
+                <p class="text-xs text-[#716556] dark:text-[#B4A58F] font-medium pt-1 flex items-center gap-1.5" id="sessionPnlVibe">
+                  <span class="w-2 h-2 rounded-full bg-[#607B5B] dark:bg-[#789272] inline-block shrink-0"></span>
+                  <span>Clean slate! Enter today's closing balance to see your score.</span>
                 </p>
               </div>
 
               <!-- VIEW B: Suggestive Payment Goal (Peach Theme) -->
-              <div id="todayCardView_suggestive" class="hidden space-y-2.5 p-3 sm:p-3.5 rounded-xl bg-[#D98A6C]/10 dark:bg-[#E09A7E]/15 border border-[#D98A6C]/30 dark:border-[#E09A7E]/30">
+              <div id="todayCardView_suggestive" class="hidden space-y-2.5 p-3 sm:p-3.5 rounded-xl bg-[#C98278]/10 dark:bg-[#D99B91]/15 border border-[#C98278]/30 dark:border-[#D99B91]/30">
                 <div class="flex items-center justify-between flex-wrap gap-1">
                   <div class="flex items-center gap-1.5">
-                    <span class="text-base">🍑</span>
-                    <span class="text-xs font-extrabold text-[#D98A6C] dark:text-[#E09A7E]">
+                    <svg class="w-4 h-4 text-[#C98278] dark:text-[#D99B91] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M6 9h12l-1.5 10a2 2 0 0 1-2 2h-5a2 2 0 0 1-2-2L6 9z" />
+                      <path d="M9 5a3 3 0 0 1 6 0v4H9V5z" />
+                      <circle cx="12" cy="14" r="1.5" />
+                    </svg>
+                    <span class="text-xs font-extrabold text-[#C98278] dark:text-[#D99B91]">
                       Optional Daily Savings Target
                     </span>
                   </div>
-                  <span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-[#D98A6C]/20 text-[#D98A6C] dark:bg-[#E09A7E]/25 dark:text-[#F6D0C3] border border-[#D98A6C]/30 dark:border-[#E09A7E]/30 shadow-xs">
+                  <span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-[#C98278]/20 text-[#C98278] dark:bg-[#D99B91]/25 dark:text-[#EED7D0] border border-[#C98278]/30 dark:border-[#D99B91]/30 shadow-xs">
                     Optional Guide
                   </span>
                 </div>
 
                 <div class="grid grid-cols-2 gap-2">
-                  <div class="p-2.5 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#D98A6C]/20 dark:border-[#E09A7E]/20">
+                  <div class="p-2.5 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#C98278]/20 dark:border-[#D99B91]/20">
                     <span class="text-[9px] uppercase font-bold text-[#716556] dark:text-[#B4A58F] block">Target Balance Today</span>
-                    <span class="text-lg sm:text-xl font-black font-num text-[#D98A6C] dark:text-[#E09A7E]" id="suggestiveDeskTargetVal">$120.00</span>
+                    <span class="text-lg sm:text-xl font-black font-num text-[#C98278] dark:text-[#D99B91]" id="suggestiveDeskTargetVal">$120.00</span>
                     <span class="text-[10px] text-[#716556] dark:text-[#B4A58F] block mt-0.5" id="suggestiveDeskSubtext">Trading target + daily savings</span>
                   </div>
-                  <div class="p-2.5 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#D98A6C]/20 dark:border-[#E09A7E]/20">
+                  <div class="p-2.5 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#C98278]/20 dark:border-[#D99B91]/20">
                     <span class="text-[9px] uppercase font-bold text-[#716556] dark:text-[#B4A58F] block">Recommended to Save</span>
-                    <span class="text-lg sm:text-xl font-black font-num text-[#D98A6C] dark:text-[#E09A7E]" id="suggestiveDailyRateVal">+$0.00/day</span>
+                    <span class="text-lg sm:text-xl font-black font-num text-[#C98278] dark:text-[#D99B91]" id="suggestiveDailyRateVal">+$0.00/day</span>
                     <span class="text-[10px] text-[#716556] dark:text-[#B4A58F] block mt-0.5" id="suggestiveRateSubtext">To reach goal on time</span>
                   </div>
                 </div>
 
-                <div class="flex items-center justify-between text-[11px] text-[#716556] dark:text-[#B4A58F] pt-2 border-t border-[#D98A6C]/20 dark:border-[#E09A7E]/20 flex-wrap gap-2">
+                <div class="flex items-center justify-between text-[11px] text-[#716556] dark:text-[#B4A58F] pt-2 border-t border-[#C98278]/20 dark:border-[#D99B91]/20 flex-wrap gap-2">
                   <span id="suggestiveDeadlineStatusText" class="font-medium">
                     30 days remaining • $1,500.00 goal
                   </span>
                   <div class="flex items-center gap-2">
-                    <button type="button" onclick="triggerQuickSkimPrompt()" class="px-2.5 py-1 rounded-lg bg-[#D98A6C] hover:bg-[#C97B5D] text-[#F5EBDD] dark:bg-[#E09A7E] dark:hover:bg-[#CF8B6F] dark:text-[#29241E] font-bold text-xs transition active:scale-95 shadow-xs">
+                    <button type="button" onclick="triggerQuickSkimPrompt()" class="px-2.5 py-1 rounded-lg bg-[#C98278] hover:bg-[#B77066] text-[#F5EBDD] dark:bg-[#D99B91] dark:hover:bg-[#C88A80] dark:text-[#29241E] font-bold text-xs transition active:scale-95 shadow-xs">
                       + Save to Vault &rarr;
                     </button>
-                    <button type="button" onclick="switchTab('milestones')" class="font-bold text-[#716556] dark:text-[#B4A58F] hover:text-[#332B22] dark:hover:text-[#E2D4BD] transition text-xs">
-                      Vault Settings ⚙️
+                    <button type="button" onclick="switchTab('milestones')" class="font-bold text-[#716556] dark:text-[#B4A58F] hover:text-[#332B22] dark:hover:text-[#E2D4BD] transition text-xs inline-flex items-center gap-1">
+                      <span>Vault Settings</span>
+                      <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="4" y1="21" x2="4" y2="14" /><line x1="4" y1="10" x2="4" y2="3" />
+                        <line x1="12" y1="21" x2="12" y2="12" /><line x1="12" y1="8" x2="12" y2="3" />
+                        <line x1="20" y1="21" x2="20" y2="16" /><line x1="20" y1="12" x2="20" y2="3" />
+                        <line x1="1" y1="14" x2="7" y2="14" /><line x1="9" y1="8" x2="15" y2="8" /><line x1="17" y1="16" x2="23" y2="16" />
+                      </svg>
                     </button>
                   </div>
                 </div>
@@ -564,7 +662,10 @@
             <div class="space-y-2.5">
               <div class="flex items-center justify-between flex-wrap gap-2">
                 <div class="flex items-center gap-1.5">
-                  <span class="text-base">🏁</span>
+                  <svg class="w-4 h-4 text-[#C2984D] dark:text-[#D0AA63] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" />
+                    <line x1="4" y1="22" x2="4" y2="15" />
+                  </svg>
                   <span class="text-xs font-bold text-[#332B22] dark:text-[#E2D4BD]" id="weeklyMilestoneLabel">
                     Week 1 Checkpoint: $1,000.00
                   </span>
@@ -577,7 +678,7 @@
               <!-- Progression Bar -->
               <div>
                 <div class="w-full bg-[#F0E6D5] dark:bg-[#41382D] h-3 rounded-full overflow-hidden p-0.5 border border-[#CFC1AA] dark:border-[#514638]">
-                  <div id="weeklyProgressBar" class="bg-gradient-to-r from-[#A96745] via-[#C2984D] to-[#607B5B] h-full rounded-full transition-all duration-300" style="width: 0%"></div>
+                  <div id="weeklyProgressBar" class="bg-gradient-to-r from-[#C98278] via-[#C2984D] to-[#607B5B] h-full rounded-full transition-all duration-300" style="width: 0%"></div>
                 </div>
                 <div class="flex items-center justify-between text-[11px] text-[#716556] dark:text-[#B4A58F] font-num mt-1">
                   <span id="weeklyProgressPctLabel">0% to milestone</span>
@@ -592,15 +693,19 @@
       </section>
 
       <!-- Optional Milestone Savings Alert (Collapsible Warm Banner) -->
-      <section id="skimAlertBox" class="hidden bento-card p-4 sm:p-5 bg-[#A96745]/10 dark:bg-[#CB8561]/15 border border-[#A96745]/30 dark:border-[#CB8561]/30 space-y-2.5">
+      <section id="skimAlertBox" class="hidden bento-card p-4 sm:p-5 bg-[#C98278]/10 dark:bg-[#D99B91]/15 border border-[#C98278]/30 dark:border-[#D99B91]/30 space-y-2.5">
         <div class="flex items-center justify-between">
           <div class="flex items-center gap-2">
-            <span class="text-xl">💡</span>
-            <h3 class="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#A96745] dark:text-[#CB8561]">
+            <svg class="w-4 h-4 text-[#C98278] dark:text-[#D99B91] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 18h6" />
+              <path d="M10 22h4" />
+              <path d="M12 2a7 7 0 0 0-7 7c0 2.5 1.3 4.7 3.3 5.9.4.3.7.8.7 1.3v.8h6v-.8c0-.5.3-1 .7-1.3A7.002 7.002 0 0 0 12 2z" />
+            </svg>
+            <h3 class="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#C98278] dark:text-[#D99B91]">
               Extra Profit Detected — Save to Vault
             </h3>
           </div>
-          <span id="skimAlertSurplusLabel" class="text-xs font-bold font-num text-[#A96745] dark:text-[#CB8561] px-2.5 py-0.5 rounded-full bg-[#A96745]/15 dark:bg-[#CB8561]/20 border border-[#A96745]/30 dark:border-[#CB8561]/30">
+          <span id="skimAlertSurplusLabel" class="text-xs font-bold font-num text-[#C98278] dark:text-[#D99B91] px-2.5 py-0.5 rounded-full bg-[#C98278]/15 dark:bg-[#D99B91]/20 border border-[#C98278]/30 dark:border-[#D99B91]/30">
             Ahead of Target
           </span>
         </div>
@@ -608,7 +713,7 @@
           You are ahead of your target! You can move some profit to your Vault to keep it safe from future market pullbacks.
         </p>
         <div class="pt-1 flex items-center gap-2 flex-wrap">
-          <button onclick="triggerQuickSkimPrompt()" class="px-4 py-2 rounded-lg bg-[#A96745] hover:bg-[#96593B] text-[#F5EBDD] dark:bg-[#CB8561] dark:hover:bg-[#BD7957] dark:text-[#29241E] text-xs font-bold font-num transition active:scale-95 shadow-sm">
+          <button onclick="triggerQuickSkimPrompt()" class="px-4 py-2 rounded-lg bg-[#C98278] hover:bg-[#B77066] text-[#F5EBDD] dark:bg-[#D99B91] dark:hover:bg-[#C88A80] dark:text-[#29241E] text-xs font-bold font-num transition active:scale-95 shadow-sm">
             Save to Vault
           </button>
           <button onclick="dismissSkimAlert()" class="px-3.5 py-2 rounded-lg bg-transparent hover:bg-[#CFC1AA]/40 dark:hover:bg-[#514638]/40 text-[#716556] dark:text-[#B4A58F] text-xs font-semibold transition">
@@ -621,7 +726,10 @@
       <section class="space-y-2.5">
         <div class="flex items-center justify-between px-1">
           <h2 class="text-xs font-bold uppercase tracking-wider text-[#716556] dark:text-[#B4A58F] flex items-center gap-1.5">
-            <span>🎯 Daily Pace Targets</span>
+            <svg class="w-3.5 h-3.5 text-[#607B5B] dark:text-[#789272] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="9" /><circle cx="12" cy="12" r="5" /><circle cx="12" cy="12" r="1.5" />
+            </svg>
+            <span>Daily Pace Targets</span>
             <span class="font-normal text-[11px] text-[#716556]/80 dark:text-[#B4A58F]/80">(Click any card to select active target pace)</span>
           </h2>
           <span class="text-xs text-[#716556] dark:text-[#B4A58F] font-num">Session <span id="targetCardSessionNum">1</span></span>
@@ -630,16 +738,22 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
           
           <!-- Target Box 1: Relaxed (Green) -->
-          <div id="paceCard_relaxed" onclick="setPace('relaxed')" class="bento-card p-4 sm:p-5 cursor-pointer transition-all border border-[#CFC1AA] dark:border-[#514638] bg-[#F0E6D5] dark:bg-[#352E25] hover:border-[#607B5B] dark:hover:border-[#8CA887] hover:shadow-md space-y-3">
+          <div id="paceCard_relaxed" onclick="setPace('relaxed')" class="bento-card p-4 sm:p-5 cursor-pointer transition-all border border-[#CFC1AA] dark:border-[#514638] bg-[#F0E6D5] dark:bg-[#352E25] hover:border-[#607B5B] dark:hover:border-[#789272] hover:shadow-md space-y-3">
             <div class="flex items-center justify-between">
-              <div class="flex items-center gap-2">
-                <span class="text-xl">☕</span>
+              <div class="flex items-center gap-2.5">
+                <div class="w-8 h-8 rounded-xl bg-[#607B5B]/15 text-[#607B5B] dark:bg-[#789272]/20 dark:text-[#789272] flex items-center justify-center shrink-0">
+                  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 22v-9" />
+                    <path d="M12 13c0-4.97 4.03-9 9-9 0 4.97-4.03 9-9 9z" />
+                    <path d="M12 17c0-3.31-2.69-6-6-6 0 3.31 2.69 6 6 6z" />
+                  </svg>
+                </div>
                 <div>
                   <h5 class="text-sm font-extrabold text-[#332B22] dark:text-[#E2D4BD]">Relaxed Pace</h5>
                   <span class="text-xs text-[#716556] dark:text-[#B4A58F] font-semibold">$7,000 Target</span>
                 </div>
               </div>
-              <span id="paceActiveBadge_relaxed" class="hidden px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-[#607B5B] dark:bg-[#8CA887] text-[#F5EBDD] dark:text-[#29241E] shadow-sm">
+              <span id="paceActiveBadge_relaxed" class="hidden px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-[#607B5B] dark:bg-[#789272] text-[#F5EBDD] dark:text-[#29241E] shadow-sm">
                 Active
               </span>
             </div>
@@ -648,13 +762,13 @@
             <div class="grid grid-cols-2 gap-2.5 pt-0.5">
               <div class="p-2.5 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA]/50 dark:border-[#514638]/50">
                 <span class="text-[10px] uppercase font-bold tracking-wider text-[#716556] dark:text-[#B4A58F] block">Target Balance</span>
-                <div class="text-lg sm:text-xl font-black font-num text-[#607B5B] dark:text-[#8CA887]" id="targetValRelaxed">
+                <div class="text-lg sm:text-xl font-black font-num text-[#607B5B] dark:text-[#789272]" id="targetValRelaxed">
                   $120.00
                 </div>
               </div>
               <div class="p-2.5 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA]/50 dark:border-[#514638]/50">
                 <span class="text-[10px] uppercase font-bold tracking-wider text-[#716556] dark:text-[#B4A58F] block">Today's Profit Needed</span>
-                <div class="text-lg sm:text-xl font-black font-num text-[#607B5B] dark:text-[#8CA887]" id="targetPnlRelaxed">
+                <div class="text-lg sm:text-xl font-black font-num text-[#607B5B] dark:text-[#789272]" id="targetPnlRelaxed">
                   +$0.00
                 </div>
               </div>
@@ -668,16 +782,20 @@
           </div>
 
           <!-- Target Box 2: Mid (Yellow) -->
-          <div id="paceCard_mid" onclick="setPace('mid')" class="bento-card p-4 sm:p-5 cursor-pointer transition-all border border-[#CFC1AA] dark:border-[#514638] bg-[#F0E6D5] dark:bg-[#352E25] hover:border-[#C2984D] dark:hover:border-[#DEB76C] hover:shadow-md space-y-3">
+          <div id="paceCard_mid" onclick="setPace('mid')" class="bento-card p-4 sm:p-5 cursor-pointer transition-all border border-[#CFC1AA] dark:border-[#514638] bg-[#F0E6D5] dark:bg-[#352E25] hover:border-[#C2984D] dark:hover:border-[#D0AA63] hover:shadow-md space-y-3">
             <div class="flex items-center justify-between">
-              <div class="flex items-center gap-2">
-                <span class="text-xl">⚡</span>
+              <div class="flex items-center gap-2.5">
+                <div class="w-8 h-8 rounded-xl bg-[#C2984D]/15 text-[#C2984D] dark:bg-[#D0AA63]/20 dark:text-[#D0AA63] flex items-center justify-center shrink-0">
+                  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                  </svg>
+                </div>
                 <div>
                   <h5 class="text-sm font-extrabold text-[#332B22] dark:text-[#E2D4BD]">Mid Pace</h5>
                   <span class="text-xs text-[#716556] dark:text-[#B4A58F] font-semibold">$12,600 Target</span>
                 </div>
               </div>
-              <span id="paceActiveBadge_mid" class="hidden px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-[#C2984D] dark:bg-[#DEB76C] text-[#F5EBDD] dark:text-[#29241E] shadow-sm">
+              <span id="paceActiveBadge_mid" class="hidden px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-[#C2984D] dark:bg-[#D0AA63] text-[#F5EBDD] dark:text-[#29241E] shadow-sm">
                 Active
               </span>
             </div>
@@ -686,13 +804,13 @@
             <div class="grid grid-cols-2 gap-2.5 pt-0.5">
               <div class="p-2.5 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA]/50 dark:border-[#514638]/50">
                 <span class="text-[10px] uppercase font-bold tracking-wider text-[#716556] dark:text-[#B4A58F] block">Target Balance</span>
-                <div class="text-lg sm:text-xl font-black font-num text-[#C2984D] dark:text-[#DEB76C]" id="targetValMid">
+                <div class="text-lg sm:text-xl font-black font-num text-[#C2984D] dark:text-[#D0AA63]" id="targetValMid">
                   $120.00
                 </div>
               </div>
               <div class="p-2.5 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA]/50 dark:border-[#514638]/50">
                 <span class="text-[10px] uppercase font-bold tracking-wider text-[#716556] dark:text-[#B4A58F] block">Today's Profit Needed</span>
-                <div class="text-lg sm:text-xl font-black font-num text-[#C2984D] dark:text-[#DEB76C]" id="targetPnlMid">
+                <div class="text-lg sm:text-xl font-black font-num text-[#C2984D] dark:text-[#D0AA63]" id="targetPnlMid">
                   +$0.00
                 </div>
               </div>
@@ -706,16 +824,20 @@
           </div>
 
           <!-- Target Box 3: Aggressive (Purple) -->
-          <div id="paceCard_aggressive" onclick="setPace('aggressive')" class="bento-card p-4 sm:p-5 cursor-pointer transition-all border border-[#CFC1AA] dark:border-[#514638] bg-[#F0E6D5] dark:bg-[#352E25] hover:border-[#806A73] dark:hover:border-[#A8909A] hover:shadow-md space-y-3">
+          <div id="paceCard_aggressive" onclick="setPace('aggressive')" class="bento-card p-4 sm:p-5 cursor-pointer transition-all border border-[#CFC1AA] dark:border-[#514638] bg-[#F0E6D5] dark:bg-[#352E25] hover:border-[#806A86] dark:hover:border-[#9A849F] hover:shadow-md space-y-3">
             <div class="flex items-center justify-between">
-              <div class="flex items-center gap-2">
-                <span class="text-xl">🔥</span>
+              <div class="flex items-center gap-2.5">
+                <div class="w-8 h-8 rounded-xl bg-[#806A86]/15 text-[#806A86] dark:bg-[#9A849F]/20 dark:text-[#9A849F] flex items-center justify-center shrink-0">
+                  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m8 3 4 8 5-5 5 15H2L8 3z" />
+                  </svg>
+                </div>
                 <div>
                   <h5 class="text-sm font-extrabold text-[#332B22] dark:text-[#E2D4BD]">Aggressive Pace</h5>
                   <span class="text-xs text-[#716556] dark:text-[#B4A58F] font-semibold">$17,500 Target</span>
                 </div>
               </div>
-              <span id="paceActiveBadge_aggressive" class="hidden px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-[#806A73] dark:bg-[#A8909A] text-[#F5EBDD] dark:text-[#29241E] shadow-sm">
+              <span id="paceActiveBadge_aggressive" class="hidden px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-[#806A86] dark:bg-[#9A849F] text-[#F5EBDD] dark:text-[#29241E] shadow-sm">
                 Active
               </span>
             </div>
@@ -724,13 +846,13 @@
             <div class="grid grid-cols-2 gap-2.5 pt-0.5">
               <div class="p-2.5 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA]/50 dark:border-[#514638]/50">
                 <span class="text-[10px] uppercase font-bold tracking-wider text-[#716556] dark:text-[#B4A58F] block">Target Balance</span>
-                <div class="text-lg sm:text-xl font-black font-num text-[#806A73] dark:text-[#A8909A]" id="targetValAggressive">
+                <div class="text-lg sm:text-xl font-black font-num text-[#806A86] dark:text-[#9A849F]" id="targetValAggressive">
                   $120.00
                 </div>
               </div>
               <div class="p-2.5 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA]/50 dark:border-[#514638]/50">
                 <span class="text-[10px] uppercase font-bold tracking-wider text-[#716556] dark:text-[#B4A58F] block">Today's Profit Needed</span>
-                <div class="text-lg sm:text-xl font-black font-num text-[#806A73] dark:text-[#A8909A]" id="targetPnlAggressive">
+                <div class="text-lg sm:text-xl font-black font-num text-[#806A86] dark:text-[#9A849F]" id="targetPnlAggressive">
                   +$0.00
                 </div>
               </div>
@@ -753,7 +875,10 @@
         <div class="p-4 sm:p-5 border-b border-[#CFC1AA] dark:border-[#514638] flex flex-col md:flex-row md:items-center md:justify-between gap-3 bg-[#F0E6D5] dark:bg-[#352E25]">
           <div>
             <div class="flex items-center gap-2">
-              <span class="text-lg">🧭</span>
+              <svg class="w-4 h-4 text-[#617D91] dark:text-[#7894A6] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="9" />
+                <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" />
+              </svg>
               <h3 class="text-base font-extrabold text-[#332B22] dark:text-[#E2D4BD]">Console Insights Hub</h3>
             </div>
             <p class="text-xs text-[#716556] dark:text-[#B4A58F] mt-0.5">
@@ -765,17 +890,30 @@
           <div class="inline-flex items-center p-1 rounded-xl bg-[#E8DDC9] dark:bg-[#29241E] border border-[#CFC1AA] dark:border-[#514638] gap-1 overflow-x-auto max-w-full calm-scrollbar shrink-0">
             <button onclick="switchWidgetTab('calendar')" id="widgetTabBtn_calendar"
               class="widget-tab-btn px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 whitespace-nowrap bg-[#F5EBDD] dark:bg-[#41382D] text-[#332B22] dark:text-[#E2D4BD] shadow-sm">
-              <span>📅</span>
+              <svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2" />
+                <line x1="16" y1="2" x2="16" y2="6" />
+                <line x1="8" y1="2" x2="8" y2="6" />
+                <line x1="3" y1="10" x2="21" y2="10" />
+              </svg>
               <span>Calendar</span>
             </button>
             <button onclick="switchWidgetTab('milestones')" id="widgetTabBtn_milestones"
               class="widget-tab-btn px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 whitespace-nowrap text-[#716556] dark:text-[#B4A58F] hover:text-[#332B22] dark:hover:text-[#E2D4BD]">
-              <span>🏆</span>
+              <svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" />
+                <line x1="4" y1="22" x2="4" y2="15" />
+              </svg>
               <span>Milestones</span>
             </button>
             <button onclick="switchWidgetTab('ledger')" id="widgetTabBtn_ledger"
               class="widget-tab-btn px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 whitespace-nowrap text-[#716556] dark:text-[#B4A58F] hover:text-[#332B22] dark:hover:text-[#E2D4BD]">
-              <span>📋</span>
+              <svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
+                <rect x="8" y="2" width="8" height="4" rx="1" />
+                <path d="M9 12h6" />
+                <path d="M9 16h6" />
+              </svg>
               <span>Master Ledger</span>
             </button>
             <!-- Hidden alias for backwards compatibility -->
@@ -791,14 +929,19 @@
 
           <!-- WIDGET 2: Daily Trading Activity Calendar -->
           <div id="widgetContent_calendar" class="hidden space-y-4">
-            <div class="flex items-center justify-between gap-2 flex-wrap pb-2 border-b border-[#617D91]/25 dark:border-[#86A5BC]/25">
+            <div class="flex items-center justify-between gap-2 flex-wrap pb-2 border-b border-[#617D91]/25 dark:border-[#7894A6]/25">
               <div class="flex items-center gap-2">
-                <div class="w-7 h-7 rounded-lg bg-[#617D91]/15 text-[#617D91] dark:bg-[#86A5BC]/20 dark:text-[#86A5BC] flex items-center justify-center text-sm font-bold shrink-0">
-                  📅
+                <div class="w-7 h-7 rounded-lg bg-[#617D91]/15 text-[#617D91] dark:bg-[#7894A6]/20 dark:text-[#7894A6] flex items-center justify-center shrink-0">
+                  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="4" width="18" height="18" rx="2" />
+                    <line x1="16" y1="2" x2="16" y2="6" />
+                    <line x1="8" y1="2" x2="8" y2="6" />
+                    <line x1="3" y1="10" x2="21" y2="10" />
+                  </svg>
                 </div>
                 <div class="flex items-center gap-2">
                   <h4 class="text-sm font-extrabold text-[#332B22] dark:text-[#E2D4BD]">Trading Activity Calendar</h4>
-                  <span id="calendarMonthBadge" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-[#617D91]/15 text-[#617D91] dark:bg-[#86A5BC]/20 dark:text-[#86A5BC] border border-[#617D91]/30 dark:border-[#86A5BC]/30 font-num">
+                  <span id="calendarMonthBadge" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-[#617D91]/15 text-[#617D91] dark:bg-[#7894A6]/20 dark:text-[#7894A6] border border-[#617D91]/30 dark:border-[#7894A6]/30 font-num">
                     September 2026
                   </span>
                 </div>
@@ -897,11 +1040,17 @@
               </div>
               <div class="flex items-center gap-2">
                 <!-- Toggle All Paces Button -->
-                <button onclick="toggleTableColumns()" id="btnToggleAllPaces" class="px-3 py-1.5 rounded-lg bg-[#F5EBDD] hover:bg-[#F0E6D5] dark:bg-[#41382D] dark:hover:bg-[#352E25] text-[#332B22] dark:text-[#E2D4BD] border border-[#CFC1AA] dark:border-[#514638] font-bold text-xs transition shadow-sm active:scale-95">
-                  <span>📊 Show All Paces</span>
+                <button onclick="toggleTableColumns()" id="btnToggleAllPaces" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#F5EBDD] hover:bg-[#F0E6D5] dark:bg-[#41382D] dark:hover:bg-[#352E25] text-[#332B22] dark:text-[#E2D4BD] border border-[#CFC1AA] dark:border-[#514638] font-bold text-xs transition shadow-sm active:scale-95">
+                  <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="20" x2="18" y2="10" /><line x1="12" y1="20" x2="12" y2="4" /><line x1="6" y1="20" x2="6" y2="14" />
+                  </svg>
+                  <span>Show All Paces</span>
                 </button>
-                <button onclick="copySessionTable()" class="px-3 py-1.5 rounded-lg bg-[#F5EBDD] hover:bg-[#F0E6D5] dark:bg-[#41382D] dark:hover:bg-[#352E25] text-[#332B22] dark:text-[#E2D4BD] border border-[#CFC1AA] dark:border-[#514638] font-bold text-xs transition shadow-sm active:scale-95 font-num">
-                  📋 Copy TSV
+                <button onclick="copySessionTable()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#F5EBDD] hover:bg-[#F0E6D5] dark:bg-[#41382D] dark:hover:bg-[#352E25] text-[#332B22] dark:text-[#E2D4BD] border border-[#CFC1AA] dark:border-[#514638] font-bold text-xs transition shadow-sm active:scale-95 font-num">
+                  <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="9" y="9" width="13" height="13" rx="2" /><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                  </svg>
+                  <span>Copy TSV</span>
                 </button>
               </div>
             </div>
@@ -943,8 +1092,14 @@
       <section class="bento-card p-5 sm:p-6 space-y-5">
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between pb-4 border-b border-[#CFC1AA] dark:border-[#514638] gap-3">
           <div>
-            <div class="flex items-center gap-2">
-              <span class="text-xl">🏦</span>
+            <div class="flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-xl bg-[#C98278]/15 text-[#C98278] dark:bg-[#D99B91]/20 dark:text-[#D99B91] flex items-center justify-center shrink-0">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 9h12l-1.5 10a2 2 0 0 1-2 2h-5a2 2 0 0 1-2-2L6 9z" />
+                  <path d="M9 5a3 3 0 0 1 6 0v4H9V5z" />
+                  <circle cx="12" cy="14" r="1.5" />
+                </svg>
+              </div>
               <h2 class="text-base sm:text-lg font-bold text-[#332B22] dark:text-[#E2D4BD]">
                 Capital Vault &amp; Personal Savings
               </h2>
@@ -974,7 +1129,7 @@
             <div class="relative mt-1">
               <span class="absolute left-3 top-2 text-[#716556] dark:text-[#B4A58F] font-bold font-num">$</span>
               <input type="number" step="10" id="cfgMilestoneGoal" value="1500" onchange="saveMilestoneConfig()"
-                class="w-full bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl pl-8 pr-3 py-2 text-sm font-bold font-num text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#8CA887]" />
+                class="w-full bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl pl-8 pr-3 py-2 text-sm font-bold font-num text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#789272]" />
             </div>
             <span class="text-[10px] text-[#716556] dark:text-[#B4A58F] mt-1 block">e.g. $1,500 for rent, bills, or debt</span>
           </div>
@@ -984,7 +1139,7 @@
               Target Deadline
             </label>
             <input type="date" id="cfgMilestoneDeadline" onchange="saveMilestoneConfig()"
-              class="w-full mt-1 bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 font-num text-xs font-semibold text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#8CA887]" />
+              class="w-full mt-1 bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 font-num text-xs font-semibold text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#789272]" />
             <span class="text-[10px] text-[#716556] dark:text-[#B4A58F] mt-1 block">Calculates daily savings needed</span>
           </div>
 
@@ -995,7 +1150,7 @@
             <div class="relative mt-1">
               <span class="absolute left-3 top-2 text-[#716556] dark:text-[#B4A58F] font-bold font-num">$</span>
               <input type="number" step="10" id="cfgDeskReserve" value="1000" onchange="saveMilestoneConfig()"
-                class="w-full bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl pl-8 pr-3 py-2 text-sm font-bold font-num text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#8CA887]" />
+                class="w-full bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl pl-8 pr-3 py-2 text-sm font-bold font-num text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#789272]" />
             </div>
             <span class="text-[10px] text-[#716556] dark:text-[#B4A58F] mt-1 block">Trading capital minimum to keep untouched</span>
           </div>
@@ -1005,7 +1160,7 @@
               Savings Suggestions
             </label>
             <select id="cfgSkimStrategy" onchange="saveMilestoneConfig()"
-              class="w-full mt-1 bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 text-xs font-semibold text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#8CA887]">
+              class="w-full mt-1 bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 text-xs font-semibold text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#789272]">
               <option value="gradual">When ahead of daily target (Recommended)</option>
               <option value="checkpoints">At milestone levels ($450, $900, $1500)</option>
               <option value="custom">Manual (I'll save on my own)</option>
@@ -1018,22 +1173,22 @@
       <!-- 4 Status Metric Cards -->
       <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <!-- Card 1: Banked Cash -->
-        <div class="bento-card p-5 bg-[#A96745]/10 dark:bg-[#CB8561]/15 border-[#A96745]/30 dark:border-[#CB8561]/30 space-y-2">
+        <div class="bento-card p-5 bg-[#C98278]/10 dark:bg-[#D99B91]/15 border-[#C98278]/30 dark:border-[#D99B91]/30 space-y-2">
           <div class="flex items-center justify-between">
-            <span class="text-xs font-bold uppercase tracking-wider text-[#A96745] dark:text-[#CB8561]">Total in Vault</span>
-            <span id="vaultLogsCount" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#A96745] text-[#F5EBDD] dark:bg-[#CB8561] dark:text-[#29241E] font-num">0 Deposits</span>
+            <span class="text-xs font-bold uppercase tracking-wider text-[#C98278] dark:text-[#D99B91]">Total in Vault</span>
+            <span id="vaultLogsCount" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#C98278] text-[#F5EBDD] dark:bg-[#D99B91] dark:text-[#29241E] font-num">0 Deposits</span>
           </div>
-          <div class="text-3xl font-black font-num text-[#A96745] dark:text-[#CB8561]" id="vaultTotalWithdrawnVal">$0.00</div>
+          <div class="text-3xl font-black font-num text-[#C98278] dark:text-[#D99B91]" id="vaultTotalWithdrawnVal">$0.00</div>
           <p class="text-xs text-[#716556] dark:text-[#B4A58F]">Cash locked away safe from trading pullbacks</p>
         </div>
 
         <!-- Card 2: Combined Net Worth -->
-        <div class="bento-card p-5 bg-[#607B5B]/10 dark:bg-[#8CA887]/15 border-[#607B5B]/30 dark:border-[#8CA887]/30 space-y-2">
+        <div class="bento-card p-5 bg-[#607B5B]/10 dark:bg-[#789272]/15 border-[#607B5B]/30 dark:border-[#789272]/30 space-y-2">
           <div class="flex items-center justify-between">
-            <span class="text-xs font-bold uppercase tracking-wider text-[#607B5B] dark:text-[#8CA887]">Total Net Worth</span>
-            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#607B5B] text-[#F5EBDD] dark:bg-[#8CA887] dark:text-[#29241E] font-num">Desk + Vault</span>
+            <span class="text-xs font-bold uppercase tracking-wider text-[#607B5B] dark:text-[#789272]">Total Net Worth</span>
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#607B5B] text-[#F5EBDD] dark:bg-[#789272] dark:text-[#29241E] font-num">Desk + Vault</span>
           </div>
-          <div class="text-3xl font-black font-num text-[#607B5B] dark:text-[#8CA887]" id="vaultTrueWealthVal">$120.00</div>
+          <div class="text-3xl font-black font-num text-[#607B5B] dark:text-[#789272]" id="vaultTrueWealthVal">$120.00</div>
           <p class="text-xs text-[#716556] dark:text-[#B4A58F]">Your combined portfolio and saved cash</p>
         </div>
 
@@ -1041,10 +1196,10 @@
         <div class="bento-card p-5 space-y-2 flex flex-col justify-between">
           <div class="flex items-center justify-between">
             <span class="text-xs font-bold uppercase tracking-wider text-[#716556] dark:text-[#B4A58F]">Goal Progress</span>
-            <span id="vaultGoalPercent" class="text-xs font-bold font-num text-[#A96745] dark:text-[#CB8561]">0.0%</span>
+            <span id="vaultGoalPercent" class="text-xs font-bold font-num text-[#C98278] dark:text-[#D99B91]">0.0%</span>
           </div>
           <div class="w-full bg-[#F0E6D5] dark:bg-[#41382D] h-2.5 rounded-full overflow-hidden border border-[#CFC1AA] dark:border-[#514638]">
-            <div id="vaultProgressBar" class="bg-[#A96745] dark:bg-[#CB8561] h-full rounded-full transition-all duration-300" style="width: 0%"></div>
+            <div id="vaultProgressBar" class="bg-[#C98278] dark:bg-[#D99B91] h-full rounded-full transition-all duration-300" style="width: 0%"></div>
           </div>
           <p class="text-[11px] text-[#716556] dark:text-[#B4A58F] font-num" id="vaultGoalSummary">
             $0.00 saved of $1,500.00 goal
@@ -1052,13 +1207,13 @@
         </div>
 
         <!-- Card 4: Daily Savings Target (Peach) -->
-        <div class="bento-card p-5 bg-[#D98A6C]/10 dark:bg-[#E09A7E]/15 border-[#D98A6C]/30 dark:border-[#E09A7E]/30 space-y-2 flex flex-col justify-between">
+        <div class="bento-card p-5 bg-[#C98278]/10 dark:bg-[#D99B91]/15 border-[#C98278]/30 dark:border-[#D99B91]/30 space-y-2 flex flex-col justify-between">
           <div class="flex items-center justify-between">
-            <span class="text-xs font-bold uppercase tracking-wider text-[#D98A6C] dark:text-[#E09A7E]">Daily Savings Target</span>
-            <span id="vaultDeadlineStatusBadge" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#D98A6C] text-[#F5EBDD] dark:bg-[#E09A7E] dark:text-[#29241E] font-num">Flexible</span>
+            <span class="text-xs font-bold uppercase tracking-wider text-[#C98278] dark:text-[#D99B91]">Daily Savings Target</span>
+            <span id="vaultDeadlineStatusBadge" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#C98278] text-[#F5EBDD] dark:bg-[#D99B91] dark:text-[#29241E] font-num">Flexible</span>
           </div>
           <div>
-            <div class="text-3xl font-black font-num text-[#D98A6C] dark:text-[#E09A7E]" id="vaultRunRateDisplay">$0.00/day</div>
+            <div class="text-3xl font-black font-num text-[#C98278] dark:text-[#D99B91]" id="vaultRunRateDisplay">$0.00/day</div>
             <div class="text-xs font-semibold text-[#716556] dark:text-[#B4A58F] mt-0.5" id="vaultDaysLeftDisplay">Pacing guide</div>
           </div>
           <p class="text-[11px] text-[#716556] dark:text-[#B4A58F] font-num" id="vaultDeadlineDateText">Target date: Not set</p>
@@ -1069,15 +1224,17 @@
       <section class="bento-card p-5 space-y-3.5 border border-[#CFC1AA] dark:border-[#514638]">
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 pb-2 border-b border-[#CFC1AA]/60 dark:border-[#514638]/60">
           <div>
-            <h3 class="text-sm font-extrabold text-[#332B22] dark:text-[#E2D4BD] flex items-center gap-1.5">
-              <span>🌱</span>
+            <h3 class="text-sm font-extrabold text-[#332B22] dark:text-[#E2D4BD] flex items-center gap-2">
+              <svg class="w-4 h-4 text-[#607B5B] dark:text-[#789272] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22v-9" /><path d="M12 13c0-4.97 4.03-9 9-9 0 4.97-4.03 9-9 9z" /><path d="M12 17c0-3.31-2.69-6-6-6 0 3.31 2.69 6 6 6z" />
+              </svg>
               <span>3 Simple Capital Safety Milestones</span>
             </h3>
             <p class="text-xs text-[#716556] dark:text-[#B4A58F]">
               Milestones unlocked automatically as you move profits safely into your Vault
             </p>
           </div>
-          <span id="vaultMilestoneBadgesSummary" class="text-xs font-bold text-[#607B5B] dark:text-[#8CA887] font-num">
+          <span id="vaultMilestoneBadgesSummary" class="text-xs font-bold text-[#607B5B] dark:text-[#789272] font-num">
             0 of 3 Milestones Unlocked
           </span>
         </div>
@@ -1115,7 +1272,7 @@
               <div class="relative mt-1">
                 <span class="absolute left-3 top-2 text-[#716556] dark:text-[#B4A58F] font-bold font-num">$</span>
                 <input type="number" step="0.01" min="0.01" id="skimFormAmount" required placeholder="100.00"
-                  class="w-full bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl pl-8 pr-3 py-2 font-num font-bold text-sm text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#8CA887]" />
+                  class="w-full bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl pl-8 pr-3 py-2 font-num font-bold text-sm text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#789272]" />
               </div>
               <!-- Quick Chips -->
               <div class="flex items-center gap-1.5 mt-2 flex-wrap">
@@ -1129,16 +1286,16 @@
             <div>
               <label class="block font-bold text-[#716556] dark:text-[#B4A58F] uppercase text-[10px]">Date / Time</label>
               <input type="datetime-local" id="skimFormDateTime" required
-                class="w-full mt-1 bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 font-num text-xs text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#8CA887]" />
+                class="w-full mt-1 bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 font-num text-xs text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#789272]" />
             </div>
 
             <div>
               <label class="block font-bold text-[#716556] dark:text-[#B4A58F] uppercase text-[10px]">What is this for?</label>
               <input type="text" id="skimFormNote" placeholder="e.g. Electric bill, emergency savings, rent"
-                class="w-full mt-1 bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 text-xs text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#8CA887]" />
+                class="w-full mt-1 bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 text-xs text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#789272]" />
             </div>
 
-            <button type="submit" class="w-full py-2.5 bg-[#A96745] hover:bg-[#96593B] text-[#F5EBDD] dark:bg-[#CB8561] dark:hover:bg-[#BD7957] dark:text-[#29241E] font-bold text-xs rounded-xl transition active:scale-95 shadow-sm">
+            <button type="submit" class="w-full py-2.5 bg-[#C98278] hover:bg-[#B77066] text-[#F5EBDD] dark:bg-[#D99B91] dark:hover:bg-[#C88A80] dark:text-[#29241E] font-bold text-xs rounded-xl transition active:scale-95 shadow-sm">
               + Transfer Cash to Vault
             </button>
           </form>
@@ -1284,8 +1441,10 @@
         <!-- Modal Header -->
         <div class="flex items-center justify-between pb-3 border-b border-[#CFC1AA] dark:border-[#514638]">
           <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-[#C2984D]/15 text-[#C2984D] dark:bg-[#DEB76C]/20 dark:text-[#DEB76C] border border-[#C2984D]/30 dark:border-[#DEB76C]/30 flex items-center justify-center text-xl">
-              ☁️
+            <div class="w-10 h-10 rounded-xl bg-[#C2984D]/15 text-[#C2984D] dark:bg-[#D0AA63]/20 dark:text-[#D0AA63] border border-[#C2984D]/30 dark:border-[#D0AA63]/30 flex items-center justify-center">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z" />
+              </svg>
             </div>
             <div>
               <h3 class="text-base sm:text-lg font-black text-[#332B22] dark:text-[#E2D4BD]">
@@ -1296,19 +1455,27 @@
               </p>
             </div>
           </div>
-          <button onclick="closeLinkSheetModal()" class="w-8 h-8 rounded-lg hover:bg-[#CFC1AA]/40 dark:hover:bg-[#514638]/40 text-[#716556] hover:text-[#332B22] dark:text-[#B4A58F] dark:hover:text-[#E2D4BD] flex items-center justify-center text-lg font-bold">
-            ✕
+          <button onclick="closeLinkSheetModal()" class="w-8 h-8 rounded-lg hover:bg-[#CFC1AA]/40 dark:hover:bg-[#514638]/40 text-[#716556] hover:text-[#332B22] dark:text-[#B4A58F] dark:hover:text-[#E2D4BD] flex items-center justify-center transition">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
           </button>
         </div>
 
         <!-- Segmented Tab Switcher (Firebase vs Excel/Sheets) -->
         <div class="inline-flex p-1 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] text-xs font-bold w-full">
           <button onclick="switchSyncModalTab('firebase')" id="syncModalTabBtn_firebase" class="flex-1 py-2 rounded-lg bg-[#F0E6D5] dark:bg-[#352E25] text-[#332B22] dark:text-[#E2D4BD] border border-[#CFC1AA] dark:border-[#514638] shadow-sm transition flex items-center justify-center gap-1.5">
-            <span>🔥</span>
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3z"/>
+            </svg>
             <span>Firebase Firestore (Multi-Device)</span>
           </button>
           <button onclick="switchSyncModalTab('sheets')" id="syncModalTabBtn_sheets" class="flex-1 py-2 rounded-lg text-[#716556] dark:text-[#B4A58F] hover:text-[#332B22] dark:hover:text-[#E2D4BD] transition flex items-center justify-center gap-1.5">
-            <span>📊</span>
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2" />
+              <path d="M3 9h18" /><path d="M9 21V9" />
+            </svg>
             <span>Excel &amp; Google Sheets</span>
           </button>
         </div>
@@ -1317,8 +1484,11 @@
         <div id="syncModalContent_firebase" class="space-y-4">
           <div class="p-4 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] space-y-3">
             <div class="flex items-center justify-between">
-              <span class="text-xs font-bold uppercase tracking-wider text-[#332B22] dark:text-[#E2D4BD]">
-                🔥 Firestore Live Real-Time Sync
+              <span class="text-xs font-bold uppercase tracking-wider text-[#332B22] dark:text-[#E2D4BD] flex items-center gap-1.5">
+                <svg class="w-3.5 h-3.5 text-[#C2984D] dark:text-[#D0AA63]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3z"/>
+                </svg>
+                <span>Firestore Live Real-Time Sync</span>
               </span>
               <span id="firebaseStatusBadge" class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-[#CFC1AA] text-[#716556] dark:bg-[#514638] dark:text-[#B4A58F] font-num">
                 Not Connected
@@ -1335,7 +1505,7 @@
                 Portfolio Sync Key (Device Identifier)
               </label>
               <input type="text" id="inputSyncKey" value="dcniper_portfolio" placeholder="e.g. dcniper_portfolio"
-                class="w-full bg-[#F0E6D5] dark:bg-[#352E25] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 text-xs font-num font-bold text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#C2984D] dark:focus:border-[#DEB76C] shadow-inner" />
+                class="w-full bg-[#F0E6D5] dark:bg-[#352E25] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 text-xs font-num font-bold text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#C2984D] dark:focus:border-[#D0AA63] shadow-inner" />
               <span class="text-[10px] text-[#716556] dark:text-[#B4A58F] mt-0.5 block">Use the same Sync Key on your other devices to see the exact same portfolio.</span>
             </div>
 
@@ -1348,13 +1518,16 @@
                 <span class="text-[10px] text-[#716556] dark:text-[#B4A58F]">Firebase Console &gt; Project settings</span>
               </div>
               <textarea id="inputFirebaseConfig" rows="4" placeholder="Paste const firebaseConfig = { ... } or raw JSON here..."
-                class="w-full bg-[#F0E6D5] dark:bg-[#352E25] border border-[#CFC1AA] dark:border-[#514638] rounded-xl p-3 font-num text-[11px] text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#C2984D] dark:focus:border-[#DEB76C] shadow-inner calm-scrollbar"></textarea>
+                class="w-full bg-[#F0E6D5] dark:bg-[#352E25] border border-[#CFC1AA] dark:border-[#514638] rounded-xl p-3 font-num text-[11px] text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#C2984D] dark:focus:border-[#D0AA63] shadow-inner calm-scrollbar"></textarea>
             </div>
 
             <!-- Action Buttons -->
             <div class="flex items-center gap-2 pt-1 flex-wrap">
-              <button onclick="handleConnectFirebase()" class="flex-1 py-2 rounded-xl bg-[#C2984D] hover:bg-[#A6803F] text-[#332B22] font-bold text-xs shadow-sm transition active:scale-95">
-                🔥 Connect &amp; Start Realtime Sync
+              <button onclick="handleConnectFirebase()" class="flex-1 py-2 rounded-xl bg-[#C2984D] hover:bg-[#B3893F] text-[#F5EBDD] dark:bg-[#D0AA63] dark:hover:bg-[#C2984D] dark:text-[#29241E] font-bold text-xs shadow-sm transition active:scale-95 inline-flex items-center justify-center gap-1.5">
+                <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3z"/>
+                </svg>
+                <span>Connect &amp; Start Realtime Sync</span>
               </button>
               <button onclick="handleDisconnectFirebase()" id="btnDisconnectFirebase" class="hidden px-4 py-2 rounded-xl bg-[#F0E6D5] hover:bg-[#F5EBDD] dark:bg-[#352E25] dark:hover:bg-[#41382D] text-[#716556] dark:text-[#B4A58F] border border-[#CFC1AA] dark:border-[#514638] font-bold text-xs transition">
                 Disconnect
@@ -1367,10 +1540,12 @@
           </div>
 
           <!-- Firestore Security Rules Helper -->
-          <div class="p-3.5 rounded-xl bg-[#C2984D]/10 dark:bg-[#DEB76C]/15 border border-[#C2984D]/30 dark:border-[#DEB76C]/30 space-y-1.5 text-xs text-[#332B22] dark:text-[#E2D4BD]">
+          <div class="p-3.5 rounded-xl bg-[#C2984D]/10 dark:bg-[#D0AA63]/15 border border-[#C2984D]/30 dark:border-[#D0AA63]/30 space-y-1.5 text-xs text-[#332B22] dark:text-[#E2D4BD]">
             <div class="flex items-center justify-between">
               <span class="font-bold flex items-center gap-1.5">
-                <span>🛡️</span>
+                <svg class="w-3.5 h-3.5 text-[#C2984D] dark:text-[#D0AA63]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                </svg>
                 <span>Firestore Security Rules (Required for Read/Write)</span>
               </span>
               <button onclick="copyFirestoreRules()" class="text-[11px] font-bold underline hover:opacity-80">
@@ -1397,21 +1572,30 @@ service cloud.firestore {
           <!-- One-Click Instant Action -->
           <div class="p-4 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] space-y-3">
             <div class="flex items-center justify-between">
-              <span class="text-xs font-bold uppercase tracking-wider text-[#332B22] dark:text-[#E2D4BD]">
-                ⚡ Instant 1-Click Action
+              <span class="text-xs font-bold uppercase tracking-wider text-[#332B22] dark:text-[#E2D4BD] flex items-center gap-1.5">
+                <svg class="w-3.5 h-3.5 text-[#C2984D] dark:text-[#D0AA63]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+                </svg>
+                <span>Instant 1-Click Action</span>
               </span>
-              <span class="text-[10px] font-semibold text-[#607B5B] dark:text-[#8CA887] bg-[#607B5B]/10 dark:bg-[#8CA887]/15 px-2 py-0.5 rounded-full border border-[#607B5B]/30 dark:border-[#8CA887]/30">
+              <span class="text-[10px] font-semibold text-[#607B5B] dark:text-[#789272] bg-[#607B5B]/10 dark:bg-[#789272]/15 px-2 py-0.5 rounded-full border border-[#607B5B]/30 dark:border-[#789272]/30">
                 No setup required
               </span>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
               <!-- Download Excel CSV Button -->
-              <button onclick="exportToExcelCSV()" class="p-3.5 rounded-xl bg-[#F0E6D5] dark:bg-[#352E25] border border-[#CFC1AA] dark:border-[#514638] hover:border-[#A96745] dark:hover:border-[#CB8561] text-left transition active:scale-95 group shadow-sm">
+              <button onclick="exportToExcelCSV()" class="p-3.5 rounded-xl bg-[#F0E6D5] dark:bg-[#352E25] border border-[#CFC1AA] dark:border-[#514638] hover:border-[#C98278] dark:hover:border-[#D99B91] text-left transition active:scale-95 group shadow-sm">
                 <div class="flex items-center gap-2.5">
-                  <span class="text-2xl">📥</span>
+                  <div class="w-8 h-8 rounded-lg bg-[#C98278]/15 text-[#C98278] dark:bg-[#D99B91]/20 dark:text-[#D99B91] flex items-center justify-center shrink-0">
+                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                      <polyline points="7 10 12 15 17 10" />
+                      <line x1="12" y1="15" x2="12" y2="3" />
+                    </svg>
+                  </div>
                   <div>
-                    <div class="text-xs font-bold text-[#332B22] dark:text-[#E2D4BD] group-hover:text-[#A96745] dark:group-hover:text-[#CB8561]">
+                    <div class="text-xs font-bold text-[#332B22] dark:text-[#E2D4BD] group-hover:text-[#C98278] dark:group-hover:text-[#D99B91]">
                       Export to Excel (.csv)
                     </div>
                     <div class="text-[10px] text-[#716556] dark:text-[#B4A58F]">
@@ -1422,11 +1606,19 @@ service cloud.firestore {
               </button>
 
               <!-- Create New Google Sheet & Paste -->
-              <button onclick="createNewGoogleSheet()" class="p-3.5 rounded-xl bg-[#F0E6D5] dark:bg-[#352E25] border border-[#CFC1AA] dark:border-[#514638] hover:border-[#607B5B] dark:hover:border-[#8CA887] text-left transition active:scale-95 group shadow-sm">
+              <button onclick="createNewGoogleSheet()" class="p-3.5 rounded-xl bg-[#F0E6D5] dark:bg-[#352E25] border border-[#CFC1AA] dark:border-[#514638] hover:border-[#607B5B] dark:hover:border-[#789272] text-left transition active:scale-95 group shadow-sm">
                 <div class="flex items-center gap-2.5">
-                  <span class="text-2xl">📄</span>
+                  <div class="w-8 h-8 rounded-lg bg-[#607B5B]/15 text-[#607B5B] dark:bg-[#789272]/20 dark:text-[#789272] flex items-center justify-center shrink-0">
+                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                      <polyline points="14 2 14 8 20 8" />
+                      <line x1="16" y1="13" x2="8" y2="13" />
+                      <line x1="16" y1="17" x2="8" y2="17" />
+                      <polyline points="10 9 9 9 8 9" />
+                    </svg>
+                  </div>
                   <div>
-                    <div class="text-xs font-bold text-[#332B22] dark:text-[#E2D4BD] group-hover:text-[#607B5B] dark:group-hover:text-[#8CA887]">
+                    <div class="text-xs font-bold text-[#332B22] dark:text-[#E2D4BD] group-hover:text-[#607B5B] dark:group-hover:text-[#789272]">
                       Create Google Sheet
                     </div>
                     <div class="text-[10px] text-[#716556] dark:text-[#B4A58F]">
@@ -1441,8 +1633,11 @@ service cloud.firestore {
           <!-- Automated Live Google Sheets Webhook -->
           <div class="p-4 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] space-y-3.5">
             <div class="flex items-center justify-between">
-              <span class="text-xs font-bold uppercase tracking-wider text-[#332B22] dark:text-[#E2D4BD]">
-                ☁️ Google Sheets Webhook Sync
+              <span class="text-xs font-bold uppercase tracking-wider text-[#332B22] dark:text-[#E2D4BD] flex items-center gap-1.5">
+                <svg class="w-3.5 h-3.5 text-[#617D91] dark:text-[#7894A6]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z" />
+                </svg>
+                <span>Google Sheets Webhook Sync</span>
               </span>
               <span id="modalCloudStatusBadge" class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-[#CFC1AA] text-[#716556] dark:bg-[#514638] dark:text-[#B4A58F] font-num">
                 Not Connected
@@ -1455,8 +1650,8 @@ service cloud.firestore {
               </label>
               <div class="flex items-center gap-2">
                 <input type="url" id="inputWebhookUrl" placeholder="https://script.google.com/macros/s/.../exec"
-                  class="flex-1 bg-[#F0E6D5] dark:bg-[#352E25] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 text-xs font-num text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#A96745] dark:focus:border-[#CB8561] shadow-inner" />
-                <button onclick="saveAndTestWebhook()" class="px-4 py-2 rounded-xl bg-[#A96745] hover:bg-[#96593B] text-[#F5EBDD] dark:bg-[#CB8561] dark:hover:bg-[#BD7957] dark:text-[#29241E] font-bold text-xs shadow-sm transition active:scale-95 shrink-0">
+                  class="flex-1 bg-[#F0E6D5] dark:bg-[#352E25] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 text-xs font-num text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#C98278] dark:focus:border-[#D99B91] shadow-inner" />
+                <button onclick="saveAndTestWebhook()" class="px-4 py-2 rounded-xl bg-[#C98278] hover:bg-[#B77066] text-[#F5EBDD] dark:bg-[#D99B91] dark:hover:bg-[#C88A80] dark:text-[#29241E] font-bold text-xs shadow-sm transition active:scale-95 shrink-0">
                   Sync &amp; Save
                 </button>
               </div>
@@ -1468,8 +1663,11 @@ service cloud.firestore {
             <!-- Code Copy -->
             <div class="pt-2 border-t border-[#CFC1AA] dark:border-[#514638] flex items-center justify-between">
               <span class="text-[11px] text-[#716556] dark:text-[#B4A58F]">Need the Apps Script code for your Google Sheet?</span>
-              <button onclick="copyAppsScriptCode()" class="text-xs font-bold text-[#A96745] dark:text-[#CB8561] hover:underline">
-                📋 Copy Apps Script
+              <button onclick="copyAppsScriptCode()" class="text-xs font-bold text-[#C98278] dark:text-[#D99B91] hover:underline inline-flex items-center gap-1">
+                <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="9" y="9" width="13" height="13" rx="2" /><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                </svg>
+                <span>Copy Apps Script</span>
               </button>
             </div>
           </div>
@@ -1512,7 +1710,9 @@ service cloud.firestore {
 
     <!-- Quick Toast Notification -->
     <div id="toastBox" class="fixed bottom-5 right-5 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#332B22] text-[#F0E6D5] border border-[#514638] dark:bg-[#F0E6D5] dark:text-[#332B22] dark:border-[#CFC1AA] text-xs font-bold shadow-2xl">
-      <span id="toastIcon" class="w-4 h-4 rounded-full bg-[#607B5B] dark:bg-[#8CA887] text-[#F5EBDD] dark:text-[#29241E] flex items-center justify-center text-[10px]">✓</span>
+      <span id="toastIcon" class="w-4 h-4 rounded-full bg-[#607B5B] dark:bg-[#789272] text-[#F5EBDD] dark:text-[#29241E] flex items-center justify-center shrink-0">
+        <svg class="w-2.5 h-2.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </span>
       <span id="toastMsg">Saved</span>
     </div>
 
@@ -1600,6 +1800,179 @@ service cloud.firestore {
       const d = new Date(isoStr);
       return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: 'numeric', minute: '2-digit' });
     };
+
+    /* Ambient Organic Canvas Particles (5-8% opacity, gentle drift) */
+    function initOrganicParticles() {
+      const canvas = document.getElementById('organicParticlesCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+
+      // Reduced motion accessibility check
+      const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (prefersReduced) return;
+
+      let width = window.innerWidth;
+      let height = window.innerHeight;
+      let dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+      function resize() {
+        width = window.innerWidth;
+        height = window.innerHeight;
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        canvas.width = Math.floor(width * dpr);
+        canvas.height = Math.floor(height * dpr);
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
+        ctx.scale(dpr, dpr);
+      }
+      resize();
+      window.addEventListener('resize', resize, { passive: true });
+
+      // Earthy natural pigment colors with very low alpha (0.04 - 0.08)
+      const colors = [
+        'rgba(203, 181, 143, ', // Sand
+        'rgba(96, 123, 91, ',   // Moss
+        'rgba(194, 152, 77, ',  // Ochre
+        'rgba(201, 130, 120, ', // Peach
+        'rgba(184, 102, 82, ',  // Clay
+        'rgba(128, 106, 134, '  // Earthy Purple
+      ];
+
+      const count = width < 768 ? 12 : 22;
+      const particles = [];
+
+      for (let i = 0; i < count; i++) {
+        particles.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          size: Math.random() * 3 + 1.5,
+          vx: (Math.random() - 0.5) * 0.25,
+          vy: -0.15 - Math.random() * 0.2,
+          alpha: 0.04 + Math.random() * 0.04,
+          colorBase: colors[Math.floor(Math.random() * colors.length)],
+          angle: Math.random() * Math.PI * 2,
+          vAngle: (Math.random() - 0.5) * 0.008,
+          phase: Math.random() * Math.PI * 2,
+          isLeaf: Math.random() > 0.45
+        });
+      }
+
+      let animId = null;
+      let isVisible = !document.hidden;
+
+      document.addEventListener('visibilitychange', () => {
+        isVisible = !document.hidden;
+        if (isVisible && !animId) {
+          animId = requestAnimationFrame(render);
+        } else if (!isVisible && animId) {
+          cancelAnimationFrame(animId);
+          animId = null;
+        }
+      });
+
+      let lastTime = performance.now();
+
+      function render(now) {
+        if (!isVisible) return;
+        const dt = Math.min((now - lastTime) / 1000, 0.1);
+        lastTime = now;
+
+        ctx.clearRect(0, 0, width, height);
+
+        for (let i = 0; i < particles.length; i++) {
+          const p = particles[i];
+          p.y += p.vy * (dt * 60);
+          p.x += (p.vx + Math.sin(now * 0.0008 + p.phase) * 0.18) * (dt * 60);
+          p.angle += p.vAngle * (dt * 60);
+
+          if (p.y < -20) {
+            p.y = height + 20;
+            p.x = Math.random() * width;
+          } else if (p.y > height + 20) {
+            p.y = -20;
+          }
+          if (p.x < -20) p.x = width + 20;
+          else if (p.x > width + 20) p.x = -20;
+
+          ctx.fillStyle = p.colorBase + p.alpha + ')';
+          ctx.beginPath();
+
+          if (p.isLeaf) {
+            ctx.save();
+            ctx.translate(p.x, p.y);
+            ctx.rotate(p.angle);
+            ctx.ellipse(0, 0, p.size * 1.8, p.size * 0.8, 0, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.restore();
+          } else {
+            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        }
+
+        animId = requestAnimationFrame(render);
+      }
+
+      animId = requestAnimationFrame(render);
+    }
+
+    /* Smooth Number Transition (Quad Ease-Out, 400ms) */
+    function animateNumber(el, targetVal, isCurrency = true, showSign = false, duration = 400) {
+      if (!el) return;
+      const num = Number(targetVal) || 0;
+
+      if (el._animValue === undefined) {
+        el._animValue = num;
+        let formatted = isCurrency ? fmt(Math.abs(num)) : num.toFixed(2);
+        if (showSign) {
+          if (num > 0.001) formatted = '+' + formatted;
+          else if (num < -0.001) formatted = '-' + formatted;
+        }
+        el.innerText = formatted;
+        return;
+      }
+
+      const startVal = el._animValue;
+      if (Math.abs(startVal - num) < 0.005) {
+        el._animValue = num;
+        let formatted = isCurrency ? fmt(Math.abs(num)) : num.toFixed(2);
+        if (showSign) {
+          if (num > 0.001) formatted = '+' + formatted;
+          else if (num < -0.001) formatted = '-' + formatted;
+        }
+        el.innerText = formatted;
+        return;
+      }
+
+      const raf = typeof requestAnimationFrame === 'function' ? requestAnimationFrame : (cb => setTimeout(() => cb(Date.now()), 16));
+      const caf = typeof cancelAnimationFrame === 'function' ? cancelAnimationFrame : clearTimeout;
+
+      if (el._animRaf) caf(el._animRaf);
+      const startTime = typeof performance !== 'undefined' && performance.now ? performance.now() : Date.now();
+
+      function tick(now) {
+        const elapsed = now - startTime;
+        const progress = Math.min(1, elapsed / duration);
+        const ease = 1 - (1 - progress) * (1 - progress);
+        const current = startVal + (num - startVal) * ease;
+
+        let formatted = isCurrency ? fmt(Math.abs(current)) : current.toFixed(2);
+        if (showSign) {
+          if (current > 0.001) formatted = '+' + formatted;
+          else if (current < -0.001) formatted = '-' + formatted;
+        }
+        el.innerText = formatted;
+
+        if (progress < 1) {
+          el._animRaf = raf(tick);
+        } else {
+          el._animValue = num;
+          el._animRaf = null;
+        }
+      }
+
+      el._animRaf = raf(tick);
+    }
 
     /* Indian Timezone Live Date Formatter */
     function getIndianDateFormatted() {
@@ -1707,15 +2080,23 @@ service cloud.firestore {
 
     function toggleTheme() {
       applyTheme(currentTheme === 'light' ? 'dark' : 'light');
-      showToast(currentTheme === 'dark' ? "Switched to Dark Mode 🌙" : "Switched to Light Mode ☀️");
+      showToast(currentTheme === 'dark' ? "Switched to Dark Mode" : "Switched to Light Mode");
     }
 
     function updateThemeButton() {
       const btn = document.getElementById('themeToggleBtn');
       if (btn) {
         btn.innerHTML = currentTheme === 'dark'
-          ? '<span class="text-sm">☀️</span><span class="hidden sm:inline">Light</span>'
-          : '<span class="text-sm">🌙</span><span class="hidden sm:inline">Dark</span>';
+          ? `<svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="5" />
+              <line x1="12" y1="1" x2="12" y2="3" /><line x1="12" y1="21" x2="12" y2="23" />
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" /><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+              <line x1="1" y1="12" x2="3" y2="12" /><line x1="21" y1="12" x2="23" y2="12" />
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" /><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+            </svg><span class="hidden sm:inline">Light</span>`
+          : `<svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z" />
+            </svg><span class="hidden sm:inline">Dark</span>`;
       }
     }
 
@@ -1762,6 +2143,9 @@ service cloud.firestore {
         const navBtn = document.getElementById(`nav-${t}`);
         if (t === tab) {
           tabEl.classList.remove('hidden');
+          tabEl.classList.remove('view-transition');
+          void tabEl.offsetWidth;
+          tabEl.classList.add('view-transition');
           navBtn.className = "flex-1 sm:flex-initial px-5 sm:px-7 py-2 rounded-lg transition-all flex items-center justify-center gap-2 bg-[#F5EBDD] dark:bg-[#41382D] text-[#332B22] dark:text-[#E2D4BD] border border-[#CFC1AA] dark:border-[#514638] shadow-sm";
         } else {
           tabEl.classList.add('hidden');
@@ -1883,7 +2267,7 @@ service cloud.firestore {
         delete lockedSessions[currentSession];
         localStorage.setItem('pgl_locked_sessions_v9', JSON.stringify(lockedSessions));
         renderTracker();
-        showToast(`Session ${currentSession} unlocked for editing 🔓`);
+        showToast(`Session ${currentSession} unlocked for editing`);
         syncToFirestore();
       } else {
         const bal = sessionLogs[currentSession];
@@ -1898,7 +2282,7 @@ service cloud.firestore {
         localStorage.setItem('pgl_locked_sessions_v9', JSON.stringify(lockedSessions));
         saveTrackerState();
         renderTracker();
-        showToast(`Session ${currentSession} balance locked at ${fmt(bal)}! 🎉`);
+        showToast(`Session ${currentSession} balance locked at ${fmt(bal)}!`);
         syncToFirestore();
 
         if (localStorage.getItem('pgl_webhook_url_v9')) {
@@ -1918,7 +2302,11 @@ service cloud.firestore {
       showAllPacesInTable = !showAllPacesInTable;
       localStorage.setItem('pgl_show_all_paces_v9', showAllPacesInTable ? 'true' : 'false');
       const btn = document.getElementById('btnToggleAllPaces');
-      btn.innerHTML = showAllPacesInTable ? "<span>⚡ Focused View</span>" : "<span>📊 Show All Paces</span>";
+      if (btn) {
+        btn.innerHTML = showAllPacesInTable 
+          ? `<svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg><span>Focused View</span>` 
+          : `<svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10" /><line x1="12" y1="20" x2="12" y2="4" /><line x1="6" y1="20" x2="6" y2="14" /></svg><span>Show All Paces</span>`;
+      }
       renderMasterTable(getActiveLadder());
     }
 
@@ -1939,8 +2327,8 @@ service cloud.firestore {
       document.getElementById('activeSessionNumDisplay').innerText = currentSession;
       document.getElementById('totalSessionsDisplay').innerText = ladder.length;
       document.getElementById('targetCardSessionNum').innerText = currentSession;
-      document.getElementById('headerVaultBalance').innerText = fmt(totalVault);
-      document.getElementById('headerTrueWealth').innerText = fmt(trueWealth);
+      animateNumber(document.getElementById('headerVaultBalance'), totalVault, true, false);
+      animateNumber(document.getElementById('headerTrueWealth'), trueWealth, true, false);
 
       const activeProfile = ladderProfiles.find(p => p.id === activeProfileId) || ladderProfiles[0];
       document.getElementById('headerActiveLadderName').innerText = activeProfile.name;
@@ -1969,16 +2357,19 @@ service cloud.firestore {
         if (isLocked) {
           statusTag.innerHTML = `
             <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#F0E6D5] dark:bg-[#41382D] text-[#716556] dark:text-[#B4A58F] border border-[#CFC1AA] dark:border-[#514638]">
-              <span>🔒</span>
+              <svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="5" y="11" width="14" height="10" rx="2" />
+                <path d="M8 11V7a4 4 0 0 1 8 0v4" />
+              </svg>
               <span>Session Locked</span>
             </span>
           `;
         } else {
           statusTag.innerHTML = `
-            <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-[#607B5B]/10 dark:bg-[#8CA887]/15 text-[#607B5B] dark:text-[#8CA887] border border-[#607B5B]/30 dark:border-[#8CA887]/30 shadow-sm">
+            <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-[#607B5B]/10 dark:bg-[#789272]/15 text-[#607B5B] dark:text-[#789272] border border-[#607B5B]/30 dark:border-[#789272]/30 shadow-sm">
               <span class="relative flex h-2.5 w-2.5">
-                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#607B5B] dark:bg-[#8CA887] opacity-75"></span>
-                <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#607B5B] dark:bg-[#8CA887]"></span>
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#607B5B] dark:bg-[#789272] opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#607B5B] dark:bg-[#789272]"></span>
               </span>
               <span>Live In Play</span>
             </span>
@@ -1989,10 +2380,12 @@ service cloud.firestore {
       // Lock / Unlock Button Label
       const lockBtn = document.getElementById('btnLockSession');
       if (lockBtn) {
-        lockBtn.innerHTML = isLocked ? '<span>🔓</span><span>Unlock to Edit</span>' : '<span>🔒</span><span>Lock In Session</span>';
+        lockBtn.innerHTML = isLocked 
+          ? `<svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2" /><path d="M8 11V7a4 4 0 0 1 7.7-1.5" /></svg><span>Unlock to Edit</span>`
+          : `<svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2" /><path d="M8 11V7a4 4 0 0 1 8 0v4" /></svg><span>Lock In Session</span>`;
         lockBtn.className = isLocked 
           ? "inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-[#F5EBDD] hover:bg-[#F0E6D5] dark:bg-[#41382D] dark:hover:bg-[#352E25] text-[#332B22] dark:text-[#E2D4BD] font-bold transition active:scale-95 text-xs border border-[#CFC1AA] dark:border-[#514638] shadow-sm"
-          : "inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-[#A96745] hover:bg-[#96593B] text-[#F5EBDD] dark:bg-[#CB8561] dark:hover:bg-[#A96745] dark:text-[#29241E] font-bold transition active:scale-95 text-xs shadow-sm";
+          : "inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-[#C2984D] hover:bg-[#B3893F] text-[#F5EBDD] dark:bg-[#D0AA63] dark:hover:bg-[#C2984D] dark:text-[#29241E] font-bold transition active:scale-95 text-xs shadow-sm";
       }
 
       document.getElementById('btnTargetPreview').innerText = fmt(targetReq);
@@ -2010,23 +2403,23 @@ service cloud.firestore {
       const pnlVibeEl = document.getElementById('sessionPnlVibe');
 
       if (sessionPnl > 0.001) {
-        pnlDollarEl.innerText = `+${fmt(sessionPnl)}`;
-        pnlDollarEl.className = "text-3xl sm:text-4xl font-black font-num tracking-tight text-[#607B5B] dark:text-[#8CA887]";
+        animateNumber(pnlDollarEl, sessionPnl, true, true);
+        pnlDollarEl.className = "text-3xl sm:text-4xl font-black font-num tracking-tight text-[#607B5B] dark:text-[#789272]";
         pnlPctEl.innerText = `+${sessionPnlPct.toFixed(2)}% today`;
-        pnlPctEl.className = "text-sm font-bold font-num text-[#607B5B] dark:text-[#8CA887]";
-        pnlVibeEl.innerText = "🌱 Awesome green day! Keep your cool and protect gains.";
+        pnlPctEl.className = "text-sm font-bold font-num text-[#607B5B] dark:text-[#789272]";
+        pnlVibeEl.innerHTML = '<span class="w-2 h-2 rounded-full bg-[#607B5B] dark:bg-[#789272] inline-block shrink-0"></span><span>Awesome green day! Keep your cool and protect gains.</span>';
       } else if (sessionPnl < -0.001) {
-        pnlDollarEl.innerText = `-${fmt(Math.abs(sessionPnl))}`;
-        pnlDollarEl.className = "text-3xl sm:text-4xl font-black font-num tracking-tight text-[#B86652] dark:text-[#D47F6C]";
+        animateNumber(pnlDollarEl, sessionPnl, true, true);
+        pnlDollarEl.className = "text-3xl sm:text-4xl font-black font-num tracking-tight text-[#B86652] dark:text-[#C77B68]";
         pnlPctEl.innerText = `${sessionPnlPct.toFixed(2)}% today`;
-        pnlPctEl.className = "text-sm font-bold font-num text-[#B86652] dark:text-[#D47F6C]";
-        pnlVibeEl.innerText = "🛡️ Small red day. Capital preservation is your superpower!";
+        pnlPctEl.className = "text-sm font-bold font-num text-[#B86652] dark:text-[#C77B68]";
+        pnlVibeEl.innerHTML = '<span class="w-2 h-2 rounded-full bg-[#B86652] dark:bg-[#C77B68] inline-block shrink-0"></span><span>Small red day. Capital preservation is your superpower!</span>';
       } else {
-        pnlDollarEl.innerText = "$0.00";
+        animateNumber(pnlDollarEl, 0, true, false);
         pnlDollarEl.className = "text-3xl sm:text-4xl font-black font-num tracking-tight text-[#332B22] dark:text-[#E2D4BD]";
         pnlPctEl.innerText = "0.00% change";
         pnlPctEl.className = "text-sm font-bold font-num text-[#716556] dark:text-[#B4A58F]";
-        pnlVibeEl.innerText = "⚖️ Even session. Ready whenever good setups appear.";
+        pnlVibeEl.innerHTML = '<span class="w-2 h-2 rounded-full bg-[#716556] dark:bg-[#B4A58F] inline-block shrink-0"></span><span>Even session. Ready whenever good setups appear.</span>';
       }
 
       // Weekly Milestone Progress Bar Calculation
@@ -2043,9 +2436,9 @@ service cloud.firestore {
       const delta = currentDesk - targetReq;
       const deltaBadgeEl = document.getElementById('weeklyDeltaBadge');
       if (delta >= 0) {
-        deltaBadgeEl.innerHTML = `<span class="inline-flex items-center gap-1 text-xs font-black text-[#607B5B] dark:text-[#8CA887] bg-[#607B5B]/10 dark:bg-[#8CA887]/15 border border-[#607B5B]/30 dark:border-[#8CA887]/30 px-3 py-1 rounded-full">🚀 +${fmt(delta)} ahead of pace</span>`;
+        deltaBadgeEl.innerHTML = `<span class="inline-flex items-center gap-1 text-xs font-black text-[#607B5B] dark:text-[#789272] bg-[#607B5B]/10 dark:bg-[#789272]/15 border border-[#607B5B]/30 dark:border-[#789272]/30 px-3 py-1 rounded-full"><svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg> +${fmt(delta)} ahead of pace</span>`;
       } else {
-        deltaBadgeEl.innerHTML = `<span class="inline-flex items-center gap-1 text-xs font-black text-[#B86652] dark:text-[#D47F6C] bg-[#B86652]/10 dark:bg-[#D47F6C]/15 border border-[#B86652]/30 dark:border-[#D47F6C]/30 px-3 py-1 rounded-full">🐢 -${fmt(Math.abs(delta))} behind pace</span>`;
+        deltaBadgeEl.innerHTML = `<span class="inline-flex items-center gap-1 text-xs font-black text-[#B86652] dark:text-[#C77B68] bg-[#B86652]/10 dark:bg-[#C77B68]/15 border border-[#B86652]/30 dark:border-[#C77B68]/30 px-3 py-1 rounded-full"><svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg> -${fmt(Math.abs(delta))} behind pace</span>`;
       }
 
       document.getElementById('weeklyMilestoneLabel').innerText = `Week ${weekNum} Checkpoint: ${fmt(weekTarget)}`;
@@ -2075,10 +2468,10 @@ service cloud.firestore {
       const diffRelaxed = currentDesk - rTarget;
       const statusRelaxedEl = document.getElementById('targetStatusRelaxed');
       if (diffRelaxed >= 0) {
-        statusRelaxedEl.innerText = `✅ Goal Met (+${fmt(diffRelaxed)})`;
-        statusRelaxedEl.className = "text-xs font-extrabold font-num text-[#607B5B] dark:text-[#8CA887]";
+        statusRelaxedEl.innerHTML = `<span class="inline-flex items-center gap-1"><svg class="w-3 h-3 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Goal Met (+${fmt(diffRelaxed)})</span></span>`;
+        statusRelaxedEl.className = "text-xs font-extrabold font-num text-[#607B5B] dark:text-[#789272]";
       } else {
-        statusRelaxedEl.innerText = `🎯 Needs +${fmt(Math.abs(diffRelaxed))} to hit`;
+        statusRelaxedEl.innerText = `Needs +${fmt(Math.abs(diffRelaxed))} to hit`;
         statusRelaxedEl.className = "text-xs font-semibold font-num text-[#716556] dark:text-[#B4A58F]";
       }
 
@@ -2091,10 +2484,10 @@ service cloud.firestore {
       const diffMid = currentDesk - mTarget;
       const statusMidEl = document.getElementById('targetStatusMid');
       if (diffMid >= 0) {
-        statusMidEl.innerText = `✅ Goal Met (+${fmt(diffMid)})`;
-        statusMidEl.className = "text-xs font-extrabold font-num text-[#C2984D] dark:text-[#DEB76C]";
+        statusMidEl.innerHTML = `<span class="inline-flex items-center gap-1"><svg class="w-3 h-3 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Goal Met (+${fmt(diffMid)})</span></span>`;
+        statusMidEl.className = "text-xs font-extrabold font-num text-[#C2984D] dark:text-[#D0AA63]";
       } else {
-        statusMidEl.innerText = `🎯 Needs +${fmt(Math.abs(diffMid))} to hit`;
+        statusMidEl.innerText = `Needs +${fmt(Math.abs(diffMid))} to hit`;
         statusMidEl.className = "text-xs font-semibold font-num text-[#716556] dark:text-[#B4A58F]";
       }
 
@@ -2107,10 +2500,10 @@ service cloud.firestore {
       const diffAgg = currentDesk - aTarget;
       const statusAggEl = document.getElementById('targetStatusAggressive');
       if (diffAgg >= 0) {
-        statusAggEl.innerText = `✅ Goal Met (+${fmt(diffAgg)})`;
-        statusAggEl.className = "text-xs font-extrabold font-num text-[#806A73] dark:text-[#A8909A]";
+        statusAggEl.innerHTML = `<span class="inline-flex items-center gap-1"><svg class="w-3 h-3 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Goal Met (+${fmt(diffAgg)})</span></span>`;
+        statusAggEl.className = "text-xs font-extrabold font-num text-[#806A86] dark:text-[#9A849F]";
       } else {
-        statusAggEl.innerText = `🎯 Needs +${fmt(Math.abs(diffAgg))} to hit`;
+        statusAggEl.innerText = `Needs +${fmt(Math.abs(diffAgg))} to hit`;
         statusAggEl.className = "text-xs font-semibold font-num text-[#716556] dark:text-[#B4A58F]";
       }
 
@@ -2121,9 +2514,9 @@ service cloud.firestore {
         if (card && badge) {
           if (p === currentPace) {
             badge.classList.remove('hidden');
-            if (p === 'relaxed') card.className = "bento-card p-4 sm:p-5 cursor-pointer transition-all border-2 border-[#607B5B] dark:border-[#8CA887] bg-[#607B5B]/10 dark:bg-[#8CA887]/15 shadow-warm-md space-y-2.5";
-            if (p === 'mid') card.className = "bento-card p-4 sm:p-5 cursor-pointer transition-all border-2 border-[#C2984D] dark:border-[#DEB76C] bg-[#C2984D]/10 dark:bg-[#DEB76C]/15 shadow-warm-md space-y-2.5";
-            if (p === 'aggressive') card.className = "bento-card p-4 sm:p-5 cursor-pointer transition-all border-2 border-[#806A73] dark:border-[#A8909A] bg-[#806A73]/10 dark:bg-[#A8909A]/15 shadow-warm-md space-y-2.5";
+            if (p === 'relaxed') card.className = "bento-card p-4 sm:p-5 cursor-pointer transition-all border-2 border-[#607B5B] dark:border-[#789272] bg-[#607B5B]/10 dark:bg-[#789272]/15 shadow-warm-md space-y-2.5";
+            if (p === 'mid') card.className = "bento-card p-4 sm:p-5 cursor-pointer transition-all border-2 border-[#C2984D] dark:border-[#D0AA63] bg-[#C2984D]/10 dark:bg-[#D0AA63]/15 shadow-warm-md space-y-2.5";
+            if (p === 'aggressive') card.className = "bento-card p-4 sm:p-5 cursor-pointer transition-all border-2 border-[#806A86] dark:border-[#9A849F] bg-[#806A86]/10 dark:bg-[#9A849F]/15 shadow-warm-md space-y-2.5";
           } else {
             badge.classList.add('hidden');
             card.className = "bento-card p-4 sm:p-5 cursor-pointer transition-all border border-[#CFC1AA] dark:border-[#514638] hover:border-[#B4A58F] dark:hover:border-[#716556] hover:bg-[#F0E6D5]/60 dark:hover:bg-[#352E25]/60 space-y-2.5";
@@ -2144,7 +2537,7 @@ service cloud.firestore {
       const sugDeadText = document.getElementById('suggestiveDeadlineStatusText');
       if (sugDeadText) {
         if (finReq.isAchieved) {
-          sugDeadText.innerText = `🎉 100% of ${fmt(finReq.goal)} goal banked!`;
+          sugDeadText.innerText = `100% of ${fmt(finReq.goal)} goal banked!`;
         } else if (finReq.deadlineStr) {
           sugDeadText.innerText = `${finReq.daysLeft > 0 ? finReq.daysLeft + ' days left' : 'Due today'} • ${fmt(finReq.remainingToBank)} remaining to goal`;
         } else {
@@ -2215,7 +2608,7 @@ service cloud.firestore {
         card.innerHTML = `
           <div class="flex justify-between items-center text-[10px] font-bold uppercase tracking-wider text-[#716556] dark:text-[#B4A58F]">
             <span>Week ${i + 1} (S${row.s})</span>
-            <span class="${reached ? 'text-[#607B5B] dark:text-[#8CA887] font-extrabold' : 'text-[#716556] dark:text-[#B4A58F]'}">${reached ? '✓ Reached' : `${pct.toFixed(0)}%`}</span>
+            <span class="${reached ? 'text-[#607B5B] dark:text-[#8CA887] font-extrabold' : 'text-[#716556] dark:text-[#B4A58F]'}">${reached ? '<span class="inline-flex items-center gap-0.5"><svg class="w-2.5 h-2.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Reached</span>' : `${pct.toFixed(0)}%`}</span>
           </div>
           <div class="text-base font-black font-num text-[#332B22] dark:text-[#E2D4BD] mt-1">${fmt(target)}</div>
           <div class="w-full bg-[#CFC1AA] dark:bg-[#514638] h-1.5 rounded-full overflow-hidden mt-2">
@@ -2243,11 +2636,17 @@ service cloud.firestore {
       if (tab === 'suggestive') {
         viewPnl.classList.add('hidden');
         viewSug.classList.remove('hidden');
-        btnSug.className = "px-2.5 py-1 rounded-md text-xs font-bold transition flex items-center gap-1 bg-[#D98A6C] text-[#F5EBDD] dark:bg-[#E09A7E] dark:text-[#29241E] shadow-xs";
+        viewSug.classList.remove('view-transition');
+        void viewSug.offsetWidth;
+        viewSug.classList.add('view-transition');
+        btnSug.className = "px-2.5 py-1 rounded-md text-xs font-bold transition flex items-center gap-1.5 bg-[#C98278] text-[#F5EBDD] dark:bg-[#D99B91] dark:text-[#29241E] shadow-xs";
         btnPnl.className = "px-2.5 py-1 rounded-md text-xs font-bold transition flex items-center gap-1 text-[#716556] dark:text-[#B4A58F] hover:text-[#332B22] dark:hover:text-[#E2D4BD]";
       } else {
-        viewPnl.classList.remove('hidden');
         viewSug.classList.add('hidden');
+        viewPnl.classList.remove('hidden');
+        viewPnl.classList.remove('view-transition');
+        void viewPnl.offsetWidth;
+        viewPnl.classList.add('view-transition');
         btnPnl.className = "px-2.5 py-1 rounded-md text-xs font-bold transition flex items-center gap-1 bg-[#F5EBDD] dark:bg-[#41382D] text-[#332B22] dark:text-[#E2D4BD] shadow-xs";
         btnSug.className = "px-2.5 py-1 rounded-md text-xs font-bold transition flex items-center gap-1 text-[#716556] dark:text-[#B4A58F] hover:text-[#332B22] dark:hover:text-[#E2D4BD]";
       }
@@ -2269,6 +2668,9 @@ service cloud.firestore {
         if (content) {
           if (isActive) {
             content.classList.remove('hidden');
+            content.classList.remove('view-transition');
+            void content.offsetWidth;
+            content.classList.add('view-transition');
           } else {
             content.classList.add('hidden');
           }
@@ -2491,8 +2893,8 @@ service cloud.firestore {
                 </span>
                 <span class="px-1 py-0.2 rounded text-[8px] font-black leading-none ${
                   isGreen 
-                    ? 'bg-[#607B5B] text-[#F5EBDD] dark:bg-[#8CA887] dark:text-[#29241E]' 
-                    : (isRed ? 'bg-[#B86652] text-[#F5EBDD] dark:bg-[#D47F6C] dark:text-[#29241E]' : 'bg-[#716556] text-[#F5EBDD] dark:bg-[#B4A58F] dark:text-[#29241E]')
+                    ? 'bg-[#607B5B] text-[#F5EBDD] dark:bg-[#789272] dark:text-[#29241E]' 
+                    : (isRed ? 'bg-[#B86652] text-[#F5EBDD] dark:bg-[#C77B68] dark:text-[#29241E]' : 'bg-[#716556] text-[#F5EBDD] dark:bg-[#B4A58F] dark:text-[#29241E]')
                 }">
                   ${sessionsBadge}
                 </span>
@@ -2500,30 +2902,30 @@ service cloud.firestore {
               <div class="my-auto py-0 text-center w-full">
                 <div class="text-[9px] sm:text-xs font-black font-num tracking-tight leading-tight truncate ${
                   isGreen 
-                    ? 'text-[#607B5B] dark:text-[#8CA887]' 
-                    : (isRed ? 'text-[#B86652] dark:text-[#D47F6C]' : 'text-[#716556] dark:text-[#B4A58F]')
+                    ? 'text-[#607B5B] dark:text-[#789272]' 
+                    : (isRed ? 'text-[#B86652] dark:text-[#C77B68]' : 'text-[#716556] dark:text-[#B4A58F]')
                 }">
                   ${fmtCompactPnl(tradeData.totalPnl)}
                 </div>
               </div>
-              <div class="text-[8px] sm:text-[9px] leading-none">
-                <span>${isGreen ? '🌱' : (isRed ? '🛡️' : '⚖️')}</span>
+              <div class="text-[8px] sm:text-[9px] leading-none flex items-center justify-center">
+                <span class="w-1.5 h-1.5 rounded-full ${isGreen ? 'bg-[#607B5B] dark:bg-[#789272]' : (isRed ? 'bg-[#B86652] dark:bg-[#C77B68]' : 'bg-[#716556] dark:bg-[#B4A58F]')}"></span>
               </div>
             `;
           } else {
             // Day without recorded trade
             cell.className = `p-1 rounded-lg bg-[#F5EBDD]/70 dark:bg-[#41382D]/30 border min-h-[44px] sm:min-h-[54px] flex flex-col justify-between items-center transition ${
               isToday 
-                ? 'border-2 border-[#617D91] dark:border-[#86A5BC]' 
+                ? 'border-2 border-[#617D91] dark:border-[#7894A6]' 
                 : 'border-[#CFC1AA]/50 dark:border-[#514638]/50'
             }`;
 
             cell.innerHTML = `
               <div class="flex items-center justify-between w-full">
-                <span class="text-[9px] sm:text-[10px] font-bold font-num ${isToday ? 'text-[#617D91] dark:text-[#86A5BC]' : 'text-[#716556] dark:text-[#B4A58F]'}">
+                <span class="text-[9px] sm:text-[10px] font-bold font-num ${isToday ? 'text-[#617D91] dark:text-[#7894A6]' : 'text-[#716556] dark:text-[#B4A58F]'}">
                   ${dayNum}
                 </span>
-                ${isToday ? '<span class="w-1.5 h-1.5 rounded-full bg-[#617D91] dark:bg-[#86A5BC]"></span>' : ''}
+                ${isToday ? '<span class="w-1.5 h-1.5 rounded-full bg-[#617D91] dark:bg-[#7894A6]"></span>' : ''}
               </div>
               <div class="my-auto"></div>
               <div></div>
@@ -2541,7 +2943,7 @@ service cloud.firestore {
       renderTracker();
 
       const pnlText = tradeData ? ` (${tradeData.totalPnl >= 0 ? '+' : ''}${fmt(tradeData.totalPnl)})` : '';
-      showToast(`Jumped to Session ${sessionNum}${pnlText} 🎯`);
+      showToast(`Jumped to Session ${sessionNum}${pnlText}`);
 
       const loggerEl = document.getElementById('sessionBalanceInput');
       if (loggerEl) {
@@ -2582,7 +2984,7 @@ service cloud.firestore {
         const tr = document.createElement('tr');
         tr.className = `cursor-pointer transition-colors ${
           isCurrent 
-            ? 'bg-[#607B5B]/10 dark:bg-[#8CA887]/15 font-bold border-l-4 border-l-[#607B5B] dark:border-l-[#8CA887]' 
+            ? 'bg-[#607B5B]/10 dark:bg-[#789272]/15 font-bold border-l-4 border-l-[#607B5B] dark:border-l-[#789272]' 
             : 'hover:bg-[#F0E6D5] dark:hover:bg-[#41382D]/40'
         }`;
         tr.onclick = () => {
@@ -2593,15 +2995,15 @@ service cloud.firestore {
 
         let pnlCell = `<span class="text-[#CFC1AA] dark:text-[#514638]">—</span>`;
         if (hasLogged) {
-          if (pnl > 0.001) pnlCell = `<span class="text-[#607B5B] dark:text-[#8CA887] font-bold">+${fmt(pnl)}</span>`;
-          else if (pnl < -0.001) pnlCell = `<span class="text-[#B86652] dark:text-[#D47F6C] font-bold">-${fmt(Math.abs(pnl))}</span>`;
+          if (pnl > 0.001) pnlCell = `<span class="text-[#607B5B] dark:text-[#789272] font-bold">+${fmt(pnl)}</span>`;
+          else if (pnl < -0.001) pnlCell = `<span class="text-[#B86652] dark:text-[#C77B68] font-bold">-${fmt(Math.abs(pnl))}</span>`;
           else pnlCell = `<span class="text-[#716556] dark:text-[#B4A58F] font-medium">$0.00</span>`;
         }
 
         let surplusCell = `<span class="text-[#CFC1AA] dark:text-[#514638]">—</span>`;
         if (hasLogged && surplus !== null) {
-          if (surplus >= 0) surplusCell = `<span class="text-[#607B5B] dark:text-[#8CA887] font-bold">+${fmt(surplus)}</span>`;
-          else surplusCell = `<span class="text-[#B86652] dark:text-[#D47F6C] font-bold">-${fmt(Math.abs(surplus))}</span>`;
+          if (surplus >= 0) surplusCell = `<span class="text-[#607B5B] dark:text-[#789272] font-bold">+${fmt(surplus)}</span>`;
+          else surplusCell = `<span class="text-[#B86652] dark:text-[#C77B68] font-bold">-${fmt(Math.abs(surplus))}</span>`;
         }
 
         const note = sessionNotes[row.s] || row.milestone || row.pause || '';
@@ -2609,23 +3011,23 @@ service cloud.firestore {
         let extraColsHtml = '';
         if (showAllPacesInTable) {
           extraColsHtml = `
-            <td class="py-2.5 px-3 sm:px-4 text-[#607B5B] dark:text-[#8CA887] font-semibold">${row.r !== undefined ? fmt(row.r) : fmt(row.target)}</td>
-            <td class="py-2.5 px-3 sm:px-4 text-[#C2984D] dark:text-[#DEB76C] font-semibold">${row.m !== undefined ? fmt(row.m) : '—'}</td>
-            <td class="py-2.5 px-3 sm:px-4 text-[#806A73] dark:text-[#A8909A] font-semibold">${row.a !== undefined ? fmt(row.a) : '—'}</td>
+            <td class="py-2.5 px-3 sm:px-4 text-[#607B5B] dark:text-[#789272] font-semibold">${row.r !== undefined ? fmt(row.r) : fmt(row.target)}</td>
+            <td class="py-2.5 px-3 sm:px-4 text-[#C2984D] dark:text-[#D0AA63] font-semibold">${row.m !== undefined ? fmt(row.m) : '—'}</td>
+            <td class="py-2.5 px-3 sm:px-4 text-[#806A86] dark:text-[#9A849F] font-semibold">${row.a !== undefined ? fmt(row.a) : '—'}</td>
           `;
         }
 
         tr.innerHTML = `
           <td class="py-2.5 px-3 sm:px-4 ${isCurrent ? 'text-[#332B22] dark:text-[#E2D4BD] font-black' : 'text-[#716556] dark:text-[#B4A58F]'}">
             S${row.s}
-            ${isRowLocked ? '<span class="ml-1 text-[11px]" title="Locked">🔒</span>' : ''}
-            ${row.milestone ? '<span class="ml-1.5 px-1.5 py-0.5 text-[9px] rounded-full bg-[#607B5B]/15 text-[#607B5B] dark:bg-[#8CA887]/20 dark:text-[#8CA887] font-bold">Goal</span>' : ''}
-            ${row.pause ? '<span class="ml-1.5 px-1.5 py-0.5 text-[9px] rounded-full bg-[#C2984D]/15 text-[#C2984D] dark:bg-[#DEB76C]/20 dark:text-[#DEB76C] font-bold">Rest</span>' : ''}
+            ${isRowLocked ? '<span class="ml-1 inline-flex items-center" title="Locked"><svg class="w-3 h-3 text-[#716556] dark:text-[#B4A58F]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2" /><path d="M8 11V7a4 4 0 0 1 8 0v4" /></svg></span>' : ''}
+            ${row.milestone ? '<span class="ml-1.5 px-1.5 py-0.5 text-[9px] rounded-full bg-[#607B5B]/15 text-[#607B5B] dark:bg-[#789272]/20 dark:text-[#789272] font-bold">Goal</span>' : ''}
+            ${row.pause ? '<span class="ml-1.5 px-1.5 py-0.5 text-[9px] rounded-full bg-[#C2984D]/15 text-[#C2984D] dark:bg-[#D0AA63]/20 dark:text-[#D0AA63] font-bold">Rest</span>' : ''}
           </td>
           <td class="py-2.5 px-3 sm:px-4 text-[11px] text-[#716556] dark:text-[#B4A58F]">${timestamp ? fmtTimestamp(timestamp).split(',')[0] : '—'}</td>
           <td class="py-2.5 px-3 sm:px-4 font-bold ${hasLogged ? 'text-[#332B22] dark:text-[#E2D4BD]' : 'text-[#CFC1AA] dark:text-[#514638] italic'}">
             ${hasLogged ? fmt(loggedVal) : '—'}
-            ${rowSkims > 0 ? `<span class="ml-1 text-[10px] font-semibold text-[#A96745] dark:text-[#CB8561] bg-[#A96745]/10 dark:bg-[#CB8561]/15 px-1.5 py-0.5 rounded-full" title="Banked ${fmt(rowSkims)} to Vault">+${fmt(rowSkims)} safe</span>` : ''}
+            ${rowSkims > 0 ? `<span class="ml-1 text-[10px] font-semibold text-[#C98278] dark:text-[#D99B91] bg-[#C98278]/10 dark:bg-[#D99B91]/15 px-1.5 py-0.5 rounded-full" title="Banked ${fmt(rowSkims)} to Vault">+${fmt(rowSkims)} safe</span>` : ''}
           </td>
           <td class="py-2.5 px-3 sm:px-4">${pnlCell}</td>
           <td class="py-2.5 px-3 sm:px-4">${surplusCell}</td>
@@ -2748,7 +3150,7 @@ service cloud.firestore {
 
       if (!bypassFloorWarning && deskAfter < floor) {
         openModal({
-          title: "⚠️ Capital Floor Protection Warning",
+          title: "Capital Floor Protection Warning",
           msg: `Transferring ${fmt(amount)} will drop your desk balance to ${fmt(deskAfter)}, below your capital floor of ${fmt(floor)}.<br><br>Do you want to proceed with this transfer?`,
           onConfirm: () => {
             executeSkim(amount, note, true);
@@ -2819,8 +3221,8 @@ service cloud.firestore {
       const currentDesk = getDeskBalance(currentSession);
       const trueWealth = currentDesk + totalVault;
 
-      document.getElementById('vaultTotalWithdrawnVal').innerText = fmt(totalVault);
-      document.getElementById('vaultTrueWealthVal').innerText = fmt(trueWealth);
+      animateNumber(document.getElementById('vaultTotalWithdrawnVal'), totalVault, true, false);
+      animateNumber(document.getElementById('vaultTrueWealthVal'), trueWealth, true, false);
       document.getElementById('vaultLogsCount').innerText = `${vaultLedger.length} Deposits`;
 
       const goal = milestoneConfig.targetGoal || 1500;
@@ -2868,20 +3270,20 @@ service cloud.firestore {
       const seedPct = Math.min(100, (totalVault / 120) * 100);
       badgeSeedEl.className = `p-4 rounded-2xl border transition-all space-y-2 ${
         seedRecouped 
-          ? 'bg-[#607B5B]/10 border-[#607B5B]/40 dark:bg-[#8CA887]/15 dark:border-[#8CA887]/40' 
+          ? 'bg-[#607B5B]/10 border-[#607B5B]/40 dark:bg-[#789272]/15 dark:border-[#789272]/40' 
           : 'bg-[#F5EBDD] dark:bg-[#41382D] border-[#CFC1AA] dark:border-[#514638]'
       }`;
       badgeSeedEl.innerHTML = `
         <div class="flex items-center justify-between">
-          <span class="text-xs font-extrabold uppercase tracking-wider ${seedRecouped ? 'text-[#607B5B] dark:text-[#8CA887]' : 'text-[#716556] dark:text-[#B4A58F]'}">
+          <span class="text-xs font-extrabold uppercase tracking-wider ${seedRecouped ? 'text-[#607B5B] dark:text-[#789272]' : 'text-[#716556] dark:text-[#B4A58F]'}">
             Step 1: Recoup Start
           </span>
           <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${
             seedRecouped 
-              ? 'bg-[#607B5B] text-[#F5EBDD] dark:bg-[#8CA887] dark:text-[#29241E]' 
+              ? 'bg-[#607B5B] text-[#F5EBDD] dark:bg-[#789272] dark:text-[#29241E]' 
               : 'bg-[#CFC1AA]/40 text-[#716556] dark:bg-[#514638]/60 dark:text-[#B4A58F]'
           }">
-            ${seedRecouped ? '✅ Recouped' : `${seedPct.toFixed(0)}%`}
+            ${seedRecouped ? '<span class="inline-flex items-center gap-1"><svg class="w-2.5 h-2.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Recouped</span></span>' : `${seedPct.toFixed(0)}%`}
           </span>
         </div>
         <div class="text-lg font-black font-num text-[#332B22] dark:text-[#E2D4BD]">$120.00 Initial Deposit</div>
@@ -2895,20 +3297,20 @@ service cloud.firestore {
       const bufferPct = Math.min(100, (totalVault / 500) * 100);
       badgeBufferEl.className = `p-4 rounded-2xl border transition-all space-y-2 ${
         bufferSecured 
-          ? 'bg-[#607B5B]/10 border-[#607B5B]/40 dark:bg-[#8CA887]/15 dark:border-[#8CA887]/40' 
+          ? 'bg-[#607B5B]/10 border-[#607B5B]/40 dark:bg-[#789272]/15 dark:border-[#789272]/40' 
           : 'bg-[#F5EBDD] dark:bg-[#41382D] border-[#CFC1AA] dark:border-[#514638]'
       }`;
       badgeBufferEl.innerHTML = `
         <div class="flex items-center justify-between">
-          <span class="text-xs font-extrabold uppercase tracking-wider ${bufferSecured ? 'text-[#607B5B] dark:text-[#8CA887]' : 'text-[#716556] dark:text-[#B4A58F]'}">
+          <span class="text-xs font-extrabold uppercase tracking-wider ${bufferSecured ? 'text-[#607B5B] dark:text-[#789272]' : 'text-[#716556] dark:text-[#B4A58F]'}">
             Step 2: Safety Cushion
           </span>
           <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${
             bufferSecured 
-              ? 'bg-[#607B5B] text-[#F5EBDD] dark:bg-[#8CA887] dark:text-[#29241E]' 
+              ? 'bg-[#607B5B] text-[#F5EBDD] dark:bg-[#789272] dark:text-[#29241E]' 
               : 'bg-[#CFC1AA]/40 text-[#716556] dark:bg-[#514638]/60 dark:text-[#B4A58F]'
           }">
-            ${bufferSecured ? '🛡️ Cushion Saved' : `${bufferPct.toFixed(0)}%`}
+            ${bufferSecured ? '<span class="inline-flex items-center gap-1"><svg class="w-2.5 h-2.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Cushion Saved</span></span>' : `${bufferPct.toFixed(0)}%`}
           </span>
         </div>
         <div class="text-lg font-black font-num text-[#332B22] dark:text-[#E2D4BD]">$500.00 Cushion</div>
@@ -2921,20 +3323,20 @@ service cloud.firestore {
       const badgeGoalEl = document.getElementById('badgeGoalCleared');
       badgeGoalEl.className = `p-4 rounded-2xl border transition-all space-y-2 ${
         goalCleared 
-          ? 'bg-[#D98A6C]/15 border-[#D98A6C]/40 dark:bg-[#E09A7E]/20 dark:border-[#E09A7E]/40' 
+          ? 'bg-[#C98278]/15 border-[#C98278]/40 dark:bg-[#D99B91]/20 dark:border-[#D99B91]/40' 
           : 'bg-[#F5EBDD] dark:bg-[#41382D] border-[#CFC1AA] dark:border-[#514638]'
       }`;
       badgeGoalEl.innerHTML = `
         <div class="flex items-center justify-between">
-          <span class="text-xs font-extrabold uppercase tracking-wider ${goalCleared ? 'text-[#D98A6C] dark:text-[#E09A7E]' : 'text-[#716556] dark:text-[#B4A58F]'}">
+          <span class="text-xs font-extrabold uppercase tracking-wider ${goalCleared ? 'text-[#C98278] dark:text-[#D99B91]' : 'text-[#716556] dark:text-[#B4A58F]'}">
             Step 3: Target Goal
           </span>
           <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${
             goalCleared 
-              ? 'bg-[#D98A6C] text-[#F5EBDD] dark:bg-[#E09A7E] dark:text-[#29241E]' 
+              ? 'bg-[#C98278] text-[#F5EBDD] dark:bg-[#D99B91] dark:text-[#29241E]' 
               : 'bg-[#CFC1AA]/40 text-[#716556] dark:bg-[#514638]/60 dark:text-[#B4A58F]'
           }">
-            ${goalCleared ? '🎉 Goal Achieved' : `${pct.toFixed(0)}%`}
+            ${goalCleared ? '<span class="inline-flex items-center gap-1"><svg class="w-2.5 h-2.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Goal Achieved</span></span>' : `${pct.toFixed(0)}%`}
           </span>
         </div>
         <div class="text-lg font-black font-num text-[#332B22] dark:text-[#E2D4BD]">${fmt(goal)} Target</div>
@@ -2947,8 +3349,14 @@ service cloud.firestore {
       if (vaultLedger.length === 0) {
         list.innerHTML = `
           <div class="text-center py-8 text-[#716556] dark:text-[#B4A58F]">
-            <span class="text-2xl block mb-1">🏦</span>
-            <span class="font-medium text-xs text-[#332B22] dark:text-[#E2D4BD]">No deposits in Vault yet.</span>
+            <div class="w-12 h-12 mx-auto mb-2 rounded-2xl bg-[#C98278]/10 text-[#C98278] dark:bg-[#D99B91]/15 dark:text-[#D99B91] flex items-center justify-center">
+              <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 9h12l-1.5 10a2 2 0 0 1-2 2h-5a2 2 0 0 1-2-2L6 9z" />
+                <path d="M9 5a3 3 0 0 1 6 0v4H9V5z" />
+                <circle cx="12" cy="14" r="1.5" />
+              </svg>
+            </div>
+            <span class="font-bold text-xs text-[#332B22] dark:text-[#E2D4BD] block">No deposits in Vault yet.</span>
             <p class="text-[11px] text-[#716556] dark:text-[#B4A58F] mt-0.5">Use the form on the left or the savings reminder on the tracker to bank profits.</p>
           </div>
         `;
@@ -2958,16 +3366,19 @@ service cloud.firestore {
       list.innerHTML = vaultLedger.slice().reverse().map(item => `
         <div class="flex items-center justify-between p-3 rounded-2xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] transition">
           <div class="flex items-center gap-3">
-            <div class="w-8 h-8 rounded-xl bg-[#A96745]/15 text-[#A96745] dark:bg-[#CB8561]/20 dark:text-[#CB8561] border border-[#A96745]/30 dark:border-[#CB8561]/30 flex items-center justify-center font-bold text-xs font-num">
+            <div class="w-8 h-8 rounded-xl bg-[#C98278]/15 text-[#C98278] dark:bg-[#D99B91]/20 dark:text-[#D99B91] border border-[#C98278]/30 dark:border-[#D99B91]/30 flex items-center justify-center font-bold text-xs font-num">
               $
             </div>
             <div>
-              <div class="font-bold text-[#A96745] dark:text-[#CB8561] font-num text-sm">${fmt(item.amount)}</div>
+              <div class="font-bold text-[#C98278] dark:text-[#D99B91] font-num text-sm">${fmt(item.amount)}</div>
               <div class="text-[11px] text-[#716556] dark:text-[#B4A58F]">${fmtTimestamp(item.dateTime)} • Desk at ${fmt(item.deskAfter)} • ${item.note}</div>
             </div>
           </div>
-          <button onclick="deleteVaultRecord(${item.id})" class="text-[#B86652] hover:text-[#9E5544] dark:text-[#D47F6C] dark:hover:text-[#E5AFA3] text-xs font-bold px-2.5 py-1 rounded-xl bg-[#B86652]/10 dark:bg-[#D47F6C]/15 border border-[#B86652]/30 dark:border-[#D47F6C]/30 transition active:scale-95">
-            ✕
+          <button onclick="deleteVaultRecord(${item.id})" class="text-[#B86652] hover:text-[#A75542] dark:text-[#C77B68] dark:hover:text-[#D99281] p-1.5 rounded-xl bg-[#B86652]/10 dark:bg-[#C77B68]/15 border border-[#B86652]/30 dark:border-[#C77B68]/30 transition active:scale-95 flex items-center justify-center" title="Delete record">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
           </button>
         </div>
       `).join('');
@@ -3115,8 +3526,19 @@ service cloud.firestore {
 
     function showToast(msg, isSuccess = true) {
       const toast = document.getElementById('toastBox');
-      document.getElementById('toastMsg').innerText = msg;
-      document.getElementById('toastIcon').innerText = isSuccess ? "✓" : "!";
+      const toastMsg = document.getElementById('toastMsg');
+      const toastIcon = document.getElementById('toastIcon');
+      if (toastMsg) toastMsg.innerText = msg;
+      if (toastIcon) {
+        toastIcon.className = `w-4 h-4 rounded-full flex items-center justify-center shrink-0 ${
+          isSuccess 
+            ? 'bg-[#607B5B] dark:bg-[#789272] text-[#F5EBDD] dark:text-[#29241E]' 
+            : 'bg-[#B86652] dark:bg-[#C77B68] text-[#F5EBDD] dark:text-[#29241E]'
+        }`;
+        toastIcon.innerHTML = isSuccess 
+          ? '<svg class="w-2.5 h-2.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>'
+          : '<svg class="w-2.5 h-2.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>';
+      }
       toast.classList.remove('opacity-0', 'translate-y-24');
       toast.classList.add('opacity-100', 'translate-y-0');
 
@@ -3255,7 +3677,7 @@ function doGet(e) {
         localStorage.setItem('pgl_firebase_cfg_v9', JSON.stringify(config));
         localStorage.setItem('pgl_sync_key_v9', syncKey);
         updateCloudStatus();
-        if (isManual) showToast("Connected to Firestore! Realtime multi-device sync active 🔥");
+        if (isManual) showToast("Connected to Firestore! Realtime multi-device sync active");
         return true;
       } catch (err) {
         console.error("Firebase init error:", err);
@@ -3391,7 +3813,7 @@ service cloud.firestore {
   }
 }`;
       navigator.clipboard.writeText(rules).then(() => {
-        showToast("Firestore rules copied to clipboard! 📋");
+        showToast("Firestore rules copied to clipboard!");
       }).catch(() => {
         const temp = document.createElement("textarea");
         temp.value = rules;
@@ -3399,7 +3821,7 @@ service cloud.firestore {
         temp.select();
         document.execCommand('copy');
         document.body.removeChild(temp);
-        showToast("Firestore rules copied! 📋");
+        showToast("Firestore rules copied!");
       });
     }
 
@@ -3419,7 +3841,7 @@ service cloud.firestore {
           badge.innerText = 'Connected';
           badge.className = 'text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-[#C2984D]/15 text-[#C2984D] dark:bg-[#DEB76C]/20 dark:text-[#DEB76C] border border-[#C2984D]/30 dark:border-[#DEB76C]/30 font-num';
         }
-        if (feedback) feedback.innerText = `🔥 Live realtime sync active on portfolio key: "${savedKey}"`;
+        if (feedback) feedback.innerText = `Live realtime sync active on portfolio key: "${savedKey}"`;
         if (disconnectBtn) disconnectBtn.classList.remove('hidden');
         if (cfgInput && !cfgInput.value) cfgInput.value = savedCfg;
       } else {
@@ -3503,13 +3925,13 @@ service cloud.firestore {
       
       localStorage.setItem('pgl_last_export_v9', new Date().toISOString());
       updateCloudStatus();
-      showToast("Excel spreadsheet exported! 📊");
+      showToast("Excel spreadsheet exported!");
     }
 
     function createNewGoogleSheet() {
       copySessionTable();
       window.open('https://sheets.new', '_blank');
-      showToast("New Google Sheet opened! Press Ctrl+V to paste your data 📄");
+      showToast("New Google Sheet opened! Press Ctrl+V to paste your data");
     }
 
     function copyAppsScriptCode() {
@@ -3519,7 +3941,7 @@ service cloud.firestore {
       temp.select();
       document.execCommand('copy');
       document.body.removeChild(temp);
-      showToast("Google Apps Script code copied to clipboard! 📋");
+      showToast("Google Apps Script code copied to clipboard!");
     }
 
     async function saveAndTestWebhook() {
@@ -3592,7 +4014,7 @@ service cloud.firestore {
         const nowStr = new Date().toISOString();
         localStorage.setItem('pgl_last_sync_v9', nowStr);
         updateCloudStatus();
-        if (isManual) showToast("Synced to Google Sheet! ☁️");
+        if (isManual) showToast("Synced to Google Sheet!");
       } catch (err) {
         console.error("Cloud sync error:", err);
         updateCloudStatus('error');
@@ -3626,7 +4048,10 @@ service cloud.firestore {
               <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#C2984D] dark:bg-[#DEB76C] opacity-75"></span>
               <span class="relative inline-flex rounded-full h-2 w-2 bg-[#C2984D] dark:bg-[#DEB76C]"></span>
             </span>
-            <span>🔥 Firestore Live</span>
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2c.5 3 2.5 5 4.5 7.5A8 8 0 1 1 5 13c0-3 2-6 7-11z" />
+            </svg>
+            <span>Firestore Live</span>
           </span>
         `;
       } else if (webhookUrl) {
@@ -3636,21 +4061,36 @@ service cloud.firestore {
               <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#617D91] dark:bg-[#86A5BC] opacity-75"></span>
               <span class="relative inline-flex rounded-full h-2 w-2 bg-[#617D91] dark:bg-[#86A5BC]"></span>
             </span>
-            <span>☁️ Sheet Synced</span>
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z" />
+            </svg>
+            <span>Sheet Synced</span>
           </span>
         `;
       } else if (lastExport) {
         pill.innerHTML = `
           <span title="Last exported to Excel: ${fmtTimestamp(lastExport)}" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl text-xs font-semibold text-[#716556] dark:text-[#B4A58F] bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638]">
             <span class="w-1.5 h-1.5 rounded-full bg-[#A96745] dark:bg-[#CB8561]"></span>
-            <span>☁️ Excel Exported</span>
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+              <polyline points="14 2 14 8 20 8" />
+              <line x1="8" y1="13" x2="16" y2="13" />
+              <line x1="8" y1="17" x2="16" y2="17" />
+            </svg>
+            <span>Excel Exported</span>
           </span>
         `;
       } else {
         pill.innerHTML = `
           <span title="Click to connect Firebase or Google Sheets" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl text-xs font-semibold text-[#716556] dark:text-[#B4A58F] bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638]">
             <span class="w-1.5 h-1.5 rounded-full bg-[#B4A58F]"></span>
-            <span>☁️ Local Only</span>
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="8" rx="2" ry="2" />
+              <rect x="2" y="14" width="20" height="8" rx="2" ry="2" />
+              <line x1="6" y1="6" x2="6.01" y2="6" />
+              <line x1="6" y1="18" x2="6.01" y2="18" />
+            </svg>
+            <span>Local Only</span>
           </span>
         `;
       }
@@ -3658,6 +4098,7 @@ service cloud.firestore {
 
     window.onload = function() {
       applyTheme(currentTheme);
+      initOrganicParticles();
 
       // Initialize Firebase if configured
       const savedFirebaseCfg = localStorage.getItem('pgl_firebase_cfg_v9');
@@ -3677,7 +4118,9 @@ service cloud.firestore {
 
       const btn = document.getElementById('btnToggleAllPaces');
       if (btn) {
-        btn.innerHTML = showAllPacesInTable ? "<span>⚡ Focused View</span>" : "<span>📊 Show All Paces</span>";
+        btn.innerHTML = showAllPacesInTable 
+          ? `<svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg><span>Focused View</span>` 
+          : `<svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10" /><line x1="12" y1="20" x2="12" y2="4" /><line x1="6" y1="20" x2="6" y2="14" /></svg><span>Show All Paces</span>`;
       }
 
       updateCloudStatus();

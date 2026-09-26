@@ -2128,6 +2128,9 @@ service cloud.firestore {
       { s: 28, r: 7000.00, m: 12600.00, a: 17500.00, milestone: "Final Finish Line" }
     ];
 
+    /* Built-In Firebase Configuration (Auto-syncs across all devices out of the box) */
+    const BUILTIN_FIREBASE_CONFIG = null;
+
     // Automatic Wipeout of Legacy Data from Previous Challenges
     if (localStorage.getItem('pgl_schema_version') !== 'v10') {
       try {
@@ -4959,12 +4962,13 @@ service cloud.firestore {
       applyTheme(currentTheme);
       initOrganicParticles();
 
-      // Initialize Firebase if configured
+      // Initialize Firebase if configured (locally saved or built-in)
       const savedFirebaseCfg = localStorage.getItem('pgl_firebase_cfg_v10');
       const savedSyncKey = localStorage.getItem('pgl_sync_key_v10') || 'dcniper_portfolio';
-      if (savedFirebaseCfg) {
+      const activeFirebaseCfg = savedFirebaseCfg ? JSON.parse(savedFirebaseCfg) : BUILTIN_FIREBASE_CONFIG;
+      if (activeFirebaseCfg && activeFirebaseCfg.apiKey) {
         try {
-          initFirebase(JSON.parse(savedFirebaseCfg), savedSyncKey, false);
+          initFirebase(activeFirebaseCfg, savedSyncKey, false);
         } catch(e) {
           console.error("Firebase auto-init error:", e);
         }

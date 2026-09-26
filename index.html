@@ -466,16 +466,21 @@
           <!-- Column 2 (Cols 7-12): Today's PnL & Weekly Progression -->
           <div class="lg:col-span-6 p-5 sm:p-6 flex flex-col justify-between space-y-4 bg-[#F0E6D5]/40 dark:bg-[#352E25]/30">
             
-            <!-- Top Half: Today's Profit / Loss -->
-            <div class="space-y-1.5 pb-4 border-b border-[#CFC1AA] dark:border-[#514638]">
+            <!-- Top Half: Today's Profit / Loss or Suggestive Goal -->
+            <div class="space-y-3 pb-4 border-b border-[#CFC1AA] dark:border-[#514638]">
               <div class="flex items-center justify-between gap-2 flex-wrap">
-                <div class="flex items-center gap-1.5 flex-wrap">
-                  <span class="text-xs font-bold uppercase tracking-wider text-[#716556] dark:text-[#B4A58F]">
-                    Today's Profit / Loss
-                  </span>
-                  <span class="text-xs font-num font-semibold text-[#716556] dark:text-[#B4A58F]">
-                    • Goal: <strong id="sessionTargetValDisplay" class="text-[#332B22] dark:text-[#E2D4BD]">$120.00</strong>
-                  </span>
+                <!-- Segmented Tabs for Today's Card -->
+                <div class="inline-flex items-center p-0.5 rounded-lg bg-[#E8DDC9] dark:bg-[#29241E] border border-[#CFC1AA] dark:border-[#514638] gap-1">
+                  <button type="button" onclick="switchTodayCardTab('pnl')" id="todayTabBtn_pnl"
+                    class="px-2.5 py-1 rounded-md text-xs font-bold transition flex items-center gap-1 bg-[#F5EBDD] dark:bg-[#41382D] text-[#332B22] dark:text-[#E2D4BD] shadow-xs">
+                    <span>📈</span>
+                    <span>Today's PnL</span>
+                  </button>
+                  <button type="button" onclick="switchTodayCardTab('suggestive')" id="todayTabBtn_suggestive"
+                    class="px-2.5 py-1 rounded-md text-xs font-bold transition flex items-center gap-1 text-[#716556] dark:text-[#B4A58F] hover:text-[#332B22] dark:hover:text-[#E2D4BD]">
+                    <span>🍑</span>
+                    <span>Payment Goal</span>
+                  </button>
                 </div>
 
                 <!-- Calendar View Switcher Button in Console Hub -->
@@ -486,18 +491,73 @@
                 </button>
               </div>
 
-              <div class="flex items-baseline gap-3">
-                <div class="text-3xl sm:text-4xl font-black font-num tracking-tight text-[#332B22] dark:text-[#E2D4BD]" id="sessionPnlDollar">
-                  $0.00
+              <!-- VIEW A: Today's Profit / Loss -->
+              <div id="todayCardView_pnl" class="space-y-1.5">
+                <div class="flex items-center gap-1.5 flex-wrap">
+                  <span class="text-xs font-bold uppercase tracking-wider text-[#716556] dark:text-[#B4A58F]">
+                    Session PnL
+                  </span>
+                  <span class="text-xs font-num font-semibold text-[#716556] dark:text-[#B4A58F]">
+                    • Pace Goal: <strong id="sessionTargetValDisplay" class="text-[#332B22] dark:text-[#E2D4BD]">$120.00</strong>
+                  </span>
                 </div>
-                <div class="text-sm font-bold font-num" id="sessionPnlPct">
-                  0.00% today
+
+                <div class="flex items-baseline gap-3">
+                  <div class="text-3xl sm:text-4xl font-black font-num tracking-tight text-[#332B22] dark:text-[#E2D4BD]" id="sessionPnlDollar">
+                    $0.00
+                  </div>
+                  <div class="text-sm font-bold font-num" id="sessionPnlPct">
+                    0.00% today
+                  </div>
+                </div>
+
+                <p class="text-xs text-[#716556] dark:text-[#B4A58F] font-medium pt-1" id="sessionPnlVibe">
+                  🌱 Clean slate! Enter today's closing balance to see your score.
+                </p>
+              </div>
+
+              <!-- VIEW B: Suggestive Payment Goal (Peach Theme) -->
+              <div id="todayCardView_suggestive" class="hidden space-y-2.5 p-3 sm:p-3.5 rounded-xl bg-[#D98A6C]/10 dark:bg-[#E09A7E]/15 border border-[#D98A6C]/30 dark:border-[#E09A7E]/30">
+                <div class="flex items-center justify-between flex-wrap gap-1">
+                  <div class="flex items-center gap-1.5">
+                    <span class="text-base">🍑</span>
+                    <span class="text-xs font-extrabold text-[#D98A6C] dark:text-[#E09A7E]">
+                      Suggestive Surplus Target
+                    </span>
+                  </div>
+                  <span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-[#D98A6C]/20 text-[#D98A6C] dark:bg-[#E09A7E]/25 dark:text-[#F6D0C3] border border-[#D98A6C]/30 dark:border-[#E09A7E]/30 shadow-xs">
+                    Suggestive Guide
+                  </span>
+                </div>
+
+                <div class="grid grid-cols-2 gap-2">
+                  <div class="p-2.5 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#D98A6C]/20 dark:border-[#E09A7E]/20">
+                    <span class="text-[9px] uppercase font-bold text-[#716556] dark:text-[#B4A58F] block">Suggested Desk</span>
+                    <span class="text-lg sm:text-xl font-black font-num text-[#D98A6C] dark:text-[#E09A7E]" id="suggestiveDeskTargetVal">$120.00</span>
+                    <span class="text-[10px] text-[#716556] dark:text-[#B4A58F] block mt-0.5" id="suggestiveDeskSubtext">Base + daily surplus</span>
+                  </div>
+                  <div class="p-2.5 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#D98A6C]/20 dark:border-[#E09A7E]/20">
+                    <span class="text-[9px] uppercase font-bold text-[#716556] dark:text-[#B4A58F] block">Daily Surplus Rate</span>
+                    <span class="text-lg sm:text-xl font-black font-num text-[#D98A6C] dark:text-[#E09A7E]" id="suggestiveDailyRateVal">+$0.00/day</span>
+                    <span class="text-[10px] text-[#716556] dark:text-[#B4A58F] block mt-0.5" id="suggestiveRateSubtext">To hit deadline</span>
+                  </div>
+                </div>
+
+                <div class="flex items-center justify-between text-[11px] text-[#716556] dark:text-[#B4A58F] pt-2 border-t border-[#D98A6C]/20 dark:border-[#E09A7E]/20 flex-wrap gap-2">
+                  <span id="suggestiveDeadlineStatusText" class="font-medium">
+                    30 days remaining • $1,500.00 goal
+                  </span>
+                  <div class="flex items-center gap-2">
+                    <button type="button" onclick="triggerQuickSkimPrompt()" class="px-2.5 py-1 rounded-lg bg-[#D98A6C] hover:bg-[#C97B5D] text-[#F5EBDD] dark:bg-[#E09A7E] dark:hover:bg-[#CF8B6F] dark:text-[#29241E] font-bold text-xs transition active:scale-95 shadow-xs">
+                      Quick Skim &rarr;
+                    </button>
+                    <button type="button" onclick="switchTab('milestones')" class="font-bold text-[#716556] dark:text-[#B4A58F] hover:text-[#332B22] dark:hover:text-[#E2D4BD] transition text-xs">
+                      Vault ⚙️
+                    </button>
+                  </div>
                 </div>
               </div>
 
-              <p class="text-xs text-[#716556] dark:text-[#B4A58F] font-medium pt-1" id="sessionPnlVibe">
-                🌱 Clean slate! Enter today's closing balance to see your score.
-              </p>
             </div>
 
             <!-- Bottom Half: Weekly Milestone Progress -->
@@ -584,18 +644,27 @@
               </span>
             </div>
 
-            <div class="py-0.5">
-              <div class="text-xl sm:text-2xl font-black font-num text-[#607B5B] dark:text-[#8CA887]" id="targetValRelaxed">
-                $120.00
+            <!-- Target Port Size & Target Day PnL -->
+            <div class="grid grid-cols-2 gap-2 pt-0.5">
+              <div class="p-2 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA]/50 dark:border-[#514638]/50">
+                <span class="text-[9px] uppercase font-bold tracking-wider text-[#716556] dark:text-[#B4A58F] block">Target Port</span>
+                <div class="text-base sm:text-lg font-black font-num text-[#607B5B] dark:text-[#8CA887]" id="targetValRelaxed">
+                  $120.00
+                </div>
               </div>
-              <div class="text-xs font-semibold mt-0.5" id="targetStatusRelaxed">
-                Goal Met
+              <div class="p-2 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA]/50 dark:border-[#514638]/50">
+                <span class="text-[9px] uppercase font-bold tracking-wider text-[#716556] dark:text-[#B4A58F] block">Day Target PnL</span>
+                <div class="text-base sm:text-lg font-black font-num text-[#607B5B] dark:text-[#8CA887]" id="targetPnlRelaxed">
+                  +$0.00
+                </div>
               </div>
             </div>
 
-            <p class="text-[10px] sm:text-[11px] text-[#716556] dark:text-[#B4A58F] pt-2 border-t border-[#CFC1AA]/60 dark:border-[#514638]/60">
-              Chill &amp; steady growth. Minimal drawdown stress, great for choppy conditions.
-            </p>
+            <div class="pt-1.5 border-t border-[#CFC1AA]/60 dark:border-[#514638]/60 flex items-center justify-between">
+              <span class="text-xs font-semibold font-num" id="targetStatusRelaxed">
+                Goal Met
+              </span>
+            </div>
           </div>
 
           <!-- Target Box 2: Mid (Yellow) -->
@@ -613,18 +682,27 @@
               </span>
             </div>
 
-            <div class="py-0.5">
-              <div class="text-xl sm:text-2xl font-black font-num text-[#C2984D] dark:text-[#DEB76C]" id="targetValMid">
-                $120.00
+            <!-- Target Port Size & Target Day PnL -->
+            <div class="grid grid-cols-2 gap-2 pt-0.5">
+              <div class="p-2 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA]/50 dark:border-[#514638]/50">
+                <span class="text-[9px] uppercase font-bold tracking-wider text-[#716556] dark:text-[#B4A58F] block">Target Port</span>
+                <div class="text-base sm:text-lg font-black font-num text-[#C2984D] dark:text-[#DEB76C]" id="targetValMid">
+                  $120.00
+                </div>
               </div>
-              <div class="text-xs font-semibold mt-0.5" id="targetStatusMid">
-                Goal Met
+              <div class="p-2 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA]/50 dark:border-[#514638]/50">
+                <span class="text-[9px] uppercase font-bold tracking-wider text-[#716556] dark:text-[#B4A58F] block">Day Target PnL</span>
+                <div class="text-base sm:text-lg font-black font-num text-[#C2984D] dark:text-[#DEB76C]" id="targetPnlMid">
+                  +$0.00
+                </div>
               </div>
             </div>
 
-            <p class="text-[10px] sm:text-[11px] text-[#716556] dark:text-[#B4A58F] pt-2 border-t border-[#CFC1AA]/60 dark:border-[#514638]/60">
-              The sweet spot. Balanced growth sprint for solid setups without reckless trades.
-            </p>
+            <div class="pt-1.5 border-t border-[#CFC1AA]/60 dark:border-[#514638]/60 flex items-center justify-between">
+              <span class="text-xs font-semibold font-num" id="targetStatusMid">
+                Goal Met
+              </span>
+            </div>
           </div>
 
           <!-- Target Box 3: Aggressive (Purple) -->
@@ -642,56 +720,93 @@
               </span>
             </div>
 
-            <div class="py-0.5">
-              <div class="text-xl sm:text-2xl font-black font-num text-[#806A73] dark:text-[#A8909A]" id="targetValAggressive">
-                $120.00
-              </div>
-              <div class="text-xs font-semibold mt-0.5" id="targetStatusAggressive">
-                Goal Met
-              </div>
-            </div>
-
-            <p class="text-[10px] sm:text-[11px] text-[#716556] dark:text-[#B4A58F] pt-2 border-t border-[#CFC1AA]/60 dark:border-[#514638]/60">
-              High turbo compounding. Fast-lane compounding suited for trending A+ setups.
-            </p>
-          </div>
-
-          <!-- Target Box 4: Financial Requirement (Peach) -->
-          <div id="paceCard_finreq" onclick="setPace('finreq')" class="bento-card p-4 sm:p-5 cursor-pointer transition-all border border-[#D98A6C]/40 dark:border-[#E09A7E]/40 bg-[#D98A6C]/10 dark:bg-[#E09A7E]/10 hover:border-[#D98A6C] dark:hover:border-[#E09A7E] hover:shadow-md space-y-2.5">
-            <div class="flex items-center justify-between">
-              <div class="flex items-center gap-2">
-                <span class="text-lg">🍑</span>
-                <div>
-                  <h5 class="text-xs sm:text-sm font-extrabold text-[#D98A6C] dark:text-[#E09A7E]">Payment Req</h5>
-                  <span class="text-[10px] text-[#716556] dark:text-[#B4A58F] font-semibold" id="finReqGoalBadge">$1,500 Goal</span>
+            <!-- Target Port Size & Target Day PnL -->
+            <div class="grid grid-cols-2 gap-2 pt-0.5">
+              <div class="p-2 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA]/50 dark:border-[#514638]/50">
+                <span class="text-[9px] uppercase font-bold tracking-wider text-[#716556] dark:text-[#B4A58F] block">Target Port</span>
+                <div class="text-base sm:text-lg font-black font-num text-[#806A73] dark:text-[#A8909A]" id="targetValAggressive">
+                  $120.00
                 </div>
               </div>
-              <div class="flex items-center gap-1.5">
-                <span id="paceActiveBadge_finreq" class="hidden px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-[#D98A6C] text-[#F5EBDD] dark:bg-[#E09A7E] dark:text-[#29241E] shadow-sm">
-                  Active
-                </span>
-                <span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-[#D98A6C]/20 text-[#D98A6C] dark:bg-[#E09A7E]/25 dark:text-[#F6D0C3] border border-[#D98A6C]/30 dark:border-[#E09A7E]/30 shadow-xs">
-                  Suggestive
-                </span>
+              <div class="p-2 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA]/50 dark:border-[#514638]/50">
+                <span class="text-[9px] uppercase font-bold tracking-wider text-[#716556] dark:text-[#B4A58F] block">Day Target PnL</span>
+                <div class="text-base sm:text-lg font-black font-num text-[#806A73] dark:text-[#A8909A]" id="targetPnlAggressive">
+                  +$0.00
+                </div>
               </div>
             </div>
 
-            <div class="py-0.5">
-              <div class="text-xl sm:text-2xl font-black font-num text-[#D98A6C] dark:text-[#E09A7E]" id="targetValFinReq">
-                $120.00
-              </div>
-              <div class="text-xs font-semibold mt-0.5 text-[#D98A6C] dark:text-[#E09A7E]" id="targetStatusFinReq">
-                Pacing Guide
-              </div>
-            </div>
-
-            <div class="flex items-center justify-between pt-2 border-t border-[#D98A6C]/30 dark:border-[#E09A7E]/30 text-[10px] sm:text-[11px]">
-              <span class="text-[#716556] dark:text-[#B4A58F] truncate" id="targetFinReqDesc">
-                Surplus guide to bank for your deadline without forcing trades.
+            <div class="pt-1.5 border-t border-[#CFC1AA]/60 dark:border-[#514638]/60 flex items-center justify-between">
+              <span class="text-xs font-semibold font-num" id="targetStatusAggressive">
+                Goal Met
               </span>
-              <button type="button" onclick="event.stopPropagation(); switchTab('milestones')" class="shrink-0 font-bold text-[#D98A6C] dark:text-[#E09A7E] hover:underline ml-1">
-                Vault ⚙️
-              </button>
+            </div>
+          </div>
+
+          <!-- Target Box 4: Mountain Peak Summit Progress -->
+          <div id="paceCard_mountain" onclick="showMountainProgressToast()" class="bento-card p-4 sm:p-5 cursor-pointer transition-all border border-[#CFC1AA] dark:border-[#514638] bg-[#F0E6D5] dark:bg-[#352E25] hover:border-[#607B5B] dark:hover:border-[#8CA887] hover:shadow-md space-y-2 flex flex-col justify-between">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="text-lg">🏔️</span>
+                <div>
+                  <h5 class="text-xs sm:text-sm font-extrabold text-[#332B22] dark:text-[#E2D4BD]">Summit Climb</h5>
+                  <span class="text-[10px] text-[#716556] dark:text-[#B4A58F] font-semibold" id="mountainPaceLabel">Relaxed Peak</span>
+                </div>
+              </div>
+              <span id="mountainPctBadge" class="px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase font-num tracking-wider bg-[#607B5B]/15 text-[#607B5B] dark:bg-[#8CA887]/20 dark:text-[#8CA887] border border-[#607B5B]/30 dark:border-[#8CA887]/30 shadow-xs">
+                0.0%
+              </span>
+            </div>
+
+            <!-- Fun Mountain SVG Illustration with dynamic trail progress -->
+            <div class="relative w-full h-[68px] sm:h-[74px] overflow-hidden rounded-xl bg-[#E8DDC9]/50 dark:bg-[#29241E]/50 border border-[#CFC1AA]/40 dark:border-[#514638]/40">
+              <svg viewBox="0 0 200 85" class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                <!-- Background Mountain Silhouette -->
+                <polygon points="10,85 70,38 125,85" fill="#CFC1AA" class="dark:fill-[#41382D] opacity-40" />
+                <polygon points="85,85 145,30 195,85" fill="#B4A58F" class="dark:fill-[#514638] opacity-50" />
+                
+                <!-- Main Foreground Mountain -->
+                <polygon points="25,85 130,16 190,85" fill="#A96745" class="dark:fill-[#8A5F46] opacity-35" />
+                <polygon points="75,85 130,16 160,85" fill="#8A5F46" class="dark:fill-[#716556] opacity-45" />
+
+                <!-- Snow / Sun Cap on Main Peak -->
+                <polygon points="120,29 130,16 142,29 136,32 130,28 124,32" fill="#F5EBDD" class="dark:fill-[#E2D4BD] opacity-90" />
+
+                <!-- Summit Flag 🚩 at (130, 16) -->
+                <line x1="130" y1="16" x2="130" y2="7" stroke="#716556" stroke-width="1.5" stroke-linecap="round" />
+                <polygon points="130,7 138,10 130,13" fill="#B86652" class="dark:fill-[#D47F6C]" />
+
+                <!-- Base Camp Tent ⛺ at (25, 78) -->
+                <polygon points="20,82 25,74 30,82" fill="#607B5B" class="dark:fill-[#8CA887]" />
+
+                <!-- Trail Background Route (Dashed) -->
+                <path id="mountainTrailBg" d="M 25 78 Q 55 75 70 62 T 100 44 T 130 18" fill="none" stroke="#716556" class="dark:stroke-[#B4A58F] opacity-30" stroke-width="2" stroke-dasharray="3,3" stroke-linecap="round" />
+
+                <!-- Dynamic Active Progress Line -->
+                <path id="mountainTrailActive" d="M 25 78 Q 55 75 70 62 T 100 44 T 130 18" fill="none" stroke="#607B5B" class="dark:stroke-[#8CA887]" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="140" stroke-dashoffset="140" />
+
+                <!-- Climber Marker (Circle) positioned dynamically -->
+                <g id="mountainClimberGroup" transform="translate(25, 78)">
+                  <circle r="4" fill="#607B5B" class="dark:fill-[#8CA887] shadow-sm" />
+                  <circle r="2" fill="#F5EBDD" class="dark:fill-[#29241E]" />
+                </g>
+
+                <!-- Base and Summit Labels in SVG -->
+                <text x="8" y="73" class="text-[7.5px] font-bold font-num fill-[#716556] dark:fill-[#B4A58F]">$120</text>
+                <text x="142" y="14" id="mountainSummitSvgLabel" class="text-[7.5px] font-bold font-num fill-[#332B22] dark:fill-[#E2D4BD]">$7k Peak</text>
+              </svg>
+            </div>
+
+            <!-- Elevation & Distance Stats -->
+            <div class="pt-1.5 border-t border-[#CFC1AA]/60 dark:border-[#514638]/60 flex items-center justify-between text-[11px] font-num">
+              <div>
+                <span class="text-[9px] uppercase font-bold text-[#716556] dark:text-[#B4A58F] block">Elevation</span>
+                <span class="font-extrabold text-[#332B22] dark:text-[#E2D4BD]" id="mountainCurrentElevation">$120.00</span>
+              </div>
+              <div class="text-right">
+                <span class="text-[9px] uppercase font-bold text-[#716556] dark:text-[#B4A58F] block">To Summit</span>
+                <span class="font-bold text-[#607B5B] dark:text-[#8CA887]" id="mountainRemainingElevation">+$6,880.00</span>
+              </div>
             </div>
           </div>
 
@@ -2018,72 +2133,56 @@ service cloud.firestore {
       const mVal = ladderRow.m !== undefined ? ladderRow.m : ladderRow.target * 1.15;
       const aVal = ladderRow.a !== undefined ? ladderRow.a : ladderRow.target * 1.30;
 
-      // 1. Relaxed Box
-      document.getElementById('targetValRelaxed').innerText = fmt(rVal);
-      const diffRelaxed = currentDesk - rVal;
+      // 1. Relaxed Box (Target Port & Day Target PnL)
+      const rTarget = rVal;
+      const rPnl = rTarget - prevDesk;
+      const rPnlPct = prevDesk > 0 ? (rPnl / prevDesk) * 100 : 0;
+      document.getElementById('targetValRelaxed').innerText = fmt(rTarget);
+      document.getElementById('targetPnlRelaxed').innerText = `${rPnl >= 0 ? '+' : ''}${fmt(rPnl)} (${rPnlPct.toFixed(1)}%)`;
+      const diffRelaxed = currentDesk - rTarget;
       const statusRelaxedEl = document.getElementById('targetStatusRelaxed');
       if (diffRelaxed >= 0) {
-        statusRelaxedEl.innerText = `✅ Target Met (+${fmt(diffRelaxed)})`;
+        statusRelaxedEl.innerText = `✅ Goal Met (+${fmt(diffRelaxed)})`;
         statusRelaxedEl.className = "text-xs font-extrabold font-num text-[#607B5B] dark:text-[#8CA887]";
       } else {
         statusRelaxedEl.innerText = `🎯 Needs +${fmt(Math.abs(diffRelaxed))} to hit`;
         statusRelaxedEl.className = "text-xs font-semibold font-num text-[#716556] dark:text-[#B4A58F]";
       }
 
-      // 2. Mid Box
-      document.getElementById('targetValMid').innerText = fmt(mVal);
-      const diffMid = currentDesk - mVal;
+      // 2. Mid Box (Target Port & Day Target PnL)
+      const mTarget = mVal;
+      const mPnl = mTarget - prevDesk;
+      const mPnlPct = prevDesk > 0 ? (mPnl / prevDesk) * 100 : 0;
+      document.getElementById('targetValMid').innerText = fmt(mTarget);
+      document.getElementById('targetPnlMid').innerText = `${mPnl >= 0 ? '+' : ''}${fmt(mPnl)} (${mPnlPct.toFixed(1)}%)`;
+      const diffMid = currentDesk - mTarget;
       const statusMidEl = document.getElementById('targetStatusMid');
       if (diffMid >= 0) {
-        statusMidEl.innerText = `✅ Target Met (+${fmt(diffMid)})`;
+        statusMidEl.innerText = `✅ Goal Met (+${fmt(diffMid)})`;
         statusMidEl.className = "text-xs font-extrabold font-num text-[#C2984D] dark:text-[#DEB76C]";
       } else {
         statusMidEl.innerText = `🎯 Needs +${fmt(Math.abs(diffMid))} to hit`;
         statusMidEl.className = "text-xs font-semibold font-num text-[#716556] dark:text-[#B4A58F]";
       }
 
-      // 3. Aggressive Box
-      document.getElementById('targetValAggressive').innerText = fmt(aVal);
-      const diffAgg = currentDesk - aVal;
+      // 3. Aggressive Box (Target Port & Day Target PnL)
+      const aTarget = aVal;
+      const aPnl = aTarget - prevDesk;
+      const aPnlPct = prevDesk > 0 ? (aPnl / prevDesk) * 100 : 0;
+      document.getElementById('targetValAggressive').innerText = fmt(aTarget);
+      document.getElementById('targetPnlAggressive').innerText = `${aPnl >= 0 ? '+' : ''}${fmt(aPnl)} (${aPnlPct.toFixed(1)}%)`;
+      const diffAgg = currentDesk - aTarget;
       const statusAggEl = document.getElementById('targetStatusAggressive');
       if (diffAgg >= 0) {
-        statusAggEl.innerText = `✅ Target Met (+${fmt(diffAgg)})`;
+        statusAggEl.innerText = `✅ Goal Met (+${fmt(diffAgg)})`;
         statusAggEl.className = "text-xs font-extrabold font-num text-[#806A73] dark:text-[#A8909A]";
       } else {
         statusAggEl.innerText = `🎯 Needs +${fmt(Math.abs(diffAgg))} to hit`;
         statusAggEl.className = "text-xs font-semibold font-num text-[#716556] dark:text-[#B4A58F]";
       }
 
-      // 4. Financial Requirement Box (Peach)
-      const finReq = getFinancialRequirementMetrics();
-      const finReqTarget = Number((rVal + finReq.dailyRateNeeded).toFixed(2));
-      document.getElementById('targetValFinReq').innerText = fmt(finReqTarget);
-      document.getElementById('finReqGoalBadge').innerText = `${fmt(finReq.goal)} Goal`;
-
-      const statusFinReqEl = document.getElementById('targetStatusFinReq');
-      const descFinReqEl = document.getElementById('targetFinReqDesc');
-      const diffFinReq = currentDesk - finReqTarget;
-
-      if (finReq.isAchieved) {
-        statusFinReqEl.innerText = `🎉 Goal Met! (${fmt(finReq.totalVault)} Banked)`;
-        statusFinReqEl.className = "text-xs font-extrabold font-num text-[#607B5B] dark:text-[#8CA887]";
-        descFinReqEl.innerText = `Full ${fmt(finReq.goal)} secured into Vault. Maintain relaxed pace!`;
-      } else if (diffFinReq >= 0) {
-        statusFinReqEl.innerText = `✅ Surplus Available (+${fmt(diffFinReq)})`;
-        statusFinReqEl.className = "text-xs font-extrabold font-num text-[#D98A6C] dark:text-[#E09A7E]";
-        descFinReqEl.innerText = `Ready to skim ${fmt(finReq.dailyRateNeeded)} surplus into Vault if trades allow.`;
-      } else {
-        statusFinReqEl.innerText = `🍑 +${fmt(finReq.dailyRateNeeded)}/day surplus guide`;
-        statusFinReqEl.className = "text-xs font-semibold font-num text-[#716556] dark:text-[#B4A58F]";
-        if (finReq.daysLeft !== null) {
-          descFinReqEl.innerText = `${finReq.daysLeft > 0 ? finReq.daysLeft + ' days left' : 'Due today'} • ${fmt(finReq.remainingToBank)} remaining to bank.`;
-        } else {
-          descFinReqEl.innerText = `Pacing for ${fmt(finReq.remainingToBank)} remaining. Set deadline in Vault tab.`;
-        }
-      }
-
-      // Update Active Border & Badges on the 4 boxes
-      ['relaxed', 'mid', 'aggressive', 'finreq'].forEach(p => {
+      // Update Active Border & Badges on the 3 pace boxes
+      ['relaxed', 'mid', 'aggressive'].forEach(p => {
         const card = document.getElementById(`paceCard_${p}`);
         const badge = document.getElementById(`paceActiveBadge_${p}`);
         if (card && badge) {
@@ -2092,17 +2191,85 @@ service cloud.firestore {
             if (p === 'relaxed') card.className = "bento-card p-4 sm:p-5 cursor-pointer transition-all border-2 border-[#607B5B] dark:border-[#8CA887] bg-[#607B5B]/10 dark:bg-[#8CA887]/15 shadow-warm-md space-y-2.5";
             if (p === 'mid') card.className = "bento-card p-4 sm:p-5 cursor-pointer transition-all border-2 border-[#C2984D] dark:border-[#DEB76C] bg-[#C2984D]/10 dark:bg-[#DEB76C]/15 shadow-warm-md space-y-2.5";
             if (p === 'aggressive') card.className = "bento-card p-4 sm:p-5 cursor-pointer transition-all border-2 border-[#806A73] dark:border-[#A8909A] bg-[#806A73]/10 dark:bg-[#A8909A]/15 shadow-warm-md space-y-2.5";
-            if (p === 'finreq') card.className = "bento-card p-4 sm:p-5 cursor-pointer transition-all border-2 border-[#D98A6C] dark:border-[#E09A7E] bg-[#D98A6C]/15 dark:bg-[#E09A7E]/20 shadow-warm-md space-y-2.5";
           } else {
             badge.classList.add('hidden');
-            if (p === 'finreq') {
-              card.className = "bento-card p-4 sm:p-5 cursor-pointer transition-all border border-[#D98A6C]/40 dark:border-[#E09A7E]/40 bg-[#D98A6C]/10 dark:bg-[#E09A7E]/10 hover:border-[#D98A6C] dark:hover:border-[#E09A7E] hover:shadow-md space-y-2.5";
-            } else {
-              card.className = "bento-card p-4 sm:p-5 cursor-pointer transition-all border border-[#CFC1AA] dark:border-[#514638] hover:border-[#B4A58F] dark:hover:border-[#716556] hover:bg-[#F0E6D5]/60 dark:hover:bg-[#352E25]/60 space-y-2.5";
-            }
+            card.className = "bento-card p-4 sm:p-5 cursor-pointer transition-all border border-[#CFC1AA] dark:border-[#514638] hover:border-[#B4A58F] dark:hover:border-[#716556] hover:bg-[#F0E6D5]/60 dark:hover:bg-[#352E25]/60 space-y-2.5";
           }
         }
       });
+
+      // 4. Mountain Peak Summit Progress Box
+      let peak = 7000;
+      let paceTitle = 'Relaxed Peak';
+      let trailColor = '#607B5B';
+      if (currentPace === 'mid') {
+        peak = 12600;
+        paceTitle = 'Mid Peak';
+        trailColor = '#C2984D';
+      } else if (currentPace === 'aggressive') {
+        peak = 17500;
+        paceTitle = 'Aggressive Peak';
+        trailColor = '#806A73';
+      }
+
+      const mountainProgressPct = Math.min(100, Math.max(0, (trueWealth / peak) * 100));
+      const remainingToSummit = Math.max(0, peak - trueWealth);
+
+      const mountainPaceLabelEl = document.getElementById('mountainPaceLabel');
+      if (mountainPaceLabelEl) mountainPaceLabelEl.innerText = `${paceTitle}: ${fmt(peak)}`;
+
+      const mountainPctBadgeEl = document.getElementById('mountainPctBadge');
+      if (mountainPctBadgeEl) mountainPctBadgeEl.innerText = `${mountainProgressPct.toFixed(1)}% Climbed`;
+
+      const mountainCurrentElevationEl = document.getElementById('mountainCurrentElevation');
+      if (mountainCurrentElevationEl) mountainCurrentElevationEl.innerText = fmt(trueWealth);
+
+      const mountainRemainingElevationEl = document.getElementById('mountainRemainingElevation');
+      if (mountainRemainingElevationEl) {
+        mountainRemainingElevationEl.innerText = remainingToSummit <= 0 ? '🎉 Summit Reached!' : `+${fmt(remainingToSummit)} to peak`;
+      }
+
+      const mountainSummitSvgLabelEl = document.getElementById('mountainSummitSvgLabel');
+      if (mountainSummitSvgLabelEl) mountainSummitSvgLabelEl.innerText = `${fmt(peak)} Peak`;
+
+      // Update SVG active trail stroke and climber marker position
+      const activeTrail = document.getElementById('mountainTrailActive');
+      if (activeTrail) {
+        if (typeof activeTrail.setAttribute === 'function') activeTrail.setAttribute('stroke', trailColor);
+        const totalLen = (typeof activeTrail.getTotalLength === 'function') ? activeTrail.getTotalLength() : 140;
+        const currentLen = totalLen * (mountainProgressPct / 100);
+        activeTrail.style.strokeDasharray = `${totalLen}`;
+        activeTrail.style.strokeDashoffset = `${Math.max(0, totalLen - currentLen)}`;
+
+        if (typeof activeTrail.getPointAtLength === 'function') {
+          const pt = activeTrail.getPointAtLength(currentLen);
+          const climber = document.getElementById('mountainClimberGroup');
+          if (climber && pt && typeof climber.setAttribute === 'function') {
+            climber.setAttribute('transform', `translate(${pt.x}, ${pt.y})`);
+          }
+        }
+      }
+
+      // Update Suggestive Payment Goal View in Today's Card
+      const finReq = getFinancialRequirementMetrics();
+      const suggestedDesk = Number((rVal + finReq.dailyRateNeeded).toFixed(2));
+
+      const sugDeskEl = document.getElementById('suggestiveDeskTargetVal');
+      if (sugDeskEl) sugDeskEl.innerText = fmt(suggestedDesk);
+
+      const sugRateEl = document.getElementById('suggestiveDailyRateVal');
+      if (sugRateEl) sugRateEl.innerText = `+${fmt(finReq.dailyRateNeeded)}/day`;
+
+      const sugDeadText = document.getElementById('suggestiveDeadlineStatusText');
+      if (sugDeadText) {
+        if (finReq.isAchieved) {
+          sugDeadText.innerText = `🎉 100% of ${fmt(finReq.goal)} goal banked!`;
+        } else if (finReq.deadlineStr) {
+          sugDeadText.innerText = `${finReq.daysLeft > 0 ? finReq.daysLeft + ' days left' : 'Due today'} • ${fmt(finReq.remainingToBank)} remaining to goal`;
+        } else {
+          sugDeadText.innerText = `${finReq.sessionsRemaining} sessions left in ladder • ${fmt(finReq.remainingToBank)} to bank`;
+        }
+      }
 
       // Financial Milestone Skim Alert Logic
       const skimAlert = document.getElementById('skimAlertBox');
@@ -2176,6 +2343,42 @@ service cloud.firestore {
         `;
         grid.appendChild(card);
       });
+    }
+
+    /* Today's Card Sub-Tabs (Today's PnL vs Suggestive Payment Goal) */
+    let activeTodayCardTab = localStorage.getItem('pgl_today_card_tab_v1') || 'pnl';
+
+    function switchTodayCardTab(tab) {
+      activeTodayCardTab = tab;
+      localStorage.setItem('pgl_today_card_tab_v1', tab);
+
+      const btnPnl = document.getElementById('todayTabBtn_pnl');
+      const btnSug = document.getElementById('todayTabBtn_suggestive');
+      const viewPnl = document.getElementById('todayCardView_pnl');
+      const viewSug = document.getElementById('todayCardView_suggestive');
+
+      if (!btnPnl || !btnSug || !viewPnl || !viewSug) return;
+
+      if (tab === 'suggestive') {
+        viewPnl.classList.add('hidden');
+        viewSug.classList.remove('hidden');
+        btnSug.className = "px-2.5 py-1 rounded-md text-xs font-bold transition flex items-center gap-1 bg-[#D98A6C] text-[#F5EBDD] dark:bg-[#E09A7E] dark:text-[#29241E] shadow-xs";
+        btnPnl.className = "px-2.5 py-1 rounded-md text-xs font-bold transition flex items-center gap-1 text-[#716556] dark:text-[#B4A58F] hover:text-[#332B22] dark:hover:text-[#E2D4BD]";
+      } else {
+        viewPnl.classList.remove('hidden');
+        viewSug.classList.add('hidden');
+        btnPnl.className = "px-2.5 py-1 rounded-md text-xs font-bold transition flex items-center gap-1 bg-[#F5EBDD] dark:bg-[#41382D] text-[#332B22] dark:text-[#E2D4BD] shadow-xs";
+        btnSug.className = "px-2.5 py-1 rounded-md text-xs font-bold transition flex items-center gap-1 text-[#716556] dark:text-[#B4A58F] hover:text-[#332B22] dark:hover:text-[#E2D4BD]";
+      }
+    }
+
+    function showMountainProgressToast() {
+      const peak = currentPace === 'relaxed' ? 7000 : (currentPace === 'mid' ? 12600 : 17500);
+      const totalVault = getTotalVaultWithdrawn();
+      const currentDesk = getDeskBalance(currentSession);
+      const trueWealth = currentDesk + totalVault;
+      const pct = ((trueWealth / peak) * 100).toFixed(1);
+      showToast(`Summit Climb: ${fmt(trueWealth)} of ${fmt(peak)} reached (${pct}% to peak) 🏔️`);
     }
 
     /* Multi-Widget Console Hub Switching & Calendar Functions */
@@ -3605,6 +3808,7 @@ service cloud.firestore {
       }
 
       updateCloudStatus();
+      switchTodayCardTab(activeTodayCardTab);
       switchWidgetTab(activeWidgetTab);
       renderTracker();
       renderMilestonesTab();

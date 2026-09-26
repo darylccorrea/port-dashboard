@@ -18,108 +18,117 @@
           },
           colors: {
             // Prevent pure white/black leaks
-            white: '#FFFDF8', // warm white
-            black: '#29231D', // deep espresso
+            white: '#F5EBDD', // warm white
+            black: '#29241E', // deep espresso
 
             // Naturalist Accents (Light / Dark)
             nat: {
-              green: '#557A5B',
-              'green-dark': '#7FA57E',
-              red: '#B65C52',
-              'red-dark': '#D77C70',
-              yellow: '#C49A45',
-              'yellow-dark': '#D9B765',
-              blue: '#587A94',
-              'blue-dark': '#7EA5BF',
-              purple: '#80698F',
-              'purple-dark': '#A88BB5',
-              orange: '#B87948',
-              'orange-dark': '#D39A67'
+              green: '#607B5B',
+              'green-dark': '#8CA887',
+              red: '#B86652',
+              'red-dark': '#D47F6C',
+              yellow: '#C2984D',
+              'yellow-dark': '#DEB76C',
+              blue: '#617D91',
+              'blue-dark': '#86A5BC',
+              purple: '#806A73',
+              'purple-dark': '#A8909A',
+              orange: '#A96745',
+              'orange-dark': '#CB8561'
             },
 
             // Earthy Foundation Neutrals
+            secondary: '#DCD0BB',
             stone: {
-              50: '#FFFDF8',  // Light elevated surface
-              100: '#FAF7F0', // Light primary surface / card
-              200: '#DDD3C3', // Light border / divider
-              300: '#DDD3C3',
-              400: '#B9AC99', // Dark secondary text
-              500: '#756B5D', // Light secondary text
-              600: '#55483A',
-              700: '#55483A', // Dark border / divider
-              800: '#40362C', // Dark elevated surface
-              900: '#352D25', // Dark primary surface / card
-              950: '#29231D'  // Dark page background
+              50: '#F5EBDD',  // Light elevated surface
+              100: '#F0E6D5', // Light primary surface / card
+              200: '#CFC1AA', // Light border / divider
+              250: '#DCD0BB', // Light secondary neutral
+              300: '#CFC1AA',
+              400: '#B4A58F', // Dark secondary text
+              500: '#716556', // Light secondary text
+              600: '#514638',
+              700: '#514638', // Dark border / divider
+              800: '#41382D', // Dark elevated surface
+              900: '#352E25', // Dark primary surface / card
+              950: '#29241E'  // Dark page background
             },
+
+            // Minor Decorative Organic Accents
+            olive: '#737653',
+            cedar: '#8A5F46',
+            rust: '#A96745',
+            sand: '#CBB58F',
+            fern: '#71856A',
 
             // Semantic Aliases for backwards compatibility & clean utility usage
             sage: {
-              50: 'rgba(85, 122, 91, 0.08)',
-              100: 'rgba(85, 122, 91, 0.15)',
-              200: '#C3DAC8',
-              300: '#9CBF9D',
-              400: '#7FA57E', // Dark Green
-              500: '#557A5B', // Light Green
-              600: '#46664B',
-              700: '#38523C',
-              800: '#2A3D2D',
-              900: 'rgba(127, 165, 126, 0.20)',
-              950: '#1D2A1F'
+              50: 'rgba(96, 123, 91, 0.08)',
+              100: 'rgba(96, 123, 91, 0.15)',
+              200: '#CADBCA',
+              300: '#A4BFA2',
+              400: '#8CA887', // Dark Green
+              500: '#607B5B', // Light Green
+              600: '#4F674B',
+              700: '#3C4F3B',
+              800: '#283827',
+              900: 'rgba(140, 168, 135, 0.20)',
+              950: '#1D261C'
             },
             clay: {
-              50: 'rgba(184, 121, 72, 0.08)',
-              100: 'rgba(184, 121, 72, 0.15)',
-              200: '#E9CBB2',
-              300: '#DCB08C',
-              400: '#D39A67', // Dark Orange
-              500: '#B87948', // Light Orange
-              600: '#9E6236',
-              700: '#7E4C27',
-              800: '#5F381B',
-              900: 'rgba(211, 154, 103, 0.20)',
-              950: '#2A170A'
+              50: 'rgba(169, 103, 69, 0.08)',
+              100: 'rgba(169, 103, 69, 0.15)',
+              200: '#E5C6B1',
+              300: '#D7AB8F',
+              400: '#CB8561', // Dark Orange
+              500: '#A96745', // Light Orange
+              600: '#96593B',
+              700: '#7A4725',
+              800: '#5A341B',
+              900: 'rgba(203, 133, 97, 0.20)',
+              950: '#28170B'
             },
             terracotta: {
-              50: 'rgba(182, 92, 82, 0.08)',
-              100: 'rgba(182, 92, 82, 0.15)',
-              200: '#F6C3BC',
-              300: '#EAA096',
-              400: '#D77C70', // Dark Red
-              500: '#B65C52', // Light Red
-              600: '#9D4A41',
-              700: '#7F3A32',
-              800: '#5F2B25',
-              900: 'rgba(215, 124, 112, 0.20)',
-              950: '#2D1411'
+              50: 'rgba(184, 102, 82, 0.08)',
+              100: 'rgba(184, 102, 82, 0.15)',
+              200: '#E5AFA3',
+              300: '#DC9588',
+              400: '#D47F6C', // Dark Red
+              500: '#B86652', // Light Red
+              600: '#9E5544',
+              700: '#7E3E33',
+              800: '#5E2F26',
+              900: 'rgba(212, 127, 108, 0.20)',
+              950: '#2C1713'
             },
             amber: {
-              50: 'rgba(196, 154, 69, 0.08)',
-              100: 'rgba(196, 154, 69, 0.15)',
-              200: '#ECDAA8',
-              300: '#E3C97E',
-              400: '#D9B765', // Dark Yellow
-              500: '#C49A45', // Light Yellow
-              600: '#A98132',
-              700: '#866424',
-              800: '#634819',
-              900: 'rgba(217, 183, 101, 0.20)',
-              950: '#2C2009'
+              50: 'rgba(194, 152, 77, 0.08)',
+              100: 'rgba(194, 152, 77, 0.15)',
+              200: '#E8D5A2',
+              300: '#DEC37A',
+              400: '#DEB76C', // Dark Yellow
+              500: '#C2984D', // Light Yellow
+              600: '#A6803F',
+              700: '#87672B',
+              800: '#63491E',
+              900: 'rgba(222, 183, 108, 0.20)',
+              950: '#2B200C'
             },
             blue: {
-              50: 'rgba(88, 122, 148, 0.08)',
-              100: 'rgba(88, 122, 148, 0.15)',
-              400: '#7EA5BF', // Dark Blue
-              500: '#587A94', // Light Blue
-              600: '#476378',
-              700: '#384E5E'
+              50: 'rgba(97, 125, 145, 0.08)',
+              100: 'rgba(97, 125, 145, 0.15)',
+              400: '#86A5BC', // Dark Blue
+              500: '#617D91', // Light Blue
+              600: '#4C6374',
+              700: '#3C4E5A'
             },
             purple: {
-              50: 'rgba(128, 105, 143, 0.08)',
-              100: 'rgba(128, 105, 143, 0.15)',
-              400: '#A88BB5', // Dark Purple
-              500: '#80698F', // Light Purple
-              600: '#6B5777',
-              700: '#55455F'
+              50: 'rgba(128, 106, 115, 0.08)',
+              100: 'rgba(128, 106, 115, 0.15)',
+              400: '#A8909A', // Dark Purple
+              500: '#806A73', // Light Purple
+              600: '#6C5962',
+              700: '#54444C'
             }
           }
         }
@@ -138,57 +147,73 @@
 
   <style>
     :root {
-      /* Earthy Foundation (Light Mode) */
-      --bg-canvas: #F3EDE1;
-      --bg-card: #FAF7F0;
-      --bg-elevated: #FFFDF8;
-      --text-primary: #302A22;
-      --text-secondary: #756B5D;
-      --border-divider: #DDD3C3;
+      /* Earthy Organic Foundation (Light Mode) */
+      --bg-canvas: #E8DDC9;
+      --bg-card: #F0E6D5;
+      --bg-elevated: #F5EBDD;
+      --bg-secondary: #DCD0BB;
+      --text-primary: #332B22;
+      --text-secondary: #716556;
+      --border-divider: #CFC1AA;
 
-      /* Muted Naturalist Accents (Light Mode) */
-      --accent-green: #557A5B;
-      --accent-red: #B65C52;
-      --accent-yellow: #C49A45;
-      --accent-blue: #587A94;
-      --accent-purple: #80698F;
-      --accent-orange: #B87948;
+      /* Semantic Natural Accents (Light Mode) */
+      --accent-green: #607B5B;
+      --accent-red: #B86652;
+      --accent-yellow: #C2984D;
+      --accent-blue: #617D91;
+      --accent-purple: #806A73;
+      --accent-orange: #A96745;
 
-      --accent-green-tint: rgba(85, 122, 91, 0.10);
-      --accent-red-tint: rgba(182, 92, 82, 0.10);
-      --accent-yellow-tint: rgba(196, 154, 69, 0.12);
-      --accent-blue-tint: rgba(88, 122, 148, 0.10);
-      --accent-purple-tint: rgba(128, 105, 143, 0.10);
-      --accent-orange-tint: rgba(184, 121, 72, 0.10);
+      /* Minor Decorative Colors */
+      --accent-olive: #737653;
+      --accent-cedar: #8A5F46;
+      --accent-rust: #A96745;
+      --accent-sand: #CBB58F;
+      --accent-fern: #71856A;
 
-      --shadow-warm-sm: 0 1px 3px 0 rgba(48, 42, 34, 0.04);
-      --shadow-warm-md: 0 4px 16px -2px rgba(48, 42, 34, 0.05), 0 2px 4px -1px rgba(48, 42, 34, 0.03);
-      --shadow-warm-lg: 0 12px 28px -4px rgba(48, 42, 34, 0.08);
+      --accent-green-tint: rgba(96, 123, 91, 0.10);
+      --accent-red-tint: rgba(184, 102, 82, 0.10);
+      --accent-yellow-tint: rgba(194, 152, 77, 0.12);
+      --accent-blue-tint: rgba(97, 125, 145, 0.10);
+      --accent-purple-tint: rgba(128, 106, 115, 0.10);
+      --accent-orange-tint: rgba(169, 103, 69, 0.10);
+
+      --shadow-warm-sm: 0 1px 3px 0 rgba(51, 43, 34, 0.04);
+      --shadow-warm-md: 0 4px 16px -2px rgba(51, 43, 34, 0.05), 0 2px 4px -1px rgba(51, 43, 34, 0.03);
+      --shadow-warm-lg: 0 12px 28px -4px rgba(51, 43, 34, 0.08);
     }
 
     .dark {
-      /* Earthy Foundation (Dark Mode) */
-      --bg-canvas: #29231D;
-      --bg-card: #352D25;
-      --bg-elevated: #40362C;
-      --text-primary: #F1E8D8;
-      --text-secondary: #B9AC99;
-      --border-divider: #55483A;
+      /* Earthy Organic Foundation (Dark Mode) */
+      --bg-canvas: #29241E;
+      --bg-card: #352E25;
+      --bg-elevated: #41382D;
+      --bg-secondary: #3B3329;
+      --text-primary: #E2D4BD;
+      --text-secondary: #B4A58F;
+      --border-divider: #514638;
 
-      /* Muted Naturalist Accents (Dark Mode) */
-      --accent-green: #7FA57E;
-      --accent-red: #D77C70;
-      --accent-yellow: #D9B765;
-      --accent-blue: #7EA5BF;
-      --accent-purple: #A88BB5;
-      --accent-orange: #D39A67;
+      /* Semantic Natural Accents (Dark Mode) */
+      --accent-green: #8CA887;
+      --accent-red: #D47F6C;
+      --accent-yellow: #DEB76C;
+      --accent-blue: #86A5BC;
+      --accent-purple: #A8909A;
+      --accent-orange: #CB8561;
 
-      --accent-green-tint: rgba(127, 165, 126, 0.15);
-      --accent-red-tint: rgba(215, 124, 112, 0.15);
-      --accent-yellow-tint: rgba(217, 183, 101, 0.18);
-      --accent-blue-tint: rgba(126, 165, 191, 0.15);
-      --accent-purple-tint: rgba(168, 139, 181, 0.15);
-      --accent-orange-tint: rgba(211, 154, 103, 0.15);
+      /* Minor Decorative Colors (Dark Mode) */
+      --accent-olive: #929570;
+      --accent-cedar: #A87B60;
+      --accent-rust: #CB8561;
+      --accent-sand: #D7C4A1;
+      --accent-fern: #8CA384;
+
+      --accent-green-tint: rgba(140, 168, 135, 0.15);
+      --accent-red-tint: rgba(212, 127, 108, 0.15);
+      --accent-yellow-tint: rgba(222, 183, 108, 0.18);
+      --accent-blue-tint: rgba(134, 165, 188, 0.15);
+      --accent-purple-tint: rgba(168, 144, 154, 0.15);
+      --accent-orange-tint: rgba(203, 133, 97, 0.15);
 
       --shadow-warm-sm: 0 1px 3px 0 rgba(18, 14, 11, 0.35);
       --shadow-warm-md: 0 4px 16px -2px rgba(18, 14, 11, 0.45);
@@ -272,28 +297,28 @@
     }
   </script>
 </head>
-<body class="min-h-screen pb-20 selection:bg-[#DDD3C3] dark:selection:bg-[#55483A] selection:text-[#302A22] dark:selection:text-[#F1E8D8]">
+<body class="min-h-screen pb-20 selection:bg-[#CFC1AA] dark:selection:bg-[#514638] selection:text-[#332B22] dark:selection:text-[#E2D4BD]">
 
   <main class="max-w-6xl mx-auto px-4 sm:px-6 pt-5 sm:pt-8 space-y-5 sm:space-y-6">
 
     <!-- Top Bento Header -->
     <header class="bento-card p-4 sm:p-5 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
       <div class="flex items-center gap-3.5">
-        <div class="w-11 h-11 rounded-xl bg-[#557A5B]/15 text-[#557A5B] dark:bg-[#7FA57E]/20 dark:text-[#7FA57E] border border-[#557A5B]/30 dark:border-[#7FA57E]/30 flex items-center justify-center text-xl shadow-sm shrink-0">
+        <div class="w-11 h-11 rounded-xl bg-[#607B5B]/15 text-[#607B5B] dark:bg-[#8CA887]/20 dark:text-[#8CA887] border border-[#607B5B]/30 dark:border-[#8CA887]/30 flex items-center justify-center text-xl shadow-sm shrink-0">
           🎯
         </div>
         <div>
           <div class="flex items-center gap-2 flex-wrap">
-            <h1 class="text-xl sm:text-2xl font-black tracking-tight text-[#302A22] dark:text-[#F1E8D8]">
+            <h1 class="text-xl sm:text-2xl font-black tracking-tight text-[#332B22] dark:text-[#E2D4BD]">
               Welcome Dcniper 👋
             </h1>
-            <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold bg-[#557A5B]/10 text-[#557A5B] border border-[#557A5B]/30 dark:bg-[#7FA57E]/15 dark:text-[#7FA57E] dark:border-[#7FA57E]/30">
-              <span class="w-1.5 h-1.5 rounded-full bg-[#557A5B] dark:bg-[#7FA57E] animate-pulse"></span>
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold bg-[#607B5B]/10 text-[#607B5B] border border-[#607B5B]/30 dark:bg-[#8CA887]/15 dark:text-[#8CA887] dark:border-[#8CA887]/30">
+              <span class="w-1.5 h-1.5 rounded-full bg-[#607B5B] dark:bg-[#8CA887] animate-pulse"></span>
               <span id="headerLiveDate">26th September</span>
             </span>
           </div>
-          <p class="text-xs text-[#756B5D] dark:text-[#B9AC99] mt-1 flex items-center gap-2 flex-wrap">
-            <span class="font-bold text-[#302A22] dark:text-[#F1E8D8]">Session <span id="headerSessionNum">1</span> of <span id="headerTotalSessions">28</span></span>
+          <p class="text-xs text-[#716556] dark:text-[#B4A58F] mt-1 flex items-center gap-2 flex-wrap">
+            <span class="font-bold text-[#332B22] dark:text-[#E2D4BD]">Session <span id="headerSessionNum">1</span> of <span id="headerTotalSessions">28</span></span>
             <span class="opacity-40">•</span>
             <span id="headerActiveLadderName" class="font-medium">28-Session Compounding Challenge</span>
             <span class="opacity-40">•</span>
@@ -306,40 +331,40 @@
       <div class="flex items-center gap-2.5 flex-wrap">
         
         <!-- Header Status Bar: Cloud Sync + Link Sheet -->
-        <div class="inline-flex items-center gap-1.5 p-1 rounded-xl bg-[#FFFDF8] dark:bg-[#40362C] border border-[#DDD3C3] dark:border-[#55483A] shadow-sm">
+        <div class="inline-flex items-center gap-1.5 p-1 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] shadow-sm">
           <!-- Cloud Status Indicator -->
           <div id="cloudStatusPill" onclick="openLinkSheetModal()" class="cursor-pointer">
             <!-- Dynamically rendered -->
           </div>
 
           <!-- Link Sheet Button -->
-          <button onclick="openLinkSheetModal()" id="btnLinkSheet" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#587A94] hover:bg-[#48667D] text-[#FFFDF8] dark:bg-[#7EA5BF] dark:hover:bg-[#6C93AD] dark:text-[#29231D] font-bold text-xs transition active:scale-95 shadow-sm">
+          <button onclick="openLinkSheetModal()" id="btnLinkSheet" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#617D91] hover:bg-[#506879] text-[#F5EBDD] dark:bg-[#86A5BC] dark:hover:bg-[#7492A7] dark:text-[#29241E] font-bold text-xs transition active:scale-95 shadow-sm">
             <span>📊</span>
             <span>Link Sheet</span>
           </button>
         </div>
 
         <!-- Vault Cash Chip -->
-        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-[#B87948]/10 dark:bg-[#D39A67]/15 border border-[#B87948]/30 dark:border-[#D39A67]/30 text-xs font-semibold shadow-sm font-num">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-[#A96745]/10 dark:bg-[#CB8561]/15 border border-[#A96745]/30 dark:border-[#CB8561]/30 text-xs font-semibold shadow-sm font-num">
           <span class="text-sm">🏦</span>
           <div>
-            <span class="text-[#756B5D] dark:text-[#B9AC99] uppercase text-[9px] font-bold block tracking-wider">Piggy Bank</span>
-            <span id="headerVaultBalance" class="text-[#B87948] dark:text-[#D39A67] font-black text-xs sm:text-sm">$0.00</span>
+            <span class="text-[#716556] dark:text-[#B4A58F] uppercase text-[9px] font-bold block tracking-wider">Piggy Bank</span>
+            <span id="headerVaultBalance" class="text-[#A96745] dark:text-[#CB8561] font-black text-xs sm:text-sm">$0.00</span>
           </div>
         </div>
 
         <!-- True Wealth Chip -->
-        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-[#557A5B]/10 dark:bg-[#7FA57E]/15 border border-[#557A5B]/30 dark:border-[#7FA57E]/30 text-xs font-semibold shadow-sm font-num">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-[#607B5B]/10 dark:bg-[#8CA887]/15 border border-[#607B5B]/30 dark:border-[#8CA887]/30 text-xs font-semibold shadow-sm font-num">
           <span class="text-sm">💰</span>
           <div>
-            <span class="text-[#756B5D] dark:text-[#B9AC99] uppercase text-[9px] font-bold block tracking-wider">Total Wealth</span>
-            <span id="headerTrueWealth" class="text-[#557A5B] dark:text-[#7FA57E] font-black text-xs sm:text-sm">$120.00</span>
+            <span class="text-[#716556] dark:text-[#B4A58F] uppercase text-[9px] font-bold block tracking-wider">Total Wealth</span>
+            <span id="headerTrueWealth" class="text-[#607B5B] dark:text-[#8CA887] font-black text-xs sm:text-sm">$120.00</span>
           </div>
         </div>
 
         <!-- Light / Dark Mode Toggle -->
         <button onclick="toggleTheme()" id="themeToggleBtn" title="Toggle Light / Dark mode"
-          class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#FFFDF8] hover:bg-[#FAF7F0] dark:bg-[#40362C] dark:hover:bg-[#352D25] border border-[#DDD3C3] dark:border-[#55483A] text-[#302A22] dark:text-[#F1E8D8] transition active:scale-95 text-xs font-bold shadow-sm">
+          class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#F5EBDD] hover:bg-[#F0E6D5] dark:bg-[#41382D] dark:hover:bg-[#352E25] border border-[#CFC1AA] dark:border-[#514638] text-[#332B22] dark:text-[#E2D4BD] transition active:scale-95 text-xs font-bold shadow-sm">
           <span class="text-sm">🌙</span>
           <span class="hidden sm:inline">Theme</span>
         </button>
@@ -348,17 +373,17 @@
 
     <!-- Bento Segmented Navigation Tabs -->
     <nav class="flex items-center justify-between gap-3">
-      <div class="inline-flex p-1 rounded-xl bg-[#FAF7F0] dark:bg-[#352D25] border border-[#DDD3C3] dark:border-[#55483A] text-xs font-bold w-full sm:w-auto shadow-sm">
-        <button onclick="switchTab('tracker')" id="nav-tracker" class="flex-1 sm:flex-initial px-5 sm:px-7 py-2 rounded-lg transition-all flex items-center justify-center gap-2 bg-[#FFFDF8] dark:bg-[#40362C] text-[#302A22] dark:text-[#F1E8D8] border border-[#DDD3C3] dark:border-[#55483A] shadow-sm">
+      <div class="inline-flex p-1 rounded-xl bg-[#F0E6D5] dark:bg-[#352E25] border border-[#CFC1AA] dark:border-[#514638] text-xs font-bold w-full sm:w-auto shadow-sm">
+        <button onclick="switchTab('tracker')" id="nav-tracker" class="flex-1 sm:flex-initial px-5 sm:px-7 py-2 rounded-lg transition-all flex items-center justify-center gap-2 bg-[#F5EBDD] dark:bg-[#41382D] text-[#332B22] dark:text-[#E2D4BD] border border-[#CFC1AA] dark:border-[#514638] shadow-sm">
           <span>📈</span>
           <span>Daily Tracker</span>
         </button>
-        <button onclick="switchTab('milestones')" id="nav-milestones" class="flex-1 sm:flex-initial px-5 sm:px-7 py-2 rounded-lg transition-all flex items-center justify-center gap-2 text-[#756B5D] dark:text-[#B9AC99] hover:text-[#302A22] dark:hover:text-[#F1E8D8]">
+        <button onclick="switchTab('milestones')" id="nav-milestones" class="flex-1 sm:flex-initial px-5 sm:px-7 py-2 rounded-lg transition-all flex items-center justify-center gap-2 text-[#716556] dark:text-[#B4A58F] hover:text-[#332B22] dark:hover:text-[#E2D4BD]">
           <span>🏦</span>
           <span>Capital Vault</span>
-          <span id="navMilestoneIndicator" class="w-2 h-2 rounded-full bg-[#B87948] dark:bg-[#D39A67] hidden animate-pulse"></span>
+          <span id="navMilestoneIndicator" class="w-2 h-2 rounded-full bg-[#A96745] dark:bg-[#CB8561] hidden animate-pulse"></span>
         </button>
-        <button onclick="switchTab('config')" id="nav-config" class="flex-1 sm:flex-initial px-5 sm:px-7 py-2 rounded-lg transition-all flex items-center justify-center gap-2 text-[#756B5D] dark:text-[#B9AC99] hover:text-[#302A22] dark:hover:text-[#F1E8D8]">
+        <button onclick="switchTab('config')" id="nav-config" class="flex-1 sm:flex-initial px-5 sm:px-7 py-2 rounded-lg transition-all flex items-center justify-center gap-2 text-[#716556] dark:text-[#B4A58F] hover:text-[#332B22] dark:hover:text-[#E2D4BD]">
           <span>⚙️</span>
           <span>Settings</span>
         </button>
@@ -370,24 +395,24 @@
 
       <!-- ==================== MASTER CARD 1: DAILY EXECUTION STATION ==================== -->
       <section id="executionStationCard" class="bento-card overflow-hidden">
-        <div class="grid grid-cols-1 lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x divide-[#DDD3C3] dark:divide-[#55483A]">
+        <div class="grid grid-cols-1 lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x divide-[#CFC1AA] dark:divide-[#514638]">
           
           <!-- Column 1 (Cols 1-6): Closing Balance Logger -->
           <div class="lg:col-span-6 p-5 sm:p-6 flex flex-col justify-between space-y-4">
             
             <!-- Stepper & Live Glow Indicator -->
-            <div class="flex items-center justify-between pb-3 border-b border-[#DDD3C3] dark:border-[#55483A]">
+            <div class="flex items-center justify-between pb-3 border-b border-[#CFC1AA] dark:border-[#514638]">
               <!-- Session Stepper -->
-              <div class="inline-flex items-center gap-1.5 bg-[#FFFDF8] dark:bg-[#40362C] rounded-lg p-1 border border-[#DDD3C3] dark:border-[#55483A] font-num">
-                <button onclick="navigateSession(-1)" title="Previous Session" class="w-7 h-7 rounded-md hover:bg-[#FAF7F0] dark:hover:bg-[#352D25] text-[#302A22] dark:text-[#F1E8D8] flex items-center justify-center font-bold text-base transition active:scale-90">
+              <div class="inline-flex items-center gap-1.5 bg-[#F5EBDD] dark:bg-[#41382D] rounded-lg p-1 border border-[#CFC1AA] dark:border-[#514638] font-num">
+                <button onclick="navigateSession(-1)" title="Previous Session" class="w-7 h-7 rounded-md hover:bg-[#F0E6D5] dark:hover:bg-[#352E25] text-[#332B22] dark:text-[#E2D4BD] flex items-center justify-center font-bold text-base transition active:scale-90">
                   ‹
                 </button>
                 <div class="px-2 flex items-center gap-1 text-xs">
-                  <span class="text-[#756B5D] dark:text-[#B9AC99] uppercase font-semibold text-[10px]">Session</span>
-                  <span id="activeSessionNumDisplay" class="font-extrabold text-sm text-[#302A22] dark:text-[#F1E8D8]">1</span>
-                  <span class="text-[#756B5D] dark:text-[#B9AC99] text-xs">/ <span id="totalSessionsDisplay">28</span></span>
+                  <span class="text-[#716556] dark:text-[#B4A58F] uppercase font-semibold text-[10px]">Session</span>
+                  <span id="activeSessionNumDisplay" class="font-extrabold text-sm text-[#332B22] dark:text-[#E2D4BD]">1</span>
+                  <span class="text-[#716556] dark:text-[#B4A58F] text-xs">/ <span id="totalSessionsDisplay">28</span></span>
                 </div>
-                <button onclick="navigateSession(1)" title="Next Session" class="w-7 h-7 rounded-md hover:bg-[#FAF7F0] dark:hover:bg-[#352D25] text-[#302A22] dark:text-[#F1E8D8] flex items-center justify-center font-bold text-base transition active:scale-90">
+                <button onclick="navigateSession(1)" title="Next Session" class="w-7 h-7 rounded-md hover:bg-[#F0E6D5] dark:hover:bg-[#352E25] text-[#332B22] dark:text-[#E2D4BD] flex items-center justify-center font-bold text-base transition active:scale-90">
                   ›
                 </button>
               </div>
@@ -401,36 +426,36 @@
             <!-- Main Input Section -->
             <div>
               <div class="flex items-center justify-between mb-1.5">
-                <label for="sessionBalanceInput" class="text-xs font-bold uppercase tracking-wider text-[#756B5D] dark:text-[#B9AC99] flex items-center gap-1.5">
+                <label for="sessionBalanceInput" class="text-xs font-bold uppercase tracking-wider text-[#716556] dark:text-[#B4A58F] flex items-center gap-1.5">
                   <span>Closing Balance</span>
-                  <span class="text-[10px] text-[#756B5D]/80 dark:text-[#B9AC99]/80 font-normal">(Today's End Balance)</span>
+                  <span class="text-[10px] text-[#716556]/80 dark:text-[#B4A58F]/80 font-normal">(Today's End Balance)</span>
                 </label>
-                <span class="text-xs text-[#756B5D] dark:text-[#B9AC99]">
-                  Started with: <strong id="prevSessionBalLabel" class="text-[#302A22] dark:text-[#F1E8D8] font-num font-bold">$120.00</strong>
+                <span class="text-xs text-[#716556] dark:text-[#B4A58F]">
+                  Started with: <strong id="prevSessionBalLabel" class="text-[#332B22] dark:text-[#E2D4BD] font-num font-bold">$120.00</strong>
                 </span>
               </div>
 
               <div class="relative group">
-                <span class="absolute left-4 top-3 text-[#756B5D] dark:text-[#B9AC99] text-2xl font-bold font-num select-none">$</span>
+                <span class="absolute left-4 top-3 text-[#716556] dark:text-[#B4A58F] text-2xl font-bold font-num select-none">$</span>
                 <input type="number" step="0.01" id="sessionBalanceInput" placeholder="0.00" oninput="handleBalanceInput(this.value)"
-                  class="w-full bg-[#FFFDF8] dark:bg-[#40362C] border border-[#DDD3C3] dark:border-[#55483A] focus:border-[#557A5B] dark:focus:border-[#7FA57E] focus:bg-[#FFFDF8] dark:focus:bg-[#40362C] rounded-xl pl-10 pr-4 py-3 font-num text-3xl sm:text-4xl font-black text-[#302A22] dark:text-[#F1E8D8] focus:outline-none transition shadow-inner" />
+                  class="w-full bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] focus:border-[#607B5B] dark:focus:border-[#8CA887] focus:bg-[#F5EBDD] dark:focus:bg-[#41382D] rounded-xl pl-10 pr-4 py-3 font-num text-3xl sm:text-4xl font-black text-[#332B22] dark:text-[#E2D4BD] focus:outline-none transition shadow-inner" />
               </div>
 
-              <p id="executionTimestampDisplay" class="text-[11px] text-[#756B5D] dark:text-[#B9AC99] font-num mt-2 flex items-center gap-1">
+              <p id="executionTimestampDisplay" class="text-[11px] text-[#716556] dark:text-[#B4A58F] font-num mt-2 flex items-center gap-1">
                 <span>🕒</span>
                 <span>Timestamp: In progress</span>
               </p>
             </div>
 
             <!-- Action Buttons Bar -->
-            <div class="pt-3 border-t border-[#DDD3C3] dark:border-[#55483A] flex items-center justify-between gap-2 flex-wrap">
-              <button onclick="fillTargetForActiveSession()" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-[#557A5B]/10 hover:bg-[#557A5B]/20 text-[#557A5B] dark:bg-[#7FA57E]/15 dark:hover:bg-[#7FA57E]/25 dark:text-[#7FA57E] font-bold transition active:scale-95 border border-[#557A5B]/30 dark:border-[#7FA57E]/30 text-xs">
+            <div class="pt-3 border-t border-[#CFC1AA] dark:border-[#514638] flex items-center justify-between gap-2 flex-wrap">
+              <button onclick="fillTargetForActiveSession()" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-[#607B5B]/10 hover:bg-[#607B5B]/20 text-[#607B5B] dark:bg-[#8CA887]/15 dark:hover:bg-[#8CA887]/25 dark:text-[#8CA887] font-bold transition active:scale-95 border border-[#607B5B]/30 dark:border-[#8CA887]/30 text-xs">
                 <span>✨</span>
                 <span>Fill Active Target (<span id="btnTargetPreview" class="font-num">$120.00</span>)</span>
               </button>
 
               <!-- Lock / Unlock Session Button -->
-              <button onclick="toggleLockActiveSession()" id="btnLockSession" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-[#B87948] hover:bg-[#A36639] text-[#FFFDF8] dark:bg-[#D39A67] dark:hover:bg-[#C28956] dark:text-[#29231D] font-bold transition active:scale-95 text-xs shadow-sm">
+              <button onclick="toggleLockActiveSession()" id="btnLockSession" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-[#A96745] hover:bg-[#96593B] text-[#F5EBDD] dark:bg-[#CB8561] dark:hover:bg-[#BD7957] dark:text-[#29241E] font-bold transition active:scale-95 text-xs shadow-sm">
                 <span>🔒</span>
                 <span>Lock In Session</span>
               </button>
@@ -439,30 +464,30 @@
           </div>
 
           <!-- Column 2 (Cols 7-12): Today's PnL & Weekly Progression -->
-          <div class="lg:col-span-6 p-5 sm:p-6 flex flex-col justify-between space-y-4 bg-[#FAF7F0]/40 dark:bg-[#352D25]/30">
+          <div class="lg:col-span-6 p-5 sm:p-6 flex flex-col justify-between space-y-4 bg-[#F0E6D5]/40 dark:bg-[#352E25]/30">
             
             <!-- Top Half: Today's Profit / Loss -->
-            <div class="space-y-1.5 pb-4 border-b border-[#DDD3C3] dark:border-[#55483A]">
+            <div class="space-y-1.5 pb-4 border-b border-[#CFC1AA] dark:border-[#514638]">
               <div class="flex items-center justify-between gap-2 flex-wrap">
                 <div class="flex items-center gap-1.5 flex-wrap">
-                  <span class="text-xs font-bold uppercase tracking-wider text-[#756B5D] dark:text-[#B9AC99]">
+                  <span class="text-xs font-bold uppercase tracking-wider text-[#716556] dark:text-[#B4A58F]">
                     Today's Profit / Loss
                   </span>
-                  <span class="text-xs font-num font-semibold text-[#756B5D] dark:text-[#B9AC99]">
-                    • Goal: <strong id="sessionTargetValDisplay" class="text-[#302A22] dark:text-[#F1E8D8]">$120.00</strong>
+                  <span class="text-xs font-num font-semibold text-[#716556] dark:text-[#B4A58F]">
+                    • Goal: <strong id="sessionTargetValDisplay" class="text-[#332B22] dark:text-[#E2D4BD]">$120.00</strong>
                   </span>
                 </div>
 
                 <!-- Calendar View Switcher Button in Console Hub -->
                 <button onclick="openCalendarInHub()" id="btnOpenCalendarInBox2" title="Switch to Calendar View in Hub"
-                  class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#587A94]/10 hover:bg-[#587A94]/20 text-[#587A94] dark:bg-[#7EA5BF]/15 dark:hover:bg-[#7EA5BF]/25 dark:text-[#7EA5BF] border border-[#587A94]/30 dark:border-[#7EA5BF]/30 font-bold text-xs transition active:scale-95 shadow-sm">
+                  class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#617D91]/10 hover:bg-[#617D91]/20 text-[#617D91] dark:bg-[#86A5BC]/15 dark:hover:bg-[#86A5BC]/25 dark:text-[#86A5BC] border border-[#617D91]/30 dark:border-[#86A5BC]/30 font-bold text-xs transition active:scale-95 shadow-sm">
                   <span>📅</span>
                   <span>Calendar View</span>
                 </button>
               </div>
 
               <div class="flex items-baseline gap-3">
-                <div class="text-3xl sm:text-4xl font-black font-num tracking-tight text-[#302A22] dark:text-[#F1E8D8]" id="sessionPnlDollar">
+                <div class="text-3xl sm:text-4xl font-black font-num tracking-tight text-[#332B22] dark:text-[#E2D4BD]" id="sessionPnlDollar">
                   $0.00
                 </div>
                 <div class="text-sm font-bold font-num" id="sessionPnlPct">
@@ -470,7 +495,7 @@
                 </div>
               </div>
 
-              <p class="text-xs text-[#756B5D] dark:text-[#B9AC99] font-medium pt-1" id="sessionPnlVibe">
+              <p class="text-xs text-[#716556] dark:text-[#B4A58F] font-medium pt-1" id="sessionPnlVibe">
                 🌱 Clean slate! Enter today's closing balance to see your score.
               </p>
             </div>
@@ -480,7 +505,7 @@
               <div class="flex items-center justify-between flex-wrap gap-2">
                 <div class="flex items-center gap-1.5">
                   <span class="text-base">🏁</span>
-                  <span class="text-xs font-bold text-[#302A22] dark:text-[#F1E8D8]" id="weeklyMilestoneLabel">
+                  <span class="text-xs font-bold text-[#332B22] dark:text-[#E2D4BD]" id="weeklyMilestoneLabel">
                     Week 1 Checkpoint: $1,000.00
                   </span>
                 </div>
@@ -491,10 +516,10 @@
 
               <!-- Progression Bar -->
               <div>
-                <div class="w-full bg-[#FAF7F0] dark:bg-[#40362C] h-3 rounded-full overflow-hidden p-0.5 border border-[#DDD3C3] dark:border-[#55483A]">
-                  <div id="weeklyProgressBar" class="bg-gradient-to-r from-[#B87948] via-[#C49A45] to-[#557A5B] h-full rounded-full transition-all duration-300" style="width: 0%"></div>
+                <div class="w-full bg-[#F0E6D5] dark:bg-[#41382D] h-3 rounded-full overflow-hidden p-0.5 border border-[#CFC1AA] dark:border-[#514638]">
+                  <div id="weeklyProgressBar" class="bg-gradient-to-r from-[#A96745] via-[#C2984D] to-[#607B5B] h-full rounded-full transition-all duration-300" style="width: 0%"></div>
                 </div>
-                <div class="flex items-center justify-between text-[11px] text-[#756B5D] dark:text-[#B9AC99] font-num mt-1">
+                <div class="flex items-center justify-between text-[11px] text-[#716556] dark:text-[#B4A58F] font-num mt-1">
                   <span id="weeklyProgressPctLabel">0% to milestone</span>
                   <span id="cumulativeBasePnl">+$0.00 vs $120 Base</span>
                 </div>
@@ -507,26 +532,26 @@
       </section>
 
       <!-- Optional Milestone Skim Alert (Collapsible Warm Banner) -->
-      <section id="skimAlertBox" class="hidden bento-card p-4 sm:p-5 bg-[#B87948]/10 dark:bg-[#D39A67]/15 border border-[#B87948]/30 dark:border-[#D39A67]/30 space-y-2.5">
+      <section id="skimAlertBox" class="hidden bento-card p-4 sm:p-5 bg-[#A96745]/10 dark:bg-[#CB8561]/15 border border-[#A96745]/30 dark:border-[#CB8561]/30 space-y-2.5">
         <div class="flex items-center justify-between">
           <div class="flex items-center gap-2">
             <span class="text-xl">💡</span>
-            <h3 class="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#B87948] dark:text-[#D39A67]">
+            <h3 class="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#A96745] dark:text-[#CB8561]">
               Profit Skim Recommended!
             </h3>
           </div>
-          <span id="skimAlertSurplusLabel" class="text-xs font-bold font-num text-[#B87948] dark:text-[#D39A67] px-2.5 py-0.5 rounded-full bg-[#B87948]/15 dark:bg-[#D39A67]/20 border border-[#B87948]/30 dark:border-[#D39A67]/30">
+          <span id="skimAlertSurplusLabel" class="text-xs font-bold font-num text-[#A96745] dark:text-[#CB8561] px-2.5 py-0.5 rounded-full bg-[#A96745]/15 dark:bg-[#CB8561]/20 border border-[#A96745]/30 dark:border-[#CB8561]/30">
             Extra Profits Detected
           </span>
         </div>
-        <p class="text-xs text-[#302A22] dark:text-[#F1E8D8]" id="skimAlertText">
+        <p class="text-xs text-[#332B22] dark:text-[#E2D4BD]" id="skimAlertText">
           You are ahead of your target! Bank some cash into your Vault so your profits are 100% safe from future market pullbacks.
         </p>
         <div class="pt-1 flex items-center gap-2 flex-wrap">
-          <button onclick="triggerQuickSkimPrompt()" class="px-4 py-2 rounded-lg bg-[#B87948] hover:bg-[#A36639] text-[#FFFDF8] dark:bg-[#D39A67] dark:hover:bg-[#C28956] dark:text-[#29231D] text-xs font-bold font-num transition active:scale-95 shadow-sm">
+          <button onclick="triggerQuickSkimPrompt()" class="px-4 py-2 rounded-lg bg-[#A96745] hover:bg-[#96593B] text-[#F5EBDD] dark:bg-[#CB8561] dark:hover:bg-[#BD7957] dark:text-[#29241E] text-xs font-bold font-num transition active:scale-95 shadow-sm">
             Quick Skim into Vault
           </button>
-          <button onclick="dismissSkimAlert()" class="px-3.5 py-2 rounded-lg bg-transparent hover:bg-[#DDD3C3]/40 dark:hover:bg-[#55483A]/40 text-[#756B5D] dark:text-[#B9AC99] text-xs font-semibold transition">
+          <button onclick="dismissSkimAlert()" class="px-3.5 py-2 rounded-lg bg-transparent hover:bg-[#CFC1AA]/40 dark:hover:bg-[#514638]/40 text-[#716556] dark:text-[#B4A58F] text-xs font-semibold transition">
             Dismiss for today
           </button>
         </div>
@@ -536,36 +561,36 @@
       <section id="insightsHubCard" class="bento-card overflow-hidden space-y-0">
         
         <!-- Console Hub Header & Segmented Pill Switcher -->
-        <div class="p-4 sm:p-5 border-b border-[#DDD3C3] dark:border-[#55483A] flex flex-col md:flex-row md:items-center md:justify-between gap-3 bg-[#FAF7F0] dark:bg-[#352D25]">
+        <div class="p-4 sm:p-5 border-b border-[#CFC1AA] dark:border-[#514638] flex flex-col md:flex-row md:items-center md:justify-between gap-3 bg-[#F0E6D5] dark:bg-[#352E25]">
           <div>
             <div class="flex items-center gap-2">
               <span class="text-lg">🧭</span>
-              <h3 class="text-base font-extrabold text-[#302A22] dark:text-[#F1E8D8]">Console Insights Hub</h3>
+              <h3 class="text-base font-extrabold text-[#332B22] dark:text-[#E2D4BD]">Console Insights Hub</h3>
             </div>
-            <p class="text-xs text-[#756B5D] dark:text-[#B9AC99] mt-0.5">
+            <p class="text-xs text-[#716556] dark:text-[#B4A58F] mt-0.5">
               Switch views to track daily pace targets, activity calendar, cycle checkpoints, or ledger history
             </p>
           </div>
 
           <!-- 4-Segment Pill Switcher -->
-          <div class="inline-flex items-center p-1 rounded-xl bg-[#F3EDE1] dark:bg-[#29231D] border border-[#DDD3C3] dark:border-[#55483A] gap-1 overflow-x-auto max-w-full calm-scrollbar shrink-0">
+          <div class="inline-flex items-center p-1 rounded-xl bg-[#E8DDC9] dark:bg-[#29241E] border border-[#CFC1AA] dark:border-[#514638] gap-1 overflow-x-auto max-w-full calm-scrollbar shrink-0">
             <button onclick="switchWidgetTab('paces')" id="widgetTabBtn_paces"
-              class="widget-tab-btn px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 whitespace-nowrap bg-[#FFFDF8] dark:bg-[#40362C] text-[#302A22] dark:text-[#F1E8D8] shadow-sm">
+              class="widget-tab-btn px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 whitespace-nowrap bg-[#F5EBDD] dark:bg-[#41382D] text-[#332B22] dark:text-[#E2D4BD] shadow-sm">
               <span>🎯</span>
               <span>Daily Paces</span>
             </button>
             <button onclick="switchWidgetTab('calendar')" id="widgetTabBtn_calendar"
-              class="widget-tab-btn px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 whitespace-nowrap text-[#756B5D] dark:text-[#B9AC99] hover:text-[#302A22] dark:hover:text-[#F1E8D8]">
+              class="widget-tab-btn px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 whitespace-nowrap text-[#716556] dark:text-[#B4A58F] hover:text-[#332B22] dark:hover:text-[#E2D4BD]">
               <span>📅</span>
               <span>Calendar</span>
             </button>
             <button onclick="switchWidgetTab('milestones')" id="widgetTabBtn_milestones"
-              class="widget-tab-btn px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 whitespace-nowrap text-[#756B5D] dark:text-[#B9AC99] hover:text-[#302A22] dark:hover:text-[#F1E8D8]">
+              class="widget-tab-btn px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 whitespace-nowrap text-[#716556] dark:text-[#B4A58F] hover:text-[#332B22] dark:hover:text-[#E2D4BD]">
               <span>🏆</span>
               <span>Milestones</span>
             </button>
             <button onclick="switchWidgetTab('ledger')" id="widgetTabBtn_ledger"
-              class="widget-tab-btn px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 whitespace-nowrap text-[#756B5D] dark:text-[#B9AC99] hover:text-[#302A22] dark:hover:text-[#F1E8D8]">
+              class="widget-tab-btn px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 whitespace-nowrap text-[#716556] dark:text-[#B4A58F] hover:text-[#332B22] dark:hover:text-[#E2D4BD]">
               <span>📋</span>
               <span>Master Ledger</span>
             </button>
@@ -573,36 +598,36 @@
         </div>
 
         <!-- Content Container for the 4 Widgets -->
-        <div class="p-4 sm:p-6 bg-[#FAF7F0]/40 dark:bg-[#352D25]/20">
+        <div class="p-4 sm:p-6 bg-[#F0E6D5]/40 dark:bg-[#352E25]/20">
           
           <!-- WIDGET 1: Daily Target Paces -->
           <div id="widgetContent_paces" class="space-y-3">
             <div class="flex items-center justify-between px-1">
-              <h4 class="text-xs font-bold uppercase tracking-wider text-[#756B5D] dark:text-[#B9AC99] flex items-center gap-1.5">
+              <h4 class="text-xs font-bold uppercase tracking-wider text-[#716556] dark:text-[#B4A58F] flex items-center gap-1.5">
                 <span>🎯 Select Active Target Pace</span>
-                <span class="font-normal text-[11px] text-[#756B5D]/80 dark:text-[#B9AC99]/80">(Click any card to apply)</span>
+                <span class="font-normal text-[11px] text-[#716556]/80 dark:text-[#B4A58F]/80">(Click any card to apply)</span>
               </h4>
-              <span class="text-xs text-[#756B5D] dark:text-[#B9AC99] font-num">Session <span id="targetCardSessionNum">1</span></span>
+              <span class="text-xs text-[#716556] dark:text-[#B4A58F] font-num">Session <span id="targetCardSessionNum">1</span></span>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
               <!-- Target Box 1: Relaxed -->
-              <div id="paceCard_relaxed" onclick="setPace('relaxed')" class="bento-card p-5 cursor-pointer transition-all border border-[#DDD3C3] dark:border-[#55483A] bg-[#FAF7F0] dark:bg-[#352D25] hover:border-[#557A5B] dark:hover:border-[#7FA57E] hover:shadow-md space-y-3">
+              <div id="paceCard_relaxed" onclick="setPace('relaxed')" class="bento-card p-5 cursor-pointer transition-all border border-[#CFC1AA] dark:border-[#514638] bg-[#F0E6D5] dark:bg-[#352E25] hover:border-[#607B5B] dark:hover:border-[#8CA887] hover:shadow-md space-y-3">
                 <div class="flex items-center justify-between">
                   <div class="flex items-center gap-2">
                     <span class="text-xl">☕</span>
                     <div>
-                      <h5 class="text-sm font-extrabold text-[#302A22] dark:text-[#F1E8D8]">Relaxed Pace</h5>
-                      <span class="text-[10px] text-[#756B5D] dark:text-[#B9AC99] font-semibold">$7,000 Finish</span>
+                      <h5 class="text-sm font-extrabold text-[#332B22] dark:text-[#E2D4BD]">Relaxed Pace</h5>
+                      <span class="text-[10px] text-[#716556] dark:text-[#B4A58F] font-semibold">$7,000 Finish</span>
                     </div>
                   </div>
-                  <span id="paceActiveBadge_relaxed" class="hidden px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-[#557A5B] dark:bg-[#7FA57E] text-[#FFFDF8] dark:text-[#29231D] shadow-sm">
+                  <span id="paceActiveBadge_relaxed" class="hidden px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-[#607B5B] dark:bg-[#8CA887] text-[#F5EBDD] dark:text-[#29241E] shadow-sm">
                     Active
                   </span>
                 </div>
 
                 <div class="py-1">
-                  <div class="text-2xl font-black font-num text-[#557A5B] dark:text-[#7FA57E]" id="targetValRelaxed">
+                  <div class="text-2xl font-black font-num text-[#607B5B] dark:text-[#8CA887]" id="targetValRelaxed">
                     $120.00
                   </div>
                   <div class="text-xs font-semibold mt-0.5" id="targetStatusRelaxed">
@@ -610,28 +635,28 @@
                   </div>
                 </div>
 
-                <p class="text-[11px] text-[#756B5D] dark:text-[#B9AC99] pt-2 border-t border-[#DDD3C3]/60 dark:border-[#55483A]/60">
+                <p class="text-[11px] text-[#716556] dark:text-[#B4A58F] pt-2 border-t border-[#CFC1AA]/60 dark:border-[#514638]/60">
                   Chill &amp; steady growth. Minimal drawdown stress, great for choppy market conditions.
                 </p>
               </div>
 
               <!-- Target Box 2: Mid (Ideal) -->
-              <div id="paceCard_mid" onclick="setPace('mid')" class="bento-card p-5 cursor-pointer transition-all border border-[#DDD3C3] dark:border-[#55483A] bg-[#FAF7F0] dark:bg-[#352D25] hover:border-[#B87948] dark:hover:border-[#D39A67] hover:shadow-md space-y-3">
+              <div id="paceCard_mid" onclick="setPace('mid')" class="bento-card p-5 cursor-pointer transition-all border border-[#CFC1AA] dark:border-[#514638] bg-[#F0E6D5] dark:bg-[#352E25] hover:border-[#A96745] dark:hover:border-[#CB8561] hover:shadow-md space-y-3">
                 <div class="flex items-center justify-between">
                   <div class="flex items-center gap-2">
                     <span class="text-xl">⚡</span>
                     <div>
-                      <h5 class="text-sm font-extrabold text-[#302A22] dark:text-[#F1E8D8]">Mid Pace</h5>
-                      <span class="text-[10px] text-[#756B5D] dark:text-[#B9AC99] font-semibold">$12,600 Finish</span>
+                      <h5 class="text-sm font-extrabold text-[#332B22] dark:text-[#E2D4BD]">Mid Pace</h5>
+                      <span class="text-[10px] text-[#716556] dark:text-[#B4A58F] font-semibold">$12,600 Finish</span>
                     </div>
                   </div>
-                  <span id="paceActiveBadge_mid" class="hidden px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-[#B87948] dark:bg-[#D39A67] text-[#FFFDF8] dark:text-[#29231D] shadow-sm">
+                  <span id="paceActiveBadge_mid" class="hidden px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-[#A96745] dark:bg-[#CB8561] text-[#F5EBDD] dark:text-[#29241E] shadow-sm">
                     Active
                   </span>
                 </div>
 
                 <div class="py-1">
-                  <div class="text-2xl font-black font-num text-[#B87948] dark:text-[#D39A67]" id="targetValMid">
+                  <div class="text-2xl font-black font-num text-[#A96745] dark:text-[#CB8561]" id="targetValMid">
                     $120.00
                   </div>
                   <div class="text-xs font-semibold mt-0.5" id="targetStatusMid">
@@ -639,28 +664,28 @@
                   </div>
                 </div>
 
-                <p class="text-[11px] text-[#756B5D] dark:text-[#B9AC99] pt-2 border-t border-[#DDD3C3]/60 dark:border-[#55483A]/60">
+                <p class="text-[11px] text-[#716556] dark:text-[#B4A58F] pt-2 border-t border-[#CFC1AA]/60 dark:border-[#514638]/60">
                   The sweet spot. Balanced growth sprint for solid setups without reckless over-trading.
                 </p>
               </div>
 
               <!-- Target Box 3: Aggressive -->
-              <div id="paceCard_aggressive" onclick="setPace('aggressive')" class="bento-card p-5 cursor-pointer transition-all border border-[#DDD3C3] dark:border-[#55483A] bg-[#FAF7F0] dark:bg-[#352D25] hover:border-[#B65C52] dark:hover:border-[#D77C70] hover:shadow-md space-y-3">
+              <div id="paceCard_aggressive" onclick="setPace('aggressive')" class="bento-card p-5 cursor-pointer transition-all border border-[#CFC1AA] dark:border-[#514638] bg-[#F0E6D5] dark:bg-[#352E25] hover:border-[#B86652] dark:hover:border-[#D47F6C] hover:shadow-md space-y-3">
                 <div class="flex items-center justify-between">
                   <div class="flex items-center gap-2">
                     <span class="text-xl">🔥</span>
                     <div>
-                      <h5 class="text-sm font-extrabold text-[#302A22] dark:text-[#F1E8D8]">Aggressive Pace</h5>
-                      <span class="text-[10px] text-[#756B5D] dark:text-[#B9AC99] font-semibold">$17,500 Finish</span>
+                      <h5 class="text-sm font-extrabold text-[#332B22] dark:text-[#E2D4BD]">Aggressive Pace</h5>
+                      <span class="text-[10px] text-[#716556] dark:text-[#B4A58F] font-semibold">$17,500 Finish</span>
                     </div>
                   </div>
-                  <span id="paceActiveBadge_aggressive" class="hidden px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-[#B65C52] dark:bg-[#D77C70] text-[#FFFDF8] dark:text-[#29231D] shadow-sm">
+                  <span id="paceActiveBadge_aggressive" class="hidden px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-[#B86652] dark:bg-[#D47F6C] text-[#F5EBDD] dark:text-[#29241E] shadow-sm">
                     Active
                   </span>
                 </div>
 
                 <div class="py-1">
-                  <div class="text-2xl font-black font-num text-[#B65C52] dark:text-[#D77C70]" id="targetValAggressive">
+                  <div class="text-2xl font-black font-num text-[#B86652] dark:text-[#D47F6C]" id="targetValAggressive">
                     $120.00
                   </div>
                   <div class="text-xs font-semibold mt-0.5" id="targetStatusAggressive">
@@ -668,7 +693,7 @@
                   </div>
                 </div>
 
-                <p class="text-[11px] text-[#756B5D] dark:text-[#B9AC99] pt-2 border-t border-[#DDD3C3]/60 dark:border-[#55483A]/60">
+                <p class="text-[11px] text-[#716556] dark:text-[#B4A58F] pt-2 border-t border-[#CFC1AA]/60 dark:border-[#514638]/60">
                   High turbo compounding. Fast-lane growth suited for trending runs and A+ high-conviction trades.
                 </p>
               </div>
@@ -677,28 +702,28 @@
 
           <!-- WIDGET 2: Daily Trading Activity Calendar -->
           <div id="widgetContent_calendar" class="hidden space-y-4">
-            <div class="flex items-center justify-between gap-2 flex-wrap pb-2 border-b border-[#587A94]/25 dark:border-[#7EA5BF]/25">
+            <div class="flex items-center justify-between gap-2 flex-wrap pb-2 border-b border-[#617D91]/25 dark:border-[#86A5BC]/25">
               <div class="flex items-center gap-2">
-                <div class="w-7 h-7 rounded-lg bg-[#587A94]/15 text-[#587A94] dark:bg-[#7EA5BF]/20 dark:text-[#7EA5BF] flex items-center justify-center text-sm font-bold shrink-0">
+                <div class="w-7 h-7 rounded-lg bg-[#617D91]/15 text-[#617D91] dark:bg-[#86A5BC]/20 dark:text-[#86A5BC] flex items-center justify-center text-sm font-bold shrink-0">
                   📅
                 </div>
                 <div class="flex items-center gap-2">
-                  <h4 class="text-sm font-extrabold text-[#302A22] dark:text-[#F1E8D8]">Trading Activity Calendar</h4>
-                  <span id="calendarMonthBadge" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-[#587A94]/15 text-[#587A94] dark:bg-[#7EA5BF]/20 dark:text-[#7EA5BF] border border-[#587A94]/30 dark:border-[#7EA5BF]/30 font-num">
+                  <h4 class="text-sm font-extrabold text-[#332B22] dark:text-[#E2D4BD]">Trading Activity Calendar</h4>
+                  <span id="calendarMonthBadge" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-[#617D91]/15 text-[#617D91] dark:bg-[#86A5BC]/20 dark:text-[#86A5BC] border border-[#617D91]/30 dark:border-[#86A5BC]/30 font-num">
                     September 2026
                   </span>
                 </div>
               </div>
 
               <!-- Month Stepper -->
-              <div class="inline-flex items-center gap-1 bg-[#FFFDF8] dark:bg-[#40362C] rounded-lg p-1 border border-[#DDD3C3] dark:border-[#55483A] font-num text-xs shadow-sm">
-                <button onclick="changeCalendarMonth(-1)" title="Previous Month" class="w-6 h-6 rounded hover:bg-[#FAF7F0] dark:hover:bg-[#352D25] text-[#302A22] dark:text-[#F1E8D8] flex items-center justify-center font-bold text-xs transition active:scale-90">
+              <div class="inline-flex items-center gap-1 bg-[#F5EBDD] dark:bg-[#41382D] rounded-lg p-1 border border-[#CFC1AA] dark:border-[#514638] font-num text-xs shadow-sm">
+                <button onclick="changeCalendarMonth(-1)" title="Previous Month" class="w-6 h-6 rounded hover:bg-[#F0E6D5] dark:hover:bg-[#352E25] text-[#332B22] dark:text-[#E2D4BD] flex items-center justify-center font-bold text-xs transition active:scale-90">
                   ‹
                 </button>
-                <button onclick="jumpToCurrentCalendarMonth()" title="Jump to Today" class="px-2 py-0.5 rounded hover:bg-[#FAF7F0] dark:hover:bg-[#352D25] text-[#302A22] dark:text-[#F1E8D8] font-bold text-xs transition">
+                <button onclick="jumpToCurrentCalendarMonth()" title="Jump to Today" class="px-2 py-0.5 rounded hover:bg-[#F0E6D5] dark:hover:bg-[#352E25] text-[#332B22] dark:text-[#E2D4BD] font-bold text-xs transition">
                   Today
                 </button>
-                <button onclick="changeCalendarMonth(1)" title="Next Month" class="w-6 h-6 rounded hover:bg-[#FAF7F0] dark:hover:bg-[#352D25] text-[#302A22] dark:text-[#F1E8D8] flex items-center justify-center font-bold text-xs transition active:scale-90">
+                <button onclick="changeCalendarMonth(1)" title="Next Month" class="w-6 h-6 rounded hover:bg-[#F0E6D5] dark:hover:bg-[#352E25] text-[#332B22] dark:text-[#E2D4BD] flex items-center justify-center font-bold text-xs transition active:scale-90">
                   ›
                 </button>
               </div>
@@ -706,28 +731,28 @@
 
             <!-- Compact Monthly Summary Bar (Mineral Slate Blue Tint) -->
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center text-xs">
-              <div class="p-2.5 rounded-xl bg-[#587A94]/10 dark:bg-[#7EA5BF]/10 border border-[#587A94]/20 dark:border-[#7EA5BF]/20">
-                <span class="text-[10px] uppercase font-bold text-[#756B5D] dark:text-[#B9AC99] block leading-tight">Days Traded</span>
-                <span id="calStatDaysTraded" class="text-sm sm:text-base font-black font-num text-[#302A22] dark:text-[#F1E8D8]">0d</span>
+              <div class="p-2.5 rounded-xl bg-[#617D91]/10 dark:bg-[#86A5BC]/10 border border-[#617D91]/20 dark:border-[#86A5BC]/20">
+                <span class="text-[10px] uppercase font-bold text-[#716556] dark:text-[#B4A58F] block leading-tight">Days Traded</span>
+                <span id="calStatDaysTraded" class="text-sm sm:text-base font-black font-num text-[#332B22] dark:text-[#E2D4BD]">0d</span>
               </div>
-              <div class="p-2.5 rounded-xl bg-[#587A94]/10 dark:bg-[#7EA5BF]/10 border border-[#587A94]/20 dark:border-[#7EA5BF]/20">
-                <span class="text-[10px] uppercase font-bold text-[#756B5D] dark:text-[#B9AC99] block leading-tight">Green Days</span>
-                <span id="calStatGreenDays" class="text-sm sm:text-base font-black font-num text-[#557A5B] dark:text-[#7FA57E]">0</span>
+              <div class="p-2.5 rounded-xl bg-[#617D91]/10 dark:bg-[#86A5BC]/10 border border-[#617D91]/20 dark:border-[#86A5BC]/20">
+                <span class="text-[10px] uppercase font-bold text-[#716556] dark:text-[#B4A58F] block leading-tight">Green Days</span>
+                <span id="calStatGreenDays" class="text-sm sm:text-base font-black font-num text-[#607B5B] dark:text-[#8CA887]">0</span>
               </div>
-              <div class="p-2.5 rounded-xl bg-[#587A94]/10 dark:bg-[#7EA5BF]/10 border border-[#587A94]/20 dark:border-[#7EA5BF]/20">
-                <span class="text-[10px] uppercase font-bold text-[#756B5D] dark:text-[#B9AC99] block leading-tight">Red Days</span>
-                <span id="calStatRedDays" class="text-sm sm:text-base font-black font-num text-[#B65C52] dark:text-[#D77C70]">0</span>
+              <div class="p-2.5 rounded-xl bg-[#617D91]/10 dark:bg-[#86A5BC]/10 border border-[#617D91]/20 dark:border-[#86A5BC]/20">
+                <span class="text-[10px] uppercase font-bold text-[#716556] dark:text-[#B4A58F] block leading-tight">Red Days</span>
+                <span id="calStatRedDays" class="text-sm sm:text-base font-black font-num text-[#B86652] dark:text-[#D47F6C]">0</span>
               </div>
-              <div class="p-2.5 rounded-xl bg-[#587A94]/10 dark:bg-[#7EA5BF]/10 border border-[#587A94]/20 dark:border-[#7EA5BF]/20">
-                <span class="text-[10px] uppercase font-bold text-[#756B5D] dark:text-[#B9AC99] block leading-tight">Month Net PnL</span>
-                <span id="calStatNetPnl" class="text-sm sm:text-base font-black font-num text-[#302A22] dark:text-[#F1E8D8]">$0.00</span>
+              <div class="p-2.5 rounded-xl bg-[#617D91]/10 dark:bg-[#86A5BC]/10 border border-[#617D91]/20 dark:border-[#86A5BC]/20">
+                <span class="text-[10px] uppercase font-bold text-[#716556] dark:text-[#B4A58F] block leading-tight">Month Net PnL</span>
+                <span id="calStatNetPnl" class="text-sm sm:text-base font-black font-num text-[#332B22] dark:text-[#E2D4BD]">$0.00</span>
               </div>
             </div>
 
             <!-- Calendar 7-Day Grid (100% Fluid, Zero Horizontal Overflow) -->
             <div class="w-full">
               <!-- Day Headers -->
-              <div class="grid grid-cols-7 gap-1 sm:gap-1.5 mb-1 text-center font-extrabold text-[10px] sm:text-xs text-[#587A94] dark:text-[#7EA5BF]">
+              <div class="grid grid-cols-7 gap-1 sm:gap-1.5 mb-1 text-center font-extrabold text-[10px] sm:text-xs text-[#617D91] dark:text-[#86A5BC]">
                 <div><span class="sm:hidden">M</span><span class="hidden sm:inline">Mon</span></div>
                 <div><span class="sm:hidden">T</span><span class="hidden sm:inline">Tue</span></div>
                 <div><span class="sm:hidden">W</span><span class="hidden sm:inline">Wed</span></div>
@@ -744,11 +769,11 @@
             </div>
 
             <!-- Calendar Footer -->
-            <div class="pt-2 border-t border-[#DDD3C3]/60 dark:border-[#55483A]/60 flex items-center justify-between text-xs text-[#756B5D] dark:text-[#B9AC99]">
+            <div class="pt-2 border-t border-[#CFC1AA]/60 dark:border-[#514638]/60 flex items-center justify-between text-xs text-[#716556] dark:text-[#B4A58F]">
               <div class="flex items-center gap-3">
-                <span class="inline-flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#557A5B] dark:bg-[#7FA57E]"></span> Green</span>
-                <span class="inline-flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#B65C52] dark:bg-[#D77C70]"></span> Red</span>
-                <span class="inline-flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full border border-[#587A94] dark:border-[#7EA5BF]"></span> Today</span>
+                <span class="inline-flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#607B5B] dark:bg-[#8CA887]"></span> Green</span>
+                <span class="inline-flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#B86652] dark:bg-[#D47F6C]"></span> Red</span>
+                <span class="inline-flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full border border-[#617D91] dark:border-[#86A5BC]"></span> Today</span>
               </div>
               <span class="italic text-[11px]">Click any date to jump to its session</span>
             </div>
@@ -758,12 +783,12 @@
           <div id="widgetContent_milestones" class="hidden space-y-4">
             <div class="flex items-center justify-between">
               <div>
-                <h4 class="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#302A22] dark:text-[#F1E8D8]">
+                <h4 class="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#332B22] dark:text-[#E2D4BD]">
                   Cycle Checkpoints
                 </h4>
-                <p class="text-xs text-[#756B5D] dark:text-[#B9AC99] mt-0.5">Your compounding roadmap from $120 to your final target</p>
+                <p class="text-xs text-[#716556] dark:text-[#B4A58F] mt-0.5">Your compounding roadmap from $120 to your final target</p>
               </div>
-              <span class="text-sm font-num font-bold text-[#557A5B] dark:text-[#7FA57E]" id="overallCycleCompletionLabel">
+              <span class="text-sm font-num font-bold text-[#607B5B] dark:text-[#8CA887]" id="overallCycleCompletionLabel">
                 0.0% Complete
               </span>
             </div>
@@ -776,25 +801,25 @@
 
           <!-- WIDGET 4: Master Session Ledger Table -->
           <div id="widgetContent_ledger" class="hidden space-y-3">
-            <div class="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-[#DDD3C3] dark:border-[#55483A]">
+            <div class="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-[#CFC1AA] dark:border-[#514638]">
               <div>
-                <h4 class="text-sm font-extrabold text-[#302A22] dark:text-[#F1E8D8]">Session History &amp; Target Ledger</h4>
-                <p class="text-xs text-[#756B5D] dark:text-[#B9AC99] mt-0.5">Click any row to jump • Vault savings never count as losses</p>
+                <h4 class="text-sm font-extrabold text-[#332B22] dark:text-[#E2D4BD]">Session History &amp; Target Ledger</h4>
+                <p class="text-xs text-[#716556] dark:text-[#B4A58F] mt-0.5">Click any row to jump • Vault savings never count as losses</p>
               </div>
               <div class="flex items-center gap-2">
                 <!-- Toggle All Paces Button -->
-                <button onclick="toggleTableColumns()" id="btnToggleAllPaces" class="px-3 py-1.5 rounded-lg bg-[#FFFDF8] hover:bg-[#FAF7F0] dark:bg-[#40362C] dark:hover:bg-[#352D25] text-[#302A22] dark:text-[#F1E8D8] border border-[#DDD3C3] dark:border-[#55483A] font-bold text-xs transition shadow-sm active:scale-95">
+                <button onclick="toggleTableColumns()" id="btnToggleAllPaces" class="px-3 py-1.5 rounded-lg bg-[#F5EBDD] hover:bg-[#F0E6D5] dark:bg-[#41382D] dark:hover:bg-[#352E25] text-[#332B22] dark:text-[#E2D4BD] border border-[#CFC1AA] dark:border-[#514638] font-bold text-xs transition shadow-sm active:scale-95">
                   <span>📊 Show All Paces</span>
                 </button>
-                <button onclick="copySessionTable()" class="px-3 py-1.5 rounded-lg bg-[#FFFDF8] hover:bg-[#FAF7F0] dark:bg-[#40362C] dark:hover:bg-[#352D25] text-[#302A22] dark:text-[#F1E8D8] border border-[#DDD3C3] dark:border-[#55483A] font-bold text-xs transition shadow-sm active:scale-95 font-num">
+                <button onclick="copySessionTable()" class="px-3 py-1.5 rounded-lg bg-[#F5EBDD] hover:bg-[#F0E6D5] dark:bg-[#41382D] dark:hover:bg-[#352E25] text-[#332B22] dark:text-[#E2D4BD] border border-[#CFC1AA] dark:border-[#514638] font-bold text-xs transition shadow-sm active:scale-95 font-num">
                   📋 Copy TSV
                 </button>
               </div>
             </div>
 
-            <div class="overflow-x-auto calm-scrollbar max-h-[480px] rounded-xl border border-[#DDD3C3] dark:border-[#55483A]">
-              <table class="w-full text-left text-xs sm:text-sm border-collapse bg-[#FAF7F0] dark:bg-[#352D25]">
-                <thead class="sticky top-0 bg-[#FFFDF8] dark:bg-[#40362C] backdrop-blur-sm text-[#756B5D] dark:text-[#B9AC99] uppercase tracking-wider text-[10px] sm:text-[11px] border-b border-[#DDD3C3] dark:border-[#55483A] z-10 font-bold">
+            <div class="overflow-x-auto calm-scrollbar max-h-[480px] rounded-xl border border-[#CFC1AA] dark:border-[#514638]">
+              <table class="w-full text-left text-xs sm:text-sm border-collapse bg-[#F0E6D5] dark:bg-[#352E25]">
+                <thead class="sticky top-0 bg-[#F5EBDD] dark:bg-[#41382D] backdrop-blur-sm text-[#716556] dark:text-[#B4A58F] uppercase tracking-wider text-[10px] sm:text-[11px] border-b border-[#CFC1AA] dark:border-[#514638] z-10 font-bold">
                   <tr id="tableHeaderRow">
                     <th class="py-3 px-3 sm:px-4">Session</th>
                     <th class="py-3 px-3 sm:px-4">Date</th>
@@ -809,7 +834,7 @@
                     <th class="py-3 px-3 sm:px-4">Notes</th>
                   </tr>
                 </thead>
-                <tbody id="sessionLedgerBody" class="divide-y divide-[#DDD3C3]/60 dark:divide-[#55483A]/60 font-num">
+                <tbody id="sessionLedgerBody" class="divide-y divide-[#CFC1AA]/60 dark:divide-[#514638]/60 font-num">
                   <!-- Dynamically populated via renderMasterTable -->
                 </tbody>
               </table>
@@ -827,26 +852,26 @@
 
       <!-- Settings & Enable Toggle Bento Card -->
       <section class="bento-card p-5 sm:p-6 space-y-5">
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between pb-4 border-b border-[#DDD3C3] dark:border-[#55483A] gap-3">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between pb-4 border-b border-[#CFC1AA] dark:border-[#514638] gap-3">
           <div>
             <div class="flex items-center gap-2">
               <span class="text-xl">🏦</span>
-              <h2 class="text-base sm:text-lg font-bold text-[#302A22] dark:text-[#F1E8D8]">
+              <h2 class="text-base sm:text-lg font-bold text-[#332B22] dark:text-[#E2D4BD]">
                 Safe Piggy Bank &amp; Bill Vault
               </h2>
             </div>
-            <p class="text-xs text-[#756B5D] dark:text-[#B9AC99] mt-0.5">
+            <p class="text-xs text-[#716556] dark:text-[#B4A58F] mt-0.5">
               Secure real-world cash for personal bills &amp; life goals without disturbing trading psychology.
             </p>
           </div>
 
           <!-- Master Feature Toggle -->
           <div class="flex items-center gap-3">
-            <span class="text-xs font-bold text-[#302A22] dark:text-[#F1E8D8]">Enable Skim Alerts:</span>
+            <span class="text-xs font-bold text-[#332B22] dark:text-[#E2D4BD]">Enable Skim Alerts:</span>
             <div class="relative inline-block w-12 h-6 select-none transition duration-200 ease-in">
               <input type="checkbox" id="milestoneToggleCheckbox" onchange="toggleMilestoneFeature(this.checked)"
-                class="switch-checkbox absolute block w-6 h-6 rounded-full bg-[#FFFDF8] border-4 appearance-none cursor-pointer border-[#DDD3C3] dark:border-[#55483A]" />
-              <label for="milestoneToggleCheckbox" class="switch-label block overflow-hidden h-6 rounded-full bg-[#DDD3C3] dark:bg-[#55483A] cursor-pointer transition-colors duration-200"></label>
+                class="switch-checkbox absolute block w-6 h-6 rounded-full bg-[#F5EBDD] border-4 appearance-none cursor-pointer border-[#CFC1AA] dark:border-[#514638]" />
+              <label for="milestoneToggleCheckbox" class="switch-label block overflow-hidden h-6 rounded-full bg-[#CFC1AA] dark:bg-[#514638] cursor-pointer transition-colors duration-200"></label>
             </div>
           </div>
         </div>
@@ -854,40 +879,40 @@
         <!-- Strategy & Targets Config Form -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
           <div>
-            <label class="block font-bold text-[#756B5D] dark:text-[#B9AC99] uppercase text-[10px] tracking-wider">
+            <label class="block font-bold text-[#716556] dark:text-[#B4A58F] uppercase text-[10px] tracking-wider">
               Goal Target ($)
             </label>
             <div class="relative mt-1">
-              <span class="absolute left-3 top-2 text-[#756B5D] dark:text-[#B9AC99] font-bold font-num">$</span>
+              <span class="absolute left-3 top-2 text-[#716556] dark:text-[#B4A58F] font-bold font-num">$</span>
               <input type="number" step="10" id="cfgMilestoneGoal" value="1500" onchange="saveMilestoneConfig()"
-                class="w-full bg-[#FFFDF8] dark:bg-[#40362C] border border-[#DDD3C3] dark:border-[#55483A] rounded-xl pl-8 pr-3 py-2 text-sm font-bold font-num text-[#302A22] dark:text-[#F1E8D8] focus:outline-none focus:border-[#557A5B] dark:focus:border-[#7FA57E]" />
+                class="w-full bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl pl-8 pr-3 py-2 text-sm font-bold font-num text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#8CA887]" />
             </div>
-            <span class="text-[10px] text-[#756B5D] dark:text-[#B9AC99] mt-1 block">e.g. $1,500 for bills / rent / debt</span>
+            <span class="text-[10px] text-[#716556] dark:text-[#B4A58F] mt-1 block">e.g. $1,500 for bills / rent / debt</span>
           </div>
 
           <div>
-            <label class="block font-bold text-[#756B5D] dark:text-[#B9AC99] uppercase text-[10px] tracking-wider">
+            <label class="block font-bold text-[#716556] dark:text-[#B4A58F] uppercase text-[10px] tracking-wider">
               Trading Capital Floor ($)
             </label>
             <div class="relative mt-1">
-              <span class="absolute left-3 top-2 text-[#756B5D] dark:text-[#B9AC99] font-bold font-num">$</span>
+              <span class="absolute left-3 top-2 text-[#716556] dark:text-[#B4A58F] font-bold font-num">$</span>
               <input type="number" step="10" id="cfgDeskReserve" value="1000" onchange="saveMilestoneConfig()"
-                class="w-full bg-[#FFFDF8] dark:bg-[#40362C] border border-[#DDD3C3] dark:border-[#55483A] rounded-xl pl-8 pr-3 py-2 text-sm font-bold font-num text-[#302A22] dark:text-[#F1E8D8] focus:outline-none focus:border-[#557A5B] dark:focus:border-[#7FA57E]" />
+                class="w-full bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl pl-8 pr-3 py-2 text-sm font-bold font-num text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#8CA887]" />
             </div>
-            <span class="text-[10px] text-[#756B5D] dark:text-[#B9AC99] mt-1 block">Trading bag minimum to keep untouched</span>
+            <span class="text-[10px] text-[#716556] dark:text-[#B4A58F] mt-1 block">Trading bag minimum to keep untouched</span>
           </div>
 
           <div>
-            <label class="block font-bold text-[#756B5D] dark:text-[#B9AC99] uppercase text-[10px] tracking-wider">
+            <label class="block font-bold text-[#716556] dark:text-[#B4A58F] uppercase text-[10px] tracking-wider">
               Skimming Style
             </label>
             <select id="cfgSkimStrategy" onchange="saveMilestoneConfig()"
-              class="w-full mt-1 bg-[#FFFDF8] dark:bg-[#40362C] border border-[#DDD3C3] dark:border-[#55483A] rounded-xl px-3 py-2 text-xs font-semibold text-[#302A22] dark:text-[#F1E8D8] focus:outline-none focus:border-[#557A5B] dark:focus:border-[#7FA57E]">
+              class="w-full mt-1 bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 text-xs font-semibold text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#8CA887]">
               <option value="gradual">Gradual (Skim 25% on green days)</option>
               <option value="checkpoints">Checkpoints ($450 &rarr; $100, $900 &rarr; $400)</option>
               <option value="custom">Manual (I choose when to skim)</option>
             </select>
-            <span class="text-[10px] text-[#756B5D] dark:text-[#B9AC99] mt-1 block">Controls suggestions in your tracker</span>
+            <span class="text-[10px] text-[#716556] dark:text-[#B4A58F] mt-1 block">Controls suggestions in your tracker</span>
           </div>
         </div>
       </section>
@@ -895,35 +920,35 @@
       <!-- Bento Cards: Banked Cash, True Wealth, Goal Progress -->
       <section class="grid grid-cols-1 md:grid-cols-3 gap-5">
         <!-- Banked Cash Bento Card -->
-        <div class="bento-card p-5 bg-[#B87948]/10 dark:bg-[#D39A67]/15 border-[#B87948]/30 dark:border-[#D39A67]/30 space-y-2">
+        <div class="bento-card p-5 bg-[#A96745]/10 dark:bg-[#CB8561]/15 border-[#A96745]/30 dark:border-[#CB8561]/30 space-y-2">
           <div class="flex items-center justify-between">
-            <span class="text-xs font-bold uppercase tracking-wider text-[#B87948] dark:text-[#D39A67]">Safely Banked</span>
-            <span id="vaultLogsCount" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#B87948] text-[#FFFDF8] dark:bg-[#D39A67] dark:text-[#29231D] font-num">0 Skims</span>
+            <span class="text-xs font-bold uppercase tracking-wider text-[#A96745] dark:text-[#CB8561]">Safely Banked</span>
+            <span id="vaultLogsCount" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#A96745] text-[#F5EBDD] dark:bg-[#CB8561] dark:text-[#29241E] font-num">0 Skims</span>
           </div>
-          <div class="text-3xl font-black font-num text-[#B87948] dark:text-[#D39A67]" id="vaultTotalWithdrawnVal">$0.00</div>
-          <p class="text-xs text-[#756B5D] dark:text-[#B9AC99]">Cash secured off the desk, safe from drawdowns</p>
+          <div class="text-3xl font-black font-num text-[#A96745] dark:text-[#CB8561]" id="vaultTotalWithdrawnVal">$0.00</div>
+          <p class="text-xs text-[#716556] dark:text-[#B4A58F]">Cash secured off the desk, safe from drawdowns</p>
         </div>
 
         <!-- True Wealth Bento Card -->
-        <div class="bento-card p-5 bg-[#557A5B]/10 dark:bg-[#7FA57E]/15 border-[#557A5B]/30 dark:border-[#7FA57E]/30 space-y-2">
+        <div class="bento-card p-5 bg-[#607B5B]/10 dark:bg-[#8CA887]/15 border-[#607B5B]/30 dark:border-[#8CA887]/30 space-y-2">
           <div class="flex items-center justify-between">
-            <span class="text-xs font-bold uppercase tracking-wider text-[#557A5B] dark:text-[#7FA57E]">Total Net Wealth</span>
-            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#557A5B] text-[#FFFDF8] dark:bg-[#7FA57E] dark:text-[#29231D] font-num">Desk + Vault</span>
+            <span class="text-xs font-bold uppercase tracking-wider text-[#607B5B] dark:text-[#8CA887]">Total Net Wealth</span>
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#607B5B] text-[#F5EBDD] dark:bg-[#8CA887] dark:text-[#29241E] font-num">Desk + Vault</span>
           </div>
-          <div class="text-3xl font-black font-num text-[#557A5B] dark:text-[#7FA57E]" id="vaultTrueWealthVal">$120.00</div>
-          <p class="text-xs text-[#756B5D] dark:text-[#B9AC99]">Your true total net worth grown from $120</p>
+          <div class="text-3xl font-black font-num text-[#607B5B] dark:text-[#8CA887]" id="vaultTrueWealthVal">$120.00</div>
+          <p class="text-xs text-[#716556] dark:text-[#B4A58F]">Your true total net worth grown from $120</p>
         </div>
 
         <!-- Goal Progress Bento Card -->
         <div class="bento-card p-5 space-y-2 flex flex-col justify-between">
           <div class="flex items-center justify-between">
-            <span class="text-xs font-bold uppercase tracking-wider text-[#756B5D] dark:text-[#B9AC99]">Goal Progress</span>
-            <span id="vaultGoalPercent" class="text-xs font-bold font-num text-[#B87948] dark:text-[#D39A67]">0.0%</span>
+            <span class="text-xs font-bold uppercase tracking-wider text-[#716556] dark:text-[#B4A58F]">Goal Progress</span>
+            <span id="vaultGoalPercent" class="text-xs font-bold font-num text-[#A96745] dark:text-[#CB8561]">0.0%</span>
           </div>
-          <div class="w-full bg-[#FAF7F0] dark:bg-[#40362C] h-2.5 rounded-full overflow-hidden border border-[#DDD3C3] dark:border-[#55483A]">
-            <div id="vaultProgressBar" class="bg-[#B87948] dark:bg-[#D39A67] h-full rounded-full transition-all duration-300" style="width: 0%"></div>
+          <div class="w-full bg-[#F0E6D5] dark:bg-[#41382D] h-2.5 rounded-full overflow-hidden border border-[#CFC1AA] dark:border-[#514638]">
+            <div id="vaultProgressBar" class="bg-[#A96745] dark:bg-[#CB8561] h-full rounded-full transition-all duration-300" style="width: 0%"></div>
           </div>
-          <p class="text-[11px] text-[#756B5D] dark:text-[#B9AC99] font-num" id="vaultGoalSummary">
+          <p class="text-[11px] text-[#716556] dark:text-[#B4A58F] font-num" id="vaultGoalSummary">
             $0.00 banked of $1,500.00 target
           </p>
         </div>
@@ -934,40 +959,40 @@
         <!-- New Manual Skim Form Card -->
         <div class="bento-card p-5 space-y-4">
           <div>
-            <h3 class="text-sm font-bold text-[#302A22] dark:text-[#F1E8D8]">Move Money to Vault</h3>
-            <p class="text-xs text-[#756B5D] dark:text-[#B9AC99] mt-0.5">Move profits off desk into your Vault safe account.</p>
+            <h3 class="text-sm font-bold text-[#332B22] dark:text-[#E2D4BD]">Move Money to Vault</h3>
+            <p class="text-xs text-[#716556] dark:text-[#B4A58F] mt-0.5">Move profits off desk into your Vault safe account.</p>
           </div>
 
           <form onsubmit="handleManualSkimSubmit(event)" class="space-y-3.5 text-xs">
             <div>
-              <label class="block font-bold text-[#756B5D] dark:text-[#B9AC99] uppercase text-[10px]">Skim Amount ($)</label>
+              <label class="block font-bold text-[#716556] dark:text-[#B4A58F] uppercase text-[10px]">Skim Amount ($)</label>
               <div class="relative mt-1">
-                <span class="absolute left-3 top-2 text-[#756B5D] dark:text-[#B9AC99] font-bold font-num">$</span>
+                <span class="absolute left-3 top-2 text-[#716556] dark:text-[#B4A58F] font-bold font-num">$</span>
                 <input type="number" step="0.01" min="0.01" id="skimFormAmount" required placeholder="100.00"
-                  class="w-full bg-[#FFFDF8] dark:bg-[#40362C] border border-[#DDD3C3] dark:border-[#55483A] rounded-xl pl-8 pr-3 py-2 font-num font-bold text-sm text-[#302A22] dark:text-[#F1E8D8] focus:outline-none focus:border-[#557A5B] dark:focus:border-[#7FA57E]" />
+                  class="w-full bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl pl-8 pr-3 py-2 font-num font-bold text-sm text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#8CA887]" />
               </div>
               <!-- Quick Chips -->
               <div class="flex items-center gap-1.5 mt-2 flex-wrap">
-                <button type="button" onclick="setSkimQuickAmount(25)" class="px-2 py-0.5 rounded-lg bg-[#FFFDF8] hover:bg-[#FAF7F0] dark:bg-[#40362C] dark:hover:bg-[#352D25] border border-[#DDD3C3] dark:border-[#55483A] font-num text-[11px] text-[#302A22] dark:text-[#F1E8D8]">+$25</button>
-                <button type="button" onclick="setSkimQuickAmount(50)" class="px-2 py-0.5 rounded-lg bg-[#FFFDF8] hover:bg-[#FAF7F0] dark:bg-[#40362C] dark:hover:bg-[#352D25] border border-[#DDD3C3] dark:border-[#55483A] font-num text-[11px] text-[#302A22] dark:text-[#F1E8D8]">+$50</button>
-                <button type="button" onclick="setSkimQuickAmount(100)" class="px-2 py-0.5 rounded-lg bg-[#FFFDF8] hover:bg-[#FAF7F0] dark:bg-[#40362C] dark:hover:bg-[#352D25] border border-[#DDD3C3] dark:border-[#55483A] font-num text-[11px] text-[#302A22] dark:text-[#F1E8D8]">+$100</button>
-                <button type="button" onclick="setSkimQuickAmount(250)" class="px-2 py-0.5 rounded-lg bg-[#FFFDF8] hover:bg-[#FAF7F0] dark:bg-[#40362C] dark:hover:bg-[#352D25] border border-[#DDD3C3] dark:border-[#55483A] font-num text-[11px] text-[#302A22] dark:text-[#F1E8D8]">+$250</button>
+                <button type="button" onclick="setSkimQuickAmount(25)" class="px-2 py-0.5 rounded-lg bg-[#F5EBDD] hover:bg-[#F0E6D5] dark:bg-[#41382D] dark:hover:bg-[#352E25] border border-[#CFC1AA] dark:border-[#514638] font-num text-[11px] text-[#332B22] dark:text-[#E2D4BD]">+$25</button>
+                <button type="button" onclick="setSkimQuickAmount(50)" class="px-2 py-0.5 rounded-lg bg-[#F5EBDD] hover:bg-[#F0E6D5] dark:bg-[#41382D] dark:hover:bg-[#352E25] border border-[#CFC1AA] dark:border-[#514638] font-num text-[11px] text-[#332B22] dark:text-[#E2D4BD]">+$50</button>
+                <button type="button" onclick="setSkimQuickAmount(100)" class="px-2 py-0.5 rounded-lg bg-[#F5EBDD] hover:bg-[#F0E6D5] dark:bg-[#41382D] dark:hover:bg-[#352E25] border border-[#CFC1AA] dark:border-[#514638] font-num text-[11px] text-[#332B22] dark:text-[#E2D4BD]">+$100</button>
+                <button type="button" onclick="setSkimQuickAmount(250)" class="px-2 py-0.5 rounded-lg bg-[#F5EBDD] hover:bg-[#F0E6D5] dark:bg-[#41382D] dark:hover:bg-[#352E25] border border-[#CFC1AA] dark:border-[#514638] font-num text-[11px] text-[#332B22] dark:text-[#E2D4BD]">+$250</button>
               </div>
             </div>
 
             <div>
-              <label class="block font-bold text-[#756B5D] dark:text-[#B9AC99] uppercase text-[10px]">Date / Time</label>
+              <label class="block font-bold text-[#716556] dark:text-[#B4A58F] uppercase text-[10px]">Date / Time</label>
               <input type="datetime-local" id="skimFormDateTime" required
-                class="w-full mt-1 bg-[#FFFDF8] dark:bg-[#40362C] border border-[#DDD3C3] dark:border-[#55483A] rounded-xl px-3 py-2 font-num text-xs text-[#302A22] dark:text-[#F1E8D8] focus:outline-none focus:border-[#557A5B] dark:focus:border-[#7FA57E]" />
+                class="w-full mt-1 bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 font-num text-xs text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#8CA887]" />
             </div>
 
             <div>
-              <label class="block font-bold text-[#756B5D] dark:text-[#B9AC99] uppercase text-[10px]">What is this for?</label>
+              <label class="block font-bold text-[#716556] dark:text-[#B4A58F] uppercase text-[10px]">What is this for?</label>
               <input type="text" id="skimFormNote" placeholder="e.g. Electric bill, emergency savings, rent"
-                class="w-full mt-1 bg-[#FFFDF8] dark:bg-[#40362C] border border-[#DDD3C3] dark:border-[#55483A] rounded-xl px-3 py-2 text-xs text-[#302A22] dark:text-[#F1E8D8] focus:outline-none focus:border-[#557A5B] dark:focus:border-[#7FA57E]" />
+                class="w-full mt-1 bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 text-xs text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#8CA887]" />
             </div>
 
-            <button type="submit" class="w-full py-2.5 bg-[#B87948] hover:bg-[#A36639] text-[#FFFDF8] dark:bg-[#D39A67] dark:hover:bg-[#C28956] dark:text-[#29231D] font-bold text-xs rounded-xl transition active:scale-95 shadow-sm">
+            <button type="submit" class="w-full py-2.5 bg-[#A96745] hover:bg-[#96593B] text-[#F5EBDD] dark:bg-[#CB8561] dark:hover:bg-[#BD7957] dark:text-[#29241E] font-bold text-xs rounded-xl transition active:scale-95 shadow-sm">
               + Transfer Cash to Vault
             </button>
           </form>
@@ -975,18 +1000,18 @@
 
         <!-- History Table of Skimmed Vault Entries -->
         <div class="lg:col-span-2 bento-card p-5 flex flex-col justify-between space-y-4">
-          <div class="flex items-center justify-between pb-3 border-b border-[#DDD3C3] dark:border-[#55483A]">
-            <h3 class="text-sm font-bold text-[#302A22] dark:text-[#F1E8D8]">Vault Piggy Bank History</h3>
-            <span class="text-xs text-[#756B5D] dark:text-[#B9AC99] font-num">Safe &amp; Protected</span>
+          <div class="flex items-center justify-between pb-3 border-b border-[#CFC1AA] dark:border-[#514638]">
+            <h3 class="text-sm font-bold text-[#332B22] dark:text-[#E2D4BD]">Vault Piggy Bank History</h3>
+            <span class="text-xs text-[#716556] dark:text-[#B4A58F] font-num">Safe &amp; Protected</span>
           </div>
 
           <div id="vaultHistoryContainer" class="calm-scrollbar overflow-y-auto max-h-[320px] space-y-2.5 flex-grow pr-1">
             <!-- Dynamically populated via renderMilestonesTab -->
           </div>
 
-          <div class="text-[11px] text-[#756B5D] dark:text-[#B9AC99] pt-3 border-t border-[#DDD3C3] dark:border-[#55483A] flex items-center justify-between">
+          <div class="text-[11px] text-[#716556] dark:text-[#B4A58F] pt-3 border-t border-[#CFC1AA] dark:border-[#514638] flex items-center justify-between">
             <span>Money here is safe and never penalizes trading win rate.</span>
-            <button onclick="switchTab('tracker')" class="font-bold text-[#557A5B] dark:text-[#7FA57E] hover:underline">
+            <button onclick="switchTab('tracker')" class="font-bold text-[#607B5B] dark:text-[#8CA887] hover:underline">
               &larr; Back to Daily Tracker
             </button>
           </div>
@@ -1000,35 +1025,35 @@
 
       <!-- Active Ladder Profile Switcher Card -->
       <section class="bento-card p-5 sm:p-6 space-y-4">
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between pb-3 border-b border-[#DDD3C3] dark:border-[#55483A] gap-3">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between pb-3 border-b border-[#CFC1AA] dark:border-[#514638] gap-3">
           <div>
-            <h2 class="text-base font-bold text-[#302A22] dark:text-[#F1E8D8]">Compounding Challenge Profile</h2>
-            <p class="text-xs text-[#756B5D] dark:text-[#B9AC99] mt-0.5">Switch between saved ladders or build a custom compounding roadmap.</p>
+            <h2 class="text-base font-bold text-[#332B22] dark:text-[#E2D4BD]">Compounding Challenge Profile</h2>
+            <p class="text-xs text-[#716556] dark:text-[#B4A58F] mt-0.5">Switch between saved ladders or build a custom compounding roadmap.</p>
           </div>
           <div>
             <select id="ladderProfileSelector" onchange="switchLadderProfile(this.value)"
-              class="bg-[#FFFDF8] dark:bg-[#40362C] border border-[#DDD3C3] dark:border-[#55483A] rounded-xl px-3 py-2 text-xs font-bold text-[#302A22] dark:text-[#F1E8D8] focus:outline-none focus:border-[#557A5B] dark:focus:border-[#7FA57E]">
+              class="bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 text-xs font-bold text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#8CA887]">
               <!-- Dynamically populated -->
             </select>
           </div>
         </div>
 
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs font-num">
-          <div class="p-3.5 rounded-xl bg-[#FFFDF8] dark:bg-[#40362C] border border-[#DDD3C3] dark:border-[#55483A]">
-            <span class="text-[#756B5D] dark:text-[#B9AC99] block text-[10px] uppercase font-bold">Base Start</span>
-            <strong class="text-base text-[#302A22] dark:text-[#F1E8D8]" id="cfgInfoStart">$120.00</strong>
+          <div class="p-3.5 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638]">
+            <span class="text-[#716556] dark:text-[#B4A58F] block text-[10px] uppercase font-bold">Base Start</span>
+            <strong class="text-base text-[#332B22] dark:text-[#E2D4BD]" id="cfgInfoStart">$120.00</strong>
           </div>
-          <div class="p-3.5 rounded-xl bg-[#FFFDF8] dark:bg-[#40362C] border border-[#DDD3C3] dark:border-[#55483A]">
-            <span class="text-[#756B5D] dark:text-[#B9AC99] block text-[10px] uppercase font-bold">Final Goal Target</span>
-            <strong class="text-base text-[#557A5B] dark:text-[#7FA57E]" id="cfgInfoFinal">$7,000.00</strong>
+          <div class="p-3.5 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638]">
+            <span class="text-[#716556] dark:text-[#B4A58F] block text-[10px] uppercase font-bold">Final Goal Target</span>
+            <strong class="text-base text-[#607B5B] dark:text-[#8CA887]" id="cfgInfoFinal">$7,000.00</strong>
           </div>
-          <div class="p-3.5 rounded-xl bg-[#FFFDF8] dark:bg-[#40362C] border border-[#DDD3C3] dark:border-[#55483A]">
-            <span class="text-[#756B5D] dark:text-[#B9AC99] block text-[10px] uppercase font-bold">Total Sessions</span>
-            <strong class="text-base text-[#302A22] dark:text-[#F1E8D8]" id="cfgInfoSessions">28 Sessions</strong>
+          <div class="p-3.5 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638]">
+            <span class="text-[#716556] dark:text-[#B4A58F] block text-[10px] uppercase font-bold">Total Sessions</span>
+            <strong class="text-base text-[#332B22] dark:text-[#E2D4BD]" id="cfgInfoSessions">28 Sessions</strong>
           </div>
-          <div class="p-3.5 rounded-xl bg-[#FFFDF8] dark:bg-[#40362C] border border-[#DDD3C3] dark:border-[#55483A]">
-            <span class="text-[#756B5D] dark:text-[#B9AC99] block text-[10px] uppercase font-bold">Multiplier</span>
-            <strong class="text-base text-[#B87948] dark:text-[#D39A67]" id="cfgInfoMultiple">58.3x</strong>
+          <div class="p-3.5 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638]">
+            <span class="text-[#716556] dark:text-[#B4A58F] block text-[10px] uppercase font-bold">Multiplier</span>
+            <strong class="text-base text-[#A96745] dark:text-[#CB8561]" id="cfgInfoMultiple">58.3x</strong>
           </div>
         </div>
       </section>
@@ -1036,49 +1061,49 @@
       <!-- Custom Ladder Generator Card -->
       <section class="bento-card p-5 sm:p-6 space-y-4">
         <div>
-          <h3 class="text-sm font-bold text-[#302A22] dark:text-[#F1E8D8] uppercase tracking-wider">Custom Roadmap Builder</h3>
-          <p class="text-xs text-[#756B5D] dark:text-[#B9AC99] mt-0.5">Generate a custom compounding ladder for any starting balance, target, or session count.</p>
+          <h3 class="text-sm font-bold text-[#332B22] dark:text-[#E2D4BD] uppercase tracking-wider">Custom Roadmap Builder</h3>
+          <p class="text-xs text-[#716556] dark:text-[#B4A58F] mt-0.5">Generate a custom compounding ladder for any starting balance, target, or session count.</p>
         </div>
 
         <form onsubmit="handleGenerateLadderSubmit(event)" class="space-y-4 text-xs">
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
             <div>
-              <label class="block font-bold text-[#756B5D] dark:text-[#B9AC99] uppercase text-[10px] tracking-wider">Challenge Name</label>
+              <label class="block font-bold text-[#716556] dark:text-[#B4A58F] uppercase text-[10px] tracking-wider">Challenge Name</label>
               <input type="text" id="genName" required placeholder="e.g. 20-Day $150 to $5K Sprint"
-                class="w-full mt-1 bg-[#FFFDF8] dark:bg-[#40362C] border border-[#DDD3C3] dark:border-[#55483A] rounded-xl px-3 py-2 text-xs font-semibold text-[#302A22] dark:text-[#F1E8D8] focus:outline-none focus:border-[#557A5B] dark:focus:border-[#7FA57E]" />
+                class="w-full mt-1 bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 text-xs font-semibold text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#8CA887]" />
             </div>
 
             <div>
-              <label class="block font-bold text-[#756B5D] dark:text-[#B9AC99] uppercase text-[10px] tracking-wider">Starting Balance ($)</label>
+              <label class="block font-bold text-[#716556] dark:text-[#B4A58F] uppercase text-[10px] tracking-wider">Starting Balance ($)</label>
               <input type="number" step="0.01" min="1" id="genBase" required value="150"
-                class="w-full mt-1 bg-[#FFFDF8] dark:bg-[#40362C] border border-[#DDD3C3] dark:border-[#55483A] rounded-xl px-3 py-2 font-num font-bold text-xs text-[#302A22] dark:text-[#F1E8D8] focus:outline-none focus:border-[#557A5B] dark:focus:border-[#7FA57E]" />
+                class="w-full mt-1 bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 font-num font-bold text-xs text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#8CA887]" />
             </div>
 
             <div>
-              <label class="block font-bold text-[#756B5D] dark:text-[#B9AC99] uppercase text-[10px] tracking-wider">Final Target ($)</label>
+              <label class="block font-bold text-[#716556] dark:text-[#B4A58F] uppercase text-[10px] tracking-wider">Final Target ($)</label>
               <input type="number" step="1" min="1" id="genTarget" required value="2500"
-                class="w-full mt-1 bg-[#FFFDF8] dark:bg-[#40362C] border border-[#DDD3C3] dark:border-[#55483A] rounded-xl px-3 py-2 font-num font-bold text-xs text-[#302A22] dark:text-[#F1E8D8] focus:outline-none focus:border-[#557A5B] dark:focus:border-[#7FA57E]" />
+                class="w-full mt-1 bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 font-num font-bold text-xs text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#8CA887]" />
             </div>
 
             <div>
-              <label class="block font-bold text-[#756B5D] dark:text-[#B9AC99] uppercase text-[10px] tracking-wider">Number of Sessions</label>
+              <label class="block font-bold text-[#716556] dark:text-[#B4A58F] uppercase text-[10px] tracking-wider">Number of Sessions</label>
               <input type="number" step="1" min="3" max="100" id="genSessions" required value="14"
-                class="w-full mt-1 bg-[#FFFDF8] dark:bg-[#40362C] border border-[#DDD3C3] dark:border-[#55483A] rounded-xl px-3 py-2 font-num font-bold text-xs text-[#302A22] dark:text-[#F1E8D8] focus:outline-none focus:border-[#557A5B] dark:focus:border-[#7FA57E]" />
+                class="w-full mt-1 bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 font-num font-bold text-xs text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#8CA887]" />
             </div>
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
             <div>
-              <label class="block font-bold text-[#756B5D] dark:text-[#B9AC99] uppercase text-[10px] tracking-wider">Compounding Curve Style</label>
+              <label class="block font-bold text-[#716556] dark:text-[#B4A58F] uppercase text-[10px] tracking-wider">Compounding Curve Style</label>
               <select id="genCurveType"
-                class="w-full mt-1 bg-[#FFFDF8] dark:bg-[#40362C] border border-[#DDD3C3] dark:border-[#55483A] rounded-xl px-3 py-2 text-xs font-semibold text-[#302A22] dark:text-[#F1E8D8] focus:outline-none focus:border-[#557A5B] dark:focus:border-[#7FA57E]">
+                class="w-full mt-1 bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 text-xs font-semibold text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#8CA887]">
                 <option value="decay">Decaying Phased Curve (High velocity early &rarr; conservative late)</option>
                 <option value="smooth">Smooth Constant Compound</option>
               </select>
             </div>
 
             <div class="flex items-end">
-              <button type="submit" class="w-full py-2.5 bg-[#557A5B] hover:bg-[#46664B] text-[#FFFDF8] dark:bg-[#7FA57E] dark:hover:bg-[#6E936D] dark:text-[#29231D] font-bold text-xs rounded-xl transition active:scale-95 shadow-sm">
+              <button type="submit" class="w-full py-2.5 bg-[#607B5B] hover:bg-[#4F674B] text-[#F5EBDD] dark:bg-[#8CA887] dark:hover:bg-[#759272] dark:text-[#29241E] font-bold text-xs rounded-xl transition active:scale-95 shadow-sm">
                 + Create &amp; Activate Roadmap
               </button>
             </div>
@@ -1087,18 +1112,18 @@
       </section>
 
       <!-- Reset Operations Card -->
-      <section class="bento-card p-5 border-[#DDD3C3] dark:border-[#55483A] space-y-3">
-        <h3 class="text-xs font-bold uppercase tracking-wider text-[#B65C52] dark:text-[#D77C70]">Reset &amp; Start Fresh</h3>
-        <p class="text-xs text-[#756B5D] dark:text-[#B9AC99]">Actions take effect immediately on your local browser data.</p>
+      <section class="bento-card p-5 border-[#CFC1AA] dark:border-[#514638] space-y-3">
+        <h3 class="text-xs font-bold uppercase tracking-wider text-[#B86652] dark:text-[#D47F6C]">Reset &amp; Start Fresh</h3>
+        <p class="text-xs text-[#716556] dark:text-[#B4A58F]">Actions take effect immediately on your local browser data.</p>
 
         <div class="flex flex-wrap items-center gap-2 pt-1">
-          <button onclick="requestResetSessionEntries()" class="px-3.5 py-2 rounded-xl bg-[#B65C52]/10 hover:bg-[#B65C52]/20 text-[#B65C52] dark:bg-[#D77C70]/15 dark:hover:bg-[#D77C70]/25 dark:text-[#D77C70] border border-[#B65C52]/30 dark:border-[#D77C70]/30 text-xs font-bold transition active:scale-95">
+          <button onclick="requestResetSessionEntries()" class="px-3.5 py-2 rounded-xl bg-[#B86652]/10 hover:bg-[#B86652]/20 text-[#B86652] dark:bg-[#D47F6C]/15 dark:hover:bg-[#D47F6C]/25 dark:text-[#D47F6C] border border-[#B86652]/30 dark:border-[#D47F6C]/30 text-xs font-bold transition active:scale-95">
             ↺ Reset Session Progress (Keep Roadmap)
           </button>
-          <button onclick="requestClearVault()" class="px-3.5 py-2 rounded-xl bg-[#B87948]/10 hover:bg-[#B87948]/20 text-[#B87948] dark:bg-[#D39A67]/15 dark:hover:bg-[#D39A67]/25 dark:text-[#D39A67] border border-[#B87948]/30 dark:border-[#D39A67]/30 text-xs font-bold transition active:scale-95">
+          <button onclick="requestClearVault()" class="px-3.5 py-2 rounded-xl bg-[#A96745]/10 hover:bg-[#A96745]/20 text-[#A96745] dark:bg-[#CB8561]/15 dark:hover:bg-[#CB8561]/25 dark:text-[#CB8561] border border-[#A96745]/30 dark:border-[#CB8561]/30 text-xs font-bold transition active:scale-95">
             Clear Vault History
           </button>
-          <button onclick="requestRestorePresets()" class="px-3.5 py-2 rounded-xl bg-[#FFFDF8] hover:bg-[#FAF7F0] text-[#756B5D] dark:bg-[#40362C] dark:hover:bg-[#352D25] dark:text-[#B9AC99] border border-[#DDD3C3] dark:border-[#55483A] text-xs font-semibold transition active:scale-95">
+          <button onclick="requestRestorePresets()" class="px-3.5 py-2 rounded-xl bg-[#F5EBDD] hover:bg-[#F0E6D5] text-[#716556] dark:bg-[#41382D] dark:hover:bg-[#352E25] dark:text-[#B4A58F] border border-[#CFC1AA] dark:border-[#514638] text-xs font-semibold transition active:scale-95">
             Restore Default 28-Session Preset
           </button>
         </div>
@@ -1107,36 +1132,36 @@
     </div>
 
     <!-- Sheet Sync & Firebase Cloud Modal -->
-    <div id="sheetSyncModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#29231D]/65 dark:bg-[#1A1612]/80 backdrop-blur-sm hidden transition-opacity duration-200">
-      <div class="bg-[#FAF7F0] dark:bg-[#352D25] rounded-2xl max-w-xl w-full p-6 sm:p-7 shadow-2xl border border-[#DDD3C3] dark:border-[#55483A] space-y-4 calm-scrollbar max-h-[90vh] overflow-y-auto">
+    <div id="sheetSyncModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#29241E]/65 dark:bg-[#1C1814]/80 backdrop-blur-sm hidden transition-opacity duration-200">
+      <div class="bg-[#F0E6D5] dark:bg-[#352E25] rounded-2xl max-w-xl w-full p-6 sm:p-7 shadow-2xl border border-[#CFC1AA] dark:border-[#514638] space-y-4 calm-scrollbar max-h-[90vh] overflow-y-auto">
         
         <!-- Modal Header -->
-        <div class="flex items-center justify-between pb-3 border-b border-[#DDD3C3] dark:border-[#55483A]">
+        <div class="flex items-center justify-between pb-3 border-b border-[#CFC1AA] dark:border-[#514638]">
           <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-[#C49A45]/15 text-[#C49A45] dark:bg-[#D9B765]/20 dark:text-[#D9B765] border border-[#C49A45]/30 dark:border-[#D9B765]/30 flex items-center justify-center text-xl">
+            <div class="w-10 h-10 rounded-xl bg-[#C2984D]/15 text-[#C2984D] dark:bg-[#DEB76C]/20 dark:text-[#DEB76C] border border-[#C2984D]/30 dark:border-[#DEB76C]/30 flex items-center justify-center text-xl">
               ☁️
             </div>
             <div>
-              <h3 class="text-base sm:text-lg font-black text-[#302A22] dark:text-[#F1E8D8]">
+              <h3 class="text-base sm:text-lg font-black text-[#332B22] dark:text-[#E2D4BD]">
                 Cloud Sync &amp; Sheet Export
               </h3>
-              <p class="text-xs text-[#756B5D] dark:text-[#B9AC99]">
+              <p class="text-xs text-[#716556] dark:text-[#B4A58F]">
                 Sync across all your devices in real-time or export to Excel
               </p>
             </div>
           </div>
-          <button onclick="closeLinkSheetModal()" class="w-8 h-8 rounded-lg hover:bg-[#DDD3C3]/40 dark:hover:bg-[#55483A]/40 text-[#756B5D] hover:text-[#302A22] dark:text-[#B9AC99] dark:hover:text-[#F1E8D8] flex items-center justify-center text-lg font-bold">
+          <button onclick="closeLinkSheetModal()" class="w-8 h-8 rounded-lg hover:bg-[#CFC1AA]/40 dark:hover:bg-[#514638]/40 text-[#716556] hover:text-[#332B22] dark:text-[#B4A58F] dark:hover:text-[#E2D4BD] flex items-center justify-center text-lg font-bold">
             ✕
           </button>
         </div>
 
         <!-- Segmented Tab Switcher (Firebase vs Excel/Sheets) -->
-        <div class="inline-flex p-1 rounded-xl bg-[#FFFDF8] dark:bg-[#40362C] border border-[#DDD3C3] dark:border-[#55483A] text-xs font-bold w-full">
-          <button onclick="switchSyncModalTab('firebase')" id="syncModalTabBtn_firebase" class="flex-1 py-2 rounded-lg bg-[#FAF7F0] dark:bg-[#352D25] text-[#302A22] dark:text-[#F1E8D8] border border-[#DDD3C3] dark:border-[#55483A] shadow-sm transition flex items-center justify-center gap-1.5">
+        <div class="inline-flex p-1 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] text-xs font-bold w-full">
+          <button onclick="switchSyncModalTab('firebase')" id="syncModalTabBtn_firebase" class="flex-1 py-2 rounded-lg bg-[#F0E6D5] dark:bg-[#352E25] text-[#332B22] dark:text-[#E2D4BD] border border-[#CFC1AA] dark:border-[#514638] shadow-sm transition flex items-center justify-center gap-1.5">
             <span>🔥</span>
             <span>Firebase Firestore (Multi-Device)</span>
           </button>
-          <button onclick="switchSyncModalTab('sheets')" id="syncModalTabBtn_sheets" class="flex-1 py-2 rounded-lg text-[#756B5D] dark:text-[#B9AC99] hover:text-[#302A22] dark:hover:text-[#F1E8D8] transition flex items-center justify-center gap-1.5">
+          <button onclick="switchSyncModalTab('sheets')" id="syncModalTabBtn_sheets" class="flex-1 py-2 rounded-lg text-[#716556] dark:text-[#B4A58F] hover:text-[#332B22] dark:hover:text-[#E2D4BD] transition flex items-center justify-center gap-1.5">
             <span>📊</span>
             <span>Excel &amp; Google Sheets</span>
           </button>
@@ -1144,59 +1169,59 @@
 
         <!-- TAB 1: FIREBASE FIRESTORE SYNC -->
         <div id="syncModalContent_firebase" class="space-y-4">
-          <div class="p-4 rounded-xl bg-[#FFFDF8] dark:bg-[#40362C] border border-[#DDD3C3] dark:border-[#55483A] space-y-3">
+          <div class="p-4 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] space-y-3">
             <div class="flex items-center justify-between">
-              <span class="text-xs font-bold uppercase tracking-wider text-[#302A22] dark:text-[#F1E8D8]">
+              <span class="text-xs font-bold uppercase tracking-wider text-[#332B22] dark:text-[#E2D4BD]">
                 🔥 Firestore Live Real-Time Sync
               </span>
-              <span id="firebaseStatusBadge" class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-[#DDD3C3] text-[#756B5D] dark:bg-[#55483A] dark:text-[#B9AC99] font-num">
+              <span id="firebaseStatusBadge" class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-[#CFC1AA] text-[#716556] dark:bg-[#514638] dark:text-[#B4A58F] font-num">
                 Not Connected
               </span>
             </div>
 
-            <p class="text-xs text-[#756B5D] dark:text-[#B9AC99] leading-relaxed">
+            <p class="text-xs text-[#716556] dark:text-[#B4A58F] leading-relaxed">
               Connect your Firebase project to automatically sync your dashboard between your phone, laptop, and desktop in real-time with zero delay!
             </p>
 
             <!-- Sync Key Input -->
             <div>
-              <label class="block font-bold text-[#756B5D] dark:text-[#B9AC99] uppercase text-[10px] tracking-wider mb-1">
+              <label class="block font-bold text-[#716556] dark:text-[#B4A58F] uppercase text-[10px] tracking-wider mb-1">
                 Portfolio Sync Key (Device Identifier)
               </label>
               <input type="text" id="inputSyncKey" value="dcniper_portfolio" placeholder="e.g. dcniper_portfolio"
-                class="w-full bg-[#FAF7F0] dark:bg-[#352D25] border border-[#DDD3C3] dark:border-[#55483A] rounded-xl px-3 py-2 text-xs font-num font-bold text-[#302A22] dark:text-[#F1E8D8] focus:outline-none focus:border-[#C49A45] dark:focus:border-[#D9B765] shadow-inner" />
-              <span class="text-[10px] text-[#756B5D] dark:text-[#B9AC99] mt-0.5 block">Use the same Sync Key on your other devices to see the exact same portfolio.</span>
+                class="w-full bg-[#F0E6D5] dark:bg-[#352E25] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 text-xs font-num font-bold text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#C2984D] dark:focus:border-[#DEB76C] shadow-inner" />
+              <span class="text-[10px] text-[#716556] dark:text-[#B4A58F] mt-0.5 block">Use the same Sync Key on your other devices to see the exact same portfolio.</span>
             </div>
 
             <!-- Firebase Config Input -->
             <div>
               <div class="flex items-center justify-between mb-1">
-                <label class="block font-bold text-[#756B5D] dark:text-[#B9AC99] uppercase text-[10px] tracking-wider">
+                <label class="block font-bold text-[#716556] dark:text-[#B4A58F] uppercase text-[10px] tracking-wider">
                   Firebase Config Object / JSON
                 </label>
-                <span class="text-[10px] text-[#756B5D] dark:text-[#B9AC99]">Firebase Console &gt; Project settings</span>
+                <span class="text-[10px] text-[#716556] dark:text-[#B4A58F]">Firebase Console &gt; Project settings</span>
               </div>
               <textarea id="inputFirebaseConfig" rows="4" placeholder="Paste const firebaseConfig = { ... } or raw JSON here..."
-                class="w-full bg-[#FAF7F0] dark:bg-[#352D25] border border-[#DDD3C3] dark:border-[#55483A] rounded-xl p-3 font-num text-[11px] text-[#302A22] dark:text-[#F1E8D8] focus:outline-none focus:border-[#C49A45] dark:focus:border-[#D9B765] shadow-inner calm-scrollbar"></textarea>
+                class="w-full bg-[#F0E6D5] dark:bg-[#352E25] border border-[#CFC1AA] dark:border-[#514638] rounded-xl p-3 font-num text-[11px] text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#C2984D] dark:focus:border-[#DEB76C] shadow-inner calm-scrollbar"></textarea>
             </div>
 
             <!-- Action Buttons -->
             <div class="flex items-center gap-2 pt-1 flex-wrap">
-              <button onclick="handleConnectFirebase()" class="flex-1 py-2 rounded-xl bg-[#C49A45] hover:bg-[#A98132] text-[#302A22] font-bold text-xs shadow-sm transition active:scale-95">
+              <button onclick="handleConnectFirebase()" class="flex-1 py-2 rounded-xl bg-[#C2984D] hover:bg-[#A6803F] text-[#332B22] font-bold text-xs shadow-sm transition active:scale-95">
                 🔥 Connect &amp; Start Realtime Sync
               </button>
-              <button onclick="handleDisconnectFirebase()" id="btnDisconnectFirebase" class="hidden px-4 py-2 rounded-xl bg-[#FAF7F0] hover:bg-[#FFFDF8] dark:bg-[#352D25] dark:hover:bg-[#40362C] text-[#756B5D] dark:text-[#B9AC99] border border-[#DDD3C3] dark:border-[#55483A] font-bold text-xs transition">
+              <button onclick="handleDisconnectFirebase()" id="btnDisconnectFirebase" class="hidden px-4 py-2 rounded-xl bg-[#F0E6D5] hover:bg-[#F5EBDD] dark:bg-[#352E25] dark:hover:bg-[#41382D] text-[#716556] dark:text-[#B4A58F] border border-[#CFC1AA] dark:border-[#514638] font-bold text-xs transition">
                 Disconnect
               </button>
             </div>
 
-            <p id="firebaseFeedbackMsg" class="text-[11px] text-[#756B5D] dark:text-[#B9AC99] font-num">
+            <p id="firebaseFeedbackMsg" class="text-[11px] text-[#716556] dark:text-[#B4A58F] font-num">
               Credentials are saved securely in your browser's local storage.
             </p>
           </div>
 
           <!-- Firestore Security Rules Helper -->
-          <div class="p-3.5 rounded-xl bg-[#C49A45]/10 dark:bg-[#D9B765]/15 border border-[#C49A45]/30 dark:border-[#D9B765]/30 space-y-1.5 text-xs text-[#302A22] dark:text-[#F1E8D8]">
+          <div class="p-3.5 rounded-xl bg-[#C2984D]/10 dark:bg-[#DEB76C]/15 border border-[#C2984D]/30 dark:border-[#DEB76C]/30 space-y-1.5 text-xs text-[#332B22] dark:text-[#E2D4BD]">
             <div class="flex items-center justify-between">
               <span class="font-bold flex items-center gap-1.5">
                 <span>🛡️</span>
@@ -1206,10 +1231,10 @@
                 Copy Rules
               </button>
             </div>
-            <p class="text-[11px] text-[#756B5D] dark:text-[#B9AC99]">
+            <p class="text-[11px] text-[#716556] dark:text-[#B4A58F]">
               In Firebase Console &gt; Firestore Database &gt; Rules, set your rule to allow read/write:
             </p>
-            <pre class="bg-[#FFFDF8] dark:bg-[#40362C] p-2 rounded-lg font-num text-[10px] text-[#302A22] dark:text-[#F1E8D8] border border-[#DDD3C3] dark:border-[#55483A] overflow-x-auto">rules_version = '2';
+            <pre class="bg-[#F5EBDD] dark:bg-[#41382D] p-2 rounded-lg font-num text-[10px] text-[#332B22] dark:text-[#E2D4BD] border border-[#CFC1AA] dark:border-[#514638] overflow-x-auto">rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     match /{document=**} {
@@ -1224,26 +1249,26 @@ service cloud.firestore {
         <div id="syncModalContent_sheets" class="hidden space-y-4">
           
           <!-- One-Click Instant Action -->
-          <div class="p-4 rounded-xl bg-[#FFFDF8] dark:bg-[#40362C] border border-[#DDD3C3] dark:border-[#55483A] space-y-3">
+          <div class="p-4 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] space-y-3">
             <div class="flex items-center justify-between">
-              <span class="text-xs font-bold uppercase tracking-wider text-[#302A22] dark:text-[#F1E8D8]">
+              <span class="text-xs font-bold uppercase tracking-wider text-[#332B22] dark:text-[#E2D4BD]">
                 ⚡ Instant 1-Click Action
               </span>
-              <span class="text-[10px] font-semibold text-[#557A5B] dark:text-[#7FA57E] bg-[#557A5B]/10 dark:bg-[#7FA57E]/15 px-2 py-0.5 rounded-full border border-[#557A5B]/30 dark:border-[#7FA57E]/30">
+              <span class="text-[10px] font-semibold text-[#607B5B] dark:text-[#8CA887] bg-[#607B5B]/10 dark:bg-[#8CA887]/15 px-2 py-0.5 rounded-full border border-[#607B5B]/30 dark:border-[#8CA887]/30">
                 No setup required
               </span>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
               <!-- Download Excel CSV Button -->
-              <button onclick="exportToExcelCSV()" class="p-3.5 rounded-xl bg-[#FAF7F0] dark:bg-[#352D25] border border-[#DDD3C3] dark:border-[#55483A] hover:border-[#B87948] dark:hover:border-[#D39A67] text-left transition active:scale-95 group shadow-sm">
+              <button onclick="exportToExcelCSV()" class="p-3.5 rounded-xl bg-[#F0E6D5] dark:bg-[#352E25] border border-[#CFC1AA] dark:border-[#514638] hover:border-[#A96745] dark:hover:border-[#CB8561] text-left transition active:scale-95 group shadow-sm">
                 <div class="flex items-center gap-2.5">
                   <span class="text-2xl">📥</span>
                   <div>
-                    <div class="text-xs font-bold text-[#302A22] dark:text-[#F1E8D8] group-hover:text-[#B87948] dark:group-hover:text-[#D39A67]">
+                    <div class="text-xs font-bold text-[#332B22] dark:text-[#E2D4BD] group-hover:text-[#A96745] dark:group-hover:text-[#CB8561]">
                       Export to Excel (.csv)
                     </div>
-                    <div class="text-[10px] text-[#756B5D] dark:text-[#B9AC99]">
+                    <div class="text-[10px] text-[#716556] dark:text-[#B4A58F]">
                       Exports all sessions &amp; vault logs
                     </div>
                   </div>
@@ -1251,14 +1276,14 @@ service cloud.firestore {
               </button>
 
               <!-- Create New Google Sheet & Paste -->
-              <button onclick="createNewGoogleSheet()" class="p-3.5 rounded-xl bg-[#FAF7F0] dark:bg-[#352D25] border border-[#DDD3C3] dark:border-[#55483A] hover:border-[#557A5B] dark:hover:border-[#7FA57E] text-left transition active:scale-95 group shadow-sm">
+              <button onclick="createNewGoogleSheet()" class="p-3.5 rounded-xl bg-[#F0E6D5] dark:bg-[#352E25] border border-[#CFC1AA] dark:border-[#514638] hover:border-[#607B5B] dark:hover:border-[#8CA887] text-left transition active:scale-95 group shadow-sm">
                 <div class="flex items-center gap-2.5">
                   <span class="text-2xl">📄</span>
                   <div>
-                    <div class="text-xs font-bold text-[#302A22] dark:text-[#F1E8D8] group-hover:text-[#557A5B] dark:group-hover:text-[#7FA57E]">
+                    <div class="text-xs font-bold text-[#332B22] dark:text-[#E2D4BD] group-hover:text-[#607B5B] dark:group-hover:text-[#8CA887]">
                       Create Google Sheet
                     </div>
-                    <div class="text-[10px] text-[#756B5D] dark:text-[#B9AC99]">
+                    <div class="text-[10px] text-[#716556] dark:text-[#B4A58F]">
                       Opens sheets.new + copies data
                     </div>
                   </div>
@@ -1268,36 +1293,36 @@ service cloud.firestore {
           </div>
 
           <!-- Automated Live Google Sheets Webhook -->
-          <div class="p-4 rounded-xl bg-[#FFFDF8] dark:bg-[#40362C] border border-[#DDD3C3] dark:border-[#55483A] space-y-3.5">
+          <div class="p-4 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] space-y-3.5">
             <div class="flex items-center justify-between">
-              <span class="text-xs font-bold uppercase tracking-wider text-[#302A22] dark:text-[#F1E8D8]">
+              <span class="text-xs font-bold uppercase tracking-wider text-[#332B22] dark:text-[#E2D4BD]">
                 ☁️ Google Sheets Webhook Sync
               </span>
-              <span id="modalCloudStatusBadge" class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-[#DDD3C3] text-[#756B5D] dark:bg-[#55483A] dark:text-[#B9AC99] font-num">
+              <span id="modalCloudStatusBadge" class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-[#CFC1AA] text-[#716556] dark:bg-[#514638] dark:text-[#B4A58F] font-num">
                 Not Connected
               </span>
             </div>
 
             <div>
-              <label class="block font-bold text-[#756B5D] dark:text-[#B9AC99] uppercase text-[10px] tracking-wider mb-1">
+              <label class="block font-bold text-[#716556] dark:text-[#B4A58F] uppercase text-[10px] tracking-wider mb-1">
                 Google Apps Script Webhook URL
               </label>
               <div class="flex items-center gap-2">
                 <input type="url" id="inputWebhookUrl" placeholder="https://script.google.com/macros/s/.../exec"
-                  class="flex-1 bg-[#FAF7F0] dark:bg-[#352D25] border border-[#DDD3C3] dark:border-[#55483A] rounded-xl px-3 py-2 text-xs font-num text-[#302A22] dark:text-[#F1E8D8] focus:outline-none focus:border-[#B87948] dark:focus:border-[#D39A67] shadow-inner" />
-                <button onclick="saveAndTestWebhook()" class="px-4 py-2 rounded-xl bg-[#B87948] hover:bg-[#A36639] text-[#FFFDF8] dark:bg-[#D39A67] dark:hover:bg-[#C28956] dark:text-[#29231D] font-bold text-xs shadow-sm transition active:scale-95 shrink-0">
+                  class="flex-1 bg-[#F0E6D5] dark:bg-[#352E25] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 text-xs font-num text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#A96745] dark:focus:border-[#CB8561] shadow-inner" />
+                <button onclick="saveAndTestWebhook()" class="px-4 py-2 rounded-xl bg-[#A96745] hover:bg-[#96593B] text-[#F5EBDD] dark:bg-[#CB8561] dark:hover:bg-[#BD7957] dark:text-[#29241E] font-bold text-xs shadow-sm transition active:scale-95 shrink-0">
                   Sync &amp; Save
                 </button>
               </div>
-              <p id="webhookSyncFeedback" class="text-[11px] text-[#756B5D] dark:text-[#B9AC99] font-num mt-1">
+              <p id="webhookSyncFeedback" class="text-[11px] text-[#716556] dark:text-[#B4A58F] font-num mt-1">
                 No webhook linked yet.
               </p>
             </div>
 
             <!-- Code Copy -->
-            <div class="pt-2 border-t border-[#DDD3C3] dark:border-[#55483A] flex items-center justify-between">
-              <span class="text-[11px] text-[#756B5D] dark:text-[#B9AC99]">Need the Apps Script code for your Google Sheet?</span>
-              <button onclick="copyAppsScriptCode()" class="text-xs font-bold text-[#B87948] dark:text-[#D39A67] hover:underline">
+            <div class="pt-2 border-t border-[#CFC1AA] dark:border-[#514638] flex items-center justify-between">
+              <span class="text-[11px] text-[#716556] dark:text-[#B4A58F]">Need the Apps Script code for your Google Sheet?</span>
+              <button onclick="copyAppsScriptCode()" class="text-xs font-bold text-[#A96745] dark:text-[#CB8561] hover:underline">
                 📋 Copy Apps Script
               </button>
             </div>
@@ -1306,9 +1331,9 @@ service cloud.firestore {
         </div>
 
         <!-- Footer -->
-        <div class="flex items-center justify-between pt-2 border-t border-[#DDD3C3] dark:border-[#55483A] text-xs">
-          <span class="text-[#756B5D] dark:text-[#B9AC99]">All data stays in your personal cloud &amp; browser storage.</span>
-          <button onclick="closeLinkSheetModal()" class="px-4 py-2 rounded-xl bg-[#FFFDF8] hover:bg-[#FAF7F0] dark:bg-[#40362C] dark:hover:bg-[#352D25] border border-[#DDD3C3] dark:border-[#55483A] text-[#302A22] dark:text-[#F1E8D8] font-bold transition">
+        <div class="flex items-center justify-between pt-2 border-t border-[#CFC1AA] dark:border-[#514638] text-xs">
+          <span class="text-[#716556] dark:text-[#B4A58F]">All data stays in your personal cloud &amp; browser storage.</span>
+          <button onclick="closeLinkSheetModal()" class="px-4 py-2 rounded-xl bg-[#F5EBDD] hover:bg-[#F0E6D5] dark:bg-[#41382D] dark:hover:bg-[#352E25] border border-[#CFC1AA] dark:border-[#514638] text-[#332B22] dark:text-[#E2D4BD] font-bold transition">
             Close
           </button>
         </div>
@@ -1317,22 +1342,22 @@ service cloud.firestore {
     </div>
 
     <!-- Custom Modal Dialog -->
-    <div id="customModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#29231D]/60 dark:bg-[#1A1612]/75 backdrop-blur-sm hidden transition-opacity duration-200">
-      <div class="bg-[#FAF7F0] dark:bg-[#352D25] rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-[#DDD3C3] dark:border-[#55483A] space-y-4">
+    <div id="customModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#29241E]/60 dark:bg-[#1C1814]/75 backdrop-blur-sm hidden transition-opacity duration-200">
+      <div class="bg-[#F0E6D5] dark:bg-[#352E25] rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-[#CFC1AA] dark:border-[#514638] space-y-4">
         <div>
-          <h3 id="modalTitle" class="text-base font-bold text-[#302A22] dark:text-[#F1E8D8]">Confirm Action</h3>
-          <p id="modalMsg" class="text-xs text-[#756B5D] dark:text-[#B9AC99] mt-1">Are you sure you want to proceed?</p>
+          <h3 id="modalTitle" class="text-base font-bold text-[#332B22] dark:text-[#E2D4BD]">Confirm Action</h3>
+          <p id="modalMsg" class="text-xs text-[#716556] dark:text-[#B4A58F] mt-1">Are you sure you want to proceed?</p>
         </div>
 
         <div id="modalInputContainer" class="hidden">
-          <input type="text" id="modalInput" class="w-full bg-[#FFFDF8] dark:bg-[#40362C] border border-[#DDD3C3] dark:border-[#55483A] rounded-xl px-3 py-2 text-xs font-semibold text-[#302A22] dark:text-[#F1E8D8] focus:outline-none focus:border-[#557A5B] dark:focus:border-[#7FA57E]" />
+          <input type="text" id="modalInput" class="w-full bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 text-xs font-semibold text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#8CA887]" />
         </div>
 
-        <div class="flex items-center justify-end gap-2 pt-2 border-t border-[#DDD3C3] dark:border-[#55483A]">
-          <button id="modalCancelBtn" class="px-4 py-2 rounded-xl text-xs font-bold text-[#756B5D] dark:text-[#B9AC99] hover:bg-[#DDD3C3]/40 dark:hover:bg-[#55483A]/40 transition">
+        <div class="flex items-center justify-end gap-2 pt-2 border-t border-[#CFC1AA] dark:border-[#514638]">
+          <button id="modalCancelBtn" class="px-4 py-2 rounded-xl text-xs font-bold text-[#716556] dark:text-[#B4A58F] hover:bg-[#CFC1AA]/40 dark:hover:bg-[#514638]/40 transition">
             Cancel
           </button>
-          <button id="modalConfirmBtn" class="px-4 py-2 rounded-xl text-xs font-bold bg-[#557A5B] hover:bg-[#46664B] text-[#FFFDF8] dark:bg-[#7FA57E] dark:hover:bg-[#6E936D] dark:text-[#29231D] transition shadow-sm">
+          <button id="modalConfirmBtn" class="px-4 py-2 rounded-xl text-xs font-bold bg-[#607B5B] hover:bg-[#4F674B] text-[#F5EBDD] dark:bg-[#8CA887] dark:hover:bg-[#759272] dark:text-[#29241E] transition shadow-sm">
             Confirm
           </button>
         </div>
@@ -1340,8 +1365,8 @@ service cloud.firestore {
     </div>
 
     <!-- Quick Toast Notification -->
-    <div id="toastBox" class="fixed bottom-5 right-5 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#302A22] text-[#FAF7F0] border border-[#55483A] dark:bg-[#FAF7F0] dark:text-[#302A22] dark:border-[#DDD3C3] text-xs font-bold shadow-2xl">
-      <span id="toastIcon" class="w-4 h-4 rounded-full bg-[#557A5B] dark:bg-[#7FA57E] text-[#FFFDF8] dark:text-[#29231D] flex items-center justify-center text-[10px]">✓</span>
+    <div id="toastBox" class="fixed bottom-5 right-5 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#332B22] text-[#F0E6D5] border border-[#514638] dark:bg-[#F0E6D5] dark:text-[#332B22] dark:border-[#CFC1AA] text-xs font-bold shadow-2xl">
+      <span id="toastIcon" class="w-4 h-4 rounded-full bg-[#607B5B] dark:bg-[#8CA887] text-[#F5EBDD] dark:text-[#29241E] flex items-center justify-center text-[10px]">✓</span>
       <span id="toastMsg">Saved</span>
     </div>
 
@@ -1520,10 +1545,10 @@ service cloud.firestore {
         const navBtn = document.getElementById(`nav-${t}`);
         if (t === tab) {
           tabEl.classList.remove('hidden');
-          navBtn.className = "flex-1 sm:flex-initial px-5 sm:px-7 py-2 rounded-lg transition-all flex items-center justify-center gap-2 bg-[#FFFDF8] dark:bg-[#40362C] text-[#302A22] dark:text-[#F1E8D8] border border-[#DDD3C3] dark:border-[#55483A] shadow-sm";
+          navBtn.className = "flex-1 sm:flex-initial px-5 sm:px-7 py-2 rounded-lg transition-all flex items-center justify-center gap-2 bg-[#F5EBDD] dark:bg-[#41382D] text-[#332B22] dark:text-[#E2D4BD] border border-[#CFC1AA] dark:border-[#514638] shadow-sm";
         } else {
           tabEl.classList.add('hidden');
-          navBtn.className = "flex-1 sm:flex-initial px-5 sm:px-7 py-2 rounded-lg transition-all flex items-center justify-center gap-2 text-[#756B5D] dark:text-[#B9AC99] hover:text-[#302A22] dark:hover:text-[#F1E8D8]";
+          navBtn.className = "flex-1 sm:flex-initial px-5 sm:px-7 py-2 rounded-lg transition-all flex items-center justify-center gap-2 text-[#716556] dark:text-[#B4A58F] hover:text-[#332B22] dark:hover:text-[#E2D4BD]";
         }
       });
 
@@ -1713,17 +1738,17 @@ service cloud.firestore {
       if (statusTag) {
         if (isLocked) {
           statusTag.innerHTML = `
-            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#FAF7F0] dark:bg-[#40362C] text-[#756B5D] dark:text-[#B9AC99] border border-[#DDD3C3] dark:border-[#55483A]">
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#F0E6D5] dark:bg-[#41382D] text-[#716556] dark:text-[#B4A58F] border border-[#CFC1AA] dark:border-[#514638]">
               <span>🔒</span>
               <span>Session Locked</span>
             </span>
           `;
         } else {
           statusTag.innerHTML = `
-            <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-[#557A5B]/10 dark:bg-[#7FA57E]/15 text-[#557A5B] dark:text-[#7FA57E] border border-[#557A5B]/30 dark:border-[#7FA57E]/30 shadow-sm">
+            <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-[#607B5B]/10 dark:bg-[#8CA887]/15 text-[#607B5B] dark:text-[#8CA887] border border-[#607B5B]/30 dark:border-[#8CA887]/30 shadow-sm">
               <span class="relative flex h-2.5 w-2.5">
-                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#557A5B] dark:bg-[#7FA57E] opacity-75"></span>
-                <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#557A5B] dark:bg-[#7FA57E]"></span>
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#607B5B] dark:bg-[#8CA887] opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#607B5B] dark:bg-[#8CA887]"></span>
               </span>
               <span>Live In Play</span>
             </span>
@@ -1736,8 +1761,8 @@ service cloud.firestore {
       if (lockBtn) {
         lockBtn.innerHTML = isLocked ? '<span>🔓</span><span>Unlock to Edit</span>' : '<span>🔒</span><span>Lock In Session</span>';
         lockBtn.className = isLocked 
-          ? "inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-[#FFFDF8] hover:bg-[#FAF7F0] dark:bg-[#40362C] dark:hover:bg-[#352D25] text-[#302A22] dark:text-[#F1E8D8] font-bold transition active:scale-95 text-xs border border-[#DDD3C3] dark:border-[#55483A] shadow-sm"
-          : "inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-[#B87948] hover:bg-[#9E6236] text-[#FFFDF8] dark:bg-[#D39A67] dark:hover:bg-[#B87948] dark:text-[#29231D] font-bold transition active:scale-95 text-xs shadow-sm";
+          ? "inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-[#F5EBDD] hover:bg-[#F0E6D5] dark:bg-[#41382D] dark:hover:bg-[#352E25] text-[#332B22] dark:text-[#E2D4BD] font-bold transition active:scale-95 text-xs border border-[#CFC1AA] dark:border-[#514638] shadow-sm"
+          : "inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-[#A96745] hover:bg-[#96593B] text-[#F5EBDD] dark:bg-[#CB8561] dark:hover:bg-[#A96745] dark:text-[#29241E] font-bold transition active:scale-95 text-xs shadow-sm";
       }
 
       document.getElementById('btnTargetPreview').innerText = fmt(targetReq);
@@ -1753,21 +1778,21 @@ service cloud.firestore {
 
       if (sessionPnl > 0.001) {
         pnlDollarEl.innerText = `+${fmt(sessionPnl)}`;
-        pnlDollarEl.className = "text-3xl sm:text-4xl font-black font-num tracking-tight text-[#557A5B] dark:text-[#7FA57E]";
+        pnlDollarEl.className = "text-3xl sm:text-4xl font-black font-num tracking-tight text-[#607B5B] dark:text-[#8CA887]";
         pnlPctEl.innerText = `+${sessionPnlPct.toFixed(2)}% today`;
-        pnlPctEl.className = "text-sm font-bold font-num text-[#557A5B] dark:text-[#7FA57E]";
+        pnlPctEl.className = "text-sm font-bold font-num text-[#607B5B] dark:text-[#8CA887]";
         pnlVibeEl.innerText = "🌱 Awesome green day! Keep your cool and protect gains.";
       } else if (sessionPnl < -0.001) {
         pnlDollarEl.innerText = `-${fmt(Math.abs(sessionPnl))}`;
-        pnlDollarEl.className = "text-3xl sm:text-4xl font-black font-num tracking-tight text-[#B65C52] dark:text-[#D77C70]";
+        pnlDollarEl.className = "text-3xl sm:text-4xl font-black font-num tracking-tight text-[#B86652] dark:text-[#D47F6C]";
         pnlPctEl.innerText = `${sessionPnlPct.toFixed(2)}% today`;
-        pnlPctEl.className = "text-sm font-bold font-num text-[#B65C52] dark:text-[#D77C70]";
+        pnlPctEl.className = "text-sm font-bold font-num text-[#B86652] dark:text-[#D47F6C]";
         pnlVibeEl.innerText = "🛡️ Small red day. Capital preservation is your superpower!";
       } else {
         pnlDollarEl.innerText = "$0.00";
-        pnlDollarEl.className = "text-3xl sm:text-4xl font-black font-num tracking-tight text-[#302A22] dark:text-[#F1E8D8]";
+        pnlDollarEl.className = "text-3xl sm:text-4xl font-black font-num tracking-tight text-[#332B22] dark:text-[#E2D4BD]";
         pnlPctEl.innerText = "0.00% change";
-        pnlPctEl.className = "text-sm font-bold font-num text-[#756B5D] dark:text-[#B9AC99]";
+        pnlPctEl.className = "text-sm font-bold font-num text-[#716556] dark:text-[#B4A58F]";
         pnlVibeEl.innerText = "⚖️ Even session. Ready whenever good setups appear.";
       }
 
@@ -1785,9 +1810,9 @@ service cloud.firestore {
       const delta = currentDesk - targetReq;
       const deltaBadgeEl = document.getElementById('weeklyDeltaBadge');
       if (delta >= 0) {
-        deltaBadgeEl.innerHTML = `<span class="inline-flex items-center gap-1 text-xs font-black text-[#557A5B] dark:text-[#7FA57E] bg-[#557A5B]/10 dark:bg-[#7FA57E]/15 border border-[#557A5B]/30 dark:border-[#7FA57E]/30 px-3 py-1 rounded-full">🚀 +${fmt(delta)} ahead of pace</span>`;
+        deltaBadgeEl.innerHTML = `<span class="inline-flex items-center gap-1 text-xs font-black text-[#607B5B] dark:text-[#8CA887] bg-[#607B5B]/10 dark:bg-[#8CA887]/15 border border-[#607B5B]/30 dark:border-[#8CA887]/30 px-3 py-1 rounded-full">🚀 +${fmt(delta)} ahead of pace</span>`;
       } else {
-        deltaBadgeEl.innerHTML = `<span class="inline-flex items-center gap-1 text-xs font-black text-[#B65C52] dark:text-[#D77C70] bg-[#B65C52]/10 dark:bg-[#D77C70]/15 border border-[#B65C52]/30 dark:border-[#D77C70]/30 px-3 py-1 rounded-full">🐢 -${fmt(Math.abs(delta))} behind pace</span>`;
+        deltaBadgeEl.innerHTML = `<span class="inline-flex items-center gap-1 text-xs font-black text-[#B86652] dark:text-[#D47F6C] bg-[#B86652]/10 dark:bg-[#D47F6C]/15 border border-[#B86652]/30 dark:border-[#D47F6C]/30 px-3 py-1 rounded-full">🐢 -${fmt(Math.abs(delta))} behind pace</span>`;
       }
 
       document.getElementById('weeklyMilestoneLabel').innerText = `Week ${weekNum} Checkpoint: ${fmt(weekTarget)}`;
@@ -1814,10 +1839,10 @@ service cloud.firestore {
       const statusRelaxedEl = document.getElementById('targetStatusRelaxed');
       if (diffRelaxed >= 0) {
         statusRelaxedEl.innerText = `✅ Target Met (+${fmt(diffRelaxed)})`;
-        statusRelaxedEl.className = "text-xs font-extrabold font-num text-[#557A5B] dark:text-[#7FA57E]";
+        statusRelaxedEl.className = "text-xs font-extrabold font-num text-[#607B5B] dark:text-[#8CA887]";
       } else {
         statusRelaxedEl.innerText = `🎯 Needs +${fmt(Math.abs(diffRelaxed))} to hit`;
-        statusRelaxedEl.className = "text-xs font-semibold font-num text-[#756B5D] dark:text-[#B9AC99]";
+        statusRelaxedEl.className = "text-xs font-semibold font-num text-[#716556] dark:text-[#B4A58F]";
       }
 
       // 2. Mid Box
@@ -1826,10 +1851,10 @@ service cloud.firestore {
       const statusMidEl = document.getElementById('targetStatusMid');
       if (diffMid >= 0) {
         statusMidEl.innerText = `✅ Target Met (+${fmt(diffMid)})`;
-        statusMidEl.className = "text-xs font-extrabold font-num text-[#B87948] dark:text-[#D39A67]";
+        statusMidEl.className = "text-xs font-extrabold font-num text-[#A96745] dark:text-[#CB8561]";
       } else {
         statusMidEl.innerText = `🎯 Needs +${fmt(Math.abs(diffMid))} to hit`;
-        statusMidEl.className = "text-xs font-semibold font-num text-[#756B5D] dark:text-[#B9AC99]";
+        statusMidEl.className = "text-xs font-semibold font-num text-[#716556] dark:text-[#B4A58F]";
       }
 
       // 3. Aggressive Box
@@ -1838,10 +1863,10 @@ service cloud.firestore {
       const statusAggEl = document.getElementById('targetStatusAggressive');
       if (diffAgg >= 0) {
         statusAggEl.innerText = `✅ Target Met (+${fmt(diffAgg)})`;
-        statusAggEl.className = "text-xs font-extrabold font-num text-[#B65C52] dark:text-[#D77C70]";
+        statusAggEl.className = "text-xs font-extrabold font-num text-[#B86652] dark:text-[#D47F6C]";
       } else {
         statusAggEl.innerText = `🎯 Needs +${fmt(Math.abs(diffAgg))} to hit`;
-        statusAggEl.className = "text-xs font-semibold font-num text-[#756B5D] dark:text-[#B9AC99]";
+        statusAggEl.className = "text-xs font-semibold font-num text-[#716556] dark:text-[#B4A58F]";
       }
 
       // Update Active Border & Badges on the 3 boxes
@@ -1851,12 +1876,12 @@ service cloud.firestore {
         if (card && badge) {
           if (p === currentPace) {
             badge.classList.remove('hidden');
-            if (p === 'relaxed') card.className = "bento-card p-5 cursor-pointer transition-all border-2 border-[#557A5B] dark:border-[#7FA57E] bg-[#557A5B]/5 dark:bg-[#7FA57E]/10 shadow-warm-md space-y-3";
-            if (p === 'mid') card.className = "bento-card p-5 cursor-pointer transition-all border-2 border-[#B87948] dark:border-[#D39A67] bg-[#B87948]/5 dark:bg-[#D39A67]/10 shadow-warm-md space-y-3";
-            if (p === 'aggressive') card.className = "bento-card p-5 cursor-pointer transition-all border-2 border-[#B65C52] dark:border-[#D77C70] bg-[#B65C52]/5 dark:bg-[#D77C70]/10 shadow-warm-md space-y-3";
+            if (p === 'relaxed') card.className = "bento-card p-5 cursor-pointer transition-all border-2 border-[#607B5B] dark:border-[#8CA887] bg-[#607B5B]/5 dark:bg-[#8CA887]/10 shadow-warm-md space-y-3";
+            if (p === 'mid') card.className = "bento-card p-5 cursor-pointer transition-all border-2 border-[#A96745] dark:border-[#CB8561] bg-[#A96745]/5 dark:bg-[#CB8561]/10 shadow-warm-md space-y-3";
+            if (p === 'aggressive') card.className = "bento-card p-5 cursor-pointer transition-all border-2 border-[#B86652] dark:border-[#D47F6C] bg-[#B86652]/5 dark:bg-[#D47F6C]/10 shadow-warm-md space-y-3";
           } else {
             badge.classList.add('hidden');
-            card.className = "bento-card p-5 cursor-pointer transition-all border border-[#DDD3C3] dark:border-[#55483A] hover:border-[#B9AC99] dark:hover:border-[#756B5D] hover:bg-[#FAF7F0]/60 dark:hover:bg-[#352D25]/60 space-y-3";
+            card.className = "bento-card p-5 cursor-pointer transition-all border border-[#CFC1AA] dark:border-[#514638] hover:border-[#B4A58F] dark:hover:border-[#716556] hover:bg-[#F0E6D5]/60 dark:hover:bg-[#352E25]/60 space-y-3";
           }
         }
       });
@@ -1918,17 +1943,17 @@ service cloud.firestore {
         const card = document.createElement('div');
         card.className = `p-3.5 rounded-2xl border transition-all ${
           reached 
-            ? 'bg-[#557A5B]/10 border-[#557A5B]/40 dark:bg-[#7FA57E]/15 dark:border-[#7FA57E]/40' 
-            : 'bg-[#FFFDF8] border-[#DDD3C3] dark:bg-[#40362C] dark:border-[#55483A]'
+            ? 'bg-[#607B5B]/10 border-[#607B5B]/40 dark:bg-[#8CA887]/15 dark:border-[#8CA887]/40' 
+            : 'bg-[#F5EBDD] border-[#CFC1AA] dark:bg-[#41382D] dark:border-[#514638]'
         }`;
         card.innerHTML = `
-          <div class="flex justify-between items-center text-[10px] font-bold uppercase tracking-wider text-[#756B5D] dark:text-[#B9AC99]">
+          <div class="flex justify-between items-center text-[10px] font-bold uppercase tracking-wider text-[#716556] dark:text-[#B4A58F]">
             <span>Week ${i + 1} (S${row.s})</span>
-            <span class="${reached ? 'text-[#557A5B] dark:text-[#7FA57E] font-extrabold' : 'text-[#756B5D] dark:text-[#B9AC99]'}">${reached ? '✓ Reached' : `${pct.toFixed(0)}%`}</span>
+            <span class="${reached ? 'text-[#607B5B] dark:text-[#8CA887] font-extrabold' : 'text-[#716556] dark:text-[#B4A58F]'}">${reached ? '✓ Reached' : `${pct.toFixed(0)}%`}</span>
           </div>
-          <div class="text-base font-black font-num text-[#302A22] dark:text-[#F1E8D8] mt-1">${fmt(target)}</div>
-          <div class="w-full bg-[#DDD3C3] dark:bg-[#55483A] h-1.5 rounded-full overflow-hidden mt-2">
-            <div class="bg-[#557A5B] dark:bg-[#7FA57E] h-full rounded-full transition-all duration-300" style="width: ${pct}%"></div>
+          <div class="text-base font-black font-num text-[#332B22] dark:text-[#E2D4BD] mt-1">${fmt(target)}</div>
+          <div class="w-full bg-[#CFC1AA] dark:bg-[#514638] h-1.5 rounded-full overflow-hidden mt-2">
+            <div class="bg-[#607B5B] dark:bg-[#8CA887] h-full rounded-full transition-all duration-300" style="width: ${pct}%"></div>
           </div>
         `;
         grid.appendChild(card);
@@ -1956,9 +1981,9 @@ service cloud.firestore {
         }
         if (btn) {
           if (isActive) {
-            btn.className = "widget-tab-btn px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 whitespace-nowrap bg-[#FFFDF8] dark:bg-[#40362C] text-[#302A22] dark:text-[#F1E8D8] shadow-sm";
+            btn.className = "widget-tab-btn px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 whitespace-nowrap bg-[#F5EBDD] dark:bg-[#41382D] text-[#332B22] dark:text-[#E2D4BD] shadow-sm";
           } else {
-            btn.className = "widget-tab-btn px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 whitespace-nowrap text-[#756B5D] dark:text-[#B9AC99] hover:text-[#302A22] dark:hover:text-[#F1E8D8]";
+            btn.className = "widget-tab-btn px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 whitespace-nowrap text-[#716556] dark:text-[#B4A58F] hover:text-[#332B22] dark:hover:text-[#E2D4BD]";
           }
         }
       });
@@ -2104,8 +2129,8 @@ service cloud.firestore {
         statNet.innerText = fmtCompactPnl(netPnl);
         statNet.className = `text-xs sm:text-sm font-black font-num ${
           netPnl > 0.001 
-            ? 'text-[#557A5B] dark:text-[#7FA57E]' 
-            : (netPnl < -0.001 ? 'text-[#B65C52] dark:text-[#D77C70]' : 'text-[#302A22] dark:text-[#F1E8D8]')
+            ? 'text-[#607B5B] dark:text-[#8CA887]' 
+            : (netPnl < -0.001 ? 'text-[#B86652] dark:text-[#D47F6C]' : 'text-[#332B22] dark:text-[#E2D4BD]')
         }`;
       }
 
@@ -2130,13 +2155,13 @@ service cloud.firestore {
         if (i < startDay) {
           // Previous Month Day
           const prevDateNum = prevMonthDays - (startDay - 1 - i);
-          cell.className = "p-1 rounded-lg bg-[#FAF7F0]/30 dark:bg-[#352D25]/20 border border-[#DDD3C3]/20 dark:border-[#55483A]/20 min-h-[44px] sm:min-h-[54px] flex flex-col justify-between items-center opacity-25 select-none";
-          cell.innerHTML = `<span class="text-[9px] sm:text-[10px] font-semibold text-[#756B5D] dark:text-[#B9AC99]">${prevDateNum}</span>`;
+          cell.className = "p-1 rounded-lg bg-[#F0E6D5]/30 dark:bg-[#352E25]/20 border border-[#CFC1AA]/20 dark:border-[#514638]/20 min-h-[44px] sm:min-h-[54px] flex flex-col justify-between items-center opacity-25 select-none";
+          cell.innerHTML = `<span class="text-[9px] sm:text-[10px] font-semibold text-[#716556] dark:text-[#B4A58F]">${prevDateNum}</span>`;
         } else if (i >= startDay + daysInMonth) {
           // Next Month Day
           const nextDateNum = i - (startDay + daysInMonth) + 1;
-          cell.className = "p-1 rounded-lg bg-[#FAF7F0]/30 dark:bg-[#352D25]/20 border border-[#DDD3C3]/20 dark:border-[#55483A]/20 min-h-[44px] sm:min-h-[54px] flex flex-col justify-between items-center opacity-25 select-none";
-          cell.innerHTML = `<span class="text-[9px] sm:text-[10px] font-semibold text-[#756B5D] dark:text-[#B9AC99]">${nextDateNum}</span>`;
+          cell.className = "p-1 rounded-lg bg-[#F0E6D5]/30 dark:bg-[#352E25]/20 border border-[#CFC1AA]/20 dark:border-[#514638]/20 min-h-[44px] sm:min-h-[54px] flex flex-col justify-between items-center opacity-25 select-none";
+          cell.innerHTML = `<span class="text-[9px] sm:text-[10px] font-semibold text-[#716556] dark:text-[#B4A58F]">${nextDateNum}</span>`;
         } else {
           // Current Month Day
           const dayNum = i - startDay + 1;
@@ -2153,13 +2178,13 @@ service cloud.firestore {
             const tooltip = tradeData.sessions.map(s => `Session ${s.session}: ${fmt(s.balance)} (${s.pnl >= 0 ? '+' : ''}${fmt(s.pnl)})${s.note ? ' - ' + s.note : ''}`).join('\n');
 
             cell.className = `p-1 rounded-lg min-h-[44px] sm:min-h-[54px] flex flex-col justify-between items-center cursor-pointer transition-all hover:scale-105 active:scale-95 shadow-xs ${
-              isToday ? 'ring-2 ring-[#587A94] dark:ring-[#7EA5BF] ' : ''
+              isToday ? 'ring-2 ring-[#617D91] dark:ring-[#86A5BC] ' : ''
             }${
               isGreen 
-                ? 'bg-[#557A5B]/15 hover:bg-[#557A5B]/25 border border-[#557A5B]/50 dark:bg-[#7FA57E]/20 dark:hover:bg-[#7FA57E]/30 dark:border-[#7FA57E]/50' 
+                ? 'bg-[#607B5B]/15 hover:bg-[#607B5B]/25 border border-[#607B5B]/50 dark:bg-[#8CA887]/20 dark:hover:bg-[#8CA887]/30 dark:border-[#8CA887]/50' 
                 : (isRed 
-                    ? 'bg-[#B65C52]/15 hover:bg-[#B65C52]/25 border border-[#B65C52]/50 dark:bg-[#D77C70]/20 dark:hover:bg-[#D77C70]/30 dark:border-[#D77C70]/50' 
-                    : 'bg-[#FFFDF8] hover:bg-[#FAF7F0] border border-[#DDD3C3] dark:bg-[#40362C] dark:hover:bg-[#352D25] dark:border-[#55483A]')
+                    ? 'bg-[#B86652]/15 hover:bg-[#B86652]/25 border border-[#B86652]/50 dark:bg-[#D47F6C]/20 dark:hover:bg-[#D47F6C]/30 dark:border-[#D47F6C]/50' 
+                    : 'bg-[#F5EBDD] hover:bg-[#F0E6D5] border border-[#CFC1AA] dark:bg-[#41382D] dark:hover:bg-[#352E25] dark:border-[#514638]')
             }`;
 
             cell.title = tooltip;
@@ -2167,13 +2192,13 @@ service cloud.firestore {
 
             cell.innerHTML = `
               <div class="flex items-center justify-between w-full">
-                <span class="text-[9px] sm:text-[10px] font-black font-num ${isToday ? 'text-[#587A94] dark:text-[#7EA5BF] font-black' : 'text-[#302A22] dark:text-[#F1E8D8]'}">
+                <span class="text-[9px] sm:text-[10px] font-black font-num ${isToday ? 'text-[#617D91] dark:text-[#86A5BC] font-black' : 'text-[#332B22] dark:text-[#E2D4BD]'}">
                   ${dayNum}
                 </span>
                 <span class="px-1 py-0.2 rounded text-[8px] font-black leading-none ${
                   isGreen 
-                    ? 'bg-[#557A5B] text-[#FFFDF8] dark:bg-[#7FA57E] dark:text-[#29231D]' 
-                    : (isRed ? 'bg-[#B65C52] text-[#FFFDF8] dark:bg-[#D77C70] dark:text-[#29231D]' : 'bg-[#756B5D] text-[#FFFDF8] dark:bg-[#B9AC99] dark:text-[#29231D]')
+                    ? 'bg-[#607B5B] text-[#F5EBDD] dark:bg-[#8CA887] dark:text-[#29241E]' 
+                    : (isRed ? 'bg-[#B86652] text-[#F5EBDD] dark:bg-[#D47F6C] dark:text-[#29241E]' : 'bg-[#716556] text-[#F5EBDD] dark:bg-[#B4A58F] dark:text-[#29241E]')
                 }">
                   ${sessionsBadge}
                 </span>
@@ -2181,8 +2206,8 @@ service cloud.firestore {
               <div class="my-auto py-0 text-center w-full">
                 <div class="text-[9px] sm:text-xs font-black font-num tracking-tight leading-tight truncate ${
                   isGreen 
-                    ? 'text-[#557A5B] dark:text-[#7FA57E]' 
-                    : (isRed ? 'text-[#B65C52] dark:text-[#D77C70]' : 'text-[#756B5D] dark:text-[#B9AC99]')
+                    ? 'text-[#607B5B] dark:text-[#8CA887]' 
+                    : (isRed ? 'text-[#B86652] dark:text-[#D47F6C]' : 'text-[#716556] dark:text-[#B4A58F]')
                 }">
                   ${fmtCompactPnl(tradeData.totalPnl)}
                 </div>
@@ -2193,18 +2218,18 @@ service cloud.firestore {
             `;
           } else {
             // Day without recorded trade
-            cell.className = `p-1 rounded-lg bg-[#FFFDF8]/70 dark:bg-[#40362C]/30 border min-h-[44px] sm:min-h-[54px] flex flex-col justify-between items-center transition ${
+            cell.className = `p-1 rounded-lg bg-[#F5EBDD]/70 dark:bg-[#41382D]/30 border min-h-[44px] sm:min-h-[54px] flex flex-col justify-between items-center transition ${
               isToday 
-                ? 'border-2 border-[#587A94] dark:border-[#7EA5BF]' 
-                : 'border-[#DDD3C3]/50 dark:border-[#55483A]/50'
+                ? 'border-2 border-[#617D91] dark:border-[#86A5BC]' 
+                : 'border-[#CFC1AA]/50 dark:border-[#514638]/50'
             }`;
 
             cell.innerHTML = `
               <div class="flex items-center justify-between w-full">
-                <span class="text-[9px] sm:text-[10px] font-bold font-num ${isToday ? 'text-[#587A94] dark:text-[#7EA5BF]' : 'text-[#756B5D] dark:text-[#B9AC99]'}">
+                <span class="text-[9px] sm:text-[10px] font-bold font-num ${isToday ? 'text-[#617D91] dark:text-[#86A5BC]' : 'text-[#716556] dark:text-[#B4A58F]'}">
                   ${dayNum}
                 </span>
-                ${isToday ? '<span class="w-1.5 h-1.5 rounded-full bg-[#587A94] dark:bg-[#7EA5BF]"></span>' : ''}
+                ${isToday ? '<span class="w-1.5 h-1.5 rounded-full bg-[#617D91] dark:bg-[#86A5BC]"></span>' : ''}
               </div>
               <div class="my-auto"></div>
               <div></div>
@@ -2259,8 +2284,8 @@ service cloud.firestore {
         const tr = document.createElement('tr');
         tr.className = `cursor-pointer transition-colors ${
           isCurrent 
-            ? 'bg-[#557A5B]/10 dark:bg-[#7FA57E]/15 font-bold border-l-4 border-l-[#557A5B] dark:border-l-[#7FA57E]' 
-            : 'hover:bg-[#FAF7F0] dark:hover:bg-[#40362C]/40'
+            ? 'bg-[#607B5B]/10 dark:bg-[#8CA887]/15 font-bold border-l-4 border-l-[#607B5B] dark:border-l-[#8CA887]' 
+            : 'hover:bg-[#F0E6D5] dark:hover:bg-[#41382D]/40'
         }`;
         tr.onclick = () => {
           currentSession = row.s;
@@ -2268,17 +2293,17 @@ service cloud.firestore {
           renderTracker();
         };
 
-        let pnlCell = `<span class="text-[#DDD3C3] dark:text-[#55483A]">—</span>`;
+        let pnlCell = `<span class="text-[#CFC1AA] dark:text-[#514638]">—</span>`;
         if (hasLogged) {
-          if (pnl > 0.001) pnlCell = `<span class="text-[#557A5B] dark:text-[#7FA57E] font-bold">+${fmt(pnl)}</span>`;
-          else if (pnl < -0.001) pnlCell = `<span class="text-[#B65C52] dark:text-[#D77C70] font-bold">-${fmt(Math.abs(pnl))}</span>`;
-          else pnlCell = `<span class="text-[#756B5D] dark:text-[#B9AC99] font-medium">$0.00</span>`;
+          if (pnl > 0.001) pnlCell = `<span class="text-[#607B5B] dark:text-[#8CA887] font-bold">+${fmt(pnl)}</span>`;
+          else if (pnl < -0.001) pnlCell = `<span class="text-[#B86652] dark:text-[#D47F6C] font-bold">-${fmt(Math.abs(pnl))}</span>`;
+          else pnlCell = `<span class="text-[#716556] dark:text-[#B4A58F] font-medium">$0.00</span>`;
         }
 
-        let surplusCell = `<span class="text-[#DDD3C3] dark:text-[#55483A]">—</span>`;
+        let surplusCell = `<span class="text-[#CFC1AA] dark:text-[#514638]">—</span>`;
         if (hasLogged && surplus !== null) {
-          if (surplus >= 0) surplusCell = `<span class="text-[#557A5B] dark:text-[#7FA57E] font-bold">+${fmt(surplus)}</span>`;
-          else surplusCell = `<span class="text-[#B65C52] dark:text-[#D77C70] font-bold">-${fmt(Math.abs(surplus))}</span>`;
+          if (surplus >= 0) surplusCell = `<span class="text-[#607B5B] dark:text-[#8CA887] font-bold">+${fmt(surplus)}</span>`;
+          else surplusCell = `<span class="text-[#B86652] dark:text-[#D47F6C] font-bold">-${fmt(Math.abs(surplus))}</span>`;
         }
 
         const note = sessionNotes[row.s] || row.milestone || row.pause || '';
@@ -2286,29 +2311,29 @@ service cloud.firestore {
         let extraColsHtml = '';
         if (showAllPacesInTable) {
           extraColsHtml = `
-            <td class="py-2.5 px-3 sm:px-4 text-[#557A5B] dark:text-[#7FA57E] font-semibold">${row.r !== undefined ? fmt(row.r) : fmt(row.target)}</td>
-            <td class="py-2.5 px-3 sm:px-4 text-[#B87948] dark:text-[#D39A67] font-semibold">${row.m !== undefined ? fmt(row.m) : '—'}</td>
-            <td class="py-2.5 px-3 sm:px-4 text-[#B65C52] dark:text-[#D77C70] font-semibold">${row.a !== undefined ? fmt(row.a) : '—'}</td>
+            <td class="py-2.5 px-3 sm:px-4 text-[#607B5B] dark:text-[#8CA887] font-semibold">${row.r !== undefined ? fmt(row.r) : fmt(row.target)}</td>
+            <td class="py-2.5 px-3 sm:px-4 text-[#A96745] dark:text-[#CB8561] font-semibold">${row.m !== undefined ? fmt(row.m) : '—'}</td>
+            <td class="py-2.5 px-3 sm:px-4 text-[#B86652] dark:text-[#D47F6C] font-semibold">${row.a !== undefined ? fmt(row.a) : '—'}</td>
           `;
         }
 
         tr.innerHTML = `
-          <td class="py-2.5 px-3 sm:px-4 ${isCurrent ? 'text-[#302A22] dark:text-[#F1E8D8] font-black' : 'text-[#756B5D] dark:text-[#B9AC99]'}">
+          <td class="py-2.5 px-3 sm:px-4 ${isCurrent ? 'text-[#332B22] dark:text-[#E2D4BD] font-black' : 'text-[#716556] dark:text-[#B4A58F]'}">
             S${row.s}
             ${isRowLocked ? '<span class="ml-1 text-[11px]" title="Locked">🔒</span>' : ''}
-            ${row.milestone ? '<span class="ml-1.5 px-1.5 py-0.5 text-[9px] rounded-full bg-[#557A5B]/15 text-[#557A5B] dark:bg-[#7FA57E]/20 dark:text-[#7FA57E] font-bold">Goal</span>' : ''}
-            ${row.pause ? '<span class="ml-1.5 px-1.5 py-0.5 text-[9px] rounded-full bg-[#B87948]/15 text-[#B87948] dark:bg-[#D39A67]/20 dark:text-[#D39A67] font-bold">Rest</span>' : ''}
+            ${row.milestone ? '<span class="ml-1.5 px-1.5 py-0.5 text-[9px] rounded-full bg-[#607B5B]/15 text-[#607B5B] dark:bg-[#8CA887]/20 dark:text-[#8CA887] font-bold">Goal</span>' : ''}
+            ${row.pause ? '<span class="ml-1.5 px-1.5 py-0.5 text-[9px] rounded-full bg-[#A96745]/15 text-[#A96745] dark:bg-[#CB8561]/20 dark:text-[#CB8561] font-bold">Rest</span>' : ''}
           </td>
-          <td class="py-2.5 px-3 sm:px-4 text-[11px] text-[#756B5D] dark:text-[#B9AC99]">${timestamp ? fmtTimestamp(timestamp).split(',')[0] : '—'}</td>
-          <td class="py-2.5 px-3 sm:px-4 font-bold ${hasLogged ? 'text-[#302A22] dark:text-[#F1E8D8]' : 'text-[#DDD3C3] dark:text-[#55483A] italic'}">
+          <td class="py-2.5 px-3 sm:px-4 text-[11px] text-[#716556] dark:text-[#B4A58F]">${timestamp ? fmtTimestamp(timestamp).split(',')[0] : '—'}</td>
+          <td class="py-2.5 px-3 sm:px-4 font-bold ${hasLogged ? 'text-[#332B22] dark:text-[#E2D4BD]' : 'text-[#CFC1AA] dark:text-[#514638] italic'}">
             ${hasLogged ? fmt(loggedVal) : '—'}
           </td>
           <td class="py-2.5 px-3 sm:px-4">${pnlCell}</td>
           <td class="py-2.5 px-3 sm:px-4">${surplusCell}</td>
-          <td class="py-2.5 px-3 sm:px-4 font-semibold text-[#756B5D] dark:text-[#B9AC99]">${fmt(target)}</td>
+          <td class="py-2.5 px-3 sm:px-4 font-semibold text-[#716556] dark:text-[#B4A58F]">${fmt(target)}</td>
           ${extraColsHtml}
-          <td class="py-2.5 px-3 sm:px-4 text-[11px] text-[#756B5D] dark:text-[#B9AC99]" onclick="event.stopPropagation(); promptEditSessionNote(${row.s})">
-            ${note ? `<span class="px-2 py-0.5 rounded-lg bg-[#FFFDF8] dark:bg-[#40362C] text-[#302A22] dark:text-[#F1E8D8] border border-[#DDD3C3] dark:border-[#55483A]">${note}</span>` : '<span class="text-[#756B5D] dark:text-[#B9AC99] hover:underline cursor-pointer">+ note</span>'}
+          <td class="py-2.5 px-3 sm:px-4 text-[11px] text-[#716556] dark:text-[#B4A58F]" onclick="event.stopPropagation(); promptEditSessionNote(${row.s})">
+            ${note ? `<span class="px-2 py-0.5 rounded-lg bg-[#F5EBDD] dark:bg-[#41382D] text-[#332B22] dark:text-[#E2D4BD] border border-[#CFC1AA] dark:border-[#514638]">${note}</span>` : '<span class="text-[#716556] dark:text-[#B4A58F] hover:underline cursor-pointer">+ note</span>'}
           </td>
         `;
         tbody.appendChild(tr);
@@ -2489,27 +2514,27 @@ service cloud.firestore {
       const list = document.getElementById('vaultHistoryContainer');
       if (vaultLedger.length === 0) {
         list.innerHTML = `
-          <div class="text-center py-8 text-[#756B5D] dark:text-[#B9AC99]">
+          <div class="text-center py-8 text-[#716556] dark:text-[#B4A58F]">
             <span class="text-2xl block mb-1">🏦</span>
-            <span class="font-medium text-xs text-[#302A22] dark:text-[#F1E8D8]">No money saved in Vault yet.</span>
-            <p class="text-[11px] text-[#756B5D] dark:text-[#B9AC99] mt-0.5">Use the form or quick-skim prompt to secure profits off-desk.</p>
+            <span class="font-medium text-xs text-[#332B22] dark:text-[#E2D4BD]">No money saved in Vault yet.</span>
+            <p class="text-[11px] text-[#716556] dark:text-[#B4A58F] mt-0.5">Use the form or quick-skim prompt to secure profits off-desk.</p>
           </div>
         `;
         return;
       }
 
       list.innerHTML = vaultLedger.slice().reverse().map(item => `
-        <div class="flex items-center justify-between p-3 rounded-2xl bg-[#FFFDF8] dark:bg-[#40362C] border border-[#DDD3C3] dark:border-[#55483A] transition">
+        <div class="flex items-center justify-between p-3 rounded-2xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] transition">
           <div class="flex items-center gap-3">
-            <div class="w-8 h-8 rounded-xl bg-[#B87948]/15 text-[#B87948] dark:bg-[#D39A67]/20 dark:text-[#D39A67] border border-[#B87948]/30 dark:border-[#D39A67]/30 flex items-center justify-center font-bold text-xs font-num">
+            <div class="w-8 h-8 rounded-xl bg-[#A96745]/15 text-[#A96745] dark:bg-[#CB8561]/20 dark:text-[#CB8561] border border-[#A96745]/30 dark:border-[#CB8561]/30 flex items-center justify-center font-bold text-xs font-num">
               $
             </div>
             <div>
-              <div class="font-bold text-[#B87948] dark:text-[#D39A67] font-num text-sm">${fmt(item.amount)}</div>
-              <div class="text-[11px] text-[#756B5D] dark:text-[#B9AC99]">${fmtTimestamp(item.dateTime)} • Desk at ${fmt(item.deskAfter)} • ${item.note}</div>
+              <div class="font-bold text-[#A96745] dark:text-[#CB8561] font-num text-sm">${fmt(item.amount)}</div>
+              <div class="text-[11px] text-[#716556] dark:text-[#B4A58F]">${fmtTimestamp(item.dateTime)} • Desk at ${fmt(item.deskAfter)} • ${item.note}</div>
             </div>
           </div>
-          <button onclick="deleteVaultRecord(${item.id})" class="text-[#B65C52] hover:text-[#9D4A41] dark:text-[#D77C70] dark:hover:text-[#F6C3BC] text-xs font-bold px-2.5 py-1 rounded-xl bg-[#B65C52]/10 dark:bg-[#D77C70]/15 border border-[#B65C52]/30 dark:border-[#D77C70]/30 transition active:scale-95">
+          <button onclick="deleteVaultRecord(${item.id})" class="text-[#B86652] hover:text-[#9E5544] dark:text-[#D47F6C] dark:hover:text-[#E5AFA3] text-xs font-bold px-2.5 py-1 rounded-xl bg-[#B86652]/10 dark:bg-[#D47F6C]/15 border border-[#B86652]/30 dark:border-[#D47F6C]/30 transition active:scale-95">
             ✕
           </button>
         </div>
@@ -2735,13 +2760,13 @@ function doGet(e) {
       if (tab === 'firebase') {
         fbContent.classList.remove('hidden');
         sheetsContent.classList.add('hidden');
-        fbBtn.className = "flex-1 py-2 rounded-lg bg-[#FFFDF8] dark:bg-[#40362C] text-[#302A22] dark:text-[#F1E8D8] border border-[#DDD3C3] dark:border-[#55483A] shadow-sm transition flex items-center justify-center gap-1.5 font-bold";
-        sheetsBtn.className = "flex-1 py-2 rounded-lg text-[#756B5D] dark:text-[#B9AC99] hover:text-[#302A22] dark:hover:text-[#F1E8D8] transition flex items-center justify-center gap-1.5 font-medium";
+        fbBtn.className = "flex-1 py-2 rounded-lg bg-[#F5EBDD] dark:bg-[#41382D] text-[#332B22] dark:text-[#E2D4BD] border border-[#CFC1AA] dark:border-[#514638] shadow-sm transition flex items-center justify-center gap-1.5 font-bold";
+        sheetsBtn.className = "flex-1 py-2 rounded-lg text-[#716556] dark:text-[#B4A58F] hover:text-[#332B22] dark:hover:text-[#E2D4BD] transition flex items-center justify-center gap-1.5 font-medium";
       } else {
         fbContent.classList.add('hidden');
         sheetsContent.classList.remove('hidden');
-        sheetsBtn.className = "flex-1 py-2 rounded-lg bg-[#FFFDF8] dark:bg-[#40362C] text-[#302A22] dark:text-[#F1E8D8] border border-[#DDD3C3] dark:border-[#55483A] shadow-sm transition flex items-center justify-center gap-1.5 font-bold";
-        fbBtn.className = "flex-1 py-2 rounded-lg text-[#756B5D] dark:text-[#B9AC99] hover:text-[#302A22] dark:hover:text-[#F1E8D8] transition flex items-center justify-center gap-1.5 font-medium";
+        sheetsBtn.className = "flex-1 py-2 rounded-lg bg-[#F5EBDD] dark:bg-[#41382D] text-[#332B22] dark:text-[#E2D4BD] border border-[#CFC1AA] dark:border-[#514638] shadow-sm transition flex items-center justify-center gap-1.5 font-bold";
+        fbBtn.className = "flex-1 py-2 rounded-lg text-[#716556] dark:text-[#B4A58F] hover:text-[#332B22] dark:hover:text-[#E2D4BD] transition flex items-center justify-center gap-1.5 font-medium";
       }
     }
 
@@ -2960,7 +2985,7 @@ service cloud.firestore {
       if (savedCfg) {
         if (badge) {
           badge.innerText = 'Connected';
-          badge.className = 'text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-[#C49A45]/15 text-[#C49A45] dark:bg-[#D9B765]/20 dark:text-[#D9B765] border border-[#C49A45]/30 dark:border-[#D9B765]/30 font-num';
+          badge.className = 'text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-[#C2984D]/15 text-[#C2984D] dark:bg-[#DEB76C]/20 dark:text-[#DEB76C] border border-[#C2984D]/30 dark:border-[#DEB76C]/30 font-num';
         }
         if (feedback) feedback.innerText = `🔥 Live realtime sync active on portfolio key: "${savedKey}"`;
         if (disconnectBtn) disconnectBtn.classList.remove('hidden');
@@ -2968,7 +2993,7 @@ service cloud.firestore {
       } else {
         if (badge) {
           badge.innerText = 'Not Connected';
-          badge.className = 'text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-[#FAF7F0] text-[#756B5D] dark:bg-[#40362C] dark:text-[#B9AC99] border border-[#DDD3C3] dark:border-[#55483A] font-num';
+          badge.className = 'text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-[#F0E6D5] text-[#716556] dark:bg-[#41382D] dark:text-[#B4A58F] border border-[#CFC1AA] dark:border-[#514638] font-num';
         }
         if (feedback) feedback.innerText = 'Credentials are saved securely in your browser.';
         if (disconnectBtn) disconnectBtn.classList.add('hidden');
@@ -2992,13 +3017,13 @@ service cloud.firestore {
         if (feedback) feedback.innerText = lastSync ? `Linked • Last synced: ${fmtTimestamp(lastSync)}` : 'Webhook URL configured.';
         if (modalBadge) {
           modalBadge.innerText = 'Connected';
-          modalBadge.className = 'text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-[#587A94]/15 text-[#587A94] dark:bg-[#7EA5BF]/20 dark:text-[#7EA5BF] border border-[#587A94]/30 dark:border-[#7EA5BF]/30 font-num';
+          modalBadge.className = 'text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-[#617D91]/15 text-[#617D91] dark:bg-[#86A5BC]/20 dark:text-[#86A5BC] border border-[#617D91]/30 dark:border-[#86A5BC]/30 font-num';
         }
       } else {
         if (feedback) feedback.innerText = 'No webhook linked yet.';
         if (modalBadge) {
           modalBadge.innerText = 'Not Connected';
-          modalBadge.className = 'text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-[#FAF7F0] text-[#756B5D] dark:bg-[#40362C] dark:text-[#B9AC99] border border-[#DDD3C3] dark:border-[#55483A] font-num';
+          modalBadge.className = 'text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-[#F0E6D5] text-[#716556] dark:bg-[#41382D] dark:text-[#B4A58F] border border-[#CFC1AA] dark:border-[#514638] font-num';
         }
       }
 
@@ -3154,8 +3179,8 @@ service cloud.firestore {
 
       if (statusOverride === 'firestore_syncing' || statusOverride === 'syncing') {
         pill.innerHTML = `
-          <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl text-xs font-bold text-[#C49A45] dark:text-[#D9B765] bg-[#C49A45]/10 dark:bg-[#D9B765]/15 border border-[#C49A45]/30 dark:border-[#D9B765]/30">
-            <span class="w-2 h-2 rounded-full border-2 border-[#C49A45] dark:border-[#D9B765] border-t-transparent animate-spin"></span>
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl text-xs font-bold text-[#C2984D] dark:text-[#DEB76C] bg-[#C2984D]/10 dark:bg-[#DEB76C]/15 border border-[#C2984D]/30 dark:border-[#DEB76C]/30">
+            <span class="w-2 h-2 rounded-full border-2 border-[#C2984D] dark:border-[#DEB76C] border-t-transparent animate-spin"></span>
             <span>Syncing...</span>
           </span>
         `;
@@ -3164,35 +3189,35 @@ service cloud.firestore {
 
       if (hasFirebase) {
         pill.innerHTML = `
-          <span title="Firestore Realtime Multi-Device Sync Active" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl text-xs font-bold text-[#C49A45] dark:text-[#D9B765] bg-[#C49A45]/10 dark:bg-[#D9B765]/15 border border-[#C49A45]/30 dark:border-[#D9B765]/30 shadow-sm">
+          <span title="Firestore Realtime Multi-Device Sync Active" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl text-xs font-bold text-[#C2984D] dark:text-[#DEB76C] bg-[#C2984D]/10 dark:bg-[#DEB76C]/15 border border-[#C2984D]/30 dark:border-[#DEB76C]/30 shadow-sm">
             <span class="relative flex h-2 w-2">
-              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#C49A45] dark:bg-[#D9B765] opacity-75"></span>
-              <span class="relative inline-flex rounded-full h-2 w-2 bg-[#C49A45] dark:bg-[#D9B765]"></span>
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#C2984D] dark:bg-[#DEB76C] opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-[#C2984D] dark:bg-[#DEB76C]"></span>
             </span>
             <span>🔥 Firestore Live</span>
           </span>
         `;
       } else if (webhookUrl) {
         pill.innerHTML = `
-          <span title="${lastSync ? `Last synced: ${fmtTimestamp(lastSync)}` : 'Connected to Google Sheet'}" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl text-xs font-bold text-[#587A94] dark:text-[#7EA5BF] bg-[#587A94]/10 dark:bg-[#7EA5BF]/15 border border-[#587A94]/30 dark:border-[#7EA5BF]/30">
+          <span title="${lastSync ? `Last synced: ${fmtTimestamp(lastSync)}` : 'Connected to Google Sheet'}" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl text-xs font-bold text-[#617D91] dark:text-[#86A5BC] bg-[#617D91]/10 dark:bg-[#86A5BC]/15 border border-[#617D91]/30 dark:border-[#86A5BC]/30">
             <span class="relative flex h-2 w-2">
-              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#587A94] dark:bg-[#7EA5BF] opacity-75"></span>
-              <span class="relative inline-flex rounded-full h-2 w-2 bg-[#587A94] dark:bg-[#7EA5BF]"></span>
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#617D91] dark:bg-[#86A5BC] opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-[#617D91] dark:bg-[#86A5BC]"></span>
             </span>
             <span>☁️ Sheet Synced</span>
           </span>
         `;
       } else if (lastExport) {
         pill.innerHTML = `
-          <span title="Last exported to Excel: ${fmtTimestamp(lastExport)}" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl text-xs font-semibold text-[#756B5D] dark:text-[#B9AC99] bg-[#FFFDF8] dark:bg-[#40362C] border border-[#DDD3C3] dark:border-[#55483A]">
-            <span class="w-1.5 h-1.5 rounded-full bg-[#B87948] dark:bg-[#D39A67]"></span>
+          <span title="Last exported to Excel: ${fmtTimestamp(lastExport)}" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl text-xs font-semibold text-[#716556] dark:text-[#B4A58F] bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638]">
+            <span class="w-1.5 h-1.5 rounded-full bg-[#A96745] dark:bg-[#CB8561]"></span>
             <span>☁️ Excel Exported</span>
           </span>
         `;
       } else {
         pill.innerHTML = `
-          <span title="Click to connect Firebase or Google Sheets" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl text-xs font-semibold text-[#756B5D] dark:text-[#B9AC99] bg-[#FFFDF8] dark:bg-[#40362C] border border-[#DDD3C3] dark:border-[#55483A]">
-            <span class="w-1.5 h-1.5 rounded-full bg-[#B9AC99]"></span>
+          <span title="Click to connect Firebase or Google Sheets" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl text-xs font-semibold text-[#716556] dark:text-[#B4A58F] bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638]">
+            <span class="w-1.5 h-1.5 rounded-full bg-[#B4A58F]"></span>
             <span>☁️ Local Only</span>
           </span>
         `;

@@ -365,83 +365,81 @@
       </div>
     </nav>
 
-    <!-- ==================== TAB 1: TRACKER (BENTO GRID) ==================== -->
+    <!-- ==================== TAB 1: TRACKER (SEGMENTED CONSOLE) ==================== -->
     <div id="tabContentTracker" class="space-y-5 sm:space-y-6">
 
-      <!-- Bento Grid Row 1: Closing Balance Logger (Col 1-6) + Combined PnL & Weekly Progress (Col 7-12) -->
-      <section class="grid grid-cols-1 lg:grid-cols-12 gap-5">
-        
-        <!-- Box 1: Closing Balance Logger (Cols 1-6) -->
-        <div class="lg:col-span-6 bento-card p-5 sm:p-6 flex flex-col justify-between space-y-4">
+      <!-- ==================== MASTER CARD 1: DAILY EXECUTION STATION ==================== -->
+      <section id="executionStationCard" class="bento-card overflow-hidden">
+        <div class="grid grid-cols-1 lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x divide-[#DDD3C3] dark:divide-[#55483A]">
           
-          <!-- Stepper & Live Glow Indicator -->
-          <div class="flex items-center justify-between pb-3 border-b border-[#DDD3C3] dark:border-[#55483A]">
-            <!-- Session Stepper -->
-            <div class="inline-flex items-center gap-1.5 bg-[#FFFDF8] dark:bg-[#40362C] rounded-lg p-1 border border-[#DDD3C3] dark:border-[#55483A] font-num">
-              <button onclick="navigateSession(-1)" title="Previous Session" class="w-7 h-7 rounded-md hover:bg-[#FAF7F0] dark:hover:bg-[#352D25] text-[#302A22] dark:text-[#F1E8D8] flex items-center justify-center font-bold text-base transition active:scale-90">
-                ‹
-              </button>
-              <div class="px-2 flex items-center gap-1 text-xs">
-                <span class="text-[#756B5D] dark:text-[#B9AC99] uppercase font-semibold text-[10px]">Session</span>
-                <span id="activeSessionNumDisplay" class="font-extrabold text-sm text-[#302A22] dark:text-[#F1E8D8]">1</span>
-                <span class="text-[#756B5D] dark:text-[#B9AC99] text-xs">/ <span id="totalSessionsDisplay">28</span></span>
+          <!-- Column 1 (Cols 1-6): Closing Balance Logger -->
+          <div class="lg:col-span-6 p-5 sm:p-6 flex flex-col justify-between space-y-4">
+            
+            <!-- Stepper & Live Glow Indicator -->
+            <div class="flex items-center justify-between pb-3 border-b border-[#DDD3C3] dark:border-[#55483A]">
+              <!-- Session Stepper -->
+              <div class="inline-flex items-center gap-1.5 bg-[#FFFDF8] dark:bg-[#40362C] rounded-lg p-1 border border-[#DDD3C3] dark:border-[#55483A] font-num">
+                <button onclick="navigateSession(-1)" title="Previous Session" class="w-7 h-7 rounded-md hover:bg-[#FAF7F0] dark:hover:bg-[#352D25] text-[#302A22] dark:text-[#F1E8D8] flex items-center justify-center font-bold text-base transition active:scale-90">
+                  ‹
+                </button>
+                <div class="px-2 flex items-center gap-1 text-xs">
+                  <span class="text-[#756B5D] dark:text-[#B9AC99] uppercase font-semibold text-[10px]">Session</span>
+                  <span id="activeSessionNumDisplay" class="font-extrabold text-sm text-[#302A22] dark:text-[#F1E8D8]">1</span>
+                  <span class="text-[#756B5D] dark:text-[#B9AC99] text-xs">/ <span id="totalSessionsDisplay">28</span></span>
+                </div>
+                <button onclick="navigateSession(1)" title="Next Session" class="w-7 h-7 rounded-md hover:bg-[#FAF7F0] dark:hover:bg-[#352D25] text-[#302A22] dark:text-[#F1E8D8] flex items-center justify-center font-bold text-base transition active:scale-90">
+                  ›
+                </button>
               </div>
-              <button onclick="navigateSession(1)" title="Next Session" class="w-7 h-7 rounded-md hover:bg-[#FAF7F0] dark:hover:bg-[#352D25] text-[#302A22] dark:text-[#F1E8D8] flex items-center justify-center font-bold text-base transition active:scale-90">
-                ›
+
+              <!-- Glowing Live Status Tag -->
+              <div id="sessionLiveStatusTag">
+                <!-- Dynamically populated: Green glowing dot when live, lock icon when confirmed -->
+              </div>
+            </div>
+
+            <!-- Main Input Section -->
+            <div>
+              <div class="flex items-center justify-between mb-1.5">
+                <label for="sessionBalanceInput" class="text-xs font-bold uppercase tracking-wider text-[#756B5D] dark:text-[#B9AC99] flex items-center gap-1.5">
+                  <span>Closing Balance</span>
+                  <span class="text-[10px] text-[#756B5D]/80 dark:text-[#B9AC99]/80 font-normal">(Today's End Balance)</span>
+                </label>
+                <span class="text-xs text-[#756B5D] dark:text-[#B9AC99]">
+                  Started with: <strong id="prevSessionBalLabel" class="text-[#302A22] dark:text-[#F1E8D8] font-num font-bold">$120.00</strong>
+                </span>
+              </div>
+
+              <div class="relative group">
+                <span class="absolute left-4 top-3 text-[#756B5D] dark:text-[#B9AC99] text-2xl font-bold font-num select-none">$</span>
+                <input type="number" step="0.01" id="sessionBalanceInput" placeholder="0.00" oninput="handleBalanceInput(this.value)"
+                  class="w-full bg-[#FFFDF8] dark:bg-[#40362C] border border-[#DDD3C3] dark:border-[#55483A] focus:border-[#557A5B] dark:focus:border-[#7FA57E] focus:bg-[#FFFDF8] dark:focus:bg-[#40362C] rounded-xl pl-10 pr-4 py-3 font-num text-3xl sm:text-4xl font-black text-[#302A22] dark:text-[#F1E8D8] focus:outline-none transition shadow-inner" />
+              </div>
+
+              <p id="executionTimestampDisplay" class="text-[11px] text-[#756B5D] dark:text-[#B9AC99] font-num mt-2 flex items-center gap-1">
+                <span>🕒</span>
+                <span>Timestamp: In progress</span>
+              </p>
+            </div>
+
+            <!-- Action Buttons Bar -->
+            <div class="pt-3 border-t border-[#DDD3C3] dark:border-[#55483A] flex items-center justify-between gap-2 flex-wrap">
+              <button onclick="fillTargetForActiveSession()" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-[#557A5B]/10 hover:bg-[#557A5B]/20 text-[#557A5B] dark:bg-[#7FA57E]/15 dark:hover:bg-[#7FA57E]/25 dark:text-[#7FA57E] font-bold transition active:scale-95 border border-[#557A5B]/30 dark:border-[#7FA57E]/30 text-xs">
+                <span>✨</span>
+                <span>Fill Active Target (<span id="btnTargetPreview" class="font-num">$120.00</span>)</span>
+              </button>
+
+              <!-- Lock / Unlock Session Button -->
+              <button onclick="toggleLockActiveSession()" id="btnLockSession" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-[#B87948] hover:bg-[#A36639] text-[#FFFDF8] dark:bg-[#D39A67] dark:hover:bg-[#C28956] dark:text-[#29231D] font-bold transition active:scale-95 text-xs shadow-sm">
+                <span>🔒</span>
+                <span>Lock In Session</span>
               </button>
             </div>
 
-            <!-- Glowing Live Status Tag -->
-            <div id="sessionLiveStatusTag">
-              <!-- Dynamically populated: Green glowing dot when live, lock icon when confirmed -->
-            </div>
           </div>
 
-          <!-- Main Input Section -->
-          <div>
-            <div class="flex items-center justify-between mb-1.5">
-              <label for="sessionBalanceInput" class="text-xs font-bold uppercase tracking-wider text-[#756B5D] dark:text-[#B9AC99] flex items-center gap-1.5">
-                <span>Closing Balance</span>
-                <span class="text-[10px] text-[#756B5D]/80 dark:text-[#B9AC99]/80 font-normal">(Today's End Balance)</span>
-              </label>
-              <span class="text-xs text-[#756B5D] dark:text-[#B9AC99]">
-                Started with: <strong id="prevSessionBalLabel" class="text-[#302A22] dark:text-[#F1E8D8] font-num font-bold">$120.00</strong>
-              </span>
-            </div>
-
-            <div class="relative group">
-              <span class="absolute left-4 top-3 text-[#756B5D] dark:text-[#B9AC99] text-2xl font-bold font-num select-none">$</span>
-              <input type="number" step="0.01" id="sessionBalanceInput" placeholder="0.00" oninput="handleBalanceInput(this.value)"
-                class="w-full bg-[#FFFDF8] dark:bg-[#40362C] border border-[#DDD3C3] dark:border-[#55483A] focus:border-[#557A5B] dark:focus:border-[#7FA57E] focus:bg-[#FFFDF8] dark:focus:bg-[#40362C] rounded-xl pl-10 pr-4 py-3 font-num text-3xl sm:text-4xl font-black text-[#302A22] dark:text-[#F1E8D8] focus:outline-none transition shadow-inner" />
-            </div>
-
-            <p id="executionTimestampDisplay" class="text-[11px] text-[#756B5D] dark:text-[#B9AC99] font-num mt-2 flex items-center gap-1">
-              <span>🕒</span>
-              <span>Timestamp: In progress</span>
-            </p>
-          </div>
-
-          <!-- Action Buttons Bar -->
-          <div class="pt-3 border-t border-[#DDD3C3] dark:border-[#55483A] flex items-center justify-between gap-2 flex-wrap">
-            <button onclick="fillTargetForActiveSession()" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-[#557A5B]/10 hover:bg-[#557A5B]/20 text-[#557A5B] dark:bg-[#7FA57E]/15 dark:hover:bg-[#7FA57E]/25 dark:text-[#7FA57E] font-bold transition active:scale-95 border border-[#557A5B]/30 dark:border-[#7FA57E]/30 text-xs">
-              <span>✨</span>
-              <span>Fill Active Target (<span id="btnTargetPreview" class="font-num">$120.00</span>)</span>
-            </button>
-
-            <!-- Lock / Unlock Session Button -->
-            <button onclick="toggleLockActiveSession()" id="btnLockSession" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-[#B87948] hover:bg-[#A36639] text-[#FFFDF8] dark:bg-[#D39A67] dark:hover:bg-[#C28956] dark:text-[#29231D] font-bold transition active:scale-95 text-xs shadow-sm">
-              <span>🔒</span>
-              <span>Lock In Session</span>
-            </button>
-          </div>
-
-        </div>
-
-        <!-- Box 2: Combined Session PnL & Weekly Milestone Progression (Cols 7-12) / Calendar View Switchable -->
-        <div id="box2Card" class="lg:col-span-6 bento-card p-4 sm:p-5 flex flex-col justify-between space-y-3 transition-all">
-          
-          <!-- SUB-VIEW 1: Today's Session PnL & Weekly Milestone Progression -->
-          <div id="box2ViewPnl" class="flex flex-col justify-between h-full space-y-4">
+          <!-- Column 2 (Cols 7-12): Today's PnL & Weekly Progression -->
+          <div class="lg:col-span-6 p-5 sm:p-6 flex flex-col justify-between space-y-4 bg-[#FAF7F0]/40 dark:bg-[#352D25]/30">
             
             <!-- Top Half: Today's Profit / Loss -->
             <div class="space-y-1.5 pb-4 border-b border-[#DDD3C3] dark:border-[#55483A]">
@@ -455,8 +453,8 @@
                   </span>
                 </div>
 
-                <!-- Calendar View Switcher Button -->
-                <button onclick="toggleBox2CalendarView(true)" id="btnOpenCalendarInBox2" title="Switch to Calendar View"
+                <!-- Calendar View Switcher Button in Console Hub -->
+                <button onclick="openCalendarInHub()" id="btnOpenCalendarInBox2" title="Switch to Calendar View in Hub"
                   class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#587A94]/10 hover:bg-[#587A94]/20 text-[#587A94] dark:bg-[#7EA5BF]/15 dark:hover:bg-[#7EA5BF]/25 dark:text-[#7EA5BF] border border-[#587A94]/30 dark:border-[#7EA5BF]/30 font-bold text-xs transition active:scale-95 shadow-sm">
                   <span>📅</span>
                   <span>Calendar View</span>
@@ -505,205 +503,10 @@
 
           </div>
 
-          <!-- SUB-VIEW 2: Daily Trading Activity Calendar (Alt Mineral Slate Blue Theme) -->
-          <div id="box2ViewCalendar" class="hidden flex flex-col justify-between h-full space-y-3">
-            
-            <!-- Calendar Sub-Header -->
-            <div class="flex items-center justify-between gap-2 flex-wrap pb-2 border-b border-[#587A94]/25 dark:border-[#7EA5BF]/25">
-              <div class="flex items-center gap-1.5">
-                <div class="w-6 h-6 rounded-md bg-[#587A94]/15 text-[#587A94] dark:bg-[#7EA5BF]/20 dark:text-[#7EA5BF] flex items-center justify-center text-xs font-bold shrink-0">
-                  📅
-                </div>
-                <div class="flex items-center gap-1.5">
-                  <h3 class="text-xs font-extrabold text-[#302A22] dark:text-[#F1E8D8]">Trading Calendar</h3>
-                  <span id="calendarMonthBadge" class="px-2 py-0.2 rounded-full text-[10px] font-bold bg-[#587A94]/15 text-[#587A94] dark:bg-[#7EA5BF]/20 dark:text-[#7EA5BF] border border-[#587A94]/30 dark:border-[#7EA5BF]/30 font-num">
-                    September 2026
-                  </span>
-                </div>
-              </div>
-
-              <div class="flex items-center gap-1">
-                <!-- Month Stepper -->
-                <div class="inline-flex items-center gap-0.5 bg-[#FFFDF8] dark:bg-[#40362C] rounded-lg p-0.5 border border-[#DDD3C3] dark:border-[#55483A] font-num text-xs shadow-sm">
-                  <button onclick="changeCalendarMonth(-1)" title="Previous Month" class="w-5 h-5 rounded hover:bg-[#FAF7F0] dark:hover:bg-[#352D25] text-[#302A22] dark:text-[#F1E8D8] flex items-center justify-center font-bold text-xs transition active:scale-90">
-                    ‹
-                  </button>
-                  <button onclick="jumpToCurrentCalendarMonth()" title="Jump to Today" class="px-1.5 py-0.5 rounded hover:bg-[#FAF7F0] dark:hover:bg-[#352D25] text-[#302A22] dark:text-[#F1E8D8] font-bold text-[10px] transition">
-                    Today
-                  </button>
-                  <button onclick="changeCalendarMonth(1)" title="Next Month" class="w-5 h-5 rounded hover:bg-[#FAF7F0] dark:hover:bg-[#352D25] text-[#302A22] dark:text-[#F1E8D8] flex items-center justify-center font-bold text-xs transition active:scale-90">
-                    ›
-                  </button>
-                </div>
-
-                <!-- Back to PnL Button -->
-                <button onclick="toggleBox2CalendarView(false)" title="Return to Today's PnL"
-                  class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#FFFDF8] hover:bg-[#FAF7F0] dark:bg-[#40362C] dark:hover:bg-[#352D25] text-[#302A22] dark:text-[#F1E8D8] border border-[#DDD3C3] dark:border-[#55483A] font-bold text-xs transition active:scale-95 shadow-sm">
-                  <span>📊</span>
-                  <span class="hidden sm:inline">Today's PnL</span>
-                  <span class="sm:hidden">PnL</span>
-                </button>
-              </div>
-            </div>
-
-            <!-- Compact Monthly Summary Bar (Slate Blue Mineral Tint) -->
-            <div class="grid grid-cols-4 gap-1.5 text-center text-xs">
-              <div class="p-1 rounded-lg bg-[#587A94]/5 dark:bg-[#7EA5BF]/10 border border-[#587A94]/20 dark:border-[#7EA5BF]/20">
-                <span class="text-[9px] uppercase font-bold text-[#756B5D] dark:text-[#B9AC99] block leading-tight">Traded</span>
-                <span id="calStatDaysTraded" class="text-xs sm:text-sm font-black font-num text-[#302A22] dark:text-[#F1E8D8]">0d</span>
-              </div>
-              <div class="p-1 rounded-lg bg-[#587A94]/5 dark:bg-[#7EA5BF]/10 border border-[#587A94]/20 dark:border-[#7EA5BF]/20">
-                <span class="text-[9px] uppercase font-bold text-[#756B5D] dark:text-[#B9AC99] block leading-tight">Green</span>
-                <span id="calStatGreenDays" class="text-xs sm:text-sm font-black font-num text-[#557A5B] dark:text-[#7FA57E]">0</span>
-              </div>
-              <div class="p-1 rounded-lg bg-[#587A94]/5 dark:bg-[#7EA5BF]/10 border border-[#587A94]/20 dark:border-[#7EA5BF]/20">
-                <span class="text-[9px] uppercase font-bold text-[#756B5D] dark:text-[#B9AC99] block leading-tight">Red</span>
-                <span id="calStatRedDays" class="text-xs sm:text-sm font-black font-num text-[#B65C52] dark:text-[#D77C70]">0</span>
-              </div>
-              <div class="p-1 rounded-lg bg-[#587A94]/5 dark:bg-[#7EA5BF]/10 border border-[#587A94]/20 dark:border-[#7EA5BF]/20">
-                <span class="text-[9px] uppercase font-bold text-[#756B5D] dark:text-[#B9AC99] block leading-tight">Month Net</span>
-                <span id="calStatNetPnl" class="text-xs sm:text-sm font-black font-num text-[#302A22] dark:text-[#F1E8D8]">$0.00</span>
-              </div>
-            </div>
-
-            <!-- Calendar 7-Day Grid (100% Fluid, Zero Horizontal Overflow) -->
-            <div class="w-full">
-              <!-- Day Headers -->
-              <div class="grid grid-cols-7 gap-1 sm:gap-1.5 mb-1 text-center font-extrabold text-[10px] sm:text-xs text-[#587A94] dark:text-[#7EA5BF]">
-                <div><span class="sm:hidden">M</span><span class="hidden sm:inline">Mon</span></div>
-                <div><span class="sm:hidden">T</span><span class="hidden sm:inline">Tue</span></div>
-                <div><span class="sm:hidden">W</span><span class="hidden sm:inline">Wed</span></div>
-                <div><span class="sm:hidden">T</span><span class="hidden sm:inline">Thu</span></div>
-                <div><span class="sm:hidden">F</span><span class="hidden sm:inline">Fri</span></div>
-                <div><span class="sm:hidden">S</span><span class="hidden sm:inline">Sat</span></div>
-                <div><span class="sm:hidden">S</span><span class="hidden sm:inline">Sun</span></div>
-              </div>
-
-              <!-- Day Cells Container -->
-              <div id="calendarDaysGrid" class="grid grid-cols-7 gap-1 sm:gap-1.5 font-num w-full">
-                <!-- Dynamically populated via renderCalendarView() -->
-              </div>
-            </div>
-
-            <!-- Calendar Footer -->
-            <div class="pt-1.5 border-t border-[#DDD3C3]/60 dark:border-[#55483A]/60 flex items-center justify-between text-[10px] text-[#756B5D] dark:text-[#B9AC99]">
-              <div class="flex items-center gap-2">
-                <span class="inline-flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-[#557A5B] dark:bg-[#7FA57E]"></span> Green</span>
-                <span class="inline-flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-[#B65C52] dark:bg-[#D77C70]"></span> Red</span>
-                <span class="inline-flex items-center gap-1"><span class="w-2 h-2 rounded-full border border-[#587A94] dark:border-[#7EA5BF]"></span> Today</span>
-              </div>
-              <span class="italic text-[9px]">Click day to jump</span>
-            </div>
-
-          </div>
-
-        </div>
-
-      </section>
-
-      <!-- Bento Grid Row 2: 3 Bento Boxes for Daily Targets (Relaxed, Mid, Aggressive) -->
-      <section class="space-y-2">
-        <div class="flex items-center justify-between px-1">
-          <h2 class="text-xs font-bold uppercase tracking-wider text-[#756B5D] dark:text-[#B9AC99] flex items-center gap-1.5">
-            <span>🎯 Daily Pace Targets</span>
-            <span class="font-normal text-[11px] text-[#756B5D]/80 dark:text-[#B9AC99]/80">(Click any card to switch your active pace)</span>
-          </h2>
-          <span class="text-[11px] text-[#756B5D] dark:text-[#B9AC99] font-num">Session <span id="targetCardSessionNum">1</span></span>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          
-          <!-- Target Box 1: Relaxed -->
-          <div id="paceCard_relaxed" onclick="setPace('relaxed')" class="bento-card p-5 cursor-pointer transition-all border border-[#DDD3C3] dark:border-[#55483A] bg-[#FAF7F0] dark:bg-[#352D25] hover:border-[#557A5B] dark:hover:border-[#7FA57E] hover:shadow-md space-y-3">
-            <div class="flex items-center justify-between">
-              <div class="flex items-center gap-2">
-                <span class="text-xl">☕</span>
-                <div>
-                  <h3 class="text-sm font-extrabold text-[#302A22] dark:text-[#F1E8D8]">Relaxed Pace</h3>
-                  <span class="text-[10px] text-[#756B5D] dark:text-[#B9AC99] font-semibold">$7,000 Finish</span>
-                </div>
-              </div>
-              <span id="paceActiveBadge_relaxed" class="hidden px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-[#557A5B] dark:bg-[#7FA57E] text-[#FFFDF8] dark:text-[#29231D] shadow-sm">
-                Active
-              </span>
-            </div>
-
-            <div class="py-1">
-              <div class="text-2xl font-black font-num text-[#557A5B] dark:text-[#7FA57E]" id="targetValRelaxed">
-                $120.00
-              </div>
-              <div class="text-xs font-semibold mt-0.5" id="targetStatusRelaxed">
-                Goal Met
-              </div>
-            </div>
-
-            <p class="text-[11px] text-[#756B5D] dark:text-[#B9AC99] pt-2 border-t border-[#DDD3C3]/60 dark:border-[#55483A]/60">
-              Chill &amp; steady growth. Minimal drawdown stress, great for choppy market conditions.
-            </p>
-          </div>
-
-          <!-- Target Box 2: Mid (Ideal) -->
-          <div id="paceCard_mid" onclick="setPace('mid')" class="bento-card p-5 cursor-pointer transition-all border border-[#DDD3C3] dark:border-[#55483A] bg-[#FAF7F0] dark:bg-[#352D25] hover:border-[#B87948] dark:hover:border-[#D39A67] hover:shadow-md space-y-3">
-            <div class="flex items-center justify-between">
-              <div class="flex items-center gap-2">
-                <span class="text-xl">⚡</span>
-                <div>
-                  <h3 class="text-sm font-extrabold text-[#302A22] dark:text-[#F1E8D8]">Mid Pace</h3>
-                  <span class="text-[10px] text-[#756B5D] dark:text-[#B9AC99] font-semibold">$12,600 Finish</span>
-                </div>
-              </div>
-              <span id="paceActiveBadge_mid" class="hidden px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-[#B87948] dark:bg-[#D39A67] text-[#FFFDF8] dark:text-[#29231D] shadow-sm">
-                Active
-              </span>
-            </div>
-
-            <div class="py-1">
-              <div class="text-2xl font-black font-num text-[#B87948] dark:text-[#D39A67]" id="targetValMid">
-                $120.00
-              </div>
-              <div class="text-xs font-semibold mt-0.5" id="targetStatusMid">
-                Goal Met
-              </div>
-            </div>
-
-            <p class="text-[11px] text-[#756B5D] dark:text-[#B9AC99] pt-2 border-t border-[#DDD3C3]/60 dark:border-[#55483A]/60">
-              The sweet spot. Balanced growth sprint for solid setups without reckless over-trading.
-            </p>
-          </div>
-
-          <!-- Target Box 3: Aggressive -->
-          <div id="paceCard_aggressive" onclick="setPace('aggressive')" class="bento-card p-5 cursor-pointer transition-all border border-[#DDD3C3] dark:border-[#55483A] bg-[#FAF7F0] dark:bg-[#352D25] hover:border-[#B65C52] dark:hover:border-[#D77C70] hover:shadow-md space-y-3">
-            <div class="flex items-center justify-between">
-              <div class="flex items-center gap-2">
-                <span class="text-xl">🔥</span>
-                <div>
-                  <h3 class="text-sm font-extrabold text-[#302A22] dark:text-[#F1E8D8]">Aggressive Pace</h3>
-                  <span class="text-[10px] text-[#756B5D] dark:text-[#B9AC99] font-semibold">$17,500 Finish</span>
-                </div>
-              </div>
-              <span id="paceActiveBadge_aggressive" class="hidden px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-[#B65C52] dark:bg-[#D77C70] text-[#FFFDF8] dark:text-[#29231D] shadow-sm">
-                Active
-              </span>
-            </div>
-
-            <div class="py-1">
-              <div class="text-2xl font-black font-num text-[#B65C52] dark:text-[#D77C70]" id="targetValAggressive">
-                $120.00
-              </div>
-              <div class="text-xs font-semibold mt-0.5" id="targetStatusAggressive">
-                Goal Met
-              </div>
-            </div>
-
-            <p class="text-[11px] text-[#756B5D] dark:text-[#B9AC99] pt-2 border-t border-[#DDD3C3]/60 dark:border-[#55483A]/60">
-              High turbo compounding. Fast-lane growth suited for trending runs and A+ high-conviction trades.
-            </p>
-          </div>
-
         </div>
       </section>
 
-      <!-- Optional Milestone Skim Alert (Collapsible Warm Bento Banner) -->
+      <!-- Optional Milestone Skim Alert (Collapsible Warm Banner) -->
       <section id="skimAlertBox" class="hidden bento-card p-4 sm:p-5 bg-[#B87948]/10 dark:bg-[#D39A67]/15 border border-[#B87948]/30 dark:border-[#D39A67]/30 space-y-2.5">
         <div class="flex items-center justify-between">
           <div class="flex items-center gap-2">
@@ -729,66 +532,292 @@
         </div>
       </section>
 
-      <!-- Compounding Milestones Progress -->
-      <section class="bento-card p-5 sm:p-6 space-y-4">
-        <div class="flex items-center justify-between">
+      <!-- ==================== MASTER CARD 2: MULTI-WIDGET CONSOLE HUB ==================== -->
+      <section id="insightsHubCard" class="bento-card overflow-hidden space-y-0">
+        
+        <!-- Console Hub Header & Segmented Pill Switcher -->
+        <div class="p-4 sm:p-5 border-b border-[#DDD3C3] dark:border-[#55483A] flex flex-col md:flex-row md:items-center md:justify-between gap-3 bg-[#FAF7F0] dark:bg-[#352D25]">
           <div>
-            <h2 class="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#302A22] dark:text-[#F1E8D8]">
-              Cycle Checkpoints
-            </h2>
-            <p class="text-xs text-[#756B5D] dark:text-[#B9AC99] mt-0.5">Your journey from $120 to your final goal</p>
+            <div class="flex items-center gap-2">
+              <span class="text-lg">🧭</span>
+              <h3 class="text-base font-extrabold text-[#302A22] dark:text-[#F1E8D8]">Console Insights Hub</h3>
+            </div>
+            <p class="text-xs text-[#756B5D] dark:text-[#B9AC99] mt-0.5">
+              Switch views to track daily pace targets, activity calendar, cycle checkpoints, or ledger history
+            </p>
           </div>
-          <span class="text-sm font-num font-bold text-[#557A5B] dark:text-[#7FA57E]" id="overallCycleCompletionLabel">
-            0.0% Complete
-          </span>
-        </div>
 
-        <!-- Phase Cards Grid -->
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3" id="milestonesCardGrid">
-          <!-- Dynamically populated via renderMilestoneCards -->
-        </div>
-      </section>
-
-      <!-- Bento Master Session Ledger Table -->
-      <section class="bento-card overflow-hidden">
-        <div class="p-4 sm:p-5 border-b border-[#DDD3C3] dark:border-[#55483A] flex flex-wrap items-center justify-between gap-3 bg-[#FAF7F0] dark:bg-[#352D25]">
-          <div>
-            <h3 class="text-base font-extrabold text-[#302A22] dark:text-[#F1E8D8]">Session History &amp; Target Ledger</h3>
-            <p class="text-xs text-[#756B5D] dark:text-[#B9AC99] mt-0.5">Click any row to jump to that session • Vault savings never count as losses</p>
-          </div>
-          <div class="flex items-center gap-2">
-            <!-- Toggle All Paces Button -->
-            <button onclick="toggleTableColumns()" id="btnToggleAllPaces" class="px-3 py-1.5 rounded-lg bg-[#FFFDF8] hover:bg-[#FAF7F0] dark:bg-[#40362C] dark:hover:bg-[#352D25] text-[#302A22] dark:text-[#F1E8D8] border border-[#DDD3C3] dark:border-[#55483A] font-bold text-xs transition shadow-sm active:scale-95">
-              <span>📊 Show All Paces</span>
+          <!-- 4-Segment Pill Switcher -->
+          <div class="inline-flex items-center p-1 rounded-xl bg-[#F3EDE1] dark:bg-[#29231D] border border-[#DDD3C3] dark:border-[#55483A] gap-1 overflow-x-auto max-w-full calm-scrollbar shrink-0">
+            <button onclick="switchWidgetTab('paces')" id="widgetTabBtn_paces"
+              class="widget-tab-btn px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 whitespace-nowrap bg-[#FFFDF8] dark:bg-[#40362C] text-[#302A22] dark:text-[#F1E8D8] shadow-sm">
+              <span>🎯</span>
+              <span>Daily Paces</span>
             </button>
-            <button onclick="copySessionTable()" class="px-3 py-1.5 rounded-lg bg-[#FFFDF8] hover:bg-[#FAF7F0] dark:bg-[#40362C] dark:hover:bg-[#352D25] text-[#302A22] dark:text-[#F1E8D8] border border-[#DDD3C3] dark:border-[#55483A] font-bold text-xs transition shadow-sm active:scale-95 font-num">
-              📋 Copy TSV
+            <button onclick="switchWidgetTab('calendar')" id="widgetTabBtn_calendar"
+              class="widget-tab-btn px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 whitespace-nowrap text-[#756B5D] dark:text-[#B9AC99] hover:text-[#302A22] dark:hover:text-[#F1E8D8]">
+              <span>📅</span>
+              <span>Calendar</span>
+            </button>
+            <button onclick="switchWidgetTab('milestones')" id="widgetTabBtn_milestones"
+              class="widget-tab-btn px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 whitespace-nowrap text-[#756B5D] dark:text-[#B9AC99] hover:text-[#302A22] dark:hover:text-[#F1E8D8]">
+              <span>🏆</span>
+              <span>Milestones</span>
+            </button>
+            <button onclick="switchWidgetTab('ledger')" id="widgetTabBtn_ledger"
+              class="widget-tab-btn px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 whitespace-nowrap text-[#756B5D] dark:text-[#B9AC99] hover:text-[#302A22] dark:hover:text-[#F1E8D8]">
+              <span>📋</span>
+              <span>Master Ledger</span>
             </button>
           </div>
         </div>
 
-        <div class="overflow-x-auto calm-scrollbar max-h-[480px]">
-          <table class="w-full text-left text-xs sm:text-sm border-collapse">
-            <thead class="sticky top-0 bg-[#FAF7F0] dark:bg-[#352D25] backdrop-blur-sm text-[#756B5D] dark:text-[#B9AC99] uppercase tracking-wider text-[10px] sm:text-[11px] border-b border-[#DDD3C3] dark:border-[#55483A] z-10 font-bold">
-              <tr id="tableHeaderRow">
-                <th class="py-3 px-3 sm:px-4">Session</th>
-                <th class="py-3 px-3 sm:px-4">Date</th>
-                <th class="py-3 px-3 sm:px-4">Closing Balance</th>
-                <th class="py-3 px-3 sm:px-4">Day Profit</th>
-                <th class="py-3 px-3 sm:px-4">Pace Status</th>
-                <th class="py-3 px-3 sm:px-4" id="thActiveTarget">Active Target</th>
-                <!-- Optional Multi-Pace Columns -->
-                <th class="py-3 px-3 sm:px-4 hidden multi-pace-col">Relaxed</th>
-                <th class="py-3 px-3 sm:px-4 hidden multi-pace-col">Mid</th>
-                <th class="py-3 px-3 sm:px-4 hidden multi-pace-col">Aggressive</th>
-                <th class="py-3 px-3 sm:px-4">Notes</th>
-              </tr>
-            </thead>
-            <tbody id="sessionLedgerBody" class="divide-y divide-[#DDD3C3]/60 dark:divide-[#55483A]/60 font-num">
-              <!-- Dynamically populated via renderMasterTable -->
-            </tbody>
-          </table>
+        <!-- Content Container for the 4 Widgets -->
+        <div class="p-4 sm:p-6 bg-[#FAF7F0]/40 dark:bg-[#352D25]/20">
+          
+          <!-- WIDGET 1: Daily Target Paces -->
+          <div id="widgetContent_paces" class="space-y-3">
+            <div class="flex items-center justify-between px-1">
+              <h4 class="text-xs font-bold uppercase tracking-wider text-[#756B5D] dark:text-[#B9AC99] flex items-center gap-1.5">
+                <span>🎯 Select Active Target Pace</span>
+                <span class="font-normal text-[11px] text-[#756B5D]/80 dark:text-[#B9AC99]/80">(Click any card to apply)</span>
+              </h4>
+              <span class="text-xs text-[#756B5D] dark:text-[#B9AC99] font-num">Session <span id="targetCardSessionNum">1</span></span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <!-- Target Box 1: Relaxed -->
+              <div id="paceCard_relaxed" onclick="setPace('relaxed')" class="bento-card p-5 cursor-pointer transition-all border border-[#DDD3C3] dark:border-[#55483A] bg-[#FAF7F0] dark:bg-[#352D25] hover:border-[#557A5B] dark:hover:border-[#7FA57E] hover:shadow-md space-y-3">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <span class="text-xl">☕</span>
+                    <div>
+                      <h5 class="text-sm font-extrabold text-[#302A22] dark:text-[#F1E8D8]">Relaxed Pace</h5>
+                      <span class="text-[10px] text-[#756B5D] dark:text-[#B9AC99] font-semibold">$7,000 Finish</span>
+                    </div>
+                  </div>
+                  <span id="paceActiveBadge_relaxed" class="hidden px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-[#557A5B] dark:bg-[#7FA57E] text-[#FFFDF8] dark:text-[#29231D] shadow-sm">
+                    Active
+                  </span>
+                </div>
+
+                <div class="py-1">
+                  <div class="text-2xl font-black font-num text-[#557A5B] dark:text-[#7FA57E]" id="targetValRelaxed">
+                    $120.00
+                  </div>
+                  <div class="text-xs font-semibold mt-0.5" id="targetStatusRelaxed">
+                    Goal Met
+                  </div>
+                </div>
+
+                <p class="text-[11px] text-[#756B5D] dark:text-[#B9AC99] pt-2 border-t border-[#DDD3C3]/60 dark:border-[#55483A]/60">
+                  Chill &amp; steady growth. Minimal drawdown stress, great for choppy market conditions.
+                </p>
+              </div>
+
+              <!-- Target Box 2: Mid (Ideal) -->
+              <div id="paceCard_mid" onclick="setPace('mid')" class="bento-card p-5 cursor-pointer transition-all border border-[#DDD3C3] dark:border-[#55483A] bg-[#FAF7F0] dark:bg-[#352D25] hover:border-[#B87948] dark:hover:border-[#D39A67] hover:shadow-md space-y-3">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <span class="text-xl">⚡</span>
+                    <div>
+                      <h5 class="text-sm font-extrabold text-[#302A22] dark:text-[#F1E8D8]">Mid Pace</h5>
+                      <span class="text-[10px] text-[#756B5D] dark:text-[#B9AC99] font-semibold">$12,600 Finish</span>
+                    </div>
+                  </div>
+                  <span id="paceActiveBadge_mid" class="hidden px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-[#B87948] dark:bg-[#D39A67] text-[#FFFDF8] dark:text-[#29231D] shadow-sm">
+                    Active
+                  </span>
+                </div>
+
+                <div class="py-1">
+                  <div class="text-2xl font-black font-num text-[#B87948] dark:text-[#D39A67]" id="targetValMid">
+                    $120.00
+                  </div>
+                  <div class="text-xs font-semibold mt-0.5" id="targetStatusMid">
+                    Goal Met
+                  </div>
+                </div>
+
+                <p class="text-[11px] text-[#756B5D] dark:text-[#B9AC99] pt-2 border-t border-[#DDD3C3]/60 dark:border-[#55483A]/60">
+                  The sweet spot. Balanced growth sprint for solid setups without reckless over-trading.
+                </p>
+              </div>
+
+              <!-- Target Box 3: Aggressive -->
+              <div id="paceCard_aggressive" onclick="setPace('aggressive')" class="bento-card p-5 cursor-pointer transition-all border border-[#DDD3C3] dark:border-[#55483A] bg-[#FAF7F0] dark:bg-[#352D25] hover:border-[#B65C52] dark:hover:border-[#D77C70] hover:shadow-md space-y-3">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <span class="text-xl">🔥</span>
+                    <div>
+                      <h5 class="text-sm font-extrabold text-[#302A22] dark:text-[#F1E8D8]">Aggressive Pace</h5>
+                      <span class="text-[10px] text-[#756B5D] dark:text-[#B9AC99] font-semibold">$17,500 Finish</span>
+                    </div>
+                  </div>
+                  <span id="paceActiveBadge_aggressive" class="hidden px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-[#B65C52] dark:bg-[#D77C70] text-[#FFFDF8] dark:text-[#29231D] shadow-sm">
+                    Active
+                  </span>
+                </div>
+
+                <div class="py-1">
+                  <div class="text-2xl font-black font-num text-[#B65C52] dark:text-[#D77C70]" id="targetValAggressive">
+                    $120.00
+                  </div>
+                  <div class="text-xs font-semibold mt-0.5" id="targetStatusAggressive">
+                    Goal Met
+                  </div>
+                </div>
+
+                <p class="text-[11px] text-[#756B5D] dark:text-[#B9AC99] pt-2 border-t border-[#DDD3C3]/60 dark:border-[#55483A]/60">
+                  High turbo compounding. Fast-lane growth suited for trending runs and A+ high-conviction trades.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- WIDGET 2: Daily Trading Activity Calendar -->
+          <div id="widgetContent_calendar" class="hidden space-y-4">
+            <div class="flex items-center justify-between gap-2 flex-wrap pb-2 border-b border-[#587A94]/25 dark:border-[#7EA5BF]/25">
+              <div class="flex items-center gap-2">
+                <div class="w-7 h-7 rounded-lg bg-[#587A94]/15 text-[#587A94] dark:bg-[#7EA5BF]/20 dark:text-[#7EA5BF] flex items-center justify-center text-sm font-bold shrink-0">
+                  📅
+                </div>
+                <div class="flex items-center gap-2">
+                  <h4 class="text-sm font-extrabold text-[#302A22] dark:text-[#F1E8D8]">Trading Activity Calendar</h4>
+                  <span id="calendarMonthBadge" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-[#587A94]/15 text-[#587A94] dark:bg-[#7EA5BF]/20 dark:text-[#7EA5BF] border border-[#587A94]/30 dark:border-[#7EA5BF]/30 font-num">
+                    September 2026
+                  </span>
+                </div>
+              </div>
+
+              <!-- Month Stepper -->
+              <div class="inline-flex items-center gap-1 bg-[#FFFDF8] dark:bg-[#40362C] rounded-lg p-1 border border-[#DDD3C3] dark:border-[#55483A] font-num text-xs shadow-sm">
+                <button onclick="changeCalendarMonth(-1)" title="Previous Month" class="w-6 h-6 rounded hover:bg-[#FAF7F0] dark:hover:bg-[#352D25] text-[#302A22] dark:text-[#F1E8D8] flex items-center justify-center font-bold text-xs transition active:scale-90">
+                  ‹
+                </button>
+                <button onclick="jumpToCurrentCalendarMonth()" title="Jump to Today" class="px-2 py-0.5 rounded hover:bg-[#FAF7F0] dark:hover:bg-[#352D25] text-[#302A22] dark:text-[#F1E8D8] font-bold text-xs transition">
+                  Today
+                </button>
+                <button onclick="changeCalendarMonth(1)" title="Next Month" class="w-6 h-6 rounded hover:bg-[#FAF7F0] dark:hover:bg-[#352D25] text-[#302A22] dark:text-[#F1E8D8] flex items-center justify-center font-bold text-xs transition active:scale-90">
+                  ›
+                </button>
+              </div>
+            </div>
+
+            <!-- Compact Monthly Summary Bar (Mineral Slate Blue Tint) -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center text-xs">
+              <div class="p-2.5 rounded-xl bg-[#587A94]/10 dark:bg-[#7EA5BF]/10 border border-[#587A94]/20 dark:border-[#7EA5BF]/20">
+                <span class="text-[10px] uppercase font-bold text-[#756B5D] dark:text-[#B9AC99] block leading-tight">Days Traded</span>
+                <span id="calStatDaysTraded" class="text-sm sm:text-base font-black font-num text-[#302A22] dark:text-[#F1E8D8]">0d</span>
+              </div>
+              <div class="p-2.5 rounded-xl bg-[#587A94]/10 dark:bg-[#7EA5BF]/10 border border-[#587A94]/20 dark:border-[#7EA5BF]/20">
+                <span class="text-[10px] uppercase font-bold text-[#756B5D] dark:text-[#B9AC99] block leading-tight">Green Days</span>
+                <span id="calStatGreenDays" class="text-sm sm:text-base font-black font-num text-[#557A5B] dark:text-[#7FA57E]">0</span>
+              </div>
+              <div class="p-2.5 rounded-xl bg-[#587A94]/10 dark:bg-[#7EA5BF]/10 border border-[#587A94]/20 dark:border-[#7EA5BF]/20">
+                <span class="text-[10px] uppercase font-bold text-[#756B5D] dark:text-[#B9AC99] block leading-tight">Red Days</span>
+                <span id="calStatRedDays" class="text-sm sm:text-base font-black font-num text-[#B65C52] dark:text-[#D77C70]">0</span>
+              </div>
+              <div class="p-2.5 rounded-xl bg-[#587A94]/10 dark:bg-[#7EA5BF]/10 border border-[#587A94]/20 dark:border-[#7EA5BF]/20">
+                <span class="text-[10px] uppercase font-bold text-[#756B5D] dark:text-[#B9AC99] block leading-tight">Month Net PnL</span>
+                <span id="calStatNetPnl" class="text-sm sm:text-base font-black font-num text-[#302A22] dark:text-[#F1E8D8]">$0.00</span>
+              </div>
+            </div>
+
+            <!-- Calendar 7-Day Grid (100% Fluid, Zero Horizontal Overflow) -->
+            <div class="w-full">
+              <!-- Day Headers -->
+              <div class="grid grid-cols-7 gap-1 sm:gap-1.5 mb-1 text-center font-extrabold text-[10px] sm:text-xs text-[#587A94] dark:text-[#7EA5BF]">
+                <div><span class="sm:hidden">M</span><span class="hidden sm:inline">Mon</span></div>
+                <div><span class="sm:hidden">T</span><span class="hidden sm:inline">Tue</span></div>
+                <div><span class="sm:hidden">W</span><span class="hidden sm:inline">Wed</span></div>
+                <div><span class="sm:hidden">T</span><span class="hidden sm:inline">Thu</span></div>
+                <div><span class="sm:hidden">F</span><span class="hidden sm:inline">Fri</span></div>
+                <div><span class="sm:hidden">S</span><span class="hidden sm:inline">Sat</span></div>
+                <div><span class="sm:hidden">S</span><span class="hidden sm:inline">Sun</span></div>
+              </div>
+
+              <!-- Day Cells Container -->
+              <div id="calendarDaysGrid" class="grid grid-cols-7 gap-1 sm:gap-1.5 font-num w-full">
+                <!-- Dynamically populated via renderCalendarView() -->
+              </div>
+            </div>
+
+            <!-- Calendar Footer -->
+            <div class="pt-2 border-t border-[#DDD3C3]/60 dark:border-[#55483A]/60 flex items-center justify-between text-xs text-[#756B5D] dark:text-[#B9AC99]">
+              <div class="flex items-center gap-3">
+                <span class="inline-flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#557A5B] dark:bg-[#7FA57E]"></span> Green</span>
+                <span class="inline-flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#B65C52] dark:bg-[#D77C70]"></span> Red</span>
+                <span class="inline-flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full border border-[#587A94] dark:border-[#7EA5BF]"></span> Today</span>
+              </div>
+              <span class="italic text-[11px]">Click any date to jump to its session</span>
+            </div>
+          </div>
+
+          <!-- WIDGET 3: Compounding Milestones Progress -->
+          <div id="widgetContent_milestones" class="hidden space-y-4">
+            <div class="flex items-center justify-between">
+              <div>
+                <h4 class="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#302A22] dark:text-[#F1E8D8]">
+                  Cycle Checkpoints
+                </h4>
+                <p class="text-xs text-[#756B5D] dark:text-[#B9AC99] mt-0.5">Your compounding roadmap from $120 to your final target</p>
+              </div>
+              <span class="text-sm font-num font-bold text-[#557A5B] dark:text-[#7FA57E]" id="overallCycleCompletionLabel">
+                0.0% Complete
+              </span>
+            </div>
+
+            <!-- Phase Cards Grid -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3" id="milestonesCardGrid">
+              <!-- Dynamically populated via renderMilestoneCards -->
+            </div>
+          </div>
+
+          <!-- WIDGET 4: Master Session Ledger Table -->
+          <div id="widgetContent_ledger" class="hidden space-y-3">
+            <div class="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-[#DDD3C3] dark:border-[#55483A]">
+              <div>
+                <h4 class="text-sm font-extrabold text-[#302A22] dark:text-[#F1E8D8]">Session History &amp; Target Ledger</h4>
+                <p class="text-xs text-[#756B5D] dark:text-[#B9AC99] mt-0.5">Click any row to jump • Vault savings never count as losses</p>
+              </div>
+              <div class="flex items-center gap-2">
+                <!-- Toggle All Paces Button -->
+                <button onclick="toggleTableColumns()" id="btnToggleAllPaces" class="px-3 py-1.5 rounded-lg bg-[#FFFDF8] hover:bg-[#FAF7F0] dark:bg-[#40362C] dark:hover:bg-[#352D25] text-[#302A22] dark:text-[#F1E8D8] border border-[#DDD3C3] dark:border-[#55483A] font-bold text-xs transition shadow-sm active:scale-95">
+                  <span>📊 Show All Paces</span>
+                </button>
+                <button onclick="copySessionTable()" class="px-3 py-1.5 rounded-lg bg-[#FFFDF8] hover:bg-[#FAF7F0] dark:bg-[#40362C] dark:hover:bg-[#352D25] text-[#302A22] dark:text-[#F1E8D8] border border-[#DDD3C3] dark:border-[#55483A] font-bold text-xs transition shadow-sm active:scale-95 font-num">
+                  📋 Copy TSV
+                </button>
+              </div>
+            </div>
+
+            <div class="overflow-x-auto calm-scrollbar max-h-[480px] rounded-xl border border-[#DDD3C3] dark:border-[#55483A]">
+              <table class="w-full text-left text-xs sm:text-sm border-collapse bg-[#FAF7F0] dark:bg-[#352D25]">
+                <thead class="sticky top-0 bg-[#FFFDF8] dark:bg-[#40362C] backdrop-blur-sm text-[#756B5D] dark:text-[#B9AC99] uppercase tracking-wider text-[10px] sm:text-[11px] border-b border-[#DDD3C3] dark:border-[#55483A] z-10 font-bold">
+                  <tr id="tableHeaderRow">
+                    <th class="py-3 px-3 sm:px-4">Session</th>
+                    <th class="py-3 px-3 sm:px-4">Date</th>
+                    <th class="py-3 px-3 sm:px-4">Closing Balance</th>
+                    <th class="py-3 px-3 sm:px-4">Day Profit</th>
+                    <th class="py-3 px-3 sm:px-4">Pace Status</th>
+                    <th class="py-3 px-3 sm:px-4" id="thActiveTarget">Active Target</th>
+                    <!-- Optional Multi-Pace Columns -->
+                    <th class="py-3 px-3 sm:px-4 hidden multi-pace-col">Relaxed</th>
+                    <th class="py-3 px-3 sm:px-4 hidden multi-pace-col">Mid</th>
+                    <th class="py-3 px-3 sm:px-4 hidden multi-pace-col">Aggressive</th>
+                    <th class="py-3 px-3 sm:px-4">Notes</th>
+                  </tr>
+                </thead>
+                <tbody id="sessionLedgerBody" class="divide-y divide-[#DDD3C3]/60 dark:divide-[#55483A]/60 font-num">
+                  <!-- Dynamically populated via renderMasterTable -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
         </div>
+
       </section>
 
     </div>
@@ -1364,8 +1393,9 @@ service cloud.firestore {
     let lockedSessions = JSON.parse(localStorage.getItem('pgl_locked_sessions_v9')) || {};
     let showAllPacesInTable = localStorage.getItem('pgl_show_all_paces_v9') === 'true';
 
-    /* Box 2 View & Calendar State */
-    let isBox2CalendarView = localStorage.getItem('pgl_box2_view_v9') === 'calendar';
+    /* Multi-Widget Console Hub State */
+    let activeWidgetTab = localStorage.getItem('pgl_active_widget_tab_v1') || 'paces';
+    let isBox2CalendarView = activeWidgetTab === 'calendar';
     let calendarViewDate = new Date();
 
     /* Milestone Skim & Vault State */
@@ -1863,6 +1893,7 @@ service cloud.firestore {
       }
 
       renderMilestoneCards(ladder, trueWealth);
+      renderCalendarView();
       updateBox2View();
       renderMasterTable(ladder);
     }
@@ -1904,33 +1935,57 @@ service cloud.firestore {
       });
     }
 
-    /* Box 2 View Switching & Compact Calendar Functions */
+    /* Multi-Widget Console Hub Switching & Calendar Functions */
+    function switchWidgetTab(tabName) {
+      const tabs = ['paces', 'calendar', 'milestones', 'ledger'];
+      if (!tabs.includes(tabName)) tabName = 'paces';
+      activeWidgetTab = tabName;
+      localStorage.setItem('pgl_active_widget_tab_v1', tabName);
+      isBox2CalendarView = tabName === 'calendar';
+
+      tabs.forEach(t => {
+        const btn = document.getElementById(`widgetTabBtn_${t}`);
+        const content = document.getElementById(`widgetContent_${t}`);
+        const isActive = t === tabName;
+        if (content) {
+          if (isActive) {
+            content.classList.remove('hidden');
+          } else {
+            content.classList.add('hidden');
+          }
+        }
+        if (btn) {
+          if (isActive) {
+            btn.className = "widget-tab-btn px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 whitespace-nowrap bg-[#FFFDF8] dark:bg-[#40362C] text-[#302A22] dark:text-[#F1E8D8] shadow-sm";
+          } else {
+            btn.className = "widget-tab-btn px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 whitespace-nowrap text-[#756B5D] dark:text-[#B9AC99] hover:text-[#302A22] dark:hover:text-[#F1E8D8]";
+          }
+        }
+      });
+
+      if (tabName === 'calendar') {
+        renderCalendarView();
+      }
+    }
+
+    function openCalendarInHub() {
+      switchWidgetTab('calendar');
+      const hub = document.getElementById('insightsHubCard');
+      if (hub) {
+        hub.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    }
+
     function toggleBox2CalendarView(showCalendar) {
-      isBox2CalendarView = !!showCalendar;
-      localStorage.setItem('pgl_box2_view_v9', isBox2CalendarView ? 'calendar' : 'pnl');
-      updateBox2View();
+      if (showCalendar) {
+        openCalendarInHub();
+      } else {
+        switchWidgetTab('paces');
+      }
     }
 
     function updateBox2View() {
-      const pnlView = document.getElementById('box2ViewPnl');
-      const calView = document.getElementById('box2ViewCalendar');
-      const box2Card = document.getElementById('box2Card');
-      if (!pnlView || !calView) return;
-
-      if (isBox2CalendarView) {
-        pnlView.classList.add('hidden');
-        calView.classList.remove('hidden');
-        if (box2Card) {
-          box2Card.classList.add('border-[#587A94]/40', 'dark:border-[#7EA5BF]/40');
-        }
-        renderCalendarView();
-      } else {
-        calView.classList.add('hidden');
-        pnlView.classList.remove('hidden');
-        if (box2Card) {
-          box2Card.classList.remove('border-[#587A94]/40', 'dark:border-[#7EA5BF]/40');
-        }
-      }
+      switchWidgetTab(activeWidgetTab);
     }
 
     function changeCalendarMonth(delta) {
@@ -3169,6 +3224,7 @@ service cloud.firestore {
       }
 
       updateCloudStatus();
+      switchWidgetTab(activeWidgetTab);
       renderTracker();
       renderMilestonesTab();
       renderConfigTab();

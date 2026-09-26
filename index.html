@@ -437,58 +437,164 @@
 
         </div>
 
-        <!-- Box 2: Combined Session PnL & Weekly Milestone Progression (Cols 7-12) -->
-        <div class="lg:col-span-6 bento-card p-5 sm:p-6 flex flex-col justify-between space-y-4">
+        <!-- Box 2: Combined Session PnL & Weekly Milestone Progression (Cols 7-12) / Calendar View Switchable -->
+        <div id="box2Card" class="lg:col-span-6 bento-card p-4 sm:p-5 flex flex-col justify-between space-y-3 transition-all">
           
-          <!-- Top Half: Today's Profit / Loss -->
-          <div class="space-y-1.5 pb-4 border-b border-[#DDD3C3] dark:border-[#55483A]">
-            <div class="flex items-center justify-between">
-              <span class="text-xs font-bold uppercase tracking-wider text-[#756B5D] dark:text-[#B9AC99]">
-                Today's Profit / Loss
-              </span>
-              <span class="text-xs font-num font-semibold text-[#756B5D] dark:text-[#B9AC99]">
-                Active Goal: <strong id="sessionTargetValDisplay" class="text-[#302A22] dark:text-[#F1E8D8]">$120.00</strong>
-              </span>
+          <!-- SUB-VIEW 1: Today's Session PnL & Weekly Milestone Progression -->
+          <div id="box2ViewPnl" class="flex flex-col justify-between h-full space-y-4">
+            
+            <!-- Top Half: Today's Profit / Loss -->
+            <div class="space-y-1.5 pb-4 border-b border-[#DDD3C3] dark:border-[#55483A]">
+              <div class="flex items-center justify-between gap-2 flex-wrap">
+                <div class="flex items-center gap-1.5 flex-wrap">
+                  <span class="text-xs font-bold uppercase tracking-wider text-[#756B5D] dark:text-[#B9AC99]">
+                    Today's Profit / Loss
+                  </span>
+                  <span class="text-xs font-num font-semibold text-[#756B5D] dark:text-[#B9AC99]">
+                    • Goal: <strong id="sessionTargetValDisplay" class="text-[#302A22] dark:text-[#F1E8D8]">$120.00</strong>
+                  </span>
+                </div>
+
+                <!-- Calendar View Switcher Button -->
+                <button onclick="toggleBox2CalendarView(true)" id="btnOpenCalendarInBox2" title="Switch to Calendar View"
+                  class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#587A94]/10 hover:bg-[#587A94]/20 text-[#587A94] dark:bg-[#7EA5BF]/15 dark:hover:bg-[#7EA5BF]/25 dark:text-[#7EA5BF] border border-[#587A94]/30 dark:border-[#7EA5BF]/30 font-bold text-xs transition active:scale-95 shadow-sm">
+                  <span>📅</span>
+                  <span>Calendar View</span>
+                </button>
+              </div>
+
+              <div class="flex items-baseline gap-3">
+                <div class="text-3xl sm:text-4xl font-black font-num tracking-tight text-[#302A22] dark:text-[#F1E8D8]" id="sessionPnlDollar">
+                  $0.00
+                </div>
+                <div class="text-sm font-bold font-num" id="sessionPnlPct">
+                  0.00% today
+                </div>
+              </div>
+
+              <p class="text-xs text-[#756B5D] dark:text-[#B9AC99] font-medium pt-1" id="sessionPnlVibe">
+                🌱 Clean slate! Enter today's closing balance to see your score.
+              </p>
             </div>
 
-            <div class="flex items-baseline gap-3">
-              <div class="text-3xl sm:text-4xl font-black font-num tracking-tight text-[#302A22] dark:text-[#F1E8D8]" id="sessionPnlDollar">
-                $0.00
+            <!-- Bottom Half: Weekly Milestone Progress -->
+            <div class="space-y-2.5">
+              <div class="flex items-center justify-between flex-wrap gap-2">
+                <div class="flex items-center gap-1.5">
+                  <span class="text-base">🏁</span>
+                  <span class="text-xs font-bold text-[#302A22] dark:text-[#F1E8D8]" id="weeklyMilestoneLabel">
+                    Week 1 Checkpoint: $1,000.00
+                  </span>
+                </div>
+                <div id="weeklyDeltaBadge">
+                  <!-- Dynamically populated: Ahead or Behind badge -->
+                </div>
               </div>
-              <div class="text-sm font-bold font-num" id="sessionPnlPct">
-                0.00% today
+
+              <!-- Progression Bar -->
+              <div>
+                <div class="w-full bg-[#FAF7F0] dark:bg-[#40362C] h-3 rounded-full overflow-hidden p-0.5 border border-[#DDD3C3] dark:border-[#55483A]">
+                  <div id="weeklyProgressBar" class="bg-gradient-to-r from-[#B87948] via-[#C49A45] to-[#557A5B] h-full rounded-full transition-all duration-300" style="width: 0%"></div>
+                </div>
+                <div class="flex items-center justify-between text-[11px] text-[#756B5D] dark:text-[#B9AC99] font-num mt-1">
+                  <span id="weeklyProgressPctLabel">0% to milestone</span>
+                  <span id="cumulativeBasePnl">+$0.00 vs $120 Base</span>
+                </div>
               </div>
             </div>
 
-            <p class="text-xs text-[#756B5D] dark:text-[#B9AC99] font-medium pt-1" id="sessionPnlVibe">
-              🌱 Clean slate! Enter today's closing balance to see your score.
-            </p>
           </div>
 
-          <!-- Bottom Half: Weekly Milestone Progress -->
-          <div class="space-y-2.5">
-            <div class="flex items-center justify-between flex-wrap gap-2">
+          <!-- SUB-VIEW 2: Daily Trading Activity Calendar (Alt Mineral Slate Blue Theme) -->
+          <div id="box2ViewCalendar" class="hidden flex flex-col justify-between h-full space-y-3">
+            
+            <!-- Calendar Sub-Header -->
+            <div class="flex items-center justify-between gap-2 flex-wrap pb-2 border-b border-[#587A94]/25 dark:border-[#7EA5BF]/25">
               <div class="flex items-center gap-1.5">
-                <span class="text-base">🏁</span>
-                <span class="text-xs font-bold text-[#302A22] dark:text-[#F1E8D8]" id="weeklyMilestoneLabel">
-                  Week 1 Checkpoint: $1,000.00
-                </span>
+                <div class="w-6 h-6 rounded-md bg-[#587A94]/15 text-[#587A94] dark:bg-[#7EA5BF]/20 dark:text-[#7EA5BF] flex items-center justify-center text-xs font-bold shrink-0">
+                  📅
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <h3 class="text-xs font-extrabold text-[#302A22] dark:text-[#F1E8D8]">Trading Calendar</h3>
+                  <span id="calendarMonthBadge" class="px-2 py-0.2 rounded-full text-[10px] font-bold bg-[#587A94]/15 text-[#587A94] dark:bg-[#7EA5BF]/20 dark:text-[#7EA5BF] border border-[#587A94]/30 dark:border-[#7EA5BF]/30 font-num">
+                    September 2026
+                  </span>
+                </div>
               </div>
-              <div id="weeklyDeltaBadge">
-                <!-- Dynamically populated: Ahead or Behind badge -->
+
+              <div class="flex items-center gap-1">
+                <!-- Month Stepper -->
+                <div class="inline-flex items-center gap-0.5 bg-[#FFFDF8] dark:bg-[#40362C] rounded-lg p-0.5 border border-[#DDD3C3] dark:border-[#55483A] font-num text-xs shadow-sm">
+                  <button onclick="changeCalendarMonth(-1)" title="Previous Month" class="w-5 h-5 rounded hover:bg-[#FAF7F0] dark:hover:bg-[#352D25] text-[#302A22] dark:text-[#F1E8D8] flex items-center justify-center font-bold text-xs transition active:scale-90">
+                    ‹
+                  </button>
+                  <button onclick="jumpToCurrentCalendarMonth()" title="Jump to Today" class="px-1.5 py-0.5 rounded hover:bg-[#FAF7F0] dark:hover:bg-[#352D25] text-[#302A22] dark:text-[#F1E8D8] font-bold text-[10px] transition">
+                    Today
+                  </button>
+                  <button onclick="changeCalendarMonth(1)" title="Next Month" class="w-5 h-5 rounded hover:bg-[#FAF7F0] dark:hover:bg-[#352D25] text-[#302A22] dark:text-[#F1E8D8] flex items-center justify-center font-bold text-xs transition active:scale-90">
+                    ›
+                  </button>
+                </div>
+
+                <!-- Back to PnL Button -->
+                <button onclick="toggleBox2CalendarView(false)" title="Return to Today's PnL"
+                  class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#FFFDF8] hover:bg-[#FAF7F0] dark:bg-[#40362C] dark:hover:bg-[#352D25] text-[#302A22] dark:text-[#F1E8D8] border border-[#DDD3C3] dark:border-[#55483A] font-bold text-xs transition active:scale-95 shadow-sm">
+                  <span>📊</span>
+                  <span class="hidden sm:inline">Today's PnL</span>
+                  <span class="sm:hidden">PnL</span>
+                </button>
               </div>
             </div>
 
-            <!-- Progression Bar -->
-            <div>
-              <div class="w-full bg-[#FAF7F0] dark:bg-[#40362C] h-3 rounded-full overflow-hidden p-0.5 border border-[#DDD3C3] dark:border-[#55483A]">
-                <div id="weeklyProgressBar" class="bg-gradient-to-r from-[#B87948] via-[#C49A45] to-[#557A5B] h-full rounded-full transition-all duration-300" style="width: 0%"></div>
+            <!-- Compact Monthly Summary Bar (Slate Blue Mineral Tint) -->
+            <div class="grid grid-cols-4 gap-1.5 text-center text-xs">
+              <div class="p-1 rounded-lg bg-[#587A94]/5 dark:bg-[#7EA5BF]/10 border border-[#587A94]/20 dark:border-[#7EA5BF]/20">
+                <span class="text-[9px] uppercase font-bold text-[#756B5D] dark:text-[#B9AC99] block leading-tight">Traded</span>
+                <span id="calStatDaysTraded" class="text-xs sm:text-sm font-black font-num text-[#302A22] dark:text-[#F1E8D8]">0d</span>
               </div>
-              <div class="flex items-center justify-between text-[11px] text-[#756B5D] dark:text-[#B9AC99] font-num mt-1">
-                <span id="weeklyProgressPctLabel">0% to milestone</span>
-                <span id="cumulativeBasePnl">+$0.00 vs $120 Base</span>
+              <div class="p-1 rounded-lg bg-[#587A94]/5 dark:bg-[#7EA5BF]/10 border border-[#587A94]/20 dark:border-[#7EA5BF]/20">
+                <span class="text-[9px] uppercase font-bold text-[#756B5D] dark:text-[#B9AC99] block leading-tight">Green</span>
+                <span id="calStatGreenDays" class="text-xs sm:text-sm font-black font-num text-[#557A5B] dark:text-[#7FA57E]">0</span>
+              </div>
+              <div class="p-1 rounded-lg bg-[#587A94]/5 dark:bg-[#7EA5BF]/10 border border-[#587A94]/20 dark:border-[#7EA5BF]/20">
+                <span class="text-[9px] uppercase font-bold text-[#756B5D] dark:text-[#B9AC99] block leading-tight">Red</span>
+                <span id="calStatRedDays" class="text-xs sm:text-sm font-black font-num text-[#B65C52] dark:text-[#D77C70]">0</span>
+              </div>
+              <div class="p-1 rounded-lg bg-[#587A94]/5 dark:bg-[#7EA5BF]/10 border border-[#587A94]/20 dark:border-[#7EA5BF]/20">
+                <span class="text-[9px] uppercase font-bold text-[#756B5D] dark:text-[#B9AC99] block leading-tight">Month Net</span>
+                <span id="calStatNetPnl" class="text-xs sm:text-sm font-black font-num text-[#302A22] dark:text-[#F1E8D8]">$0.00</span>
               </div>
             </div>
+
+            <!-- Calendar 7-Day Grid (100% Fluid, Zero Horizontal Overflow) -->
+            <div class="w-full">
+              <!-- Day Headers -->
+              <div class="grid grid-cols-7 gap-1 sm:gap-1.5 mb-1 text-center font-extrabold text-[10px] sm:text-xs text-[#587A94] dark:text-[#7EA5BF]">
+                <div><span class="sm:hidden">M</span><span class="hidden sm:inline">Mon</span></div>
+                <div><span class="sm:hidden">T</span><span class="hidden sm:inline">Tue</span></div>
+                <div><span class="sm:hidden">W</span><span class="hidden sm:inline">Wed</span></div>
+                <div><span class="sm:hidden">T</span><span class="hidden sm:inline">Thu</span></div>
+                <div><span class="sm:hidden">F</span><span class="hidden sm:inline">Fri</span></div>
+                <div><span class="sm:hidden">S</span><span class="hidden sm:inline">Sat</span></div>
+                <div><span class="sm:hidden">S</span><span class="hidden sm:inline">Sun</span></div>
+              </div>
+
+              <!-- Day Cells Container -->
+              <div id="calendarDaysGrid" class="grid grid-cols-7 gap-1 sm:gap-1.5 font-num w-full">
+                <!-- Dynamically populated via renderCalendarView() -->
+              </div>
+            </div>
+
+            <!-- Calendar Footer -->
+            <div class="pt-1.5 border-t border-[#DDD3C3]/60 dark:border-[#55483A]/60 flex items-center justify-between text-[10px] text-[#756B5D] dark:text-[#B9AC99]">
+              <div class="flex items-center gap-2">
+                <span class="inline-flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-[#557A5B] dark:bg-[#7FA57E]"></span> Green</span>
+                <span class="inline-flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-[#B65C52] dark:bg-[#D77C70]"></span> Red</span>
+                <span class="inline-flex items-center gap-1"><span class="w-2 h-2 rounded-full border border-[#587A94] dark:border-[#7EA5BF]"></span> Today</span>
+              </div>
+              <span class="italic text-[9px]">Click day to jump</span>
+            </div>
+
           </div>
 
         </div>
@@ -640,107 +746,6 @@
         <!-- Phase Cards Grid -->
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-3" id="milestonesCardGrid">
           <!-- Dynamically populated via renderMilestoneCards -->
-        </div>
-      </section>
-
-      <!-- Bento Daily Trading Activity Calendar (Collapsible Window) -->
-      <section class="bento-card overflow-hidden transition-all">
-        <!-- Calendar Header Bar with Collapsible Button and Month Nav -->
-        <div class="p-4 sm:p-5 flex flex-wrap items-center justify-between gap-3 bg-[#FAF7F0] dark:bg-[#352D25] border-b border-[#DDD3C3] dark:border-[#55483A]">
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-[#557A5B]/15 text-[#557A5B] dark:bg-[#7FA57E]/20 dark:text-[#7FA57E] border border-[#557A5B]/30 dark:border-[#7FA57E]/30 flex items-center justify-center text-lg shrink-0">
-              📅
-            </div>
-            <div>
-              <div class="flex items-center gap-2 flex-wrap">
-                <h3 class="text-base font-extrabold text-[#302A22] dark:text-[#F1E8D8]">Trading Activity Calendar</h3>
-                <span id="calendarMonthBadge" class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#557A5B]/10 text-[#557A5B] dark:bg-[#7FA57E]/15 dark:text-[#7FA57E] border border-[#557A5B]/25 dark:border-[#7FA57E]/25 font-num">
-                  September 2026
-                </span>
-                <span id="calendarHeaderQuickSummary" class="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-lg bg-[#FFFDF8] dark:bg-[#40362C] border border-[#DDD3C3] dark:border-[#55483A] text-xs font-bold font-num text-[#756B5D] dark:text-[#B9AC99]">
-                  0 days • $0.00
-                </span>
-              </div>
-              <p class="text-xs text-[#756B5D] dark:text-[#B9AC99] mt-0.5">Real-world calendar days you logged in &amp; your daily trading results</p>
-            </div>
-          </div>
-
-          <div class="flex items-center gap-2 flex-wrap">
-            <!-- Month Stepper -->
-            <div class="inline-flex items-center gap-1 bg-[#FFFDF8] dark:bg-[#40362C] rounded-lg p-1 border border-[#DDD3C3] dark:border-[#55483A] font-num text-xs shadow-sm">
-              <button onclick="changeCalendarMonth(-1)" title="Previous Month" class="w-7 h-7 rounded hover:bg-[#FAF7F0] dark:hover:bg-[#352D25] text-[#302A22] dark:text-[#F1E8D8] flex items-center justify-center font-bold transition active:scale-90">
-                ‹
-              </button>
-              <button onclick="jumpToCurrentCalendarMonth()" title="Jump to Today" class="px-2.5 py-1 rounded hover:bg-[#FAF7F0] dark:hover:bg-[#352D25] text-[#302A22] dark:text-[#F1E8D8] font-bold text-xs transition">
-                Today
-              </button>
-              <button onclick="changeCalendarMonth(1)" title="Next Month" class="w-7 h-7 rounded hover:bg-[#FAF7F0] dark:hover:bg-[#352D25] text-[#302A22] dark:text-[#F1E8D8] flex items-center justify-center font-bold transition active:scale-90">
-                ›
-              </button>
-            </div>
-
-            <!-- Collapse / Expand Toggle Button -->
-            <button onclick="toggleCalendarCollapse()" id="btnToggleCalendar" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#FFFDF8] hover:bg-[#FAF7F0] dark:bg-[#40362C] dark:hover:bg-[#352D25] text-[#302A22] dark:text-[#F1E8D8] border border-[#DDD3C3] dark:border-[#55483A] font-bold text-xs transition shadow-sm active:scale-95">
-              <span id="calendarToggleIcon">▲</span>
-              <span id="calendarToggleText">Collapse</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- Collapsible Content Window -->
-        <div id="calendarCollapseBody" class="p-4 sm:p-5 space-y-4">
-          
-          <!-- Monthly Summary Stats Bar -->
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3 text-xs">
-            <div class="p-2.5 rounded-xl bg-[#FFFDF8] dark:bg-[#40362C] border border-[#DDD3C3] dark:border-[#55483A]">
-              <span class="text-[10px] uppercase font-bold text-[#756B5D] dark:text-[#B9AC99] block">Days Traded</span>
-              <span id="calStatDaysTraded" class="text-base sm:text-lg font-black font-num text-[#302A22] dark:text-[#F1E8D8]">0 days</span>
-            </div>
-            <div class="p-2.5 rounded-xl bg-[#FFFDF8] dark:bg-[#40362C] border border-[#DDD3C3] dark:border-[#55483A]">
-              <span class="text-[10px] uppercase font-bold text-[#756B5D] dark:text-[#B9AC99] block">Green Days</span>
-              <span id="calStatGreenDays" class="text-base sm:text-lg font-black font-num text-[#557A5B] dark:text-[#7FA57E]">0</span>
-            </div>
-            <div class="p-2.5 rounded-xl bg-[#FFFDF8] dark:bg-[#40362C] border border-[#DDD3C3] dark:border-[#55483A]">
-              <span class="text-[10px] uppercase font-bold text-[#756B5D] dark:text-[#B9AC99] block">Red Days</span>
-              <span id="calStatRedDays" class="text-base sm:text-lg font-black font-num text-[#B65C52] dark:text-[#D77C70]">0</span>
-            </div>
-            <div class="p-2.5 rounded-xl bg-[#FFFDF8] dark:bg-[#40362C] border border-[#DDD3C3] dark:border-[#55483A]">
-              <span class="text-[10px] uppercase font-bold text-[#756B5D] dark:text-[#B9AC99] block">Calendar Net PnL</span>
-              <span id="calStatNetPnl" class="text-base sm:text-lg font-black font-num text-[#302A22] dark:text-[#F1E8D8]">$0.00</span>
-            </div>
-          </div>
-
-          <!-- Calendar Grid Container -->
-          <div class="overflow-x-auto calm-scrollbar">
-            <div class="min-w-[540px]">
-              <!-- Day of Week Headers -->
-              <div class="grid grid-cols-7 gap-2 mb-2 text-center text-[11px] font-bold uppercase tracking-wider text-[#756B5D] dark:text-[#B9AC99]">
-                <div>Mon</div>
-                <div>Tue</div>
-                <div>Wed</div>
-                <div>Thu</div>
-                <div>Fri</div>
-                <div>Sat</div>
-                <div>Sun</div>
-              </div>
-
-              <!-- Day Cells Grid -->
-              <div id="calendarDaysGrid" class="grid grid-cols-7 gap-2 font-num">
-                <!-- Dynamically populated via renderCalendarView() -->
-              </div>
-            </div>
-          </div>
-
-          <!-- Calendar Footer / Legend -->
-          <div class="pt-2 border-t border-[#DDD3C3]/70 dark:border-[#55483A]/70 flex items-center justify-between gap-3 text-[11px] text-[#756B5D] dark:text-[#B9AC99] flex-wrap">
-            <div class="flex items-center gap-3">
-              <span class="inline-flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#557A5B] dark:bg-[#7FA57E]"></span> Green Day</span>
-              <span class="inline-flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#B65C52] dark:bg-[#D77C70]"></span> Red Day</span>
-              <span class="inline-flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full border-2 border-[#557A5B] dark:border-[#7FA57E]"></span> Today</span>
-            </div>
-            <span class="italic">💡 Click any logged day to jump to that session in your tracker!</span>
-          </div>
-
         </div>
       </section>
 
@@ -1359,9 +1364,9 @@ service cloud.firestore {
     let lockedSessions = JSON.parse(localStorage.getItem('pgl_locked_sessions_v9')) || {};
     let showAllPacesInTable = localStorage.getItem('pgl_show_all_paces_v9') === 'true';
 
-    /* Daily Calendar View State */
+    /* Box 2 View & Calendar State */
+    let isBox2CalendarView = localStorage.getItem('pgl_box2_view_v9') === 'calendar';
     let calendarViewDate = new Date();
-    let isCalendarCollapsed = localStorage.getItem('pgl_calendar_collapsed_v9') === 'true';
 
     /* Milestone Skim & Vault State */
     let milestoneFeatureEnabled = localStorage.getItem('pgl_milestone_enabled_v9') === 'true';
@@ -1858,7 +1863,7 @@ service cloud.firestore {
       }
 
       renderMilestoneCards(ladder, trueWealth);
-      renderCalendarView();
+      updateBox2View();
       renderMasterTable(ladder);
     }
 
@@ -1899,27 +1904,32 @@ service cloud.firestore {
       });
     }
 
-    /* Daily Trading Activity Calendar Functions */
-    function toggleCalendarCollapse() {
-      isCalendarCollapsed = !isCalendarCollapsed;
-      localStorage.setItem('pgl_calendar_collapsed_v9', isCalendarCollapsed ? 'true' : 'false');
-      updateCalendarCollapseState();
+    /* Box 2 View Switching & Compact Calendar Functions */
+    function toggleBox2CalendarView(showCalendar) {
+      isBox2CalendarView = !!showCalendar;
+      localStorage.setItem('pgl_box2_view_v9', isBox2CalendarView ? 'calendar' : 'pnl');
+      updateBox2View();
     }
 
-    function updateCalendarCollapseState() {
-      const body = document.getElementById('calendarCollapseBody');
-      const icon = document.getElementById('calendarToggleIcon');
-      const text = document.getElementById('calendarToggleText');
-      if (!body) return;
+    function updateBox2View() {
+      const pnlView = document.getElementById('box2ViewPnl');
+      const calView = document.getElementById('box2ViewCalendar');
+      const box2Card = document.getElementById('box2Card');
+      if (!pnlView || !calView) return;
 
-      if (isCalendarCollapsed) {
-        body.classList.add('hidden');
-        if (icon) icon.innerText = '▼';
-        if (text) text.innerText = 'Expand';
+      if (isBox2CalendarView) {
+        pnlView.classList.add('hidden');
+        calView.classList.remove('hidden');
+        if (box2Card) {
+          box2Card.classList.add('border-[#587A94]/40', 'dark:border-[#7EA5BF]/40');
+        }
+        renderCalendarView();
       } else {
-        body.classList.remove('hidden');
-        if (icon) icon.innerText = '▲';
-        if (text) text.innerText = 'Collapse';
+        calView.classList.add('hidden');
+        pnlView.classList.remove('hidden');
+        if (box2Card) {
+          box2Card.classList.remove('border-[#587A94]/40', 'dark:border-[#7EA5BF]/40');
+        }
       }
     }
 
@@ -1931,6 +1941,18 @@ service cloud.firestore {
     function jumpToCurrentCalendarMonth() {
       calendarViewDate = new Date();
       renderCalendarView();
+    }
+
+    function fmtCompactPnl(val) {
+      const abs = Math.abs(val);
+      const sign = val >= 0 ? '+' : '-';
+      if (abs >= 1000) {
+        return `${sign}$${(abs / 1000).toFixed(1)}k`;
+      }
+      if (abs % 1 === 0) {
+        return `${sign}$${abs.toFixed(0)}`;
+      }
+      return `${sign}$${abs.toFixed(1)}`;
     }
 
     function getCalendarTradesMap() {
@@ -1986,14 +2008,12 @@ service cloud.firestore {
       const monthBadge = document.getElementById('calendarMonthBadge');
       if (!grid) return;
 
-      updateCalendarCollapseState();
-
       const year = calendarViewDate.getFullYear();
       const month = calendarViewDate.getMonth();
 
       const monthNames = [
-        "January", "February", "March", "April", "May", "June",
-        "July", "August", "September", "October", "November", "December"
+        "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+        "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
       ];
 
       if (monthBadge) {
@@ -2021,25 +2041,16 @@ service cloud.firestore {
       const statGreen = document.getElementById('calStatGreenDays');
       const statRed = document.getElementById('calStatRedDays');
       const statNet = document.getElementById('calStatNetPnl');
-      const quickSummary = document.getElementById('calendarHeaderQuickSummary');
 
-      if (statDays) statDays.innerText = `${daysTraded} day${daysTraded === 1 ? '' : 's'}`;
+      if (statDays) statDays.innerText = `${daysTraded}d`;
       if (statGreen) statGreen.innerText = `${greenDays}`;
       if (statRed) statRed.innerText = `${redDays}`;
       if (statNet) {
-        statNet.innerText = `${netPnl >= 0 ? '+' : '-'}${fmt(Math.abs(netPnl))}`;
-        statNet.className = `text-base sm:text-lg font-black font-num ${
+        statNet.innerText = fmtCompactPnl(netPnl);
+        statNet.className = `text-xs sm:text-sm font-black font-num ${
           netPnl > 0.001 
             ? 'text-[#557A5B] dark:text-[#7FA57E]' 
             : (netPnl < -0.001 ? 'text-[#B65C52] dark:text-[#D77C70]' : 'text-[#302A22] dark:text-[#F1E8D8]')
-        }`;
-      }
-      if (quickSummary) {
-        quickSummary.innerText = `${daysTraded} day${daysTraded === 1 ? '' : 's'} • ${netPnl >= 0 ? '+' : '-'}${fmt(Math.abs(netPnl))}`;
-        quickSummary.className = `hidden sm:inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-lg bg-[#FFFDF8] dark:bg-[#40362C] border border-[#DDD3C3] dark:border-[#55483A] text-xs font-bold font-num ${
-          netPnl > 0.001 
-            ? 'text-[#557A5B] dark:text-[#7FA57E]' 
-            : (netPnl < -0.001 ? 'text-[#B65C52] dark:text-[#D77C70]' : 'text-[#756B5D] dark:text-[#B9AC99]')
         }`;
       }
 
@@ -2064,13 +2075,13 @@ service cloud.firestore {
         if (i < startDay) {
           // Previous Month Day
           const prevDateNum = prevMonthDays - (startDay - 1 - i);
-          cell.className = "p-2 rounded-xl bg-[#FAF7F0]/40 dark:bg-[#352D25]/30 border border-[#DDD3C3]/30 dark:border-[#55483A]/30 min-h-[72px] sm:min-h-[82px] flex flex-col justify-between opacity-30 select-none";
-          cell.innerHTML = `<span class="text-xs font-semibold text-[#756B5D] dark:text-[#B9AC99]">${prevDateNum}</span>`;
+          cell.className = "p-1 rounded-lg bg-[#FAF7F0]/30 dark:bg-[#352D25]/20 border border-[#DDD3C3]/20 dark:border-[#55483A]/20 min-h-[44px] sm:min-h-[54px] flex flex-col justify-between items-center opacity-25 select-none";
+          cell.innerHTML = `<span class="text-[9px] sm:text-[10px] font-semibold text-[#756B5D] dark:text-[#B9AC99]">${prevDateNum}</span>`;
         } else if (i >= startDay + daysInMonth) {
           // Next Month Day
           const nextDateNum = i - (startDay + daysInMonth) + 1;
-          cell.className = "p-2 rounded-xl bg-[#FAF7F0]/40 dark:bg-[#352D25]/30 border border-[#DDD3C3]/30 dark:border-[#55483A]/30 min-h-[72px] sm:min-h-[82px] flex flex-col justify-between opacity-30 select-none";
-          cell.innerHTML = `<span class="text-xs font-semibold text-[#756B5D] dark:text-[#B9AC99]">${nextDateNum}</span>`;
+          cell.className = "p-1 rounded-lg bg-[#FAF7F0]/30 dark:bg-[#352D25]/20 border border-[#DDD3C3]/20 dark:border-[#55483A]/20 min-h-[44px] sm:min-h-[54px] flex flex-col justify-between items-center opacity-25 select-none";
+          cell.innerHTML = `<span class="text-[9px] sm:text-[10px] font-semibold text-[#756B5D] dark:text-[#B9AC99]">${nextDateNum}</span>`;
         } else {
           // Current Month Day
           const dayNum = i - startDay + 1;
@@ -2082,17 +2093,17 @@ service cloud.firestore {
             // Day with recorded trade(s)
             const isGreen = tradeData.totalPnl > 0.001;
             const isRed = tradeData.totalPnl < -0.001;
-            const sessionsBadge = tradeData.sessions.map(item => `S${item.session}`).join(', ');
             const primarySession = tradeData.sessions[0].session;
+            const sessionsBadge = tradeData.sessions.length > 1 ? `S${tradeData.sessions[0].session}+` : `S${tradeData.sessions[0].session}`;
             const tooltip = tradeData.sessions.map(s => `Session ${s.session}: ${fmt(s.balance)} (${s.pnl >= 0 ? '+' : ''}${fmt(s.pnl)})${s.note ? ' - ' + s.note : ''}`).join('\n');
 
-            cell.className = `p-2 rounded-xl min-h-[72px] sm:min-h-[82px] flex flex-col justify-between cursor-pointer transition-all hover:scale-[1.02] active:scale-95 shadow-sm ${
-              isToday ? 'ring-2 ring-[#557A5B] dark:ring-[#7FA57E] ' : ''
+            cell.className = `p-1 rounded-lg min-h-[44px] sm:min-h-[54px] flex flex-col justify-between items-center cursor-pointer transition-all hover:scale-105 active:scale-95 shadow-xs ${
+              isToday ? 'ring-2 ring-[#587A94] dark:ring-[#7EA5BF] ' : ''
             }${
               isGreen 
-                ? 'bg-[#557A5B]/10 hover:bg-[#557A5B]/15 border border-[#557A5B]/40 dark:bg-[#7FA57E]/15 dark:hover:bg-[#7FA57E]/25 dark:border-[#7FA57E]/40' 
+                ? 'bg-[#557A5B]/15 hover:bg-[#557A5B]/25 border border-[#557A5B]/50 dark:bg-[#7FA57E]/20 dark:hover:bg-[#7FA57E]/30 dark:border-[#7FA57E]/50' 
                 : (isRed 
-                    ? 'bg-[#B65C52]/10 hover:bg-[#B65C52]/15 border border-[#B65C52]/40 dark:bg-[#D77C70]/15 dark:hover:bg-[#D77C70]/25 dark:border-[#D77C70]/40' 
+                    ? 'bg-[#B65C52]/15 hover:bg-[#B65C52]/25 border border-[#B65C52]/50 dark:bg-[#D77C70]/20 dark:hover:bg-[#D77C70]/30 dark:border-[#D77C70]/50' 
                     : 'bg-[#FFFDF8] hover:bg-[#FAF7F0] border border-[#DDD3C3] dark:bg-[#40362C] dark:hover:bg-[#352D25] dark:border-[#55483A]')
             }`;
 
@@ -2100,11 +2111,11 @@ service cloud.firestore {
             cell.onclick = () => jumpToCalendarSession(primarySession, tradeData);
 
             cell.innerHTML = `
-              <div class="flex items-center justify-between">
-                <span class="text-xs font-black font-num ${isToday ? 'text-[#557A5B] dark:text-[#7FA57E]' : 'text-[#302A22] dark:text-[#F1E8D8]'}">
+              <div class="flex items-center justify-between w-full">
+                <span class="text-[9px] sm:text-[10px] font-black font-num ${isToday ? 'text-[#587A94] dark:text-[#7EA5BF] font-black' : 'text-[#302A22] dark:text-[#F1E8D8]'}">
                   ${dayNum}
                 </span>
-                <span class="px-1.5 py-0.5 rounded text-[9px] font-black ${
+                <span class="px-1 py-0.2 rounded text-[8px] font-black leading-none ${
                   isGreen 
                     ? 'bg-[#557A5B] text-[#FFFDF8] dark:bg-[#7FA57E] dark:text-[#29231D]' 
                     : (isRed ? 'bg-[#B65C52] text-[#FFFDF8] dark:bg-[#D77C70] dark:text-[#29231D]' : 'bg-[#756B5D] text-[#FFFDF8] dark:bg-[#B9AC99] dark:text-[#29231D]')
@@ -2112,38 +2123,35 @@ service cloud.firestore {
                   ${sessionsBadge}
                 </span>
               </div>
-              <div class="my-auto py-0.5">
-                <div class="text-xs sm:text-sm font-black font-num tracking-tight truncate ${
+              <div class="my-auto py-0 text-center w-full">
+                <div class="text-[9px] sm:text-xs font-black font-num tracking-tight leading-tight truncate ${
                   isGreen 
                     ? 'text-[#557A5B] dark:text-[#7FA57E]' 
                     : (isRed ? 'text-[#B65C52] dark:text-[#D77C70]' : 'text-[#756B5D] dark:text-[#B9AC99]')
                 }">
-                  ${tradeData.totalPnl >= 0 ? '+' : '-'}${fmt(Math.abs(tradeData.totalPnl))}
+                  ${fmtCompactPnl(tradeData.totalPnl)}
                 </div>
               </div>
-              <div class="text-[9px] font-num text-[#756B5D] dark:text-[#B9AC99] truncate flex items-center justify-between">
-                <span>Desk: ${fmt(tradeData.latestBalance)}</span>
+              <div class="text-[8px] sm:text-[9px] leading-none">
                 <span>${isGreen ? '🌱' : (isRed ? '🛡️' : '⚖️')}</span>
               </div>
             `;
           } else {
             // Day without recorded trade
-            cell.className = `p-2 rounded-xl bg-[#FFFDF8]/70 dark:bg-[#40362C]/40 border min-h-[72px] sm:min-h-[82px] flex flex-col justify-between transition ${
+            cell.className = `p-1 rounded-lg bg-[#FFFDF8]/70 dark:bg-[#40362C]/30 border min-h-[44px] sm:min-h-[54px] flex flex-col justify-between items-center transition ${
               isToday 
-                ? 'border-2 border-[#557A5B] dark:border-[#7FA57E]' 
-                : 'border-[#DDD3C3]/60 dark:border-[#55483A]/60'
+                ? 'border-2 border-[#587A94] dark:border-[#7EA5BF]' 
+                : 'border-[#DDD3C3]/50 dark:border-[#55483A]/50'
             }`;
 
             cell.innerHTML = `
-              <div class="flex items-center justify-between">
-                <span class="text-xs font-bold font-num ${isToday ? 'text-[#557A5B] dark:text-[#7FA57E]' : 'text-[#756B5D] dark:text-[#B9AC99]'}">
+              <div class="flex items-center justify-between w-full">
+                <span class="text-[9px] sm:text-[10px] font-bold font-num ${isToday ? 'text-[#587A94] dark:text-[#7EA5BF]' : 'text-[#756B5D] dark:text-[#B9AC99]'}">
                   ${dayNum}
                 </span>
-                ${isToday ? '<span class="text-[9px] font-bold text-[#557A5B] dark:text-[#7FA57E] uppercase">Today</span>' : ''}
+                ${isToday ? '<span class="w-1.5 h-1.5 rounded-full bg-[#587A94] dark:bg-[#7EA5BF]"></span>' : ''}
               </div>
-              <div class="text-center text-[10px] text-[#756B5D]/40 dark:text-[#B9AC99]/40 italic my-auto select-none">
-                No session
-              </div>
+              <div class="my-auto"></div>
               <div></div>
             `;
           }

@@ -388,7 +388,7 @@
     }
   </style>
   <script>
-    if (localStorage.getItem('pgl_theme_v9') === 'dark') {
+    if (localStorage.getItem('pgl_theme_v10') === 'dark') {
       document.documentElement.classList.add('dark');
     }
   </script>
@@ -1803,6 +1803,9 @@
           <button onclick="requestRestorePresets()" class="px-3.5 py-2 rounded-xl bg-[#F5EBDD] hover:bg-[#F0E6D5] text-[#716556] dark:bg-[#41382D] dark:hover:bg-[#352E25] dark:text-[#B4A58F] border border-[#CFC1AA] dark:border-[#514638] text-xs font-semibold transition active:scale-95">
             Restore Original 28-Session Preset
           </button>
+          <button onclick="requestWipeAllData()" class="px-3.5 py-2 rounded-xl bg-[#B86652]/15 hover:bg-[#B86652]/25 text-[#B86652] dark:bg-[#C77B68]/20 dark:hover:bg-[#C77B68]/30 dark:text-[#C77B68] border border-[#B86652]/40 dark:border-[#C77B68]/40 text-xs font-bold transition active:scale-95">
+            Wipe All Previous Challenges &amp; Data
+          </button>
         </div>
       </section>
 
@@ -2125,47 +2128,69 @@ service cloud.firestore {
       { s: 28, r: 7000.00, m: 12600.00, a: 17500.00, milestone: "Final Finish Line" }
     ];
 
+    // Automatic Wipeout of Legacy Data from Previous Challenges
+    if (localStorage.getItem('pgl_schema_version') !== 'v10') {
+      try {
+        const savedFirebase = localStorage.getItem('pgl_firebase_cfg_v10') || localStorage.getItem('pgl_firebase_cfg_v9');
+        const savedSyncKey = localStorage.getItem('pgl_sync_key_v10') || localStorage.getItem('pgl_sync_key_v9');
+        const savedTheme = localStorage.getItem('pgl_theme_v10') || localStorage.getItem('pgl_theme_v9');
+
+        Object.keys(localStorage).forEach(k => {
+          if (k.startsWith('pgl_')) {
+            localStorage.removeItem(k);
+          }
+        });
+
+        if (savedFirebase) localStorage.setItem('pgl_firebase_cfg_v10', savedFirebase);
+        if (savedSyncKey) localStorage.setItem('pgl_sync_key_v10', savedSyncKey);
+        if (savedTheme) localStorage.setItem('pgl_theme_v10', savedTheme);
+        localStorage.setItem('pgl_schema_version', 'v10');
+      } catch (e) {
+        console.warn('Storage cleanup notice:', e);
+      }
+    }
+
     let activeTab = 'tracker';
-    let currentPace = localStorage.getItem('pgl_pace_v9') || 'relaxed';
-    let currentSession = parseInt(localStorage.getItem('pgl_session_v9')) || 1;
-    let sessionLogs = JSON.parse(localStorage.getItem('pgl_session_logs_v9')) || { 1: 120.00 };
-    let sessionTimestamps = JSON.parse(localStorage.getItem('pgl_timestamps_v9')) || {};
+    let currentPace = localStorage.getItem('pgl_pace_v10') || 'relaxed';
+    let currentSession = parseInt(localStorage.getItem('pgl_session_v10')) || 1;
+    let sessionLogs = JSON.parse(localStorage.getItem('pgl_session_logs_v10')) || { 1: 120.00 };
+    let sessionTimestamps = JSON.parse(localStorage.getItem('pgl_timestamps_v10')) || {};
     if (sessionLogs[1] !== undefined && !sessionTimestamps[1]) {
       sessionTimestamps[1] = new Date().toISOString();
-      localStorage.setItem('pgl_timestamps_v9', JSON.stringify(sessionTimestamps));
+      localStorage.setItem('pgl_timestamps_v10', JSON.stringify(sessionTimestamps));
     }
-    let sessionNotes = JSON.parse(localStorage.getItem('pgl_notes_v9')) || {};
-    let lockedSessions = JSON.parse(localStorage.getItem('pgl_locked_sessions_v9')) || {};
-    let showAllPacesInTable = localStorage.getItem('pgl_show_all_paces_v9') === 'true';
+    let sessionNotes = JSON.parse(localStorage.getItem('pgl_notes_v10')) || {};
+    let lockedSessions = JSON.parse(localStorage.getItem('pgl_locked_sessions_v10')) || {};
+    let showAllPacesInTable = localStorage.getItem('pgl_show_all_paces_v10') === 'true';
 
     /* Multi-Widget Console Hub State */
-    let activeWidgetTab = localStorage.getItem('pgl_active_widget_tab_v1') || 'calendar';
+    let activeWidgetTab = localStorage.getItem('pgl_active_widget_tab_v10') || 'calendar';
     let isBox2CalendarView = activeWidgetTab === 'calendar';
     let calendarViewDate = new Date();
 
     /* Milestone Skim & Vault State */
-    let milestoneFeatureEnabled = localStorage.getItem('pgl_milestone_enabled_v9') === 'true';
-    let milestoneConfig = JSON.parse(localStorage.getItem('pgl_milestone_cfg_v9')) || {
+    let milestoneFeatureEnabled = localStorage.getItem('pgl_milestone_enabled_v10') === 'true';
+    let milestoneConfig = JSON.parse(localStorage.getItem('pgl_milestone_cfg_v10')) || {
       targetGoal: 1500,
       targetDeadline: '',
       reserveFloor: 1000,
       strategy: 'gradual'
     };
     if (!milestoneConfig.targetDeadline) milestoneConfig.targetDeadline = '';
-    let vaultLedger = JSON.parse(localStorage.getItem('pgl_vault_ledger_v9')) || [];
+    let vaultLedger = JSON.parse(localStorage.getItem('pgl_vault_ledger_v10')) || [];
 
     /* Custom Ladder Profiles */
-    let ladderProfiles = JSON.parse(localStorage.getItem('pgl_ladder_profiles_v9')) || [
+    let ladderProfiles = JSON.parse(localStorage.getItem('pgl_ladder_profiles_v10')) || [
       {
         id: 'default_28',
         name: 'Default 28-Session Tri-Pace',
         sessions: DEFAULT_28_LADDER
       }
     ];
-    let activeProfileId = localStorage.getItem('pgl_active_profile_v9') || 'default_28';
+    let activeProfileId = localStorage.getItem('pgl_active_profile_v10') || 'default_28';
 
     /* Theme State (Light / Dark) */
-    let currentTheme = localStorage.getItem('pgl_theme_v9') || 'light';
+    let currentTheme = localStorage.getItem('pgl_theme_v10') || 'light';
 
     /* Formatting Helpers */
     const fmt = num => '$' + Number(num || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -2443,7 +2468,7 @@ service cloud.firestore {
     /* Theme Management */
     function applyTheme(theme) {
       currentTheme = theme;
-      localStorage.setItem('pgl_theme_v9', theme);
+      localStorage.setItem('pgl_theme_v10', theme);
       if (theme === 'dark') {
         document.documentElement.classList.add('dark');
       } else {
@@ -2585,7 +2610,7 @@ service cloud.firestore {
 
     function setPace(pace) {
       currentPace = pace;
-      localStorage.setItem('pgl_pace_v9', pace);
+      localStorage.setItem('pgl_pace_v10', pace);
       renderTracker();
       if (pace === 'finreq') {
         showToast("Payment Requirement Pace selected (Suggestive guide)");
@@ -2602,7 +2627,7 @@ service cloud.firestore {
     function navigateSession(delta) {
       const ladder = getActiveLadder();
       currentSession = Math.min(ladder.length, Math.max(1, currentSession + delta));
-      localStorage.setItem('pgl_session_v9', currentSession);
+      localStorage.setItem('pgl_session_v10', currentSession);
       renderTracker();
       debouncedSyncToFirestore(300);
     }
@@ -2642,7 +2667,7 @@ service cloud.firestore {
       const isLocked = !!lockedSessions[currentSession];
       if (isLocked) {
         delete lockedSessions[currentSession];
-        localStorage.setItem('pgl_locked_sessions_v9', JSON.stringify(lockedSessions));
+        localStorage.setItem('pgl_locked_sessions_v10', JSON.stringify(lockedSessions));
         renderTracker();
         showToast(`Session ${currentSession} unlocked for editing`);
         syncToFirestore();
@@ -2656,28 +2681,28 @@ service cloud.firestore {
         if (!sessionTimestamps[currentSession]) {
           sessionTimestamps[currentSession] = new Date().toISOString();
         }
-        localStorage.setItem('pgl_locked_sessions_v9', JSON.stringify(lockedSessions));
+        localStorage.setItem('pgl_locked_sessions_v10', JSON.stringify(lockedSessions));
         saveTrackerState();
         renderTracker();
         showToast(`Session ${currentSession} balance locked at ${fmt(bal)}!`);
         syncToFirestore();
 
-        if (localStorage.getItem('pgl_webhook_url_v9')) {
+        if (localStorage.getItem('pgl_webhook_url_v10')) {
           syncToCloudWebhook(false);
         }
       }
     }
 
     function saveTrackerState() {
-      localStorage.setItem('pgl_session_logs_v9', JSON.stringify(sessionLogs));
-      localStorage.setItem('pgl_timestamps_v9', JSON.stringify(sessionTimestamps));
-      localStorage.setItem('pgl_notes_v9', JSON.stringify(sessionNotes));
+      localStorage.setItem('pgl_session_logs_v10', JSON.stringify(sessionLogs));
+      localStorage.setItem('pgl_timestamps_v10', JSON.stringify(sessionTimestamps));
+      localStorage.setItem('pgl_notes_v10', JSON.stringify(sessionNotes));
       debouncedSyncToFirestore(500);
     }
 
     function toggleTableColumns() {
       showAllPacesInTable = !showAllPacesInTable;
-      localStorage.setItem('pgl_show_all_paces_v9', showAllPacesInTable ? 'true' : 'false');
+      localStorage.setItem('pgl_show_all_paces_v10', showAllPacesInTable ? 'true' : 'false');
       const btn = document.getElementById('btnToggleAllPaces');
       if (btn) {
         btn.innerHTML = showAllPacesInTable 
@@ -3012,11 +3037,11 @@ service cloud.firestore {
     }
 
     /* Today's Card Sub-Tabs (Today's PnL vs Suggestive Payment Goal) */
-    let activeTodayCardTab = localStorage.getItem('pgl_today_card_tab_v1') || 'pnl';
+    let activeTodayCardTab = localStorage.getItem('pgl_today_card_tab_v10') || 'pnl';
 
     function switchTodayCardTab(tab) {
       activeTodayCardTab = tab;
-      localStorage.setItem('pgl_today_card_tab_v1', tab);
+      localStorage.setItem('pgl_today_card_tab_v10', tab);
 
       const btnPnl = document.getElementById('todayTabBtn_pnl');
       const btnSug = document.getElementById('todayTabBtn_suggestive');
@@ -3050,7 +3075,7 @@ service cloud.firestore {
       const tabs = ['paces', 'calendar', 'milestones', 'ledger'];
       if (!tabs.includes(tabName)) tabName = 'paces';
       activeWidgetTab = tabName;
-      localStorage.setItem('pgl_active_widget_tab_v1', tabName);
+      localStorage.setItem('pgl_active_widget_tab_v10', tabName);
       isBox2CalendarView = tabName === 'calendar';
 
       tabs.forEach(t => {
@@ -3331,7 +3356,7 @@ service cloud.firestore {
 
     function jumpToCalendarSession(sessionNum, tradeData = null) {
       currentSession = sessionNum;
-      localStorage.setItem('pgl_session_v9', currentSession);
+      localStorage.setItem('pgl_session_v10', currentSession);
       renderTracker();
 
       const pnlText = tradeData ? ` (${tradeData.totalPnl >= 0 ? '+' : ''}${fmt(tradeData.totalPnl)})` : '';
@@ -3381,7 +3406,7 @@ service cloud.firestore {
         }`;
         tr.onclick = () => {
           currentSession = row.s;
-          localStorage.setItem('pgl_session_v9', currentSession);
+          localStorage.setItem('pgl_session_v10', currentSession);
           renderTracker();
         };
 
@@ -3512,7 +3537,7 @@ service cloud.firestore {
 
     function toggleMilestoneFeature(enabled) {
       milestoneFeatureEnabled = enabled;
-      localStorage.setItem('pgl_milestone_enabled_v9', enabled ? 'true' : 'false');
+      localStorage.setItem('pgl_milestone_enabled_v10', enabled ? 'true' : 'false');
       renderMilestonesTab();
       renderTracker();
       showToast(enabled ? "Milestone Skim Mode Enabled" : "Milestone Skim Mode Disabled");
@@ -3525,7 +3550,7 @@ service cloud.firestore {
         reserveFloor: parseFloat(document.getElementById('cfgDeskReserve').value) || 1000,
         strategy: document.getElementById('cfgSkimStrategy').value
       };
-      localStorage.setItem('pgl_milestone_cfg_v9', JSON.stringify(milestoneConfig));
+      localStorage.setItem('pgl_milestone_cfg_v10', JSON.stringify(milestoneConfig));
       renderMilestonesTab();
       renderTracker();
       showToast("Milestone & Deadline preferences saved");
@@ -3563,14 +3588,14 @@ service cloud.firestore {
         note: note || "Banked profit",
         session: currentSession
       });
-      localStorage.setItem('pgl_vault_ledger_v9', JSON.stringify(vaultLedger));
+      localStorage.setItem('pgl_vault_ledger_v10', JSON.stringify(vaultLedger));
 
       renderTracker();
       renderMilestonesTab();
       showToast(`Secured ${fmt(amount)} into Vault!`);
       syncToFirestore();
 
-      if (localStorage.getItem('pgl_webhook_url_v9')) {
+      if (localStorage.getItem('pgl_webhook_url_v10')) {
         syncToCloudWebhook(false);
       }
     }
@@ -3593,7 +3618,7 @@ service cloud.firestore {
         msg: "Remove this skim entry from the Vault history? Note: Desk balance will remain unchanged.",
         onConfirm: () => {
           vaultLedger = vaultLedger.filter(v => v.id !== id);
-          localStorage.setItem('pgl_vault_ledger_v9', JSON.stringify(vaultLedger));
+          localStorage.setItem('pgl_vault_ledger_v10', JSON.stringify(vaultLedger));
           renderMilestonesTab();
           renderTracker();
           showToast("Vault record deleted");
@@ -4195,9 +4220,9 @@ service cloud.firestore {
 
     function switchLadderProfile(id) {
       activeProfileId = id;
-      localStorage.setItem('pgl_active_profile_v9', id);
+      localStorage.setItem('pgl_active_profile_v10', id);
       currentSession = 1;
-      localStorage.setItem('pgl_session_v9', currentSession);
+      localStorage.setItem('pgl_session_v10', currentSession);
       renderConfigTab();
       renderTracker();
       showToast("Switched active ladder profile");
@@ -4254,8 +4279,8 @@ service cloud.firestore {
 
       ladderProfiles.push(newProfile);
       activeProfileId = newProfile.id;
-      localStorage.setItem('pgl_ladder_profiles_v9', JSON.stringify(ladderProfiles));
-      localStorage.setItem('pgl_active_profile_v9', activeProfileId);
+      localStorage.setItem('pgl_ladder_profiles_v10', JSON.stringify(ladderProfiles));
+      localStorage.setItem('pgl_active_profile_v10', activeProfileId);
 
       renderConfigTab();
       renderTracker();
@@ -4271,8 +4296,8 @@ service cloud.firestore {
           sessionTimestamps = { 1: new Date().toISOString() };
           lockedSessions = {};
           currentSession = 1;
-          localStorage.setItem('pgl_session_v9', 1);
-          localStorage.setItem('pgl_locked_sessions_v9', JSON.stringify(lockedSessions));
+          localStorage.setItem('pgl_session_v10', 1);
+          localStorage.setItem('pgl_locked_sessions_v10', JSON.stringify(lockedSessions));
           saveTrackerState();
           renderTracker();
           renderStatsTab();
@@ -4288,7 +4313,7 @@ service cloud.firestore {
         msg: "Clear all saved Vault records? This cannot be undone.",
         onConfirm: () => {
           vaultLedger = [];
-          localStorage.setItem('pgl_vault_ledger_v9', JSON.stringify(vaultLedger));
+          localStorage.setItem('pgl_vault_ledger_v10', JSON.stringify(vaultLedger));
           renderMilestonesTab();
           renderTracker();
           renderStatsTab();
@@ -4304,13 +4329,56 @@ service cloud.firestore {
         msg: "Switch back to the standard 28-Session Tri-Pace profile ($120 to $7K / $12.6K / $17.5K)?",
         onConfirm: () => {
           activeProfileId = 'default_28';
-          localStorage.setItem('pgl_active_profile_v9', activeProfileId);
+          localStorage.setItem('pgl_active_profile_v10', activeProfileId);
           currentSession = 1;
-          localStorage.setItem('pgl_session_v9', 1);
+          localStorage.setItem('pgl_session_v10', 1);
           renderConfigTab();
           renderTracker();
           renderStatsTab();
           showToast("Default ladder profile restored");
+        }
+      });
+    }
+
+    function requestWipeAllData() {
+      openModal({
+        title: "Wipe All Challenge Data",
+        msg: "Are you sure you want to wipe all session progress, vault records, and previous challenges to start 100% fresh? (Cloud connection credentials will remain intact)",
+        onConfirm: () => {
+          Object.keys(localStorage).forEach(k => {
+            if (k.startsWith('pgl_') && !k.includes('_firebase_') && !k.includes('_sync_key_') && !k.includes('_theme_')) {
+              localStorage.removeItem(k);
+            }
+          });
+          ladderProfiles = [
+            {
+              id: 'default_28',
+              name: 'Default 28-Session Tri-Pace',
+              sessions: DEFAULT_28_LADDER
+            }
+          ];
+          activeProfileId = 'default_28';
+          sessionLogs = { 1: 120.00 };
+          sessionTimestamps = { 1: new Date().toISOString() };
+          sessionNotes = {};
+          lockedSessions = {};
+          currentSession = 1;
+          currentPace = 'relaxed';
+          vaultLedger = [];
+
+          saveTrackerState();
+          localStorage.setItem('pgl_ladder_profiles_v10', JSON.stringify(ladderProfiles));
+          localStorage.setItem('pgl_active_profile_v10', activeProfileId);
+          localStorage.setItem('pgl_session_v10', 1);
+          localStorage.setItem('pgl_pace_v10', 'relaxed');
+          localStorage.setItem('pgl_vault_ledger_v10', JSON.stringify(vaultLedger));
+
+          renderConfigTab();
+          renderTracker();
+          renderMilestonesTab();
+          renderStatsTab();
+          showToast("All previous challenge data wiped. Fresh slate ready!");
+          syncToFirestore();
         }
       });
     }
@@ -4465,8 +4533,8 @@ function doGet(e) {
           updateCloudStatus('firestore_error', err.message);
         });
 
-        localStorage.setItem('pgl_firebase_cfg_v9', JSON.stringify(config));
-        localStorage.setItem('pgl_sync_key_v9', syncKey);
+        localStorage.setItem('pgl_firebase_cfg_v10', JSON.stringify(config));
+        localStorage.setItem('pgl_sync_key_v10', syncKey);
         updateCloudStatus();
         if (isManual) showToast("Connected to Firestore! Realtime multi-device sync active");
         return true;
@@ -4486,31 +4554,31 @@ function doGet(e) {
       try {
         if (data.sessionLogs !== undefined) {
           sessionLogs = data.sessionLogs || {};
-          localStorage.setItem('pgl_session_logs_v9', JSON.stringify(sessionLogs));
+          localStorage.setItem('pgl_session_logs_v10', JSON.stringify(sessionLogs));
         }
         if (data.sessionTimestamps !== undefined) {
           sessionTimestamps = data.sessionTimestamps || {};
-          localStorage.setItem('pgl_timestamps_v9', JSON.stringify(sessionTimestamps));
+          localStorage.setItem('pgl_timestamps_v10', JSON.stringify(sessionTimestamps));
         }
         if (data.sessionNotes !== undefined) {
           sessionNotes = data.sessionNotes || {};
-          localStorage.setItem('pgl_notes_v9', JSON.stringify(sessionNotes));
+          localStorage.setItem('pgl_notes_v10', JSON.stringify(sessionNotes));
         }
         if (data.lockedSessions !== undefined) {
           lockedSessions = data.lockedSessions || {};
-          localStorage.setItem('pgl_locked_sessions_v9', JSON.stringify(lockedSessions));
+          localStorage.setItem('pgl_locked_sessions_v10', JSON.stringify(lockedSessions));
         }
         if (data.vaultLedger !== undefined) {
           vaultLedger = Array.isArray(data.vaultLedger) ? data.vaultLedger : [];
-          localStorage.setItem('pgl_vault_ledger_v9', JSON.stringify(vaultLedger));
+          localStorage.setItem('pgl_vault_ledger_v10', JSON.stringify(vaultLedger));
         }
         if (data.currentSession !== undefined) {
           currentSession = Number(data.currentSession) || 1;
-          localStorage.setItem('pgl_session_v9', currentSession);
+          localStorage.setItem('pgl_session_v10', currentSession);
         }
         if (data.currentPace !== undefined) {
           currentPace = data.currentPace;
-          localStorage.setItem('pgl_pace_v9', currentPace);
+          localStorage.setItem('pgl_pace_v10', currentPace);
         }
 
         renderTracker();
@@ -4539,7 +4607,7 @@ function doGet(e) {
         clearTimeout(firestoreSyncTimer);
         firestoreSyncTimer = null;
       }
-      const syncKey = localStorage.getItem('pgl_sync_key_v9') || 'dcniper_portfolio';
+      const syncKey = localStorage.getItem('pgl_sync_key_v10') || 'dcniper_portfolio';
       
       const payload = {
         sessionLogs: sessionLogs,
@@ -4588,7 +4656,7 @@ function doGet(e) {
       if (firestoreUnsubscribe) firestoreUnsubscribe();
       firestoreUnsubscribe = null;
       firestoreDb = null;
-      localStorage.removeItem('pgl_firebase_cfg_v9');
+      localStorage.removeItem('pgl_firebase_cfg_v10');
       updateFirebaseModalView();
       updateCloudStatus();
       showToast("Firebase disconnected. Using local storage.");
@@ -4617,8 +4685,8 @@ service cloud.firestore {
     }
 
     function updateFirebaseModalView() {
-      const savedCfg = localStorage.getItem('pgl_firebase_cfg_v9');
-      const savedKey = localStorage.getItem('pgl_sync_key_v9') || 'dcniper_portfolio';
+      const savedCfg = localStorage.getItem('pgl_firebase_cfg_v10');
+      const savedKey = localStorage.getItem('pgl_sync_key_v10') || 'dcniper_portfolio';
       const badge = document.getElementById('firebaseStatusBadge');
       const feedback = document.getElementById('firebaseFeedbackMsg');
       const disconnectBtn = document.getElementById('btnDisconnectFirebase');
@@ -4651,10 +4719,10 @@ service cloud.firestore {
       updateFirebaseModalView();
 
       const input = document.getElementById('inputWebhookUrl');
-      const savedUrl = localStorage.getItem('pgl_webhook_url_v9') || '';
+      const savedUrl = localStorage.getItem('pgl_webhook_url_v10') || '';
       if (input) input.value = savedUrl;
 
-      const lastSync = localStorage.getItem('pgl_last_sync_v9');
+      const lastSync = localStorage.getItem('pgl_last_sync_v10');
       const feedback = document.getElementById('webhookSyncFeedback');
       const modalBadge = document.getElementById('modalCloudStatusBadge');
 
@@ -4714,7 +4782,7 @@ service cloud.firestore {
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
       
-      localStorage.setItem('pgl_last_export_v9', new Date().toISOString());
+      localStorage.setItem('pgl_last_export_v10', new Date().toISOString());
       updateCloudStatus();
       showToast("Excel spreadsheet exported!");
     }
@@ -4740,8 +4808,8 @@ service cloud.firestore {
       const url = input.value.trim();
 
       if (!url) {
-        localStorage.removeItem('pgl_webhook_url_v9');
-        localStorage.removeItem('pgl_last_sync_v9');
+        localStorage.removeItem('pgl_webhook_url_v10');
+        localStorage.removeItem('pgl_last_sync_v10');
         updateCloudStatus();
         showToast("Webhook unlinked. Reverted to local storage.");
         return;
@@ -4752,12 +4820,12 @@ service cloud.firestore {
         return;
       }
 
-      localStorage.setItem('pgl_webhook_url_v9', url);
+      localStorage.setItem('pgl_webhook_url_v10', url);
       await syncToCloudWebhook(true);
     }
 
     async function syncToCloudWebhook(isManual = false) {
-      const webhookUrl = localStorage.getItem('pgl_webhook_url_v9');
+      const webhookUrl = localStorage.getItem('pgl_webhook_url_v10');
       if (!webhookUrl) {
         if (isManual) openLinkSheetModal();
         return;
@@ -4803,7 +4871,7 @@ service cloud.firestore {
         });
 
         const nowStr = new Date().toISOString();
-        localStorage.setItem('pgl_last_sync_v9', nowStr);
+        localStorage.setItem('pgl_last_sync_v10', nowStr);
         updateCloudStatus();
         if (isManual) showToast("Synced to Google Sheet!");
       } catch (err) {
@@ -4815,10 +4883,10 @@ service cloud.firestore {
 
     function updateCloudStatus(statusOverride = null, errorMsg = null) {
       const pill = document.getElementById('cloudStatusPill');
-      const hasFirebase = !!localStorage.getItem('pgl_firebase_cfg_v9');
-      const webhookUrl = localStorage.getItem('pgl_webhook_url_v9');
-      const lastSync = localStorage.getItem('pgl_last_sync_v9');
-      const lastExport = localStorage.getItem('pgl_last_export_v9');
+      const hasFirebase = !!localStorage.getItem('pgl_firebase_cfg_v10');
+      const webhookUrl = localStorage.getItem('pgl_webhook_url_v10');
+      const lastSync = localStorage.getItem('pgl_last_sync_v10');
+      const lastExport = localStorage.getItem('pgl_last_export_v10');
 
       if (!pill) return;
 
@@ -4892,8 +4960,8 @@ service cloud.firestore {
       initOrganicParticles();
 
       // Initialize Firebase if configured
-      const savedFirebaseCfg = localStorage.getItem('pgl_firebase_cfg_v9');
-      const savedSyncKey = localStorage.getItem('pgl_sync_key_v9') || 'dcniper_portfolio';
+      const savedFirebaseCfg = localStorage.getItem('pgl_firebase_cfg_v10');
+      const savedSyncKey = localStorage.getItem('pgl_sync_key_v10') || 'dcniper_portfolio';
       if (savedFirebaseCfg) {
         try {
           initFirebase(JSON.parse(savedFirebaseCfg), savedSyncKey, false);

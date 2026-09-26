@@ -283,6 +283,69 @@
       transition: width 500ms cubic-bezier(0.16, 1, 0.3, 1);
     }
 
+    /* Pace Card Completed Full-Color States */
+    .pace-completed-relaxed {
+      background-color: #607B5B !important;
+      border-color: #4A6346 !important;
+      color: #FDFBF7 !important;
+      box-shadow: 0 4px 14px -2px rgba(96, 123, 91, 0.35) !important;
+    }
+    .dark .pace-completed-relaxed {
+      background-color: #4A6346 !important;
+      border-color: #607B5B !important;
+      color: #FDFBF7 !important;
+      box-shadow: 0 4px 14px -2px rgba(96, 123, 91, 0.45) !important;
+    }
+    .pace-completed-mid {
+      background-color: #B88D3E !important;
+      border-color: #9E742A !important;
+      color: #FDFBF7 !important;
+      box-shadow: 0 4px 14px -2px rgba(184, 141, 62, 0.35) !important;
+    }
+    .dark .pace-completed-mid {
+      background-color: #8C6624 !important;
+      border-color: #B88D3E !important;
+      color: #FDFBF7 !important;
+      box-shadow: 0 4px 14px -2px rgba(184, 141, 62, 0.45) !important;
+    }
+    .pace-completed-aggressive {
+      background-color: #7A6281 !important;
+      border-color: #634C69 !important;
+      color: #FDFBF7 !important;
+      box-shadow: 0 4px 14px -2px rgba(122, 98, 129, 0.35) !important;
+    }
+    .dark .pace-completed-aggressive {
+      background-color: #5D4763 !important;
+      border-color: #7A6281 !important;
+      color: #FDFBF7 !important;
+      box-shadow: 0 4px 14px -2px rgba(122, 98, 129, 0.45) !important;
+    }
+
+    /* Inner elements when card is completed */
+    .pace-completed .pace-icon-wrap {
+      background-color: rgba(253, 251, 247, 0.22) !important;
+      color: #FDFBF7 !important;
+    }
+    .pace-completed .pace-title {
+      color: #FDFBF7 !important;
+    }
+    .pace-completed .pace-subtext {
+      color: rgba(253, 251, 247, 0.85) !important;
+    }
+    .pace-completed .pace-metric-box {
+      background-color: rgba(0, 0, 0, 0.14) !important;
+      border-color: rgba(253, 251, 247, 0.22) !important;
+    }
+    .pace-completed .pace-metric-label {
+      color: rgba(253, 251, 247, 0.82) !important;
+    }
+    .pace-completed .pace-metric-val {
+      color: #FDFBF7 !important;
+    }
+    .pace-completed .pace-footer-border {
+      border-color: rgba(253, 251, 247, 0.22) !important;
+    }
+
     input::-webkit-outer-spin-button,
     input::-webkit-inner-spin-button {
       -webkit-appearance: none;
@@ -427,15 +490,15 @@
 
     <!-- Bento Segmented Navigation Tabs -->
     <nav class="flex items-center justify-between gap-3">
-      <div class="inline-flex p-1 rounded-xl bg-[#F0E6D5] dark:bg-[#352E25] border border-[#CFC1AA] dark:border-[#514638] text-xs font-bold w-full sm:w-auto shadow-sm">
-        <button onclick="switchTab('tracker')" id="nav-tracker" class="flex-1 sm:flex-initial px-5 sm:px-7 py-2 rounded-lg transition-all flex items-center justify-center gap-2 bg-[#F5EBDD] dark:bg-[#41382D] text-[#332B22] dark:text-[#E2D4BD] border border-[#CFC1AA] dark:border-[#514638] shadow-sm">
+      <div class="inline-flex p-1 rounded-xl bg-[#F0E6D5] dark:bg-[#352E25] border border-[#CFC1AA] dark:border-[#514638] text-xs font-bold w-full sm:w-auto shadow-sm overflow-x-auto calm-scrollbar">
+        <button onclick="switchTab('tracker')" id="nav-tracker" class="flex-1 sm:flex-initial px-4 sm:px-6 py-2 rounded-lg transition-all flex items-center justify-center gap-2 bg-[#F5EBDD] dark:bg-[#41382D] text-[#332B22] dark:text-[#E2D4BD] border border-[#CFC1AA] dark:border-[#514638] shadow-sm whitespace-nowrap">
           <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
             <polyline points="16 7 22 7 22 13" />
           </svg>
           <span>Daily Tracker</span>
         </button>
-        <button onclick="switchTab('milestones')" id="nav-milestones" class="flex-1 sm:flex-initial px-5 sm:px-7 py-2 rounded-lg transition-all flex items-center justify-center gap-2 text-[#716556] dark:text-[#B4A58F] hover:text-[#332B22] dark:hover:text-[#E2D4BD]">
+        <button onclick="switchTab('milestones')" id="nav-milestones" class="flex-1 sm:flex-initial px-4 sm:px-6 py-2 rounded-lg transition-all flex items-center justify-center gap-2 text-[#716556] dark:text-[#B4A58F] hover:text-[#332B22] dark:hover:text-[#E2D4BD] whitespace-nowrap">
           <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
             <path d="M6 9h12l-1.5 10a2 2 0 0 1-2 2h-5a2 2 0 0 1-2-2L6 9z" />
             <path d="M9 5a3 3 0 0 1 6 0v4H9V5z" />
@@ -444,7 +507,18 @@
           <span>Capital Vault</span>
           <span id="navMilestoneIndicator" class="w-2 h-2 rounded-full bg-[#C98278] dark:bg-[#D99B91] hidden animate-pulse"></span>
         </button>
-        <button onclick="switchTab('config')" id="nav-config" class="flex-1 sm:flex-initial px-5 sm:px-7 py-2 rounded-lg transition-all flex items-center justify-center gap-2 text-[#716556] dark:text-[#B4A58F] hover:text-[#332B22] dark:hover:text-[#E2D4BD]">
+        <button onclick="switchTab('stats')" id="nav-stats" class="flex-1 sm:flex-initial px-4 sm:px-6 py-2 rounded-lg transition-all flex items-center justify-center gap-2 text-[#716556] dark:text-[#B4A58F] hover:text-[#332B22] dark:hover:text-[#E2D4BD] whitespace-nowrap">
+          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
+            <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
+            <path d="M4 22h16" />
+            <path d="M10 14.66V17c0 .55-.45 1-1 1H7" />
+            <path d="M14 14.66V17c0 .55.45 1 1 1h2" />
+            <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
+          </svg>
+          <span>Stats &amp; Performance</span>
+        </button>
+        <button onclick="switchTab('config')" id="nav-config" class="flex-1 sm:flex-initial px-4 sm:px-6 py-2 rounded-lg transition-all flex items-center justify-center gap-2 text-[#716556] dark:text-[#B4A58F] hover:text-[#332B22] dark:hover:text-[#E2D4BD] whitespace-nowrap">
           <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
             <line x1="4" y1="21" x2="4" y2="14" /><line x1="4" y1="10" x2="4" y2="3" />
             <line x1="12" y1="21" x2="12" y2="12" /><line x1="12" y1="8" x2="12" y2="3" />
@@ -562,20 +636,7 @@
                       <circle cx="12" cy="14" r="1.5" />
                     </svg>
                     <span>Savings Target</span>
-                  </button>
                 </div>
-
-                <!-- Calendar View Switcher Button in Console Hub -->
-                <button onclick="openCalendarInHub()" id="btnOpenCalendarInBox2" title="Switch to Calendar View in Hub"
-                  class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#617D91]/10 hover:bg-[#617D91]/20 text-[#617D91] dark:bg-[#7894A6]/15 dark:hover:bg-[#7894A6]/25 dark:text-[#7894A6] border border-[#617D91]/30 dark:border-[#7894A6]/30 font-bold text-xs transition active:scale-95 shadow-sm">
-                  <svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="3" y="4" width="18" height="18" rx="2" />
-                    <line x1="16" y1="2" x2="16" y2="6" />
-                    <line x1="8" y1="2" x2="8" y2="6" />
-                    <line x1="3" y1="10" x2="21" y2="10" />
-                  </svg>
-                  <span>Calendar View</span>
-                </button>
               </div>
 
               <!-- VIEW A: Today's Profit / Loss -->
@@ -741,7 +802,7 @@
           <div id="paceCard_relaxed" onclick="setPace('relaxed')" class="bento-card p-4 sm:p-5 cursor-pointer transition-all border border-[#CFC1AA] dark:border-[#514638] bg-[#F0E6D5] dark:bg-[#352E25] hover:border-[#607B5B] dark:hover:border-[#789272] hover:shadow-md space-y-3">
             <div class="flex items-center justify-between">
               <div class="flex items-center gap-2.5">
-                <div class="w-8 h-8 rounded-xl bg-[#607B5B]/15 text-[#607B5B] dark:bg-[#789272]/20 dark:text-[#789272] flex items-center justify-center shrink-0">
+                <div class="pace-icon-wrap w-8 h-8 rounded-xl bg-[#607B5B]/15 text-[#607B5B] dark:bg-[#789272]/20 dark:text-[#789272] flex items-center justify-center shrink-0 transition-colors">
                   <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M12 22v-9" />
                     <path d="M12 13c0-4.97 4.03-9 9-9 0 4.97-4.03 9-9 9z" />
@@ -749,32 +810,40 @@
                   </svg>
                 </div>
                 <div>
-                  <h5 class="text-sm font-extrabold text-[#332B22] dark:text-[#E2D4BD]">Relaxed Pace</h5>
-                  <span class="text-xs text-[#716556] dark:text-[#B4A58F] font-semibold">$7,000 Target</span>
+                  <h5 class="pace-title text-sm font-extrabold text-[#332B22] dark:text-[#E2D4BD]">Relaxed Pace</h5>
+                  <span class="pace-subtext text-xs text-[#716556] dark:text-[#B4A58F] font-semibold">$7,000 Target</span>
                 </div>
               </div>
-              <span id="paceActiveBadge_relaxed" class="hidden px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-[#607B5B] dark:bg-[#789272] text-[#F5EBDD] dark:text-[#29241E] shadow-sm">
-                Active
-              </span>
+              <div class="flex items-center gap-1.5">
+                <span id="paceCompletedBadge_relaxed" class="hidden px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-[#FDFBF7] text-[#332B22] shadow-xs inline-flex items-center gap-1">
+                  <svg class="w-3 h-3 text-[#607B5B]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"/>
+                  </svg>
+                  <span>Completed</span>
+                </span>
+                <span id="paceActiveBadge_relaxed" class="hidden px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-[#607B5B] dark:bg-[#789272] text-[#F5EBDD] dark:text-[#29241E] shadow-sm">
+                  Active
+                </span>
+              </div>
             </div>
 
             <!-- Target Port Size & Target Day PnL -->
             <div class="grid grid-cols-2 gap-2.5 pt-0.5">
-              <div class="p-2.5 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA]/50 dark:border-[#514638]/50">
-                <span class="text-[10px] uppercase font-bold tracking-wider text-[#716556] dark:text-[#B4A58F] block">Target Balance</span>
-                <div class="text-lg sm:text-xl font-black font-num text-[#607B5B] dark:text-[#789272]" id="targetValRelaxed">
+              <div class="pace-metric-box p-2.5 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA]/50 dark:border-[#514638]/50 transition-colors">
+                <span class="pace-metric-label text-[10px] uppercase font-bold tracking-wider text-[#716556] dark:text-[#B4A58F] block">Target Balance</span>
+                <div class="pace-metric-val text-lg sm:text-xl font-black font-num text-[#607B5B] dark:text-[#789272]" id="targetValRelaxed">
                   $120.00
                 </div>
               </div>
-              <div class="p-2.5 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA]/50 dark:border-[#514638]/50">
-                <span class="text-[10px] uppercase font-bold tracking-wider text-[#716556] dark:text-[#B4A58F] block">Today's Profit Needed</span>
-                <div class="text-lg sm:text-xl font-black font-num text-[#607B5B] dark:text-[#789272]" id="targetPnlRelaxed">
+              <div class="pace-metric-box p-2.5 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA]/50 dark:border-[#514638]/50 transition-colors">
+                <span class="pace-metric-label text-[10px] uppercase font-bold tracking-wider text-[#716556] dark:text-[#B4A58F] block">Today's Profit Needed</span>
+                <div class="pace-metric-val text-lg sm:text-xl font-black font-num text-[#607B5B] dark:text-[#789272]" id="targetPnlRelaxed">
                   +$0.00
                 </div>
               </div>
             </div>
 
-            <div class="pt-2 border-t border-[#CFC1AA]/60 dark:border-[#514638]/60 flex items-center justify-between">
+            <div class="pace-footer-border pt-2 border-t border-[#CFC1AA]/60 dark:border-[#514638]/60 flex items-center justify-between">
               <span class="text-xs font-semibold font-num" id="targetStatusRelaxed">
                 Goal Met
               </span>
@@ -785,38 +854,46 @@
           <div id="paceCard_mid" onclick="setPace('mid')" class="bento-card p-4 sm:p-5 cursor-pointer transition-all border border-[#CFC1AA] dark:border-[#514638] bg-[#F0E6D5] dark:bg-[#352E25] hover:border-[#C2984D] dark:hover:border-[#D0AA63] hover:shadow-md space-y-3">
             <div class="flex items-center justify-between">
               <div class="flex items-center gap-2.5">
-                <div class="w-8 h-8 rounded-xl bg-[#C2984D]/15 text-[#C2984D] dark:bg-[#D0AA63]/20 dark:text-[#D0AA63] flex items-center justify-center shrink-0">
+                <div class="pace-icon-wrap w-8 h-8 rounded-xl bg-[#C2984D]/15 text-[#C2984D] dark:bg-[#D0AA63]/20 dark:text-[#D0AA63] flex items-center justify-center shrink-0 transition-colors">
                   <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
                     <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
                   </svg>
                 </div>
                 <div>
-                  <h5 class="text-sm font-extrabold text-[#332B22] dark:text-[#E2D4BD]">Mid Pace</h5>
-                  <span class="text-xs text-[#716556] dark:text-[#B4A58F] font-semibold">$12,600 Target</span>
+                  <h5 class="pace-title text-sm font-extrabold text-[#332B22] dark:text-[#E2D4BD]">Mid Pace</h5>
+                  <span class="pace-subtext text-xs text-[#716556] dark:text-[#B4A58F] font-semibold">$12,600 Target</span>
                 </div>
               </div>
-              <span id="paceActiveBadge_mid" class="hidden px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-[#C2984D] dark:bg-[#D0AA63] text-[#F5EBDD] dark:text-[#29241E] shadow-sm">
-                Active
-              </span>
+              <div class="flex items-center gap-1.5">
+                <span id="paceCompletedBadge_mid" class="hidden px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-[#FDFBF7] text-[#332B22] shadow-xs inline-flex items-center gap-1">
+                  <svg class="w-3 h-3 text-[#C2984D]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"/>
+                  </svg>
+                  <span>Completed</span>
+                </span>
+                <span id="paceActiveBadge_mid" class="hidden px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-[#C2984D] dark:bg-[#D0AA63] text-[#F5EBDD] dark:text-[#29241E] shadow-sm">
+                  Active
+                </span>
+              </div>
             </div>
 
             <!-- Target Port Size & Target Day PnL -->
             <div class="grid grid-cols-2 gap-2.5 pt-0.5">
-              <div class="p-2.5 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA]/50 dark:border-[#514638]/50">
-                <span class="text-[10px] uppercase font-bold tracking-wider text-[#716556] dark:text-[#B4A58F] block">Target Balance</span>
-                <div class="text-lg sm:text-xl font-black font-num text-[#C2984D] dark:text-[#D0AA63]" id="targetValMid">
+              <div class="pace-metric-box p-2.5 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA]/50 dark:border-[#514638]/50 transition-colors">
+                <span class="pace-metric-label text-[10px] uppercase font-bold tracking-wider text-[#716556] dark:text-[#B4A58F] block">Target Balance</span>
+                <div class="pace-metric-val text-lg sm:text-xl font-black font-num text-[#C2984D] dark:text-[#D0AA63]" id="targetValMid">
                   $120.00
                 </div>
               </div>
-              <div class="p-2.5 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA]/50 dark:border-[#514638]/50">
-                <span class="text-[10px] uppercase font-bold tracking-wider text-[#716556] dark:text-[#B4A58F] block">Today's Profit Needed</span>
-                <div class="text-lg sm:text-xl font-black font-num text-[#C2984D] dark:text-[#D0AA63]" id="targetPnlMid">
+              <div class="pace-metric-box p-2.5 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA]/50 dark:border-[#514638]/50 transition-colors">
+                <span class="pace-metric-label text-[10px] uppercase font-bold tracking-wider text-[#716556] dark:text-[#B4A58F] block">Today's Profit Needed</span>
+                <div class="pace-metric-val text-lg sm:text-xl font-black font-num text-[#C2984D] dark:text-[#D0AA63]" id="targetPnlMid">
                   +$0.00
                 </div>
               </div>
             </div>
 
-            <div class="pt-2 border-t border-[#CFC1AA]/60 dark:border-[#514638]/60 flex items-center justify-between">
+            <div class="pace-footer-border pt-2 border-t border-[#CFC1AA]/60 dark:border-[#514638]/60 flex items-center justify-between">
               <span class="text-xs font-semibold font-num" id="targetStatusMid">
                 Goal Met
               </span>
@@ -827,38 +904,46 @@
           <div id="paceCard_aggressive" onclick="setPace('aggressive')" class="bento-card p-4 sm:p-5 cursor-pointer transition-all border border-[#CFC1AA] dark:border-[#514638] bg-[#F0E6D5] dark:bg-[#352E25] hover:border-[#806A86] dark:hover:border-[#9A849F] hover:shadow-md space-y-3">
             <div class="flex items-center justify-between">
               <div class="flex items-center gap-2.5">
-                <div class="w-8 h-8 rounded-xl bg-[#806A86]/15 text-[#806A86] dark:bg-[#9A849F]/20 dark:text-[#9A849F] flex items-center justify-center shrink-0">
+                <div class="pace-icon-wrap w-8 h-8 rounded-xl bg-[#806A86]/15 text-[#806A86] dark:bg-[#9A849F]/20 dark:text-[#9A849F] flex items-center justify-center shrink-0 transition-colors">
                   <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
                     <path d="m8 3 4 8 5-5 5 15H2L8 3z" />
                   </svg>
                 </div>
                 <div>
-                  <h5 class="text-sm font-extrabold text-[#332B22] dark:text-[#E2D4BD]">Aggressive Pace</h5>
-                  <span class="text-xs text-[#716556] dark:text-[#B4A58F] font-semibold">$17,500 Target</span>
+                  <h5 class="pace-title text-sm font-extrabold text-[#332B22] dark:text-[#E2D4BD]">Aggressive Pace</h5>
+                  <span class="pace-subtext text-xs text-[#716556] dark:text-[#B4A58F] font-semibold">$17,500 Target</span>
                 </div>
               </div>
-              <span id="paceActiveBadge_aggressive" class="hidden px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-[#806A86] dark:bg-[#9A849F] text-[#F5EBDD] dark:text-[#29241E] shadow-sm">
-                Active
-              </span>
+              <div class="flex items-center gap-1.5">
+                <span id="paceCompletedBadge_aggressive" class="hidden px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-[#FDFBF7] text-[#332B22] shadow-xs inline-flex items-center gap-1">
+                  <svg class="w-3 h-3 text-[#806A86]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"/>
+                  </svg>
+                  <span>Completed</span>
+                </span>
+                <span id="paceActiveBadge_aggressive" class="hidden px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-[#806A86] dark:bg-[#9A849F] text-[#F5EBDD] dark:text-[#29241E] shadow-sm">
+                  Active
+                </span>
+              </div>
             </div>
 
             <!-- Target Port Size & Target Day PnL -->
             <div class="grid grid-cols-2 gap-2.5 pt-0.5">
-              <div class="p-2.5 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA]/50 dark:border-[#514638]/50">
-                <span class="text-[10px] uppercase font-bold tracking-wider text-[#716556] dark:text-[#B4A58F] block">Target Balance</span>
-                <div class="text-lg sm:text-xl font-black font-num text-[#806A86] dark:text-[#9A849F]" id="targetValAggressive">
+              <div class="pace-metric-box p-2.5 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA]/50 dark:border-[#514638]/50 transition-colors">
+                <span class="pace-metric-label text-[10px] uppercase font-bold tracking-wider text-[#716556] dark:text-[#B4A58F] block">Target Balance</span>
+                <div class="pace-metric-val text-lg sm:text-xl font-black font-num text-[#806A86] dark:text-[#9A849F]" id="targetValAggressive">
                   $120.00
                 </div>
               </div>
-              <div class="p-2.5 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA]/50 dark:border-[#514638]/50">
-                <span class="text-[10px] uppercase font-bold tracking-wider text-[#716556] dark:text-[#B4A58F] block">Today's Profit Needed</span>
-                <div class="text-lg sm:text-xl font-black font-num text-[#806A86] dark:text-[#9A849F]" id="targetPnlAggressive">
+              <div class="pace-metric-box p-2.5 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA]/50 dark:border-[#514638]/50 transition-colors">
+                <span class="pace-metric-label text-[10px] uppercase font-bold tracking-wider text-[#716556] dark:text-[#B4A58F] block">Today's Profit Needed</span>
+                <div class="pace-metric-val text-lg sm:text-xl font-black font-num text-[#806A86] dark:text-[#9A849F]" id="targetPnlAggressive">
                   +$0.00
                 </div>
               </div>
             </div>
 
-            <div class="pt-2 border-t border-[#CFC1AA]/60 dark:border-[#514638]/60 flex items-center justify-between">
+            <div class="pace-footer-border pt-2 border-t border-[#CFC1AA]/60 dark:border-[#514638]/60 flex items-center justify-between">
               <span class="text-xs font-semibold font-num" id="targetStatusAggressive">
                 Goal Met
               </span>
@@ -1323,111 +1408,400 @@
 
     </div>
 
-    <!-- ==================== TAB 3: CONFIG & LADDER ==================== -->
+    <!-- ==================== TAB 3: STATS & PERFORMANCE (GAMIFIED) ==================== -->
+    <div id="tabContentStats" class="hidden space-y-5 sm:space-y-6">
+
+      <!-- Hero Level & Discipline Rank Banner -->
+      <section class="bento-card p-5 sm:p-6 space-y-4">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-[#CFC1AA] dark:border-[#514638]">
+          <div class="flex items-center gap-3.5">
+            <!-- Level Medallion -->
+            <div class="relative w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-[#607B5B]/15 dark:bg-[#789272]/20 border border-[#607B5B]/35 dark:border-[#789272]/35 flex flex-col items-center justify-center text-[#607B5B] dark:text-[#789272] shrink-0 shadow-xs">
+              <svg class="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+              </svg>
+              <span id="statsLevelNum" class="text-[9px] sm:text-[10px] font-black uppercase font-num">LVL 1</span>
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <h2 id="statsTraderRankTitle" class="text-base sm:text-lg font-black text-[#332B22] dark:text-[#E2D4BD]">Base Camp Pioneer</h2>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#607B5B]/15 text-[#607B5B] dark:bg-[#789272]/20 dark:text-[#789272] border border-[#607B5B]/30 font-num">Rank I</span>
+              </div>
+              <p id="statsRankDesc" class="text-xs text-[#716556] dark:text-[#B4A58F] mt-0.5">Beginning the ascent. Solid discipline compounds exponentially.</p>
+            </div>
+          </div>
+
+          <!-- Gamified Status Chips -->
+          <div class="flex flex-wrap items-center gap-2">
+            <span id="statsCurrentStreak" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#607B5B]/15 text-[#607B5B] dark:bg-[#789272]/20 dark:text-[#789272] border border-[#607B5B]/30 shadow-xs">
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2c.5 3 2.5 5 4.5 7.5A8 8 0 1 1 5 13c0-3 2-6 7-11z" />
+              </svg>
+              <span>1-Session Green Streak</span>
+            </span>
+            <span id="statsDisciplineScore" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#C2984D]/15 text-[#C2984D] dark:bg-[#D0AA63]/20 dark:text-[#D0AA63] border border-[#C2984D]/30 shadow-xs">
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+              </svg>
+              <span>Grade A+ Discipline</span>
+            </span>
+            <span id="statsChallengeBadge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#F5EBDD] dark:bg-[#41382D] text-[#716556] dark:text-[#B4A58F] border border-[#CFC1AA] dark:border-[#514638]">
+              28-Session Plan
+            </span>
+          </div>
+        </div>
+
+        <!-- Level Progress Bar -->
+        <div class="space-y-1.5">
+          <div class="flex justify-between items-center text-xs font-bold text-[#716556] dark:text-[#B4A58F]">
+            <span class="flex items-center gap-1.5">
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+              </svg>
+              <span>Roadmap Progress</span>
+            </span>
+            <span id="statsLevelProgressText" class="font-num font-extrabold text-[#332B22] dark:text-[#E2D4BD]">Session 1 of 28 (3.6%)</span>
+          </div>
+          <div class="w-full bg-[#CFC1AA] dark:bg-[#514638] h-2.5 rounded-full overflow-hidden">
+            <div id="statsLevelProgressBar" class="h-full bg-[#607B5B] dark:bg-[#789272] rounded-full transition-all duration-500" style="width: 3.6%"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6 Core Performance Metrics -->
+      <section class="grid grid-cols-2 lg:grid-cols-6 gap-3 sm:gap-4 font-num">
+        <!-- 1. Win Rate -->
+        <div class="bento-card p-4 sm:p-5 flex flex-col justify-between space-y-2">
+          <div class="flex items-center justify-between text-[#716556] dark:text-[#B4A58F]">
+            <span class="text-[10px] font-bold uppercase tracking-wider font-sans">Green Rate</span>
+            <svg class="w-4 h-4 text-[#607B5B] dark:text-[#789272]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10" />
+              <polyline points="12 6 12 12 16 14" />
+            </svg>
+          </div>
+          <div>
+            <div id="statsWinRate" class="text-2xl sm:text-3xl font-black text-[#607B5B] dark:text-[#789272]">100%</div>
+            <p id="statsWinCount" class="text-[11px] text-[#716556] dark:text-[#B4A58F] mt-0.5 font-sans">1 profitable / 1 total</p>
+          </div>
+        </div>
+
+        <!-- 2. Net Profit -->
+        <div class="bento-card p-4 sm:p-5 flex flex-col justify-between space-y-2">
+          <div class="flex items-center justify-between text-[#716556] dark:text-[#B4A58F]">
+            <span class="text-[10px] font-bold uppercase tracking-wider font-sans">Net Profit</span>
+            <svg class="w-4 h-4 text-[#607B5B] dark:text-[#789272]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
+              <polyline points="17 6 23 6 23 12" />
+            </svg>
+          </div>
+          <div>
+            <div id="statsTotalProfit" class="text-2xl sm:text-3xl font-black text-[#607B5B] dark:text-[#789272]">+$0.00</div>
+            <p class="text-[11px] text-[#716556] dark:text-[#B4A58F] mt-0.5 font-sans">Above start base</p>
+          </div>
+        </div>
+
+        <!-- 3. Banked in Vault -->
+        <div class="bento-card p-4 sm:p-5 flex flex-col justify-between space-y-2">
+          <div class="flex items-center justify-between text-[#716556] dark:text-[#B4A58F]">
+            <span class="text-[10px] font-bold uppercase tracking-wider font-sans">Safe Vault</span>
+            <svg class="w-4 h-4 text-[#C98278] dark:text-[#D99B91]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 9h12l-1.5 10a2 2 0 0 1-2 2h-5a2 2 0 0 1-2-2L6 9z" />
+              <path d="M9 5a3 3 0 0 1 6 0v4H9V5z" />
+            </svg>
+          </div>
+          <div>
+            <div id="statsVaultBanked" class="text-2xl sm:text-3xl font-black text-[#C98278] dark:text-[#D99B91]">$0.00</div>
+            <p class="text-[11px] text-[#716556] dark:text-[#B4A58F] mt-0.5 font-sans">Protected profits</p>
+          </div>
+        </div>
+
+        <!-- 4. Best Gain -->
+        <div class="bento-card p-4 sm:p-5 flex flex-col justify-between space-y-2">
+          <div class="flex items-center justify-between text-[#716556] dark:text-[#B4A58F]">
+            <span class="text-[10px] font-bold uppercase tracking-wider font-sans">Best Session</span>
+            <svg class="w-4 h-4 text-[#C2984D] dark:text-[#D0AA63]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+            </svg>
+          </div>
+          <div>
+            <div id="statsBestGain" class="text-2xl sm:text-3xl font-black text-[#C2984D] dark:text-[#D0AA63]">+$0.00</div>
+            <p id="statsBestSessionNum" class="text-[11px] text-[#716556] dark:text-[#B4A58F] mt-0.5 font-sans">Single day peak</p>
+          </div>
+        </div>
+
+        <!-- 5. Average Return -->
+        <div class="bento-card p-4 sm:p-5 flex flex-col justify-between space-y-2">
+          <div class="flex items-center justify-between text-[#716556] dark:text-[#B4A58F]">
+            <span class="text-[10px] font-bold uppercase tracking-wider font-sans">Daily Avg</span>
+            <svg class="w-4 h-4 text-[#716556] dark:text-[#B4A58F]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="20" x2="18" y2="10" /><line x1="12" y1="20" x2="12" y2="4" /><line x1="6" y1="20" x2="6" y2="14" />
+            </svg>
+          </div>
+          <div>
+            <div id="statsAvgGain" class="text-2xl sm:text-3xl font-black text-[#332B22] dark:text-[#E2D4BD]">+$0.00</div>
+            <p class="text-[11px] text-[#716556] dark:text-[#B4A58F] mt-0.5 font-sans">Per session gain</p>
+          </div>
+        </div>
+
+        <!-- 6. Summit Goal Progress -->
+        <div class="bento-card p-4 sm:p-5 flex flex-col justify-between space-y-2">
+          <div class="flex items-center justify-between text-[#716556] dark:text-[#B4A58F]">
+            <span class="text-[10px] font-bold uppercase tracking-wider font-sans">Goal Reach</span>
+            <svg class="w-4 h-4 text-[#806A86] dark:text-[#9A849F]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" />
+              <line x1="4" y1="22" x2="4" y2="15" />
+            </svg>
+          </div>
+          <div>
+            <div id="statsSummitPct" class="text-2xl sm:text-3xl font-black text-[#806A86] dark:text-[#9A849F]">1.7%</div>
+            <p id="statsSummitGoal" class="text-[11px] text-[#716556] dark:text-[#B4A58F] mt-0.5 font-sans">of $7,000.00</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Gamified Quest Badges & Achievements -->
+      <section class="bento-card p-5 sm:p-6 space-y-4">
+        <div class="flex items-center justify-between pb-3 border-b border-[#CFC1AA] dark:border-[#514638]">
+          <div>
+            <h3 class="text-sm font-bold uppercase tracking-wider text-[#332B22] dark:text-[#E2D4BD]">Challenge Milestones &amp; Badges</h3>
+            <p class="text-xs text-[#716556] dark:text-[#B4A58F] mt-0.5">Earn badges as you execute trades, hit pace targets, and bank profits into your vault.</p>
+          </div>
+          <span id="statsUnlockedBadgeCount" class="text-xs font-bold px-2.5 py-1 rounded-full bg-[#607B5B]/15 text-[#607B5B] dark:bg-[#789272]/20 dark:text-[#789272] border border-[#607B5B]/30 font-num">
+            1 / 7 Unlocked
+          </span>
+        </div>
+
+        <div id="statsBadgesContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          <!-- Dynamically populated by renderStatsTab -->
+        </div>
+      </section>
+
+      <!-- Tactical Distribution & Trader Insights -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6">
+        <!-- Pace Mastery Breakdown -->
+        <section class="bento-card p-5 sm:p-6 space-y-4">
+          <div class="pb-3 border-b border-[#CFC1AA] dark:border-[#514638]">
+            <h3 class="text-sm font-bold uppercase tracking-wider text-[#332B22] dark:text-[#E2D4BD]">Pace Target Mastery</h3>
+            <p class="text-xs text-[#716556] dark:text-[#B4A58F] mt-0.5">Distribution of sessions meeting each compounding pace.</p>
+          </div>
+
+          <div id="statsPaceBreakdown" class="space-y-3 font-num text-xs">
+            <!-- Dynamically populated by renderStatsTab -->
+          </div>
+        </section>
+
+        <!-- Trader Compass & Calm Guidance -->
+        <section class="bento-card p-5 sm:p-6 space-y-4 flex flex-col justify-between">
+          <div class="space-y-3">
+            <div class="flex items-center gap-2.5 pb-3 border-b border-[#CFC1AA] dark:border-[#514638]">
+              <div class="w-8 h-8 rounded-xl bg-[#617D91]/15 text-[#617D91] dark:bg-[#7894A6]/20 dark:text-[#7894A6] flex items-center justify-center">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10" />
+                  <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" />
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-sm font-bold uppercase tracking-wider text-[#332B22] dark:text-[#E2D4BD]">Climber's Compass</h3>
+                <p class="text-xs text-[#716556] dark:text-[#B4A58F]">Tactical insight based on your current stats.</p>
+              </div>
+            </div>
+
+            <p id="statsInsightText" class="text-xs sm:text-sm text-[#716556] dark:text-[#B4A58F] leading-relaxed">
+              Every master trader started with a small, disciplined base. Focus on risk management first, hit your daily relaxed pace, and protect gains in the vault.
+            </p>
+          </div>
+
+          <div class="pt-3 border-t border-[#CFC1AA] dark:border-[#514638] flex items-center justify-between text-xs">
+            <span class="text-[#716556] dark:text-[#B4A58F]">Consistency beats aggressiveness.</span>
+            <button onclick="switchTab('tracker')" class="font-bold text-[#607B5B] dark:text-[#789272] hover:underline flex items-center gap-1">
+              <span>Go to Daily Tracker</span>
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6" />
+              </svg>
+            </button>
+          </div>
+        </section>
+      </div>
+
+    </div>
+
+    <!-- ==================== TAB 4: SETTINGS & ACTIVE CHALLENGES ==================== -->
     <div id="tabContentConfig" class="hidden space-y-5 sm:space-y-6">
 
-      <!-- Active Ladder Profile Switcher Card -->
+      <!-- 1. Active Challenge Card -->
       <section class="bento-card p-5 sm:p-6 space-y-4">
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between pb-3 border-b border-[#CFC1AA] dark:border-[#514638] gap-3">
           <div>
-            <h2 class="text-base font-bold text-[#332B22] dark:text-[#E2D4BD]">Compounding Challenge Profile</h2>
-            <p class="text-xs text-[#716556] dark:text-[#B4A58F] mt-0.5">Switch between saved ladders or build a custom compounding roadmap.</p>
+            <div class="flex items-center gap-2">
+              <h2 class="text-base font-bold text-[#332B22] dark:text-[#E2D4BD]">Active Challenge</h2>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#607B5B]/15 text-[#607B5B] dark:bg-[#789272]/20 dark:text-[#789272] border border-[#607B5B]/30">Currently Tracking</span>
+            </div>
+            <p class="text-xs text-[#716556] dark:text-[#B4A58F] mt-0.5">The compounding roadmap your daily tracker and console hub are following.</p>
           </div>
-          <div>
+          <div class="flex items-center gap-2">
+            <label for="ladderProfileSelector" class="text-xs font-bold text-[#716556] dark:text-[#B4A58F] hidden sm:inline">Select:</label>
             <select id="ladderProfileSelector" onchange="switchLadderProfile(this.value)"
-              class="bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 text-xs font-bold text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#8CA887]">
+              class="bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 text-xs font-bold text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#789272]">
               <!-- Dynamically populated -->
             </select>
           </div>
         </div>
 
+        <!-- 4 Key Numbers -->
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs font-num">
           <div class="p-3.5 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638]">
-            <span class="text-[#716556] dark:text-[#B4A58F] block text-[10px] uppercase font-bold">Base Start</span>
+            <span class="text-[#716556] dark:text-[#B4A58F] block text-[10px] uppercase font-bold">Starting Deposit</span>
             <strong class="text-base text-[#332B22] dark:text-[#E2D4BD]" id="cfgInfoStart">$120.00</strong>
           </div>
           <div class="p-3.5 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638]">
-            <span class="text-[#716556] dark:text-[#B4A58F] block text-[10px] uppercase font-bold">Final Goal Target</span>
-            <strong class="text-base text-[#607B5B] dark:text-[#8CA887]" id="cfgInfoFinal">$7,000.00</strong>
+            <span class="text-[#716556] dark:text-[#B4A58F] block text-[10px] uppercase font-bold">Target Goal</span>
+            <strong class="text-base text-[#607B5B] dark:text-[#789272]" id="cfgInfoFinal">$7,000.00</strong>
           </div>
           <div class="p-3.5 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638]">
-            <span class="text-[#716556] dark:text-[#B4A58F] block text-[10px] uppercase font-bold">Total Sessions</span>
+            <span class="text-[#716556] dark:text-[#B4A58F] block text-[10px] uppercase font-bold">Challenge Length</span>
             <strong class="text-base text-[#332B22] dark:text-[#E2D4BD]" id="cfgInfoSessions">28 Sessions</strong>
           </div>
           <div class="p-3.5 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638]">
-            <span class="text-[#716556] dark:text-[#B4A58F] block text-[10px] uppercase font-bold">Multiplier</span>
-            <strong class="text-base text-[#A96745] dark:text-[#CB8561]" id="cfgInfoMultiple">58.3x</strong>
+            <span class="text-[#716556] dark:text-[#B4A58F] block text-[10px] uppercase font-bold">Growth Factor</span>
+            <strong class="text-base text-[#C2984D] dark:text-[#D0AA63]" id="cfgInfoMultiple">58.3x</strong>
+          </div>
+        </div>
+
+        <!-- Visual Challenge List -->
+        <div class="pt-2">
+          <span class="text-[11px] font-bold text-[#716556] dark:text-[#B4A58F] block mb-2">Available Challenges:</span>
+          <div id="cfgActiveChallengeList" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <!-- Dynamically populated by renderConfigTab -->
           </div>
         </div>
       </section>
 
-      <!-- Custom Ladder Generator Card -->
+      <!-- 2. Create a New Challenge (Plain English) -->
       <section class="bento-card p-5 sm:p-6 space-y-4">
-        <div>
-          <h3 class="text-sm font-bold text-[#332B22] dark:text-[#E2D4BD] uppercase tracking-wider">Custom Roadmap Builder</h3>
-          <p class="text-xs text-[#716556] dark:text-[#B4A58F] mt-0.5">Generate a custom compounding ladder for any starting balance, target, or session count.</p>
+        <div class="pb-3 border-b border-[#CFC1AA] dark:border-[#514638]">
+          <h3 class="text-sm font-bold text-[#332B22] dark:text-[#E2D4BD] uppercase tracking-wider">Start a New Challenge</h3>
+          <p class="text-xs text-[#716556] dark:text-[#B4A58F] mt-0.5">Pick your own starting money, final target, and how many sessions you want to trade.</p>
         </div>
 
         <form onsubmit="handleGenerateLadderSubmit(event)" class="space-y-4 text-xs">
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
             <div>
               <label class="block font-bold text-[#716556] dark:text-[#B4A58F] uppercase text-[10px] tracking-wider">Challenge Name</label>
-              <input type="text" id="genName" required placeholder="e.g. 20-Day $150 to $5K Sprint"
-                class="w-full mt-1 bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 text-xs font-semibold text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#8CA887]" />
+              <input type="text" id="genName" required placeholder="e.g. 14-Session Growth Sprint"
+                class="w-full mt-1 bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 text-xs font-semibold text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#789272]" />
             </div>
 
             <div>
               <label class="block font-bold text-[#716556] dark:text-[#B4A58F] uppercase text-[10px] tracking-wider">Starting Balance ($)</label>
               <input type="number" step="0.01" min="1" id="genBase" required value="150"
-                class="w-full mt-1 bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 font-num font-bold text-xs text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#8CA887]" />
+                class="w-full mt-1 bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 font-num font-bold text-xs text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#789272]" />
             </div>
 
             <div>
-              <label class="block font-bold text-[#716556] dark:text-[#B4A58F] uppercase text-[10px] tracking-wider">Final Target ($)</label>
+              <label class="block font-bold text-[#716556] dark:text-[#B4A58F] uppercase text-[10px] tracking-wider">Final Goal Target ($)</label>
               <input type="number" step="1" min="1" id="genTarget" required value="2500"
-                class="w-full mt-1 bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 font-num font-bold text-xs text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#8CA887]" />
+                class="w-full mt-1 bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 font-num font-bold text-xs text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#789272]" />
             </div>
 
             <div>
               <label class="block font-bold text-[#716556] dark:text-[#B4A58F] uppercase text-[10px] tracking-wider">Number of Sessions</label>
               <input type="number" step="1" min="3" max="100" id="genSessions" required value="14"
-                class="w-full mt-1 bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 font-num font-bold text-xs text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#8CA887]" />
+                class="w-full mt-1 bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 font-num font-bold text-xs text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#789272]" />
             </div>
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
             <div>
-              <label class="block font-bold text-[#716556] dark:text-[#B4A58F] uppercase text-[10px] tracking-wider">Compounding Curve Style</label>
+              <label class="block font-bold text-[#716556] dark:text-[#B4A58F] uppercase text-[10px] tracking-wider">Growth Pacing Style</label>
               <select id="genCurveType"
-                class="w-full mt-1 bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 text-xs font-semibold text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#8CA887]">
-                <option value="decay">Decaying Phased Curve (High velocity early &rarr; conservative late)</option>
-                <option value="smooth">Smooth Constant Compound</option>
+                class="w-full mt-1 bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 text-xs font-semibold text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#789272]">
+                <option value="decay">Faster Start, Steady Finish (Recommended: sprint early, protect gains later)</option>
+                <option value="smooth">Even Daily Growth (Same compounding rate every day)</option>
               </select>
             </div>
 
             <div class="flex items-end">
-              <button type="submit" class="w-full py-2.5 bg-[#607B5B] hover:bg-[#4F674B] text-[#F5EBDD] dark:bg-[#8CA887] dark:hover:bg-[#759272] dark:text-[#29241E] font-bold text-xs rounded-xl transition active:scale-95 shadow-sm">
-                + Create &amp; Activate Roadmap
+              <button type="submit" class="w-full py-2.5 bg-[#607B5B] hover:bg-[#4F674B] text-[#F5EBDD] dark:bg-[#789272] dark:hover:bg-[#607B5B] dark:text-[#29241E] font-bold text-xs rounded-xl transition active:scale-95 shadow-sm">
+                + Create &amp; Activate Challenge
               </button>
             </div>
           </div>
         </form>
       </section>
 
-      <!-- Reset Operations Card -->
-      <section class="bento-card p-5 border-[#CFC1AA] dark:border-[#514638] space-y-3">
-        <h3 class="text-xs font-bold uppercase tracking-wider text-[#B86652] dark:text-[#D47F6C]">Reset &amp; Start Fresh</h3>
-        <p class="text-xs text-[#716556] dark:text-[#B4A58F]">Actions take effect immediately on your local browser data.</p>
+      <!-- 3. Preferences & Display Options (Other Settings Options) -->
+      <section class="bento-card p-5 sm:p-6 space-y-4">
+        <div class="pb-3 border-b border-[#CFC1AA] dark:border-[#514638]">
+          <h3 class="text-sm font-bold text-[#332B22] dark:text-[#E2D4BD] uppercase tracking-wider">Display &amp; Workspace Preferences</h3>
+          <p class="text-xs text-[#716556] dark:text-[#B4A58F] mt-0.5">Adjust how your dashboard displays targets and syncs data.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3.5 text-xs">
+          <!-- Pace Preference -->
+          <div class="p-4 rounded-2xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] flex flex-col justify-between space-y-3">
+            <div>
+              <span class="text-[10px] font-bold uppercase tracking-wider text-[#716556] dark:text-[#B4A58F] block">Daily Pace Aim</span>
+              <p class="font-bold text-sm text-[#332B22] dark:text-[#E2D4BD] mt-0.5">Default Pace Target</p>
+              <p class="text-[11px] text-[#716556] dark:text-[#B4A58F] mt-1">Select your primary target pace for today's trading.</p>
+            </div>
+            <div class="grid grid-cols-3 gap-1.5 pt-1">
+              <button onclick="setPace('relaxed')" id="cfgDefaultPaceRelaxed" class="py-1.5 px-2 rounded-lg text-[11px] font-bold transition border border-[#607B5B]/40 bg-[#607B5B]/15 text-[#607B5B] dark:text-[#789272]">
+                Relaxed
+              </button>
+              <button onclick="setPace('mid')" id="cfgDefaultPaceMid" class="py-1.5 px-2 rounded-lg text-[11px] font-bold transition border border-[#CFC1AA] dark:border-[#514638] text-[#716556] dark:text-[#B4A58F]">
+                Mid
+              </button>
+              <button onclick="setPace('aggressive')" id="cfgDefaultPaceAggressive" class="py-1.5 px-2 rounded-lg text-[11px] font-bold transition border border-[#CFC1AA] dark:border-[#514638] text-[#716556] dark:text-[#B4A58F]">
+                Aggr
+              </button>
+            </div>
+          </div>
+
+          <!-- Table View Mode -->
+          <div class="p-4 rounded-2xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] flex flex-col justify-between space-y-3">
+            <div>
+              <span class="text-[10px] font-bold uppercase tracking-wider text-[#716556] dark:text-[#B4A58F] block">Ledger View</span>
+              <p class="font-bold text-sm text-[#332B22] dark:text-[#E2D4BD] mt-0.5">Table Columns</p>
+              <p class="text-[11px] text-[#716556] dark:text-[#B4A58F] mt-1" id="cfgLedgerViewStatus">Focused single target view</p>
+            </div>
+            <button onclick="toggleTableColumns()" class="w-full py-2 px-3 rounded-xl bg-[#F0E6D5] hover:bg-[#E8DDC9] dark:bg-[#352E25] dark:hover:bg-[#29241E] text-[#332B22] dark:text-[#E2D4BD] font-bold text-xs border border-[#CFC1AA] dark:border-[#514638] transition active:scale-95 shadow-xs">
+              Toggle All 3 Paces
+            </button>
+          </div>
+
+          <!-- Cloud & Export Center -->
+          <div class="p-4 rounded-2xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] flex flex-col justify-between space-y-3">
+            <div>
+              <span class="text-[10px] font-bold uppercase tracking-wider text-[#716556] dark:text-[#B4A58F] block">Data &amp; Backup</span>
+              <p class="font-bold text-sm text-[#332B22] dark:text-[#E2D4BD] mt-0.5">Multi-Device Sync</p>
+              <p class="text-[11px] text-[#716556] dark:text-[#B4A58F] mt-1">Connect Firestore realtime sync or export to Excel CSV.</p>
+            </div>
+            <button onclick="openLinkSheetModal()" class="w-full py-2 px-3 rounded-xl bg-[#617D91] hover:bg-[#506A7C] text-[#F5EBDD] dark:bg-[#7894A6] dark:hover:bg-[#617D91] dark:text-[#29241E] font-bold text-xs transition active:scale-95 shadow-xs flex items-center justify-center gap-1.5">
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z" />
+              </svg>
+              <span>Open Sync &amp; Export</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. Reset & Fresh Start -->
+      <section class="bento-card p-5 sm:p-6 border-[#CFC1AA] dark:border-[#514638] space-y-3">
+        <div class="pb-2 border-b border-[#CFC1AA] dark:border-[#514638]">
+          <h3 class="text-xs font-bold uppercase tracking-wider text-[#B86652] dark:text-[#C77B68]">Reset &amp; Start Fresh</h3>
+          <p class="text-xs text-[#716556] dark:text-[#B4A58F] mt-0.5">Safe reset actions for your local browser data. Only resets what you choose.</p>
+        </div>
 
         <div class="flex flex-wrap items-center gap-2 pt-1">
-          <button onclick="requestResetSessionEntries()" class="px-3.5 py-2 rounded-xl bg-[#B86652]/10 hover:bg-[#B86652]/20 text-[#B86652] dark:bg-[#D47F6C]/15 dark:hover:bg-[#D47F6C]/25 dark:text-[#D47F6C] border border-[#B86652]/30 dark:border-[#D47F6C]/30 text-xs font-bold transition active:scale-95">
-            ↺ Reset Session Progress (Keep Roadmap)
+          <button onclick="requestResetSessionEntries()" class="px-3.5 py-2 rounded-xl bg-[#B86652]/10 hover:bg-[#B86652]/20 text-[#B86652] dark:bg-[#C77B68]/15 dark:hover:bg-[#C77B68]/25 dark:text-[#C77B68] border border-[#B86652]/30 dark:border-[#C77B68]/30 text-xs font-bold transition active:scale-95">
+            ↺ Reset Progress to Session 1
           </button>
           <button onclick="requestClearVault()" class="px-3.5 py-2 rounded-xl bg-[#A96745]/10 hover:bg-[#A96745]/20 text-[#A96745] dark:bg-[#CB8561]/15 dark:hover:bg-[#CB8561]/25 dark:text-[#CB8561] border border-[#A96745]/30 dark:border-[#CB8561]/30 text-xs font-bold transition active:scale-95">
-            Clear Vault History
+            Clear Vault Savings History
           </button>
           <button onclick="requestRestorePresets()" class="px-3.5 py-2 rounded-xl bg-[#F5EBDD] hover:bg-[#F0E6D5] text-[#716556] dark:bg-[#41382D] dark:hover:bg-[#352E25] dark:text-[#B4A58F] border border-[#CFC1AA] dark:border-[#514638] text-xs font-semibold transition active:scale-95">
-            Restore Default 28-Session Preset
+            Restore Original 28-Session Preset
           </button>
         </div>
       </section>
@@ -2138,23 +2512,26 @@ service cloud.firestore {
     /* Tab Switching */
     function switchTab(tab) {
       activeTab = tab;
-      ['tracker', 'milestones', 'config'].forEach(t => {
+      ['tracker', 'milestones', 'stats', 'config'].forEach(t => {
         const tabEl = document.getElementById(`tabContent${capitalize(t)}`);
         const navBtn = document.getElementById(`nav-${t}`);
-        if (t === tab) {
-          tabEl.classList.remove('hidden');
-          tabEl.classList.remove('view-transition');
-          void tabEl.offsetWidth;
-          tabEl.classList.add('view-transition');
-          navBtn.className = "flex-1 sm:flex-initial px-5 sm:px-7 py-2 rounded-lg transition-all flex items-center justify-center gap-2 bg-[#F5EBDD] dark:bg-[#41382D] text-[#332B22] dark:text-[#E2D4BD] border border-[#CFC1AA] dark:border-[#514638] shadow-sm";
-        } else {
-          tabEl.classList.add('hidden');
-          navBtn.className = "flex-1 sm:flex-initial px-5 sm:px-7 py-2 rounded-lg transition-all flex items-center justify-center gap-2 text-[#716556] dark:text-[#B4A58F] hover:text-[#332B22] dark:hover:text-[#E2D4BD]";
+        if (tabEl && navBtn) {
+          if (t === tab) {
+            tabEl.classList.remove('hidden');
+            tabEl.classList.remove('view-transition');
+            void tabEl.offsetWidth;
+            tabEl.classList.add('view-transition');
+            navBtn.className = "flex-1 sm:flex-initial px-5 sm:px-7 py-2 rounded-lg transition-all flex items-center justify-center gap-2 bg-[#F5EBDD] dark:bg-[#41382D] text-[#332B22] dark:text-[#E2D4BD] border border-[#CFC1AA] dark:border-[#514638] shadow-sm";
+          } else {
+            tabEl.classList.add('hidden');
+            navBtn.className = "flex-1 sm:flex-initial px-5 sm:px-7 py-2 rounded-lg transition-all flex items-center justify-center gap-2 text-[#716556] dark:text-[#B4A58F] hover:text-[#332B22] dark:hover:text-[#E2D4BD]";
+          }
         }
       });
 
       if (tab === 'tracker') renderTracker();
       if (tab === 'milestones') renderMilestonesTab();
+      if (tab === 'stats') renderStatsTab();
       if (tab === 'config') renderConfigTab();
     }
 
@@ -2466,14 +2843,6 @@ service cloud.firestore {
       document.getElementById('targetValRelaxed').innerText = fmt(rTarget);
       document.getElementById('targetPnlRelaxed').innerText = `${rPnl >= 0 ? '+' : ''}${fmt(rPnl)} (${rPnlPct.toFixed(1)}%)`;
       const diffRelaxed = currentDesk - rTarget;
-      const statusRelaxedEl = document.getElementById('targetStatusRelaxed');
-      if (diffRelaxed >= 0) {
-        statusRelaxedEl.innerHTML = `<span class="inline-flex items-center gap-1"><svg class="w-3 h-3 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Goal Met (+${fmt(diffRelaxed)})</span></span>`;
-        statusRelaxedEl.className = "text-xs font-extrabold font-num text-[#607B5B] dark:text-[#789272]";
-      } else {
-        statusRelaxedEl.innerText = `Needs +${fmt(Math.abs(diffRelaxed))} to hit`;
-        statusRelaxedEl.className = "text-xs font-semibold font-num text-[#716556] dark:text-[#B4A58F]";
-      }
 
       // 2. Mid Box (Target Port & Day Target PnL)
       const mTarget = mVal;
@@ -2482,14 +2851,6 @@ service cloud.firestore {
       document.getElementById('targetValMid').innerText = fmt(mTarget);
       document.getElementById('targetPnlMid').innerText = `${mPnl >= 0 ? '+' : ''}${fmt(mPnl)} (${mPnlPct.toFixed(1)}%)`;
       const diffMid = currentDesk - mTarget;
-      const statusMidEl = document.getElementById('targetStatusMid');
-      if (diffMid >= 0) {
-        statusMidEl.innerHTML = `<span class="inline-flex items-center gap-1"><svg class="w-3 h-3 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Goal Met (+${fmt(diffMid)})</span></span>`;
-        statusMidEl.className = "text-xs font-extrabold font-num text-[#C2984D] dark:text-[#D0AA63]";
-      } else {
-        statusMidEl.innerText = `Needs +${fmt(Math.abs(diffMid))} to hit`;
-        statusMidEl.className = "text-xs font-semibold font-num text-[#716556] dark:text-[#B4A58F]";
-      }
 
       // 3. Aggressive Box (Target Port & Day Target PnL)
       const aTarget = aVal;
@@ -2498,29 +2859,60 @@ service cloud.firestore {
       document.getElementById('targetValAggressive').innerText = fmt(aTarget);
       document.getElementById('targetPnlAggressive').innerText = `${aPnl >= 0 ? '+' : ''}${fmt(aPnl)} (${aPnlPct.toFixed(1)}%)`;
       const diffAgg = currentDesk - aTarget;
-      const statusAggEl = document.getElementById('targetStatusAggressive');
-      if (diffAgg >= 0) {
-        statusAggEl.innerHTML = `<span class="inline-flex items-center gap-1"><svg class="w-3 h-3 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Goal Met (+${fmt(diffAgg)})</span></span>`;
-        statusAggEl.className = "text-xs font-extrabold font-num text-[#806A86] dark:text-[#9A849F]";
-      } else {
-        statusAggEl.innerText = `Needs +${fmt(Math.abs(diffAgg))} to hit`;
-        statusAggEl.className = "text-xs font-semibold font-num text-[#716556] dark:text-[#B4A58F]";
-      }
 
-      // Update Active Border & Badges on the 3 pace boxes
-      ['relaxed', 'mid', 'aggressive'].forEach(p => {
-        const card = document.getElementById(`paceCard_${p}`);
-        const badge = document.getElementById(`paceActiveBadge_${p}`);
-        if (card && badge) {
-          if (p === currentPace) {
-            badge.classList.remove('hidden');
-            if (p === 'relaxed') card.className = "bento-card p-4 sm:p-5 cursor-pointer transition-all border-2 border-[#607B5B] dark:border-[#789272] bg-[#607B5B]/10 dark:bg-[#789272]/15 shadow-warm-md space-y-2.5";
-            if (p === 'mid') card.className = "bento-card p-4 sm:p-5 cursor-pointer transition-all border-2 border-[#C2984D] dark:border-[#D0AA63] bg-[#C2984D]/10 dark:bg-[#D0AA63]/15 shadow-warm-md space-y-2.5";
-            if (p === 'aggressive') card.className = "bento-card p-4 sm:p-5 cursor-pointer transition-all border-2 border-[#806A86] dark:border-[#9A849F] bg-[#806A86]/10 dark:bg-[#9A849F]/15 shadow-warm-md space-y-2.5";
-          } else {
-            badge.classList.add('hidden');
-            card.className = "bento-card p-4 sm:p-5 cursor-pointer transition-all border border-[#CFC1AA] dark:border-[#514638] hover:border-[#B4A58F] dark:hover:border-[#716556] hover:bg-[#F0E6D5]/60 dark:hover:bg-[#352E25]/60 space-y-2.5";
-          }
+      // Update Active Border, Completion Visuals & Badges on the 3 pace boxes
+      const paceBoxConfigs = [
+        {
+          key: 'relaxed',
+          diff: diffRelaxed,
+          statusEl: document.getElementById('targetStatusRelaxed'),
+          cardEl: document.getElementById('paceCard_relaxed'),
+          activeBadgeEl: document.getElementById('paceActiveBadge_relaxed'),
+          completedBadgeEl: document.getElementById('paceCompletedBadge_relaxed'),
+          completedClass: 'pace-completed-relaxed',
+          activeBorderClass: 'border-2 border-[#607B5B] dark:border-[#789272] bg-[#607B5B]/10 dark:bg-[#789272]/15 shadow-warm-md'
+        },
+        {
+          key: 'mid',
+          diff: diffMid,
+          statusEl: document.getElementById('targetStatusMid'),
+          cardEl: document.getElementById('paceCard_mid'),
+          activeBadgeEl: document.getElementById('paceActiveBadge_mid'),
+          completedBadgeEl: document.getElementById('paceCompletedBadge_mid'),
+          completedClass: 'pace-completed-mid',
+          activeBorderClass: 'border-2 border-[#C2984D] dark:border-[#D0AA63] bg-[#C2984D]/10 dark:bg-[#D0AA63]/15 shadow-warm-md'
+        },
+        {
+          key: 'aggressive',
+          diff: diffAgg,
+          statusEl: document.getElementById('targetStatusAggressive'),
+          cardEl: document.getElementById('paceCard_aggressive'),
+          activeBadgeEl: document.getElementById('paceActiveBadge_aggressive'),
+          completedBadgeEl: document.getElementById('paceCompletedBadge_aggressive'),
+          completedClass: 'pace-completed-aggressive',
+          activeBorderClass: 'border-2 border-[#806A86] dark:border-[#9A849F] bg-[#806A86]/10 dark:bg-[#9A849F]/15 shadow-warm-md'
+        }
+      ];
+
+      paceBoxConfigs.forEach(cfg => {
+        const isCompleted = cfg.diff >= 0;
+        const isActive = (cfg.key === currentPace);
+
+        if (cfg.activeBadgeEl) {
+          cfg.activeBadgeEl.classList.toggle('hidden', !isActive);
+        }
+        if (cfg.completedBadgeEl) {
+          cfg.completedBadgeEl.classList.toggle('hidden', !isCompleted);
+        }
+
+        if (isCompleted) {
+          cfg.cardEl.className = `bento-card p-4 sm:p-5 cursor-pointer transition-all space-y-3 pace-completed ${cfg.completedClass} ${isActive ? 'ring-2 ring-[#FDFBF7] ring-offset-2 ring-offset-[#332B22] dark:ring-offset-[#29241E]' : ''}`;
+          cfg.statusEl.innerHTML = `<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-black/15 text-[#FDFBF7] font-bold text-xs"><svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Goal Met (+${fmt(cfg.diff)})</span></span>`;
+          cfg.statusEl.className = "text-xs font-extrabold font-num";
+        } else {
+          cfg.cardEl.className = `bento-card p-4 sm:p-5 cursor-pointer transition-all space-y-3 ${isActive ? cfg.activeBorderClass : 'border border-[#CFC1AA] dark:border-[#514638] bg-[#F0E6D5] dark:bg-[#352E25] hover:border-[#B4A58F] dark:hover:border-[#716556] hover:bg-[#F0E6D5]/60 dark:hover:bg-[#352E25]/60'}`;
+          cfg.statusEl.innerText = `Needs +${fmt(Math.abs(cfg.diff))} to hit`;
+          cfg.statusEl.className = "text-xs font-semibold font-num text-[#716556] dark:text-[#B4A58F]";
         }
       });
 
@@ -3384,6 +3776,336 @@ service cloud.firestore {
       `).join('');
     }
 
+    function renderStatsTab() {
+      const ladder = getActiveLadder();
+      const startBase = ladder[0]?.r || ladder[0]?.target || 120.00;
+      const finalTarget = getSessionTarget(ladder.length);
+      const currentDesk = getDeskBalance(currentSession);
+      const totalVault = getTotalVaultWithdrawn();
+      const trueWealth = currentDesk + totalVault;
+
+      let totalLogged = 0;
+      let greenDays = 0;
+      let redDays = 0;
+      let flatDays = 0;
+      let totalPnLSum = 0;
+      let bestSessionGain = -Infinity;
+      let bestSessionNum = 1;
+      let maxStreak = 0;
+      let tempStreak = 0;
+      let paceRelaxedCount = 0;
+      let paceMidCount = 0;
+      let paceAggCount = 0;
+      let paceBelowCount = 0;
+
+      ladder.forEach(row => {
+        const loggedVal = sessionLogs[row.s];
+        const hasLogged = (loggedVal !== undefined);
+        if (hasLogged) {
+          totalLogged++;
+          const prev = getPrevDeskBalance(row.s);
+          const rowSkims = vaultLedger
+            .filter(v => v.session === row.s)
+            .reduce((sum, v) => sum + (parseFloat(v.amount) || 0), 0);
+          const sessionPnL = (loggedVal + rowSkims) - prev;
+          totalPnLSum += sessionPnL;
+
+          if (sessionPnL > 0.001) {
+            greenDays++;
+            tempStreak++;
+            if (tempStreak > maxStreak) maxStreak = tempStreak;
+          } else {
+            tempStreak = 0;
+            if (sessionPnL < -0.001) redDays++;
+            else flatDays++;
+          }
+
+          if (sessionPnL > bestSessionGain) {
+            bestSessionGain = sessionPnL;
+            bestSessionNum = row.s;
+          }
+
+          const endDeskWithSkims = loggedVal + rowSkims;
+          const rVal = row.r !== undefined ? row.r : row.target;
+          const mVal = row.m !== undefined ? row.m : row.target * 1.15;
+          const aVal = row.a !== undefined ? row.a : row.target * 1.30;
+
+          if (endDeskWithSkims >= aVal) {
+            paceAggCount++;
+          } else if (endDeskWithSkims >= mVal) {
+            paceMidCount++;
+          } else if (endDeskWithSkims >= rVal) {
+            paceRelaxedCount++;
+          } else {
+            paceBelowCount++;
+          }
+        }
+      });
+
+      // Active streak
+      let activeStreak = 0;
+      for (let s = currentSession; s >= 1; s--) {
+        if (sessionLogs[s] !== undefined) {
+          const prev = getPrevDeskBalance(s);
+          const skims = vaultLedger.filter(v => v.session === s).reduce((sum, v) => sum + (parseFloat(v.amount) || 0), 0);
+          const pnl = (sessionLogs[s] + skims) - prev;
+          if (pnl > 0.001) {
+            activeStreak++;
+          } else {
+            break;
+          }
+        }
+      }
+
+      const winRate = totalLogged > 0 ? Math.round((greenDays / totalLogged) * 100) : 0;
+      const avgGain = totalLogged > 0 ? totalPnLSum / totalLogged : 0;
+      const netProfit = trueWealth - startBase;
+      const summitPct = Math.min(100, Math.max(0, (trueWealth / finalTarget) * 100));
+
+      // Level determination
+      const lvl = currentSession <= 5 ? 1 : (currentSession <= 11 ? 2 : (currentSession <= 18 ? 3 : (currentSession <= 24 ? 4 : 5)));
+      const levelTitles = {
+        1: { rank: "Rank I", title: "Base Camp Pioneer", desc: "Beginning the ascent. Solid discipline compounds exponentially." },
+        2: { rank: "Rank II", title: "Steady Climber", desc: "Building momentum. Capital preservation and patience in action." },
+        3: { rank: "Rank III", title: "Highland Navigator", desc: "Mastering the mid-ridge. Compounding acceleration taking hold." },
+        4: { rank: "Rank IV", title: "Alpine Ridge Master", desc: "High-altitude discipline. Protecting the fortress as the peak nears." },
+        5: { rank: "Rank V", title: "Summit Champion", desc: "Summit territory. Exceptional consistency and capital compounding." }
+      };
+
+      const lvlInfo = levelTitles[lvl];
+      const lvlNumEl = document.getElementById('statsLevelNum');
+      if (lvlNumEl) lvlNumEl.innerText = `LVL ${lvl}`;
+
+      const rankTitleEl = document.getElementById('statsTraderRankTitle');
+      if (rankTitleEl) rankTitleEl.innerText = lvlInfo.title;
+
+      const rankDescEl = document.getElementById('statsRankDesc');
+      if (rankDescEl) rankDescEl.innerText = lvlInfo.desc;
+
+      const streakEl = document.getElementById('statsCurrentStreak');
+      if (streakEl) {
+        streakEl.innerHTML = `
+          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2c.5 3 2.5 5 4.5 7.5A8 8 0 1 1 5 13c0-3 2-6 7-11z" />
+          </svg>
+          <span>${activeStreak > 0 ? `${activeStreak}-Session Green Streak` : 'Steady Reset & Ready'}</span>
+        `;
+      }
+
+      const discScoreEl = document.getElementById('statsDisciplineScore');
+      if (discScoreEl) {
+        let discText = "Grade A Discipline";
+        if (totalLogged > 0) {
+          if (winRate >= 75) discText = "Grade A+ Discipline";
+          else if (winRate >= 50) discText = "Grade A Discipline";
+          else if (winRate >= 35) discText = "Grade B Discipline";
+          else discText = "Rebuilding Discipline";
+        }
+        discScoreEl.innerHTML = `
+          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+          </svg>
+          <span>${discText}</span>
+        `;
+      }
+
+      const chalBadgeEl = document.getElementById('statsChallengeBadge');
+      if (chalBadgeEl) chalBadgeEl.innerText = `${ladder.length}-Session Plan • ${fmt(finalTarget)} Goal`;
+
+      const progressPct = ((currentSession / ladder.length) * 100).toFixed(1);
+      const lvlProgTextEl = document.getElementById('statsLevelProgressText');
+      if (lvlProgTextEl) lvlProgTextEl.innerText = `Session ${currentSession} of ${ladder.length} (${progressPct}%)`;
+
+      const lvlProgBarEl = document.getElementById('statsLevelProgressBar');
+      if (lvlProgBarEl) lvlProgBarEl.style.width = `${progressPct}%`;
+
+      // 6 Core Metrics
+      const winRateEl = document.getElementById('statsWinRate');
+      if (winRateEl) winRateEl.innerText = `${winRate}%`;
+
+      const winCountEl = document.getElementById('statsWinCount');
+      if (winCountEl) winCountEl.innerText = `${greenDays} green / ${totalLogged} logged`;
+
+      const totalProfitEl = document.getElementById('statsTotalProfit');
+      if (totalProfitEl) {
+        totalProfitEl.innerText = `${netProfit >= 0 ? '+' : '-'}${fmt(Math.abs(netProfit))}`;
+        totalProfitEl.className = `text-2xl sm:text-3xl font-black ${netProfit >= 0 ? 'text-[#607B5B] dark:text-[#789272]' : 'text-[#B86652] dark:text-[#C77B68]'}`;
+      }
+
+      const vaultBankedEl = document.getElementById('statsVaultBanked');
+      if (vaultBankedEl) vaultBankedEl.innerText = fmt(totalVault);
+
+      const bestGainEl = document.getElementById('statsBestGain');
+      if (bestGainEl) {
+        bestGainEl.innerText = bestSessionGain > -Infinity ? `+${fmt(bestSessionGain)}` : '$0.00';
+      }
+
+      const bestSessionNumEl = document.getElementById('statsBestSessionNum');
+      if (bestSessionNumEl) {
+        bestSessionNumEl.innerText = bestSessionGain > -Infinity ? `Session ${bestSessionNum} peak` : 'Single day peak';
+      }
+
+      const avgGainEl = document.getElementById('statsAvgGain');
+      if (avgGainEl) {
+        avgGainEl.innerText = `${avgGain >= 0 ? '+' : '-'}${fmt(Math.abs(avgGain))}`;
+        avgGainEl.className = `text-2xl sm:text-3xl font-black ${avgGain >= 0 ? 'text-[#332B22] dark:text-[#E2D4BD]' : 'text-[#B86652] dark:text-[#C77B68]'}`;
+      }
+
+      const summitPctEl = document.getElementById('statsSummitPct');
+      if (summitPctEl) summitPctEl.innerText = `${summitPct.toFixed(1)}%`;
+
+      const summitGoalEl = document.getElementById('statsSummitGoal');
+      if (summitGoalEl) summitGoalEl.innerText = `of ${fmt(finalTarget)}`;
+
+      // 7 Gamified Badges
+      const badges = [
+        {
+          id: 'first_ascent',
+          title: 'First Ascent',
+          desc: 'Recorded your very first session in the dashboard.',
+          unlocked: totalLogged >= 1,
+          progressText: totalLogged >= 1 ? 'Unlocked' : '0/1 Sessions Logged',
+          iconSvg: `<svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>`
+        },
+        {
+          id: 'house_money',
+          title: 'House Money',
+          desc: 'Banked full initial deposit into the Vault. Pure risk-free growth.',
+          unlocked: totalVault >= startBase,
+          progressText: totalVault >= startBase ? 'Unlocked' : `${fmt(totalVault)} / ${fmt(startBase)} banked`,
+          iconSvg: `<svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`
+        },
+        {
+          id: 'safety_fortress',
+          title: 'Safety Fortress',
+          desc: 'Banked $500 or more in safe vault profits.',
+          unlocked: totalVault >= 500,
+          progressText: totalVault >= 500 ? 'Unlocked' : `${fmt(totalVault)} / $500.00 banked`,
+          iconSvg: `<svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>`
+        },
+        {
+          id: 'pace_breaker',
+          title: 'Pace Breaker',
+          desc: 'Hit Mid or Aggressive pace target in any session.',
+          unlocked: (paceMidCount + paceAggCount) >= 1,
+          progressText: (paceMidCount + paceAggCount) >= 1 ? 'Unlocked' : 'Reach Mid/Aggr Target',
+          iconSvg: `<svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`
+        },
+        {
+          id: 'triple_green',
+          title: 'Triple Green',
+          desc: 'Achieved 3 consecutive profitable sessions.',
+          unlocked: maxStreak >= 3,
+          progressText: maxStreak >= 3 ? 'Unlocked' : `Best streak: ${maxStreak} / 3 in a row`,
+          iconSvg: `<svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c.5 3 2.5 5 4.5 7.5A8 8 0 1 1 5 13c0-3 2-6 7-11z"/></svg>`
+        },
+        {
+          id: 'halfway_ridge',
+          title: 'Halfway Ridge',
+          desc: 'Reached halfway point of your challenge roadmap.',
+          unlocked: currentSession >= Math.ceil(ladder.length / 2),
+          progressText: currentSession >= Math.ceil(ladder.length / 2) ? 'Unlocked' : `Session ${currentSession} of ${Math.ceil(ladder.length / 2)}`,
+          iconSvg: `<svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`
+        },
+        {
+          id: 'summit_conqueror',
+          title: 'Summit Conqueror',
+          desc: 'Reached or exceeded the final compounding target balance.',
+          unlocked: trueWealth >= finalTarget,
+          progressText: trueWealth >= finalTarget ? 'Unlocked' : `${summitPct.toFixed(1)}% to summit`,
+          iconSvg: `<svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m8 3 4 8 5-5 5 15H2L8 3z"/></svg>`
+        }
+      ];
+
+      const unlockedBadges = badges.filter(b => b.unlocked).length;
+      const badgeCountEl = document.getElementById('statsUnlockedBadgeCount');
+      if (badgeCountEl) badgeCountEl.innerText = `${unlockedBadges} / ${badges.length} Unlocked`;
+
+      const badgesContainerEl = document.getElementById('statsBadgesContainer');
+      if (badgesContainerEl) {
+        badgesContainerEl.innerHTML = badges.map(b => `
+          <div class="p-4 rounded-2xl border transition-all ${
+            b.unlocked 
+              ? 'bg-[#607B5B]/10 dark:bg-[#789272]/15 border-[#607B5B]/40 dark:border-[#789272]/40 shadow-xs' 
+              : 'bg-[#F5EBDD]/60 dark:bg-[#41382D]/30 border-[#CFC1AA]/50 dark:border-[#514638]/50 opacity-75'
+          } flex flex-col justify-between space-y-3">
+            <div class="flex items-start justify-between gap-2">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${
+                  b.unlocked 
+                    ? 'bg-[#607B5B] text-[#F5EBDD] dark:bg-[#789272] dark:text-[#29241E] shadow-xs' 
+                    : 'bg-[#CFC1AA]/40 dark:bg-[#514638]/40 text-[#716556] dark:text-[#B4A58F]'
+                }">
+                  ${b.iconSvg}
+                </div>
+                <div>
+                  <h4 class="font-bold text-xs sm:text-sm text-[#332B22] dark:text-[#E2D4BD]">${b.title}</h4>
+                  <p class="text-[11px] text-[#716556] dark:text-[#B4A58F] leading-snug mt-0.5">${b.desc}</p>
+                </div>
+              </div>
+            </div>
+            <div class="flex items-center justify-between pt-2 border-t border-[#CFC1AA]/40 dark:border-[#514638]/40 text-[11px] font-num">
+              <span class="${b.unlocked ? 'text-[#607B5B] dark:text-[#789272] font-bold' : 'text-[#716556] dark:text-[#B4A58F]'}">${b.progressText}</span>
+              ${b.unlocked 
+                ? `<span class="inline-flex items-center gap-1 font-bold text-[#607B5B] dark:text-[#789272]"><svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Unlocked</span></span>` 
+                : `<span class="inline-flex items-center gap-1 text-[#716556] dark:text-[#B4A58F]"><svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><span>Locked</span></span>`
+              }
+            </div>
+          </div>
+        `).join('');
+      }
+
+      // Pace Breakdown
+      const paceBreakdownEl = document.getElementById('statsPaceBreakdown');
+      if (paceBreakdownEl) {
+        if (totalLogged === 0) {
+          paceBreakdownEl.innerHTML = `
+            <div class="text-center py-6 text-xs text-[#716556] dark:text-[#B4A58F]">
+              Enter your session balances in the Daily Tracker to see your pace distribution.
+            </div>
+          `;
+        } else {
+          const paceRows = [
+            { label: 'Aggressive Pace', count: paceAggCount, color: 'bg-[#806A86] dark:bg-[#9A849F]', text: 'text-[#806A86] dark:text-[#9A849F]' },
+            { label: 'Mid Pace', count: paceMidCount, color: 'bg-[#C2984D] dark:bg-[#D0AA63]', text: 'text-[#C2984D] dark:text-[#D0AA63]' },
+            { label: 'Relaxed Pace', count: paceRelaxedCount, color: 'bg-[#607B5B] dark:bg-[#789272]', text: 'text-[#607B5B] dark:text-[#789272]' },
+            { label: 'Below Target', count: paceBelowCount, color: 'bg-[#B86652] dark:bg-[#C77B68]', text: 'text-[#B86652] dark:text-[#C77B68]' }
+          ];
+
+          paceBreakdownEl.innerHTML = paceRows.map(p => {
+            const pct = ((p.count / totalLogged) * 100).toFixed(0);
+            return `
+              <div class="space-y-1">
+                <div class="flex justify-between items-center text-xs">
+                  <span class="font-bold text-[#332B22] dark:text-[#E2D4BD]">${p.label}</span>
+                  <span class="font-bold ${p.text}">${p.count} sessions (${pct}%)</span>
+                </div>
+                <div class="w-full bg-[#E8DDC9] dark:bg-[#29241E] h-2 rounded-full overflow-hidden border border-[#CFC1AA] dark:border-[#514638]">
+                  <div class="${p.color} h-full rounded-full transition-all duration-300" style="width: ${pct}%"></div>
+                </div>
+              </div>
+            `;
+          }).join('');
+        }
+      }
+
+      // Climber's Compass Tactical Insight
+      const insightEl = document.getElementById('statsInsightText');
+      if (insightEl) {
+        if (totalLogged === 0) {
+          insightEl.innerText = "Welcome to the start of your compounding challenge. Focus entirely on trading your plan with zero emotional attachment. The goal of Session 1 is simple: execute cleanly and record your closing balance.";
+        } else if (totalVault >= startBase) {
+          insightEl.innerText = "You are trading on pure house money! With your initial deposit safely banked in the vault, psychological friction is eliminated. Stick to your relaxed pace targets and let compounding do the heavy lifting.";
+        } else if (activeStreak >= 3) {
+          insightEl.innerText = `Outstanding momentum with ${activeStreak} consecutive green sessions! Remember: consistency beats aggressiveness. Protect your daily base and don't feel pressured to force trades.`;
+        } else if (winRate >= 65) {
+          insightEl.innerText = `Strong discipline with a ${winRate}% green rate across ${totalLogged} sessions. Maintain your risk parameters and continue using the vault whenever you generate surplus above target.`;
+        } else {
+          insightEl.innerText = "Trading progress is non-linear. Drawdowns and flat days are normal. Keep your risk per trade small, aim for the relaxed pace, and focus on steady execution.";
+        }
+      }
+    }
+
     function renderConfigTab() {
       const select = document.getElementById('ladderProfileSelector');
       select.innerHTML = '';
@@ -3403,6 +4125,72 @@ service cloud.firestore {
       document.getElementById('cfgInfoFinal').innerText = fmt(final);
       document.getElementById('cfgInfoSessions').innerText = `${ladder.length} Sessions`;
       document.getElementById('cfgInfoMultiple').innerText = `${(final / start).toFixed(1)}x`;
+
+      // Render Available Challenges Cards
+      const listEl = document.getElementById('cfgActiveChallengeList');
+      if (listEl) {
+        listEl.innerHTML = ladderProfiles.map(p => {
+          const isActive = p.id === activeProfileId;
+          const pStart = p.sessions[0]?.r || p.sessions[0]?.target || 120.00;
+          const pFinal = p.sessions[p.sessions.length - 1]?.r || p.sessions[p.sessions.length - 1]?.target || 7000.00;
+          const pMult = (pFinal / pStart).toFixed(1);
+          return `
+            <div class="p-4 rounded-2xl border transition-all ${
+              isActive
+                ? 'bg-[#607B5B]/10 dark:bg-[#789272]/15 border-2 border-[#607B5B] dark:border-[#789272] shadow-sm'
+                : 'bg-[#F5EBDD] dark:bg-[#41382D] border-[#CFC1AA] dark:border-[#514638] hover:border-[#B4A58F]'
+            } flex flex-col justify-between space-y-3">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full ${isActive ? 'bg-[#607B5B] dark:bg-[#789272]' : 'bg-[#CFC1AA] dark:bg-[#514638]'}"></span>
+                  <h4 class="font-bold text-xs sm:text-sm text-[#332B22] dark:text-[#E2D4BD]">${p.name}</h4>
+                </div>
+                ${isActive 
+                  ? `<span class="px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-[#607B5B] text-[#F5EBDD] dark:bg-[#789272] dark:text-[#29241E]">Active</span>`
+                  : `<button onclick="switchLadderProfile('${p.id}')" class="px-2.5 py-1 rounded-lg text-[11px] font-bold bg-[#F0E6D5] dark:bg-[#352E25] hover:bg-[#E8DDC9] dark:hover:bg-[#29241E] text-[#332B22] dark:text-[#E2D4BD] border border-[#CFC1AA] dark:border-[#514638] transition active:scale-95">Switch &rarr;</button>`
+                }
+              </div>
+              <div class="grid grid-cols-3 gap-2 text-center text-xs font-num pt-1 border-t border-[#CFC1AA]/50 dark:border-[#514638]/50">
+                <div>
+                  <span class="text-[9px] uppercase font-bold text-[#716556] dark:text-[#B4A58F] block">Start</span>
+                  <span class="font-bold text-[#332B22] dark:text-[#E2D4BD]">${fmt(pStart)}</span>
+                </div>
+                <div>
+                  <span class="text-[9px] uppercase font-bold text-[#716556] dark:text-[#B4A58F] block">Target</span>
+                  <span class="font-bold text-[#607B5B] dark:text-[#789272]">${fmt(pFinal)}</span>
+                </div>
+                <div>
+                  <span class="text-[9px] uppercase font-bold text-[#716556] dark:text-[#B4A58F] block">Sessions</span>
+                  <span class="font-bold text-[#332B22] dark:text-[#E2D4BD]">${p.sessions.length} (${pMult}x)</span>
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      // Update workspace preference button styles
+      const paceBtns = {
+        relaxed: document.getElementById('cfgDefaultPaceRelaxed'),
+        mid: document.getElementById('cfgDefaultPaceMid'),
+        aggressive: document.getElementById('cfgDefaultPaceAggressive')
+      };
+      ['relaxed', 'mid', 'aggressive'].forEach(p => {
+        if (paceBtns[p]) {
+          if (p === currentPace) {
+            paceBtns[p].className = "py-1.5 px-2 rounded-lg text-[11px] font-bold transition border border-[#607B5B]/50 bg-[#607B5B]/15 text-[#607B5B] dark:text-[#789272] shadow-xs";
+          } else {
+            paceBtns[p].className = "py-1.5 px-2 rounded-lg text-[11px] font-bold transition border border-[#CFC1AA] dark:border-[#514638] text-[#716556] dark:text-[#B4A58F] hover:text-[#332B22] dark:hover:text-[#E2D4BD]";
+          }
+        }
+      });
+
+      const ledgerViewStatusEl = document.getElementById('cfgLedgerViewStatus');
+      if (ledgerViewStatusEl) {
+        ledgerViewStatusEl.innerText = showAllPacesInTable 
+          ? "Showing all 3 paces side-by-side" 
+          : "Focused single target view";
+      }
     }
 
     function switchLadderProfile(id) {
@@ -3487,6 +4275,7 @@ service cloud.firestore {
           localStorage.setItem('pgl_locked_sessions_v9', JSON.stringify(lockedSessions));
           saveTrackerState();
           renderTracker();
+          renderStatsTab();
           showToast("Session progress reset to Session 1");
           syncToFirestore();
         }
@@ -3502,6 +4291,7 @@ service cloud.firestore {
           localStorage.setItem('pgl_vault_ledger_v9', JSON.stringify(vaultLedger));
           renderMilestonesTab();
           renderTracker();
+          renderStatsTab();
           showToast("Vault history cleared");
           syncToFirestore();
         }
@@ -3519,6 +4309,7 @@ service cloud.firestore {
           localStorage.setItem('pgl_session_v9', 1);
           renderConfigTab();
           renderTracker();
+          renderStatsTab();
           showToast("Default ladder profile restored");
         }
       });
@@ -4128,6 +4919,7 @@ service cloud.firestore {
       switchWidgetTab(activeWidgetTab);
       renderTracker();
       renderMilestonesTab();
+      renderStatsTab();
       renderConfigTab();
     };
   </script>

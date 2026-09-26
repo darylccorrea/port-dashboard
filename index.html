@@ -1,0 +1,2675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Portfolio Growth Ladder &amp; Capital Vault</title>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', 'sans-serif'],
+            num: ['"Space Grotesk"', 'monospace']
+          },
+          colors: {
+            clay: {
+              50: '#FBF6EE',
+              100: '#F5EBDD',
+              200: '#EBD4B9',
+              300: '#DFBC92',
+              400: '#CE985D',
+              500: '#B87233', // warm clay amber
+              600: '#9B5B22',
+              700: '#794314',
+              800: '#562C0B',
+              900: '#381B05',
+            },
+            terracotta: {
+              50: '#FAECE8',
+              100: '#F5D7CE',
+              200: '#EAB2A2',
+              300: '#DC8A75',
+              400: '#CD654B',
+              500: '#BA4E33', // warm terracotta
+              600: '#9E3E26',
+              700: '#7A2E1A',
+              800: '#571F11',
+              900: '#381309',
+            },
+            sage: {
+              50: '#EBF3EE',
+              100: '#D5E6DB',
+              200: '#ADCBB7',
+              300: '#82AF92',
+              400: '#5A9270',
+              500: '#34704E', // earth sage
+              600: '#27583C',
+              700: '#1D402B',
+              800: '#132A1C',
+              900: '#0B170F',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Firebase App & Firestore Compat CDN (Realtime Multi-Device Sync) -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+
+  <!-- Google Fonts: Modern Clean Sans-Serif + Tabular Grotesque -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-canvas: #F8F5F0;
+      --bg-card: #FFFFFF;
+      --bg-subtle: #F2ECE2;
+      --border-card: #EAE2D5;
+      --border-subtle: #E2D7C7;
+      --ink-primary: #201A15;
+      --ink-secondary: #5A5046;
+      --ink-muted: #8C8174;
+    }
+
+    .dark {
+      --bg-canvas: #141210;
+      --bg-card: #1D1A16;
+      --bg-subtle: #27221D;
+      --border-card: #2E2822;
+      --border-subtle: #3A332B;
+      --ink-primary: #F5EFE6;
+      --ink-secondary: #C5B9AC;
+      --ink-muted: #857A6F;
+    }
+
+    body {
+      background-color: var(--bg-canvas);
+      color: var(--ink-primary);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    .font-num {
+      font-family: 'Space Grotesk', -apple-system, monospace;
+      font-feature-settings: "tnum" 1, "cv05" 1;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .bento-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: 1.5rem;
+      box-shadow: 0 4px 20px -2px rgba(32, 26, 21, 0.03), 0 1px 3px 0 rgba(32, 26, 21, 0.02);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .dark .bento-card {
+      box-shadow: 0 4px 24px -2px rgba(0, 0, 0, 0.35);
+    }
+
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    input[type=number] {
+      -moz-appearance: textfield;
+    }
+
+    .calm-scrollbar::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .calm-scrollbar::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    .calm-scrollbar::-webkit-scrollbar-thumb {
+      background: #D8CEBE;
+      border-radius: 9999px;
+    }
+    .dark .calm-scrollbar::-webkit-scrollbar-thumb {
+      background: #3E372E;
+    }
+    .calm-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: #BFAFA0;
+    }
+
+    .switch-checkbox:checked + .switch-label {
+      background-color: #34704E;
+    }
+    .switch-checkbox:checked + .switch-label .switch-toggle {
+      transform: translateX(1.25rem);
+    }
+  </style>
+  <script>
+    if (localStorage.getItem('pgl_theme_v9') === 'dark') {
+      document.documentElement.classList.add('dark');
+    }
+  </script>
+</head>
+<body class="min-h-screen pb-20 selection:bg-clay-200 dark:selection:bg-clay-800 selection:text-ink-primary">
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 pt-5 sm:pt-8 space-y-5 sm:space-y-6">
+
+    <!-- Top Bento Header -->
+    <header class="bento-card p-4 sm:p-5 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <div class="flex items-center gap-3.5">
+        <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-clay-500 to-terracotta-500 flex items-center justify-center text-white text-2xl shadow-sm shrink-0">
+          🎯
+        </div>
+        <div>
+          <div class="flex items-center gap-2 flex-wrap">
+            <h1 class="text-xl sm:text-2xl font-black tracking-tight text-stone-900 dark:text-stone-100">
+              Welcome Dcniper 👋
+            </h1>
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold bg-sage-50 text-sage-600 border border-sage-200 dark:bg-sage-900/30 dark:text-sage-300 dark:border-sage-800">
+              <span class="w-1.5 h-1.5 rounded-full bg-sage-500 animate-pulse"></span>
+              <span id="headerLiveDate">26th September</span>
+            </span>
+          </div>
+          <p class="text-xs text-stone-500 dark:text-stone-400 mt-1 flex items-center gap-2 flex-wrap">
+            <span class="font-bold text-stone-800 dark:text-stone-200">Session <span id="headerSessionNum">1</span> of <span id="headerTotalSessions">28</span></span>
+            <span class="opacity-40">•</span>
+            <span id="headerActiveLadderName" class="font-medium">28-Session Compounding Challenge</span>
+            <span class="opacity-40">•</span>
+            <span id="headerTimestamp">Ready for session</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- Quick Status Badges + Status Bar + Theme Switcher -->
+      <div class="flex items-center gap-2.5 flex-wrap">
+        
+        <!-- Header Status Bar: Cloud Sync + Link Sheet -->
+        <div class="inline-flex items-center gap-1.5 p-1 rounded-2xl bg-stone-100 dark:bg-stone-800/80 border border-stone-200 dark:border-stone-700 shadow-sm">
+          <!-- Cloud Status Indicator -->
+          <div id="cloudStatusPill" onclick="openLinkSheetModal()" class="cursor-pointer">
+            <!-- Dynamically rendered -->
+          </div>
+
+          <!-- Link Sheet Button -->
+          <button onclick="openLinkSheetModal()" id="btnLinkSheet" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-clay-500 hover:bg-clay-600 text-white font-bold text-xs transition active:scale-95 shadow-sm">
+            <span>📊</span>
+            <span>Link Sheet</span>
+          </button>
+        </div>
+
+        <!-- Vault Cash Chip -->
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-2xl bg-clay-50 dark:bg-clay-900/30 border border-clay-200 dark:border-clay-800 text-xs font-semibold shadow-sm font-num">
+          <span class="text-sm">🏦</span>
+          <div>
+            <span class="text-stone-400 uppercase text-[9px] font-bold block tracking-wider">Piggy Bank</span>
+            <span id="headerVaultBalance" class="text-clay-600 dark:text-clay-400 font-black text-xs sm:text-sm">$0.00</span>
+          </div>
+        </div>
+
+        <!-- True Wealth Chip -->
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-2xl bg-sage-50 dark:bg-sage-900/30 border border-sage-200 dark:border-sage-800 text-xs font-semibold shadow-sm font-num">
+          <span class="text-sm">💰</span>
+          <div>
+            <span class="text-stone-400 uppercase text-[9px] font-bold block tracking-wider">Total Wealth</span>
+            <span id="headerTrueWealth" class="text-sage-600 dark:text-sage-300 font-black text-xs sm:text-sm">$120.00</span>
+          </div>
+        </div>
+
+        <!-- Light / Dark Mode Toggle -->
+        <button onclick="toggleTheme()" id="themeToggleBtn" title="Toggle Light / Dark mode"
+          class="inline-flex items-center gap-1.5 px-3 py-2 rounded-2xl bg-stone-100 hover:bg-stone-200 dark:bg-stone-800 dark:hover:bg-stone-700 border border-stone-200 dark:border-stone-700 text-stone-700 dark:text-stone-200 transition active:scale-95 text-xs font-bold">
+          <span class="text-sm">🌙</span>
+          <span class="hidden sm:inline">Theme</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Bento Segmented Navigation Tabs -->
+    <nav class="flex items-center justify-between gap-3">
+      <div class="inline-flex p-1 rounded-2xl bg-stone-200/70 dark:bg-stone-800/80 border border-stone-300/50 dark:border-stone-700 text-xs font-bold w-full sm:w-auto shadow-inner">
+        <button onclick="switchTab('tracker')" id="nav-tracker" class="flex-1 sm:flex-initial px-5 sm:px-7 py-2 rounded-xl transition-all flex items-center justify-center gap-2 bg-white dark:bg-stone-900 text-stone-900 dark:text-stone-100 shadow-sm">
+          <span>📈</span>
+          <span>Daily Tracker</span>
+        </button>
+        <button onclick="switchTab('milestones')" id="nav-milestones" class="flex-1 sm:flex-initial px-5 sm:px-7 py-2 rounded-xl transition-all flex items-center justify-center gap-2 text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200">
+          <span>🏦</span>
+          <span>Capital Vault</span>
+          <span id="navMilestoneIndicator" class="w-2 h-2 rounded-full bg-clay-500 hidden animate-pulse"></span>
+        </button>
+        <button onclick="switchTab('config')" id="nav-config" class="flex-1 sm:flex-initial px-5 sm:px-7 py-2 rounded-xl transition-all flex items-center justify-center gap-2 text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200">
+          <span>⚙️</span>
+          <span>Settings</span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- ==================== TAB 1: TRACKER (BENTO GRID) ==================== -->
+    <div id="tabContentTracker" class="space-y-5 sm:space-y-6">
+
+      <!-- Bento Grid Row 1: Closing Balance Logger (Col 1-6) + Combined PnL & Weekly Progress (Col 7-12) -->
+      <section class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+        
+        <!-- Box 1: Closing Balance Logger (Cols 1-6) -->
+        <div class="lg:col-span-6 bento-card p-5 sm:p-6 flex flex-col justify-between space-y-4">
+          
+          <!-- Stepper & Live Glow Indicator -->
+          <div class="flex items-center justify-between pb-3 border-b border-stone-200 dark:border-stone-800">
+            <!-- Session Stepper -->
+            <div class="inline-flex items-center gap-1.5 bg-stone-100 dark:bg-stone-800 rounded-xl p-1 border border-stone-200 dark:border-stone-700 font-num">
+              <button onclick="navigateSession(-1)" title="Previous Session" class="w-7 h-7 rounded-lg hover:bg-white dark:hover:bg-stone-700 text-stone-800 dark:text-stone-200 flex items-center justify-center font-bold text-base transition active:scale-90">
+                ‹
+              </button>
+              <div class="px-2 flex items-center gap-1 text-xs">
+                <span class="text-stone-500 uppercase font-semibold text-[10px]">Session</span>
+                <span id="activeSessionNumDisplay" class="font-extrabold text-sm text-stone-900 dark:text-stone-100">1</span>
+                <span class="text-stone-400 text-xs">/ <span id="totalSessionsDisplay">28</span></span>
+              </div>
+              <button onclick="navigateSession(1)" title="Next Session" class="w-7 h-7 rounded-lg hover:bg-white dark:hover:bg-stone-700 text-stone-800 dark:text-stone-200 flex items-center justify-center font-bold text-base transition active:scale-90">
+                ›
+              </button>
+            </div>
+
+            <!-- Glowing Live Status Tag -->
+            <div id="sessionLiveStatusTag">
+              <!-- Dynamically populated: Green glowing dot when live, lock icon when confirmed -->
+            </div>
+          </div>
+
+          <!-- Main Input Section -->
+          <div>
+            <div class="flex items-center justify-between mb-1.5">
+              <label for="sessionBalanceInput" class="text-xs font-bold uppercase tracking-wider text-stone-500 dark:text-stone-400 flex items-center gap-1.5">
+                <span>Closing Balance</span>
+                <span class="text-[10px] text-stone-400 font-normal">(Today's End Balance)</span>
+              </label>
+              <span class="text-xs text-stone-400">
+                Started with: <strong id="prevSessionBalLabel" class="text-stone-800 dark:text-stone-200 font-num font-bold">$120.00</strong>
+              </span>
+            </div>
+
+            <div class="relative group">
+              <span class="absolute left-4 top-3 text-stone-400 dark:text-stone-500 text-2xl font-bold font-num select-none">$</span>
+              <input type="number" step="0.01" id="sessionBalanceInput" placeholder="0.00" oninput="handleBalanceInput(this.value)"
+                class="w-full bg-stone-50 dark:bg-stone-900/60 border border-stone-200 dark:border-stone-700 focus:border-sage-500 focus:bg-white dark:focus:bg-stone-900 rounded-2xl pl-10 pr-4 py-3 font-num text-3xl sm:text-4xl font-black text-stone-900 dark:text-stone-100 focus:outline-none transition shadow-inner" />
+            </div>
+
+            <p id="executionTimestampDisplay" class="text-[11px] text-stone-400 dark:text-stone-500 font-num mt-2 flex items-center gap-1">
+              <span>🕒</span>
+              <span>Timestamp: In progress</span>
+            </p>
+          </div>
+
+          <!-- Action Buttons Bar -->
+          <div class="pt-3 border-t border-stone-200 dark:border-stone-800 flex items-center justify-between gap-2 flex-wrap">
+            <button onclick="fillTargetForActiveSession()" class="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-sage-50 hover:bg-sage-100 text-sage-700 dark:bg-sage-900/30 dark:hover:bg-sage-900/50 dark:text-sage-300 font-bold transition active:scale-95 border border-sage-200 dark:border-sage-800 text-xs">
+              <span>✨</span>
+              <span>Fill Active Target (<span id="btnTargetPreview" class="font-num">$120.00</span>)</span>
+            </button>
+
+            <!-- Lock / Unlock Session Button -->
+            <button onclick="toggleLockActiveSession()" id="btnLockSession" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-clay-500 hover:bg-clay-600 text-white font-bold transition active:scale-95 text-xs shadow-sm">
+              <span>🔒</span>
+              <span>Lock In Session</span>
+            </button>
+          </div>
+
+        </div>
+
+        <!-- Box 2: Combined Session PnL & Weekly Milestone Progression (Cols 7-12) -->
+        <div class="lg:col-span-6 bento-card p-5 sm:p-6 flex flex-col justify-between space-y-4">
+          
+          <!-- Top Half: Today's Profit / Loss -->
+          <div class="space-y-1.5 pb-4 border-b border-stone-200 dark:border-stone-800">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold uppercase tracking-wider text-stone-500 dark:text-stone-400">
+                Today's Profit / Loss
+              </span>
+              <span class="text-xs font-num font-semibold text-stone-400">
+                Active Goal: <strong id="sessionTargetValDisplay" class="text-stone-700 dark:text-stone-300">$120.00</strong>
+              </span>
+            </div>
+
+            <div class="flex items-baseline gap-3">
+              <div class="text-3xl sm:text-4xl font-black font-num tracking-tight" id="sessionPnlDollar">
+                $0.00
+              </div>
+              <div class="text-sm font-bold font-num" id="sessionPnlPct">
+                0.00% today
+              </div>
+            </div>
+
+            <p class="text-xs text-stone-500 dark:text-stone-400 font-medium pt-1" id="sessionPnlVibe">
+              🌱 Clean slate! Enter today's closing balance to see your score.
+            </p>
+          </div>
+
+          <!-- Bottom Half: Weekly Milestone Progress -->
+          <div class="space-y-2.5">
+            <div class="flex items-center justify-between flex-wrap gap-2">
+              <div class="flex items-center gap-1.5">
+                <span class="text-base">🏁</span>
+                <span class="text-xs font-bold text-stone-800 dark:text-stone-200" id="weeklyMilestoneLabel">
+                  Week 1 Checkpoint: $1,000.00
+                </span>
+              </div>
+              <div id="weeklyDeltaBadge">
+                <!-- Dynamically populated: Ahead or Behind badge -->
+              </div>
+            </div>
+
+            <!-- Progression Bar -->
+            <div>
+              <div class="w-full bg-stone-100 dark:bg-stone-800 h-3 rounded-full overflow-hidden p-0.5 border border-stone-200 dark:border-stone-700">
+                <div id="weeklyProgressBar" class="bg-gradient-to-r from-clay-400 via-clay-500 to-sage-500 h-full rounded-full transition-all duration-300" style="width: 0%"></div>
+              </div>
+              <div class="flex items-center justify-between text-[11px] text-stone-400 font-num mt-1">
+                <span id="weeklyProgressPctLabel">0% to milestone</span>
+                <span id="cumulativeBasePnl">+$0.00 vs $120 Base</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- Bento Grid Row 2: 3 Bento Boxes for Daily Targets (Relaxed, Mid, Aggressive) -->
+      <section class="space-y-2">
+        <div class="flex items-center justify-between px-1">
+          <h2 class="text-xs font-bold uppercase tracking-wider text-stone-500 dark:text-stone-400 flex items-center gap-1.5">
+            <span>🎯 Daily Pace Targets</span>
+            <span class="font-normal text-[11px] text-stone-400">(Click any card to switch your active pace)</span>
+          </h2>
+          <span class="text-[11px] text-stone-400 font-num">Session <span id="targetCardSessionNum">1</span></span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          
+          <!-- Target Box 1: Relaxed -->
+          <div id="paceCard_relaxed" onclick="setPace('relaxed')" class="bento-card p-5 cursor-pointer transition-all border border-stone-200 dark:border-stone-800 hover:border-sage-400 hover:shadow-md space-y-3">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="text-xl">☕</span>
+                <div>
+                  <h3 class="text-sm font-extrabold text-stone-900 dark:text-stone-100">Relaxed Pace</h3>
+                  <span class="text-[10px] text-stone-400 font-semibold">$7,000 Finish</span>
+                </div>
+              </div>
+              <span id="paceActiveBadge_relaxed" class="hidden px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-sage-500 text-white shadow-sm">
+                Active
+              </span>
+            </div>
+
+            <div class="py-1">
+              <div class="text-2xl font-black font-num text-sage-600 dark:text-sage-400" id="targetValRelaxed">
+                $120.00
+              </div>
+              <div class="text-xs font-semibold mt-0.5" id="targetStatusRelaxed">
+                Goal Met
+              </div>
+            </div>
+
+            <p class="text-[11px] text-stone-500 dark:text-stone-400 pt-2 border-t border-stone-100 dark:border-stone-800">
+              Chill &amp; steady growth. Minimal drawdown stress, great for choppy market conditions.
+            </p>
+          </div>
+
+          <!-- Target Box 2: Mid (Ideal) -->
+          <div id="paceCard_mid" onclick="setPace('mid')" class="bento-card p-5 cursor-pointer transition-all border border-stone-200 dark:border-stone-800 hover:border-clay-400 hover:shadow-md space-y-3">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="text-xl">⚡</span>
+                <div>
+                  <h3 class="text-sm font-extrabold text-stone-900 dark:text-stone-100">Mid Pace</h3>
+                  <span class="text-[10px] text-stone-400 font-semibold">$12,600 Finish</span>
+                </div>
+              </div>
+              <span id="paceActiveBadge_mid" class="hidden px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-clay-500 text-white shadow-sm">
+                Active
+              </span>
+            </div>
+
+            <div class="py-1">
+              <div class="text-2xl font-black font-num text-clay-600 dark:text-clay-400" id="targetValMid">
+                $120.00
+              </div>
+              <div class="text-xs font-semibold mt-0.5" id="targetStatusMid">
+                Goal Met
+              </div>
+            </div>
+
+            <p class="text-[11px] text-stone-500 dark:text-stone-400 pt-2 border-t border-stone-100 dark:border-stone-800">
+              The sweet spot. Balanced growth sprint for solid setups without reckless over-trading.
+            </p>
+          </div>
+
+          <!-- Target Box 3: Aggressive -->
+          <div id="paceCard_aggressive" onclick="setPace('aggressive')" class="bento-card p-5 cursor-pointer transition-all border border-stone-200 dark:border-stone-800 hover:border-terracotta-400 hover:shadow-md space-y-3">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="text-xl">🔥</span>
+                <div>
+                  <h3 class="text-sm font-extrabold text-stone-900 dark:text-stone-100">Aggressive Pace</h3>
+                  <span class="text-[10px] text-stone-400 font-semibold">$17,500 Finish</span>
+                </div>
+              </div>
+              <span id="paceActiveBadge_aggressive" class="hidden px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-terracotta-500 text-white shadow-sm">
+                Active
+              </span>
+            </div>
+
+            <div class="py-1">
+              <div class="text-2xl font-black font-num text-terracotta-600 dark:text-terracotta-400" id="targetValAggressive">
+                $120.00
+              </div>
+              <div class="text-xs font-semibold mt-0.5" id="targetStatusAggressive">
+                Goal Met
+              </div>
+            </div>
+
+            <p class="text-[11px] text-stone-500 dark:text-stone-400 pt-2 border-t border-stone-100 dark:border-stone-800">
+              High turbo compounding. Fast-lane growth suited for trending runs and A+ high-conviction trades.
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Optional Milestone Skim Alert (Collapsible Warm Bento Banner) -->
+      <section id="skimAlertBox" class="hidden bento-card p-4 sm:p-5 bg-gradient-to-r from-clay-50/80 to-terracotta-50/80 dark:from-clay-950/40 dark:to-terracotta-950/40 border-clay-300 dark:border-clay-800 space-y-2.5">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="text-xl">💡</span>
+            <h3 class="text-xs sm:text-sm font-bold uppercase tracking-wider text-clay-700 dark:text-clay-300">
+              Profit Skim Recommended!
+            </h3>
+          </div>
+          <span id="skimAlertSurplusLabel" class="text-xs font-bold font-num text-clay-700 dark:text-clay-300 px-2.5 py-0.5 rounded-full bg-clay-100 dark:bg-clay-900 border border-clay-300 dark:border-clay-700">
+            Extra Profits Detected
+          </span>
+        </div>
+        <p class="text-xs text-clay-800 dark:text-clay-200" id="skimAlertText">
+          You are ahead of your target! Bank some cash into your Vault so your profits are 100% safe from future market pullbacks.
+        </p>
+        <div class="pt-1 flex items-center gap-2 flex-wrap">
+          <button onclick="triggerQuickSkimPrompt()" class="px-4 py-2 rounded-xl bg-clay-600 hover:bg-clay-700 text-white text-xs font-bold font-num transition active:scale-95 shadow-sm">
+            Quick Skim into Vault
+          </button>
+          <button onclick="dismissSkimAlert()" class="px-3.5 py-2 rounded-xl bg-transparent hover:bg-stone-200/50 dark:hover:bg-stone-800 text-clay-700 dark:text-clay-300 text-xs font-semibold transition">
+            Dismiss for today
+          </button>
+        </div>
+      </section>
+
+      <!-- Compounding Milestones Progress -->
+      <section class="bento-card p-5 sm:p-6 space-y-4">
+        <div class="flex items-center justify-between">
+          <div>
+            <h2 class="text-xs sm:text-sm font-bold uppercase tracking-wider text-stone-900 dark:text-stone-100">
+              Cycle Checkpoints
+            </h2>
+            <p class="text-xs text-stone-500 dark:text-stone-400 mt-0.5">Your journey from $120 to your final goal</p>
+          </div>
+          <span class="text-sm font-num font-bold text-sage-600 dark:text-sage-400" id="overallCycleCompletionLabel">
+            0.0% Complete
+          </span>
+        </div>
+
+        <!-- Phase Cards Grid -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3" id="milestonesCardGrid">
+          <!-- Dynamically populated via renderMilestoneCards -->
+        </div>
+      </section>
+
+      <!-- Bento Master Session Ledger Table -->
+      <section class="bento-card overflow-hidden">
+        <div class="p-4 sm:p-5 border-b border-stone-200 dark:border-stone-800 flex flex-wrap items-center justify-between gap-3 bg-stone-50/50 dark:bg-stone-900/30">
+          <div>
+            <h3 class="text-base font-extrabold text-stone-900 dark:text-stone-100">Session History &amp; Target Ledger</h3>
+            <p class="text-xs text-stone-500 dark:text-stone-400 mt-0.5">Click any row to jump to that session • Vault savings never count as losses</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <!-- Toggle All Paces Button -->
+            <button onclick="toggleTableColumns()" id="btnToggleAllPaces" class="px-3 py-1.5 rounded-xl bg-white hover:bg-stone-100 dark:bg-stone-800 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-200 border border-stone-200 dark:border-stone-700 font-bold text-xs transition shadow-sm active:scale-95">
+              <span>📊 Show All Paces</span>
+            </button>
+            <button onclick="copySessionTable()" class="px-3 py-1.5 rounded-xl bg-white hover:bg-stone-100 dark:bg-stone-800 dark:hover:bg-stone-700 text-stone-800 dark:text-stone-200 border border-stone-200 dark:border-stone-700 font-bold text-xs transition shadow-sm active:scale-95 font-num">
+              📋 Copy TSV
+            </button>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto calm-scrollbar max-h-[480px]">
+          <table class="w-full text-left text-xs sm:text-sm border-collapse">
+            <thead class="sticky top-0 bg-stone-100 dark:bg-stone-800/90 backdrop-blur-sm text-stone-600 dark:text-stone-300 uppercase tracking-wider text-[10px] sm:text-[11px] border-b border-stone-200 dark:border-stone-700 z-10 font-bold">
+              <tr id="tableHeaderRow">
+                <th class="py-3 px-3 sm:px-4">Session</th>
+                <th class="py-3 px-3 sm:px-4">Date</th>
+                <th class="py-3 px-3 sm:px-4">Closing Balance</th>
+                <th class="py-3 px-3 sm:px-4">Day Profit</th>
+                <th class="py-3 px-3 sm:px-4">Pace Status</th>
+                <th class="py-3 px-3 sm:px-4" id="thActiveTarget">Active Target</th>
+                <!-- Optional Multi-Pace Columns -->
+                <th class="py-3 px-3 sm:px-4 hidden multi-pace-col">Relaxed</th>
+                <th class="py-3 px-3 sm:px-4 hidden multi-pace-col">Mid</th>
+                <th class="py-3 px-3 sm:px-4 hidden multi-pace-col">Aggressive</th>
+                <th class="py-3 px-3 sm:px-4">Notes</th>
+              </tr>
+            </thead>
+            <tbody id="sessionLedgerBody" class="divide-y divide-stone-100 dark:divide-stone-800/60 font-num">
+              <!-- Dynamically populated via renderMasterTable -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- ==================== TAB 2: CAPITAL VAULT ==================== -->
+    <div id="tabContentMilestones" class="hidden space-y-5 sm:space-y-6">
+
+      <!-- Settings & Enable Toggle Bento Card -->
+      <section class="bento-card p-5 sm:p-6 space-y-5">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between pb-4 border-b border-stone-200 dark:border-stone-800 gap-3">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="text-xl">🏦</span>
+              <h2 class="text-base sm:text-lg font-bold text-stone-900 dark:text-stone-100">
+                Safe Piggy Bank &amp; Bill Vault
+              </h2>
+            </div>
+            <p class="text-xs text-stone-500 dark:text-stone-400 mt-0.5">
+              Secure real-world cash for personal bills &amp; life goals without disturbing trading psychology.
+            </p>
+          </div>
+
+          <!-- Master Feature Toggle -->
+          <div class="flex items-center gap-3">
+            <span class="text-xs font-bold text-stone-700 dark:text-stone-300">Enable Skim Alerts:</span>
+            <div class="relative inline-block w-12 h-6 select-none transition duration-200 ease-in">
+              <input type="checkbox" id="milestoneToggleCheckbox" onchange="toggleMilestoneFeature(this.checked)"
+                class="switch-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer border-stone-300 dark:border-stone-700" />
+              <label for="milestoneToggleCheckbox" class="switch-label block overflow-hidden h-6 rounded-full bg-stone-300 dark:bg-stone-700 cursor-pointer transition-colors duration-200"></label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Strategy & Targets Config Form -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+          <div>
+            <label class="block font-bold text-stone-700 dark:text-stone-300 uppercase text-[10px] tracking-wider">
+              Goal Target ($)
+            </label>
+            <div class="relative mt-1">
+              <span class="absolute left-3 top-2 text-stone-400 font-bold font-num">$</span>
+              <input type="number" step="10" id="cfgMilestoneGoal" value="1500" onchange="saveMilestoneConfig()"
+                class="w-full bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-700 rounded-xl pl-8 pr-3 py-2 text-sm font-bold font-num text-stone-900 dark:text-stone-100 focus:outline-none focus:border-sage-500" />
+            </div>
+            <span class="text-[10px] text-stone-400 mt-1 block">e.g. $1,500 for bills / rent / debt</span>
+          </div>
+
+          <div>
+            <label class="block font-bold text-stone-700 dark:text-stone-300 uppercase text-[10px] tracking-wider">
+              Trading Capital Floor ($)
+            </label>
+            <div class="relative mt-1">
+              <span class="absolute left-3 top-2 text-stone-400 font-bold font-num">$</span>
+              <input type="number" step="10" id="cfgDeskReserve" value="1000" onchange="saveMilestoneConfig()"
+                class="w-full bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-700 rounded-xl pl-8 pr-3 py-2 text-sm font-bold font-num text-stone-900 dark:text-stone-100 focus:outline-none focus:border-sage-500" />
+            </div>
+            <span class="text-[10px] text-stone-400 mt-1 block">Trading bag minimum to keep untouched</span>
+          </div>
+
+          <div>
+            <label class="block font-bold text-stone-700 dark:text-stone-300 uppercase text-[10px] tracking-wider">
+              Skimming Style
+            </label>
+            <select id="cfgSkimStrategy" onchange="saveMilestoneConfig()"
+              class="w-full mt-1 bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-700 rounded-xl px-3 py-2 text-xs font-semibold text-stone-900 dark:text-stone-100 focus:outline-none focus:border-sage-500">
+              <option value="gradual">Gradual (Skim 25% on green days)</option>
+              <option value="checkpoints">Checkpoints ($450 &rarr; $100, $900 &rarr; $400)</option>
+              <option value="custom">Manual (I choose when to skim)</option>
+            </select>
+            <span class="text-[10px] text-stone-400 mt-1 block">Controls suggestions in your tracker</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Bento Cards: Banked Cash, True Wealth, Goal Progress -->
+      <section class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <!-- Banked Cash Bento Card -->
+        <div class="bento-card p-5 bg-gradient-to-br from-clay-50/70 to-clay-100/40 dark:from-clay-950/40 dark:to-clay-900/20 border-clay-200 dark:border-clay-800 space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold uppercase tracking-wider text-clay-700 dark:text-clay-300">Safely Banked</span>
+            <span id="vaultLogsCount" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-clay-500 text-white font-num">0 Skims</span>
+          </div>
+          <div class="text-3xl font-black font-num text-clay-600 dark:text-clay-300" id="vaultTotalWithdrawnVal">$0.00</div>
+          <p class="text-xs text-clay-800/80 dark:text-clay-400">Cash secured off the desk, safe from drawdowns</p>
+        </div>
+
+        <!-- True Wealth Bento Card -->
+        <div class="bento-card p-5 bg-gradient-to-br from-sage-50/70 to-sage-100/40 dark:from-sage-950/40 dark:to-sage-900/20 border-sage-200 dark:border-sage-800 space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold uppercase tracking-wider text-sage-700 dark:text-sage-300">Total Net Wealth</span>
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-sage-500 text-white font-num">Desk + Vault</span>
+          </div>
+          <div class="text-3xl font-black font-num text-sage-600 dark:text-sage-300" id="vaultTrueWealthVal">$120.00</div>
+          <p class="text-xs text-sage-800/80 dark:text-sage-400">Your true total net worth grown from $120</p>
+        </div>
+
+        <!-- Goal Progress Bento Card -->
+        <div class="bento-card p-5 space-y-2 flex flex-col justify-between">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold uppercase tracking-wider text-stone-500 dark:text-stone-400">Goal Progress</span>
+            <span id="vaultGoalPercent" class="text-xs font-bold font-num text-clay-600 dark:text-clay-400">0.0%</span>
+          </div>
+          <div class="w-full bg-stone-100 dark:bg-stone-800 h-2.5 rounded-full overflow-hidden">
+            <div id="vaultProgressBar" class="bg-clay-500 h-full rounded-full transition-all duration-300" style="width: 0%"></div>
+          </div>
+          <p class="text-[11px] text-stone-500 dark:text-stone-400 font-num" id="vaultGoalSummary">
+            $0.00 banked of $1,500.00 target
+          </p>
+        </div>
+      </section>
+
+      <!-- Ledger & Skim Form Bento Grid -->
+      <section class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+        <!-- New Manual Skim Form Card -->
+        <div class="bento-card p-5 space-y-4">
+          <div>
+            <h3 class="text-sm font-bold text-stone-900 dark:text-stone-100">Move Money to Vault</h3>
+            <p class="text-xs text-stone-500 dark:text-stone-400 mt-0.5">Move profits off desk into your Vault safe account.</p>
+          </div>
+
+          <form onsubmit="handleManualSkimSubmit(event)" class="space-y-3.5 text-xs">
+            <div>
+              <label class="block font-bold text-stone-700 dark:text-stone-300 uppercase text-[10px]">Skim Amount ($)</label>
+              <div class="relative mt-1">
+                <span class="absolute left-3 top-2 text-stone-400 font-bold font-num">$</span>
+                <input type="number" step="0.01" min="0.01" id="skimFormAmount" required placeholder="100.00"
+                  class="w-full bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-700 rounded-xl pl-8 pr-3 py-2 font-num font-bold text-sm text-stone-900 dark:text-stone-100 focus:outline-none focus:border-sage-500" />
+              </div>
+              <!-- Quick Chips -->
+              <div class="flex items-center gap-1.5 mt-2 flex-wrap">
+                <button type="button" onclick="setSkimQuickAmount(25)" class="px-2 py-0.5 rounded-lg bg-stone-100 hover:bg-stone-200 dark:bg-stone-800 dark:hover:bg-stone-700 font-num text-[11px] text-stone-700 dark:text-stone-300">+$25</button>
+                <button type="button" onclick="setSkimQuickAmount(50)" class="px-2 py-0.5 rounded-lg bg-stone-100 hover:bg-stone-200 dark:bg-stone-800 dark:hover:bg-stone-700 font-num text-[11px] text-stone-700 dark:text-stone-300">+$50</button>
+                <button type="button" onclick="setSkimQuickAmount(100)" class="px-2 py-0.5 rounded-lg bg-stone-100 hover:bg-stone-200 dark:bg-stone-800 dark:hover:bg-stone-700 font-num text-[11px] text-stone-700 dark:text-stone-300">+$100</button>
+                <button type="button" onclick="setSkimQuickAmount(250)" class="px-2 py-0.5 rounded-lg bg-stone-100 hover:bg-stone-200 dark:bg-stone-800 dark:hover:bg-stone-700 font-num text-[11px] text-stone-700 dark:text-stone-300">+$250</button>
+              </div>
+            </div>
+
+            <div>
+              <label class="block font-bold text-stone-700 dark:text-stone-300 uppercase text-[10px]">Date / Time</label>
+              <input type="datetime-local" id="skimFormDateTime" required
+                class="w-full mt-1 bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-700 rounded-xl px-3 py-2 font-num text-xs text-stone-900 dark:text-stone-100 focus:outline-none focus:border-sage-500" />
+            </div>
+
+            <div>
+              <label class="block font-bold text-stone-700 dark:text-stone-300 uppercase text-[10px]">What is this for?</label>
+              <input type="text" id="skimFormNote" placeholder="e.g. Electric bill, emergency savings, rent"
+                class="w-full mt-1 bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-700 rounded-xl px-3 py-2 text-xs text-stone-900 dark:text-stone-100 focus:outline-none focus:border-sage-500" />
+            </div>
+
+            <button type="submit" class="w-full py-2.5 bg-clay-500 hover:bg-clay-600 text-white font-bold text-xs rounded-xl transition active:scale-95 shadow-sm">
+              + Transfer Cash to Vault
+            </button>
+          </form>
+        </div>
+
+        <!-- History Table of Skimmed Vault Entries -->
+        <div class="lg:col-span-2 bento-card p-5 flex flex-col justify-between space-y-4">
+          <div class="flex items-center justify-between pb-3 border-b border-stone-200 dark:border-stone-800">
+            <h3 class="text-sm font-bold text-stone-900 dark:text-stone-100">Vault Piggy Bank History</h3>
+            <span class="text-xs text-stone-500 font-num">Safe &amp; Protected</span>
+          </div>
+
+          <div id="vaultHistoryContainer" class="calm-scrollbar overflow-y-auto max-h-[320px] space-y-2.5 flex-grow pr-1">
+            <!-- Dynamically populated via renderMilestonesTab -->
+          </div>
+
+          <div class="text-[11px] text-stone-400 pt-3 border-t border-stone-200 dark:border-stone-800 flex items-center justify-between">
+            <span>Money here is safe and never penalizes trading win rate.</span>
+            <button onclick="switchTab('tracker')" class="font-bold text-sage-600 dark:text-sage-400 hover:underline">
+              &larr; Back to Daily Tracker
+            </button>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- ==================== TAB 3: CONFIG & LADDER ==================== -->
+    <div id="tabContentConfig" class="hidden space-y-5 sm:space-y-6">
+
+      <!-- Active Ladder Profile Switcher Card -->
+      <section class="bento-card p-5 sm:p-6 space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between pb-3 border-b border-stone-200 dark:border-stone-800 gap-3">
+          <div>
+            <h2 class="text-base font-bold text-stone-900 dark:text-stone-100">Compounding Challenge Profile</h2>
+            <p class="text-xs text-stone-500 dark:text-stone-400 mt-0.5">Switch between saved ladders or build a custom compounding roadmap.</p>
+          </div>
+          <div>
+            <select id="ladderProfileSelector" onchange="switchLadderProfile(this.value)"
+              class="bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-700 rounded-xl px-3 py-2 text-xs font-bold text-stone-900 dark:text-stone-100 focus:outline-none focus:border-sage-500">
+              <!-- Dynamically populated -->
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs font-num">
+          <div class="p-3.5 rounded-2xl bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-800">
+            <span class="text-stone-400 block text-[10px] uppercase font-bold">Base Start</span>
+            <strong class="text-base text-stone-900 dark:text-stone-100" id="cfgInfoStart">$120.00</strong>
+          </div>
+          <div class="p-3.5 rounded-2xl bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-800">
+            <span class="text-stone-400 block text-[10px] uppercase font-bold">Final Goal Target</span>
+            <strong class="text-base text-sage-600 dark:text-sage-400" id="cfgInfoFinal">$7,000.00</strong>
+          </div>
+          <div class="p-3.5 rounded-2xl bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-800">
+            <span class="text-stone-400 block text-[10px] uppercase font-bold">Total Sessions</span>
+            <strong class="text-base text-stone-900 dark:text-stone-100" id="cfgInfoSessions">28 Sessions</strong>
+          </div>
+          <div class="p-3.5 rounded-2xl bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-800">
+            <span class="text-stone-400 block text-[10px] uppercase font-bold">Multiplier</span>
+            <strong class="text-base text-clay-600 dark:text-clay-400" id="cfgInfoMultiple">58.3x</strong>
+          </div>
+        </div>
+      </section>
+
+      <!-- Custom Ladder Generator Card -->
+      <section class="bento-card p-5 sm:p-6 space-y-4">
+        <div>
+          <h3 class="text-sm font-bold text-stone-900 dark:text-stone-100 uppercase tracking-wider">Custom Roadmap Builder</h3>
+          <p class="text-xs text-stone-500 dark:text-stone-400 mt-0.5">Generate a custom compounding ladder for any starting balance, target, or session count.</p>
+        </div>
+
+        <form onsubmit="handleGenerateLadderSubmit(event)" class="space-y-4 text-xs">
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
+            <div>
+              <label class="block font-bold text-stone-700 dark:text-stone-300 uppercase text-[10px] tracking-wider">Challenge Name</label>
+              <input type="text" id="genName" required placeholder="e.g. 20-Day $150 to $5K Sprint"
+                class="w-full mt-1 bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-700 rounded-xl px-3 py-2 text-xs font-semibold text-stone-900 dark:text-stone-100 focus:outline-none focus:border-sage-500" />
+            </div>
+
+            <div>
+              <label class="block font-bold text-stone-700 dark:text-stone-300 uppercase text-[10px] tracking-wider">Starting Balance ($)</label>
+              <input type="number" step="0.01" min="1" id="genBase" required value="150"
+                class="w-full mt-1 bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-700 rounded-xl px-3 py-2 font-num font-bold text-xs text-stone-900 dark:text-stone-100 focus:outline-none focus:border-sage-500" />
+            </div>
+
+            <div>
+              <label class="block font-bold text-stone-700 dark:text-stone-300 uppercase text-[10px] tracking-wider">Final Target ($)</label>
+              <input type="number" step="1" min="1" id="genTarget" required value="2500"
+                class="w-full mt-1 bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-700 rounded-xl px-3 py-2 font-num font-bold text-xs text-stone-900 dark:text-stone-100 focus:outline-none focus:border-sage-500" />
+            </div>
+
+            <div>
+              <label class="block font-bold text-stone-700 dark:text-stone-300 uppercase text-[10px] tracking-wider">Number of Sessions</label>
+              <input type="number" step="1" min="3" max="100" id="genSessions" required value="14"
+                class="w-full mt-1 bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-700 rounded-xl px-3 py-2 font-num font-bold text-xs text-stone-900 dark:text-stone-100 focus:outline-none focus:border-sage-500" />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+            <div>
+              <label class="block font-bold text-stone-700 dark:text-stone-300 uppercase text-[10px] tracking-wider">Compounding Curve Style</label>
+              <select id="genCurveType"
+                class="w-full mt-1 bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-700 rounded-xl px-3 py-2 text-xs font-semibold text-stone-900 dark:text-stone-100 focus:outline-none focus:border-sage-500">
+                <option value="decay">Decaying Phased Curve (High velocity early &rarr; conservative late)</option>
+                <option value="smooth">Smooth Constant Compound</option>
+              </select>
+            </div>
+
+            <div class="flex items-end">
+              <button type="submit" class="w-full py-2.5 bg-sage-500 hover:bg-sage-600 text-white font-bold text-xs rounded-xl transition active:scale-95 shadow-sm">
+                + Create &amp; Activate Roadmap
+              </button>
+            </div>
+          </div>
+        </form>
+      </section>
+
+      <!-- Reset Operations Card -->
+      <section class="bento-card p-5 border-stone-200 dark:border-stone-800 space-y-3">
+        <h3 class="text-xs font-bold uppercase tracking-wider text-terracotta-600 dark:text-terracotta-400">Reset &amp; Start Fresh</h3>
+        <p class="text-xs text-stone-500 dark:text-stone-400">Actions take effect immediately on your local browser data.</p>
+
+        <div class="flex flex-wrap items-center gap-2 pt-1">
+          <button onclick="requestResetSessionEntries()" class="px-3.5 py-2 rounded-xl bg-terracotta-50 hover:bg-terracotta-100 text-terracotta-600 dark:bg-terracotta-900/30 dark:hover:bg-terracotta-900/50 dark:text-terracotta-300 border border-terracotta-200 dark:border-terracotta-800 text-xs font-bold transition active:scale-95">
+            ↺ Reset Session Progress (Keep Roadmap)
+          </button>
+          <button onclick="requestClearVault()" class="px-3.5 py-2 rounded-xl bg-clay-50 hover:bg-clay-100 text-clay-600 dark:bg-clay-900/30 dark:hover:bg-clay-900/50 dark:text-clay-300 border border-clay-200 dark:border-clay-800 text-xs font-bold transition active:scale-95">
+            Clear Vault History
+          </button>
+          <button onclick="requestRestorePresets()" class="px-3.5 py-2 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-700 dark:bg-stone-800 dark:hover:bg-stone-700 dark:text-stone-300 border border-stone-200 dark:border-stone-700 text-xs font-semibold transition active:scale-95">
+            Restore Default 28-Session Preset
+          </button>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- Sheet Sync & Firebase Cloud Modal -->
+    <div id="sheetSyncModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm hidden transition-opacity duration-200">
+      <div class="bg-white dark:bg-stone-900 rounded-3xl max-w-xl w-full p-6 sm:p-7 shadow-2xl border border-stone-200 dark:border-stone-800 space-y-4 calm-scrollbar max-h-[90vh] overflow-y-auto">
+        
+        <!-- Modal Header -->
+        <div class="flex items-center justify-between pb-3 border-b border-stone-200 dark:border-stone-800">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-2xl bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 border border-amber-200 dark:border-amber-800 flex items-center justify-center text-xl">
+              ☁️
+            </div>
+            <div>
+              <h3 class="text-base sm:text-lg font-black text-stone-900 dark:text-stone-100">
+                Cloud Sync &amp; Sheet Export
+              </h3>
+              <p class="text-xs text-stone-500 dark:text-stone-400">
+                Sync across all your devices in real-time or export to Excel
+              </p>
+            </div>
+          </div>
+          <button onclick="closeLinkSheetModal()" class="w-8 h-8 rounded-full hover:bg-stone-100 dark:hover:bg-stone-800 text-stone-400 hover:text-stone-700 dark:hover:text-stone-200 flex items-center justify-center text-lg font-bold">
+            ✕
+          </button>
+        </div>
+
+        <!-- Segmented Tab Switcher (Firebase vs Excel/Sheets) -->
+        <div class="inline-flex p-1 rounded-xl bg-stone-100 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 text-xs font-bold w-full">
+          <button onclick="switchSyncModalTab('firebase')" id="syncModalTabBtn_firebase" class="flex-1 py-2 rounded-lg bg-white dark:bg-stone-900 text-stone-900 dark:text-stone-100 shadow-sm transition flex items-center justify-center gap-1.5">
+            <span>🔥</span>
+            <span>Firebase Firestore (Multi-Device)</span>
+          </button>
+          <button onclick="switchSyncModalTab('sheets')" id="syncModalTabBtn_sheets" class="flex-1 py-2 rounded-lg text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200 transition flex items-center justify-center gap-1.5">
+            <span>📊</span>
+            <span>Excel &amp; Google Sheets</span>
+          </button>
+        </div>
+
+        <!-- TAB 1: FIREBASE FIRESTORE SYNC -->
+        <div id="syncModalContent_firebase" class="space-y-4">
+          <div class="p-4 rounded-2xl bg-stone-50 dark:bg-stone-800/50 border border-stone-200 dark:border-stone-700/60 space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold uppercase tracking-wider text-stone-700 dark:text-stone-300">
+                🔥 Firestore Live Real-Time Sync
+              </span>
+              <span id="firebaseStatusBadge" class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-stone-200 text-stone-600 dark:bg-stone-700 dark:text-stone-300 font-num">
+                Not Connected
+              </span>
+            </div>
+
+            <p class="text-xs text-stone-500 dark:text-stone-400 leading-relaxed">
+              Connect your Firebase project to automatically sync your dashboard between your phone, laptop, and desktop in real-time with zero delay!
+            </p>
+
+            <!-- Sync Key Input -->
+            <div>
+              <label class="block font-bold text-stone-700 dark:text-stone-300 uppercase text-[10px] tracking-wider mb-1">
+                Portfolio Sync Key (Device Identifier)
+              </label>
+              <input type="text" id="inputSyncKey" value="dcniper_portfolio" placeholder="e.g. dcniper_portfolio"
+                class="w-full bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-700 rounded-xl px-3 py-2 text-xs font-num font-bold text-stone-900 dark:text-stone-100 focus:outline-none focus:border-amber-500 shadow-inner" />
+              <span class="text-[10px] text-stone-400 mt-0.5 block">Use the same Sync Key on your other devices to see the exact same portfolio.</span>
+            </div>
+
+            <!-- Firebase Config Input -->
+            <div>
+              <div class="flex items-center justify-between mb-1">
+                <label class="block font-bold text-stone-700 dark:text-stone-300 uppercase text-[10px] tracking-wider">
+                  Firebase Config Object / JSON
+                </label>
+                <span class="text-[10px] text-stone-400">Firebase Console &gt; Project settings</span>
+              </div>
+              <textarea id="inputFirebaseConfig" rows="4" placeholder="Paste const firebaseConfig = { ... } or raw JSON here..."
+                class="w-full bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-700 rounded-xl p-3 font-num text-[11px] text-stone-900 dark:text-stone-100 focus:outline-none focus:border-amber-500 shadow-inner calm-scrollbar"></textarea>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex items-center gap-2 pt-1 flex-wrap">
+              <button onclick="handleConnectFirebase()" class="flex-1 py-2 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-bold text-xs shadow-sm transition active:scale-95">
+                🔥 Connect &amp; Start Realtime Sync
+              </button>
+              <button onclick="handleDisconnectFirebase()" id="btnDisconnectFirebase" class="hidden px-4 py-2 rounded-xl bg-stone-100 hover:bg-stone-200 dark:bg-stone-800 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-300 font-bold text-xs transition">
+                Disconnect
+              </button>
+            </div>
+
+            <p id="firebaseFeedbackMsg" class="text-[11px] text-stone-400 font-num">
+              Credentials are saved securely in your browser's local storage.
+            </p>
+          </div>
+
+          <!-- Firestore Security Rules Helper -->
+          <div class="p-3.5 rounded-2xl bg-amber-50/60 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900/50 space-y-1.5 text-xs text-amber-900 dark:text-amber-200">
+            <div class="flex items-center justify-between">
+              <span class="font-bold flex items-center gap-1.5">
+                <span>🛡️</span>
+                <span>Firestore Security Rules (Required for Read/Write)</span>
+              </span>
+              <button onclick="copyFirestoreRules()" class="text-[11px] font-bold underline hover:opacity-80">
+                Copy Rules
+              </button>
+            </div>
+            <p class="text-[11px] text-amber-800 dark:text-amber-300">
+              In Firebase Console &gt; Firestore Database &gt; Rules, set your rule to allow read/write:
+            </p>
+            <pre class="bg-white/80 dark:bg-stone-900/80 p-2 rounded-lg font-num text-[10px] text-stone-800 dark:text-stone-200 border border-amber-200 dark:border-amber-900/40 overflow-x-auto">rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if true;
+    }
+  }
+}</pre>
+          </div>
+        </div>
+
+        <!-- TAB 2: EXCEL & GOOGLE SHEETS -->
+        <div id="syncModalContent_sheets" class="hidden space-y-4">
+          
+          <!-- One-Click Instant Action -->
+          <div class="p-4 rounded-2xl bg-stone-50 dark:bg-stone-800/50 border border-stone-200 dark:border-stone-700/60 space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold uppercase tracking-wider text-stone-700 dark:text-stone-300">
+                ⚡ Instant 1-Click Action
+              </span>
+              <span class="text-[10px] font-semibold text-sage-600 dark:text-sage-400 bg-sage-50 dark:bg-sage-950/60 px-2 py-0.5 rounded-full border border-sage-200 dark:border-sage-800">
+                No setup required
+              </span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+              <!-- Download Excel CSV Button -->
+              <button onclick="exportToExcelCSV()" class="p-3.5 rounded-xl bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 hover:border-clay-400 dark:hover:border-clay-600 text-left transition active:scale-95 group shadow-sm">
+                <div class="flex items-center gap-2.5">
+                  <span class="text-2xl">📥</span>
+                  <div>
+                    <div class="text-xs font-bold text-stone-900 dark:text-stone-100 group-hover:text-clay-600 dark:group-hover:text-clay-400">
+                      Export to Excel (.csv)
+                    </div>
+                    <div class="text-[10px] text-stone-400">
+                      Exports all sessions &amp; vault logs
+                    </div>
+                  </div>
+                </div>
+              </button>
+
+              <!-- Create New Google Sheet & Paste -->
+              <button onclick="createNewGoogleSheet()" class="p-3.5 rounded-xl bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 hover:border-sage-400 dark:hover:border-sage-600 text-left transition active:scale-95 group shadow-sm">
+                <div class="flex items-center gap-2.5">
+                  <span class="text-2xl">📄</span>
+                  <div>
+                    <div class="text-xs font-bold text-stone-900 dark:text-stone-100 group-hover:text-sage-600 dark:group-hover:text-sage-400">
+                      Create Google Sheet
+                    </div>
+                    <div class="text-[10px] text-stone-400">
+                      Opens sheets.new + copies data
+                    </div>
+                  </div>
+                </div>
+              </button>
+            </div>
+          </div>
+
+          <!-- Automated Live Google Sheets Webhook -->
+          <div class="p-4 rounded-2xl bg-stone-50 dark:bg-stone-800/50 border border-stone-200 dark:border-stone-700/60 space-y-3.5">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold uppercase tracking-wider text-stone-700 dark:text-stone-300">
+                ☁️ Google Sheets Webhook Sync
+              </span>
+              <span id="modalCloudStatusBadge" class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-stone-200 text-stone-600 dark:bg-stone-700 dark:text-stone-300 font-num">
+                Not Connected
+              </span>
+            </div>
+
+            <div>
+              <label class="block font-bold text-stone-700 dark:text-stone-300 uppercase text-[10px] tracking-wider mb-1">
+                Google Apps Script Webhook URL
+              </label>
+              <div class="flex items-center gap-2">
+                <input type="url" id="inputWebhookUrl" placeholder="https://script.google.com/macros/s/.../exec"
+                  class="flex-1 bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-700 rounded-xl px-3 py-2 text-xs font-num text-stone-900 dark:text-stone-100 focus:outline-none focus:border-clay-500 shadow-inner" />
+                <button onclick="saveAndTestWebhook()" class="px-4 py-2 rounded-xl bg-clay-500 hover:bg-clay-600 text-white font-bold text-xs shadow-sm transition active:scale-95 shrink-0">
+                  Sync &amp; Save
+                </button>
+              </div>
+              <p id="webhookSyncFeedback" class="text-[11px] text-stone-400 font-num mt-1">
+                No webhook linked yet.
+              </p>
+            </div>
+
+            <!-- Code Copy -->
+            <div class="pt-2 border-t border-stone-200 dark:border-stone-700 flex items-center justify-between">
+              <span class="text-[11px] text-stone-500 dark:text-stone-400">Need the Apps Script code for your Google Sheet?</span>
+              <button onclick="copyAppsScriptCode()" class="text-xs font-bold text-clay-600 dark:text-clay-400 hover:underline">
+                📋 Copy Apps Script
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Footer -->
+        <div class="flex items-center justify-between pt-2 border-t border-stone-200 dark:border-stone-800 text-xs">
+          <span class="text-stone-400">All data stays in your personal cloud &amp; browser storage.</span>
+          <button onclick="closeLinkSheetModal()" class="px-4 py-2 rounded-xl bg-stone-100 hover:bg-stone-200 dark:bg-stone-800 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-300 font-bold transition">
+            Close
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Custom Modal Dialog -->
+    <div id="customModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm hidden transition-opacity duration-200">
+      <div class="bg-white dark:bg-stone-900 rounded-3xl max-w-sm w-full p-6 shadow-2xl border border-stone-200 dark:border-stone-800 space-y-4">
+        <div>
+          <h3 id="modalTitle" class="text-base font-bold text-stone-900 dark:text-stone-100">Confirm Action</h3>
+          <p id="modalMsg" class="text-xs text-stone-500 dark:text-stone-400 mt-1">Are you sure you want to proceed?</p>
+        </div>
+
+        <div id="modalInputContainer" class="hidden">
+          <input type="text" id="modalInput" class="w-full bg-stone-50 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 rounded-xl px-3 py-2 text-xs font-semibold text-stone-900 dark:text-stone-100 focus:outline-none focus:border-sage-500" />
+        </div>
+
+        <div class="flex items-center justify-end gap-2 pt-2 border-t border-stone-200 dark:border-stone-800">
+          <button id="modalCancelBtn" class="px-4 py-2 rounded-xl text-xs font-bold text-stone-500 hover:bg-stone-100 dark:hover:bg-stone-800 transition">
+            Cancel
+          </button>
+          <button id="modalConfirmBtn" class="px-4 py-2 rounded-xl text-xs font-bold bg-sage-500 text-white hover:bg-sage-600 transition shadow-sm">
+            Confirm
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Toast Notification -->
+    <div id="toastBox" class="fixed bottom-5 right-5 z-50 transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 text-xs font-bold shadow-2xl border border-stone-700 dark:border-stone-300">
+      <span id="toastIcon" class="w-4 h-4 rounded-full bg-sage-500 text-white flex items-center justify-center text-[10px]">✓</span>
+      <span id="toastMsg">Saved</span>
+    </div>
+
+  </main>
+
+  <script>
+    /* Default Ladder Matrix (Session-Based, 28 Sessions) */
+    const DEFAULT_28_LADDER = [
+      { s: 1, r: 120.00, m: 120.00, a: 120.00, tag: "Starting Base" },
+      { s: 2, r: 170.86, m: 188.45, a: 199.06 },
+      { s: 3, r: 243.29, m: 295.95, a: 330.19 },
+      { s: 4, r: 346.41, m: 464.76, a: 547.72 },
+      { s: 5, r: 493.24, m: 729.86, a: 908.56 },
+      { s: 6, r: 702.31, m: 1146.19, a: 1507.12 },
+      { s: 7, r: 1000.00, m: 1800.00, a: 2500.00, milestone: "Week 1 Checkpoint" },
+      { s: 8, r: 1000.00, m: 1800.00, a: 2500.00, pause: "Rest & Recharge" },
+      { s: 9, r: 1140.43, m: 2052.78, a: 2851.09 },
+      { s: 10, r: 1300.59, m: 2341.06, a: 3251.48 },
+      { s: 11, r: 1483.24, m: 2669.83, a: 3708.10 },
+      { s: 12, r: 1691.54, m: 3044.77, a: 4228.85 },
+      { s: 13, r: 1929.09, m: 3472.36, a: 4822.72 },
+      { s: 14, r: 2200.00, m: 3960.00, a: 5500.00, milestone: "Week 2 Checkpoint" },
+      { s: 15, r: 2200.00, m: 3960.00, a: 5500.00, pause: "Rest & Recharge" },
+      { s: 16, r: 2430.50, m: 4374.90, a: 6076.25 },
+      { s: 17, r: 2685.15, m: 4833.27, a: 6712.87 },
+      { s: 18, r: 2966.48, m: 5339.66, a: 7416.20 },
+      { s: 19, r: 3277.29, m: 5899.11, a: 8193.21 },
+      { s: 20, r: 3620.65, m: 6517.18, a: 9051.64 },
+      { s: 21, r: 4000.00, m: 7200.00, a: 10000.00, milestone: "Week 3 Checkpoint" },
+      { s: 22, r: 4000.00, m: 7200.00, a: 10000.00, pause: "Rest & Recharge" },
+      { s: 23, r: 4391.03, m: 7903.85, a: 10977.57 },
+      { s: 24, r: 4820.28, m: 8676.51, a: 12050.71 },
+      { s: 25, r: 5291.50, m: 9524.70, a: 13228.76 },
+      { s: 26, r: 5808.79, m: 10455.81, a: 14521.96 },
+      { s: 27, r: 6376.64, m: 11477.95, a: 15941.59 },
+      { s: 28, r: 7000.00, m: 12600.00, a: 17500.00, milestone: "Final Finish Line" }
+    ];
+
+    let activeTab = 'tracker';
+    let currentPace = localStorage.getItem('pgl_pace_v9') || 'relaxed';
+    let currentSession = parseInt(localStorage.getItem('pgl_session_v9')) || 1;
+    let sessionLogs = JSON.parse(localStorage.getItem('pgl_session_logs_v9')) || { 1: 120.00 };
+    let sessionTimestamps = JSON.parse(localStorage.getItem('pgl_timestamps_v9')) || {};
+    let sessionNotes = JSON.parse(localStorage.getItem('pgl_notes_v9')) || {};
+    let lockedSessions = JSON.parse(localStorage.getItem('pgl_locked_sessions_v9')) || {};
+    let showAllPacesInTable = localStorage.getItem('pgl_show_all_paces_v9') === 'true';
+
+    /* Milestone Skim & Vault State */
+    let milestoneFeatureEnabled = localStorage.getItem('pgl_milestone_enabled_v9') === 'true';
+    let milestoneConfig = JSON.parse(localStorage.getItem('pgl_milestone_cfg_v9')) || {
+      targetGoal: 1500,
+      reserveFloor: 1000,
+      strategy: 'gradual'
+    };
+    let vaultLedger = JSON.parse(localStorage.getItem('pgl_vault_ledger_v9')) || [];
+
+    /* Custom Ladder Profiles */
+    let ladderProfiles = JSON.parse(localStorage.getItem('pgl_ladder_profiles_v9')) || [
+      {
+        id: 'default_28',
+        name: 'Default 28-Session Tri-Pace',
+        sessions: DEFAULT_28_LADDER
+      }
+    ];
+    let activeProfileId = localStorage.getItem('pgl_active_profile_v9') || 'default_28';
+
+    /* Theme State (Light / Dark) */
+    let currentTheme = localStorage.getItem('pgl_theme_v9') || 'light';
+
+    /* Formatting Helpers */
+    const fmt = num => '$' + Number(num || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const fmtTimestamp = isoStr => {
+      if (!isoStr) return 'Not recorded';
+      const d = new Date(isoStr);
+      return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: 'numeric', minute: '2-digit' });
+    };
+
+    /* Indian Timezone Live Date Formatter */
+    function getIndianDateFormatted() {
+      const now = new Date();
+      const formatter = new Intl.DateTimeFormat('en-US', {
+        timeZone: 'Asia/Kolkata',
+        day: 'numeric',
+        month: 'long'
+      });
+      const parts = formatter.formatToParts(now);
+      let day = '';
+      let month = '';
+      for (const p of parts) {
+        if (p.type === 'day') day = p.value;
+        if (p.type === 'month') month = p.value;
+      }
+      const d = parseInt(day, 10);
+      let suffix = 'th';
+      if (d % 10 === 1 && d % 100 !== 11) suffix = 'st';
+      else if (d % 10 === 2 && d % 100 !== 12) suffix = 'nd';
+      else if (d % 10 === 3 && d % 100 !== 13) suffix = 'rd';
+      return `${d}${suffix} ${month}`;
+    }
+
+    /* Theme Management */
+    function applyTheme(theme) {
+      currentTheme = theme;
+      localStorage.setItem('pgl_theme_v9', theme);
+      if (theme === 'dark') {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+      updateThemeButton();
+    }
+
+    function toggleTheme() {
+      applyTheme(currentTheme === 'light' ? 'dark' : 'light');
+      showToast(currentTheme === 'dark' ? "Switched to Dark Mode 🌙" : "Switched to Light Mode ☀️");
+    }
+
+    function updateThemeButton() {
+      const btn = document.getElementById('themeToggleBtn');
+      if (btn) {
+        btn.innerHTML = currentTheme === 'dark'
+          ? '<span class="text-sm">☀️</span><span class="hidden sm:inline">Light</span>'
+          : '<span class="text-sm">🌙</span><span class="hidden sm:inline">Dark</span>';
+      }
+    }
+
+    /* Modal System */
+    let modalCallback = null;
+
+    function openModal({ title, msg, isPrompt = false, defaultValue = '', onConfirm }) {
+      const modal = document.getElementById('customModal');
+      document.getElementById('modalTitle').innerText = title;
+      document.getElementById('modalMsg').innerText = msg;
+      const inputContainer = document.getElementById('modalInputContainer');
+      const input = document.getElementById('modalInput');
+
+      if (isPrompt) {
+        inputContainer.classList.remove('hidden');
+        input.value = defaultValue;
+        setTimeout(() => input.focus(), 50);
+      } else {
+        inputContainer.classList.add('hidden');
+      }
+
+      modalCallback = onConfirm;
+      modal.classList.remove('hidden');
+
+      document.getElementById('modalConfirmBtn').onclick = () => {
+        const result = isPrompt ? input.value : true;
+        closeModal();
+        if (modalCallback) modalCallback(result);
+      };
+
+      document.getElementById('modalCancelBtn').onclick = closeModal;
+    }
+
+    function closeModal() {
+      document.getElementById('customModal').classList.add('hidden');
+      modalCallback = null;
+    }
+
+    /* Tab Switching */
+    function switchTab(tab) {
+      activeTab = tab;
+      ['tracker', 'milestones', 'config'].forEach(t => {
+        const tabEl = document.getElementById(`tabContent${capitalize(t)}`);
+        const navBtn = document.getElementById(`nav-${t}`);
+        if (t === tab) {
+          tabEl.classList.remove('hidden');
+          navBtn.className = "flex-1 sm:flex-initial px-5 sm:px-7 py-2 rounded-xl transition-all flex items-center justify-center gap-2 bg-white dark:bg-stone-900 text-stone-900 dark:text-stone-100 shadow-sm";
+        } else {
+          tabEl.classList.add('hidden');
+          navBtn.className = "flex-1 sm:flex-initial px-5 sm:px-7 py-2 rounded-xl transition-all flex items-center justify-center gap-2 text-stone-600 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200";
+        }
+      });
+
+      if (tab === 'tracker') renderTracker();
+      if (tab === 'milestones') renderMilestonesTab();
+      if (tab === 'config') renderConfigTab();
+    }
+
+    function capitalize(s) {
+      return s.charAt(0).toUpperCase() + s.slice(1);
+    }
+
+    function getActiveLadder() {
+      const profile = ladderProfiles.find(p => p.id === activeProfileId) || ladderProfiles[0];
+      return profile.sessions;
+    }
+
+    function getSessionTarget(sessionNum, pace = currentPace) {
+      const ladder = getActiveLadder();
+      const row = ladder.find(i => i.s === sessionNum) || ladder[ladder.length - 1];
+      if (row.r !== undefined && row.m !== undefined && row.a !== undefined) {
+        return pace === 'relaxed' ? row.r : (pace === 'mid' ? row.m : row.a);
+      }
+      return row.target || 120.00;
+    }
+
+    function getDeskBalance(sessionNum) {
+      if (sessionLogs[sessionNum] !== undefined) return sessionLogs[sessionNum];
+      for (let s = sessionNum - 1; s >= 1; s--) {
+        if (sessionLogs[s] !== undefined) return sessionLogs[s];
+      }
+      const ladder = getActiveLadder();
+      return ladder[0]?.r || 120.00;
+    }
+
+    function getPrevDeskBalance(sessionNum) {
+      if (sessionNum <= 1) {
+        const ladder = getActiveLadder();
+        return ladder[0]?.r || 120.00;
+      }
+      for (let s = sessionNum - 1; s >= 1; s--) {
+        if (sessionLogs[s] !== undefined) return sessionLogs[s];
+      }
+      const ladder = getActiveLadder();
+      return ladder[0]?.r || 120.00;
+    }
+
+    function getTotalVaultWithdrawn() {
+      return vaultLedger.reduce((sum, item) => sum + (Number(item.amount) || 0), 0);
+    }
+
+    function setPace(pace) {
+      currentPace = pace;
+      localStorage.setItem('pgl_pace_v9', pace);
+      renderTracker();
+      showToast(`Pace set to ${capitalize(pace)}`);
+      syncToFirestore();
+    }
+
+    function navigateSession(delta) {
+      const ladder = getActiveLadder();
+      currentSession = Math.min(ladder.length, Math.max(1, currentSession + delta));
+      localStorage.setItem('pgl_session_v9', currentSession);
+      renderTracker();
+      debouncedSyncToFirestore(300);
+    }
+
+    function handleBalanceInput(val) {
+      if (lockedSessions[currentSession]) return; // Do not edit if locked
+
+      const parsed = parseFloat(val);
+      if (isNaN(parsed) || val === '') {
+        delete sessionLogs[currentSession];
+        delete sessionTimestamps[currentSession];
+      } else {
+        sessionLogs[currentSession] = parsed;
+        if (!sessionTimestamps[currentSession]) {
+          sessionTimestamps[currentSession] = new Date().toISOString();
+        }
+      }
+      saveTrackerState();
+      renderTracker();
+    }
+
+    function fillTargetForActiveSession() {
+      if (lockedSessions[currentSession]) {
+        showToast("Session is locked! Click Unlock first.", false);
+        return;
+      }
+      const target = getSessionTarget(currentSession);
+      sessionLogs[currentSession] = target;
+      sessionTimestamps[currentSession] = new Date().toISOString();
+      saveTrackerState();
+      renderTracker();
+      showToast(`Auto-filled target for Session ${currentSession}: ${fmt(target)}`);
+      syncToFirestore();
+    }
+
+    function toggleLockActiveSession() {
+      const isLocked = !!lockedSessions[currentSession];
+      if (isLocked) {
+        delete lockedSessions[currentSession];
+        localStorage.setItem('pgl_locked_sessions_v9', JSON.stringify(lockedSessions));
+        renderTracker();
+        showToast(`Session ${currentSession} unlocked for editing 🔓`);
+        syncToFirestore();
+      } else {
+        const bal = sessionLogs[currentSession];
+        if (bal === undefined || isNaN(bal)) {
+          showToast("Please enter a closing balance first!", false);
+          return;
+        }
+        lockedSessions[currentSession] = true;
+        if (!sessionTimestamps[currentSession]) {
+          sessionTimestamps[currentSession] = new Date().toISOString();
+        }
+        localStorage.setItem('pgl_locked_sessions_v9', JSON.stringify(lockedSessions));
+        saveTrackerState();
+        renderTracker();
+        showToast(`Session ${currentSession} balance locked at ${fmt(bal)}! 🎉`);
+        syncToFirestore();
+
+        if (localStorage.getItem('pgl_webhook_url_v9')) {
+          syncToCloudWebhook(false);
+        }
+      }
+    }
+
+    function saveTrackerState() {
+      localStorage.setItem('pgl_session_logs_v9', JSON.stringify(sessionLogs));
+      localStorage.setItem('pgl_timestamps_v9', JSON.stringify(sessionTimestamps));
+      localStorage.setItem('pgl_notes_v9', JSON.stringify(sessionNotes));
+      debouncedSyncToFirestore(500);
+    }
+
+    function toggleTableColumns() {
+      showAllPacesInTable = !showAllPacesInTable;
+      localStorage.setItem('pgl_show_all_paces_v9', showAllPacesInTable ? 'true' : 'false');
+      const btn = document.getElementById('btnToggleAllPaces');
+      btn.innerHTML = showAllPacesInTable ? "<span>⚡ Focused View</span>" : "<span>📊 Show All Paces</span>";
+      renderMasterTable(getActiveLadder());
+    }
+
+    function renderTracker() {
+      const ladder = getActiveLadder();
+      const currentDesk = getDeskBalance(currentSession);
+      const prevDesk = getPrevDeskBalance(currentSession);
+      const targetReq = getSessionTarget(currentSession);
+      const totalVault = getTotalVaultWithdrawn();
+      const trueWealth = currentDesk + totalVault;
+      const baseStart = ladder[0]?.r || 120.00;
+      const isLocked = !!lockedSessions[currentSession];
+
+      // Live Indian Date & Header Updates
+      document.getElementById('headerLiveDate').innerText = getIndianDateFormatted();
+      document.getElementById('headerSessionNum').innerText = currentSession;
+      document.getElementById('headerTotalSessions').innerText = ladder.length;
+      document.getElementById('activeSessionNumDisplay').innerText = currentSession;
+      document.getElementById('totalSessionsDisplay').innerText = ladder.length;
+      document.getElementById('targetCardSessionNum').innerText = currentSession;
+      document.getElementById('headerVaultBalance').innerText = fmt(totalVault);
+      document.getElementById('headerTrueWealth').innerText = fmt(trueWealth);
+
+      const activeProfile = ladderProfiles.find(p => p.id === activeProfileId) || ladderProfiles[0];
+      document.getElementById('headerActiveLadderName').innerText = activeProfile.name;
+
+      const timestamp = sessionTimestamps[currentSession];
+      document.getElementById('headerTimestamp').innerText = isLocked 
+        ? `Locked: ${fmtTimestamp(timestamp)}` 
+        : (timestamp ? `In Play: ${fmtTimestamp(timestamp)}` : 'Session In Play');
+      document.getElementById('executionTimestampDisplay').innerText = timestamp ? `Logged: ${fmtTimestamp(timestamp)}` : 'Timestamp: In progress';
+
+      // Input Field Sync & Lock State
+      const balInput = document.getElementById('sessionBalanceInput');
+      if (document.activeElement !== balInput) {
+        balInput.value = sessionLogs[currentSession] !== undefined ? sessionLogs[currentSession] : '';
+      }
+      balInput.disabled = isLocked;
+      if (isLocked) {
+        balInput.classList.add('opacity-75', 'cursor-not-allowed');
+      } else {
+        balInput.classList.remove('opacity-75', 'cursor-not-allowed');
+      }
+
+      // Live Glowing Green Dot Indicator vs Locked Badge
+      const statusTag = document.getElementById('sessionLiveStatusTag');
+      if (statusTag) {
+        if (isLocked) {
+          statusTag.innerHTML = `
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300 border border-stone-200 dark:border-stone-700">
+              <span>🔒</span>
+              <span>Session Locked</span>
+            </span>
+          `;
+        } else {
+          statusTag.innerHTML = `
+            <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800 shadow-sm">
+              <span class="relative flex h-2.5 w-2.5">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+              </span>
+              <span>Live In Play</span>
+            </span>
+          `;
+        }
+      }
+
+      // Lock / Unlock Button Label
+      const lockBtn = document.getElementById('btnLockSession');
+      if (lockBtn) {
+        lockBtn.innerHTML = isLocked ? '<span>🔓</span><span>Unlock to Edit</span>' : '<span>🔒</span><span>Lock In Session</span>';
+        lockBtn.className = isLocked 
+          ? "inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-stone-100 hover:bg-stone-200 dark:bg-stone-800 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-300 font-bold transition active:scale-95 text-xs border border-stone-200 dark:border-stone-700"
+          : "inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-clay-500 hover:bg-clay-600 text-white font-bold transition active:scale-95 text-xs shadow-sm";
+      }
+
+      document.getElementById('btnTargetPreview').innerText = fmt(targetReq);
+      document.getElementById('prevSessionBalLabel').innerText = fmt(prevDesk);
+      document.getElementById('sessionTargetValDisplay').innerText = fmt(targetReq);
+
+      // Session PnL Calculation
+      const sessionPnl = currentDesk - prevDesk;
+      const sessionPnlPct = prevDesk > 0 ? (sessionPnl / prevDesk) * 100 : 0;
+      const pnlDollarEl = document.getElementById('sessionPnlDollar');
+      const pnlPctEl = document.getElementById('sessionPnlPct');
+      const pnlVibeEl = document.getElementById('sessionPnlVibe');
+
+      if (sessionPnl > 0.001) {
+        pnlDollarEl.innerText = `+${fmt(sessionPnl)}`;
+        pnlDollarEl.className = "text-3xl sm:text-4xl font-black font-num tracking-tight text-sage-600 dark:text-sage-400";
+        pnlPctEl.innerText = `+${sessionPnlPct.toFixed(2)}% today`;
+        pnlPctEl.className = "text-sm font-bold font-num text-sage-600 dark:text-sage-400";
+        pnlVibeEl.innerText = "🌱 Awesome green day! Keep your cool and protect gains.";
+      } else if (sessionPnl < -0.001) {
+        pnlDollarEl.innerText = `-${fmt(Math.abs(sessionPnl))}`;
+        pnlDollarEl.className = "text-3xl sm:text-4xl font-black font-num tracking-tight text-terracotta-600 dark:text-terracotta-400";
+        pnlPctEl.innerText = `${sessionPnlPct.toFixed(2)}% today`;
+        pnlPctEl.className = "text-sm font-bold font-num text-terracotta-600 dark:text-terracotta-400";
+        pnlVibeEl.innerText = "🛡️ Small red day. Capital preservation is your superpower!";
+      } else {
+        pnlDollarEl.innerText = "$0.00";
+        pnlDollarEl.className = "text-3xl sm:text-4xl font-black font-num tracking-tight text-stone-900 dark:text-stone-100";
+        pnlPctEl.innerText = "0.00% change";
+        pnlPctEl.className = "text-sm font-bold font-num text-stone-400";
+        pnlVibeEl.innerText = "⚖️ Even session. Ready whenever good setups appear.";
+      }
+
+      // Weekly Milestone Progress Bar Calculation
+      const weekNum = Math.min(4, Math.ceil(currentSession / 7));
+      const weekStartSession = (weekNum - 1) * 7 + 1;
+      const weekEndSession = Math.min(ladder.length, weekNum * 7);
+      const weekTarget = getSessionTarget(weekEndSession);
+      const weekStartBal = getPrevDeskBalance(weekStartSession);
+
+      const progressDenominator = Math.max(1, weekTarget - weekStartBal);
+      const progressNumerator = Math.max(0, currentDesk - weekStartBal);
+      const weekProgressPct = Math.min(100, Math.max(0, (progressNumerator / progressDenominator) * 100));
+
+      const delta = currentDesk - targetReq;
+      const deltaBadgeEl = document.getElementById('weeklyDeltaBadge');
+      if (delta >= 0) {
+        deltaBadgeEl.innerHTML = `<span class="inline-flex items-center gap-1 text-xs font-black text-sage-700 dark:text-sage-300 bg-sage-50 dark:bg-sage-950/60 border border-sage-200 dark:border-sage-800 px-3 py-1 rounded-full">🚀 +${fmt(delta)} ahead of pace</span>`;
+      } else {
+        deltaBadgeEl.innerHTML = `<span class="inline-flex items-center gap-1 text-xs font-black text-terracotta-700 dark:text-terracotta-300 bg-terracotta-50 dark:bg-terracotta-950/60 border border-terracotta-200 dark:border-terracotta-800 px-3 py-1 rounded-full">🐢 -${fmt(Math.abs(delta))} behind pace</span>`;
+      }
+
+      document.getElementById('weeklyMilestoneLabel').innerText = `Week ${weekNum} Checkpoint: ${fmt(weekTarget)}`;
+      document.getElementById('weeklyProgressBar').style.width = `${weekProgressPct}%`;
+      document.getElementById('weeklyProgressPctLabel').innerText = `${weekProgressPct.toFixed(0)}% reached`;
+
+      const baseGain = trueWealth - baseStart;
+      document.getElementById('cumulativeBasePnl').innerText = `${baseGain >= 0 ? '+' : '-'}${fmt(Math.abs(baseGain))} vs ${fmt(baseStart)} Base`;
+
+      // Cycle Final Target Label
+      const finalTarget = getSessionTarget(ladder.length);
+      const overallCompletion = Math.min(100, Math.max(0, (trueWealth / finalTarget) * 100));
+      document.getElementById('overallCycleCompletionLabel').innerText = `${overallCompletion.toFixed(1)}% to Finish ($${finalTarget.toLocaleString()})`;
+
+      // Render 3 Target Bento Boxes (Relaxed, Mid, Aggressive)
+      const ladderRow = ladder.find(i => i.s === currentSession) || ladder[0];
+      const rVal = ladderRow.r !== undefined ? ladderRow.r : ladderRow.target;
+      const mVal = ladderRow.m !== undefined ? ladderRow.m : ladderRow.target * 1.15;
+      const aVal = ladderRow.a !== undefined ? ladderRow.a : ladderRow.target * 1.30;
+
+      // 1. Relaxed Box
+      document.getElementById('targetValRelaxed').innerText = fmt(rVal);
+      const diffRelaxed = currentDesk - rVal;
+      const statusRelaxedEl = document.getElementById('targetStatusRelaxed');
+      if (diffRelaxed >= 0) {
+        statusRelaxedEl.innerText = `✅ Target Met (+${fmt(diffRelaxed)})`;
+        statusRelaxedEl.className = "text-xs font-extrabold font-num text-sage-600 dark:text-sage-400";
+      } else {
+        statusRelaxedEl.innerText = `🎯 Needs +${fmt(Math.abs(diffRelaxed))} to hit`;
+        statusRelaxedEl.className = "text-xs font-semibold font-num text-stone-500 dark:text-stone-400";
+      }
+
+      // 2. Mid Box
+      document.getElementById('targetValMid').innerText = fmt(mVal);
+      const diffMid = currentDesk - mVal;
+      const statusMidEl = document.getElementById('targetStatusMid');
+      if (diffMid >= 0) {
+        statusMidEl.innerText = `✅ Target Met (+${fmt(diffMid)})`;
+        statusMidEl.className = "text-xs font-extrabold font-num text-clay-600 dark:text-clay-400";
+      } else {
+        statusMidEl.innerText = `🎯 Needs +${fmt(Math.abs(diffMid))} to hit`;
+        statusMidEl.className = "text-xs font-semibold font-num text-stone-500 dark:text-stone-400";
+      }
+
+      // 3. Aggressive Box
+      document.getElementById('targetValAggressive').innerText = fmt(aVal);
+      const diffAgg = currentDesk - aVal;
+      const statusAggEl = document.getElementById('targetStatusAggressive');
+      if (diffAgg >= 0) {
+        statusAggEl.innerText = `✅ Target Met (+${fmt(diffAgg)})`;
+        statusAggEl.className = "text-xs font-extrabold font-num text-terracotta-600 dark:text-terracotta-400";
+      } else {
+        statusAggEl.innerText = `🎯 Needs +${fmt(Math.abs(diffAgg))} to hit`;
+        statusAggEl.className = "text-xs font-semibold font-num text-stone-500 dark:text-stone-400";
+      }
+
+      // Update Active Border & Badges on the 3 boxes
+      ['relaxed', 'mid', 'aggressive'].forEach(p => {
+        const card = document.getElementById(`paceCard_${p}`);
+        const badge = document.getElementById(`paceActiveBadge_${p}`);
+        if (card && badge) {
+          if (p === currentPace) {
+            badge.classList.remove('hidden');
+            if (p === 'relaxed') card.className = "bento-card p-5 cursor-pointer transition-all border-2 border-sage-500 bg-sage-50/50 dark:bg-sage-950/30 shadow-md space-y-3";
+            if (p === 'mid') card.className = "bento-card p-5 cursor-pointer transition-all border-2 border-clay-500 bg-clay-50/50 dark:bg-clay-950/30 shadow-md space-y-3";
+            if (p === 'aggressive') card.className = "bento-card p-5 cursor-pointer transition-all border-2 border-terracotta-500 bg-terracotta-50/50 dark:bg-terracotta-950/30 shadow-md space-y-3";
+          } else {
+            badge.classList.add('hidden');
+            card.className = "bento-card p-5 cursor-pointer transition-all border border-stone-200 dark:border-stone-800 hover:border-stone-300 dark:hover:border-stone-700 hover:bg-stone-50/50 dark:hover:bg-stone-900/30 space-y-3";
+          }
+        }
+      });
+
+      // Financial Milestone Skim Alert Logic
+      const skimAlert = document.getElementById('skimAlertBox');
+      if (milestoneFeatureEnabled) {
+        document.getElementById('navMilestoneIndicator').classList.remove('hidden');
+        let shouldAlert = false;
+        let surplusAmt = 0;
+
+        if (milestoneConfig.strategy === 'gradual' && sessionPnl > 30) {
+          shouldAlert = true;
+          surplusAmt = sessionPnl * 0.25;
+        } else if (milestoneConfig.strategy === 'checkpoints') {
+          if (currentDesk >= 450 && totalVault < 100) { shouldAlert = true; surplusAmt = 100; }
+          else if (currentDesk >= 900 && totalVault < 500) { shouldAlert = true; surplusAmt = 400; }
+          else if (currentDesk >= 1500 && totalVault < 1000) { shouldAlert = true; surplusAmt = 500; }
+        } else if (delta > 50) {
+          shouldAlert = true;
+          surplusAmt = delta;
+        }
+
+        if (shouldAlert && !sessionStorage.getItem(`dismiss_skim_s${currentSession}`)) {
+          skimAlert.classList.remove('hidden');
+          document.getElementById('skimAlertSurplusLabel').innerText = `Skim Suggestion: ${fmt(surplusAmt)}`;
+          document.getElementById('skimAlertText').innerText = `You are ahead of target by ${fmt(surplusAmt)}! Skim this into your Vault to lock in real-world profits safe from trading pullbacks.`;
+        } else {
+          skimAlert.classList.add('hidden');
+        }
+      } else {
+        skimAlert.classList.add('hidden');
+        document.getElementById('navMilestoneIndicator').classList.add('hidden');
+      }
+
+      renderMilestoneCards(ladder, trueWealth);
+      renderMasterTable(ladder);
+    }
+
+    function renderMilestoneCards(ladder, currentWealth) {
+      const grid = document.getElementById('milestonesCardGrid');
+      grid.innerHTML = '';
+
+      const checkIndices = [
+        Math.floor(ladder.length * 0.25) - 1,
+        Math.floor(ladder.length * 0.50) - 1,
+        Math.floor(ladder.length * 0.75) - 1,
+        ladder.length - 1
+      ];
+
+      checkIndices.forEach((idx, i) => {
+        const row = ladder[Math.max(0, idx)];
+        const target = getSessionTarget(row.s);
+        const reached = currentWealth >= target;
+        const pct = Math.min(100, Math.max(0, (currentWealth / target) * 100));
+
+        const card = document.createElement('div');
+        card.className = `p-3.5 rounded-2xl border transition-all ${
+          reached 
+            ? 'bg-sage-50/70 border-sage-300 dark:bg-sage-950/40 dark:border-sage-800' 
+            : 'bg-stone-50/70 border-stone-200 dark:bg-stone-900/40 dark:border-stone-800'
+        }`;
+        card.innerHTML = `
+          <div class="flex justify-between items-center text-[10px] font-bold uppercase tracking-wider text-stone-500 dark:text-stone-400">
+            <span>Week ${i + 1} (S${row.s})</span>
+            <span class="${reached ? 'text-sage-600 dark:text-sage-400 font-extrabold' : 'text-stone-400'}">${reached ? '✓ Reached' : `${pct.toFixed(0)}%`}</span>
+          </div>
+          <div class="text-base font-black font-num text-stone-900 dark:text-stone-100 mt-1">${fmt(target)}</div>
+          <div class="w-full bg-stone-200 dark:bg-stone-800 h-1.5 rounded-full overflow-hidden mt-2">
+            <div class="bg-sage-500 h-full rounded-full transition-all duration-300" style="width: ${pct}%"></div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function renderMasterTable(ladder) {
+      const tbody = document.getElementById('sessionLedgerBody');
+      tbody.innerHTML = '';
+
+      // Update multi-pace column header visibility
+      const multiCols = document.querySelectorAll('.multi-pace-col');
+      multiCols.forEach(col => {
+        if (showAllPacesInTable) col.classList.remove('hidden');
+        else col.classList.add('hidden');
+      });
+
+      const thActiveTarget = document.getElementById('thActiveTarget');
+      thActiveTarget.innerText = showAllPacesInTable ? `Active (${capitalize(currentPace)})` : `Target (${capitalize(currentPace)})`;
+
+      ladder.forEach(row => {
+        const isCurrent = row.s === currentSession;
+        const loggedVal = sessionLogs[row.s];
+        const hasLogged = loggedVal !== undefined;
+        const timestamp = sessionTimestamps[row.s];
+        const prev = getPrevDeskBalance(row.s);
+        const pnl = hasLogged ? loggedVal - prev : null;
+        const target = getSessionTarget(row.s);
+        const surplus = hasLogged ? loggedVal - target : null;
+        const isRowLocked = !!lockedSessions[row.s];
+
+        const tr = document.createElement('tr');
+        tr.className = `cursor-pointer transition-colors ${
+          isCurrent 
+            ? 'bg-sage-50/80 dark:bg-sage-950/40 font-bold border-l-4 border-l-sage-500' 
+            : 'hover:bg-stone-50 dark:hover:bg-stone-800/40'
+        }`;
+        tr.onclick = () => {
+          currentSession = row.s;
+          localStorage.setItem('pgl_session_v9', currentSession);
+          renderTracker();
+        };
+
+        let pnlCell = `<span class="text-stone-300 dark:text-stone-600">—</span>`;
+        if (hasLogged) {
+          if (pnl > 0.001) pnlCell = `<span class="text-sage-600 dark:text-sage-400 font-bold">+${fmt(pnl)}</span>`;
+          else if (pnl < -0.001) pnlCell = `<span class="text-terracotta-600 dark:text-terracotta-400 font-bold">-${fmt(Math.abs(pnl))}</span>`;
+          else pnlCell = `<span class="text-stone-400 font-medium">$0.00</span>`;
+        }
+
+        let surplusCell = `<span class="text-stone-300 dark:text-stone-600">—</span>`;
+        if (hasLogged && surplus !== null) {
+          if (surplus >= 0) surplusCell = `<span class="text-sage-600 dark:text-sage-400 font-bold">+${fmt(surplus)}</span>`;
+          else surplusCell = `<span class="text-terracotta-600 dark:text-terracotta-400 font-bold">-${fmt(Math.abs(surplus))}</span>`;
+        }
+
+        const note = sessionNotes[row.s] || row.milestone || row.pause || '';
+
+        let extraColsHtml = '';
+        if (showAllPacesInTable) {
+          extraColsHtml = `
+            <td class="py-2.5 px-3 sm:px-4 text-sage-600 dark:text-sage-400 font-semibold">${row.r !== undefined ? fmt(row.r) : fmt(row.target)}</td>
+            <td class="py-2.5 px-3 sm:px-4 text-clay-600 dark:text-clay-400 font-semibold">${row.m !== undefined ? fmt(row.m) : '—'}</td>
+            <td class="py-2.5 px-3 sm:px-4 text-terracotta-600 dark:text-terracotta-400 font-semibold">${row.a !== undefined ? fmt(row.a) : '—'}</td>
+          `;
+        }
+
+        tr.innerHTML = `
+          <td class="py-2.5 px-3 sm:px-4 ${isCurrent ? 'text-stone-900 dark:text-stone-100 font-black' : 'text-stone-500'}">
+            S${row.s}
+            ${isRowLocked ? '<span class="ml-1 text-[11px]" title="Locked">🔒</span>' : ''}
+            ${row.milestone ? '<span class="ml-1.5 px-1.5 py-0.5 text-[9px] rounded-full bg-sage-100 text-sage-700 dark:bg-sage-900/50 dark:text-sage-300">Goal</span>' : ''}
+            ${row.pause ? '<span class="ml-1.5 px-1.5 py-0.5 text-[9px] rounded-full bg-clay-100 text-clay-700 dark:bg-clay-900/50 dark:text-clay-300">Rest</span>' : ''}
+          </td>
+          <td class="py-2.5 px-3 sm:px-4 text-[11px] text-stone-400">${timestamp ? fmtTimestamp(timestamp).split(',')[0] : '—'}</td>
+          <td class="py-2.5 px-3 sm:px-4 font-bold ${hasLogged ? 'text-stone-900 dark:text-stone-100' : 'text-stone-300 dark:text-stone-600 italic'}">
+            ${hasLogged ? fmt(loggedVal) : '—'}
+          </td>
+          <td class="py-2.5 px-3 sm:px-4">${pnlCell}</td>
+          <td class="py-2.5 px-3 sm:px-4">${surplusCell}</td>
+          <td class="py-2.5 px-3 sm:px-4 font-semibold text-stone-700 dark:text-stone-300">${fmt(target)}</td>
+          ${extraColsHtml}
+          <td class="py-2.5 px-3 sm:px-4 text-[11px] text-stone-400" onclick="event.stopPropagation(); promptEditSessionNote(${row.s})">
+            ${note ? `<span class="px-2 py-0.5 rounded-lg bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300 border border-stone-200 dark:border-stone-700">${note}</span>` : '<span class="text-stone-300 dark:text-stone-600 hover:underline">+ note</span>'}
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function promptEditSessionNote(sessionNum) {
+      const existing = sessionNotes[sessionNum] || '';
+      openModal({
+        title: `Session ${sessionNum} Note`,
+        msg: "Enter a custom note, trade setup description, or reflection:",
+        isPrompt: true,
+        defaultValue: existing,
+        onConfirm: (val) => {
+          if (!val || val.trim() === '') {
+            delete sessionNotes[sessionNum];
+          } else {
+            sessionNotes[sessionNum] = val.trim();
+          }
+          saveTrackerState();
+          renderTracker();
+          showToast("Note updated");
+        }
+      });
+    }
+
+    function copySessionTable() {
+      const ladder = getActiveLadder();
+      const headers = ["Session", "Timestamp", "Closing_Balance", "Day_Profit", "Surplus", "Target_Req", "Notes"];
+      const rows = ladder.map(r => {
+        const logged = sessionLogs[r.s];
+        const prev = getPrevDeskBalance(r.s);
+        const pnl = logged !== undefined ? (logged - prev).toFixed(2) : '';
+        const target = getSessionTarget(r.s);
+        const surplus = logged !== undefined ? (logged - target).toFixed(2) : '';
+        return [
+          `Session ${r.s}`,
+          sessionTimestamps[r.s] || '',
+          logged !== undefined ? logged.toFixed(2) : '',
+          pnl,
+          surplus,
+          target.toFixed(2),
+          sessionNotes[r.s] || ''
+        ].join("\t");
+      });
+
+      const tsv = [headers.join("\t"), ...rows].join("\n");
+      const temp = document.createElement("textarea");
+      temp.value = tsv;
+      document.body.appendChild(temp);
+      temp.select();
+      document.execCommand('copy');
+      document.body.removeChild(temp);
+      showToast("Session ledger copied to clipboard!");
+    }
+
+    function triggerQuickSkimPrompt() {
+      const currentDesk = getDeskBalance(currentSession);
+      const targetReq = getSessionTarget(currentSession);
+      const suggested = Math.max(10, currentDesk - targetReq);
+
+      openModal({
+        title: "Quick Skim into Vault",
+        msg: `Current balance is ${fmt(currentDesk)}. Enter the dollar amount to transfer into your safe Vault:`,
+        isPrompt: true,
+        defaultValue: suggested.toFixed(2),
+        onConfirm: (val) => {
+          const skimAmt = parseFloat(val);
+          if (!isNaN(skimAmt) && skimAmt > 0) {
+            executeSkim(skimAmt, "Quick Skim from Tracker Alert");
+          }
+        }
+      });
+    }
+
+    function dismissSkimAlert() {
+      sessionStorage.setItem(`dismiss_skim_s${currentSession}`, 'true');
+      document.getElementById('skimAlertBox').classList.add('hidden');
+    }
+
+    function toggleMilestoneFeature(enabled) {
+      milestoneFeatureEnabled = enabled;
+      localStorage.setItem('pgl_milestone_enabled_v9', enabled ? 'true' : 'false');
+      renderMilestonesTab();
+      renderTracker();
+      showToast(enabled ? "Milestone Skim Mode Enabled" : "Milestone Skim Mode Disabled");
+    }
+
+    function saveMilestoneConfig() {
+      milestoneConfig = {
+        targetGoal: parseFloat(document.getElementById('cfgMilestoneGoal').value) || 1500,
+        reserveFloor: parseFloat(document.getElementById('cfgDeskReserve').value) || 1000,
+        strategy: document.getElementById('cfgSkimStrategy').value
+      };
+      localStorage.setItem('pgl_milestone_cfg_v9', JSON.stringify(milestoneConfig));
+      renderMilestonesTab();
+      renderTracker();
+      showToast("Milestone preferences saved");
+    }
+
+    function setSkimQuickAmount(amt) {
+      document.getElementById('skimFormAmount').value = amt;
+    }
+
+    function executeSkim(amount, note) {
+      const currentDesk = getDeskBalance(currentSession);
+      const newDesk = Math.max(10, currentDesk - amount);
+
+      sessionLogs[currentSession] = newDesk;
+      saveTrackerState();
+
+      vaultLedger.push({
+        id: Date.now(),
+        amount: amount,
+        dateTime: new Date().toISOString(),
+        deskAfter: newDesk,
+        note: note || "Banked profit"
+      });
+      localStorage.setItem('pgl_vault_ledger_v9', JSON.stringify(vaultLedger));
+
+      renderTracker();
+      renderMilestonesTab();
+      showToast(`Secured ${fmt(amount)} into Vault!`);
+      syncToFirestore();
+
+      if (localStorage.getItem('pgl_webhook_url_v9')) {
+        syncToCloudWebhook(false);
+      }
+    }
+
+    function handleManualSkimSubmit(e) {
+      e.preventDefault();
+      const amount = parseFloat(document.getElementById('skimFormAmount').value);
+      const note = document.getElementById('skimFormNote').value.trim();
+
+      if (isNaN(amount) || amount <= 0) return;
+
+      executeSkim(amount, note || "Manual extraction");
+      document.getElementById('skimFormAmount').value = '';
+      document.getElementById('skimFormNote').value = '';
+    }
+
+    function deleteVaultRecord(id) {
+      openModal({
+        title: "Delete Vault Entry",
+        msg: "Remove this skim entry from the Vault history? Note: Desk balance will remain unchanged.",
+        onConfirm: () => {
+          vaultLedger = vaultLedger.filter(v => v.id !== id);
+          localStorage.setItem('pgl_vault_ledger_v9', JSON.stringify(vaultLedger));
+          renderMilestonesTab();
+          renderTracker();
+          showToast("Vault record deleted");
+          syncToFirestore();
+        }
+      });
+    }
+
+    function renderMilestonesTab() {
+      document.getElementById('milestoneToggleCheckbox').checked = milestoneFeatureEnabled;
+      document.getElementById('cfgMilestoneGoal').value = milestoneConfig.targetGoal;
+      document.getElementById('cfgDeskReserve').value = milestoneConfig.reserveFloor;
+      document.getElementById('cfgSkimStrategy').value = milestoneConfig.strategy;
+
+      const totalVault = getTotalVaultWithdrawn();
+      const currentDesk = getDeskBalance(currentSession);
+      const trueWealth = currentDesk + totalVault;
+
+      document.getElementById('vaultTotalWithdrawnVal').innerText = fmt(totalVault);
+      document.getElementById('vaultTrueWealthVal').innerText = fmt(trueWealth);
+      document.getElementById('vaultLogsCount').innerText = `${vaultLedger.length} Skims`;
+
+      const goal = milestoneConfig.targetGoal || 1500;
+      const pct = Math.min(100, Math.max(0, (totalVault / goal) * 100));
+      document.getElementById('vaultGoalPercent').innerText = `${pct.toFixed(1)}%`;
+      document.getElementById('vaultProgressBar').style.width = `${pct}%`;
+      document.getElementById('vaultGoalSummary').innerText = `${fmt(totalVault)} banked of ${fmt(goal)} target`;
+
+      const list = document.getElementById('vaultHistoryContainer');
+      if (vaultLedger.length === 0) {
+        list.innerHTML = `
+          <div class="text-center py-8 text-stone-400">
+            <span class="text-2xl block mb-1">🏦</span>
+            <span class="font-medium text-xs">No money saved in Vault yet.</span>
+            <p class="text-[11px] text-stone-400 mt-0.5">Use the form or quick-skim prompt to secure profits off-desk.</p>
+          </div>
+        `;
+        return;
+      }
+
+      list.innerHTML = vaultLedger.slice().reverse().map(item => `
+        <div class="flex items-center justify-between p-3 rounded-2xl bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-800 transition">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-xl bg-clay-50 dark:bg-clay-950/60 text-clay-600 dark:text-clay-400 border border-clay-200 dark:border-clay-800 flex items-center justify-center font-bold text-xs font-num">
+              $
+            </div>
+            <div>
+              <div class="font-bold text-clay-600 dark:text-clay-400 font-num text-sm">${fmt(item.amount)}</div>
+              <div class="text-[11px] text-stone-400">${fmtTimestamp(item.dateTime)} • Desk at ${fmt(item.deskAfter)} • ${item.note}</div>
+            </div>
+          </div>
+          <button onclick="deleteVaultRecord(${item.id})" class="text-terracotta-600 hover:text-terracotta-700 text-xs font-bold px-2.5 py-1 rounded-xl bg-terracotta-50 dark:bg-terracotta-950/40 border border-terracotta-200 dark:border-terracotta-800">
+            ✕
+          </button>
+        </div>
+      `).join('');
+    }
+
+    function renderConfigTab() {
+      const select = document.getElementById('ladderProfileSelector');
+      select.innerHTML = '';
+      ladderProfiles.forEach(p => {
+        const opt = document.createElement('option');
+        opt.value = p.id;
+        opt.innerText = p.name;
+        opt.selected = p.id === activeProfileId;
+        select.appendChild(opt);
+      });
+
+      const ladder = getActiveLadder();
+      const start = ladder[0]?.r || ladder[0]?.target || 120.00;
+      const final = getSessionTarget(ladder.length);
+
+      document.getElementById('cfgInfoStart').innerText = fmt(start);
+      document.getElementById('cfgInfoFinal').innerText = fmt(final);
+      document.getElementById('cfgInfoSessions').innerText = `${ladder.length} Sessions`;
+      document.getElementById('cfgInfoMultiple').innerText = `${(final / start).toFixed(1)}x`;
+    }
+
+    function switchLadderProfile(id) {
+      activeProfileId = id;
+      localStorage.setItem('pgl_active_profile_v9', id);
+      currentSession = 1;
+      localStorage.setItem('pgl_session_v9', currentSession);
+      renderConfigTab();
+      renderTracker();
+      showToast("Switched active ladder profile");
+    }
+
+    function handleGenerateLadderSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('genName').value.trim();
+      const base = parseFloat(document.getElementById('genBase').value);
+      const target = parseFloat(document.getElementById('genTarget').value);
+      const totalSessions = parseInt(document.getElementById('genSessions').value);
+      const curveType = document.getElementById('genCurveType').value;
+
+      if (!name || isNaN(base) || isNaN(target) || isNaN(totalSessions) || totalSessions < 3) {
+        showToast("Invalid ladder parameters", false);
+        return;
+      }
+
+      const generatedSessions = [];
+
+      if (curveType === 'smooth') {
+        const dailyRate = Math.pow(target / base, 1 / (totalSessions - 1)) - 1;
+        for (let s = 1; s <= totalSessions; s++) {
+          const val = base * Math.pow(1 + dailyRate, s - 1);
+          generatedSessions.push({
+            s: s,
+            r: Number(val.toFixed(2)),
+            m: Number(val.toFixed(2)),
+            a: Number(val.toFixed(2)),
+            target: Number(val.toFixed(2))
+          });
+        }
+      } else {
+        for (let s = 1; s <= totalSessions; s++) {
+          const progress = (s - 1) / (totalSessions - 1);
+          const curveFactor = Math.pow(progress, 0.72);
+          const val = base * Math.pow(target / base, curveFactor);
+
+          generatedSessions.push({
+            s: s,
+            r: Number(val.toFixed(2)),
+            m: Number((val * 1.15).toFixed(2)),
+            a: Number((val * 1.30).toFixed(2)),
+            target: Number(val.toFixed(2))
+          });
+        }
+      }
+
+      const newProfile = {
+        id: `custom_${Date.now()}`,
+        name: name,
+        sessions: generatedSessions
+      };
+
+      ladderProfiles.push(newProfile);
+      activeProfileId = newProfile.id;
+      localStorage.setItem('pgl_ladder_profiles_v9', JSON.stringify(ladderProfiles));
+      localStorage.setItem('pgl_active_profile_v9', activeProfileId);
+
+      renderConfigTab();
+      renderTracker();
+      showToast(`Created roadmap "${name}"!`);
+    }
+
+    function requestResetSessionEntries() {
+      openModal({
+        title: "Reset Session Log",
+        msg: "Reset all logged session balances for this roadmap? Roadmaps and Vault history will remain intact.",
+        onConfirm: () => {
+          sessionLogs = { 1: getActiveLadder()[0]?.r || 120.00 };
+          sessionTimestamps = { 1: new Date().toISOString() };
+          lockedSessions = {};
+          currentSession = 1;
+          localStorage.setItem('pgl_session_v9', 1);
+          localStorage.setItem('pgl_locked_sessions_v9', JSON.stringify(lockedSessions));
+          saveTrackerState();
+          renderTracker();
+          showToast("Session progress reset to Session 1");
+          syncToFirestore();
+        }
+      });
+    }
+
+    function requestClearVault() {
+      openModal({
+        title: "Clear Vault History",
+        msg: "Clear all saved Vault records? This cannot be undone.",
+        onConfirm: () => {
+          vaultLedger = [];
+          localStorage.setItem('pgl_vault_ledger_v9', JSON.stringify(vaultLedger));
+          renderMilestonesTab();
+          renderTracker();
+          showToast("Vault history cleared");
+          syncToFirestore();
+        }
+      });
+    }
+
+    function requestRestorePresets() {
+      openModal({
+        title: "Restore Default Preset",
+        msg: "Switch back to the standard 28-Session Tri-Pace profile ($120 to $7K / $12.6K / $17.5K)?",
+        onConfirm: () => {
+          activeProfileId = 'default_28';
+          localStorage.setItem('pgl_active_profile_v9', activeProfileId);
+          currentSession = 1;
+          localStorage.setItem('pgl_session_v9', 1);
+          renderConfigTab();
+          renderTracker();
+          showToast("Default ladder profile restored");
+        }
+      });
+    }
+
+    function showToast(msg, isSuccess = true) {
+      const toast = document.getElementById('toastBox');
+      document.getElementById('toastMsg').innerText = msg;
+      document.getElementById('toastIcon').innerText = isSuccess ? "✓" : "!";
+      toast.classList.remove('opacity-0', 'translate-y-24');
+      toast.classList.add('opacity-100', 'translate-y-0');
+
+      setTimeout(() => {
+        toast.classList.remove('opacity-100', 'translate-y-0');
+        toast.classList.add('opacity-0', 'translate-y-24');
+      }, 2200);
+    }
+
+    /* Google Apps Script Integration Template */
+    const GOOGLE_APPS_SCRIPT_CODE = `function doPost(e) {
+  try {
+    const data = JSON.parse(e.postData.contents);
+    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    
+    // Tab 1: Ladder
+    let ladderSheet = ss.getSheetByName("Ladder") || ss.insertSheet("Ladder");
+    ladderSheet.clear();
+    ladderSheet.appendRow(["Session", "Timestamp", "Closing Balance", "Session PnL", "Surplus", "Target", "Status", "Notes"]);
+    
+    if (data.ladder && data.ladder.length) {
+      data.ladder.forEach(row => {
+        ladderSheet.appendRow([
+          "Session " + row.s,
+          row.timestamp || "",
+          row.balance !== null ? row.balance : "",
+          row.pnl !== null ? row.pnl : "",
+          row.surplus !== null ? row.surplus : "",
+          row.target !== null ? row.target : "",
+          row.isLocked ? "Locked" : "In Play",
+          row.note || ""
+        ]);
+      });
+    }
+
+    // Tab 2: Vault
+    let vaultSheet = ss.getSheetByName("Vault") || ss.insertSheet("Vault");
+    vaultSheet.clear();
+    vaultSheet.appendRow(["Date", "Amount Banked", "Desk Balance Left", "Purpose / Note"]);
+    if (data.vault && data.vault.length) {
+      data.vault.forEach(v => {
+        vaultSheet.appendRow([v.dateTime || "", v.amount, v.deskAfter, v.note || ""]);
+      });
+    }
+
+    return ContentService.createTextOutput(JSON.stringify({ status: "success", syncedAt: new Date().toISOString() }))
+      .setMimeType(ContentService.MimeType.JSON);
+  } catch(err) {
+    return ContentService.createTextOutput(JSON.stringify({ status: "error", message: err.toString() }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+function doGet(e) {
+  return ContentService.createTextOutput("Portfolio Growth Ladder Webhook Active!");
+}`;
+
+    /* Firebase State */
+    let firebaseApp = null;
+    let firestoreDb = null;
+    let firestoreUnsubscribe = null;
+    let isRemoteUpdate = false;
+
+
+
+    /* Modal Sub-Tab Switching */
+    function switchSyncModalTab(tab) {
+      const fbBtn = document.getElementById('syncModalTabBtn_firebase');
+      const sheetsBtn = document.getElementById('syncModalTabBtn_sheets');
+      const fbContent = document.getElementById('syncModalContent_firebase');
+      const sheetsContent = document.getElementById('syncModalContent_sheets');
+
+      if (tab === 'firebase') {
+        fbContent.classList.remove('hidden');
+        sheetsContent.classList.add('hidden');
+        fbBtn.className = "flex-1 py-2 rounded-lg bg-white dark:bg-stone-900 text-stone-900 dark:text-stone-100 shadow-sm transition flex items-center justify-center gap-1.5";
+        sheetsBtn.className = "flex-1 py-2 rounded-lg text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200 transition flex items-center justify-center gap-1.5";
+      } else {
+        fbContent.classList.add('hidden');
+        sheetsContent.classList.remove('hidden');
+        sheetsBtn.className = "flex-1 py-2 rounded-lg bg-white dark:bg-stone-900 text-stone-900 dark:text-stone-100 shadow-sm transition flex items-center justify-center gap-1.5";
+        fbBtn.className = "flex-1 py-2 rounded-lg text-stone-500 dark:text-stone-400 hover:text-stone-900 dark:hover:text-stone-200 transition flex items-center justify-center gap-1.5";
+      }
+    }
+
+    /* In-App Firebase Config Parser */
+    function parseFirebaseConfigInput(raw) {
+      if (!raw || typeof raw !== 'string') return null;
+      let str = raw.trim();
+      str = str.replace(/^(const|var|let)\s+firebaseConfig\s*=\s*/i, '');
+      str = str.replace(/;\s*$/, '');
+      try {
+        return JSON.parse(str);
+      } catch (e) {
+        try {
+          const fn = new Function(`return (${str});`);
+          const res = fn();
+          if (res && typeof res === 'object' && res.apiKey && res.projectId) {
+            return res;
+          }
+        } catch (err) {
+          console.error("Config parse error:", err);
+        }
+      }
+      return null;
+    }
+
+    /* Initialize Firebase & Firestore Listener */
+    function initFirebase(config, syncKey = 'dcniper_portfolio', isManual = false) {
+      try {
+        if (!firebase.apps.length) {
+          firebaseApp = firebase.initializeApp(config);
+        } else {
+          firebaseApp = firebase.app();
+        }
+        firestoreDb = firebase.firestore();
+
+        const docRef = firestoreDb.collection("portfolios").doc(syncKey);
+
+        if (firestoreUnsubscribe) firestoreUnsubscribe();
+
+        firestoreUnsubscribe = docRef.onSnapshot((doc) => {
+          if (doc.exists) {
+            const data = doc.data();
+            applyRemoteFirestoreData(data);
+            updateCloudStatus();
+          } else {
+            // First time connecting: upload current local data to Firestore
+            syncToFirestore();
+          }
+        }, (err) => {
+          console.error("Firestore onSnapshot error:", err);
+          updateCloudStatus('firestore_error', err.message);
+        });
+
+        localStorage.setItem('pgl_firebase_cfg_v9', JSON.stringify(config));
+        localStorage.setItem('pgl_sync_key_v9', syncKey);
+        updateCloudStatus();
+        if (isManual) showToast("Connected to Firestore! Realtime multi-device sync active 🔥");
+        return true;
+      } catch (err) {
+        console.error("Firebase init error:", err);
+        updateCloudStatus('firestore_error', err.message);
+        if (isManual) showToast("Firebase error: " + err.message, false);
+        return false;
+      }
+    }
+
+    /* Apply Incoming Remote Changes from Other Devices */
+    function applyRemoteFirestoreData(data) {
+      if (!data || isRemoteUpdate) return;
+      isRemoteUpdate = true;
+
+      try {
+        if (data.sessionLogs !== undefined) {
+          sessionLogs = data.sessionLogs || {};
+          localStorage.setItem('pgl_session_logs_v9', JSON.stringify(sessionLogs));
+        }
+        if (data.sessionTimestamps !== undefined) {
+          sessionTimestamps = data.sessionTimestamps || {};
+          localStorage.setItem('pgl_timestamps_v9', JSON.stringify(sessionTimestamps));
+        }
+        if (data.sessionNotes !== undefined) {
+          sessionNotes = data.sessionNotes || {};
+          localStorage.setItem('pgl_notes_v9', JSON.stringify(sessionNotes));
+        }
+        if (data.lockedSessions !== undefined) {
+          lockedSessions = data.lockedSessions || {};
+          localStorage.setItem('pgl_locked_sessions_v9', JSON.stringify(lockedSessions));
+        }
+        if (data.vaultLedger !== undefined) {
+          vaultLedger = Array.isArray(data.vaultLedger) ? data.vaultLedger : [];
+          localStorage.setItem('pgl_vault_ledger_v9', JSON.stringify(vaultLedger));
+        }
+        if (data.currentSession !== undefined) {
+          currentSession = Number(data.currentSession) || 1;
+          localStorage.setItem('pgl_session_v9', currentSession);
+        }
+        if (data.currentPace !== undefined) {
+          currentPace = data.currentPace;
+          localStorage.setItem('pgl_pace_v9', currentPace);
+        }
+
+        renderTracker();
+        renderMilestonesTab();
+      } catch (err) {
+        console.error("Error applying remote data:", err);
+      } finally {
+        isRemoteUpdate = false;
+      }
+    }
+
+    /* Debounced and Immediate Firestore Sync */
+    let firestoreSyncTimer = null;
+    function debouncedSyncToFirestore(delay = 600) {
+      if (!firestoreDb || isRemoteUpdate) return;
+      if (firestoreSyncTimer) clearTimeout(firestoreSyncTimer);
+      firestoreSyncTimer = setTimeout(() => {
+        syncToFirestore();
+      }, delay);
+    }
+
+    /* Push Local Changes to Firestore */
+    function syncToFirestore() {
+      if (!firestoreDb || isRemoteUpdate) return;
+      if (firestoreSyncTimer) {
+        clearTimeout(firestoreSyncTimer);
+        firestoreSyncTimer = null;
+      }
+      const syncKey = localStorage.getItem('pgl_sync_key_v9') || 'dcniper_portfolio';
+      
+      const payload = {
+        sessionLogs: sessionLogs,
+        sessionTimestamps: sessionTimestamps,
+        sessionNotes: sessionNotes,
+        lockedSessions: lockedSessions,
+        vaultLedger: vaultLedger,
+        currentSession: currentSession,
+        currentPace: currentPace,
+        updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+      };
+
+      updateCloudStatus('firestore_syncing');
+      firestoreDb.collection("portfolios").doc(syncKey).set(payload, { merge: true })
+        .then(() => {
+          updateCloudStatus();
+        })
+        .catch((err) => {
+          console.error("Firestore sync error:", err);
+          updateCloudStatus('firestore_error', err.message);
+        });
+    }
+
+    function handleConnectFirebase() {
+      const syncKey = document.getElementById('inputSyncKey').value.trim() || 'dcniper_portfolio';
+      const rawConfig = document.getElementById('inputFirebaseConfig').value.trim();
+
+      if (!rawConfig) {
+        showToast("Please paste your firebaseConfig object!", false);
+        return;
+      }
+
+      const parsedConfig = parseFirebaseConfigInput(rawConfig);
+      if (!parsedConfig || !parsedConfig.apiKey || !parsedConfig.projectId) {
+        showToast("Invalid Firebase config. Ensure apiKey and projectId are present.", false);
+        return;
+      }
+
+      const success = initFirebase(parsedConfig, syncKey, true);
+      if (success) {
+        updateFirebaseModalView();
+      }
+    }
+
+    function handleDisconnectFirebase() {
+      if (firestoreUnsubscribe) firestoreUnsubscribe();
+      firestoreUnsubscribe = null;
+      firestoreDb = null;
+      localStorage.removeItem('pgl_firebase_cfg_v9');
+      updateFirebaseModalView();
+      updateCloudStatus();
+      showToast("Firebase disconnected. Using local storage.");
+    }
+
+    function copyFirestoreRules() {
+      const rules = `rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if true;
+    }
+  }
+}`;
+      navigator.clipboard.writeText(rules).then(() => {
+        showToast("Firestore rules copied to clipboard! 📋");
+      }).catch(() => {
+        const temp = document.createElement("textarea");
+        temp.value = rules;
+        document.body.appendChild(temp);
+        temp.select();
+        document.execCommand('copy');
+        document.body.removeChild(temp);
+        showToast("Firestore rules copied! 📋");
+      });
+    }
+
+    function updateFirebaseModalView() {
+      const savedCfg = localStorage.getItem('pgl_firebase_cfg_v9');
+      const savedKey = localStorage.getItem('pgl_sync_key_v9') || 'dcniper_portfolio';
+      const badge = document.getElementById('firebaseStatusBadge');
+      const feedback = document.getElementById('firebaseFeedbackMsg');
+      const disconnectBtn = document.getElementById('btnDisconnectFirebase');
+      const keyInput = document.getElementById('inputSyncKey');
+      const cfgInput = document.getElementById('inputFirebaseConfig');
+
+      if (keyInput) keyInput.value = savedKey;
+
+      if (savedCfg) {
+        if (badge) {
+          badge.innerText = 'Connected';
+          badge.className = 'text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300 font-num';
+        }
+        if (feedback) feedback.innerText = `🔥 Live realtime sync active on portfolio key: "${savedKey}"`;
+        if (disconnectBtn) disconnectBtn.classList.remove('hidden');
+        if (cfgInput && !cfgInput.value) cfgInput.value = savedCfg;
+      } else {
+        if (badge) {
+          badge.innerText = 'Not Connected';
+          badge.className = 'text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-stone-200 text-stone-600 dark:bg-stone-700 dark:text-stone-300 font-num';
+        }
+        if (feedback) feedback.innerText = 'Credentials are saved securely in your browser.';
+        if (disconnectBtn) disconnectBtn.classList.add('hidden');
+      }
+    }
+
+    /* Cloud Sync & Excel Export Functions */
+    function openLinkSheetModal() {
+      const modal = document.getElementById('sheetSyncModal');
+      updateFirebaseModalView();
+
+      const input = document.getElementById('inputWebhookUrl');
+      const savedUrl = localStorage.getItem('pgl_webhook_url_v9') || '';
+      if (input) input.value = savedUrl;
+
+      const lastSync = localStorage.getItem('pgl_last_sync_v9');
+      const feedback = document.getElementById('webhookSyncFeedback');
+      const modalBadge = document.getElementById('modalCloudStatusBadge');
+
+      if (savedUrl) {
+        if (feedback) feedback.innerText = lastSync ? `Linked • Last synced: ${fmtTimestamp(lastSync)}` : 'Webhook URL configured.';
+        if (modalBadge) {
+          modalBadge.innerText = 'Connected';
+          modalBadge.className = 'text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300 font-num';
+        }
+      } else {
+        if (feedback) feedback.innerText = 'No webhook linked yet.';
+        if (modalBadge) {
+          modalBadge.innerText = 'Not Connected';
+          modalBadge.className = 'text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-stone-200 text-stone-600 dark:bg-stone-700 dark:text-stone-300 font-num';
+        }
+      }
+
+      modal.classList.remove('hidden');
+    }
+
+    function closeLinkSheetModal() {
+      document.getElementById('sheetSyncModal').classList.add('hidden');
+    }
+
+    function exportToExcelCSV() {
+      const ladder = getActiveLadder();
+      let csv = "PORTFOLIO GROWTH LADDER - 28-SESSION EXECUTION ROADMAP\n";
+      csv += "Session,Date,Closing Balance,Day Profit,Active Target,Surplus/Delta,Notes,Status\n";
+      
+      ladder.forEach(row => {
+        const logged = sessionLogs[row.s];
+        const prev = getPrevDeskBalance(row.s);
+        const pnl = logged !== undefined ? (logged - prev).toFixed(2) : '';
+        const target = getSessionTarget(row.s);
+        const surplus = logged !== undefined ? (logged - target).toFixed(2) : '';
+        const date = sessionTimestamps[row.s] ? fmtTimestamp(sessionTimestamps[row.s]) : 'Unrecorded';
+        const note = (sessionNotes[row.s] || row.milestone || row.pause || '').replace(/"/g, '""');
+        const isLocked = lockedSessions[row.s] ? 'Locked' : (logged !== undefined ? 'In Play' : 'Pending');
+        
+        csv += `Session ${row.s},"${date}",${logged !== undefined ? logged.toFixed(2) : ''},${pnl},${target.toFixed(2)},${surplus},"${note}",${isLocked}\n`;
+      });
+
+      csv += "\n\nPIGGY BANK - CAPITAL VAULT WITHDRAWALS\n";
+      csv += "Transaction ID,Date,Amount Banked,Remaining Desk Balance,Purpose / Note\n";
+      vaultLedger.forEach(item => {
+        const note = (item.note || '').replace(/"/g, '""');
+        csv += `${item.id},"${fmtTimestamp(item.dateTime)}",${Number(item.amount).toFixed(2)},${Number(item.deskAfter).toFixed(2)},"${note}"\n`;
+      });
+
+      const blob = new Blob(["\uFEFF" + csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `Portfolio_Growth_Ladder_${new Date().toISOString().slice(0, 10)}.csv`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      
+      localStorage.setItem('pgl_last_export_v9', new Date().toISOString());
+      updateCloudStatus();
+      showToast("Excel spreadsheet exported! 📊");
+    }
+
+    function createNewGoogleSheet() {
+      copySessionTable();
+      window.open('https://sheets.new', '_blank');
+      showToast("New Google Sheet opened! Press Ctrl+V to paste your data 📄");
+    }
+
+    function copyAppsScriptCode() {
+      const temp = document.createElement("textarea");
+      temp.value = GOOGLE_APPS_SCRIPT_CODE;
+      document.body.appendChild(temp);
+      temp.select();
+      document.execCommand('copy');
+      document.body.removeChild(temp);
+      showToast("Google Apps Script code copied to clipboard! 📋");
+    }
+
+    async function saveAndTestWebhook() {
+      const input = document.getElementById('inputWebhookUrl');
+      const url = input.value.trim();
+
+      if (!url) {
+        localStorage.removeItem('pgl_webhook_url_v9');
+        localStorage.removeItem('pgl_last_sync_v9');
+        updateCloudStatus();
+        showToast("Webhook unlinked. Reverted to local storage.");
+        return;
+      }
+
+      if (!url.startsWith('https://script.google.com/')) {
+        showToast("Please enter a valid Google Apps Script Webhook URL", false);
+        return;
+      }
+
+      localStorage.setItem('pgl_webhook_url_v9', url);
+      await syncToCloudWebhook(true);
+    }
+
+    async function syncToCloudWebhook(isManual = false) {
+      const webhookUrl = localStorage.getItem('pgl_webhook_url_v9');
+      if (!webhookUrl) {
+        if (isManual) openLinkSheetModal();
+        return;
+      }
+
+      const ladder = getActiveLadder();
+      const payload = {
+        action: "fullSync",
+        syncedAt: new Date().toISOString(),
+        profile: activeProfileId,
+        pace: currentPace,
+        ladder: ladder.map(r => {
+          const logged = sessionLogs[r.s];
+          const prev = getPrevDeskBalance(r.s);
+          const target = getSessionTarget(r.s);
+          return {
+            s: r.s,
+            timestamp: sessionTimestamps[r.s] || null,
+            balance: logged !== undefined ? logged : null,
+            pnl: logged !== undefined ? logged - prev : null,
+            target: target,
+            surplus: logged !== undefined ? logged - target : null,
+            isLocked: !!lockedSessions[r.s],
+            note: sessionNotes[r.s] || r.milestone || r.pause || ""
+          };
+        }),
+        vault: vaultLedger,
+        summary: {
+          totalVault: getTotalVaultWithdrawn(),
+          currentDesk: getDeskBalance(currentSession),
+          trueWealth: getDeskBalance(currentSession) + getTotalVaultWithdrawn(),
+          currentSession: currentSession
+        }
+      };
+
+      try {
+        updateCloudStatus('syncing');
+        await fetch(webhookUrl, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        const nowStr = new Date().toISOString();
+        localStorage.setItem('pgl_last_sync_v9', nowStr);
+        updateCloudStatus();
+        if (isManual) showToast("Synced to Google Sheet! ☁️");
+      } catch (err) {
+        console.error("Cloud sync error:", err);
+        updateCloudStatus('error');
+        if (isManual) showToast("Sync failed. Check Webhook URL.", false);
+      }
+    }
+
+    function updateCloudStatus(statusOverride = null, errorMsg = null) {
+      const pill = document.getElementById('cloudStatusPill');
+      const hasFirebase = !!localStorage.getItem('pgl_firebase_cfg_v9');
+      const webhookUrl = localStorage.getItem('pgl_webhook_url_v9');
+      const lastSync = localStorage.getItem('pgl_last_sync_v9');
+      const lastExport = localStorage.getItem('pgl_last_export_v9');
+
+      if (!pill) return;
+
+      if (statusOverride === 'firestore_syncing' || statusOverride === 'syncing') {
+        pill.innerHTML = `
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl text-xs font-bold text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/60 border border-amber-200 dark:border-amber-800">
+            <span class="w-2 h-2 rounded-full bg-amber-500 animate-spin"></span>
+            <span>Syncing...</span>
+          </span>
+        `;
+        return;
+      }
+
+      if (hasFirebase) {
+        pill.innerHTML = `
+          <span title="Firestore Realtime Multi-Device Sync Active" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl text-xs font-bold text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/60 border border-amber-200 dark:border-amber-800 shadow-sm">
+            <span class="relative flex h-2 w-2">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
+            </span>
+            <span>🔥 Firestore Live</span>
+          </span>
+        `;
+      } else if (webhookUrl) {
+        pill.innerHTML = `
+          <span title="${lastSync ? `Last synced: ${fmtTimestamp(lastSync)}` : 'Connected to Google Sheet'}" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl text-xs font-bold text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800">
+            <span class="relative flex h-2 w-2">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+            </span>
+            <span>☁️ Sheet Synced</span>
+          </span>
+        `;
+      } else if (lastExport) {
+        pill.innerHTML = `
+          <span title="Last exported to Excel: ${fmtTimestamp(lastExport)}" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl text-xs font-semibold text-stone-600 dark:text-stone-300 bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-700">
+            <span class="w-1.5 h-1.5 rounded-full bg-clay-500"></span>
+            <span>☁️ Excel Exported</span>
+          </span>
+        `;
+      } else {
+        pill.innerHTML = `
+          <span title="Click to connect Firebase or Google Sheets" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl text-xs font-semibold text-stone-500 dark:text-stone-400 bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-700">
+            <span class="w-1.5 h-1.5 rounded-full bg-stone-400"></span>
+            <span>☁️ Local Only</span>
+          </span>
+        `;
+      }
+    }
+
+    window.onload = function() {
+      applyTheme(currentTheme);
+
+      // Initialize Firebase if configured
+      const savedFirebaseCfg = localStorage.getItem('pgl_firebase_cfg_v9');
+      const savedSyncKey = localStorage.getItem('pgl_sync_key_v9') || 'dcniper_portfolio';
+      if (savedFirebaseCfg) {
+        try {
+          initFirebase(JSON.parse(savedFirebaseCfg), savedSyncKey, false);
+        } catch(e) {
+          console.error("Firebase auto-init error:", e);
+        }
+      }
+
+      const now = new Date();
+      now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+      const dateEl = document.getElementById('skimFormDateTime');
+      if (dateEl) dateEl.value = now.toISOString().slice(0, 16);
+
+      const btn = document.getElementById('btnToggleAllPaces');
+      if (btn) {
+        btn.innerHTML = showAllPacesInTable ? "<span>⚡ Focused View</span>" : "<span>📊 Show All Paces</span>";
+      }
+
+      updateCloudStatus();
+      renderTracker();
+      renderMilestonesTab();
+      renderConfigTab();
+    };
+  </script>
+</body>
+</html>

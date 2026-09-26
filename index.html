@@ -1936,9 +1936,9 @@ service cloud.firestore {
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
               <!-- Download Excel CSV Button -->
-              <button onclick="exportToExcelCSV()" class="p-3.5 rounded-xl bg-[#F0E6D5] dark:bg-[#352E25] border border-[#CFC1AA] dark:border-[#514638] hover:border-[#C98278] dark:hover:border-[#D99B91] text-left transition active:scale-95 group shadow-sm">
+              <button onclick="exportToExcelCSV()" class="p-3.5 rounded-xl bg-[#F0E6D5] dark:bg-[#352E25] border border-[#CFC1AA] dark:border-[#514638] hover:border-[#C2984D] dark:hover:border-[#D0AA63] text-left transition active:scale-95 group shadow-sm">
                 <div class="flex items-center gap-2.5">
-                  <div class="w-8 h-8 rounded-lg bg-[#C98278]/15 text-[#C98278] dark:bg-[#D99B91]/20 dark:text-[#D99B91] flex items-center justify-center shrink-0">
+                  <div class="w-8 h-8 rounded-lg bg-[#C2984D]/15 text-[#C2984D] dark:bg-[#D0AA63]/20 dark:text-[#D0AA63] flex items-center justify-center shrink-0">
                     <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
                       <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                       <polyline points="7 10 12 15 17 10" />
@@ -1946,11 +1946,11 @@ service cloud.firestore {
                     </svg>
                   </div>
                   <div>
-                    <div class="text-xs font-bold text-[#332B22] dark:text-[#E2D4BD] group-hover:text-[#C98278] dark:group-hover:text-[#D99B91]">
+                    <div class="text-xs font-bold text-[#332B22] dark:text-[#E2D4BD] group-hover:text-[#C2984D] dark:group-hover:text-[#D0AA63]">
                       Export to Excel (.csv)
                     </div>
                     <div class="text-[10px] text-[#716556] dark:text-[#B4A58F]">
-                      Exports all sessions &amp; vault logs
+                      Downloads spreadsheet file
                     </div>
                   </div>
                 </div>
@@ -1970,10 +1970,10 @@ service cloud.firestore {
                   </div>
                   <div>
                     <div class="text-xs font-bold text-[#332B22] dark:text-[#E2D4BD] group-hover:text-[#607B5B] dark:group-hover:text-[#789272]">
-                      Create Google Sheet
+                      Open in Google Sheets
                     </div>
                     <div class="text-[10px] text-[#716556] dark:text-[#B4A58F]">
-                      Opens sheets.new + copies data
+                      Copies data &amp; opens sheets.new
                     </div>
                   </div>
                 </div>
@@ -1985,14 +1985,37 @@ service cloud.firestore {
           <div class="p-4 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] space-y-3.5">
             <div class="flex items-center justify-between">
               <span class="text-xs font-bold uppercase tracking-wider text-[#332B22] dark:text-[#E2D4BD] flex items-center gap-1.5">
-                <svg class="w-3.5 h-3.5 text-[#617D91] dark:text-[#7894A6]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <svg class="w-3.5 h-3.5 text-[#607B5B] dark:text-[#789272]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z" />
                 </svg>
-                <span>Google Sheets Webhook Sync</span>
+                <span>Live Google Sheets Auto-Sync</span>
               </span>
               <span id="modalCloudStatusBadge" class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-[#CFC1AA] text-[#716556] dark:bg-[#514638] dark:text-[#B4A58F] font-num">
                 Not Connected
               </span>
+            </div>
+
+            <p class="text-xs text-[#716556] dark:text-[#B4A58F] leading-relaxed">
+              Sync your active roadmap sessions, daily profits, and vault withdrawals directly into your own Google Sheet in real-time.
+            </p>
+
+            <!-- 30-Second Setup Guide -->
+            <div class="p-3.5 rounded-xl bg-[#F0E6D5] dark:bg-[#352E25] border border-[#CFC1AA] dark:border-[#514638] space-y-2.5 text-xs">
+              <div class="font-bold text-[#332B22] dark:text-[#E2D4BD] flex items-center justify-between">
+                <span class="flex items-center gap-1.5">
+                  <span class="w-4 h-4 rounded-full bg-[#607B5B]/20 text-[#607B5B] dark:text-[#789272] flex items-center justify-center text-[10px] font-black">i</span>
+                  <span>Easy 3-Step Setup:</span>
+                </span>
+                <button onclick="copyAppsScriptCode()" class="text-xs font-bold text-[#607B5B] dark:text-[#789272] hover:underline inline-flex items-center gap-1 bg-[#607B5B]/10 dark:bg-[#789272]/15 px-2.5 py-1 rounded-lg border border-[#607B5B]/30 dark:border-[#789272]/30">
+                  <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                  <span>1. Copy Apps Script Code</span>
+                </button>
+              </div>
+              <ol class="list-decimal list-inside space-y-1.5 text-[11px] text-[#716556] dark:text-[#B4A58F]">
+                <li>In your Google Sheet, open <span class="font-bold text-[#332B22] dark:text-[#E2D4BD]">Extensions &gt; Apps Script</span> and paste the copied code.</li>
+                <li>Click <span class="font-bold text-[#332B22] dark:text-[#E2D4BD]">Deploy &gt; New deployment</span>, choose <span class="font-bold text-[#332B22] dark:text-[#E2D4BD]">Web app</span>, set Who has access to <span class="font-bold text-[#607B5B] dark:text-[#789272]">Anyone</span>, then click Deploy.</li>
+                <li>Copy your Web app URL, paste it below, and click <span class="font-bold text-[#332B22] dark:text-[#E2D4BD]">Connect &amp; Sync</span>!</li>
+              </ol>
             </div>
 
             <div>
@@ -2001,25 +2024,20 @@ service cloud.firestore {
               </label>
               <div class="flex items-center gap-2">
                 <input type="url" id="inputWebhookUrl" placeholder="https://script.google.com/macros/s/.../exec"
-                  class="flex-1 bg-[#F0E6D5] dark:bg-[#352E25] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 text-xs font-num text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#C98278] dark:focus:border-[#D99B91] shadow-inner" />
-                <button onclick="saveAndTestWebhook()" class="px-4 py-2 rounded-xl bg-[#C98278] hover:bg-[#B77066] text-[#F5EBDD] dark:bg-[#D99B91] dark:hover:bg-[#C88A80] dark:text-[#29241E] font-bold text-xs shadow-sm transition active:scale-95 shrink-0">
-                  Sync &amp; Save
+                  class="flex-1 bg-[#F0E6D5] dark:bg-[#352E25] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 text-xs font-num text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#789272] shadow-inner" />
+                <button onclick="saveAndTestWebhook()" class="px-4 py-2 rounded-xl bg-[#607B5B] hover:bg-[#4F674B] text-[#F5EBDD] dark:bg-[#789272] dark:hover:bg-[#607B5B] dark:text-[#29241E] font-bold text-xs shadow-sm transition active:scale-95 shrink-0 flex items-center gap-1.5">
+                  <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span>Connect &amp; Sync</span>
                 </button>
               </div>
-              <p id="webhookSyncFeedback" class="text-[11px] text-[#716556] dark:text-[#B4A58F] font-num mt-1">
-                No webhook linked yet.
-              </p>
-            </div>
-
-            <!-- Code Copy -->
-            <div class="pt-2 border-t border-[#CFC1AA] dark:border-[#514638] flex items-center justify-between">
-              <span class="text-[11px] text-[#716556] dark:text-[#B4A58F]">Need the Apps Script code for your Google Sheet?</span>
-              <button onclick="copyAppsScriptCode()" class="text-xs font-bold text-[#C98278] dark:text-[#D99B91] hover:underline inline-flex items-center gap-1">
-                <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="9" y="9" width="13" height="13" rx="2" /><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-                </svg>
-                <span>Copy Apps Script</span>
-              </button>
+              <div class="flex items-center justify-between mt-1.5">
+                <p id="webhookSyncFeedback" class="text-[11px] text-[#716556] dark:text-[#B4A58F] font-num">
+                  No webhook linked yet.
+                </p>
+                <button onclick="testWebhookSyncNow()" id="btnTestWebhookNow" class="hidden text-[11px] font-bold text-[#607B5B] dark:text-[#789272] hover:underline">
+                  Sync Now
+                </button>
+              </div>
             </div>
           </div>
 
@@ -2137,15 +2155,22 @@ service cloud.firestore {
     let activeTab = 'tracker';
     let currentPace = localStorage.getItem('pgl_pace_v10') || 'relaxed';
     let currentSession = parseInt(localStorage.getItem('pgl_session_v10')) || 1;
-    let sessionLogs = JSON.parse(localStorage.getItem('pgl_session_logs_v10')) || { 1: 120.00 };
+    let sessionLogs = JSON.parse(localStorage.getItem('pgl_session_logs_v10')) || {};
     let sessionTimestamps = JSON.parse(localStorage.getItem('pgl_timestamps_v10')) || {};
-    if (sessionLogs[1] !== undefined && !sessionTimestamps[1]) {
-      sessionTimestamps[1] = new Date().toISOString();
-      localStorage.setItem('pgl_timestamps_v10', JSON.stringify(sessionTimestamps));
-    }
     let sessionNotes = JSON.parse(localStorage.getItem('pgl_notes_v10')) || {};
     let lockedSessions = JSON.parse(localStorage.getItem('pgl_locked_sessions_v10')) || {};
     let showAllPacesInTable = localStorage.getItem('pgl_show_all_paces_v10') === 'true';
+
+    // One-time cleanup for users whose localStorage had the legacy auto-seeded Day 1 default
+    if (!localStorage.getItem('pgl_day1_unseed_v10')) {
+      localStorage.setItem('pgl_day1_unseed_v10', 'true');
+      if (sessionLogs && Object.keys(sessionLogs).length === 1 && sessionLogs[1] !== undefined && !lockedSessions[1]) {
+        delete sessionLogs[1];
+        delete sessionTimestamps[1];
+        localStorage.setItem('pgl_session_logs_v10', JSON.stringify(sessionLogs));
+        localStorage.setItem('pgl_timestamps_v10', JSON.stringify(sessionTimestamps));
+      }
+    }
 
     /* Multi-Widget Console Hub State */
     let activeWidgetTab = localStorage.getItem('pgl_active_widget_tab_v10') || 'calendar';
@@ -2686,6 +2711,7 @@ service cloud.firestore {
       localStorage.setItem('pgl_timestamps_v10', JSON.stringify(sessionTimestamps));
       localStorage.setItem('pgl_notes_v10', JSON.stringify(sessionNotes));
       debouncedSyncToFirestore(500);
+      debouncedSyncToWebhook(1500);
     }
 
     function toggleTableColumns() {
@@ -2791,6 +2817,9 @@ service cloud.firestore {
       document.getElementById('prevSessionBalLabel').innerText = fmt(prevDesk);
       document.getElementById('sessionTargetValDisplay').innerText = fmt(targetReq);
 
+      // Check whether user has entered a closing balance for the active session
+      const hasLoggedCurrentSession = (sessionLogs[currentSession] !== undefined && sessionLogs[currentSession] !== null && !isNaN(sessionLogs[currentSession]));
+
       // Session PnL Calculation (Normalized to include this session's vault skims)
       const thisSessionSkims = vaultLedger
         .filter(item => item.session === currentSession)
@@ -2801,7 +2830,13 @@ service cloud.firestore {
       const pnlPctEl = document.getElementById('sessionPnlPct');
       const pnlVibeEl = document.getElementById('sessionPnlVibe');
 
-      if (sessionPnl > 0.001) {
+      if (!hasLoggedCurrentSession) {
+        animateNumber(pnlDollarEl, 0, true, false);
+        pnlDollarEl.className = "text-3xl sm:text-4xl font-black font-num tracking-tight text-[#716556] dark:text-[#B4A58F]";
+        pnlPctEl.innerText = "Awaiting closing balance";
+        pnlPctEl.className = "text-sm font-bold font-num text-[#716556] dark:text-[#B4A58F]";
+        pnlVibeEl.innerHTML = '<span class="w-2 h-2 rounded-full bg-[#C2984D] dark:bg-[#D0AA63] inline-block shrink-0 animate-pulse"></span><span>Session live. Enter closing balance when session completes.</span>';
+      } else if (sessionPnl > 0.001) {
         animateNumber(pnlDollarEl, sessionPnl, true, true);
         pnlDollarEl.className = "text-3xl sm:text-4xl font-black font-num tracking-tight text-[#607B5B] dark:text-[#789272]";
         pnlPctEl.innerText = `+${sessionPnlPct.toFixed(2)}% today`;
@@ -2834,7 +2869,9 @@ service cloud.firestore {
 
       const delta = currentDesk - targetReq;
       const deltaBadgeEl = document.getElementById('weeklyDeltaBadge');
-      if (delta >= 0) {
+      if (!hasLoggedCurrentSession) {
+        deltaBadgeEl.innerHTML = `<span class="inline-flex items-center gap-1 text-xs font-semibold text-[#716556] dark:text-[#B4A58F] bg-[#F0E6D5] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] px-3 py-1 rounded-full"><svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> In Progress</span>`;
+      } else if (delta >= 0) {
         deltaBadgeEl.innerHTML = `<span class="inline-flex items-center gap-1 text-xs font-black text-[#607B5B] dark:text-[#789272] bg-[#607B5B]/10 dark:bg-[#789272]/15 border border-[#607B5B]/30 dark:border-[#789272]/30 px-3 py-1 rounded-full"><svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg> +${fmt(delta)} ahead of pace</span>`;
       } else {
         deltaBadgeEl.innerHTML = `<span class="inline-flex items-center gap-1 text-xs font-black text-[#B86652] dark:text-[#C77B68] bg-[#B86652]/10 dark:bg-[#C77B68]/15 border border-[#B86652]/30 dark:border-[#C77B68]/30 px-3 py-1 rounded-full"><svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg> -${fmt(Math.abs(delta))} behind pace</span>`;
@@ -2886,6 +2923,8 @@ service cloud.firestore {
       const paceBoxConfigs = [
         {
           key: 'relaxed',
+          target: rTarget,
+          reqPnl: rPnl,
           diff: diffRelaxed,
           statusEl: document.getElementById('targetStatusRelaxed'),
           cardEl: document.getElementById('paceCard_relaxed'),
@@ -2896,6 +2935,8 @@ service cloud.firestore {
         },
         {
           key: 'mid',
+          target: mTarget,
+          reqPnl: mPnl,
           diff: diffMid,
           statusEl: document.getElementById('targetStatusMid'),
           cardEl: document.getElementById('paceCard_mid'),
@@ -2906,6 +2947,8 @@ service cloud.firestore {
         },
         {
           key: 'aggressive',
+          target: aTarget,
+          reqPnl: aPnl,
           diff: diffAgg,
           statusEl: document.getElementById('targetStatusAggressive'),
           cardEl: document.getElementById('paceCard_aggressive'),
@@ -2917,7 +2960,7 @@ service cloud.firestore {
       ];
 
       paceBoxConfigs.forEach(cfg => {
-        const isCompleted = cfg.diff >= 0;
+        const isCompleted = hasLoggedCurrentSession && (cfg.diff >= 0);
         const isActive = (cfg.key === currentPace);
 
         if (cfg.activeBadgeEl) {
@@ -2933,7 +2976,11 @@ service cloud.firestore {
           cfg.statusEl.className = "text-xs font-extrabold font-num";
         } else {
           cfg.cardEl.className = `bento-card p-4 sm:p-5 cursor-pointer transition-all space-y-3 ${isActive ? cfg.activeBorderClass : 'border border-[#CFC1AA] dark:border-[#514638] bg-[#F0E6D5] dark:bg-[#352E25] hover:border-[#B4A58F] dark:hover:border-[#716556] hover:bg-[#F0E6D5]/60 dark:hover:bg-[#352E25]/60'}`;
-          cfg.statusEl.innerText = `Needs +${fmt(Math.abs(cfg.diff))} to hit`;
+          if (!hasLoggedCurrentSession) {
+            cfg.statusEl.innerText = cfg.reqPnl > 0 ? `Target: +${fmt(cfg.reqPnl)} profit` : `Target: ${fmt(cfg.target)}`;
+          } else {
+            cfg.statusEl.innerText = `Needs +${fmt(Math.abs(cfg.diff))} to hit`;
+          }
           cfg.statusEl.className = "text-xs font-semibold font-num text-[#716556] dark:text-[#B4A58F]";
         }
       });
@@ -3493,7 +3540,7 @@ service cloud.firestore {
 
     function copySessionTable() {
       const ladder = getActiveLadder();
-      const headers = ["Session", "Timestamp", "Closing_Balance", "Day_Profit", "Surplus", "Target_Req", "Notes"];
+      const headers = ["Session", "Timestamp", "Closing Balance ($)", "Day Profit ($)", "Active Target ($)", "Surplus / Behind ($)", "Status", "Notes"];
       const rows = ladder.map(r => {
         const logged = sessionLogs[r.s];
         const prev = getPrevDeskBalance(r.s);
@@ -3503,25 +3550,45 @@ service cloud.firestore {
         const pnl = logged !== undefined ? ((logged + rowSkims) - prev).toFixed(2) : '';
         const target = getSessionTarget(r.s);
         const surplus = logged !== undefined ? ((logged + rowSkims) - target).toFixed(2) : '';
+        const status = lockedSessions[r.s] ? 'Locked' : (logged !== undefined ? 'Completed' : 'In Play');
         return [
           `Session ${r.s}`,
           sessionTimestamps[r.s] || '',
           logged !== undefined ? logged.toFixed(2) : '',
           pnl,
-          surplus,
           target.toFixed(2),
-          sessionNotes[r.s] || ''
+          surplus,
+          status,
+          sessionNotes[r.s] || r.milestone || r.pause || ''
         ].join("\t");
       });
 
-      const tsv = [headers.join("\t"), ...rows].join("\n");
+      let tsv = [headers.join("\t"), ...rows].join("\n");
+
+      if (vaultLedger && vaultLedger.length > 0) {
+        tsv += "\n\nCAPITAL VAULT WITHDRAWALS\n";
+        tsv += ["Transaction ID", "Date / Time", "Amount Banked ($)", "Desk Balance Left ($)", "Notes"].join("\t") + "\n";
+        vaultLedger.forEach(v => {
+          tsv += [
+            v.id || '',
+            v.dateTime ? fmtTimestamp(v.dateTime) : '',
+            Number(v.amount).toFixed(2),
+            Number(v.deskAfter).toFixed(2),
+            v.note || ''
+          ].join("\t") + "\n";
+        });
+      }
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(tsv).catch(() => {});
+      }
       const temp = document.createElement("textarea");
       temp.value = tsv;
       document.body.appendChild(temp);
       temp.select();
       document.execCommand('copy');
       document.body.removeChild(temp);
-      showToast("Session ledger copied to clipboard!");
+      showToast("Spreadsheet data copied to clipboard!");
     }
 
     function triggerQuickSkimPrompt() {
@@ -4294,9 +4361,8 @@ service cloud.firestore {
           activeProfileId = '';
         }
         currentSession = 1;
-        const newLadder = getActiveLadder();
-        sessionLogs = newLadder.length > 0 ? { 1: newLadder[0]?.r || newLadder[0]?.target || 120.00 } : {};
-        sessionTimestamps = newLadder.length > 0 ? { 1: new Date().toISOString() } : {};
+        sessionLogs = {};
+        sessionTimestamps = {};
         lockedSessions = {};
         sessionNotes = {};
         localStorage.setItem('pgl_session_v10', currentSession);
@@ -4365,8 +4431,8 @@ service cloud.firestore {
       ladderProfiles.push(newProfile);
       activeProfileId = newProfile.id;
       currentSession = 1;
-      sessionLogs = { 1: base };
-      sessionTimestamps = { 1: new Date().toISOString() };
+      sessionLogs = {};
+      sessionTimestamps = {};
       lockedSessions = {};
       sessionNotes = {};
       saveTrackerState();
@@ -4386,9 +4452,8 @@ service cloud.firestore {
         title: "Reset Session Log",
         msg: "Reset all logged session balances for this roadmap? Roadmaps and Vault history will remain intact.",
         onConfirm: () => {
-          const ladder = getActiveLadder();
-          sessionLogs = ladder.length > 0 ? { 1: ladder[0]?.r || ladder[0]?.target || 120.00 } : {};
-          sessionTimestamps = ladder.length > 0 ? { 1: new Date().toISOString() } : {};
+          sessionLogs = {};
+          sessionTimestamps = {};
           lockedSessions = {};
           currentSession = 1;
           localStorage.setItem('pgl_session_v10', 1);
@@ -4437,8 +4502,10 @@ service cloud.firestore {
           localStorage.setItem('pgl_active_profile_v10', activeProfileId);
           currentSession = 1;
           localStorage.setItem('pgl_session_v10', 1);
-          sessionLogs = { 1: 120.00 };
-          sessionTimestamps = { 1: new Date().toISOString() };
+          sessionLogs = {};
+          sessionTimestamps = {};
+          lockedSessions = {};
+          sessionNotes = {};
           saveTrackerState();
           renderConfigTab();
           renderTracker();
@@ -4513,37 +4580,91 @@ service cloud.firestore {
     /* Google Apps Script Integration Template */
     const GOOGLE_APPS_SCRIPT_CODE = `function doPost(e) {
   try {
-    const data = JSON.parse(e.postData.contents);
-    const ss = SpreadsheetApp.getActiveSpreadsheet();
-    
-    // Tab 1: Ladder
-    let ladderSheet = ss.getSheetByName("Ladder") || ss.insertSheet("Ladder");
+    var raw = (e && e.postData && e.postData.contents) ? e.postData.contents : "{}";
+    var data = JSON.parse(raw);
+    var ss = SpreadsheetApp.getActiveSpreadsheet();
+
+    // 1. Summary Sheet
+    var sumSheet = ss.getSheetByName("Summary") || ss.insertSheet("Summary", 0);
+    sumSheet.clear();
+    var sumRows = [
+      ["PORTFOLIO GROWTH TRACKER", "LIVE STATUS"],
+      ["Challenge Profile", data.profile || "Active Challenge"],
+      ["Active Pace", String(data.pace || "relaxed").toUpperCase()],
+      ["Active Session", "Session " + (data.summary ? data.summary.currentSession : 1)],
+      ["Current Desk Balance", data.summary ? Number(data.summary.currentDesk) : 0],
+      ["Total Banked in Vault", data.summary ? Number(data.summary.totalVault) : 0],
+      ["True Total Wealth", data.summary ? Number(data.summary.trueWealth) : 0],
+      ["Last Synced At", Utilities.formatDate(new Date(), Session.getScriptTimeZone(), "yyyy-MM-dd HH:mm:ss")]
+    ];
+    sumSheet.getRange(1, 1, sumRows.length, sumRows[0].length).setValues(sumRows);
+    var sHead = sumSheet.getRange(1, 1, 1, 2);
+    sHead.setBackground("#2B241D").setFontColor("#F5EBDD").setFontWeight("bold");
+    sumSheet.getRange(5, 2, 3, 1).setNumberFormat("$#,##0.00");
+    sumSheet.autoResizeColumn(1);
+    sumSheet.autoResizeColumn(2);
+
+    // 2. Sessions Ledger Sheet
+    var ladderSheet = ss.getSheetByName("Sessions Ledger") || ss.getSheetByName("Ladder") || ss.insertSheet("Sessions Ledger");
     ladderSheet.clear();
-    ladderSheet.appendRow(["Session", "Timestamp", "Closing Balance", "Session PnL", "Surplus", "Target", "Status", "Notes"]);
-    
-    if (data.ladder && data.ladder.length) {
-      data.ladder.forEach(row => {
-        ladderSheet.appendRow([
+    var ladderRows = [
+      ["Session", "Timestamp", "Closing Balance ($)", "Day Profit ($)", "Active Target ($)", "Surplus / Behind ($)", "Status", "Notes"]
+    ];
+
+    if (data.ladder && data.ladder.length > 0) {
+      data.ladder.forEach(function(row) {
+        ladderRows.push([
           "Session " + row.s,
-          row.timestamp || "",
-          row.balance !== null ? row.balance : "",
-          row.pnl !== null ? row.pnl : "",
-          row.surplus !== null ? row.surplus : "",
-          row.target !== null ? row.target : "",
-          row.isLocked ? "Locked" : "In Play",
+          row.timestamp ? Utilities.formatDate(new Date(row.timestamp), Session.getScriptTimeZone(), "yyyy-MM-dd HH:mm") : "",
+          row.balance !== null && row.balance !== undefined ? Number(row.balance) : "",
+          row.pnl !== null && row.pnl !== undefined ? Number(row.pnl) : "",
+          row.target !== null && row.target !== undefined ? Number(row.target) : "",
+          row.surplus !== null && row.surplus !== undefined ? Number(row.surplus) : "",
+          row.isLocked ? "Locked" : (row.balance !== null && row.balance !== undefined ? "Completed" : "In Play"),
           row.note || ""
         ]);
       });
     }
 
-    // Tab 2: Vault
-    let vaultSheet = ss.getSheetByName("Vault") || ss.insertSheet("Vault");
+    ladderSheet.getRange(1, 1, ladderRows.length, ladderRows[0].length).setValues(ladderRows);
+    var lHead = ladderSheet.getRange(1, 1, 1, ladderRows[0].length);
+    lHead.setBackground("#2B241D").setFontColor("#F5EBDD").setFontWeight("bold");
+    ladderSheet.setFrozenRows(1);
+    if (ladderRows.length > 1) {
+      ladderSheet.getRange(2, 3, ladderRows.length - 1, 4).setNumberFormat("$#,##0.00");
+    }
+    for (var c = 1; c <= ladderRows[0].length; c++) {
+      ladderSheet.autoResizeColumn(c);
+    }
+
+    // 3. Capital Vault Sheet
+    var vaultSheet = ss.getSheetByName("Capital Vault") || ss.getSheetByName("Vault") || ss.insertSheet("Capital Vault");
     vaultSheet.clear();
-    vaultSheet.appendRow(["Date", "Amount Banked", "Desk Balance Left", "Purpose / Note"]);
-    if (data.vault && data.vault.length) {
-      data.vault.forEach(v => {
-        vaultSheet.appendRow([v.dateTime || "", v.amount, v.deskAfter, v.note || ""]);
+    var vaultRows = [
+      ["Transaction ID", "Date / Time", "Amount Banked ($)", "Desk Balance Left ($)", "Purpose / Notes"]
+    ];
+
+    if (data.vault && data.vault.length > 0) {
+      data.vault.forEach(function(v) {
+        vaultRows.push([
+          v.id || "",
+          v.dateTime ? Utilities.formatDate(new Date(v.dateTime), Session.getScriptTimeZone(), "yyyy-MM-dd HH:mm") : "",
+          Number(v.amount) || 0,
+          Number(v.deskAfter) || 0,
+          v.note || ""
+        ]);
       });
+    }
+
+    vaultSheet.getRange(1, 1, vaultRows.length, vaultRows[0].length).setValues(vaultRows);
+    var vHead = vaultSheet.getRange(1, 1, 1, vaultRows[0].length);
+    vHead.setBackground("#2B241D").setFontColor("#F5EBDD").setFontWeight("bold");
+    vaultSheet.setFrozenRows(1);
+    if (vaultRows.length > 1) {
+      vaultSheet.getRange(2, 3, vaultRows.length - 1, 2).setNumberFormat("$#,##0.00");
+    }
+    for (var vc = 1; vc <= vaultRows[0].length; vc++) {
+      vaultSheet.autoResizeColumn(vc);
     }
 
     return ContentService.createTextOutput(JSON.stringify({ status: "success", syncedAt: new Date().toISOString() }))
@@ -4555,7 +4676,7 @@ service cloud.firestore {
 }
 
 function doGet(e) {
-  return ContentService.createTextOutput("Portfolio Growth Ladder Webhook Active!");
+  return ContentService.createTextOutput("Portfolio Growth Ladder Webhook Active! Status: OK");
 }`;
 
     /* Firebase State */
@@ -4845,14 +4966,18 @@ service cloud.firestore {
         if (feedback) feedback.innerText = lastSync ? `Linked • Last synced: ${fmtTimestamp(lastSync)}` : 'Webhook URL configured.';
         if (modalBadge) {
           modalBadge.innerText = 'Connected';
-          modalBadge.className = 'text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-[#617D91]/15 text-[#617D91] dark:bg-[#86A5BC]/20 dark:text-[#86A5BC] border border-[#617D91]/30 dark:border-[#86A5BC]/30 font-num';
+          modalBadge.className = 'text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-[#607B5B]/15 text-[#607B5B] dark:bg-[#789272]/20 dark:text-[#789272] border border-[#607B5B]/30 dark:border-[#789272]/30 font-num';
         }
+        const testBtn = document.getElementById('btnTestWebhookNow');
+        if (testBtn) testBtn.classList.remove('hidden');
       } else {
         if (feedback) feedback.innerText = 'No webhook linked yet.';
         if (modalBadge) {
           modalBadge.innerText = 'Not Connected';
           modalBadge.className = 'text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-[#F0E6D5] text-[#716556] dark:bg-[#41382D] dark:text-[#B4A58F] border border-[#CFC1AA] dark:border-[#514638] font-num';
         }
+        const testBtn = document.getElementById('btnTestWebhookNow');
+        if (testBtn) testBtn.classList.add('hidden');
       }
 
       modal.classList.remove('hidden');
@@ -4870,9 +4995,12 @@ service cloud.firestore {
       ladder.forEach(row => {
         const logged = sessionLogs[row.s];
         const prev = getPrevDeskBalance(row.s);
-        const pnl = logged !== undefined ? (logged - prev).toFixed(2) : '';
+        const skims = vaultLedger
+          .filter(v => v.session === row.s)
+          .reduce((sum, v) => sum + (parseFloat(v.amount) || 0), 0);
+        const pnl = logged !== undefined ? ((logged + skims) - prev).toFixed(2) : '';
         const target = getSessionTarget(row.s);
-        const surplus = logged !== undefined ? (logged - target).toFixed(2) : '';
+        const surplus = logged !== undefined ? ((logged + skims) - target).toFixed(2) : '';
         const date = sessionTimestamps[row.s] ? fmtTimestamp(sessionTimestamps[row.s]) : 'Unrecorded';
         const note = (sessionNotes[row.s] || row.milestone || row.pause || '').replace(/"/g, '""');
         const isLocked = lockedSessions[row.s] ? 'Locked' : (logged !== undefined ? 'In Play' : 'Pending');
@@ -4905,7 +5033,7 @@ service cloud.firestore {
     function createNewGoogleSheet() {
       copySessionTable();
       window.open('https://sheets.new', '_blank');
-      showToast("New Google Sheet opened! Press Ctrl+V to paste your data");
+      showToast("Sheet opened! Press Ctrl+V in cell A1 to paste your table.");
     }
 
     function copyAppsScriptCode() {
@@ -4927,16 +5055,40 @@ service cloud.firestore {
         localStorage.removeItem('pgl_last_sync_v10');
         updateCloudStatus();
         showToast("Webhook unlinked. Reverted to local storage.");
+        const modalBadge = document.getElementById('modalCloudStatusBadge');
+        if (modalBadge) {
+          modalBadge.innerText = 'Not Connected';
+          modalBadge.className = 'text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-[#F0E6D5] text-[#716556] dark:bg-[#41382D] dark:text-[#B4A58F] border border-[#CFC1AA] dark:border-[#514638] font-num';
+        }
+        const feedback = document.getElementById('webhookSyncFeedback');
+        if (feedback) feedback.innerText = 'No webhook linked yet.';
+        const testBtn = document.getElementById('btnTestWebhookNow');
+        if (testBtn) testBtn.classList.add('hidden');
         return;
       }
 
       if (!url.startsWith('https://script.google.com/')) {
-        showToast("Please enter a valid Google Apps Script Webhook URL", false);
+        showToast("Please enter a valid Google Apps Script Webhook URL (starts with https://script.google.com/)", false);
         return;
       }
 
       localStorage.setItem('pgl_webhook_url_v10', url);
+      const testBtn = document.getElementById('btnTestWebhookNow');
+      if (testBtn) testBtn.classList.remove('hidden');
       await syncToCloudWebhook(true);
+    }
+
+    async function testWebhookSyncNow() {
+      await syncToCloudWebhook(true);
+    }
+
+    let webhookSyncTimer = null;
+    function debouncedSyncToWebhook(delay = 1500) {
+      if (!localStorage.getItem('pgl_webhook_url_v10')) return;
+      if (webhookSyncTimer) clearTimeout(webhookSyncTimer);
+      webhookSyncTimer = setTimeout(() => {
+        syncToCloudWebhook(false);
+      }, delay);
     }
 
     async function syncToCloudWebhook(isManual = false) {
@@ -4947,22 +5099,26 @@ service cloud.firestore {
       }
 
       const ladder = getActiveLadder();
+      const activeProfile = ladderProfiles.find(p => p.id === activeProfileId) || ladderProfiles[0];
       const payload = {
         action: "fullSync",
         syncedAt: new Date().toISOString(),
-        profile: activeProfileId,
+        profile: activeProfile ? activeProfile.name : "Active Challenge",
         pace: currentPace,
         ladder: ladder.map(r => {
           const logged = sessionLogs[r.s];
           const prev = getPrevDeskBalance(r.s);
           const target = getSessionTarget(r.s);
+          const skims = vaultLedger
+            .filter(v => v.session === r.s)
+            .reduce((sum, v) => sum + (parseFloat(v.amount) || 0), 0);
           return {
             s: r.s,
             timestamp: sessionTimestamps[r.s] || null,
             balance: logged !== undefined ? logged : null,
-            pnl: logged !== undefined ? logged - prev : null,
+            pnl: logged !== undefined ? (logged + skims) - prev : null,
             target: target,
-            surplus: logged !== undefined ? logged - target : null,
+            surplus: logged !== undefined ? (logged + skims) - target : null,
             isLocked: !!lockedSessions[r.s],
             note: sessionNotes[r.s] || r.milestone || r.pause || ""
           };
@@ -4976,22 +5132,33 @@ service cloud.firestore {
         }
       };
 
+      const feedback = document.getElementById('webhookSyncFeedback');
+      const modalBadge = document.getElementById('modalCloudStatusBadge');
+
       try {
         updateCloudStatus('syncing');
+        if (feedback) feedback.innerText = 'Syncing data to Google Sheet...';
+
         await fetch(webhookUrl, {
           method: 'POST',
           mode: 'no-cors',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
           body: JSON.stringify(payload)
         });
 
         const nowStr = new Date().toISOString();
         localStorage.setItem('pgl_last_sync_v10', nowStr);
         updateCloudStatus();
-        if (isManual) showToast("Synced to Google Sheet!");
+        if (feedback) feedback.innerText = `Connected & Synced: ${fmtTimestamp(nowStr)}`;
+        if (modalBadge) {
+          modalBadge.innerText = 'Connected';
+          modalBadge.className = 'text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-[#607B5B]/15 text-[#607B5B] dark:bg-[#789272]/20 dark:text-[#789272] border border-[#607B5B]/30 dark:border-[#789272]/30 font-num';
+        }
+        if (isManual) showToast("Google Sheet successfully synced!");
       } catch (err) {
         console.error("Cloud sync error:", err);
         updateCloudStatus('error');
+        if (feedback) feedback.innerText = 'Sync error: Check Webhook URL and Apps Script permissions.';
         if (isManual) showToast("Sync failed. Check Webhook URL.", false);
       }
     }

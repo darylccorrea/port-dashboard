@@ -2129,7 +2129,14 @@ service cloud.firestore {
     ];
 
     /* Built-In Firebase Configuration (Auto-syncs across all devices out of the box) */
-    const BUILTIN_FIREBASE_CONFIG = null;
+    const BUILTIN_FIREBASE_CONFIG = {
+      apiKey: "AIzaSyDv3bRZGKMAyew6iuascU4l2V7TqarHZdI",
+      authDomain: "port-growth-tracker.firebaseapp.com",
+      projectId: "port-growth-tracker",
+      storageBucket: "port-growth-tracker.firebasestorage.app",
+      messagingSenderId: "845323309196",
+      appId: "1:845323309196:web:14f21bdc4cb7d961066ba9"
+    };
 
     // Automatic Wipeout of Legacy Data from Previous Challenges
     if (localStorage.getItem('pgl_schema_version') !== 'v10') {

@@ -133,14 +133,14 @@
     }
 
     .dark {
-      /* Earthy Organic Foundation (Dark Mode) */
-      --bg-canvas: #29241E;
-      --bg-card: #352E25;
-      --bg-elevated: #41382D;
-      --bg-secondary: #41382D;
+      /* Earthy Organic Foundation (Dark Mode) - Deeper Dark Brown */
+      --bg-canvas: #1D1915;
+      --bg-card: #2B241D;
+      --bg-elevated: #383027;
+      --bg-secondary: #383027;
       --text-primary: #E2D4BD;
       --text-secondary: #B4A58F;
-      --border-divider: #514638;
+      --border-divider: #4A3F33;
 
       /* Assigned Accent Colors (Dark Mode) */
       --accent-moss: #789272;
@@ -534,6 +534,29 @@
 
     <!-- ==================== TAB 1: TRACKER (SEGMENTED CONSOLE) ==================== -->
     <div id="tabContentTracker" class="space-y-5 sm:space-y-6">
+
+      <!-- Empty State Banner if no challenges exist -->
+      <div id="noChallengeAlert" class="hidden p-4 sm:p-5 rounded-2xl bg-[#C2984D]/15 dark:bg-[#D0AA63]/15 border border-[#C2984D]/40 dark:border-[#D0AA63]/40 text-[#332B22] dark:text-[#E2D4BD] flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 shadow-xs">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-xl bg-[#C2984D]/20 text-[#C2984D] dark:bg-[#D0AA63]/25 dark:text-[#D0AA63] flex items-center justify-center shrink-0">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="8" x2="12" y2="12"></line>
+              <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+          </div>
+          <div>
+            <h4 class="text-xs sm:text-sm font-bold text-[#332B22] dark:text-[#E2D4BD]">No Active Challenge Found</h4>
+            <p class="text-xs text-[#716556] dark:text-[#B4A58F]">Create your own custom challenge in Settings to begin logging compounding sessions.</p>
+          </div>
+        </div>
+        <button onclick="switchTab('config')" class="px-4 py-2 rounded-xl bg-[#607B5B] hover:bg-[#4F674B] text-[#F5EBDD] dark:bg-[#789272] dark:hover:bg-[#607B5B] dark:text-[#29241E] font-bold text-xs transition active:scale-95 shadow-xs shrink-0 inline-flex items-center justify-center gap-1.5">
+          <span>+ Create Challenge</span>
+          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
+      </div>
 
       <!-- ==================== MASTER CARD 1: DAILY EXECUTION STATION ==================== -->
       <section id="executionStationCard" class="bento-card overflow-hidden">
@@ -1638,12 +1661,20 @@
             </div>
             <p class="text-xs text-[#716556] dark:text-[#B4A58F] mt-0.5">The compounding roadmap your daily tracker and console hub are following.</p>
           </div>
-          <div class="flex items-center gap-2">
+          <div class="flex items-center gap-2 flex-wrap sm:flex-nowrap">
             <label for="ladderProfileSelector" class="text-xs font-bold text-[#716556] dark:text-[#B4A58F] hidden sm:inline">Select:</label>
             <select id="ladderProfileSelector" onchange="switchLadderProfile(this.value)"
               class="bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 text-xs font-bold text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#789272]">
               <!-- Dynamically populated -->
             </select>
+            <button type="button" onclick="deleteSelectedChallenge()" id="btnDeleteActiveChallenge" title="Delete selected challenge"
+              class="px-2.5 py-2 rounded-xl bg-[#B86652]/15 hover:bg-[#B86652]/25 text-[#B86652] dark:bg-[#C77B68]/20 dark:hover:bg-[#C77B68]/30 dark:text-[#C77B68] border border-[#B86652]/30 dark:border-[#C77B68]/30 text-xs font-bold transition active:scale-95 flex items-center gap-1.5 shrink-0">
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="3 6 5 6 21 6"></polyline>
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+              </svg>
+              <span>Delete Selected</span>
+            </button>
           </div>
         </div>
 
@@ -2190,14 +2221,11 @@ service cloud.firestore {
     let vaultLedger = JSON.parse(localStorage.getItem('pgl_vault_ledger_v10')) || [];
 
     /* Custom Ladder Profiles */
-    let ladderProfiles = JSON.parse(localStorage.getItem('pgl_ladder_profiles_v10')) || [
-      {
-        id: 'default_28',
-        name: 'Default 28-Session Tri-Pace',
-        sessions: DEFAULT_28_LADDER
-      }
-    ];
-    let activeProfileId = localStorage.getItem('pgl_active_profile_v10') || 'default_28';
+    let ladderProfiles = JSON.parse(localStorage.getItem('pgl_ladder_profiles_v10')) || [];
+    let activeProfileId = localStorage.getItem('pgl_active_profile_v10') || '';
+    if (ladderProfiles.length > 0 && (!activeProfileId || !ladderProfiles.some(p => p.id === activeProfileId))) {
+      activeProfileId = ladderProfiles[0].id;
+    }
 
     /* Theme State (Light / Dark) */
     let currentTheme = localStorage.getItem('pgl_theme_v10') || 'light';
@@ -2575,22 +2603,25 @@ service cloud.firestore {
     }
 
     function getActiveLadder() {
+      if (!ladderProfiles || ladderProfiles.length === 0) return [];
       const profile = ladderProfiles.find(p => p.id === activeProfileId) || ladderProfiles[0];
-      return profile.sessions;
+      return (profile && profile.sessions) ? profile.sessions : [];
     }
 
     function getSessionTarget(sessionNum, pace = currentPace) {
       const ladder = getActiveLadder();
+      if (!ladder || ladder.length === 0) return 0;
       const row = ladder.find(i => i.s === sessionNum) || ladder[ladder.length - 1];
+      if (!row) return 0;
       if (pace === 'finreq') {
-        const base = row.r !== undefined ? row.r : (row.target || 120.00);
+        const base = row.r !== undefined ? row.r : (row.target || 0);
         const metrics = getFinancialRequirementMetrics();
         return Number((base + metrics.dailyRateNeeded).toFixed(2));
       }
       if (row.r !== undefined && row.m !== undefined && row.a !== undefined) {
         return pace === 'relaxed' ? row.r : (pace === 'mid' ? row.m : row.a);
       }
-      return row.target || 120.00;
+      return row.target || 0;
     }
 
     function getDeskBalance(sessionNum) {
@@ -2599,19 +2630,19 @@ service cloud.firestore {
         if (sessionLogs[s] !== undefined) return sessionLogs[s];
       }
       const ladder = getActiveLadder();
-      return ladder[0]?.r || 120.00;
+      return ladder[0]?.r || ladder[0]?.target || 0;
     }
 
     function getPrevDeskBalance(sessionNum) {
       if (sessionNum <= 1) {
         const ladder = getActiveLadder();
-        return ladder[0]?.r || 120.00;
+        return ladder[0]?.r || ladder[0]?.target || 0;
       }
       for (let s = sessionNum - 1; s >= 1; s--) {
         if (sessionLogs[s] !== undefined) return sessionLogs[s];
       }
       const ladder = getActiveLadder();
-      return ladder[0]?.r || 120.00;
+      return ladder[0]?.r || ladder[0]?.target || 0;
     }
 
     function getTotalVaultWithdrawn() {
@@ -2636,7 +2667,8 @@ service cloud.firestore {
 
     function navigateSession(delta) {
       const ladder = getActiveLadder();
-      currentSession = Math.min(ladder.length, Math.max(1, currentSession + delta));
+      const maxSessions = Math.max(1, ladder.length);
+      currentSession = Math.min(maxSessions, Math.max(1, currentSession + delta));
       localStorage.setItem('pgl_session_v10', currentSession);
       renderTracker();
       debouncedSyncToFirestore(300);
@@ -2729,21 +2761,30 @@ service cloud.firestore {
       const targetReq = getSessionTarget(currentSession);
       const totalVault = getTotalVaultWithdrawn();
       const trueWealth = currentDesk + totalVault;
-      const baseStart = ladder[0]?.r || 120.00;
+      const baseStart = ladder[0]?.r || ladder[0]?.target || 0;
       const isLocked = !!lockedSessions[currentSession];
+
+      // Empty State Banner Alert in Tracker
+      const noChalAlert = document.getElementById('noChallengeAlert');
+      if (noChalAlert) {
+        noChalAlert.classList.toggle('hidden', ladder.length > 0);
+      }
 
       // Live Indian Date & Header Updates
       document.getElementById('headerLiveDate').innerText = getIndianDateFormatted();
-      document.getElementById('headerSessionNum').innerText = currentSession;
+      document.getElementById('headerSessionNum').innerText = ladder.length > 0 ? currentSession : 0;
       document.getElementById('headerTotalSessions').innerText = ladder.length;
-      document.getElementById('activeSessionNumDisplay').innerText = currentSession;
+      document.getElementById('activeSessionNumDisplay').innerText = ladder.length > 0 ? currentSession : 0;
       document.getElementById('totalSessionsDisplay').innerText = ladder.length;
-      document.getElementById('targetCardSessionNum').innerText = currentSession;
+      document.getElementById('targetCardSessionNum').innerText = ladder.length > 0 ? currentSession : 0;
       animateNumber(document.getElementById('headerVaultBalance'), totalVault, true, false);
       animateNumber(document.getElementById('headerTrueWealth'), trueWealth, true, false);
 
       const activeProfile = ladderProfiles.find(p => p.id === activeProfileId) || ladderProfiles[0];
-      document.getElementById('headerActiveLadderName').innerText = activeProfile.name;
+      const headerLadderNameEl = document.getElementById('headerActiveLadderName');
+      if (headerLadderNameEl) {
+        headerLadderNameEl.innerText = activeProfile ? activeProfile.name : 'No Active Challenge';
+      }
 
       const timestamp = sessionTimestamps[currentSession];
       document.getElementById('headerTimestamp').innerText = isLocked 
@@ -2861,15 +2902,15 @@ service cloud.firestore {
       document.getElementById('cumulativeBasePnl').innerText = `${baseGain >= 0 ? '+' : '-'}${fmt(Math.abs(baseGain))} vs ${fmt(baseStart)} Base`;
 
       // Cycle Final Target Label
-      const finalTarget = getSessionTarget(ladder.length);
-      const overallCompletion = Math.min(100, Math.max(0, (trueWealth / finalTarget) * 100));
+      const finalTarget = getSessionTarget(ladder.length) || (baseStart || 0);
+      const overallCompletion = finalTarget > 0 ? Math.min(100, Math.max(0, (trueWealth / finalTarget) * 100)) : 0;
       document.getElementById('overallCycleCompletionLabel').innerText = `${overallCompletion.toFixed(1)}% to Finish ($${finalTarget.toLocaleString()})`;
 
       // Render 3 Target Bento Boxes (Relaxed, Mid, Aggressive)
-      const ladderRow = ladder.find(i => i.s === currentSession) || ladder[0];
-      const rVal = ladderRow.r !== undefined ? ladderRow.r : ladderRow.target;
-      const mVal = ladderRow.m !== undefined ? ladderRow.m : ladderRow.target * 1.15;
-      const aVal = ladderRow.a !== undefined ? ladderRow.a : ladderRow.target * 1.30;
+      const ladderRow = ladder.find(i => i.s === currentSession) || ladder[0] || { r: 0, m: 0, a: 0, target: 0 };
+      const rVal = ladderRow.r !== undefined ? ladderRow.r : (ladderRow.target || 0);
+      const mVal = ladderRow.m !== undefined ? ladderRow.m : ((ladderRow.target || 0) * 1.15);
+      const aVal = ladderRow.a !== undefined ? ladderRow.a : ((ladderRow.target || 0) * 1.30);
 
       // 1. Relaxed Box (Target Port & Day Target PnL)
       const rTarget = rVal;
@@ -3011,7 +3052,9 @@ service cloud.firestore {
 
     function renderMilestoneCards(ladder, currentWealth) {
       const grid = document.getElementById('milestonesCardGrid');
+      if (!grid) return;
       grid.innerHTML = '';
+      if (!ladder || ladder.length === 0) return;
 
       const checkIndices = [
         Math.floor(ladder.length * 0.25) - 1,
@@ -3381,6 +3424,7 @@ service cloud.firestore {
 
     function renderMasterTable(ladder) {
       const tbody = document.getElementById('sessionLedgerBody');
+      if (!tbody) return;
       tbody.innerHTML = '';
 
       // Update multi-pace column header visibility
@@ -3392,7 +3436,20 @@ service cloud.firestore {
 
       const thActiveTarget = document.getElementById('thActiveTarget');
       const paceLabel = currentPace === 'finreq' ? 'Financial Req' : capitalize(currentPace);
-      thActiveTarget.innerText = showAllPacesInTable ? `Active (${paceLabel})` : `Target (${paceLabel})`;
+      if (thActiveTarget) {
+        thActiveTarget.innerText = showAllPacesInTable ? `Active (${paceLabel})` : `Target (${paceLabel})`;
+      }
+
+      if (!ladder || ladder.length === 0) {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td colspan="${showAllPacesInTable ? 9 : 6}" class="py-10 text-center text-xs text-[#716556] dark:text-[#B4A58F]">
+            No challenge sessions found. Create a challenge in the Settings tab to start tracking!
+          </td>
+        `;
+        tbody.appendChild(tr);
+        return;
+      }
 
       ladder.forEach(row => {
         const isCurrent = row.s === currentSession;
@@ -3813,8 +3870,8 @@ service cloud.firestore {
 
     function renderStatsTab() {
       const ladder = getActiveLadder();
-      const startBase = ladder[0]?.r || ladder[0]?.target || 120.00;
-      const finalTarget = getSessionTarget(ladder.length);
+      const startBase = ladder[0]?.r || ladder[0]?.target || 0;
+      const finalTarget = getSessionTarget(ladder.length) || (startBase || 0);
       const currentDesk = getDeskBalance(currentSession);
       const totalVault = getTotalVaultWithdrawn();
       const trueWealth = currentDesk + totalVault;
@@ -3895,7 +3952,7 @@ service cloud.firestore {
       const winRate = totalLogged > 0 ? Math.round((greenDays / totalLogged) * 100) : 0;
       const avgGain = totalLogged > 0 ? totalPnLSum / totalLogged : 0;
       const netProfit = trueWealth - startBase;
-      const summitPct = Math.min(100, Math.max(0, (trueWealth / finalTarget) * 100));
+      const summitPct = finalTarget > 0 ? Math.min(100, Math.max(0, (trueWealth / finalTarget) * 100)) : 0;
 
       // Level determination
       const lvl = currentSession <= 5 ? 1 : (currentSession <= 11 ? 2 : (currentSession <= 18 ? 3 : (currentSession <= 24 ? 4 : 5)));
@@ -3945,11 +4002,11 @@ service cloud.firestore {
       }
 
       const chalBadgeEl = document.getElementById('statsChallengeBadge');
-      if (chalBadgeEl) chalBadgeEl.innerText = `${ladder.length}-Session Plan • ${fmt(finalTarget)} Goal`;
+      if (chalBadgeEl) chalBadgeEl.innerText = ladder.length > 0 ? `${ladder.length}-Session Plan • ${fmt(finalTarget)} Goal` : 'No Challenge Active';
 
-      const progressPct = ((currentSession / ladder.length) * 100).toFixed(1);
+      const progressPct = ladder.length > 0 ? ((currentSession / ladder.length) * 100).toFixed(1) : '0.0';
       const lvlProgTextEl = document.getElementById('statsLevelProgressText');
-      if (lvlProgTextEl) lvlProgTextEl.innerText = `Session ${currentSession} of ${ladder.length} (${progressPct}%)`;
+      if (lvlProgTextEl) lvlProgTextEl.innerText = ladder.length > 0 ? `Session ${currentSession} of ${ladder.length} (${progressPct}%)` : 'No active sessions';
 
       const lvlProgBarEl = document.getElementById('statsLevelProgressBar');
       if (lvlProgBarEl) lvlProgBarEl.style.width = `${progressPct}%`;
@@ -4038,16 +4095,16 @@ service cloud.firestore {
           id: 'halfway_ridge',
           title: 'Halfway Ridge',
           desc: 'Reached halfway point of your challenge roadmap.',
-          unlocked: currentSession >= Math.ceil(ladder.length / 2),
-          progressText: currentSession >= Math.ceil(ladder.length / 2) ? 'Unlocked' : `Session ${currentSession} of ${Math.ceil(ladder.length / 2)}`,
+          unlocked: ladder.length > 0 && currentSession >= Math.ceil(ladder.length / 2),
+          progressText: ladder.length > 0 ? (currentSession >= Math.ceil(ladder.length / 2) ? 'Unlocked' : `Session ${currentSession} of ${Math.ceil(ladder.length / 2)}`) : 'No challenge active',
           iconSvg: `<svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`
         },
         {
           id: 'summit_conqueror',
           title: 'Summit Conqueror',
           desc: 'Reached or exceeded the final compounding target balance.',
-          unlocked: trueWealth >= finalTarget,
-          progressText: trueWealth >= finalTarget ? 'Unlocked' : `${summitPct.toFixed(1)}% to summit`,
+          unlocked: ladder.length > 0 && finalTarget > 0 && trueWealth >= finalTarget,
+          progressText: ladder.length > 0 && finalTarget > 0 ? (trueWealth >= finalTarget ? 'Unlocked' : `${summitPct.toFixed(1)}% to summit`) : 'No challenge active',
           iconSvg: `<svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m8 3 4 8 5-5 5 15H2L8 3z"/></svg>`
         }
       ];
@@ -4144,64 +4201,104 @@ service cloud.firestore {
     function renderConfigTab() {
       const select = document.getElementById('ladderProfileSelector');
       select.innerHTML = '';
-      ladderProfiles.forEach(p => {
+      if (!ladderProfiles || ladderProfiles.length === 0) {
         const opt = document.createElement('option');
-        opt.value = p.id;
-        opt.innerText = p.name;
-        opt.selected = p.id === activeProfileId;
+        opt.value = '';
+        opt.innerText = 'No Active Challenge';
         select.appendChild(opt);
-      });
+      } else {
+        ladderProfiles.forEach(p => {
+          const opt = document.createElement('option');
+          opt.value = p.id;
+          opt.innerText = p.name;
+          opt.selected = p.id === activeProfileId;
+          select.appendChild(opt);
+        });
+      }
+
+      const delActiveBtn = document.getElementById('btnDeleteActiveChallenge');
+      if (delActiveBtn) {
+        if (!ladderProfiles || ladderProfiles.length === 0 || !activeProfileId) {
+          delActiveBtn.classList.add('opacity-40', 'pointer-events-none');
+        } else {
+          delActiveBtn.classList.remove('opacity-40', 'pointer-events-none');
+        }
+      }
 
       const ladder = getActiveLadder();
-      const start = ladder[0]?.r || ladder[0]?.target || 120.00;
-      const final = getSessionTarget(ladder.length);
-
-      document.getElementById('cfgInfoStart').innerText = fmt(start);
-      document.getElementById('cfgInfoFinal').innerText = fmt(final);
-      document.getElementById('cfgInfoSessions').innerText = `${ladder.length} Sessions`;
-      document.getElementById('cfgInfoMultiple').innerText = `${(final / start).toFixed(1)}x`;
+      if (!ladder || ladder.length === 0) {
+        document.getElementById('cfgInfoStart').innerText = '$0.00';
+        document.getElementById('cfgInfoFinal').innerText = '$0.00';
+        document.getElementById('cfgInfoSessions').innerText = '0 Sessions';
+        document.getElementById('cfgInfoMultiple').innerText = '0.0x';
+      } else {
+        const start = ladder[0]?.r || ladder[0]?.target || 0;
+        const final = getSessionTarget(ladder.length);
+        document.getElementById('cfgInfoStart').innerText = fmt(start);
+        document.getElementById('cfgInfoFinal').innerText = fmt(final);
+        document.getElementById('cfgInfoSessions').innerText = `${ladder.length} Sessions`;
+        document.getElementById('cfgInfoMultiple').innerText = `${start > 0 ? (final / start).toFixed(1) : '0.0'}x`;
+      }
 
       // Render Available Challenges Cards
       const listEl = document.getElementById('cfgActiveChallengeList');
       if (listEl) {
-        listEl.innerHTML = ladderProfiles.map(p => {
-          const isActive = p.id === activeProfileId;
-          const pStart = p.sessions[0]?.r || p.sessions[0]?.target || 120.00;
-          const pFinal = p.sessions[p.sessions.length - 1]?.r || p.sessions[p.sessions.length - 1]?.target || 7000.00;
-          const pMult = (pFinal / pStart).toFixed(1);
-          return `
-            <div class="p-4 rounded-2xl border transition-all ${
-              isActive
-                ? 'bg-[#607B5B]/10 dark:bg-[#789272]/15 border-2 border-[#607B5B] dark:border-[#789272] shadow-sm'
-                : 'bg-[#F5EBDD] dark:bg-[#41382D] border-[#CFC1AA] dark:border-[#514638] hover:border-[#B4A58F]'
-            } flex flex-col justify-between space-y-3">
-              <div class="flex items-center justify-between">
-                <div class="flex items-center gap-2">
-                  <span class="w-2.5 h-2.5 rounded-full ${isActive ? 'bg-[#607B5B] dark:bg-[#789272]' : 'bg-[#CFC1AA] dark:bg-[#514638]'}"></span>
-                  <h4 class="font-bold text-xs sm:text-sm text-[#332B22] dark:text-[#E2D4BD]">${p.name}</h4>
-                </div>
-                ${isActive 
-                  ? `<span class="px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-[#607B5B] text-[#F5EBDD] dark:bg-[#789272] dark:text-[#29241E]">Active</span>`
-                  : `<button onclick="switchLadderProfile('${p.id}')" class="px-2.5 py-1 rounded-lg text-[11px] font-bold bg-[#F0E6D5] dark:bg-[#352E25] hover:bg-[#E8DDC9] dark:hover:bg-[#29241E] text-[#332B22] dark:text-[#E2D4BD] border border-[#CFC1AA] dark:border-[#514638] transition active:scale-95">Switch &rarr;</button>`
-                }
-              </div>
-              <div class="grid grid-cols-3 gap-2 text-center text-xs font-num pt-1 border-t border-[#CFC1AA]/50 dark:border-[#514638]/50">
-                <div>
-                  <span class="text-[9px] uppercase font-bold text-[#716556] dark:text-[#B4A58F] block">Start</span>
-                  <span class="font-bold text-[#332B22] dark:text-[#E2D4BD]">${fmt(pStart)}</span>
-                </div>
-                <div>
-                  <span class="text-[9px] uppercase font-bold text-[#716556] dark:text-[#B4A58F] block">Target</span>
-                  <span class="font-bold text-[#607B5B] dark:text-[#789272]">${fmt(pFinal)}</span>
-                </div>
-                <div>
-                  <span class="text-[9px] uppercase font-bold text-[#716556] dark:text-[#B4A58F] block">Sessions</span>
-                  <span class="font-bold text-[#332B22] dark:text-[#E2D4BD]">${p.sessions.length} (${pMult}x)</span>
-                </div>
-              </div>
+        if (!ladderProfiles || ladderProfiles.length === 0) {
+          listEl.innerHTML = `
+            <div class="col-span-full p-6 text-center rounded-2xl bg-[#F5EBDD]/60 dark:bg-[#41382D]/40 border border-dashed border-[#CFC1AA] dark:border-[#514638] space-y-1.5">
+              <p class="text-xs font-bold text-[#332B22] dark:text-[#E2D4BD]">No challenges created yet</p>
+              <p class="text-xs text-[#716556] dark:text-[#B4A58F]">Use the "Start a New Challenge" form below to configure your own starting balance and goal targets.</p>
             </div>
           `;
-        }).join('');
+        } else {
+          listEl.innerHTML = ladderProfiles.map(p => {
+            const isActive = p.id === activeProfileId;
+            const pStart = p.sessions[0]?.r || p.sessions[0]?.target || 120.00;
+            const pFinal = p.sessions[p.sessions.length - 1]?.r || p.sessions[p.sessions.length - 1]?.target || 7000.00;
+            const pMult = pStart > 0 ? (pFinal / pStart).toFixed(1) : '0.0';
+            const safeName = (p.name || '').replace(/['"\\]/g, '');
+            return `
+              <div class="p-4 rounded-2xl border transition-all ${
+                isActive
+                  ? 'bg-[#607B5B]/10 dark:bg-[#789272]/15 border-2 border-[#607B5B] dark:border-[#789272] shadow-sm'
+                  : 'bg-[#F5EBDD] dark:bg-[#41382D] border-[#CFC1AA] dark:border-[#514638] hover:border-[#B4A58F]'
+              } flex flex-col justify-between space-y-3">
+                <div class="flex items-center justify-between gap-2">
+                  <div class="flex items-center gap-2 min-w-0">
+                    <span class="w-2.5 h-2.5 rounded-full shrink-0 ${isActive ? 'bg-[#607B5B] dark:bg-[#789272]' : 'bg-[#CFC1AA] dark:bg-[#514638]'}"></span>
+                    <h4 class="font-bold text-xs sm:text-sm text-[#332B22] dark:text-[#E2D4BD] truncate">${p.name}</h4>
+                  </div>
+                  <div class="flex items-center gap-1.5 shrink-0">
+                    ${isActive 
+                      ? `<span class="px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-[#607B5B] text-[#F5EBDD] dark:bg-[#789272] dark:text-[#29241E]">Active</span>`
+                      : `<button onclick="switchLadderProfile('${p.id}')" class="px-2.5 py-1 rounded-lg text-[11px] font-bold bg-[#F0E6D5] dark:bg-[#352E25] hover:bg-[#E8DDC9] dark:hover:bg-[#29241E] text-[#332B22] dark:text-[#E2D4BD] border border-[#CFC1AA] dark:border-[#514638] transition active:scale-95">Switch &rarr;</button>`
+                    }
+                    <button onclick="confirmDeleteChallenge('${p.id}', '${safeName}')" title="Delete challenge" class="p-1.5 rounded-lg text-[#716556] hover:text-[#B86652] dark:text-[#B4A58F] dark:hover:text-[#C77B68] hover:bg-[#B86652]/10 transition active:scale-95">
+                      <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="3 6 5 6 21 6"></polyline>
+                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+                <div class="grid grid-cols-3 gap-2 text-center text-xs font-num pt-1 border-t border-[#CFC1AA]/50 dark:border-[#514638]/50">
+                  <div>
+                    <span class="text-[9px] uppercase font-bold text-[#716556] dark:text-[#B4A58F] block">Start</span>
+                    <span class="font-bold text-[#332B22] dark:text-[#E2D4BD]">${fmt(pStart)}</span>
+                  </div>
+                  <div>
+                    <span class="text-[9px] uppercase font-bold text-[#716556] dark:text-[#B4A58F] block">Target</span>
+                    <span class="font-bold text-[#607B5B] dark:text-[#789272]">${fmt(pFinal)}</span>
+                  </div>
+                  <div>
+                    <span class="text-[9px] uppercase font-bold text-[#716556] dark:text-[#B4A58F] block">Sessions</span>
+                    <span class="font-bold text-[#332B22] dark:text-[#E2D4BD]">${p.sessions.length} (${pMult}x)</span>
+                  </div>
+                </div>
+              </div>
+            `;
+          }).join('');
+        }
       }
 
       // Update workspace preference button styles
@@ -4235,7 +4332,62 @@ service cloud.firestore {
       localStorage.setItem('pgl_session_v10', currentSession);
       renderConfigTab();
       renderTracker();
-      showToast("Switched active ladder profile");
+      renderStatsTab();
+      showToast("Switched active challenge roadmap");
+      syncToFirestore();
+    }
+
+    function deleteSelectedChallenge() {
+      if (!activeProfileId || !ladderProfiles || ladderProfiles.length === 0) {
+        showToast("No active challenge to delete", false);
+        return;
+      }
+      const profile = ladderProfiles.find(p => p.id === activeProfileId);
+      const name = profile ? profile.name : "this challenge";
+      confirmDeleteChallenge(activeProfileId, name);
+    }
+
+    function confirmDeleteChallenge(id, name) {
+      openModal({
+        title: "Delete Challenge",
+        msg: `Are you sure you want to delete challenge "${name}"? This action cannot be undone.`,
+        onConfirm: () => {
+          deleteLadderProfile(id);
+        }
+      });
+    }
+
+    function deleteLadderProfile(id) {
+      const idx = ladderProfiles.findIndex(p => p.id === id);
+      if (idx === -1) return;
+
+      const deletedProfile = ladderProfiles[idx];
+      ladderProfiles.splice(idx, 1);
+
+      if (activeProfileId === id) {
+        if (ladderProfiles.length > 0) {
+          activeProfileId = ladderProfiles[0].id;
+        } else {
+          activeProfileId = '';
+        }
+        currentSession = 1;
+        const newLadder = getActiveLadder();
+        sessionLogs = newLadder.length > 0 ? { 1: newLadder[0]?.r || newLadder[0]?.target || 120.00 } : {};
+        sessionTimestamps = newLadder.length > 0 ? { 1: new Date().toISOString() } : {};
+        lockedSessions = {};
+        sessionNotes = {};
+        localStorage.setItem('pgl_session_v10', currentSession);
+        saveTrackerState();
+      }
+
+      localStorage.setItem('pgl_ladder_profiles_v10', JSON.stringify(ladderProfiles));
+      localStorage.setItem('pgl_active_profile_v10', activeProfileId);
+
+      renderConfigTab();
+      renderTracker();
+      renderStatsTab();
+      showToast(`Challenge "${deletedProfile.name}" deleted`);
+      syncToFirestore();
     }
 
     function handleGenerateLadderSubmit(e) {
@@ -4289,12 +4441,21 @@ service cloud.firestore {
 
       ladderProfiles.push(newProfile);
       activeProfileId = newProfile.id;
+      currentSession = 1;
+      sessionLogs = { 1: base };
+      sessionTimestamps = { 1: new Date().toISOString() };
+      lockedSessions = {};
+      sessionNotes = {};
+      saveTrackerState();
       localStorage.setItem('pgl_ladder_profiles_v10', JSON.stringify(ladderProfiles));
       localStorage.setItem('pgl_active_profile_v10', activeProfileId);
+      localStorage.setItem('pgl_session_v10', 1);
 
       renderConfigTab();
       renderTracker();
-      showToast(`Created roadmap "${name}"!`);
+      renderStatsTab();
+      showToast(`Created & activated "${name}"!`);
+      syncToFirestore();
     }
 
     function requestResetSessionEntries() {
@@ -4302,8 +4463,9 @@ service cloud.firestore {
         title: "Reset Session Log",
         msg: "Reset all logged session balances for this roadmap? Roadmaps and Vault history will remain intact.",
         onConfirm: () => {
-          sessionLogs = { 1: getActiveLadder()[0]?.r || 120.00 };
-          sessionTimestamps = { 1: new Date().toISOString() };
+          const ladder = getActiveLadder();
+          sessionLogs = ladder.length > 0 ? { 1: ladder[0]?.r || ladder[0]?.target || 120.00 } : {};
+          sessionTimestamps = ladder.length > 0 ? { 1: new Date().toISOString() } : {};
           lockedSessions = {};
           currentSession = 1;
           localStorage.setItem('pgl_session_v10', 1);
@@ -4336,16 +4498,30 @@ service cloud.firestore {
     function requestRestorePresets() {
       openModal({
         title: "Restore Default Preset",
-        msg: "Switch back to the standard 28-Session Tri-Pace profile ($120 to $7K / $12.6K / $17.5K)?",
+        msg: "Add and switch to the standard 28-Session Tri-Pace profile ($120 to $7K / $12.6K / $17.5K)?",
         onConfirm: () => {
+          let preset = ladderProfiles.find(p => p.id === 'default_28');
+          if (!preset) {
+            preset = {
+              id: 'default_28',
+              name: 'Default 28-Session Tri-Pace',
+              sessions: DEFAULT_28_LADDER
+            };
+            ladderProfiles.unshift(preset);
+            localStorage.setItem('pgl_ladder_profiles_v10', JSON.stringify(ladderProfiles));
+          }
           activeProfileId = 'default_28';
           localStorage.setItem('pgl_active_profile_v10', activeProfileId);
           currentSession = 1;
           localStorage.setItem('pgl_session_v10', 1);
+          sessionLogs = { 1: 120.00 };
+          sessionTimestamps = { 1: new Date().toISOString() };
+          saveTrackerState();
           renderConfigTab();
           renderTracker();
           renderStatsTab();
-          showToast("Default ladder profile restored");
+          showToast("Default 28-session preset restored");
+          syncToFirestore();
         }
       });
     }
@@ -4353,23 +4529,17 @@ service cloud.firestore {
     function requestWipeAllData() {
       openModal({
         title: "Wipe All Challenge Data",
-        msg: "Are you sure you want to wipe all session progress, vault records, and previous challenges to start 100% fresh? (Cloud connection credentials will remain intact)",
+        msg: "Are you sure you want to wipe all session progress, vault records, and previous challenges to start 100% fresh? No default challenge will be retained. (Cloud connection credentials will remain intact)",
         onConfirm: () => {
           Object.keys(localStorage).forEach(k => {
             if (k.startsWith('pgl_') && !k.includes('_firebase_') && !k.includes('_sync_key_') && !k.includes('_theme_')) {
               localStorage.removeItem(k);
             }
           });
-          ladderProfiles = [
-            {
-              id: 'default_28',
-              name: 'Default 28-Session Tri-Pace',
-              sessions: DEFAULT_28_LADDER
-            }
-          ];
-          activeProfileId = 'default_28';
-          sessionLogs = { 1: 120.00 };
-          sessionTimestamps = { 1: new Date().toISOString() };
+          ladderProfiles = [];
+          activeProfileId = '';
+          sessionLogs = {};
+          sessionTimestamps = {};
           sessionNotes = {};
           lockedSessions = {};
           currentSession = 1;
@@ -4387,7 +4557,7 @@ service cloud.firestore {
           renderTracker();
           renderMilestonesTab();
           renderStatsTab();
-          showToast("All previous challenge data wiped. Fresh slate ready!");
+          showToast("All previous challenges and data wiped. Fresh slate ready!");
           syncToFirestore();
         }
       });

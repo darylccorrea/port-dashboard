@@ -557,6 +557,147 @@
         </div>
       </section>
 
+      <!-- ==================== 4 TARGET PACES & FINANCIAL REQUIREMENT (ALWAYS VISIBLE) ==================== -->
+      <section class="space-y-2.5">
+        <div class="flex items-center justify-between px-1">
+          <h2 class="text-xs font-bold uppercase tracking-wider text-[#716556] dark:text-[#B4A58F] flex items-center gap-1.5">
+            <span>🎯 Daily Pace Targets &amp; Financial Pacing</span>
+            <span class="font-normal text-[11px] text-[#716556]/80 dark:text-[#B4A58F]/80">(Click any card to select active target pace)</span>
+          </h2>
+          <span class="text-xs text-[#716556] dark:text-[#B4A58F] font-num">Session <span id="targetCardSessionNum">1</span></span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4">
+          
+          <!-- Target Box 1: Relaxed (Green) -->
+          <div id="paceCard_relaxed" onclick="setPace('relaxed')" class="bento-card p-4 sm:p-5 cursor-pointer transition-all border border-[#CFC1AA] dark:border-[#514638] bg-[#F0E6D5] dark:bg-[#352E25] hover:border-[#607B5B] dark:hover:border-[#8CA887] hover:shadow-md space-y-2.5">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="text-lg">☕</span>
+                <div>
+                  <h5 class="text-xs sm:text-sm font-extrabold text-[#332B22] dark:text-[#E2D4BD]">Relaxed Pace</h5>
+                  <span class="text-[10px] text-[#716556] dark:text-[#B4A58F] font-semibold">$7,000 Finish</span>
+                </div>
+              </div>
+              <span id="paceActiveBadge_relaxed" class="hidden px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-[#607B5B] dark:bg-[#8CA887] text-[#F5EBDD] dark:text-[#29241E] shadow-sm">
+                Active
+              </span>
+            </div>
+
+            <div class="py-0.5">
+              <div class="text-xl sm:text-2xl font-black font-num text-[#607B5B] dark:text-[#8CA887]" id="targetValRelaxed">
+                $120.00
+              </div>
+              <div class="text-xs font-semibold mt-0.5" id="targetStatusRelaxed">
+                Goal Met
+              </div>
+            </div>
+
+            <p class="text-[10px] sm:text-[11px] text-[#716556] dark:text-[#B4A58F] pt-2 border-t border-[#CFC1AA]/60 dark:border-[#514638]/60">
+              Chill &amp; steady growth. Minimal drawdown stress, great for choppy conditions.
+            </p>
+          </div>
+
+          <!-- Target Box 2: Mid (Yellow) -->
+          <div id="paceCard_mid" onclick="setPace('mid')" class="bento-card p-4 sm:p-5 cursor-pointer transition-all border border-[#CFC1AA] dark:border-[#514638] bg-[#F0E6D5] dark:bg-[#352E25] hover:border-[#C2984D] dark:hover:border-[#DEB76C] hover:shadow-md space-y-2.5">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="text-lg">⚡</span>
+                <div>
+                  <h5 class="text-xs sm:text-sm font-extrabold text-[#332B22] dark:text-[#E2D4BD]">Mid Pace</h5>
+                  <span class="text-[10px] text-[#716556] dark:text-[#B4A58F] font-semibold">$12,600 Finish</span>
+                </div>
+              </div>
+              <span id="paceActiveBadge_mid" class="hidden px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-[#C2984D] dark:bg-[#DEB76C] text-[#F5EBDD] dark:text-[#29241E] shadow-sm">
+                Active
+              </span>
+            </div>
+
+            <div class="py-0.5">
+              <div class="text-xl sm:text-2xl font-black font-num text-[#C2984D] dark:text-[#DEB76C]" id="targetValMid">
+                $120.00
+              </div>
+              <div class="text-xs font-semibold mt-0.5" id="targetStatusMid">
+                Goal Met
+              </div>
+            </div>
+
+            <p class="text-[10px] sm:text-[11px] text-[#716556] dark:text-[#B4A58F] pt-2 border-t border-[#CFC1AA]/60 dark:border-[#514638]/60">
+              The sweet spot. Balanced growth sprint for solid setups without reckless trades.
+            </p>
+          </div>
+
+          <!-- Target Box 3: Aggressive (Purple) -->
+          <div id="paceCard_aggressive" onclick="setPace('aggressive')" class="bento-card p-4 sm:p-5 cursor-pointer transition-all border border-[#CFC1AA] dark:border-[#514638] bg-[#F0E6D5] dark:bg-[#352E25] hover:border-[#806A73] dark:hover:border-[#A8909A] hover:shadow-md space-y-2.5">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="text-lg">🔥</span>
+                <div>
+                  <h5 class="text-xs sm:text-sm font-extrabold text-[#332B22] dark:text-[#E2D4BD]">Aggressive Pace</h5>
+                  <span class="text-[10px] text-[#716556] dark:text-[#B4A58F] font-semibold">$17,500 Finish</span>
+                </div>
+              </div>
+              <span id="paceActiveBadge_aggressive" class="hidden px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-[#806A73] dark:bg-[#A8909A] text-[#F5EBDD] dark:text-[#29241E] shadow-sm">
+                Active
+              </span>
+            </div>
+
+            <div class="py-0.5">
+              <div class="text-xl sm:text-2xl font-black font-num text-[#806A73] dark:text-[#A8909A]" id="targetValAggressive">
+                $120.00
+              </div>
+              <div class="text-xs font-semibold mt-0.5" id="targetStatusAggressive">
+                Goal Met
+              </div>
+            </div>
+
+            <p class="text-[10px] sm:text-[11px] text-[#716556] dark:text-[#B4A58F] pt-2 border-t border-[#CFC1AA]/60 dark:border-[#514638]/60">
+              High turbo compounding. Fast-lane compounding suited for trending A+ setups.
+            </p>
+          </div>
+
+          <!-- Target Box 4: Financial Requirement (Peach) -->
+          <div id="paceCard_finreq" onclick="setPace('finreq')" class="bento-card p-4 sm:p-5 cursor-pointer transition-all border border-[#D98A6C]/40 dark:border-[#E09A7E]/40 bg-[#D98A6C]/10 dark:bg-[#E09A7E]/10 hover:border-[#D98A6C] dark:hover:border-[#E09A7E] hover:shadow-md space-y-2.5">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="text-lg">🍑</span>
+                <div>
+                  <h5 class="text-xs sm:text-sm font-extrabold text-[#D98A6C] dark:text-[#E09A7E]">Payment Req</h5>
+                  <span class="text-[10px] text-[#716556] dark:text-[#B4A58F] font-semibold" id="finReqGoalBadge">$1,500 Goal</span>
+                </div>
+              </div>
+              <div class="flex items-center gap-1.5">
+                <span id="paceActiveBadge_finreq" class="hidden px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-[#D98A6C] text-[#F5EBDD] dark:bg-[#E09A7E] dark:text-[#29241E] shadow-sm">
+                  Active
+                </span>
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-[#D98A6C]/20 text-[#D98A6C] dark:bg-[#E09A7E]/25 dark:text-[#F6D0C3] border border-[#D98A6C]/30 dark:border-[#E09A7E]/30 shadow-xs">
+                  Suggestive
+                </span>
+              </div>
+            </div>
+
+            <div class="py-0.5">
+              <div class="text-xl sm:text-2xl font-black font-num text-[#D98A6C] dark:text-[#E09A7E]" id="targetValFinReq">
+                $120.00
+              </div>
+              <div class="text-xs font-semibold mt-0.5 text-[#D98A6C] dark:text-[#E09A7E]" id="targetStatusFinReq">
+                Pacing Guide
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between pt-2 border-t border-[#D98A6C]/30 dark:border-[#E09A7E]/30 text-[10px] sm:text-[11px]">
+              <span class="text-[#716556] dark:text-[#B4A58F] truncate" id="targetFinReqDesc">
+                Surplus guide to bank for your deadline without forcing trades.
+              </span>
+              <button type="button" onclick="event.stopPropagation(); switchTab('milestones')" class="shrink-0 font-bold text-[#D98A6C] dark:text-[#E09A7E] hover:underline ml-1">
+                Vault ⚙️
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
       <!-- ==================== MASTER CARD 2: MULTI-WIDGET CONSOLE HUB ==================== -->
       <section id="insightsHubCard" class="bento-card overflow-hidden space-y-0">
         
@@ -568,19 +709,14 @@
               <h3 class="text-base font-extrabold text-[#332B22] dark:text-[#E2D4BD]">Console Insights Hub</h3>
             </div>
             <p class="text-xs text-[#716556] dark:text-[#B4A58F] mt-0.5">
-              Switch views to track daily pace targets, activity calendar, cycle checkpoints, or ledger history
+              Switch views to track activity calendar, cycle checkpoints, or master ledger history
             </p>
           </div>
 
-          <!-- 4-Segment Pill Switcher -->
+          <!-- Segmented Pill Switcher -->
           <div class="inline-flex items-center p-1 rounded-xl bg-[#E8DDC9] dark:bg-[#29241E] border border-[#CFC1AA] dark:border-[#514638] gap-1 overflow-x-auto max-w-full calm-scrollbar shrink-0">
-            <button onclick="switchWidgetTab('paces')" id="widgetTabBtn_paces"
-              class="widget-tab-btn px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 whitespace-nowrap bg-[#F5EBDD] dark:bg-[#41382D] text-[#332B22] dark:text-[#E2D4BD] shadow-sm">
-              <span>🎯</span>
-              <span>Daily Paces</span>
-            </button>
             <button onclick="switchWidgetTab('calendar')" id="widgetTabBtn_calendar"
-              class="widget-tab-btn px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 whitespace-nowrap text-[#716556] dark:text-[#B4A58F] hover:text-[#332B22] dark:hover:text-[#E2D4BD]">
+              class="widget-tab-btn px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 whitespace-nowrap bg-[#F5EBDD] dark:bg-[#41382D] text-[#332B22] dark:text-[#E2D4BD] shadow-sm">
               <span>📅</span>
               <span>Calendar</span>
             </button>
@@ -594,111 +730,16 @@
               <span>📋</span>
               <span>Master Ledger</span>
             </button>
+            <!-- Hidden alias for backwards compatibility -->
+            <button onclick="switchWidgetTab('paces')" id="widgetTabBtn_paces" class="hidden"></button>
           </div>
         </div>
 
-        <!-- Content Container for the 4 Widgets -->
+        <!-- Content Container for the Widgets -->
         <div class="p-4 sm:p-6 bg-[#F0E6D5]/40 dark:bg-[#352E25]/20">
           
-          <!-- WIDGET 1: Daily Target Paces -->
-          <div id="widgetContent_paces" class="space-y-3">
-            <div class="flex items-center justify-between px-1">
-              <h4 class="text-xs font-bold uppercase tracking-wider text-[#716556] dark:text-[#B4A58F] flex items-center gap-1.5">
-                <span>🎯 Select Active Target Pace</span>
-                <span class="font-normal text-[11px] text-[#716556]/80 dark:text-[#B4A58F]/80">(Click any card to apply)</span>
-              </h4>
-              <span class="text-xs text-[#716556] dark:text-[#B4A58F] font-num">Session <span id="targetCardSessionNum">1</span></span>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <!-- Target Box 1: Relaxed -->
-              <div id="paceCard_relaxed" onclick="setPace('relaxed')" class="bento-card p-5 cursor-pointer transition-all border border-[#CFC1AA] dark:border-[#514638] bg-[#F0E6D5] dark:bg-[#352E25] hover:border-[#607B5B] dark:hover:border-[#8CA887] hover:shadow-md space-y-3">
-                <div class="flex items-center justify-between">
-                  <div class="flex items-center gap-2">
-                    <span class="text-xl">☕</span>
-                    <div>
-                      <h5 class="text-sm font-extrabold text-[#332B22] dark:text-[#E2D4BD]">Relaxed Pace</h5>
-                      <span class="text-[10px] text-[#716556] dark:text-[#B4A58F] font-semibold">$7,000 Finish</span>
-                    </div>
-                  </div>
-                  <span id="paceActiveBadge_relaxed" class="hidden px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-[#607B5B] dark:bg-[#8CA887] text-[#F5EBDD] dark:text-[#29241E] shadow-sm">
-                    Active
-                  </span>
-                </div>
-
-                <div class="py-1">
-                  <div class="text-2xl font-black font-num text-[#607B5B] dark:text-[#8CA887]" id="targetValRelaxed">
-                    $120.00
-                  </div>
-                  <div class="text-xs font-semibold mt-0.5" id="targetStatusRelaxed">
-                    Goal Met
-                  </div>
-                </div>
-
-                <p class="text-[11px] text-[#716556] dark:text-[#B4A58F] pt-2 border-t border-[#CFC1AA]/60 dark:border-[#514638]/60">
-                  Chill &amp; steady growth. Minimal drawdown stress, great for choppy market conditions.
-                </p>
-              </div>
-
-              <!-- Target Box 2: Mid (Ideal) -->
-              <div id="paceCard_mid" onclick="setPace('mid')" class="bento-card p-5 cursor-pointer transition-all border border-[#CFC1AA] dark:border-[#514638] bg-[#F0E6D5] dark:bg-[#352E25] hover:border-[#A96745] dark:hover:border-[#CB8561] hover:shadow-md space-y-3">
-                <div class="flex items-center justify-between">
-                  <div class="flex items-center gap-2">
-                    <span class="text-xl">⚡</span>
-                    <div>
-                      <h5 class="text-sm font-extrabold text-[#332B22] dark:text-[#E2D4BD]">Mid Pace</h5>
-                      <span class="text-[10px] text-[#716556] dark:text-[#B4A58F] font-semibold">$12,600 Finish</span>
-                    </div>
-                  </div>
-                  <span id="paceActiveBadge_mid" class="hidden px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-[#A96745] dark:bg-[#CB8561] text-[#F5EBDD] dark:text-[#29241E] shadow-sm">
-                    Active
-                  </span>
-                </div>
-
-                <div class="py-1">
-                  <div class="text-2xl font-black font-num text-[#A96745] dark:text-[#CB8561]" id="targetValMid">
-                    $120.00
-                  </div>
-                  <div class="text-xs font-semibold mt-0.5" id="targetStatusMid">
-                    Goal Met
-                  </div>
-                </div>
-
-                <p class="text-[11px] text-[#716556] dark:text-[#B4A58F] pt-2 border-t border-[#CFC1AA]/60 dark:border-[#514638]/60">
-                  The sweet spot. Balanced growth sprint for solid setups without reckless over-trading.
-                </p>
-              </div>
-
-              <!-- Target Box 3: Aggressive -->
-              <div id="paceCard_aggressive" onclick="setPace('aggressive')" class="bento-card p-5 cursor-pointer transition-all border border-[#CFC1AA] dark:border-[#514638] bg-[#F0E6D5] dark:bg-[#352E25] hover:border-[#B86652] dark:hover:border-[#D47F6C] hover:shadow-md space-y-3">
-                <div class="flex items-center justify-between">
-                  <div class="flex items-center gap-2">
-                    <span class="text-xl">🔥</span>
-                    <div>
-                      <h5 class="text-sm font-extrabold text-[#332B22] dark:text-[#E2D4BD]">Aggressive Pace</h5>
-                      <span class="text-[10px] text-[#716556] dark:text-[#B4A58F] font-semibold">$17,500 Finish</span>
-                    </div>
-                  </div>
-                  <span id="paceActiveBadge_aggressive" class="hidden px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-[#B86652] dark:bg-[#D47F6C] text-[#F5EBDD] dark:text-[#29241E] shadow-sm">
-                    Active
-                  </span>
-                </div>
-
-                <div class="py-1">
-                  <div class="text-2xl font-black font-num text-[#B86652] dark:text-[#D47F6C]" id="targetValAggressive">
-                    $120.00
-                  </div>
-                  <div class="text-xs font-semibold mt-0.5" id="targetStatusAggressive">
-                    Goal Met
-                  </div>
-                </div>
-
-                <p class="text-[11px] text-[#716556] dark:text-[#B4A58F] pt-2 border-t border-[#CFC1AA]/60 dark:border-[#514638]/60">
-                  High turbo compounding. Fast-lane growth suited for trending runs and A+ high-conviction trades.
-                </p>
-              </div>
-            </div>
-          </div>
+          <!-- Hidden alias for backwards compatibility -->
+          <div id="widgetContent_paces" class="hidden"></div>
 
           <!-- WIDGET 2: Daily Trading Activity Calendar -->
           <div id="widgetContent_calendar" class="hidden space-y-4">
@@ -877,7 +918,7 @@
         </div>
 
         <!-- Strategy & Targets Config Form -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
           <div>
             <label class="block font-bold text-[#716556] dark:text-[#B4A58F] uppercase text-[10px] tracking-wider">
               Goal Target ($)
@@ -888,6 +929,15 @@
                 class="w-full bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl pl-8 pr-3 py-2 text-sm font-bold font-num text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#8CA887]" />
             </div>
             <span class="text-[10px] text-[#716556] dark:text-[#B4A58F] mt-1 block">e.g. $1,500 for bills / rent / debt</span>
+          </div>
+
+          <div>
+            <label class="block font-bold text-[#716556] dark:text-[#B4A58F] uppercase text-[10px] tracking-wider">
+              Target Deadline
+            </label>
+            <input type="date" id="cfgMilestoneDeadline" onchange="saveMilestoneConfig()"
+              class="w-full mt-1 bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 font-num text-xs font-semibold text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#8CA887]" />
+            <span class="text-[10px] text-[#716556] dark:text-[#B4A58F] mt-1 block">Calculates daily required bank rate</span>
           </div>
 
           <div>
@@ -917,8 +967,8 @@
         </div>
       </section>
 
-      <!-- Bento Cards: Banked Cash, True Wealth, Goal Progress -->
-      <section class="grid grid-cols-1 md:grid-cols-3 gap-5">
+      <!-- Bento Cards: Banked Cash, True Wealth, Goal Progress, Target Run-Rate -->
+      <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <!-- Banked Cash Bento Card -->
         <div class="bento-card p-5 bg-[#A96745]/10 dark:bg-[#CB8561]/15 border-[#A96745]/30 dark:border-[#CB8561]/30 space-y-2">
           <div class="flex items-center justify-between">
@@ -951,6 +1001,54 @@
           <p class="text-[11px] text-[#716556] dark:text-[#B4A58F] font-num" id="vaultGoalSummary">
             $0.00 banked of $1,500.00 target
           </p>
+        </div>
+
+        <!-- Target Deadline & Run-Rate Bento Card (Peach) -->
+        <div class="bento-card p-5 bg-[#D98A6C]/10 dark:bg-[#E09A7E]/15 border-[#D98A6C]/30 dark:border-[#E09A7E]/30 space-y-2 flex flex-col justify-between">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold uppercase tracking-wider text-[#D98A6C] dark:text-[#E09A7E]">Target Run-Rate</span>
+            <span id="vaultDeadlineStatusBadge" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#D98A6C] text-[#F5EBDD] dark:bg-[#E09A7E] dark:text-[#29241E] font-num">Flexible Pace</span>
+          </div>
+          <div>
+            <div class="text-3xl font-black font-num text-[#D98A6C] dark:text-[#E09A7E]" id="vaultRunRateDisplay">$0.00/day</div>
+            <div class="text-xs font-semibold text-[#716556] dark:text-[#B4A58F] mt-0.5" id="vaultDaysLeftDisplay">Pacing guide</div>
+          </div>
+          <p class="text-[11px] text-[#716556] dark:text-[#B4A58F] font-num" id="vaultDeadlineDateText">Target date: Not set</p>
+        </div>
+      </section>
+
+      <!-- Pay Yourself First Milestone Checkpoints -->
+      <section class="bento-card p-5 space-y-3.5 border border-[#CFC1AA] dark:border-[#514638]">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 pb-2 border-b border-[#CFC1AA]/60 dark:border-[#514638]/60">
+          <div>
+            <h3 class="text-sm font-extrabold text-[#332B22] dark:text-[#E2D4BD] flex items-center gap-1.5">
+              <span>🌱</span>
+              <span>"Pay Yourself First" Capital Protection Milestones</span>
+            </h3>
+            <p class="text-xs text-[#716556] dark:text-[#B4A58F]">
+              Milestones unlocked by safely securing profit into your Capital Vault piggy bank
+            </p>
+          </div>
+          <span id="vaultMilestoneBadgesSummary" class="text-xs font-bold text-[#607B5B] dark:text-[#8CA887] font-num">
+            0 of 3 Milestones Unlocked
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3.5">
+          <!-- Milestone 1: Seed House Money Recouped ($120) -->
+          <div id="badgeSeedRecouped" class="p-4 rounded-2xl border transition-all space-y-2">
+            <!-- Dynamically populated in renderMilestonesTab -->
+          </div>
+
+          <!-- Milestone 2: Emergency Buffer Secured ($500) -->
+          <div id="badgeBufferSecured" class="p-4 rounded-2xl border transition-all space-y-2">
+            <!-- Dynamically populated in renderMilestonesTab -->
+          </div>
+
+          <!-- Milestone 3: Financial Requirement Goal Cleared ($1500) -->
+          <div id="badgeGoalCleared" class="p-4 rounded-2xl border transition-all space-y-2">
+            <!-- Dynamically populated in renderMilestonesTab -->
+          </div>
         </div>
       </section>
 
@@ -1419,7 +1517,7 @@ service cloud.firestore {
     let showAllPacesInTable = localStorage.getItem('pgl_show_all_paces_v9') === 'true';
 
     /* Multi-Widget Console Hub State */
-    let activeWidgetTab = localStorage.getItem('pgl_active_widget_tab_v1') || 'paces';
+    let activeWidgetTab = localStorage.getItem('pgl_active_widget_tab_v1') || 'calendar';
     let isBox2CalendarView = activeWidgetTab === 'calendar';
     let calendarViewDate = new Date();
 
@@ -1427,9 +1525,11 @@ service cloud.firestore {
     let milestoneFeatureEnabled = localStorage.getItem('pgl_milestone_enabled_v9') === 'true';
     let milestoneConfig = JSON.parse(localStorage.getItem('pgl_milestone_cfg_v9')) || {
       targetGoal: 1500,
+      targetDeadline: '',
       reserveFloor: 1000,
       strategy: 'gradual'
     };
+    if (!milestoneConfig.targetDeadline) milestoneConfig.targetDeadline = '';
     let vaultLedger = JSON.parse(localStorage.getItem('pgl_vault_ledger_v9')) || [];
 
     /* Custom Ladder Profiles */
@@ -1474,6 +1574,75 @@ service cloud.firestore {
       else if (d % 10 === 2 && d % 100 !== 12) suffix = 'nd';
       else if (d % 10 === 3 && d % 100 !== 13) suffix = 'rd';
       return `${d}${suffix} ${month}`;
+    }
+
+    /* Financial Requirement Deadline & Pacing Engine */
+    function getFinancialRequirementMetrics() {
+      const goal = milestoneConfig.targetGoal || 1500;
+      const totalVault = getTotalVaultWithdrawn();
+      const remainingToBank = Math.max(0, goal - totalVault);
+      const deadlineStr = milestoneConfig.targetDeadline || '';
+      
+      let daysLeft = null;
+      let isExpired = false;
+      let isAchieved = remainingToBank <= 0.001;
+
+      if (deadlineStr) {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const targetDate = new Date(deadlineStr);
+        targetDate.setHours(0, 0, 0, 0);
+        const diffTime = targetDate.getTime() - today.getTime();
+        daysLeft = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        if (daysLeft < 0) {
+          isExpired = true;
+        }
+      }
+
+      const ladder = getActiveLadder();
+      const sessionsRemaining = Math.max(1, ladder.length - currentSession + 1);
+
+      let dailyRateNeeded = 0;
+      if (isAchieved) {
+        dailyRateNeeded = 0;
+      } else if (daysLeft !== null && daysLeft > 0) {
+        dailyRateNeeded = remainingToBank / daysLeft;
+      } else if (daysLeft !== null && daysLeft <= 0) {
+        dailyRateNeeded = remainingToBank;
+      } else {
+        dailyRateNeeded = remainingToBank / sessionsRemaining;
+      }
+
+      let statusBadge = "Flexible Pace";
+      let statusBadgeClass = "bg-[#716556] text-[#F5EBDD] dark:bg-[#B4A58F] dark:text-[#29241E]";
+
+      if (isAchieved) {
+        statusBadge = "Goal Cleared";
+        statusBadgeClass = "bg-[#607B5B] text-[#F5EBDD] dark:bg-[#8CA887] dark:text-[#29241E]";
+      } else if (isExpired) {
+        statusBadge = "Past Deadline";
+        statusBadgeClass = "bg-[#B86652] text-[#F5EBDD] dark:bg-[#D47F6C] dark:text-[#29241E]";
+      } else if (daysLeft !== null && daysLeft <= 7 && remainingToBank > 0) {
+        statusBadge = "Sprint Pace";
+        statusBadgeClass = "bg-[#C2984D] text-[#F5EBDD] dark:bg-[#DEB76C] dark:text-[#29241E]";
+      } else if (daysLeft !== null) {
+        statusBadge = "On Track";
+        statusBadgeClass = "bg-[#D98A6C] text-[#F5EBDD] dark:bg-[#E09A7E] dark:text-[#29241E]";
+      }
+
+      return {
+        goal,
+        totalVault,
+        remainingToBank,
+        deadlineStr,
+        daysLeft,
+        isExpired,
+        isAchieved,
+        dailyRateNeeded: Number(dailyRateNeeded.toFixed(2)),
+        sessionsRemaining,
+        statusBadge,
+        statusBadgeClass
+      };
     }
 
     /* Theme Management */
@@ -1569,6 +1738,11 @@ service cloud.firestore {
     function getSessionTarget(sessionNum, pace = currentPace) {
       const ladder = getActiveLadder();
       const row = ladder.find(i => i.s === sessionNum) || ladder[ladder.length - 1];
+      if (pace === 'finreq') {
+        const base = row.r !== undefined ? row.r : (row.target || 120.00);
+        const metrics = getFinancialRequirementMetrics();
+        return Number((base + metrics.dailyRateNeeded).toFixed(2));
+      }
       if (row.r !== undefined && row.m !== undefined && row.a !== undefined) {
         return pace === 'relaxed' ? row.r : (pace === 'mid' ? row.m : row.a);
       }
@@ -1604,8 +1778,16 @@ service cloud.firestore {
       currentPace = pace;
       localStorage.setItem('pgl_pace_v9', pace);
       renderTracker();
-      showToast(`Pace set to ${capitalize(pace)}`);
+      if (pace === 'finreq') {
+        showToast("Payment Requirement Pace selected (Suggestive guide)");
+      } else {
+        showToast(`Pace set to ${capitalize(pace)}`);
+      }
       syncToFirestore();
+    }
+
+    function openFinReqDetails() {
+      setPace('finreq');
     }
 
     function navigateSession(delta) {
@@ -1769,8 +1951,11 @@ service cloud.firestore {
       document.getElementById('prevSessionBalLabel').innerText = fmt(prevDesk);
       document.getElementById('sessionTargetValDisplay').innerText = fmt(targetReq);
 
-      // Session PnL Calculation
-      const sessionPnl = currentDesk - prevDesk;
+      // Session PnL Calculation (Normalized to include this session's vault skims)
+      const thisSessionSkims = vaultLedger
+        .filter(item => item.session === currentSession)
+        .reduce((sum, item) => sum + (parseFloat(item.amount) || 0), 0);
+      const sessionPnl = (currentDesk + thisSessionSkims) - prevDesk;
       const sessionPnlPct = prevDesk > 0 ? (sessionPnl / prevDesk) * 100 : 0;
       const pnlDollarEl = document.getElementById('sessionPnlDollar');
       const pnlPctEl = document.getElementById('sessionPnlPct');
@@ -1851,7 +2036,7 @@ service cloud.firestore {
       const statusMidEl = document.getElementById('targetStatusMid');
       if (diffMid >= 0) {
         statusMidEl.innerText = `✅ Target Met (+${fmt(diffMid)})`;
-        statusMidEl.className = "text-xs font-extrabold font-num text-[#A96745] dark:text-[#CB8561]";
+        statusMidEl.className = "text-xs font-extrabold font-num text-[#C2984D] dark:text-[#DEB76C]";
       } else {
         statusMidEl.innerText = `🎯 Needs +${fmt(Math.abs(diffMid))} to hit`;
         statusMidEl.className = "text-xs font-semibold font-num text-[#716556] dark:text-[#B4A58F]";
@@ -1863,25 +2048,58 @@ service cloud.firestore {
       const statusAggEl = document.getElementById('targetStatusAggressive');
       if (diffAgg >= 0) {
         statusAggEl.innerText = `✅ Target Met (+${fmt(diffAgg)})`;
-        statusAggEl.className = "text-xs font-extrabold font-num text-[#B86652] dark:text-[#D47F6C]";
+        statusAggEl.className = "text-xs font-extrabold font-num text-[#806A73] dark:text-[#A8909A]";
       } else {
         statusAggEl.innerText = `🎯 Needs +${fmt(Math.abs(diffAgg))} to hit`;
         statusAggEl.className = "text-xs font-semibold font-num text-[#716556] dark:text-[#B4A58F]";
       }
 
-      // Update Active Border & Badges on the 3 boxes
-      ['relaxed', 'mid', 'aggressive'].forEach(p => {
+      // 4. Financial Requirement Box (Peach)
+      const finReq = getFinancialRequirementMetrics();
+      const finReqTarget = Number((rVal + finReq.dailyRateNeeded).toFixed(2));
+      document.getElementById('targetValFinReq').innerText = fmt(finReqTarget);
+      document.getElementById('finReqGoalBadge').innerText = `${fmt(finReq.goal)} Goal`;
+
+      const statusFinReqEl = document.getElementById('targetStatusFinReq');
+      const descFinReqEl = document.getElementById('targetFinReqDesc');
+      const diffFinReq = currentDesk - finReqTarget;
+
+      if (finReq.isAchieved) {
+        statusFinReqEl.innerText = `🎉 Goal Met! (${fmt(finReq.totalVault)} Banked)`;
+        statusFinReqEl.className = "text-xs font-extrabold font-num text-[#607B5B] dark:text-[#8CA887]";
+        descFinReqEl.innerText = `Full ${fmt(finReq.goal)} secured into Vault. Maintain relaxed pace!`;
+      } else if (diffFinReq >= 0) {
+        statusFinReqEl.innerText = `✅ Surplus Available (+${fmt(diffFinReq)})`;
+        statusFinReqEl.className = "text-xs font-extrabold font-num text-[#D98A6C] dark:text-[#E09A7E]";
+        descFinReqEl.innerText = `Ready to skim ${fmt(finReq.dailyRateNeeded)} surplus into Vault if trades allow.`;
+      } else {
+        statusFinReqEl.innerText = `🍑 +${fmt(finReq.dailyRateNeeded)}/day surplus guide`;
+        statusFinReqEl.className = "text-xs font-semibold font-num text-[#716556] dark:text-[#B4A58F]";
+        if (finReq.daysLeft !== null) {
+          descFinReqEl.innerText = `${finReq.daysLeft > 0 ? finReq.daysLeft + ' days left' : 'Due today'} • ${fmt(finReq.remainingToBank)} remaining to bank.`;
+        } else {
+          descFinReqEl.innerText = `Pacing for ${fmt(finReq.remainingToBank)} remaining. Set deadline in Vault tab.`;
+        }
+      }
+
+      // Update Active Border & Badges on the 4 boxes
+      ['relaxed', 'mid', 'aggressive', 'finreq'].forEach(p => {
         const card = document.getElementById(`paceCard_${p}`);
         const badge = document.getElementById(`paceActiveBadge_${p}`);
         if (card && badge) {
           if (p === currentPace) {
             badge.classList.remove('hidden');
-            if (p === 'relaxed') card.className = "bento-card p-5 cursor-pointer transition-all border-2 border-[#607B5B] dark:border-[#8CA887] bg-[#607B5B]/5 dark:bg-[#8CA887]/10 shadow-warm-md space-y-3";
-            if (p === 'mid') card.className = "bento-card p-5 cursor-pointer transition-all border-2 border-[#A96745] dark:border-[#CB8561] bg-[#A96745]/5 dark:bg-[#CB8561]/10 shadow-warm-md space-y-3";
-            if (p === 'aggressive') card.className = "bento-card p-5 cursor-pointer transition-all border-2 border-[#B86652] dark:border-[#D47F6C] bg-[#B86652]/5 dark:bg-[#D47F6C]/10 shadow-warm-md space-y-3";
+            if (p === 'relaxed') card.className = "bento-card p-4 sm:p-5 cursor-pointer transition-all border-2 border-[#607B5B] dark:border-[#8CA887] bg-[#607B5B]/10 dark:bg-[#8CA887]/15 shadow-warm-md space-y-2.5";
+            if (p === 'mid') card.className = "bento-card p-4 sm:p-5 cursor-pointer transition-all border-2 border-[#C2984D] dark:border-[#DEB76C] bg-[#C2984D]/10 dark:bg-[#DEB76C]/15 shadow-warm-md space-y-2.5";
+            if (p === 'aggressive') card.className = "bento-card p-4 sm:p-5 cursor-pointer transition-all border-2 border-[#806A73] dark:border-[#A8909A] bg-[#806A73]/10 dark:bg-[#A8909A]/15 shadow-warm-md space-y-2.5";
+            if (p === 'finreq') card.className = "bento-card p-4 sm:p-5 cursor-pointer transition-all border-2 border-[#D98A6C] dark:border-[#E09A7E] bg-[#D98A6C]/15 dark:bg-[#E09A7E]/20 shadow-warm-md space-y-2.5";
           } else {
             badge.classList.add('hidden');
-            card.className = "bento-card p-5 cursor-pointer transition-all border border-[#CFC1AA] dark:border-[#514638] hover:border-[#B4A58F] dark:hover:border-[#716556] hover:bg-[#F0E6D5]/60 dark:hover:bg-[#352E25]/60 space-y-3";
+            if (p === 'finreq') {
+              card.className = "bento-card p-4 sm:p-5 cursor-pointer transition-all border border-[#D98A6C]/40 dark:border-[#E09A7E]/40 bg-[#D98A6C]/10 dark:bg-[#E09A7E]/10 hover:border-[#D98A6C] dark:hover:border-[#E09A7E] hover:shadow-md space-y-2.5";
+            } else {
+              card.className = "bento-card p-4 sm:p-5 cursor-pointer transition-all border border-[#CFC1AA] dark:border-[#514638] hover:border-[#B4A58F] dark:hover:border-[#716556] hover:bg-[#F0E6D5]/60 dark:hover:bg-[#352E25]/60 space-y-2.5";
+            }
           }
         }
       });
@@ -2268,7 +2486,8 @@ service cloud.firestore {
       });
 
       const thActiveTarget = document.getElementById('thActiveTarget');
-      thActiveTarget.innerText = showAllPacesInTable ? `Active (${capitalize(currentPace)})` : `Target (${capitalize(currentPace)})`;
+      const paceLabel = currentPace === 'finreq' ? 'Financial Req' : capitalize(currentPace);
+      thActiveTarget.innerText = showAllPacesInTable ? `Active (${paceLabel})` : `Target (${paceLabel})`;
 
       ladder.forEach(row => {
         const isCurrent = row.s === currentSession;
@@ -2276,9 +2495,12 @@ service cloud.firestore {
         const hasLogged = loggedVal !== undefined;
         const timestamp = sessionTimestamps[row.s];
         const prev = getPrevDeskBalance(row.s);
-        const pnl = hasLogged ? loggedVal - prev : null;
+        const rowSkims = vaultLedger
+          .filter(v => v.session === row.s)
+          .reduce((sum, v) => sum + (parseFloat(v.amount) || 0), 0);
+        const pnl = hasLogged ? (loggedVal + rowSkims) - prev : null;
         const target = getSessionTarget(row.s);
-        const surplus = hasLogged ? loggedVal - target : null;
+        const surplus = hasLogged ? (loggedVal + rowSkims) - target : null;
         const isRowLocked = !!lockedSessions[row.s];
 
         const tr = document.createElement('tr');
@@ -2312,8 +2534,8 @@ service cloud.firestore {
         if (showAllPacesInTable) {
           extraColsHtml = `
             <td class="py-2.5 px-3 sm:px-4 text-[#607B5B] dark:text-[#8CA887] font-semibold">${row.r !== undefined ? fmt(row.r) : fmt(row.target)}</td>
-            <td class="py-2.5 px-3 sm:px-4 text-[#A96745] dark:text-[#CB8561] font-semibold">${row.m !== undefined ? fmt(row.m) : '—'}</td>
-            <td class="py-2.5 px-3 sm:px-4 text-[#B86652] dark:text-[#D47F6C] font-semibold">${row.a !== undefined ? fmt(row.a) : '—'}</td>
+            <td class="py-2.5 px-3 sm:px-4 text-[#C2984D] dark:text-[#DEB76C] font-semibold">${row.m !== undefined ? fmt(row.m) : '—'}</td>
+            <td class="py-2.5 px-3 sm:px-4 text-[#806A73] dark:text-[#A8909A] font-semibold">${row.a !== undefined ? fmt(row.a) : '—'}</td>
           `;
         }
 
@@ -2322,11 +2544,12 @@ service cloud.firestore {
             S${row.s}
             ${isRowLocked ? '<span class="ml-1 text-[11px]" title="Locked">🔒</span>' : ''}
             ${row.milestone ? '<span class="ml-1.5 px-1.5 py-0.5 text-[9px] rounded-full bg-[#607B5B]/15 text-[#607B5B] dark:bg-[#8CA887]/20 dark:text-[#8CA887] font-bold">Goal</span>' : ''}
-            ${row.pause ? '<span class="ml-1.5 px-1.5 py-0.5 text-[9px] rounded-full bg-[#A96745]/15 text-[#A96745] dark:bg-[#CB8561]/20 dark:text-[#CB8561] font-bold">Rest</span>' : ''}
+            ${row.pause ? '<span class="ml-1.5 px-1.5 py-0.5 text-[9px] rounded-full bg-[#C2984D]/15 text-[#C2984D] dark:bg-[#DEB76C]/20 dark:text-[#DEB76C] font-bold">Rest</span>' : ''}
           </td>
           <td class="py-2.5 px-3 sm:px-4 text-[11px] text-[#716556] dark:text-[#B4A58F]">${timestamp ? fmtTimestamp(timestamp).split(',')[0] : '—'}</td>
           <td class="py-2.5 px-3 sm:px-4 font-bold ${hasLogged ? 'text-[#332B22] dark:text-[#E2D4BD]' : 'text-[#CFC1AA] dark:text-[#514638] italic'}">
             ${hasLogged ? fmt(loggedVal) : '—'}
+            ${rowSkims > 0 ? `<span class="ml-1 text-[10px] font-semibold text-[#A96745] dark:text-[#CB8561] bg-[#A96745]/10 dark:bg-[#CB8561]/15 px-1.5 py-0.5 rounded-full" title="Banked ${fmt(rowSkims)} to Vault">+${fmt(rowSkims)} safe</span>` : ''}
           </td>
           <td class="py-2.5 px-3 sm:px-4">${pnlCell}</td>
           <td class="py-2.5 px-3 sm:px-4">${surplusCell}</td>
@@ -2366,9 +2589,12 @@ service cloud.firestore {
       const rows = ladder.map(r => {
         const logged = sessionLogs[r.s];
         const prev = getPrevDeskBalance(r.s);
-        const pnl = logged !== undefined ? (logged - prev).toFixed(2) : '';
+        const rowSkims = vaultLedger
+          .filter(v => v.session === r.s)
+          .reduce((sum, v) => sum + (parseFloat(v.amount) || 0), 0);
+        const pnl = logged !== undefined ? ((logged + rowSkims) - prev).toFixed(2) : '';
         const target = getSessionTarget(r.s);
-        const surplus = logged !== undefined ? (logged - target).toFixed(2) : '';
+        const surplus = logged !== undefined ? ((logged + rowSkims) - target).toFixed(2) : '';
         return [
           `Session ${r.s}`,
           sessionTimestamps[r.s] || '',
@@ -2425,23 +2651,37 @@ service cloud.firestore {
     function saveMilestoneConfig() {
       milestoneConfig = {
         targetGoal: parseFloat(document.getElementById('cfgMilestoneGoal').value) || 1500,
+        targetDeadline: document.getElementById('cfgMilestoneDeadline').value || '',
         reserveFloor: parseFloat(document.getElementById('cfgDeskReserve').value) || 1000,
         strategy: document.getElementById('cfgSkimStrategy').value
       };
       localStorage.setItem('pgl_milestone_cfg_v9', JSON.stringify(milestoneConfig));
       renderMilestonesTab();
       renderTracker();
-      showToast("Milestone preferences saved");
+      showToast("Milestone & Deadline preferences saved");
     }
 
     function setSkimQuickAmount(amt) {
       document.getElementById('skimFormAmount').value = amt;
     }
 
-    function executeSkim(amount, note) {
+    function executeSkim(amount, note, bypassFloorWarning = false) {
       const currentDesk = getDeskBalance(currentSession);
-      const newDesk = Math.max(10, currentDesk - amount);
+      const floor = milestoneConfig.reserveFloor || 1000;
+      const deskAfter = currentDesk - amount;
 
+      if (!bypassFloorWarning && deskAfter < floor) {
+        openModal({
+          title: "⚠️ Capital Floor Protection Warning",
+          msg: `Transferring ${fmt(amount)} will drop your desk balance to ${fmt(deskAfter)}, below your capital floor of ${fmt(floor)}.<br><br>Do you want to proceed with this transfer?`,
+          onConfirm: () => {
+            executeSkim(amount, note, true);
+          }
+        });
+        return;
+      }
+
+      const newDesk = Math.max(10, deskAfter);
       sessionLogs[currentSession] = newDesk;
       saveTrackerState();
 
@@ -2450,7 +2690,8 @@ service cloud.firestore {
         amount: amount,
         dateTime: new Date().toISOString(),
         deskAfter: newDesk,
-        note: note || "Banked profit"
+        note: note || "Banked profit",
+        session: currentSession
       });
       localStorage.setItem('pgl_vault_ledger_v9', JSON.stringify(vaultLedger));
 
@@ -2494,6 +2735,7 @@ service cloud.firestore {
     function renderMilestonesTab() {
       document.getElementById('milestoneToggleCheckbox').checked = milestoneFeatureEnabled;
       document.getElementById('cfgMilestoneGoal').value = milestoneConfig.targetGoal;
+      document.getElementById('cfgMilestoneDeadline').value = milestoneConfig.targetDeadline || '';
       document.getElementById('cfgDeskReserve').value = milestoneConfig.reserveFloor;
       document.getElementById('cfgSkimStrategy').value = milestoneConfig.strategy;
 
@@ -2510,6 +2752,120 @@ service cloud.firestore {
       document.getElementById('vaultGoalPercent').innerText = `${pct.toFixed(1)}%`;
       document.getElementById('vaultProgressBar').style.width = `${pct}%`;
       document.getElementById('vaultGoalSummary').innerText = `${fmt(totalVault)} banked of ${fmt(goal)} target`;
+
+      // Target Deadline & Run-Rate Card
+      const finReq = getFinancialRequirementMetrics();
+      document.getElementById('vaultRunRateDisplay').innerText = `${fmt(finReq.dailyRateNeeded)}/day`;
+      const badgeStatusEl = document.getElementById('vaultDeadlineStatusBadge');
+      badgeStatusEl.innerText = finReq.statusBadge;
+      badgeStatusEl.className = `text-[10px] font-bold px-2 py-0.5 rounded-full font-num ${finReq.statusBadgeClass}`;
+
+      if (finReq.isAchieved) {
+        document.getElementById('vaultDaysLeftDisplay').innerText = `100% of goal banked`;
+        document.getElementById('vaultDeadlineDateText').innerText = finReq.deadlineStr ? `Completed for ${finReq.deadlineStr}` : `Goal achieved!`;
+      } else if (finReq.deadlineStr) {
+        if (finReq.daysLeft > 0) {
+          document.getElementById('vaultDaysLeftDisplay').innerText = `${finReq.daysLeft} day${finReq.daysLeft === 1 ? '' : 's'} remaining`;
+          document.getElementById('vaultDeadlineDateText').innerText = `Target date: ${finReq.deadlineStr}`;
+        } else if (finReq.daysLeft === 0) {
+          document.getElementById('vaultDaysLeftDisplay').innerText = `Due today!`;
+          document.getElementById('vaultDeadlineDateText').innerText = `Target date: ${finReq.deadlineStr}`;
+        } else {
+          document.getElementById('vaultDaysLeftDisplay').innerText = `Overdue by ${Math.abs(finReq.daysLeft)} days`;
+          document.getElementById('vaultDeadlineDateText').innerText = `Target was: ${finReq.deadlineStr}`;
+        }
+      } else {
+        document.getElementById('vaultDaysLeftDisplay').innerText = `${finReq.sessionsRemaining} sessions left in ladder`;
+        document.getElementById('vaultDeadlineDateText').innerText = `Set deadline date above`;
+      }
+
+      // "Pay Yourself First" Milestone Badges
+      const seedRecouped = totalVault >= 120.00;
+      const bufferSecured = totalVault >= 500.00;
+      const goalCleared = totalVault >= goal;
+      const unlockedCount = (seedRecouped ? 1 : 0) + (bufferSecured ? 1 : 0) + (goalCleared ? 1 : 0);
+
+      document.getElementById('vaultMilestoneBadgesSummary').innerText = `${unlockedCount} of 3 Milestones Unlocked`;
+
+      // Badge 1: Seed
+      const badgeSeedEl = document.getElementById('badgeSeedRecouped');
+      const seedPct = Math.min(100, (totalVault / 120) * 100);
+      badgeSeedEl.className = `p-4 rounded-2xl border transition-all space-y-2 ${
+        seedRecouped 
+          ? 'bg-[#607B5B]/10 border-[#607B5B]/40 dark:bg-[#8CA887]/15 dark:border-[#8CA887]/40' 
+          : 'bg-[#F5EBDD] dark:bg-[#41382D] border-[#CFC1AA] dark:border-[#514638]'
+      }`;
+      badgeSeedEl.innerHTML = `
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-extrabold uppercase tracking-wider ${seedRecouped ? 'text-[#607B5B] dark:text-[#8CA887]' : 'text-[#716556] dark:text-[#B4A58F]'}">
+            House Money
+          </span>
+          <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${
+            seedRecouped 
+              ? 'bg-[#607B5B] text-[#F5EBDD] dark:bg-[#8CA887] dark:text-[#29241E]' 
+              : 'bg-[#CFC1AA]/40 text-[#716556] dark:bg-[#514638]/60 dark:text-[#B4A58F]'
+          }">
+            ${seedRecouped ? '✅ Recouped' : `${seedPct.toFixed(0)}%`}
+          </span>
+        </div>
+        <div class="text-lg font-black font-num text-[#332B22] dark:text-[#E2D4BD]">$120.00 Seed</div>
+        <p class="text-[11px] text-[#716556] dark:text-[#B4A58F]">
+          ${seedRecouped ? 'Original initial deposit secured in Vault. Trading 100% on House Money!' : `${fmt(totalVault)} / $120.00 secured off-desk`}
+        </p>
+      `;
+
+      // Badge 2: Buffer
+      const badgeBufferEl = document.getElementById('badgeBufferSecured');
+      const bufferPct = Math.min(100, (totalVault / 500) * 100);
+      badgeBufferEl.className = `p-4 rounded-2xl border transition-all space-y-2 ${
+        bufferSecured 
+          ? 'bg-[#607B5B]/10 border-[#607B5B]/40 dark:bg-[#8CA887]/15 dark:border-[#8CA887]/40' 
+          : 'bg-[#F5EBDD] dark:bg-[#41382D] border-[#CFC1AA] dark:border-[#514638]'
+      }`;
+      badgeBufferEl.innerHTML = `
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-extrabold uppercase tracking-wider ${bufferSecured ? 'text-[#607B5B] dark:text-[#8CA887]' : 'text-[#716556] dark:text-[#B4A58F]'}">
+            Safety Buffer
+          </span>
+          <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${
+            bufferSecured 
+              ? 'bg-[#607B5B] text-[#F5EBDD] dark:bg-[#8CA887] dark:text-[#29241E]' 
+              : 'bg-[#CFC1AA]/40 text-[#716556] dark:bg-[#514638]/60 dark:text-[#B4A58F]'
+          }">
+            ${bufferSecured ? '🛡️ Secured' : `${bufferPct.toFixed(0)}%`}
+          </span>
+        </div>
+        <div class="text-lg font-black font-num text-[#332B22] dark:text-[#E2D4BD]">$500.00 Buffer</div>
+        <p class="text-[11px] text-[#716556] dark:text-[#B4A58F]">
+          ${bufferSecured ? 'Emergency cash buffer safely tucked away from market fluctuations.' : `${fmt(totalVault)} / $500.00 saved`}
+        </p>
+      `;
+
+      // Badge 3: Goal
+      const badgeGoalEl = document.getElementById('badgeGoalCleared');
+      badgeGoalEl.className = `p-4 rounded-2xl border transition-all space-y-2 ${
+        goalCleared 
+          ? 'bg-[#D98A6C]/15 border-[#D98A6C]/40 dark:bg-[#E09A7E]/20 dark:border-[#E09A7E]/40' 
+          : 'bg-[#F5EBDD] dark:bg-[#41382D] border-[#CFC1AA] dark:border-[#514638]'
+      }`;
+      badgeGoalEl.innerHTML = `
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-extrabold uppercase tracking-wider ${goalCleared ? 'text-[#D98A6C] dark:text-[#E09A7E]' : 'text-[#716556] dark:text-[#B4A58F]'}">
+            Financial Target
+          </span>
+          <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${
+            goalCleared 
+              ? 'bg-[#D98A6C] text-[#F5EBDD] dark:bg-[#E09A7E] dark:text-[#29241E]' 
+              : 'bg-[#CFC1AA]/40 text-[#716556] dark:bg-[#514638]/60 dark:text-[#B4A58F]'
+          }">
+            ${goalCleared ? '🎉 Cleared' : `${pct.toFixed(0)}%`}
+          </span>
+        </div>
+        <div class="text-lg font-black font-num text-[#332B22] dark:text-[#E2D4BD]">${fmt(goal)} Target</div>
+        <p class="text-[11px] text-[#716556] dark:text-[#B4A58F]">
+          ${goalCleared ? 'Financial requirement fully funded & locked in your safe Vault!' : `${fmt(totalVault)} of ${fmt(goal)} banked`}
+        </p>
+      `;
 
       const list = document.getElementById('vaultHistoryContainer');
       if (vaultLedger.length === 0) {

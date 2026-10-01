@@ -498,6 +498,16 @@
           </svg>
           <span>Daily Tracker</span>
         </button>
+        <button onclick="switchTab('trades')" id="nav-trades" class="flex-1 sm:flex-initial px-4 sm:px-6 py-2 rounded-lg transition-all flex items-center justify-center gap-2 text-[#716556] dark:text-[#B4A58F] hover:text-[#332B22] dark:hover:text-[#E2D4BD] whitespace-nowrap">
+          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10 9 9 9 8 9"></polyline>
+          </svg>
+          <span>Trading Sessions</span>
+        </button>
         <button onclick="switchTab('milestones')" id="nav-milestones" class="flex-1 sm:flex-initial px-4 sm:px-6 py-2 rounded-lg transition-all flex items-center justify-center gap-2 text-[#716556] dark:text-[#B4A58F] hover:text-[#332B22] dark:hover:text-[#E2D4BD] whitespace-nowrap">
           <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
             <path d="M6 9h12l-1.5 10a2 2 0 0 1-2 2h-5a2 2 0 0 1-2-2L6 9z" />
@@ -620,7 +630,7 @@
                 <svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
                   <path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3z"/>
                 </svg>
-                <span>Fill Active Target (<span id="btnTargetPreview" class="font-num">$120.00</span>)</span>
+                <span>Fill Current Target (<span id="btnTargetPreview" class="font-num">$120.00</span>)</span>
               </button>
 
               <!-- Lock / Unlock Session Button -->
@@ -666,7 +676,7 @@
               <div id="todayCardView_pnl" class="space-y-1.5">
                 <div class="flex items-center gap-1.5 flex-wrap">
                   <span class="text-xs font-bold uppercase tracking-wider text-[#716556] dark:text-[#B4A58F]">
-                    Session PnL
+                    Today's Profit / Loss
                   </span>
                   <span class="text-xs font-num font-semibold text-[#716556] dark:text-[#B4A58F]">
                     • Pace Goal: <strong id="sessionTargetValDisplay" class="text-[#332B22] dark:text-[#E2D4BD]">$120.00</strong>
@@ -905,7 +915,7 @@
             <button type="button" id="btnPlanMode_rebased" onclick="setPlanViewMode('rebased')"
               class="px-2.5 py-1 rounded-lg text-xs font-bold transition flex items-center gap-1.5 text-[#716556] dark:text-[#B4A58F] hover:text-[#332B22] dark:hover:text-[#E2D4BD]">
               <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
-              <span>Rebased Scenario</span>
+              <span>Updated Plan</span>
             </button>
           </div>
         </div>
@@ -917,11 +927,11 @@
               <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
             </div>
             <div>
-              <span class="font-extrabold text-[#332B22] dark:text-[#E2D4BD]">Rebased Target Scenario Active:</span>
-              <span id="rebasedBannerDesc" class="text-[#716556] dark:text-[#B4A58F] ml-1">Targets dynamically recalculated from latest closing balance to reach summit without altering original plan.</span>
+              <span class="font-extrabold text-[#332B22] dark:text-[#E2D4BD]">Updated Plan Active:</span>
+              <span id="rebasedBannerDesc" class="text-[#716556] dark:text-[#B4A58F] ml-1">Targets dynamically recalculated from latest closing balance to reach final target without altering original growth plan.</span>
             </div>
           </div>
-          <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#617D91]/20 text-[#617D91] dark:bg-[#7894A6]/30 dark:text-[#7894A6] border border-[#617D91]/40 font-num">Scenario Only</span>
+          <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#617D91]/20 text-[#617D91] dark:bg-[#7894A6]/30 dark:text-[#7894A6] border border-[#617D91]/40 font-num">Updated Plan</span>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -1276,8 +1286,8 @@
                     <th class="py-3 px-3 sm:px-4">Date</th>
                     <th class="py-3 px-3 sm:px-4">Closing Balance</th>
                     <th class="py-3 px-3 sm:px-4">Day Profit</th>
-                    <th class="py-3 px-3 sm:px-4">Pace Status</th>
-                    <th class="py-3 px-3 sm:px-4" id="thActiveTarget">Active Target</th>
+                    <th class="py-3 px-3 sm:px-4">Ahead / Behind</th>
+                    <th class="py-3 px-3 sm:px-4" id="thActiveTarget">Current Target</th>
                     <!-- Optional Multi-Pace Columns -->
                     <th class="py-3 px-3 sm:px-4 hidden multi-pace-col">Relaxed</th>
                     <th class="py-3 px-3 sm:px-4 hidden multi-pace-col">Mid</th>
@@ -1294,6 +1304,158 @@
 
         </div>
 
+      </section>
+
+    </div>
+
+    <!-- ==================== TAB: TRADING SESSIONS JOURNAL ==================== -->
+    <div id="tabContentTrades" class="hidden space-y-5 sm:space-y-6">
+
+      <!-- 1. Header & Session Controls -->
+      <section class="bento-card p-5 sm:p-6 space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between pb-3 border-b border-[#CFC1AA] dark:border-[#514638] gap-3">
+          <div>
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 rounded-xl bg-[#607B5B]/15 text-[#607B5B] dark:bg-[#789272]/20 dark:text-[#789272] flex items-center justify-center shrink-0">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14 2 14 8 20 8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                  <polyline points="10 9 9 9 8 9"></polyline>
+                </svg>
+              </div>
+              <h2 class="text-base sm:text-lg font-bold text-[#332B22] dark:text-[#E2D4BD]">Trading Sessions Journal</h2>
+            </div>
+            <p class="text-xs text-[#716556] dark:text-[#B4A58F] mt-0.5">
+              Manually log individual trades to track your execution discipline and performance without affecting main portfolio targets.
+            </p>
+          </div>
+
+          <!-- Controls: Session Selector & Log Trade Button -->
+          <div class="flex items-center gap-2.5 flex-wrap sm:flex-nowrap">
+            <div class="flex items-center gap-1.5 bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-1.5 text-xs font-bold text-[#332B22] dark:text-[#E2D4BD]">
+              <span class="text-[#716556] dark:text-[#B4A58F] text-[10px] uppercase font-bold font-sans">Session:</span>
+              <select id="tradeJournalSessionSelect" onchange="changeTradeJournalSession(parseInt(this.value))"
+                class="bg-transparent font-num font-bold text-xs text-[#332B22] dark:text-[#E2D4BD] focus:outline-none cursor-pointer">
+                <!-- Dynamically populated -->
+              </select>
+            </div>
+
+            <button onclick="openLogTradeModal()" class="px-4 py-2 rounded-xl bg-[#607B5B] hover:bg-[#4F674B] text-[#F5EBDD] dark:bg-[#789272] dark:hover:bg-[#607B5B] dark:text-[#29241E] font-bold text-xs transition active:scale-95 shadow-sm inline-flex items-center gap-1.5 shrink-0">
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+              <span>+ Log Trade</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Session Overview KPI Bar -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs font-num">
+          <div class="p-3.5 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638]">
+            <span class="text-[#716556] dark:text-[#B4A58F] block text-[10px] uppercase font-bold font-sans">Starting Balance</span>
+            <strong class="text-base text-[#332B22] dark:text-[#E2D4BD]" id="journalSessionStartBal">$120.00</strong>
+            <span class="text-[10px] text-[#716556] dark:text-[#B4A58F] block mt-0.5 font-sans">Session start reference</span>
+          </div>
+          <div class="p-3.5 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638]">
+            <span class="text-[#716556] dark:text-[#B4A58F] block text-[10px] uppercase font-bold font-sans">Trades Profit / Loss</span>
+            <strong class="text-base text-[#607B5B] dark:text-[#789272]" id="journalSessionPnL">+$0.00</strong>
+            <span class="text-[10px] text-[#716556] dark:text-[#B4A58F] block mt-0.5 font-sans" id="journalSessionReturnPct">+0.00% return</span>
+          </div>
+          <div class="p-3.5 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638]">
+            <span class="text-[#716556] dark:text-[#B4A58F] block text-[10px] uppercase font-bold font-sans">Trades Logged</span>
+            <strong class="text-base text-[#332B22] dark:text-[#E2D4BD]" id="journalSessionTradeCount">0 Trades</strong>
+            <span class="text-[10px] text-[#716556] dark:text-[#B4A58F] block mt-0.5 font-sans" id="journalSessionWinLoss">0 wins / 0 losses</span>
+          </div>
+          <div class="p-3.5 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638]">
+            <span class="text-[#716556] dark:text-[#B4A58F] block text-[10px] uppercase font-bold font-sans">Closing Balance</span>
+            <strong class="text-base text-[#C2984D] dark:text-[#D0AA63]" id="journalSessionClosingBal">$120.00</strong>
+            <span class="text-[10px] text-[#716556] dark:text-[#B4A58F] block mt-0.5 font-sans" id="journalSessionClosingSubtext">From daily log</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. Trades Table for Selected Session -->
+      <section class="bento-card p-5 sm:p-6 space-y-4">
+        <div class="flex items-center justify-between pb-3 border-b border-[#CFC1AA] dark:border-[#514638]">
+          <div class="flex items-center gap-2">
+            <h3 class="text-sm font-bold text-[#332B22] dark:text-[#E2D4BD] uppercase tracking-wider">
+              <span id="journalTableSessionTitle">Session 1 Trades</span>
+            </h3>
+            <span id="journalSessionBadge" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#607B5B]/15 text-[#607B5B] dark:bg-[#789272]/20 dark:text-[#789272] border border-[#607B5B]/30 font-num">Active Session</span>
+          </div>
+          <span class="text-xs text-[#716556] dark:text-[#B4A58F]">Journal only • Keeps portfolio data untouched</span>
+        </div>
+
+        <div class="overflow-x-auto calm-scrollbar rounded-xl border border-[#CFC1AA] dark:border-[#514638]">
+          <table class="w-full text-left text-xs border-collapse bg-[#F0E6D5] dark:bg-[#352E25]">
+            <thead class="bg-[#F5EBDD] dark:bg-[#41382D] text-[#716556] dark:text-[#B4A58F] uppercase tracking-wider text-[10px] border-b border-[#CFC1AA] dark:border-[#514638] font-bold font-sans">
+              <tr>
+                <th class="py-3 px-3 sm:px-4">Trade</th>
+                <th class="py-3 px-3 sm:px-4">Date</th>
+                <th class="py-3 px-3 sm:px-4">Status</th>
+                <th class="py-3 px-3 sm:px-4 text-right">Entry ($)</th>
+                <th class="py-3 px-3 sm:px-4 text-right">Exit ($)</th>
+                <th class="py-3 px-3 sm:px-4 text-right">Fees ($)</th>
+                <th class="py-3 px-3 sm:px-4 text-right">Profit / Loss</th>
+                <th class="py-3 px-3 sm:px-4 text-right">Return %</th>
+                <th class="py-3 px-3 sm:px-4">Notes</th>
+                <th class="py-3 px-3 sm:px-4 text-center">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="tradeLogTableBody" class="divide-y divide-[#CFC1AA]/60 dark:divide-[#514638]/60 font-num">
+              <!-- Dynamically populated -->
+            </tbody>
+          </table>
+        </div>
+
+        <div id="journalEmptyState" class="hidden p-8 text-center rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-dashed border-[#CFC1AA] dark:border-[#514638] space-y-2">
+          <div class="w-10 h-10 mx-auto rounded-full bg-[#607B5B]/15 text-[#607B5B] dark:bg-[#789272]/20 dark:text-[#789272] flex items-center justify-center">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+          </div>
+          <p class="text-xs font-bold text-[#332B22] dark:text-[#E2D4BD]">No trades logged for this session yet.</p>
+          <p class="text-[11px] text-[#716556] dark:text-[#B4A58F]">Click "+ Log Trade" above to record Trade A for Session <span id="journalEmptySessionNum">1</span>.</p>
+        </div>
+      </section>
+
+      <!-- 3. Overall Trade Journal Analytics -->
+      <section class="bento-card p-5 sm:p-6 space-y-3">
+        <div class="flex items-center justify-between pb-2 border-b border-[#CFC1AA] dark:border-[#514638]">
+          <div>
+            <h4 class="text-xs font-bold uppercase tracking-wider text-[#716556] dark:text-[#B4A58F]">Trade Journal Overall Performance</h4>
+            <p class="text-[11px] text-[#716556] dark:text-[#B4A58F] mt-0.5">Summary metrics across all logged closed trades. Open trades are excluded from realized results.</p>
+          </div>
+          <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#617D91]/15 text-[#617D91] dark:bg-[#7894A6]/20 dark:text-[#7894A6] border border-[#617D91]/30 font-num" id="journalAllTradesSummaryBadge">0 Closed</span>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-5 gap-3 text-xs font-num">
+          <div class="p-3 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638]">
+            <span class="text-[#716556] dark:text-[#B4A58F] block text-[10px] uppercase font-bold font-sans">Total Realized PnL</span>
+            <strong class="text-base text-[#607B5B] dark:text-[#789272]" id="journalMetricTotalPnL">+$0.00</strong>
+            <span class="text-[10px] text-[#716556] dark:text-[#B4A58F] block mt-0.5 font-sans">All closed trades</span>
+          </div>
+          <div class="p-3 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638]">
+            <span class="text-[#716556] dark:text-[#B4A58F] block text-[10px] uppercase font-bold font-sans">Trades Logged</span>
+            <strong class="text-base text-[#332B22] dark:text-[#E2D4BD]" id="journalMetricTotalTrades">0</strong>
+            <span class="text-[10px] text-[#716556] dark:text-[#B4A58F] block mt-0.5 font-sans" id="journalMetricOpenTrades">0 open positions</span>
+          </div>
+          <div class="p-3 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638]">
+            <span class="text-[#716556] dark:text-[#B4A58F] block text-[10px] uppercase font-bold font-sans">Wins vs Losses</span>
+            <strong class="text-base text-[#332B22] dark:text-[#E2D4BD]" id="journalMetricWinLossRecord">0W / 0L</strong>
+            <span class="text-[10px] text-[#716556] dark:text-[#B4A58F] block mt-0.5 font-sans">Realized trades</span>
+          </div>
+          <div class="p-3 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638]">
+            <span class="text-[#716556] dark:text-[#B4A58F] block text-[10px] uppercase font-bold font-sans">Win Rate</span>
+            <strong class="text-base text-[#607B5B] dark:text-[#789272]" id="journalMetricWinRate">0.0%</strong>
+            <span class="text-[10px] text-[#716556] dark:text-[#B4A58F] block mt-0.5 font-sans">Profitable trades</span>
+          </div>
+          <div class="p-3 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638]">
+            <span class="text-[#716556] dark:text-[#B4A58F] block text-[10px] uppercase font-bold font-sans">Avg Return %</span>
+            <strong class="text-base text-[#C2984D] dark:text-[#D0AA63]" id="journalMetricAvgReturn">+0.00%</strong>
+            <span class="text-[10px] text-[#716556] dark:text-[#B4A58F] block mt-0.5 font-sans">Per closed trade</span>
+          </div>
+        </div>
       </section>
 
     </div>
@@ -1428,7 +1590,7 @@
             <p class="text-xs text-[#716556] dark:text-[#B4A58F] mt-2">Combined protected capital</p>
           </div>
           <p class="text-[11px] text-[#716556] dark:text-[#B4A58F] font-num" id="vaultRunRateDisplay">
-            Run-rate: $0.00/day
+            Needed: $0.00/day
           </p>
         </div>
 
@@ -1462,6 +1624,104 @@
         <div class="flex items-center gap-2">
           <span id="vaultDeadlineStatusBadge" class="text-[10px] font-bold px-2.5 py-0.5 rounded-full font-num bg-[#716556] text-[#F5EBDD] dark:bg-[#B4A58F] dark:text-[#29241E]">Flexible</span>
           <span id="vaultDeadlineDateText" class="text-xs font-num font-semibold text-[#716556] dark:text-[#B4A58F]">Target date: Not set</span>
+        </div>
+      </section>
+
+      <!-- Optional Bills Breakdown & Planning Card -->
+      <section id="billsBreakdownSection" class="bento-card p-5 sm:p-6 space-y-4 border border-[#CFC1AA] dark:border-[#514638]">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between pb-3 border-b border-[#CFC1AA] dark:border-[#514638] gap-3">
+          <div>
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 rounded-xl bg-[#C2984D]/15 text-[#C2984D] dark:bg-[#D0AA63]/20 dark:text-[#D0AA63] flex items-center justify-center shrink-0">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <path d="M14 2v6h6"></path>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                  <line x1="10" y1="9" x2="8" y2="9"></line>
+                </svg>
+              </div>
+              <h3 class="text-base font-bold text-[#332B22] dark:text-[#E2D4BD]">Bills Breakdown &amp; Planning</h3>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#C2984D]/15 text-[#C2984D] dark:bg-[#D0AA63]/20 dark:text-[#D0AA63] border border-[#C2984D]/30 font-num">Personal Planning</span>
+            </div>
+            <p class="text-xs text-[#716556] dark:text-[#B4A58F] mt-0.5">
+              Split your Bills Reserve into specific expenses (e.g. rent, electricity, debts). Planning only — does not automatically move money or change trading targets.
+            </p>
+          </div>
+
+          <div class="flex items-center gap-2 flex-wrap">
+            <!-- Basis Toggle: Days vs Sessions -->
+            <div class="inline-flex items-center p-0.5 rounded-xl bg-[#E8DDC9] dark:bg-[#29241E] border border-[#CFC1AA] dark:border-[#514638] text-xs font-bold">
+              <button type="button" onclick="setBillsBasis('days')" id="btnBillsBasis_days"
+                class="px-2.5 py-1 rounded-lg text-xs font-bold transition bg-[#F5EBDD] dark:bg-[#41382D] text-[#332B22] dark:text-[#E2D4BD] shadow-xs">
+                Calendar Days
+              </button>
+              <button type="button" onclick="setBillsBasis('sessions')" id="btnBillsBasis_sessions"
+                class="px-2.5 py-1 rounded-lg text-xs font-bold transition text-[#716556] dark:text-[#B4A58F] hover:text-[#332B22] dark:hover:text-[#E2D4BD]">
+                Trading Sessions
+              </button>
+            </div>
+
+            <button type="button" onclick="openAddBillModal()" class="px-3.5 py-1.5 rounded-xl bg-[#C2984D] hover:bg-[#B3893F] text-[#F5EBDD] dark:bg-[#D0AA63] dark:hover:bg-[#C2984D] dark:text-[#29241E] text-xs font-bold transition active:scale-95 shadow-sm inline-flex items-center gap-1.5 shrink-0">
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+              <span>+ Add Bill</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Bills KPI Summary -->
+        <div class="grid grid-cols-2 sm:grid-cols-5 gap-3 text-xs font-num">
+          <div class="p-3 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638]">
+            <span class="text-[#716556] dark:text-[#B4A58F] block text-[10px] uppercase font-bold font-sans">Total Bills Due</span>
+            <strong class="text-base text-[#332B22] dark:text-[#E2D4BD]" id="billsSummaryTotalDue">$0.00</strong>
+            <span class="text-[10px] text-[#716556] dark:text-[#B4A58F] block mt-0.5 font-sans" id="billsSummaryCount">0 bills added</span>
+          </div>
+          <div class="p-3 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638]">
+            <span class="text-[#716556] dark:text-[#B4A58F] block text-[10px] uppercase font-bold font-sans">Already Reserved</span>
+            <strong class="text-base text-[#607B5B] dark:text-[#789272]" id="billsSummaryTotalReserved">$0.00</strong>
+            <span class="text-[10px] text-[#716556] dark:text-[#B4A58F] block mt-0.5 font-sans">Assigned to bills</span>
+          </div>
+          <div class="p-3 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638]">
+            <span class="text-[#716556] dark:text-[#B4A58F] block text-[10px] uppercase font-bold font-sans">Still Needed</span>
+            <strong class="text-base text-[#C98278] dark:text-[#D99B91]" id="billsSummaryTotalRemaining">$0.00</strong>
+            <span class="text-[10px] text-[#716556] dark:text-[#B4A58F] block mt-0.5 font-sans">To fully fund all</span>
+          </div>
+          <div class="p-3 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638]">
+            <span class="text-[#716556] dark:text-[#B4A58F] block text-[10px] uppercase font-bold font-sans">Due Status</span>
+            <strong class="text-base text-[#C2984D] dark:text-[#D0AA63]" id="billsSummaryDueStatus">0 Overdue</strong>
+            <span class="text-[10px] text-[#716556] dark:text-[#B4A58F] block mt-0.5 font-sans" id="billsSummaryDueSoonSubtext">0 due soon</span>
+          </div>
+          <div class="p-3 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638]">
+            <span class="text-[#716556] dark:text-[#B4A58F] block text-[10px] uppercase font-bold font-sans" id="billsSuggestedRateLabel">Suggested Set-Aside</span>
+            <strong class="text-base text-[#607B5B] dark:text-[#789272]" id="billsSummaryDailyRate">+$0.00 / day</strong>
+            <span class="text-[10px] text-[#716556] dark:text-[#B4A58F] block mt-0.5 font-sans" id="billsSummaryRateBasisSubtext">Across active bills</span>
+          </div>
+        </div>
+
+        <!-- Skim Comparison Reference Banner -->
+        <div id="billsSkimComparisonBanner" class="p-3 rounded-xl bg-[#C2984D]/10 dark:bg-[#D0AA63]/15 border border-[#C2984D]/30 dark:border-[#D0AA63]/30 text-xs flex items-center justify-between flex-wrap gap-2">
+          <div class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-[#C2984D] dark:text-[#D0AA63] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>
+            </svg>
+            <div id="billsSkimComparisonText" class="text-[#332B22] dark:text-[#E2D4BD]">
+              Planning Reference: Suggested bill set-aside is <strong class="font-num">$0.00/day</strong> vs. Estimated available skim of <strong class="font-num">$0.00/day</strong>.
+            </div>
+          </div>
+          <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#C2984D]/20 text-[#C2984D] dark:bg-[#D0AA63]/25 dark:text-[#D0AA63] font-num">Reference Only</span>
+        </div>
+
+        <!-- Bills List Grid -->
+        <div id="billsListContainer" class="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+          <!-- Dynamically populated via renderBillsBreakdown -->
+        </div>
+
+        <!-- Empty State -->
+        <div id="billsEmptyState" class="hidden p-6 text-center rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-dashed border-[#CFC1AA] dark:border-[#514638] space-y-2">
+          <p class="text-xs font-bold text-[#332B22] dark:text-[#E2D4BD]">No specific bills added yet.</p>
+          <p class="text-[11px] text-[#716556] dark:text-[#B4A58F]">Click "+ Add Bill" above to track individual expenses like rent, electricity, or subscriptions.</p>
         </div>
       </section>
 
@@ -1976,7 +2236,7 @@
             </div>
 
             <div>
-              <label class="block font-bold text-[#716556] dark:text-[#B4A58F] uppercase text-[10px] tracking-wider">Portfolio Retained Target ($)</label>
+              <label class="block font-bold text-[#716556] dark:text-[#B4A58F] uppercase text-[10px] tracking-wider">Trading Desk Target ($)</label>
               <input type="number" step="1" min="1" id="genTarget" required value="2500" oninput="updateGenPreview()"
                 class="w-full mt-1 bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 font-num font-bold text-xs text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#789272]" />
             </div>
@@ -2006,9 +2266,9 @@
               <label class="block font-bold text-[#716556] dark:text-[#B4A58F] uppercase text-[10px] tracking-wider">Type of Strategy</label>
               <select id="genCurveType" onchange="updateGenPreview()"
                 class="w-full mt-1 bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 text-xs font-semibold text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#789272]">
-                <option value="tri_pace_independent" selected>Independent Tri-Pace Growth (Piecewise Checkpoints to Final Goal)</option>
-                <option value="port_target_withdrawal">port target + withdrawal (Adjusted for cash-out deadline)</option>
-                <option value="decay">Faster Start, Steady Finish (Decaying sprint)</option>
+                <option value="tri_pace_independent" selected>Three Growth Plans (Relaxed, Mid, and Aggressive tracks to Final Target)</option>
+                <option value="port_target_withdrawal">Portfolio Target + Withdrawal (Adjusted for cash-out deadline)</option>
+                <option value="decay">Gradual Growth Plan (Faster start, steady finish)</option>
                 <option value="smooth">Even Daily Growth (Same compounding rate every day)</option>
               </select>
             </div>
@@ -2035,11 +2295,11 @@
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs font-num">
               <div>
-                <span class="text-[9px] uppercase font-bold text-[#716556] dark:text-[#B4A58F] block">Adjusted Summit</span>
+                <span class="text-[9px] uppercase font-bold text-[#716556] dark:text-[#B4A58F] block">Adjusted Final Target</span>
                 <span id="previewAdjustedSummit" class="text-sm font-black text-[#607B5B] dark:text-[#789272]">$3,000.00</span>
               </div>
               <div>
-                <span class="text-[9px] uppercase font-bold text-[#716556] dark:text-[#B4A58F] block">Desk Target</span>
+                <span class="text-[9px] uppercase font-bold text-[#716556] dark:text-[#B4A58F] block">Trading Desk Target</span>
                 <span id="previewDeskTarget" class="text-sm font-bold text-[#332B22] dark:text-[#E2D4BD]">$2,500.00</span>
               </div>
               <div>
@@ -2052,7 +2312,7 @@
               </div>
             </div>
             <p id="previewStrategyDesc" class="text-[11px] text-[#716556] dark:text-[#B4A58F] pt-1 border-t border-[#CFC1AA]/60 dark:border-[#514638]/60">
-              Pacing accelerates over the first 7 sessions to build a $500.00 cash-out buffer, reaching an adjusted summit of $3,000.00 while keeping $2,500.00 compounding on your trading desk.
+              Pacing accelerates over the first 7 sessions to build a $500.00 cash-out buffer, reaching an adjusted final target of $3,000.00 while keeping $2,500.00 compounding on your trading desk.
             </p>
           </div>
 
@@ -2358,6 +2618,177 @@ service cloud.firestore {
       </div>
     </div>
 
+    <!-- Add / Edit Bill Modal Dialog -->
+    <div id="billModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#29241E]/60 dark:bg-[#1C1814]/75 backdrop-blur-sm hidden transition-opacity duration-200">
+      <div class="bg-[#F0E6D5] dark:bg-[#352E25] rounded-2xl max-w-md w-full p-6 shadow-2xl border border-[#CFC1AA] dark:border-[#514638] space-y-4">
+        <div class="flex items-center justify-between pb-2 border-b border-[#CFC1AA] dark:border-[#514638]">
+          <h3 id="billModalTitle" class="text-base font-bold text-[#332B22] dark:text-[#E2D4BD]">Add Expense Bill</h3>
+          <button onclick="closeBillModal()" class="w-7 h-7 rounded-lg hover:bg-[#CFC1AA]/40 dark:hover:bg-[#514638]/40 flex items-center justify-center text-[#716556] dark:text-[#B4A58F]">✕</button>
+        </div>
+
+        <form id="billForm" onsubmit="handleBillFormSubmit(event)" class="space-y-3.5 text-xs">
+          <input type="hidden" id="billIdInput" />
+
+          <div>
+            <label class="block font-bold text-[#716556] dark:text-[#B4A58F] uppercase text-[10px]">Bill Name *</label>
+            <input type="text" id="billNameInput" required placeholder="e.g. Electricity, Rent, WiFi"
+              class="w-full mt-1 bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 text-xs font-semibold text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#789272]" />
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block font-bold text-[#716556] dark:text-[#B4A58F] uppercase text-[10px]">Total Amount Due ($) *</label>
+              <input type="number" step="0.01" min="0.01" id="billAmountDueInput" required placeholder="120.00"
+                class="w-full mt-1 bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 font-num font-bold text-xs text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#789272]" />
+            </div>
+
+            <div>
+              <label class="block font-bold text-[#716556] dark:text-[#B4A58F] uppercase text-[10px]">Amount Already Set Aside ($)</label>
+              <input type="number" step="0.01" min="0" id="billAmountReservedInput" value="0.00"
+                class="w-full mt-1 bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 font-num font-bold text-xs text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#789272]" />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block font-bold text-[#716556] dark:text-[#B4A58F] uppercase text-[10px]">Due Date</label>
+              <input type="date" id="billDueDateInput"
+                class="w-full mt-1 bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 font-num text-xs text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#789272]" />
+            </div>
+
+            <div>
+              <label class="block font-bold text-[#716556] dark:text-[#B4A58F] uppercase text-[10px]">Priority</label>
+              <select id="billPriorityInput"
+                class="w-full mt-1 bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 text-xs font-semibold text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#789272]">
+                <option value="high">High (Essential)</option>
+                <option value="medium" selected>Medium (Standard)</option>
+                <option value="low">Low (Flexible)</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label class="block font-bold text-[#716556] dark:text-[#B4A58F] uppercase text-[10px]">Payment Status</label>
+            <select id="billStatusInput"
+              class="w-full mt-1 bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 text-xs font-semibold text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#789272]">
+              <option value="unfunded">Unfunded (Need full amount)</option>
+              <option value="partial">Partially Funded (Some reserved)</option>
+              <option value="funded">Fully Funded (Ready to pay)</option>
+              <option value="paid">Paid (Bill settled)</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block font-bold text-[#716556] dark:text-[#B4A58F] uppercase text-[10px]">Notes (Optional)</label>
+            <input type="text" id="billNotesInput" placeholder="e.g. Account #1234, auto-debit on 5th"
+              class="w-full mt-1 bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 text-xs text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#789272]" />
+          </div>
+
+          <div class="flex items-center justify-end gap-2 pt-2 border-t border-[#CFC1AA] dark:border-[#514638]">
+            <button type="button" onclick="closeBillModal()" class="px-4 py-2 rounded-xl text-xs font-bold text-[#716556] dark:text-[#B4A58F] hover:bg-[#CFC1AA]/40 dark:hover:bg-[#514638]/40 transition">
+              Cancel
+            </button>
+            <button type="submit" class="px-4 py-2 rounded-xl text-xs font-bold bg-[#607B5B] hover:bg-[#4F674B] text-[#F5EBDD] dark:bg-[#789272] dark:hover:bg-[#607B5B] dark:text-[#29241E] transition shadow-sm">
+              Save Bill
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Log / Edit Trade Modal Dialog -->
+    <div id="tradeModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#29241E]/60 dark:bg-[#1C1814]/75 backdrop-blur-sm hidden transition-opacity duration-200">
+      <div class="bg-[#F0E6D5] dark:bg-[#352E25] rounded-2xl max-w-md w-full p-6 shadow-2xl border border-[#CFC1AA] dark:border-[#514638] space-y-4">
+        <div class="flex items-center justify-between pb-2 border-b border-[#CFC1AA] dark:border-[#514638]">
+          <h3 id="tradeModalTitle" class="text-base font-bold text-[#332B22] dark:text-[#E2D4BD]">Log Trade</h3>
+          <button onclick="closeTradeModal()" class="w-7 h-7 rounded-lg hover:bg-[#CFC1AA]/40 dark:hover:bg-[#514638]/40 flex items-center justify-center text-[#716556] dark:text-[#B4A58F]">✕</button>
+        </div>
+
+        <form id="tradeForm" onsubmit="handleTradeFormSubmit(event)" class="space-y-3.5 text-xs">
+          <input type="hidden" id="tradeIdInput" />
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block font-bold text-[#716556] dark:text-[#B4A58F] uppercase text-[10px]">Trade Label</label>
+              <input type="text" id="tradeLabelInput" required placeholder="Trade A"
+                class="w-full mt-1 bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 text-xs font-bold text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#789272]" />
+            </div>
+
+            <div>
+              <label class="block font-bold text-[#716556] dark:text-[#B4A58F] uppercase text-[10px]">Session</label>
+              <input type="number" step="1" min="1" id="tradeSessionInput" required
+                class="w-full mt-1 bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 font-num font-bold text-xs text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#789272]" />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block font-bold text-[#716556] dark:text-[#B4A58F] uppercase text-[10px]">Date</label>
+              <input type="date" id="tradeDateInput" required
+                class="w-full mt-1 bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 font-num text-xs text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#789272]" />
+            </div>
+
+            <div>
+              <label class="block font-bold text-[#716556] dark:text-[#B4A58F] uppercase text-[10px]">Status</label>
+              <select id="tradeStatusInput" onchange="updateTradeModalPreview()"
+                class="w-full mt-1 bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 text-xs font-semibold text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#789272]">
+                <option value="closed" selected>Closed (Realized PnL)</option>
+                <option value="partial">Partially Closed</option>
+                <option value="open">Open (Unrealized)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-3 gap-2.5">
+            <div>
+              <label class="block font-bold text-[#716556] dark:text-[#B4A58F] uppercase text-[10px]">Entry ($) *</label>
+              <input type="number" step="0.01" min="0" id="tradeEntryAmountInput" required placeholder="50.00" oninput="updateTradeModalPreview()"
+                class="w-full mt-1 bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 font-num font-bold text-xs text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#789272]" />
+            </div>
+
+            <div>
+              <label class="block font-bold text-[#716556] dark:text-[#B4A58F] uppercase text-[10px]">Exit ($)</label>
+              <input type="number" step="0.01" min="0" id="tradeExitValueInput" value="0.00" oninput="updateTradeModalPreview()"
+                class="w-full mt-1 bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 font-num font-bold text-xs text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#789272]" />
+            </div>
+
+            <div>
+              <label class="block font-bold text-[#716556] dark:text-[#B4A58F] uppercase text-[10px]">Fees ($)</label>
+              <input type="number" step="0.01" min="0" id="tradeFeesInput" value="0.00" oninput="updateTradeModalPreview()"
+                class="w-full mt-1 bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 font-num text-xs text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#789272]" />
+            </div>
+          </div>
+
+          <!-- Live Modal Calculation Preview -->
+          <div class="p-3 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] flex items-center justify-between text-xs font-num">
+            <div>
+              <span class="text-[10px] uppercase font-bold text-[#716556] dark:text-[#B4A58F] block font-sans">Trade Profit / Loss</span>
+              <strong id="tradeModalPnlPreview" class="text-base text-[#607B5B] dark:text-[#789272]">+$0.00</strong>
+            </div>
+            <div class="text-right">
+              <span class="text-[10px] uppercase font-bold text-[#716556] dark:text-[#B4A58F] block font-sans">Return %</span>
+              <strong id="tradeModalReturnPreview" class="text-base text-[#607B5B] dark:text-[#789272]">+0.00%</strong>
+            </div>
+          </div>
+
+          <div>
+            <label class="block font-bold text-[#716556] dark:text-[#B4A58F] uppercase text-[10px]">Notes (Optional)</label>
+            <input type="text" id="tradeNotesInput" placeholder="e.g. Breakout retest, clean take-profit"
+              class="w-full mt-1 bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 text-xs text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#789272]" />
+          </div>
+
+          <div class="flex items-center justify-end gap-2 pt-2 border-t border-[#CFC1AA] dark:border-[#514638]">
+            <button type="button" onclick="closeTradeModal()" class="px-4 py-2 rounded-xl text-xs font-bold text-[#716556] dark:text-[#B4A58F] hover:bg-[#CFC1AA]/40 dark:hover:bg-[#514638]/40 transition">
+              Cancel
+            </button>
+            <button type="submit" class="px-4 py-2 rounded-xl text-xs font-bold bg-[#607B5B] hover:bg-[#4F674B] text-[#F5EBDD] dark:bg-[#789272] dark:hover:bg-[#607B5B] dark:text-[#29241E] transition shadow-sm">
+              Save Trade
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
     <!-- Custom Modal Dialog -->
     <div id="customModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#29241E]/60 dark:bg-[#1C1814]/75 backdrop-blur-sm hidden transition-opacity duration-200">
       <div class="bg-[#F0E6D5] dark:bg-[#352E25] rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-[#CFC1AA] dark:border-[#514638] space-y-4">
@@ -2493,6 +2924,10 @@ service cloud.firestore {
     let vaultLedger = JSON.parse(localStorage.getItem('pgl_vault_ledger_v10')) || [];
     let skimModeEnabled = localStorage.getItem('pgl_skim_mode_v10') === 'true';
     let planViewMode = localStorage.getItem('pgl_plan_view_mode_v10') || 'original'; // 'original' | 'rebased'
+    let billsBreakdown = JSON.parse(localStorage.getItem('pgl_bills_breakdown_v10')) || [];
+    let billsBasis = localStorage.getItem('pgl_bills_basis_v10') || 'days'; // 'days' | 'sessions'
+    let tradeLogs = JSON.parse(localStorage.getItem('pgl_trade_logs_v10')) || [];
+    let tradeJournalActiveSession = currentSession;
     const appSessionStorage = {
       getItem: (k) => {
         try {
@@ -2863,6 +3298,175 @@ service cloud.firestore {
       return Number((grossGains / grossLosses).toFixed(2));
     }
 
+    /**
+     * Calculates personal metrics and suggested set-aside requirements for a single bill.
+     * Decoupled from core trading strategy and financial accounting ledger.
+     */
+    function calculateBillMetrics(bill, options = {}) {
+      const amountDue = Math.max(0, Number(bill.amountDue) || 0);
+      const amountReserved = Math.max(0, Number(bill.amountReserved) || 0);
+      const remaining = Math.max(0, Number((amountDue - amountReserved).toFixed(2)));
+
+      let status = bill.status || 'unfunded';
+      if (status !== 'paid') {
+        if (remaining <= 0 && amountDue > 0) {
+          status = 'funded';
+        } else if (amountReserved > 0) {
+          status = 'partial';
+        } else {
+          status = 'unfunded';
+        }
+      }
+
+      const basis = options.basis || bill.basis || 'days'; // 'days' | 'sessions'
+      let timeUnitsRemaining = 0;
+      let isOverdue = false;
+      let isDueToday = false;
+
+      if (basis === 'days') {
+        if (bill.dueDate) {
+          const todayStr = options.today || new Date().toISOString().split('T')[0];
+          const today = new Date(todayStr + 'T00:00:00');
+          const due = new Date(bill.dueDate + 'T00:00:00');
+          const diffTime = due.getTime() - today.getTime();
+          timeUnitsRemaining = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+          if (timeUnitsRemaining < 0) isOverdue = true;
+          if (timeUnitsRemaining === 0) isDueToday = true;
+        } else {
+          timeUnitsRemaining = 0;
+        }
+      } else {
+        const currentS = options.currentSession || currentSession || 1;
+        const ladderLength = (options.ladder && options.ladder.length) || getActiveLadder().length || 28;
+        const targetS = bill.targetSession || ladderLength;
+        timeUnitsRemaining = Math.max(0, targetS - currentS + 1);
+      }
+
+      let suggestedSetAside = 0;
+      if (status === 'paid' || remaining <= 0) {
+        suggestedSetAside = 0;
+      } else if (isOverdue || isDueToday || timeUnitsRemaining <= 1) {
+        suggestedSetAside = remaining; // Needed immediately
+      } else {
+        suggestedSetAside = Number((remaining / timeUnitsRemaining).toFixed(2));
+      }
+
+      return {
+        amountDue,
+        amountReserved,
+        remaining,
+        status,
+        isOverdue,
+        isDueToday,
+        timeUnitsRemaining,
+        suggestedSetAside
+      };
+    }
+
+    /**
+     * Aggregates summary planning figures across all bills.
+     */
+    function calculateBillsSummary(bills, options = {}) {
+      let totalDue = 0;
+      let totalReserved = 0;
+      let totalRemaining = 0;
+      let totalSuggestedDaily = 0;
+      let overdueCount = 0;
+      let dueSoonCount = 0;
+
+      bills.forEach(bill => {
+        const m = calculateBillMetrics(bill, options);
+        totalDue += m.amountDue;
+        totalReserved += m.amountReserved;
+        totalRemaining += m.remaining;
+        totalSuggestedDaily += m.suggestedSetAside;
+        if (m.isOverdue && m.status !== 'paid') overdueCount++;
+        if (!m.isOverdue && m.timeUnitsRemaining <= 7 && m.timeUnitsRemaining >= 0 && m.status !== 'paid') {
+          dueSoonCount++;
+        }
+      });
+
+      return {
+        totalDue: Number(totalDue.toFixed(2)),
+        totalReserved: Number(totalReserved.toFixed(2)),
+        totalRemaining: Number(totalRemaining.toFixed(2)),
+        totalSuggestedDaily: Number(totalSuggestedDaily.toFixed(2)),
+        overdueCount,
+        dueSoonCount
+      };
+    }
+
+    /**
+     * Calculates single trade realized profit/loss and return percentage.
+     */
+    function calculateTradePnL(trade) {
+      const entry = Math.max(0, Number(trade.entryAmount) || 0);
+      const exit = Math.max(0, Number(trade.exitValue) || 0);
+      const fees = Math.max(0, Number(trade.fees) || 0);
+      const status = trade.status || 'closed';
+
+      if (status === 'open') {
+        return { pnl: 0, returnPct: 0, isRealized: false };
+      }
+
+      const pnl = Number((exit - entry - fees).toFixed(2));
+      const returnPct = entry > 0 ? Number(((pnl / entry) * 100).toFixed(2)) : 0;
+      return { pnl, returnPct, isRealized: true };
+    }
+
+    /**
+     * Computes secondary analytics across trade journal entries.
+     */
+    function calculateTradeJournalAnalytics(trades) {
+      let totalRealizedPnL = 0;
+      let closedCount = 0;
+      let openCount = 0;
+      let wins = 0;
+      let losses = 0;
+      let sumReturnPct = 0;
+
+      trades.forEach(t => {
+        const calc = calculateTradePnL(t);
+        if (calc.isRealized) {
+          totalRealizedPnL += calc.pnl;
+          closedCount++;
+          sumReturnPct += calc.returnPct;
+          if (calc.pnl > 0.001) wins++;
+          else if (calc.pnl < -0.001) losses++;
+        } else {
+          openCount++;
+        }
+      });
+
+      const winRate = closedCount > 0 ? Number(((wins / closedCount) * 100).toFixed(1)) : 0;
+      const avgReturnPct = closedCount > 0 ? Number((sumReturnPct / closedCount).toFixed(2)) : 0;
+
+      return {
+        totalRealizedPnL: Number(totalRealizedPnL.toFixed(2)),
+        totalTrades: trades.length,
+        closedTrades: closedCount,
+        openTrades: openCount,
+        wins,
+        losses,
+        winRate,
+        avgReturnPct
+      };
+    }
+
+    /**
+     * Generates a generic sequential trade label (Trade A, Trade B, ...).
+     */
+    function generateNextTradeLabel(existingTradesInSession) {
+      const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      const count = existingTradesInSession.length;
+      if (count < 26) {
+        return `Trade ${letters[count]}`;
+      }
+      const first = letters[Math.floor(count / 26) - 1];
+      const second = letters[count % 26];
+      return `Trade ${first}${second}`;
+    }
+
     /* Custom Ladder Profiles */
     let ladderProfiles = JSON.parse(localStorage.getItem('pgl_ladder_profiles_v10')) || [];
     let activeProfileId = localStorage.getItem('pgl_active_profile_v10') || '';
@@ -3221,7 +3825,7 @@ service cloud.firestore {
     /* Tab Switching */
     function switchTab(tab) {
       activeTab = tab;
-      ['tracker', 'milestones', 'stats', 'config'].forEach(t => {
+      ['tracker', 'trades', 'milestones', 'stats', 'config'].forEach(t => {
         const tabEl = document.getElementById(`tabContent${capitalize(t)}`);
         const navBtn = document.getElementById(`nav-${t}`);
         if (tabEl && navBtn) {
@@ -3230,15 +3834,16 @@ service cloud.firestore {
             tabEl.classList.remove('view-transition');
             void tabEl.offsetWidth;
             tabEl.classList.add('view-transition');
-            navBtn.className = "flex-1 sm:flex-initial px-5 sm:px-7 py-2 rounded-lg transition-all flex items-center justify-center gap-2 bg-[#F5EBDD] dark:bg-[#41382D] text-[#332B22] dark:text-[#E2D4BD] border border-[#CFC1AA] dark:border-[#514638] shadow-sm";
+            navBtn.className = "flex-1 sm:flex-initial px-4 sm:px-6 py-2 rounded-lg transition-all flex items-center justify-center gap-2 bg-[#F5EBDD] dark:bg-[#41382D] text-[#332B22] dark:text-[#E2D4BD] border border-[#CFC1AA] dark:border-[#514638] shadow-sm";
           } else {
             tabEl.classList.add('hidden');
-            navBtn.className = "flex-1 sm:flex-initial px-5 sm:px-7 py-2 rounded-lg transition-all flex items-center justify-center gap-2 text-[#716556] dark:text-[#B4A58F] hover:text-[#332B22] dark:hover:text-[#E2D4BD]";
+            navBtn.className = "flex-1 sm:flex-initial px-4 sm:px-6 py-2 rounded-lg transition-all flex items-center justify-center gap-2 text-[#716556] dark:text-[#B4A58F] hover:text-[#332B22] dark:hover:text-[#E2D4BD]";
           }
         }
       });
 
       if (tab === 'tracker') renderTracker();
+      if (tab === 'trades') renderTradesTab();
       if (tab === 'milestones') renderMilestonesTab();
       if (tab === 'stats') renderStatsTab();
       if (tab === 'config') renderConfigTab();
@@ -3432,9 +4037,9 @@ service cloud.firestore {
       localStorage.setItem('pgl_plan_view_mode_v10', planViewMode);
       renderTracker();
       if (planViewMode === 'rebased') {
-        showToast("Rebased Scenario Active: targets recalculated from actual balance");
+        showToast("Updated Plan Active: targets recalculated from current balance");
       } else {
-        showToast("Original Plan Active: viewing baseline challenge targets");
+        showToast("Original Plan Active: viewing original growth plan targets");
       }
     }
 
@@ -4392,7 +4997,7 @@ service cloud.firestore {
       const thActiveTarget = document.getElementById('thActiveTarget');
       const paceLabel = currentPace === 'finreq' ? 'Financial Req' : capitalize(currentPace);
       if (thActiveTarget) {
-        thActiveTarget.innerText = showAllPacesInTable ? `Active (${paceLabel})` : `Target (${paceLabel})`;
+        thActiveTarget.innerText = showAllPacesInTable ? `Current (${paceLabel})` : `Target (${paceLabel})`;
       }
 
       if (!ladder || ladder.length === 0) {
@@ -4502,7 +5107,7 @@ service cloud.firestore {
 
     function copySessionTable() {
       const ladder = getActiveLadder();
-      const headers = ["Session", "Timestamp", "Closing Balance ($)", "Day Profit ($)", "Active Target ($)", "Surplus / Behind ($)", "Status", "Notes"];
+      const headers = ["Session", "Timestamp", "Closing Balance ($)", "Day Profit ($)", "Current Target ($)", "Ahead / Behind ($)", "Status", "Notes"];
       const rows = ladder.map(r => {
         const logged = sessionLogs[r.s];
         const prev = getPrevDeskBalance(r.s);
@@ -4717,7 +5322,7 @@ service cloud.firestore {
       // Target Deadline & Daily Savings Target Card
       const finReq = getFinancialRequirementMetrics();
       const runRateEl = document.getElementById('vaultRunRateDisplay');
-      if (runRateEl) runRateEl.innerText = `Run-rate: ${fmt(finReq.dailyRateNeeded)}/day`;
+      if (runRateEl) runRateEl.innerText = `Needed: ${fmt(finReq.dailyRateNeeded)}/day`;
       const badgeStatusEl = document.getElementById('vaultDeadlineStatusBadge');
       if (badgeStatusEl) {
         badgeStatusEl.innerText = finReq.statusBadge;
@@ -4846,40 +5451,717 @@ service cloud.firestore {
             <p class="text-[11px] text-[#716556] dark:text-[#B4A58F] mt-0.5">Use the form on the left or the savings reminder on the tracker to bank profits.</p>
           </div>
         `;
+      } else {
+        list.innerHTML = vaultLedger.slice().reverse().map(item => {
+          const bucket = item.bucket || 'bills';
+          const bucketBadge = bucket === 'savings'
+            ? '<span class="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-[#806A86]/20 text-[#806A86] dark:text-[#9A849F]">Savings</span>'
+            : (bucket === 'general' 
+              ? '<span class="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-[#716556]/20 text-[#716556] dark:text-[#B4A58F]">General</span>'
+              : '<span class="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-[#C2984D]/20 text-[#C2984D] dark:text-[#D0AA63]">Bills</span>');
+
+          return `
+          <div class="flex items-center justify-between p-3 rounded-2xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] transition">
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-xl bg-[#C98278]/15 text-[#C98278] dark:bg-[#D99B91]/20 dark:text-[#D99B91] border border-[#C98278]/30 dark:border-[#D99B91]/30 flex items-center justify-center font-bold text-xs font-num">
+                $
+              </div>
+              <div>
+                <div class="flex items-center gap-1.5">
+                  <span class="font-bold text-[#C98278] dark:text-[#D99B91] font-num text-sm">${fmt(item.amount)}</span>
+                  ${bucketBadge}
+                </div>
+                <div class="text-[11px] text-[#716556] dark:text-[#B4A58F]">${fmtTimestamp(item.dateTime)} • Desk at ${fmt(item.deskAfter)} • ${item.note}</div>
+              </div>
+            </div>
+            <button onclick="deleteVaultRecord(${item.id})" class="text-[#B86652] hover:text-[#A75542] dark:text-[#C77B68] dark:hover:text-[#D99281] p-1.5 rounded-xl bg-[#B86652]/10 dark:bg-[#C77B68]/15 border border-[#B86652]/30 dark:border-[#C77B68]/30 transition active:scale-95 flex items-center justify-center" title="Reverse record to desk">
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            </button>
+          </div>
+        `;
+        }).join('');
+      }
+
+      renderBillsBreakdown();
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    /* ==================== BILLS BREAKDOWN & PLANNING ==================== */
+
+    function setBillsBasis(basis) {
+      billsBasis = basis === 'sessions' ? 'sessions' : 'days';
+      localStorage.setItem('pgl_bills_basis_v10', billsBasis);
+      renderBillsBreakdown();
+    }
+
+    function renderBillsBreakdown() {
+      const container = document.getElementById('billsBreakdownSection');
+      if (!container) return;
+
+      const btnDays = document.getElementById('btnBillsBasis_days');
+      const btnSessions = document.getElementById('btnBillsBasis_sessions');
+      if (btnDays && btnSessions) {
+        if (billsBasis === 'days') {
+          btnDays.className = 'px-2.5 py-1 rounded-lg text-xs font-bold transition bg-[#F5EBDD] dark:bg-[#41382D] text-[#332B22] dark:text-[#E2D4BD] shadow-xs';
+          btnSessions.className = 'px-2.5 py-1 rounded-lg text-xs font-bold transition text-[#716556] dark:text-[#B4A58F] hover:text-[#332B22] dark:hover:text-[#E2D4BD]';
+          const rateLbl = document.getElementById('billsSuggestedRateLabel');
+          if (rateLbl) rateLbl.textContent = 'Suggested Set-Aside';
+          const basisSub = document.getElementById('billsSummaryRateBasisSubtext');
+          if (basisSub) basisSub.textContent = 'Per day across active bills';
+        } else {
+          btnDays.className = 'px-2.5 py-1 rounded-lg text-xs font-bold transition text-[#716556] dark:text-[#B4A58F] hover:text-[#332B22] dark:hover:text-[#E2D4BD]';
+          btnSessions.className = 'px-2.5 py-1 rounded-lg text-xs font-bold transition bg-[#F5EBDD] dark:bg-[#41382D] text-[#332B22] dark:text-[#E2D4BD] shadow-xs';
+          const rateLbl = document.getElementById('billsSuggestedRateLabel');
+          if (rateLbl) rateLbl.textContent = 'Suggested Per-Session';
+          const basisSub = document.getElementById('billsSummaryRateBasisSubtext');
+          if (basisSub) basisSub.textContent = 'Per session across active bills';
+        }
+      }
+
+      const ladder = getActiveLadder();
+      const summary = calculateBillsSummary(billsBreakdown, {
+        basis: billsBasis,
+        currentSession: currentSession,
+        ladder: ladder
+      });
+
+      const totalDueEl = document.getElementById('billsSummaryTotalDue');
+      if (totalDueEl) totalDueEl.textContent = fmt(summary.totalDue);
+      const countEl = document.getElementById('billsSummaryCount');
+      if (countEl) countEl.textContent = `${billsBreakdown.length} bill${billsBreakdown.length === 1 ? '' : 's'} added`;
+
+      const totalResEl = document.getElementById('billsSummaryTotalReserved');
+      if (totalResEl) totalResEl.textContent = fmt(summary.totalReserved);
+
+      const totalRemEl = document.getElementById('billsSummaryTotalRemaining');
+      if (totalRemEl) totalRemEl.textContent = fmt(summary.totalRemaining);
+
+      const dueStatusEl = document.getElementById('billsSummaryDueStatus');
+      if (dueStatusEl) {
+        if (summary.overdueCount > 0) {
+          dueStatusEl.textContent = `${summary.overdueCount} Overdue`;
+          dueStatusEl.className = 'text-base text-[#B86652] dark:text-[#C77B68] font-bold';
+        } else {
+          dueStatusEl.textContent = summary.dueSoonCount > 0 ? `${summary.dueSoonCount} Due Soon` : 'All On Track';
+          dueStatusEl.className = 'text-base text-[#607B5B] dark:text-[#789272] font-bold';
+        }
+      }
+      const dueSoonSub = document.getElementById('billsSummaryDueSoonSubtext');
+      if (dueSoonSub) {
+        dueSoonSub.textContent = summary.dueSoonCount > 0 ? `${summary.dueSoonCount} due within 7 days` : 'No urgent deadlines';
+      }
+
+      const dailyRateEl = document.getElementById('billsSummaryDailyRate');
+      if (dailyRateEl) {
+        dailyRateEl.textContent = `${fmt(summary.totalSuggestedDaily)} / ${billsBasis === 'days' ? 'day' : 'session'}`;
+      }
+
+      // Informational Skim Comparison Banner
+      const currentDesk = getDeskBalance(currentSession);
+      const targetReq = getSessionTarget(currentSession);
+      const currentSurplus = Math.max(0, currentDesk - targetReq);
+      const skimCompText = document.getElementById('billsSkimComparisonText');
+      if (skimCompText) {
+        const rateUnit = billsBasis === 'days' ? 'day' : 'session';
+        skimCompText.innerHTML = `Planning Reference: Suggested bill set-aside is <strong class="font-num font-bold text-[#607B5B] dark:text-[#789272]">${fmt(summary.totalSuggestedDaily)} / ${rateUnit}</strong> vs. your estimated surplus above target today is <strong class="font-num font-bold text-[#C2984D] dark:text-[#D0AA63]">${fmt(currentSurplus)}</strong>. This is an informational comparison to help you budget.`;
+      }
+
+      const listContainer = document.getElementById('billsListContainer');
+      const emptyState = document.getElementById('billsEmptyState');
+      if (!listContainer) return;
+
+      if (billsBreakdown.length === 0) {
+        if (emptyState) emptyState.classList.remove('hidden');
+        listContainer.innerHTML = '';
         return;
       }
 
-      list.innerHTML = vaultLedger.slice().reverse().map(item => {
-        const bucket = item.bucket || 'bills';
-        const bucketBadge = bucket === 'savings'
-          ? '<span class="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-[#806A86]/20 text-[#806A86] dark:text-[#9A849F]">Savings</span>'
-          : (bucket === 'general' 
-            ? '<span class="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-[#716556]/20 text-[#716556] dark:text-[#B4A58F]">General</span>'
-            : '<span class="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-[#C2984D]/20 text-[#C2984D] dark:text-[#D0AA63]">Bills</span>');
+      if (emptyState) emptyState.classList.add('hidden');
+
+      listContainer.innerHTML = billsBreakdown.map(bill => {
+        const m = calculateBillMetrics(bill, {
+          basis: billsBasis,
+          currentSession: currentSession,
+          ladder: ladder
+        });
+
+        // Priority styling
+        let priorityBadge = '';
+        if (bill.priority === 'high') {
+          priorityBadge = '<span class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-[#B86652]/15 text-[#B86652] dark:bg-[#C77B68]/20 dark:text-[#C77B68] border border-[#B86652]/30 uppercase tracking-wider">High</span>';
+        } else if (bill.priority === 'low') {
+          priorityBadge = '<span class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-[#716556]/15 text-[#716556] dark:bg-[#B4A58F]/20 dark:text-[#B4A58F] border border-[#716556]/30 uppercase tracking-wider">Low</span>';
+        } else {
+          priorityBadge = '<span class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-[#C2984D]/15 text-[#C2984D] dark:bg-[#D0AA63]/20 dark:text-[#D0AA63] border border-[#C2984D]/30 uppercase tracking-wider">Medium</span>';
+        }
+
+        // Status badge
+        let statusBadge = '';
+        if (m.status === 'paid') {
+          statusBadge = '<span class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-[#607B5B]/20 text-[#607B5B] dark:text-[#789272] border border-[#607B5B]/30 uppercase tracking-wider inline-flex items-center gap-1"><svg class="w-2.5 h-2.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Paid</span></span>';
+        } else if (m.status === 'funded') {
+          statusBadge = '<span class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-[#607B5B]/15 text-[#607B5B] dark:bg-[#789272]/20 dark:text-[#789272] border border-[#607B5B]/30 uppercase tracking-wider">Fully Funded</span>';
+        } else if (m.status === 'partial') {
+          statusBadge = '<span class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-[#C2984D]/15 text-[#C2984D] dark:bg-[#D0AA63]/20 dark:text-[#D0AA63] border border-[#C2984D]/30 uppercase tracking-wider">Partially Funded</span>';
+        } else {
+          statusBadge = '<span class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-[#716556]/15 text-[#716556] dark:bg-[#B4A58F]/20 dark:text-[#716556] border border-[#716556]/30 uppercase tracking-wider">Unfunded</span>';
+        }
+
+        // Funding percentage
+        const pct = m.amountDue > 0 ? Math.min(100, Math.round((m.amountReserved / m.amountDue) * 100)) : 100;
+
+        // Due info text
+        let dueText = '';
+        if (bill.dueDate) {
+          const dObj = new Date(bill.dueDate + 'T00:00:00');
+          const dateStr = dObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+          if (m.isOverdue && m.status !== 'paid') {
+            dueText = `<span class="text-[#B86652] dark:text-[#C77B68] font-bold">Due ${dateStr} (Overdue)</span>`;
+          } else if (m.isDueToday && m.status !== 'paid') {
+            dueText = `<span class="text-[#C2984D] dark:text-[#D0AA63] font-bold">Due Today (${dateStr})</span>`;
+          } else {
+            dueText = `Due ${dateStr}`;
+          }
+        } else {
+          dueText = 'No specific due date';
+        }
+
+        // Suggested pace text
+        let paceText = '';
+        const unitName = billsBasis === 'days' ? 'day' : 'session';
+        if (m.status === 'paid') {
+          paceText = '<span class="text-[#607B5B] dark:text-[#789272] font-semibold">Bill settled</span>';
+        } else if (m.remaining <= 0) {
+          paceText = '<span class="text-[#607B5B] dark:text-[#789272] font-semibold">Ready to pay ($0 needed)</span>';
+        } else if (m.isOverdue) {
+          paceText = `<span class="text-[#B86652] dark:text-[#C77B68] font-bold">Immediate: ${fmt(m.remaining)} needed</span>`;
+        } else {
+          paceText = `<strong class="font-num text-[#332B22] dark:text-[#E2D4BD]">${fmt(m.suggestedSetAside)}</strong> / ${unitName} <span class="text-[10px] text-[#716556] dark:text-[#B4A58F]">(${m.timeUnitsRemaining} ${billsBasis === 'days' ? (m.timeUnitsRemaining === 1 ? 'day' : 'days') : (m.timeUnitsRemaining === 1 ? 'session' : 'sessions')} left)</span>`;
+        }
+
+        const isPaid = m.status === 'paid';
 
         return `
-        <div class="flex items-center justify-between p-3 rounded-2xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] transition">
-          <div class="flex items-center gap-3">
-            <div class="w-8 h-8 rounded-xl bg-[#C98278]/15 text-[#C98278] dark:bg-[#D99B91]/20 dark:text-[#D99B91] border border-[#C98278]/30 dark:border-[#D99B91]/30 flex items-center justify-center font-bold text-xs font-num">
-              $
-            </div>
-            <div>
-              <div class="flex items-center gap-1.5">
-                <span class="font-bold text-[#C98278] dark:text-[#D99B91] font-num text-sm">${fmt(item.amount)}</span>
-                ${bucketBadge}
+          <div class="p-4 rounded-2xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] space-y-3 transition">
+            <div class="flex items-start justify-between gap-2">
+              <div>
+                <div class="flex items-center gap-1.5 flex-wrap">
+                  <h4 class="text-sm font-bold text-[#332B22] dark:text-[#E2D4BD]">${escapeHtml(bill.name)}</h4>
+                  ${priorityBadge}
+                  ${statusBadge}
+                </div>
+                <div class="text-[11px] text-[#716556] dark:text-[#B4A58F] mt-0.5">
+                  ${dueText}${bill.notes ? ` • ${escapeHtml(bill.notes)}` : ''}
+                </div>
               </div>
-              <div class="text-[11px] text-[#716556] dark:text-[#B4A58F]">${fmtTimestamp(item.dateTime)} • Desk at ${fmt(item.deskAfter)} • ${item.note}</div>
+              <div class="text-right shrink-0">
+                <span class="text-base font-bold font-num text-[#332B22] dark:text-[#E2D4BD]">${fmt(m.amountDue)}</span>
+                <span class="block text-[10px] text-[#716556] dark:text-[#B4A58F] font-sans">Total Due</span>
+              </div>
+            </div>
+
+            <!-- Progress bar -->
+            <div>
+              <div class="flex items-center justify-between text-[10px] font-num text-[#716556] dark:text-[#B4A58F] mb-1">
+                <span>Reserved: <strong class="text-[#607B5B] dark:text-[#789272]">${fmt(m.amountReserved)}</strong></span>
+                <span>Needed: <strong class="${m.remaining > 0 ? 'text-[#C98278] dark:text-[#D99B91]' : 'text-[#607B5B] dark:text-[#789272]'}">${fmt(m.remaining)}</strong> (${pct}%)</span>
+              </div>
+              <div class="w-full h-2 rounded-full bg-[#E8DDC9] dark:bg-[#29241E] overflow-hidden">
+                <div class="h-full rounded-full transition-all duration-300 ${pct >= 100 ? 'bg-[#607B5B] dark:bg-[#789272]' : 'bg-[#C2984D] dark:bg-[#D0AA63]'}" style="width: ${pct}%"></div>
+              </div>
+            </div>
+
+            <!-- Suggested rate & Action buttons -->
+            <div class="flex items-center justify-between pt-1 border-t border-[#CFC1AA]/60 dark:border-[#514638]/60 text-xs">
+              <div class="text-[11px]">
+                <span class="text-[10px] uppercase font-bold text-[#716556] dark:text-[#B4A58F] block">Pacing</span>
+                ${paceText}
+              </div>
+
+              <div class="flex items-center gap-1.5 shrink-0">
+                <button type="button" onclick="openSetAsidePrompt(${bill.id})" class="px-2 py-1 rounded-lg bg-[#CFC1AA]/30 hover:bg-[#CFC1AA]/50 dark:bg-[#514638]/40 dark:hover:bg-[#514638]/60 text-[#332B22] dark:text-[#E2D4BD] font-bold text-[10px] transition active:scale-95" title="Add funds to reserved balance">
+                  + Reserve
+                </button>
+                <button type="button" onclick="toggleBillPaid(${bill.id})" class="px-2 py-1 rounded-lg ${isPaid ? 'bg-[#607B5B] text-[#F5EBDD] dark:bg-[#789272] dark:text-[#29241E]' : 'bg-[#607B5B]/15 hover:bg-[#607B5B]/25 text-[#607B5B] dark:bg-[#789272]/20 dark:text-[#789272]'} font-bold text-[10px] transition active:scale-95">
+                  ${isPaid ? 'Paid ✓' : 'Mark Paid'}
+                </button>
+                <button type="button" onclick="openEditBillModal(${bill.id})" class="p-1 rounded-lg text-[#716556] hover:text-[#332B22] dark:text-[#B4A58F] dark:hover:text-[#E2D4BD] transition" title="Edit bill">
+                  <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                </button>
+                <button type="button" onclick="deleteBill(${bill.id})" class="p-1 rounded-lg text-[#B86652] hover:text-[#A75542] dark:text-[#C77B68] transition" title="Delete bill">
+                  <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
+              </div>
             </div>
           </div>
-          <button onclick="deleteVaultRecord(${item.id})" class="text-[#B86652] hover:text-[#A75542] dark:text-[#C77B68] dark:hover:text-[#D99281] p-1.5 rounded-xl bg-[#B86652]/10 dark:bg-[#C77B68]/15 border border-[#B86652]/30 dark:border-[#C77B68]/30 transition active:scale-95 flex items-center justify-center" title="Reverse record to desk">
-            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="18" y1="6" x2="6" y2="18" />
-              <line x1="6" y1="6" x2="18" y2="18" />
-            </svg>
-          </button>
-        </div>
-      `;
+        `;
       }).join('');
+    }
+
+    function openAddBillModal() {
+      document.getElementById('billModalTitle').textContent = 'Add Expense Bill';
+      document.getElementById('billIdInput').value = '';
+      document.getElementById('billNameInput').value = '';
+      document.getElementById('billAmountDueInput').value = '';
+      document.getElementById('billAmountReservedInput').value = '0.00';
+      const d = new Date();
+      d.setDate(d.getDate() + 14);
+      document.getElementById('billDueDateInput').value = d.toISOString().split('T')[0];
+      document.getElementById('billPriorityInput').value = 'medium';
+      document.getElementById('billStatusInput').value = 'unfunded';
+      document.getElementById('billNotesInput').value = '';
+      document.getElementById('billModal').classList.remove('hidden');
+    }
+
+    function openEditBillModal(id) {
+      const bill = billsBreakdown.find(b => b.id === id);
+      if (!bill) return;
+      document.getElementById('billModalTitle').textContent = 'Edit Expense Bill';
+      document.getElementById('billIdInput').value = bill.id;
+      document.getElementById('billNameInput').value = bill.name || '';
+      document.getElementById('billAmountDueInput').value = bill.amountDue || '';
+      document.getElementById('billAmountReservedInput').value = bill.amountReserved || 0;
+      document.getElementById('billDueDateInput').value = bill.dueDate || '';
+      document.getElementById('billPriorityInput').value = bill.priority || 'medium';
+      document.getElementById('billStatusInput').value = bill.status || 'unfunded';
+      document.getElementById('billNotesInput').value = bill.notes || '';
+      document.getElementById('billModal').classList.remove('hidden');
+    }
+
+    function closeBillModal() {
+      document.getElementById('billModal').classList.add('hidden');
+    }
+
+    function handleBillFormSubmit(e) {
+      e.preventDefault();
+      const idStr = document.getElementById('billIdInput').value;
+      const name = document.getElementById('billNameInput').value.trim();
+      const amountDue = parseFloat(document.getElementById('billAmountDueInput').value) || 0;
+      const amountReserved = parseFloat(document.getElementById('billAmountReservedInput').value) || 0;
+      const dueDate = document.getElementById('billDueDateInput').value;
+      const priority = document.getElementById('billPriorityInput').value;
+      let status = document.getElementById('billStatusInput').value;
+      const notes = document.getElementById('billNotesInput').value.trim();
+
+      if (!name || amountDue <= 0) {
+        showToast("Please enter a valid bill name and amount due.", false);
+        return;
+      }
+
+      if (idStr) {
+        const id = parseInt(idStr);
+        const idx = billsBreakdown.findIndex(b => b.id === id);
+        if (idx !== -1) {
+          billsBreakdown[idx] = {
+            ...billsBreakdown[idx],
+            name,
+            amountDue,
+            amountReserved,
+            dueDate,
+            priority,
+            status,
+            notes
+          };
+        }
+      } else {
+        billsBreakdown.push({
+          id: Date.now(),
+          name,
+          amountDue,
+          amountReserved,
+          dueDate,
+          priority,
+          status,
+          notes
+        });
+      }
+
+      localStorage.setItem('pgl_bills_breakdown_v10', JSON.stringify(billsBreakdown));
+      closeBillModal();
+      renderBillsBreakdown();
+      syncToFirestore();
+      showToast("Bill saved successfully!");
+    }
+
+    function deleteBill(id) {
+      const bill = billsBreakdown.find(b => b.id === id);
+      if (!bill) return;
+      openModal({
+        title: "Delete Bill",
+        msg: `Are you sure you want to remove <strong>${escapeHtml(bill.name)}</strong> from your bills planning list?`,
+        onConfirm: () => {
+          billsBreakdown = billsBreakdown.filter(b => b.id !== id);
+          localStorage.setItem('pgl_bills_breakdown_v10', JSON.stringify(billsBreakdown));
+          renderBillsBreakdown();
+          syncToFirestore();
+          showToast("Bill deleted.");
+        }
+      });
+    }
+
+    function toggleBillPaid(id) {
+      const bill = billsBreakdown.find(b => b.id === id);
+      if (!bill) return;
+      if (bill.status === 'paid') {
+        bill.status = (bill.amountReserved >= bill.amountDue) ? 'funded' : (bill.amountReserved > 0 ? 'partial' : 'unfunded');
+      } else {
+        bill.status = 'paid';
+        bill.amountReserved = bill.amountDue;
+      }
+      localStorage.setItem('pgl_bills_breakdown_v10', JSON.stringify(billsBreakdown));
+      renderBillsBreakdown();
+      syncToFirestore();
+      showToast(`Bill marked as ${bill.status === 'paid' ? 'Paid' : 'Unpaid'}.`);
+    }
+
+    function openSetAsidePrompt(id) {
+      const bill = billsBreakdown.find(b => b.id === id);
+      if (!bill) return;
+      const currentReserved = bill.amountReserved || 0;
+      const remaining = Math.max(0, bill.amountDue - currentReserved);
+      openModal({
+        title: `Reserve Funds for ${escapeHtml(bill.name)}`,
+        msg: `Currently reserved: ${fmt(currentReserved)} of ${fmt(bill.amountDue)}.<br>Still needed: ${fmt(remaining)}.<br><br>Enter additional dollar amount to reserve:`,
+        isPrompt: true,
+        defaultValue: remaining.toFixed(2),
+        onConfirm: (val) => {
+          const amt = parseFloat(val);
+          if (!isNaN(amt) && amt > 0) {
+            bill.amountReserved = Math.min(bill.amountDue, Number((currentReserved + amt).toFixed(2)));
+            if (bill.amountReserved >= bill.amountDue && bill.status !== 'paid') {
+              bill.status = 'funded';
+            } else if (bill.amountReserved > 0 && bill.status !== 'paid') {
+              bill.status = 'partial';
+            }
+            localStorage.setItem('pgl_bills_breakdown_v10', JSON.stringify(billsBreakdown));
+            renderBillsBreakdown();
+            syncToFirestore();
+            showToast(`Allocated ${fmt(amt)} toward ${bill.name}!`);
+          }
+        }
+      });
+    }
+
+    /* ==================== TRADING SESSIONS JOURNAL ==================== */
+
+    function changeTradeJournalSession(sessionNum) {
+      tradeJournalActiveSession = sessionNum;
+      renderTradesTab();
+    }
+
+    function renderTradesTab() {
+      const container = document.getElementById('tabContentTrades');
+      if (!container) return;
+
+      const ladder = getActiveLadder();
+      const totalSessions = ladder.length || 28;
+
+      // 1. Populate session select
+      const select = document.getElementById('tradeJournalSessionSelect');
+      if (select) {
+        if (!tradeJournalActiveSession || tradeJournalActiveSession < 1 || tradeJournalActiveSession > totalSessions) {
+          tradeJournalActiveSession = currentSession;
+        }
+        select.innerHTML = '';
+        for (let i = 1; i <= totalSessions; i++) {
+          const opt = document.createElement('option');
+          opt.value = i;
+          opt.textContent = `Session ${i}${i === currentSession ? ' (Current)' : ''}`;
+          if (i === tradeJournalActiveSession) opt.selected = true;
+          select.appendChild(opt);
+        }
+      }
+
+      // 2. Compute session metrics
+      const prevDesk = getPrevDeskBalance(tradeJournalActiveSession);
+      const loggedClose = sessionLogs[tradeJournalActiveSession];
+      const sessionTrades = tradeLogs.filter(t => t.session === tradeJournalActiveSession);
+      const sessionAnalytics = calculateTradeJournalAnalytics(sessionTrades);
+
+      const startBalEl = document.getElementById('journalSessionStartBal');
+      if (startBalEl) startBalEl.textContent = fmt(prevDesk);
+
+      const pnlEl = document.getElementById('journalSessionPnL');
+      if (pnlEl) {
+        pnlEl.textContent = (sessionAnalytics.totalRealizedPnL >= 0 ? '+' : '') + fmt(sessionAnalytics.totalRealizedPnL);
+        pnlEl.className = sessionAnalytics.totalRealizedPnL >= 0 
+          ? 'text-base text-[#607B5B] dark:text-[#789272] font-bold' 
+          : 'text-base text-[#B86652] dark:text-[#C77B68] font-bold';
+      }
+
+      const retPctEl = document.getElementById('journalSessionReturnPct');
+      if (retPctEl) {
+        retPctEl.textContent = `${sessionAnalytics.avgReturnPct >= 0 ? '+' : ''}${sessionAnalytics.avgReturnPct.toFixed(2)}% avg return`;
+      }
+
+      const countEl = document.getElementById('journalSessionTradeCount');
+      if (countEl) countEl.textContent = `${sessionTrades.length} Trade${sessionTrades.length === 1 ? '' : 's'}`;
+
+      const winLossEl = document.getElementById('journalSessionWinLoss');
+      if (winLossEl) winLossEl.textContent = `${sessionAnalytics.wins} wins / ${sessionAnalytics.losses} losses`;
+
+      const closingBalEl = document.getElementById('journalSessionClosingBal');
+      const closingSubEl = document.getElementById('journalSessionClosingSubtext');
+      if (closingBalEl) {
+        closingBalEl.textContent = loggedClose !== undefined ? fmt(loggedClose) : 'Pending';
+      }
+      if (closingSubEl) {
+        closingSubEl.textContent = loggedClose !== undefined ? 'Logged closing balance' : 'Session not closed yet';
+      }
+
+      // 3. Render Session Header & Table
+      const titleEl = document.getElementById('journalTableSessionTitle');
+      if (titleEl) titleEl.textContent = `Session ${tradeJournalActiveSession} Trades`;
+
+      const badgeEl = document.getElementById('journalSessionBadge');
+      if (badgeEl) {
+        if (tradeJournalActiveSession === currentSession) {
+          badgeEl.textContent = 'Active Session';
+          badgeEl.className = 'text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#607B5B]/15 text-[#607B5B] dark:bg-[#789272]/20 dark:text-[#789272] border border-[#607B5B]/30 font-num';
+        } else if (tradeJournalActiveSession < currentSession) {
+          badgeEl.textContent = 'Past Session';
+          badgeEl.className = 'text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#716556]/15 text-[#716556] dark:bg-[#B4A58F]/20 dark:text-[#B4A58F] border border-[#716556]/30 font-num';
+        } else {
+          badgeEl.textContent = 'Upcoming Session';
+          badgeEl.className = 'text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#C2984D]/15 text-[#C2984D] dark:bg-[#D0AA63]/20 dark:text-[#D0AA63] border border-[#C2984D]/30 font-num';
+        }
+      }
+
+      const tbody = document.getElementById('tradeLogTableBody');
+      const emptyState = document.getElementById('journalEmptyState');
+      const emptySessionNum = document.getElementById('journalEmptySessionNum');
+      if (emptySessionNum) emptySessionNum.textContent = tradeJournalActiveSession;
+
+      if (!tbody) return;
+
+      if (sessionTrades.length === 0) {
+        if (emptyState) emptyState.classList.remove('hidden');
+        tbody.innerHTML = '';
+      } else {
+        if (emptyState) emptyState.classList.add('hidden');
+        tbody.innerHTML = sessionTrades.map(trade => {
+          const calc = calculateTradePnL(trade);
+
+          let statusBadge = '';
+          if (trade.status === 'open') {
+            statusBadge = '<span class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-[#617D91]/15 text-[#617D91] dark:bg-[#7894A6]/20 dark:text-[#7894A6] border border-[#617D91]/30 uppercase tracking-wider">Open</span>';
+          } else if (trade.status === 'partial') {
+            statusBadge = '<span class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-[#C2984D]/15 text-[#C2984D] dark:bg-[#D0AA63]/20 dark:text-[#D0AA63] border border-[#C2984D]/30 uppercase tracking-wider">Partial</span>';
+          } else {
+            statusBadge = '<span class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-[#607B5B]/15 text-[#607B5B] dark:bg-[#789272]/20 dark:text-[#789272] border border-[#607B5B]/30 uppercase tracking-wider">Closed</span>';
+          }
+
+          let pnlHtml = '';
+          let returnHtml = '';
+          if (calc.isRealized) {
+            const isGreen = calc.pnl >= 0;
+            pnlHtml = `<span class="${isGreen ? 'text-[#607B5B] dark:text-[#789272]' : 'text-[#B86652] dark:text-[#C77B68]'} font-bold">${isGreen ? '+' : ''}${fmt(calc.pnl)}</span>`;
+            returnHtml = `<span class="${calc.returnPct >= 0 ? 'text-[#607B5B] dark:text-[#789272]' : 'text-[#B86652] dark:text-[#C77B68]'} font-bold">${calc.returnPct >= 0 ? '+' : ''}${calc.returnPct.toFixed(2)}%</span>`;
+          } else {
+            pnlHtml = '<span class="text-[#716556] dark:text-[#B4A58F] italic text-[11px]">Unrealized</span>';
+            returnHtml = '<span class="text-[#716556] dark:text-[#B4A58F] italic text-[11px]">—</span>';
+          }
+
+          return `
+            <tr class="hover:bg-[#EAE0D0]/50 dark:hover:bg-[#3D352B]/50 transition">
+              <td class="py-3 px-3 sm:px-4 font-bold text-[#332B22] dark:text-[#E2D4BD]">${escapeHtml(trade.label || 'Trade')}</td>
+              <td class="py-3 px-3 sm:px-4 text-[11px] text-[#716556] dark:text-[#B4A58F]">${trade.date || '—'}</td>
+              <td class="py-3 px-3 sm:px-4">${statusBadge}</td>
+              <td class="py-3 px-3 sm:px-4 text-right text-[#332B22] dark:text-[#E2D4BD]">${fmt(trade.entryAmount)}</td>
+              <td class="py-3 px-3 sm:px-4 text-right text-[#332B22] dark:text-[#E2D4BD]">${fmt(trade.exitValue)}</td>
+              <td class="py-3 px-3 sm:px-4 text-right text-[#716556] dark:text-[#B4A58F]">${fmt(trade.fees)}</td>
+              <td class="py-3 px-3 sm:px-4 text-right">${pnlHtml}</td>
+              <td class="py-3 px-3 sm:px-4 text-right">${returnHtml}</td>
+              <td class="py-3 px-3 sm:px-4 text-[11px] text-[#716556] dark:text-[#B4A58F] max-w-[150px] truncate" title="${escapeHtml(trade.notes || '')}">
+                ${trade.notes ? escapeHtml(trade.notes) : '—'}
+              </td>
+              <td class="py-3 px-3 sm:px-4 text-center">
+                <div class="inline-flex items-center gap-1">
+                  <button type="button" onclick="openEditTradeModal(${trade.id})" class="p-1 rounded-lg text-[#716556] hover:text-[#332B22] dark:text-[#B4A58F] dark:hover:text-[#E2D4BD] transition" title="Edit trade">
+                    <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                  </button>
+                  <button type="button" onclick="deleteTrade(${trade.id})" class="p-1 rounded-lg text-[#B86652] hover:text-[#A75542] dark:text-[#C77B68] transition" title="Delete trade">
+                    <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          `;
+        }).join('');
+      }
+
+      // 4. Overall Trade Journal Analytics (across ALL sessions in tradeLogs)
+      const overall = calculateTradeJournalAnalytics(tradeLogs);
+      const overallBadge = document.getElementById('journalAllTradesSummaryBadge');
+      if (overallBadge) overallBadge.textContent = `${overall.closedTrades} Closed / ${overall.openTrades} Open`;
+
+      const metricPnL = document.getElementById('journalMetricTotalPnL');
+      if (metricPnL) {
+        metricPnL.textContent = (overall.totalRealizedPnL >= 0 ? '+' : '') + fmt(overall.totalRealizedPnL);
+        metricPnL.className = overall.totalRealizedPnL >= 0 
+          ? 'text-base text-[#607B5B] dark:text-[#789272] font-bold' 
+          : 'text-base text-[#B86652] dark:text-[#C77B68] font-bold';
+      }
+
+      const metricTrades = document.getElementById('journalMetricTotalTrades');
+      if (metricTrades) metricTrades.textContent = overall.totalTrades;
+
+      const metricOpen = document.getElementById('journalMetricOpenTrades');
+      if (metricOpen) metricOpen.textContent = `${overall.openTrades} open position${overall.openTrades === 1 ? '' : 's'}`;
+
+      const metricWinLoss = document.getElementById('journalMetricWinLossRecord');
+      if (metricWinLoss) metricWinLoss.textContent = `${overall.wins}W / ${overall.losses}L`;
+
+      const metricWinRate = document.getElementById('journalMetricWinRate');
+      if (metricWinRate) metricWinRate.textContent = `${overall.winRate.toFixed(1)}%`;
+
+      const metricAvgRet = document.getElementById('journalMetricAvgReturn');
+      if (metricAvgRet) {
+        metricAvgRet.textContent = `${overall.avgReturnPct >= 0 ? '+' : ''}${overall.avgReturnPct.toFixed(2)}%`;
+      }
+    }
+
+    function openLogTradeModal() {
+      const sessionTrades = tradeLogs.filter(t => t.session === tradeJournalActiveSession);
+      const nextLabel = generateNextTradeLabel(sessionTrades);
+
+      document.getElementById('tradeModalTitle').textContent = `Log Trade for Session ${tradeJournalActiveSession}`;
+      document.getElementById('tradeIdInput').value = '';
+      document.getElementById('tradeSessionInput').value = tradeJournalActiveSession;
+      document.getElementById('tradeLabelInput').value = nextLabel;
+      document.getElementById('tradeDateInput').value = new Date().toISOString().split('T')[0];
+      document.getElementById('tradeStatusInput').value = 'closed';
+      document.getElementById('tradeEntryAmountInput').value = '';
+      document.getElementById('tradeExitValueInput').value = '';
+      document.getElementById('tradeFeesInput').value = '0.00';
+      document.getElementById('tradeNotesInput').value = '';
+      updateTradeModalPreview();
+      document.getElementById('tradeModal').classList.remove('hidden');
+    }
+
+    function openEditTradeModal(id) {
+      const trade = tradeLogs.find(t => t.id === id);
+      if (!trade) return;
+
+      document.getElementById('tradeModalTitle').textContent = `Edit ${trade.label || 'Trade'}`;
+      document.getElementById('tradeIdInput').value = trade.id;
+      document.getElementById('tradeSessionInput').value = trade.session || tradeJournalActiveSession;
+      document.getElementById('tradeLabelInput').value = trade.label || '';
+      document.getElementById('tradeDateInput').value = trade.date || new Date().toISOString().split('T')[0];
+      document.getElementById('tradeStatusInput').value = trade.status || 'closed';
+      document.getElementById('tradeEntryAmountInput').value = trade.entryAmount || '';
+      document.getElementById('tradeExitValueInput').value = trade.exitValue || '';
+      document.getElementById('tradeFeesInput').value = trade.fees || 0;
+      document.getElementById('tradeNotesInput').value = trade.notes || '';
+      updateTradeModalPreview();
+      document.getElementById('tradeModal').classList.remove('hidden');
+    }
+
+    function closeTradeModal() {
+      document.getElementById('tradeModal').classList.add('hidden');
+    }
+
+    function updateTradeModalPreview() {
+      const entry = parseFloat(document.getElementById('tradeEntryAmountInput').value) || 0;
+      const exit = parseFloat(document.getElementById('tradeExitValueInput').value) || 0;
+      const fees = parseFloat(document.getElementById('tradeFeesInput').value) || 0;
+      const status = document.getElementById('tradeStatusInput').value;
+
+      const calc = calculateTradePnL({ entryAmount: entry, exitValue: exit, fees: fees, status: status });
+
+      const pnlEl = document.getElementById('tradeModalPnlPreview');
+      const retEl = document.getElementById('tradeModalReturnPreview');
+
+      if (!calc.isRealized) {
+        pnlEl.textContent = 'Unrealized (Open)';
+        pnlEl.className = 'text-base text-[#617D91] dark:text-[#7894A6] font-bold';
+        retEl.textContent = '—';
+        retEl.className = 'text-base text-[#716556] dark:text-[#B4A58F] font-bold';
+      } else {
+        const isGreen = calc.pnl >= 0;
+        pnlEl.textContent = (isGreen ? '+' : '') + fmt(calc.pnl);
+        pnlEl.className = `text-base font-bold ${isGreen ? 'text-[#607B5B] dark:text-[#789272]' : 'text-[#B86652] dark:text-[#C77B68]'}`;
+        retEl.textContent = `${calc.returnPct >= 0 ? '+' : ''}${calc.returnPct.toFixed(2)}%`;
+        retEl.className = `text-base font-bold ${calc.returnPct >= 0 ? 'text-[#607B5B] dark:text-[#789272]' : 'text-[#B86652] dark:text-[#C77B68]'}`;
+      }
+    }
+
+    function handleTradeFormSubmit(e) {
+      e.preventDefault();
+      const idStr = document.getElementById('tradeIdInput').value;
+      const session = parseInt(document.getElementById('tradeSessionInput').value) || tradeJournalActiveSession;
+      const label = document.getElementById('tradeLabelInput').value.trim() || 'Trade';
+      const date = document.getElementById('tradeDateInput').value;
+      const status = document.getElementById('tradeStatusInput').value;
+      const entryAmount = parseFloat(document.getElementById('tradeEntryAmountInput').value) || 0;
+      const exitValue = parseFloat(document.getElementById('tradeExitValueInput').value) || 0;
+      const fees = parseFloat(document.getElementById('tradeFeesInput').value) || 0;
+      const notes = document.getElementById('tradeNotesInput').value.trim();
+
+      if (idStr) {
+        const id = parseInt(idStr);
+        const idx = tradeLogs.findIndex(t => t.id === id);
+        if (idx !== -1) {
+          tradeLogs[idx] = {
+            ...tradeLogs[idx],
+            session,
+            label,
+            date,
+            status,
+            entryAmount,
+            exitValue,
+            fees,
+            notes
+          };
+        }
+      } else {
+        tradeLogs.push({
+          id: Date.now(),
+          session,
+          label,
+          date,
+          status,
+          entryAmount,
+          exitValue,
+          fees,
+          notes
+        });
+      }
+
+      tradeJournalActiveSession = session;
+      localStorage.setItem('pgl_trade_logs_v10', JSON.stringify(tradeLogs));
+      closeTradeModal();
+      renderTradesTab();
+      syncToFirestore();
+      showToast("Trade saved to journal!");
+    }
+
+    function deleteTrade(id) {
+      const trade = tradeLogs.find(t => t.id === id);
+      if (!trade) return;
+      openModal({
+        title: "Delete Trade",
+        msg: `Are you sure you want to remove <strong>${escapeHtml(trade.label || 'this trade')}</strong> from the journal?`,
+        onConfirm: () => {
+          tradeLogs = tradeLogs.filter(t => t.id !== id);
+          localStorage.setItem('pgl_trade_logs_v10', JSON.stringify(tradeLogs));
+          renderTradesTab();
+          syncToFirestore();
+          showToast("Trade deleted from journal.");
+        }
+      });
     }
 
     function renderStatsTab() {
@@ -5542,13 +6824,13 @@ service cloud.firestore {
           const w1Rel = portTarget === 10000 ? 1000 : portTarget * 0.10;
           const w1Mid = portTarget === 10000 ? 1800 : portTarget * 0.18;
           const w1Agg = portTarget === 10000 ? 2500 : portTarget * 0.25;
-          descEl.innerText = `Independent Tri-Pace piecewise tracks reaching Week 1 checkpoints (${fmt(w1Rel)} Relaxed, ${fmt(w1Mid)} Mid, ${fmt(w1Agg)} Aggressive) and converging on the final ${fmt(portTarget)} goal.`;
+          descEl.innerText = `Three independent growth plans reaching Week 1 checkpoints (${fmt(w1Rel)} Relaxed, ${fmt(w1Mid)} Mid, ${fmt(w1Agg)} Aggressive) and progressing towards your final target of ${fmt(portTarget)}.`;
         } else if (curveType === 'port_target_withdrawal') {
-          descEl.innerText = `Pacing accelerates over the first ${withdrawalDays} sessions to build a ${fmt(withdrawalTarget)} cash-out buffer, reaching an adjusted summit of ${fmt(adjustedSummit)} while keeping ${fmt(portTarget)} compounding on your trading desk.`;
+          descEl.innerText = `Pacing accelerates over the first ${withdrawalDays} sessions to build a ${fmt(withdrawalTarget)} cash-out buffer, reaching an adjusted final target of ${fmt(adjustedSummit)} while keeping ${fmt(portTarget)} compounding on your trading desk.`;
         } else if (curveType === 'decay') {
-          descEl.innerText = `Decaying growth pace: front-loads sprint in early sessions, steadily plateauing toward ${fmt(skimMode && withdrawalTarget > 0 ? adjustedSummit : portTarget)}.`;
+          descEl.innerText = `Gradual growth plan: higher initial growth in early sessions, steadily stabilizing toward ${fmt(skimMode && withdrawalTarget > 0 ? adjustedSummit : portTarget)}.`;
         } else {
-          descEl.innerText = `Smooth compounding pace: constant daily rate of return to hit ${fmt(skimMode && withdrawalTarget > 0 ? adjustedSummit : portTarget)} across ${sessions} sessions.`;
+          descEl.innerText = `Even daily growth plan: constant compounding rate to reach ${fmt(skimMode && withdrawalTarget > 0 ? adjustedSummit : portTarget)} across ${sessions} sessions.`;
         }
       }
     }
@@ -5820,6 +7102,10 @@ service cloud.firestore {
           currentSession = 1;
           currentPace = 'relaxed';
           vaultLedger = [];
+          billsBreakdown = [];
+          billsBasis = 'days';
+          tradeLogs = [];
+          tradeJournalActiveSession = 1;
 
           saveTrackerState();
           localStorage.setItem('pgl_ladder_profiles_v10', JSON.stringify(ladderProfiles));
@@ -5827,10 +7113,15 @@ service cloud.firestore {
           localStorage.setItem('pgl_session_v10', 1);
           localStorage.setItem('pgl_pace_v10', 'relaxed');
           localStorage.setItem('pgl_vault_ledger_v10', JSON.stringify(vaultLedger));
+          localStorage.setItem('pgl_bills_breakdown_v10', JSON.stringify(billsBreakdown));
+          localStorage.setItem('pgl_bills_basis_v10', 'days');
+          localStorage.setItem('pgl_trade_logs_v10', JSON.stringify(tradeLogs));
 
           renderConfigTab();
           renderTracker();
           renderMilestonesTab();
+          renderBillsBreakdown();
+          renderTradesTab();
           renderStatsTab();
           showToast("All previous challenges and data wiped. Fresh slate ready!");
           syncToFirestore();
@@ -6105,10 +7396,24 @@ function doGet(e) {
           skimModeEnabled = !!data.skimModeEnabled;
           localStorage.setItem('pgl_skim_mode_v10', skimModeEnabled ? 'true' : 'false');
         }
+        if (data.billsBreakdown !== undefined) {
+          billsBreakdown = Array.isArray(data.billsBreakdown) ? data.billsBreakdown : [];
+          localStorage.setItem('pgl_bills_breakdown_v10', JSON.stringify(billsBreakdown));
+        }
+        if (data.billsBasis !== undefined) {
+          billsBasis = data.billsBasis || 'days';
+          localStorage.setItem('pgl_bills_basis_v10', billsBasis);
+        }
+        if (data.tradeLogs !== undefined) {
+          tradeLogs = Array.isArray(data.tradeLogs) ? data.tradeLogs : [];
+          localStorage.setItem('pgl_trade_logs_v10', JSON.stringify(tradeLogs));
+        }
 
         renderConfigTab();
         renderTracker();
         renderMilestonesTab();
+        renderBillsBreakdown();
+        renderTradesTab();
         renderStatsTab();
       } catch (err) {
         console.error("Error applying remote data:", err);
@@ -6148,6 +7453,9 @@ function doGet(e) {
         currentPace: currentPace,
         milestoneConfig: milestoneConfig,
         skimModeEnabled: skimModeEnabled,
+        billsBreakdown: billsBreakdown,
+        billsBasis: billsBasis,
+        tradeLogs: tradeLogs,
         updatedAt: firebase.firestore.FieldValue.serverTimestamp()
       };
 
@@ -6597,7 +7905,9 @@ service cloud.firestore {
       switchTodayCardTab(activeTodayCardTab);
       switchWidgetTab(activeWidgetTab);
       renderTracker();
+      renderTradesTab();
       renderMilestonesTab();
+      renderBillsBreakdown();
       renderStatsTab();
       renderConfigTab();
     };

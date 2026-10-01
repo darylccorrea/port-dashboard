@@ -5,15 +5,17 @@
 
 ## Table of Contents
 1. [Executive Overview & Trading Philosophy](#1-executive-overview--trading-philosophy)
+   - [1.1 Simplified Strategy Language & Terminology Guide](#11-simplified-strategy-language--terminology-guide)
 2. [Architecture & Technology Stack](#2-architecture--technology-stack)
 3. [Design System & Interface Ergonomics](#3-design-system--interface-ergonomics)
 4. [Master Features Breakdown by Module](#4-master-features-breakdown-by-module)
    - [4.1 Global Header & Cloud Sync Hub](#41-global-header--cloud-sync-hub)
    - [4.2 True Realized Wealth & Hero Banner](#42-true-realized-wealth--hero-banner)
-   - [4.3 Tab 1: Active Execution Tracker & Daily Console](#43-tab-1-active-execution-tracker--daily-console)
-   - [4.4 Tab 2: Financial Milestones & Capital Vault](#44-tab-2-financial-milestones--capital-vault)
-   - [4.5 Tab 3: Climber's Analytics & Stats Hub](#45-tab-3-climbers-analytics--stats-hub)
-   - [4.6 Tab 4: Settings, Challenge Roadmaps & Cloud Integrations](#46-tab-4-settings-challenge-roadmaps--cloud-integrations)
+   - [4.3 Tab 1: Daily Tracker & Active Execution Console](#43-tab-1-daily-tracker--active-execution-console)
+   - [4.4 Tab 2: Trading Sessions Journal](#44-tab-2-trading-sessions-journal)
+   - [4.5 Tab 3: Capital Vault & Bills Breakdown](#45-tab-3-capital-vault--bills-breakdown)
+   - [4.6 Tab 4: Climber's Analytics & Stats Hub](#46-tab-4-climbers-analytics--stats-hub)
+   - [4.7 Tab 5: Settings, Challenge Roadmaps & Cloud Integrations](#47-tab-5-settings-challenge-roadmaps--cloud-integrations)
 5. [Complete Mathematical Formulas & Algorithms](#5-complete-mathematical-formulas--algorithms)
    - [5.1 Geometric Compounding Curve (Smooth)](#51-geometric-compounding-curve-smooth)
    - [5.2 Front-Loaded Compounding Decay Curve](#52-front-loaded-compounding-decay-curve)
@@ -24,13 +26,17 @@
    - [5.7 Normalized PnL with Vault Extraction Invariance](#57-normalized-pnl-with-vault-extraction-invariance)
    - [5.8 Cumulative Wealth, All-Time High Watermark & Max Drawdown](#58-cumulative-wealth-all-time-high-watermark--max-drawdown)
    - [5.9 Win Rate, Streaks & Profit Factor](#59-win-rate-streaks--profit-factor)
+   - [5.10 Bills Breakdown Daily & Per-Session Set-Aside Engine](#510-bills-breakdown-daily--per-session-set-aside-engine)
+   - [5.11 Trade Journal Realized PnL & Performance Analytics Engine](#511-trade-journal-realized-pnl--performance-analytics-engine)
 6. [Data Schemas & Local Storage Architecture](#6-data-schemas--local-storage-architecture)
    - [6.1 LocalStorage Keys & Data Types](#61-localstorage-keys--data-types)
    - [6.2 Ladder Profile Schema](#62-ladder-profile-schema)
    - [6.3 Vault Ledger Entry Schema](#63-vault-ledger-entry-schema)
    - [6.4 Milestone Configuration Schema](#64-milestone-configuration-schema)
-   - [6.5 Firestore Remote Document Payload Schema](#65-firestore-remote-document-payload-schema)
-   - [6.6 Google Sheets Webhook Payload Schema](#66-google-sheets-webhook-payload-schema)
+   - [6.5 Bills Breakdown Item Schema](#65-bills-breakdown-item-schema)
+   - [6.6 Trade Journal Entry Schema](#66-trade-journal-entry-schema)
+   - [6.7 Firestore Remote Document Payload Schema](#67-firestore-remote-document-payload-schema)
+   - [6.8 Google Sheets Webhook Payload Schema](#68-google-sheets-webhook-payload-schema)
 7. [Google Sheets Integration Guide (Apps Script)](#7-google-sheets-integration-guide-apps-script)
 8. [Automated Verification & Test Suites](#8-automated-verification--test-suites)
 
@@ -51,6 +57,26 @@ Trading accounts starting with modest capital (e.g., $\$120$–$\$150$) frequent
 - **Tri-Pace Compounding Corridors:** Every session presents three distinct operational tracks: **Relaxed** (low risk, high consistency), **Mid** (moderate acceleration), and **Aggressive** (maximum velocity sprint).
 - **Vault Skimming & True Wealth Decoupling:** Profits extracted into the **Capital Vault** reduce active desk exposure without registering as a loss. Total wealth is continuously tracked as $\text{Desk Balance} + \text{Vault Banked}$.
 - **Tactile Organic Editorial Design:** Built using an earth-toned naturalist aesthetic that eliminates pure white and pure black, minimizing cognitive fatigue during long market sessions.
+
+### 1.1 Simplified Strategy Language & Terminology Guide
+
+To make the system effortless to understand, the dashboard replaces complex institutional financial jargon with natural English terminology:
+
+| Institutional / Jargon Term | Simplified Natural English | Description & Purpose |
+|:---|:---|:---|
+| **Baseline trajectory** | **Original growth plan** | The mathematically pure compounding roadmap set when creating the challenge. |
+| **Rebased trajectory** | **Updated plan from current balance** | Recalculates remaining session targets from your latest closing balance to reach the final goal. |
+| **Session PnL** | **Today's profit / loss** | Net dollar amount earned or lost during the active session. |
+| **Normalized PnL** | **Actual profit / loss** | Day profit calculated with total vault skims credited back, preserving accurate performance. |
+| **Financial run rate** | **Amount needed per day** | Target dollar amount to bank per day or session to fund upcoming expenses or milestones. |
+| **Summit / Summit Goal** | **Final target** | The ultimate dollar destination of the active challenge cycle. |
+| **Variance / Deficit** | **Ahead or behind** | Dollar difference between your closing balance and the session's required target. |
+| **Cumulative withdrawals** | **Total money taken out** | Aggregate profits permanently moved off the trading desk into protected Vault reserves. |
+| **Portfolio retention** | **Trading desk target** | Capital intentionally kept on the trading desk to continue compounding. |
+| **Realized PnL** | **Profit / loss from completed trades** | Net profit or loss from trades that have been closed and exited. |
+| **Active target** | **Current target** | The exact dollar threshold for the active session and selected growth pace. |
+| **Decay curve** | **Gradual growth plan** | A growth trajectory featuring higher early velocity that steadily levels off. |
+| **Tri-pace** | **Three growth plans** | The three parallel operating tracks: Relaxed, Mid, and Aggressive. |
 
 ---
 
@@ -188,9 +214,43 @@ A flexible container with 4 switchable views:
 
 ---
 
-### 4.4 Tab 2: Financial Milestones & Capital Vault
+### 4.4 Tab 2: Trading Sessions Journal
 
-Engineered for real-world capital extraction to ensure trading gains are secured outside the brokerage account.
+The **Trading Sessions Journal** provides a dedicated, lightweight workspace for manually logging and reviewing individual trade executions on a session-by-session basis.
+
+```
+┌────────────────────────────────────────────────────────────────────────┐
+│                      TRADING SESSIONS JOURNAL                          │
+│                                                                        │
+│   [Session Selector: Session 1 ▾]       [+ Log Trade Button]           │
+│  ┌──────────────────────┬──────────────────────┬────────────────────┐  │
+│  │ Starting Balance     │ Trades Profit / Loss │ Trades Logged      │  │
+│  │ $120.00              │ +$33.50 (+33.5% avg) │ 2 Wins / 0 Losses  │  │
+│  └──────────────────────┴──────────────────────┴────────────────────┘  │
+│                                                                        │
+│   Session Trades Table:                                                │
+│   • Sequential Generic Labels: Trade A, Trade B, Trade C...            │
+│   • Entry Amount ($), Exit Value ($), Brokerage Fees ($)               │
+│   • Realized Profit/Loss ($) & Return (%) per trade                    │
+│   • Position Status: Closed, Partially Closed, or Open                 │
+│                                                                        │
+│   Overall Performance Analytics (All Sessions Combined):               │
+│   • Total Realized PnL ($)  • Total Trades Logged & Open Positions     │
+│   • Win / Loss Ratio        • Win Rate (%)  • Average Return (%)       │
+└────────────────────────────────────────────────────────────────────────┘
+```
+
+#### Core Journaling Principles
+- **Strict Decoupling from Ladder Targets:** Logging a trade in this tab is an observational journal tool. It never mutates active desk capital, historical daily logs, or ladder compounding curves.
+- **Generic Sequential Naming:** To reduce bias and maintain structured logs, trades in a given session are automatically assigned sequential labels (`Trade A`, `Trade B`, `Trade C`, ...). Custom labels remain fully editable.
+- **Open Trade Handling:** Open positions are flagged with a blue badge and their unrealized equity is explicitly excluded from realized profit/loss, win rate, and return metrics.
+- **Real-Time Modal Preview:** While logging or editing a trade, the modal dynamically computes net profit/loss and return percentage in real-time as entry, exit, and fee inputs are typed.
+
+---
+
+### 4.5 Tab 3: Capital Vault & Bills Breakdown
+
+The **Capital Vault** secures profits outside the trading desk to guarantee real-world financial independence.
 
 ```
 ┌────────────────────────────────────────────────────────────────────────┐
@@ -213,30 +273,41 @@ Engineered for real-world capital extraction to ensure trading gains are secured
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
-- **Feature Toggle:** Enable or disable financial requirement tracking entirely.
-- **Milestone Configuration:**
-  - **Financial Target Goal ($):** The total cash amount required (e.g., $\$1,500.00$ or $\$500.00$).
-  - **Target Deadline Date:** Calendar deadline for when the funds are required.
-  - **Desk Reserve Floor ($):** Minimum working capital that must remain on the desk (e.g., $\$1,000.00$).
-  - **Skim Strategy Selector:** Gradual ($25\%$ surplus extraction), Checkpoint (staged milestones), or Manual.
-- **Dynamic Run Rate & Deadline Engine (`getFinancialRequirementMetrics`):**
-  - Calculates days remaining, due today, or overdue status.
-  - Computes the precise daily run rate needed: $\frac{\text{Remaining Cash Goal}}{\text{Days Left}}$.
-  - Status badges: `Flexible`, `On Track`, `Due Soon`, `Past Deadline`, `Goal Reached`.
+#### 1. Optional Bills Breakdown & Planning
+Located directly inside the Capital Vault, this tool allows traders to split their overall Bills Reserve into specific real-world expenses (e.g., rent, utilities, subscriptions, debt service) without affecting active trading calculations.
+
+- **Configurable Fields per Bill:**
+  - **Bill Name:** Descriptive label (e.g., "Electricity", "Apartment Rent").
+  - **Total Amount Due ($):** Total obligation required.
+  - **Amount Already Set Aside ($):** Funds currently earmarked for this bill.
+  - **Due Date:** Specific calendar date for the payment deadline.
+  - **Priority:** `High (Essential)`, `Medium (Standard)`, or `Low (Flexible)`.
+  - **Payment Status:** `Unfunded`, `Partially Funded`, `Fully Funded`, or `Paid`.
+  - **Notes:** Optional reference details (e.g., account numbers, auto-debit dates).
+- **Dual Basis Pacing Toggle:**
+  - **Calendar Days:** Calculates suggested daily set-aside based on calendar days remaining until the bill's due date.
+  - **Trading Sessions:** Calculates suggested set-aside based on trading sessions remaining until the target session.
+- **Suggested Set-Aside Logic:**
+  - Computes $\frac{\text{Remaining Due}}{\text{Time Units Left}}$.
+  - Overdue and due-today bills require full remaining funding immediately.
+  - Paid bills require $\$0.00$ set-aside.
+- **Informational Skim Comparison Banner:**
+  - Compares the total suggested bill set-aside against the active trading surplus or skim target.
+  - Purely informational reference to assist financial planning without automated deductions.
+- **Strict Accounting Invariance:** Adding, editing, reserving, or deleting a bill never alters active desk balances, vault ledger totals, or compounding milestones.
+
+#### 2. Vault Reserves & Milestone Badges
+- **Multi-Reserve Partitioning:** Deposits can be allocated into **Bills Reserve**, **General Vault**, or **Long-Term Savings**.
 - **The Three Safety Milestone Badges:**
-  - **Badge 1: Recoup Initial Deposit:** Unlocks when Vault $\ge \text{Initial Deposit}$ (e.g., $\$120.00$), marking the transition to trading on "pure house money."
-  - **Badge 2: Safety Cushion:** Unlocks at $\$500.00$ banked in the Vault.
-  - **Badge 3: Target Goal Cleared:** Unlocks when $100\%$ of the target goal is secured in the Vault.
-- **Capital Extraction System (`executeSkim`):**
-  - One-click presets: Quick Skim 25%, 50%, or 100% of available session surplus.
-  - Manual withdrawal input with optional destination note.
-  - **Capital Floor Protection Warning:** If a proposed skim drops the trading desk below the configured reserve floor, a safety confirmation modal prompts the user before executing.
-- **Chronological Vault Ledger:**
-  - Lists every extraction with ID, timestamp, amount banked, remaining desk balance, destination note, and individual delete action.
+  - **Step 1: Initial Deposit Recouped:** Unlocks when Vault $\ge \text{Starting Deposit}$ (e.g., $\$120.00$), marking the transition to trading purely on market gains.
+  - **Step 2: Safety Cushion:** Unlocks when $\$500.00$ is saved in the Vault.
+  - **Step 3: Target Goal Cleared:** Unlocks when $100\%$ of the personal savings goal is funded.
+- **Capital Floor Protection Warning:** Prevents accidental withdrawals that would drop the desk below the configured reserve floor (e.g., $\$1,000.00$).
+- **Chronological Vault Ledger:** Complete audit trail of all banked profits with reversal capability.
 
 ---
 
-### 4.5 Tab 3: Climber's Analytics & Stats Hub
+### 4.6 Tab 4: Climber's Analytics & Stats Hub
 
 - **Trader Rank & Level System:**
   - **Rank I — Base Camp Pioneer (LVL 1):** Sessions 1 to 5. Initial capital foundation.
@@ -259,7 +330,7 @@ Engineered for real-world capital extraction to ensure trading gains are secured
 
 ---
 
-### 4.6 Tab 4: Settings, Challenge Roadmaps & Cloud Integrations
+### 4.7 Tab 5: Settings, Challenge Roadmaps & Cloud Integrations
 
 #### 1. Active Challenge Management
 - **Profile Selector Dropdown:** Instant switching between stored challenge roadmaps.
@@ -276,7 +347,7 @@ Engineered for real-world capital extraction to ensure trading gains are secured
 Allows generating custom mathematical compounding roadmaps:
 - **Challenge Name:** Descriptive roadmap label.
 - **Starting Balance ($):** Initial deposit (e.g., $\$150.00$).
-- **Portfolio Retained Target ($):** Desired trading desk balance at the end of the challenge.
+- **Trading Desk Target ($):** Desired trading desk balance to keep compounding at the end of the challenge.
 - **Number of Sessions:** Total trading sessions ($3$ to $100$).
 - **Withdrawal Target ($):** Amount of cash to extract for personal finances.
 - **Withdrawal Timeline (Sessions / Days):** Number of sessions by which the withdrawal must be secured.
@@ -437,6 +508,60 @@ $$\text{Profit Factor} = \begin{cases}
 
 ---
 
+### 5.10 Bills Breakdown Daily & Per-Session Set-Aside Engine
+
+For each bill entry $b$ with amount due $A_b$ and amount reserved $R_b$:
+
+$$\text{Remaining}(b) = \max\left(0, A_b - R_b\right)$$
+
+#### 1. Calendar Days Basis:
+Let $\Delta t$ be calendar days remaining until the bill's due date:
+
+$$\Delta t = \left\lceil \frac{\text{Due Date} - \text{Today}}{86,400,000 \text{ ms}} \right\rceil$$
+
+$$\text{Suggested Set-Aside}(b) = \begin{cases}
+0 & \text{if Status} = \text{'paid'} \lor \text{Remaining} \le 0 \\
+\text{Remaining}(b) & \text{if } \Delta t \le 1 \text{ (Due today, overdue, or tomorrow)} \\
+\frac{\text{Remaining}(b)}{\Delta t} & \text{if } \Delta t > 1
+\end{cases}$$
+
+#### 2. Trading Sessions Basis:
+Let $S_b$ be the target trading session and $s$ be the active trading session:
+
+$$\Delta s = \max\left(1, S_b - s + 1\right)$$
+
+$$\text{Suggested Per-Session Set-Aside}(b) = \begin{cases}
+0 & \text{if Status} = \text{'paid'} \lor \text{Remaining} \le 0 \\
+\frac{\text{Remaining}(b)}{\Delta s} & \text{otherwise}
+\end{cases}$$
+
+---
+
+### 5.11 Trade Journal Realized PnL & Performance Analytics Engine
+
+For each logged trade $t$ with entry amount $E_t$, exit value $X_t$, brokerage fees $F_t$, and status $S_t$:
+
+$$\text{Realized PnL}(t) = \begin{cases}
+0 & \text{if } S_t = \text{'open'} \\
+X_t - E_t - F_t & \text{if } S_t \in \{\text{'closed'}, \text{'partial'}\}
+\end{cases}$$
+
+$$\text{Return \%}(t) = \begin{cases}
+0 & \text{if } S_t = \text{'open'} \lor E_t \le 0 \\
+\left(\frac{\text{Realized PnL}(t)}{E_t}\right) \times 100 & \text{otherwise}
+\end{cases}$$
+
+#### Aggregate Journal Metrics (Closed Trades Only):
+Let $\mathcal{C} = \{t \mid S_t \in \{\text{'closed'}, \text{'partial'}\}\}$:
+
+$$\text{Total Realized PnL} = \sum_{t \in \mathcal{C}} \text{Realized PnL}(t)$$
+
+$$\text{Win Rate \%} = \left(\frac{|\{t \in \mathcal{C} \mid \text{Realized PnL}(t) > 0.001\}|}{|\mathcal{C}|}\right) \times 100$$
+
+$$\text{Average Return \%} = \frac{1}{|\mathcal{C}|} \sum_{t \in \mathcal{C}} \text{Return \%}(t)$$
+
+---
+
 ## 6. Data Schemas & Local Storage Architecture
 
 ### 6.1 LocalStorage Keys & Data Types
@@ -453,6 +578,9 @@ $$\text{Profit Factor} = \begin{cases}
 | `pgl_milestones_enabled_v10` | `String` | Boolean string `'true'` or `'false'`. |
 | `pgl_milestone_cfg_v10` | `Object` | Configuration object for bill targets, deadline, and reserve floor. |
 | `pgl_vault_ledger_v10` | `Array` | List of profit skim objects. |
+| `pgl_bills_breakdown_v10` | `Array` | List of individual expense bill objects. |
+| `pgl_bills_basis_v10` | `String` | Pacing basis for bills set-aside: `'days'` or `'sessions'`. |
+| `pgl_trade_logs_v10` | `Array` | List of trade journal entry objects. |
 | `pgl_ladder_profiles_v10` | `Array` | List of all configured challenge profile objects. |
 | `pgl_active_profile_v10` | `String` | ID of the active profile (e.g., `'custom_1790829582706'`). |
 | `pgl_skim_mode_v10` | `String` | Boolean string `'true'` or `'false'` for Skim Mode. |
@@ -537,7 +665,46 @@ $$\text{Profit Factor} = \begin{cases}
 
 ---
 
-### 6.5 Firestore Remote Document Payload Schema
+### 6.5 Bills Breakdown Item Schema
+
+Each individual bill in `pgl_bills_breakdown_v10`:
+
+```json
+{
+  "id": 1790831000000,
+  "name": "Apartment Rent",
+  "amountDue": 1200.00,
+  "amountReserved": 400.00,
+  "dueDate": "2026-10-15",
+  "priority": "high",
+  "status": "partial",
+  "notes": "Due by 15th via electronic transfer"
+}
+```
+
+---
+
+### 6.6 Trade Journal Entry Schema
+
+Each logged trade in `pgl_trade_logs_v10`:
+
+```json
+{
+  "id": 1790832000000,
+  "session": 1,
+  "label": "Trade A",
+  "date": "2026-10-01",
+  "status": "closed",
+  "entryAmount": 100.00,
+  "exitValue": 135.00,
+  "fees": 1.50,
+  "notes": "Clean breakout retest, locked in profit"
+}
+```
+
+---
+
+### 6.7 Firestore Remote Document Payload Schema
 Document path: `portfolios/{syncKey}`:
 
 ```json
@@ -553,13 +720,16 @@ Document path: `portfolios/{syncKey}`:
   "currentPace": "relaxed",
   "milestoneConfig": { ... },
   "skimModeEnabled": true,
+  "billsBreakdown": [...],
+  "billsBasis": "days",
+  "tradeLogs": [...],
   "updatedAt": "FieldValue.serverTimestamp()"
 }
 ```
 
 ---
 
-### 6.6 Google Sheets Webhook Payload Schema
+### 6.8 Google Sheets Webhook Payload Schema
 Dispatched via HTTP POST with `Content-Type: text/plain;charset=utf-8` and `mode: 'no-cors'`:
 
 ```json

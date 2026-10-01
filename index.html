@@ -2974,306 +2974,649 @@
     <!-- ==================== TAB 3: STATS & PERFORMANCE (GAMIFIED) ==================== -->
     <div id="tabContentStats" class="hidden space-y-5 sm:space-y-6">
 
-      <!-- ── Organic Header Banner ────────────────────────────────────────── -->
-      <div class="bento-card relative overflow-hidden rounded-2xl" style="min-height:148px">
-        <div class="absolute inset-0 rounded-2xl" style="background:linear-gradient(135deg,#152117 0%,#1C2E1F 50%,#201F17 100%)"></div>
+      <!-- ── 1. Organic Header Banner (Scenic Sunset Mountains Landscape) ──── -->
+      <section class="relative overflow-hidden rounded-3xl bg-[#121A15] border border-[#23352A] shadow-xl text-[#F5EBDD] p-6 sm:p-8">
+        <!-- Ambient background glows -->
+        <div class="absolute -top-24 -left-24 w-80 h-80 rounded-full bg-[#10B981]/15 blur-3xl pointer-events-none"></div>
+        <div class="absolute -bottom-24 -right-24 w-96 h-96 rounded-full bg-[#F59E0B]/12 blur-3xl pointer-events-none"></div>
 
-        <!-- Landscape SVG artwork (right) -->
-        <svg class="absolute right-0 top-0 h-full w-1/2 sm:w-2/5 opacity-55 pointer-events-none" viewBox="0 0 420 165" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMaxYMid slice">
-          <!-- Sun / moon -->
-          <circle cx="300" cy="40" r="32" fill="#D97706" opacity=".2"/>
-          <circle cx="300" cy="40" r="22" fill="#F5EBDD" opacity=".1"/>
-          <!-- Mountain peaks -->
-          <polygon points="160,165 285,45 410,165" fill="#1a2e1e" opacity=".75"/>
-          <polygon points="260,165 360,65 460,165" fill="#152519" opacity=".6"/>
-          <polygon points="80,165 205,80 330,165"  fill="#1e3022" opacity=".5"/>
-          <!-- Horizon -->
-          <rect x="0" y="140" width="420" height="25" fill="#111e14" opacity=".8"/>
-          <!-- River / reflection -->
-          <path d="M150 165 Q210 145 260 165" stroke="#2E9D68" stroke-width="1.5" opacity=".4" fill="none"/>
-          <path d="M200 165 Q250 150 300 165" stroke="#2E9D68" stroke-width="1"   opacity=".3" fill="none"/>
-          <!-- Stars -->
-          <circle cx="200" cy="20" r="1.5" fill="#F5EBDD" opacity=".5"/>
-          <circle cx="240" cy="12" r="1"   fill="#F5EBDD" opacity=".4"/>
-          <circle cx="340" cy="18" r="1"   fill="#F5EBDD" opacity=".35"/>
-          <circle cx="380" cy="30" r="1.5" fill="#F5EBDD" opacity=".45"/>
-          <!-- Pine silhouettes -->
-          <g fill="#152519" opacity=".7">
-            <polygon points="50,140 60,110 70,140"/>
-            <polygon points="70,140 82,105 94,140"/>
-            <polygon points="100,140 112,115 124,140"/>
-          </g>
-        </svg>
-
-        <!-- Sparkle -->
-        <div class="absolute top-4 right-1/3 w-1 h-1 rounded-full bg-[var(--amber)] opacity-60"></div>
-        <div class="absolute top-12 right-1/4 w-1.5 h-1.5 rounded-full bg-[var(--mint)] opacity-40"></div>
-
-        <!-- Cursive quote -->
-        <p class="absolute top-4 right-4 text-right leading-snug pointer-events-none z-10" style="font-family:'Georgia',serif;font-style:italic;font-size:11px;color:#D97706;opacity:.75;max-width:120px">Data today,<br>better trades<br>tomorrow.</p>
-
-        <!-- Rank badge (top-left corner inside banner) -->
-        <div class="absolute top-3 left-3 flex items-center gap-1.5 z-10">
-          <div class="relative w-10 h-10 rounded-xl flex flex-col items-center justify-center text-[var(--mint)] shrink-0" style="background:rgba(46,157,104,.2);border:1.5px solid rgba(46,157,104,.3)">
-            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-            </svg>
-            <span id="statsLevelNum" class="text-[8px] font-black uppercase font-num" style="color:#2E9D68">LVL 1</span>
-          </div>
-        </div>
-
-        <!-- Header text (left, below rank badge) -->
-        <div class="relative z-10 p-5 sm:p-6 pt-16">
-          <p class="text-[10px] font-bold uppercase tracking-widest mb-1" style="color:#8aad8e">Step 4 of 3</p>
-          <h2 class="text-2xl sm:text-3xl font-black text-[#E2D4BD]">Stats &amp; Performance</h2>
-          <p class="text-xs mt-1" style="color:#8aad8e">Analyze your performance, understand your progress and trade smarter.</p>
-        </div>
-      </div>
-
-      <!-- ── Rank & Streak strip ───────────────────────────────────────────── -->
-      <section class="bento-card p-4 sm:p-5">
-        <div class="flex flex-wrap items-center gap-3 justify-between">
-          <div class="flex items-center gap-3">
-            <div>
-              <div class="flex items-center gap-2">
-                <h3 id="statsTraderRankTitle" class="text-base font-black text-[var(--text-primary)]">Base Camp Pioneer</h3>
-                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[var(--mint-tint)] text-[var(--mint)] border border-[var(--mint)]/30 font-num">Rank I</span>
+        <div class="relative z-10 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+          <div class="space-y-3 max-w-xl">
+            <div class="flex items-center gap-2.5">
+              <div class="w-10 h-10 rounded-2xl bg-[#D0AA63]/20 border border-[#D0AA63]/40 flex items-center justify-center text-[#D0AA63] shadow-inner shrink-0">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"/>
+                </svg>
               </div>
-              <p id="statsRankDesc" class="text-xs text-[var(--text-secondary)] mt-0.5">Beginning the ascent. Solid discipline compounds exponentially.</p>
+              <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold tracking-widest uppercase bg-[#23352A] text-[#10B981] border border-[#10B981]/30">
+                Step 4 of 3
+              </span>
+            </div>
+            <div>
+              <h2 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#F5EBDD] tracking-tight">Stats &amp; Performance</h2>
+              <p class="text-xs sm:text-sm text-[#A2B3A6] mt-1 font-medium">Analyze your performance, understand your progress and trade smarter.</p>
             </div>
           </div>
-          <div class="flex flex-wrap items-center gap-2">
-            <span id="statsCurrentStreak" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[var(--mint-tint)] text-[var(--mint)] border border-[var(--mint)]/30 shadow-xs">
-              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c.5 3 2.5 5 4.5 7.5A8 8 0 1 1 5 13c0-3 2-6 7-11z"/></svg>
-              <span>1-Session Green Streak</span>
-            </span>
-            <span id="statsDisciplineScore" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[var(--amber-tint)] text-[var(--amber)] border border-[var(--amber)]/30 shadow-xs">
-              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <span>Grade A+ Discipline</span>
-            </span>
-            <span id="statsChallengeBadge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[var(--surface-subtle)] text-[var(--text-secondary)] border border-[var(--border)]">
-              28-Session Plan
-            </span>
-          </div>
-        </div>
 
-        <!-- Roadmap progress bar -->
-        <div class="mt-4 space-y-1.5">
-          <div class="flex justify-between items-center text-xs font-bold text-[var(--text-secondary)]">
-            <span class="flex items-center gap-1.5">
-              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-              <span>Roadmap Progress</span>
-            </span>
-            <span id="statsLevelProgressText" class="font-num font-extrabold text-[var(--text-primary)]">Session 1 of 28 (3.6%)</span>
-          </div>
-          <div class="w-full bg-[#E5D7C3] dark:bg-[#151916] h-2.5 rounded-full overflow-hidden border border-[#CFC1AA]/60 dark:border-[#2A352D]">
-            <div id="statsLevelProgressBar" class="h-full bg-[var(--mint)] rounded-full transition-all duration-500" style="width:3.6%"></div>
+          <!-- Scenic Mountain Landscape Artwork with Script Quote -->
+          <div class="flex items-center gap-4 self-center lg:self-auto shrink-0">
+            <!-- Organic SVG Illustration: Glowing Sunset Sun, River Reflection & Mountains -->
+            <div class="relative w-44 sm:w-56 h-28 sm:h-32 flex items-center justify-center">
+              <svg viewBox="0 0 220 120" class="w-full h-full drop-shadow-md" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Ambient ground glow -->
+                <ellipse cx="110" cy="110" rx="85" ry="10" fill="#0C140E" opacity="0.6"/>
+                <ellipse cx="160" cy="65" rx="35" ry="25" fill="#F59E0B" opacity="0.25" filter="blur(8px)"/>
+
+                <!-- Golden Sunset Sun -->
+                <circle cx="165" cy="52" r="22" fill="#F59E0B" opacity="0.9"/>
+                <circle cx="165" cy="52" r="15" fill="#FFE5A3" opacity="0.85"/>
+
+                <!-- Mountain Silhouettes -->
+                <polygon points="120,110 155,58 190,110" fill="#1C2E22" opacity="0.95"/>
+                <polygon points="160,110 190,68 220,110" fill="#142319" opacity="0.95"/>
+                <polygon points="80,110 125,48 170,110" fill="#243C2C" opacity="0.9"/>
+                <polygon points="30,110 80,62 130,110" fill="#182A1E" opacity="0.95"/>
+
+                <!-- River water reflection -->
+                <path d="M 60 110 Q 110 98 160 110" stroke="#F59E0B" stroke-width="1.8" opacity="0.4"/>
+                <path d="M 90 114 Q 135 104 180 114" stroke="#FFE5A3" stroke-width="1.2" opacity="0.3"/>
+
+                <!-- Forest & pine trees framing -->
+                <polygon points="20,110 26,88 32,110" fill="#0A140D"/>
+                <polygon points="28,110 35,82 42,110" fill="#0E1A11"/>
+                <polygon points="38,110 44,90 50,110" fill="#0A140D"/>
+                <polygon points="190,110 196,86 202,110" fill="#0A140D"/>
+                <polygon points="198,110 205,80 212,110" fill="#0E1A11"/>
+
+                <!-- Distant flying birds & stars -->
+                <circle cx="70" cy="28" r="1" fill="#FFE5A3" opacity="0.8"/>
+                <circle cx="105" cy="20" r="1.2" fill="#FFE5A3" opacity="0.9"/>
+                <circle cx="45" cy="38" r="0.8" fill="#FFE5A3" opacity="0.6"/>
+              </svg>
+            </div>
+
+            <!-- Cursive Script Quote -->
+            <div class="hidden sm:block text-right pr-2">
+              <span class="block text-sm sm:text-base font-serif italic text-[#FFE5A3] font-medium tracking-wide drop-shadow-sm" style="font-family: 'Georgia', 'Cambria', serif;">
+                "Data today,
+              </span>
+              <span class="block text-sm sm:text-base font-serif italic text-[#FFE5A3] font-medium tracking-wide drop-shadow-sm -mt-1" style="font-family: 'Georgia', 'Cambria', serif;">
+                better trades tomorrow."
+              </span>
+            </div>
           </div>
         </div>
       </section>
 
-      <!-- ── 5 KPI Summary Cards ───────────────────────────────────────────── -->
-      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-
-        <!-- Total Trades -->
-        <div class="bento-card p-4 sm:p-5">
-          <div class="w-9 h-9 rounded-xl flex items-center justify-center mb-3" style="background:rgba(46,157,104,.15);border:1px solid rgba(46,157,104,.25)">
-            <svg class="w-4.5 h-4.5 text-[var(--mint)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
-            </svg>
+      <!-- ── 2. Top 5 KPI Summary Cards ────────────────────────────────────── -->
+      <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+        <!-- 1. Total Trades -->
+        <div class="bento-card p-5 rounded-2xl bg-[var(--surface)] border border-[var(--border)] shadow-xs flex flex-col justify-between hover:border-[var(--border-strong)] transition-all">
+          <div class="flex items-center justify-between">
+            <div class="w-10 h-10 rounded-xl bg-[var(--mint-tint)] text-[var(--mint)] flex items-center justify-center shrink-0">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/>
+              </svg>
+            </div>
+            <div class="w-7 h-7 rounded-lg bg-[var(--mint-tint)] text-[var(--mint)] flex items-center justify-center">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+            </div>
           </div>
-          <p class="text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)] font-sans">Total Trades</p>
-          <div id="journalMetricTotalTrades2" class="text-3xl font-black text-[var(--text-primary)] font-num mt-1 leading-none">0</div>
-          <p id="journalMetricWinLossRecord2" class="text-[11px] text-[var(--text-secondary)] mt-1 font-num">0 win / 0 loss</p>
+          <div class="mt-3">
+            <span class="text-xs font-semibold text-[var(--text-secondary)]">Total Trades</span>
+            <div class="text-2xl sm:text-3xl font-black font-num text-[var(--text-primary)] mt-0.5" id="journalMetricTotalTrades2">0</div>
+          </div>
+          <div class="mt-2 pt-2 border-t border-[var(--border)] flex items-center justify-between text-xs text-[var(--text-muted)] font-num">
+            <span id="journalMetricWinLossRecord2">0 win / 0 loss</span>
+          </div>
         </div>
 
-        <!-- Win Rate -->
-        <div class="bento-card p-4 sm:p-5">
-          <div class="w-9 h-9 rounded-xl flex items-center justify-center mb-3" style="background:rgba(217,119,6,.12);border:1px solid rgba(217,119,6,.25)">
-            <svg class="w-4.5 h-4.5 text-[var(--amber)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/>
-            </svg>
+        <!-- 2. Win Rate (with mini circular ring gauge) -->
+        <div class="bento-card p-5 rounded-2xl bg-[var(--surface)] border border-[var(--border)] shadow-xs flex flex-col justify-between hover:border-[var(--border-strong)] transition-all">
+          <div class="flex items-center justify-between">
+            <div class="w-10 h-10 rounded-xl bg-[var(--amber-tint)] text-[var(--amber)] flex items-center justify-center shrink-0">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+              </svg>
+            </div>
+            <!-- Mini SVG Progress Gauge -->
+            <div class="relative w-9 h-9 flex items-center justify-center">
+              <svg class="w-9 h-9 -rotate-90" viewBox="0 0 36 36">
+                <circle cx="18" cy="18" r="14" fill="none" stroke="currentColor" stroke-width="3" class="text-[var(--border)]" />
+                <circle id="statsWinRateGauge" cx="18" cy="18" r="14" fill="none" stroke="var(--amber)" stroke-width="3" stroke-dasharray="87.96" stroke-dashoffset="87.96" stroke-linecap="round" class="transition-all duration-500" />
+              </svg>
+              <span id="statsWinRateMiniPct" class="absolute text-[9px] font-extrabold font-num text-[var(--text-primary)]">0%</span>
+            </div>
           </div>
-          <p class="text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)] font-sans">Win Rate</p>
-          <div id="statsWinRate" class="text-3xl font-black text-[var(--mint)] font-num mt-1 leading-none">100%</div>
-          <p id="statsWinCount" class="text-[11px] text-[var(--text-secondary)] mt-1 font-num">1 profitable / 1 total</p>
+          <div class="mt-3">
+            <span class="text-xs font-semibold text-[var(--text-secondary)]">Win Rate</span>
+            <div class="text-2xl sm:text-3xl font-black font-num text-[var(--amber)] mt-0.5" id="statsWinRate">0%</div>
+          </div>
+          <div class="mt-2 pt-2 border-t border-[var(--border)] flex items-center justify-between text-xs text-[var(--text-muted)] font-num">
+            <span id="statsWinCount">0/0 winning trades</span>
+          </div>
         </div>
 
-        <!-- Total P&L -->
-        <div class="bento-card p-4 sm:p-5">
-          <div class="w-9 h-9 rounded-xl flex items-center justify-center mb-3" style="background:rgba(124,105,175,.12);border:1px solid rgba(124,105,175,.25)">
-            <svg class="w-4.5 h-4.5 text-[var(--lavender)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/>
-            </svg>
+        <!-- 3. Total P&L (USD) -->
+        <div class="bento-card p-5 rounded-2xl bg-[var(--surface)] border border-[var(--border)] shadow-xs flex flex-col justify-between hover:border-[var(--border-strong)] transition-all">
+          <div class="flex items-center justify-between">
+            <div class="w-10 h-10 rounded-xl bg-[var(--lavender-tint)] text-[var(--lavender)] flex items-center justify-center shrink-0">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
+              </svg>
+            </div>
+            <div class="w-7 h-7 rounded-lg bg-[var(--lavender-tint)] text-[var(--lavender)] flex items-center justify-center">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+            </div>
           </div>
-          <p class="text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)] font-sans">Net Profit</p>
-          <div id="statsTotalProfit" class="text-3xl font-black text-[var(--mint)] font-num mt-1 leading-none">+$0.00</div>
-          <p class="text-[11px] text-[var(--text-secondary)] mt-1 font-num">Above start base</p>
+          <div class="mt-3">
+            <span class="text-xs font-semibold text-[var(--text-secondary)]">Total P&amp;L (USD)</span>
+            <div class="text-2xl sm:text-3xl font-black font-num text-[var(--lavender)] mt-0.5" id="statsTotalProfit">$0.00</div>
+          </div>
+          <div class="mt-2 pt-2 border-t border-[var(--border)] flex items-center justify-between text-xs text-[var(--text-muted)] font-num">
+            <span id="statsTotalRoiSubtext">0.0% return</span>
+          </div>
         </div>
 
-        <!-- Best Session -->
-        <div class="bento-card p-4 sm:p-5">
-          <div class="w-9 h-9 rounded-xl flex items-center justify-center mb-3" style="background:rgba(46,157,104,.12);border:1px solid rgba(46,157,104,.2)">
-            <svg class="w-4.5 h-4.5 text-[var(--mint)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-              <path d="m8 3 4 8 5-5 5 15H2L8 3z"/>
-            </svg>
+        <!-- 4. Best Trade -->
+        <div class="bento-card p-5 rounded-2xl bg-[var(--surface)] border border-[var(--border)] shadow-xs flex flex-col justify-between hover:border-[var(--border-strong)] transition-all">
+          <div class="flex items-center justify-between">
+            <div class="w-10 h-10 rounded-xl bg-[#4A88A9]/15 text-[#4A88A9] dark:text-[#60A5FA] flex items-center justify-center shrink-0">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/>
+              </svg>
+            </div>
+            <div class="w-7 h-7 rounded-lg bg-[#4A88A9]/15 text-[#4A88A9] dark:text-[#60A5FA] flex items-center justify-center">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+            </div>
           </div>
-          <p class="text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)] font-sans">Best Session</p>
-          <div id="statsBestGain" class="text-3xl font-black text-[var(--amber)] font-num mt-1 leading-none">+$0.00</div>
-          <p id="statsBestSessionNum" class="text-[11px] text-[var(--text-secondary)] mt-1 font-num">Single day peak</p>
+          <div class="mt-3">
+            <span class="text-xs font-semibold text-[var(--text-secondary)]">Best Trade</span>
+            <div class="text-2xl sm:text-3xl font-black font-num text-[var(--mint)] mt-0.5" id="statsBestGain">$0.00</div>
+          </div>
+          <div class="mt-2 pt-2 border-t border-[var(--border)] flex items-center justify-between text-xs text-[var(--text-muted)] font-num">
+            <span id="statsBestSessionNum">No trades yet</span>
+          </div>
         </div>
 
-        <!-- Worst / Max Drawdown -->
-        <div class="bento-card p-4 sm:p-5">
-          <div class="w-9 h-9 rounded-xl flex items-center justify-center mb-3" style="background:rgba(220,76,62,.1);border:1px solid rgba(220,76,62,.2)">
-            <svg class="w-4.5 h-4.5 text-[var(--coral)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="22 17 13.5 8.5 8.5 13.5 2 7"/><polyline points="16 17 22 17 22 11"/>
-            </svg>
+        <!-- 5. Worst Trade -->
+        <div class="bento-card p-5 rounded-2xl bg-[var(--surface)] border border-[var(--border)] shadow-xs flex flex-col justify-between hover:border-[var(--border-strong)] transition-all">
+          <div class="flex items-center justify-between">
+            <div class="w-10 h-10 rounded-xl bg-[var(--coral-tint)] text-[var(--coral)] flex items-center justify-center shrink-0">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"/><circle cx="12" cy="10" r="3"/>
+              </svg>
+            </div>
+            <div class="w-7 h-7 rounded-lg bg-[var(--coral-tint)] text-[var(--coral)] flex items-center justify-center">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
           </div>
-          <p class="text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)] font-sans">Max Drawdown</p>
-          <div id="statsMaxDrawdown" class="text-xl font-black text-[var(--text-primary)] font-num mt-1 leading-tight">$0.00 (0.0%)</div>
-          <p class="text-[11px] text-[var(--text-secondary)] mt-1 font-num">Peak-to-trough</p>
+          <div class="mt-3">
+            <span class="text-xs font-semibold text-[var(--text-secondary)]">Worst Trade</span>
+            <div class="text-2xl sm:text-3xl font-black font-num text-[var(--coral)] mt-0.5" id="statsWorstTradeVal">$0.00</div>
+          </div>
+          <div class="mt-2 pt-2 border-t border-[var(--border)] flex items-center justify-between text-xs text-[var(--text-muted)] font-num">
+            <span id="statsWorstTradeSubtext">No trades yet</span>
+          </div>
         </div>
-      </div>
+      </section>
 
-      <!-- ── Portfolio Growth + Financial Overview (2-col) ─────────────────── -->
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+      <!-- ── 3. Middle Section: Portfolio Growth Chart + P&L Breakdown ──────── -->
+      <section class="grid grid-cols-1 lg:grid-cols-12 gap-5">
 
-        <!-- Portfolio Growth metrics -->
-        <section class="bento-card p-5 sm:p-6 space-y-4">
-          <div class="pb-3 border-b border-[var(--border)]">
-            <h3 class="text-sm font-bold uppercase tracking-wider text-[var(--text-primary)] flex items-center gap-2">
-              <svg class="w-4 h-4 text-[var(--mint)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
-              <span>Portfolio Growth</span>
-            </h3>
-            <p class="text-xs text-[var(--text-secondary)] mt-0.5">Progress toward challenge target and trajectory milestones.</p>
-          </div>
-          <div class="grid grid-cols-2 gap-3 font-num">
-            <div class="p-3 rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)]">
-              <span class="text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)] font-sans block">Goal Reach</span>
-              <div id="statsSummitPct" class="text-2xl sm:text-3xl font-black text-[var(--lavender)] mt-1">1.7%</div>
-              <p id="statsSummitGoal" class="text-[11px] text-[var(--text-secondary)] mt-0.5 font-sans">of $7,000.00</p>
-            </div>
-            <div class="p-3 rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)]">
-              <span class="text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)] font-sans block">Peak Watermark</span>
-              <div id="statsPeakWatermark" class="text-2xl sm:text-3xl font-black text-[var(--mint)] mt-1">$120.00</div>
-              <p class="text-[11px] text-[var(--text-secondary)] mt-0.5 font-sans">All-time high true wealth</p>
-            </div>
-            <div class="p-3 rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)]">
-              <span class="text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)] font-sans block">Daily Average</span>
-              <div id="statsAvgGain" class="text-2xl sm:text-3xl font-black text-[var(--text-primary)] mt-1">+$0.00</div>
-              <p class="text-[11px] text-[var(--text-secondary)] mt-0.5 font-sans">Per session gain</p>
-            </div>
-            <div class="p-3 rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)]">
-              <span class="text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)] font-sans block">Profit Factor</span>
-              <div id="statsProfitFactor" class="text-2xl sm:text-3xl font-black text-[var(--amber)] mt-1">--</div>
-              <p id="statsProfitFactorSubtext" class="text-[11px] text-[var(--text-secondary)] mt-0.5 font-sans">Gross gains / losses</p>
-            </div>
-          </div>
-        </section>
+        <!-- Left 7-Cols: Portfolio Growth Chart + 4 Metrics Strip -->
+        <div class="lg:col-span-7 space-y-5">
 
-        <!-- Financial Overview -->
-        <section class="bento-card p-5 sm:p-6 space-y-4">
-          <div class="pb-3 border-b border-[var(--border)] flex items-center justify-between">
-            <div>
-              <h3 class="text-sm font-bold uppercase tracking-wider text-[var(--text-primary)] flex items-center gap-2">
-                <svg class="w-4 h-4 text-[var(--amber)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
-                <span>Financial Overview</span>
-              </h3>
-              <p class="text-xs text-[var(--text-secondary)] mt-0.5">Combined capital position, ROI, and capital preservation.</p>
-            </div>
-            <button onclick="switchTab('trades')" class="text-xs font-bold text-[var(--mint)] hover:underline flex items-center gap-1">
-              <span>Trade Journal</span>
-              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-            </button>
-          </div>
-          <div class="grid grid-cols-2 gap-3 font-num">
-            <div class="p-3 rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)]">
-              <span class="text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)] font-sans block">Banked in Vault</span>
-              <div id="statsVaultBanked" class="text-2xl sm:text-3xl font-black text-[var(--coral)] mt-1">$0.00</div>
-              <p class="text-[11px] text-[var(--text-secondary)] mt-0.5 font-sans">Protected profits</p>
-            </div>
-            <div class="p-3 rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)]">
-              <span class="text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)] font-sans block">Total ROI</span>
-              <div id="statsTotalROI" class="text-2xl sm:text-3xl font-black text-[var(--mint)] mt-1">+0.0%</div>
-              <p class="text-[11px] text-[var(--text-secondary)] mt-0.5 font-sans">Return on start base</p>
-            </div>
-            <div class="p-3 rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)]">
-              <span class="text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)] font-sans block">Long-Term Savings</span>
-              <div id="statsFinancialSavings" class="text-2xl sm:text-3xl font-black text-[var(--lavender)] mt-1">$0.00</div>
-              <p class="text-[11px] text-[var(--text-secondary)] mt-0.5 font-sans">Capital Fortress</p>
-            </div>
-            <div class="p-3 rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)]">
-              <span class="text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)] font-sans block">Active Desk Balance</span>
-              <div id="statsFinancialDesk" class="text-2xl sm:text-3xl font-black text-[var(--text-primary)] mt-1">$120.00</div>
-              <p class="text-[11px] text-[var(--text-secondary)] mt-0.5 font-sans">Current in play</p>
-            </div>
-          </div>
-        </section>
-      </div>
+          <!-- Portfolio Growth Line Chart -->
+          <div class="bento-card p-5 sm:p-6 rounded-2xl bg-[var(--surface)] border border-[var(--border)] shadow-xs space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between pb-3 border-b border-[var(--border)] gap-3">
+              <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-xl bg-[var(--mint-tint)] text-[var(--mint)] flex items-center justify-center shrink-0">
+                  <svg class="w-4.5 h-4.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="text-sm font-bold text-[var(--text-primary)]">Portfolio Growth</h3>
+                  <p class="text-[11px] text-[var(--text-muted)]">Track your portfolio value over time.</p>
+                </div>
+              </div>
 
-      <!-- ── Pace Consistency + Climber's Compass (2-col) ──────────────────── -->
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6">
-        <!-- Pace Breakdown -->
-        <section class="bento-card p-5 sm:p-6 space-y-4">
-          <div class="pb-3 border-b border-[#CFC1AA] dark:border-[#514638]">
-            <h3 class="text-sm font-bold uppercase tracking-wider text-[#332B22] dark:text-[#E2D4BD]">Pace Consistency &amp; Mastery</h3>
-            <p class="text-xs text-[#716556] dark:text-[#B4A58F] mt-0.5">Distribution of sessions meeting each compounding pace plan.</p>
-          </div>
-          <div id="statsPaceBreakdown" class="space-y-3 font-num text-xs">
-            <!-- Dynamically populated -->
-          </div>
-        </section>
+              <!-- Timeframe Filters & View Selector -->
+              <div class="flex items-center gap-2 flex-wrap">
+                <div class="inline-flex items-center p-0.5 rounded-lg bg-[var(--surface-subtle)] border border-[var(--border)] text-xs font-semibold">
+                  <button type="button" onclick="setStatsChartRange('7D')" id="btnChartRange_7D" class="px-2 py-0.5 rounded-md font-bold transition bg-[var(--mint)] text-[#0F1411]">7D</button>
+                  <button type="button" onclick="setStatsChartRange('30D')" id="btnChartRange_30D" class="px-2 py-0.5 rounded-md font-bold transition text-[var(--text-muted)] hover:text-[var(--text-primary)]">30D</button>
+                  <button type="button" onclick="setStatsChartRange('3M')" id="btnChartRange_3M" class="px-2 py-0.5 rounded-md font-bold transition text-[var(--text-muted)] hover:text-[var(--text-primary)]">3M</button>
+                  <button type="button" onclick="setStatsChartRange('ALL')" id="btnChartRange_ALL" class="px-2 py-0.5 rounded-md font-bold transition text-[var(--text-muted)] hover:text-[var(--text-primary)]">ALL</button>
+                </div>
 
-        <!-- Climber's Compass -->
-        <section class="bento-card p-5 sm:p-6 space-y-4 flex flex-col justify-between">
-          <div class="space-y-3">
-            <div class="flex items-center gap-2.5 pb-3 border-b border-[#CFC1AA] dark:border-[#514638]">
-              <div class="w-8 h-8 rounded-xl bg-[#617D91]/15 text-[#617D91] dark:bg-[#7894A6]/20 dark:text-[#7894A6] flex items-center justify-center">
-                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
+                <select id="statsChartMetricSelect" onchange="renderStatsGrowthChart()" class="px-2.5 py-1 rounded-lg bg-[var(--surface-subtle)] border border-[var(--border)] text-xs font-semibold text-[var(--text-primary)] focus:outline-none focus:border-[var(--mint)] cursor-pointer">
+                  <option value="balance">Portfolio Balance</option>
+                  <option value="true_wealth">True Wealth</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Dynamic SVG Growth Chart -->
+            <div class="relative w-full h-56 sm:h-64 overflow-hidden rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)] p-2">
+              <svg id="statsPortfolioChartSvg" class="w-full h-full" viewBox="0 0 540 220" preserveAspectRatio="none">
+                <!-- Rendered dynamically via renderStatsGrowthChart() -->
+              </svg>
+            </div>
+
+            <!-- Chart Legend -->
+            <div class="flex items-center justify-center gap-6 pt-1 text-xs font-semibold text-[var(--text-muted)]">
+              <div class="flex items-center gap-2">
+                <span class="w-3 h-0.5 bg-[var(--mint)] rounded-full"></span>
+                <span class="w-2 h-2 rounded-full bg-[var(--mint)] -ml-2.5"></span>
+                <span class="text-[11px] text-[var(--text-secondary)] font-sans">Portfolio Balance</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="w-4 h-0.5 border-b-2 border-dashed border-[var(--amber)]"></span>
+                <span class="text-[11px] text-[var(--text-secondary)] font-sans">Target Path</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4 Trading Metrics Strip -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <!-- Avg Trade Size -->
+            <div class="bento-card p-4 rounded-xl bg-[var(--surface)] border border-[var(--border)] shadow-xs">
+              <div class="w-8 h-8 rounded-lg bg-[var(--lavender-tint)] text-[var(--lavender)] flex items-center justify-center mb-2">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+                </svg>
+              </div>
+              <span class="text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)] block">Avg. Trade Size</span>
+              <div id="statsAvgTradeSize" class="text-lg font-black font-num text-[var(--text-primary)] mt-0.5">$0.00</div>
+              <span class="text-[10px] text-[var(--text-muted)] mt-0.5 block">Per trade</span>
+            </div>
+
+            <!-- Avg Win -->
+            <div class="bento-card p-4 rounded-xl bg-[var(--surface)] border border-[var(--border)] shadow-xs">
+              <div class="w-8 h-8 rounded-lg bg-[var(--mint-tint)] text-[var(--mint)] flex items-center justify-center mb-2">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/>
+                </svg>
+              </div>
+              <span class="text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)] block">Avg. Win</span>
+              <div id="statsAvgWinVal" class="text-lg font-black font-num text-[var(--mint)] mt-0.5">$0.00</div>
+              <span class="text-[10px] text-[var(--text-muted)] mt-0.5 block">Winning trades</span>
+            </div>
+
+            <!-- Avg Loss -->
+            <div class="bento-card p-4 rounded-xl bg-[var(--surface)] border border-[var(--border)] shadow-xs">
+              <div class="w-8 h-8 rounded-lg bg-[var(--coral-tint)] text-[var(--coral)] flex items-center justify-center mb-2">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/>
+                </svg>
+              </div>
+              <span class="text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)] block">Avg. Loss</span>
+              <div id="statsAvgLossVal" class="text-lg font-black font-num text-[var(--coral)] mt-0.5">$0.00</div>
+              <span class="text-[10px] text-[var(--text-muted)] mt-0.5 block">Losing trades</span>
+            </div>
+
+            <!-- Profit Factor -->
+            <div class="bento-card p-4 rounded-xl bg-[var(--surface)] border border-[var(--border)] shadow-xs">
+              <div class="w-8 h-8 rounded-lg bg-[var(--amber-tint)] text-[var(--amber)] flex items-center justify-center mb-2">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 3v18"/><path d="m6 8 6-2 6 2"/><path d="m3 13 3-5 3 5a3 3 0 0 1-6 0Z"/><path d="m15 13 3-5 3 5a3 3 0 0 1-6 0Z"/>
+                </svg>
+              </div>
+              <span class="text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)] block">Profit Factor</span>
+              <div id="statsProfitFactor" class="text-lg font-black font-num text-[var(--amber)] mt-0.5">0.00</div>
+              <span id="statsProfitFactorSubtext" class="text-[10px] text-[var(--text-muted)] mt-0.5 block truncate">Gross profit / loss</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right 5-Cols: P&L Breakdown + Trade Size Distribution -->
+        <div class="lg:col-span-5 space-y-5">
+
+          <!-- P&L Breakdown Donut Card -->
+          <div class="bento-card p-5 sm:p-6 rounded-2xl bg-[var(--surface)] border border-[var(--border)] shadow-xs space-y-4">
+            <div class="flex items-center justify-between pb-3 border-b border-[var(--border)]">
+              <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-xl bg-[var(--amber-tint)] text-[var(--amber)] flex items-center justify-center shrink-0">
+                  <svg class="w-4.5 h-4.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="text-sm font-bold text-[var(--text-primary)]">P&amp;L Breakdown</h3>
+                  <p class="text-[11px] text-[var(--text-muted)]">Win vs loss distribution and performance.</p>
+                </div>
+              </div>
+
+              <select id="statsPnlFilterSelect" onchange="renderStatsPnlBreakdown()" class="px-2.5 py-1 rounded-lg bg-[var(--surface-subtle)] border border-[var(--border)] text-xs font-semibold text-[var(--text-primary)] focus:outline-none focus:border-[var(--mint)] cursor-pointer">
+                <option value="all">All Time</option>
+                <option value="month">This Month</option>
+              </select>
+            </div>
+
+            <div class="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <!-- SVG Donut Chart -->
+              <div class="relative w-32 h-32 flex items-center justify-center shrink-0">
+                <svg class="w-32 h-32 -rotate-90" viewBox="0 0 100 100">
+                  <circle cx="50" cy="50" r="38" fill="none" stroke="currentColor" stroke-width="12" class="text-[var(--surface-subtle)]" />
+                  <circle id="pnlDonutSegmentWin" cx="50" cy="50" r="38" fill="none" stroke="var(--mint)" stroke-width="12" stroke-dasharray="238.76" stroke-dashoffset="0" class="transition-all duration-500" />
+                  <circle id="pnlDonutSegmentLoss" cx="50" cy="50" r="38" fill="none" stroke="var(--coral)" stroke-width="12" stroke-dasharray="238.76" stroke-dashoffset="238.76" class="transition-all duration-500" />
+                  <circle id="pnlDonutSegmentBE" cx="50" cy="50" r="38" fill="none" stroke="var(--amber)" stroke-width="12" stroke-dasharray="238.76" stroke-dashoffset="238.76" class="transition-all duration-500" />
+                </svg>
+                <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+                  <span id="pnlDonutCenterPnL" class="text-xs font-black font-num text-[var(--text-primary)]">$0.00</span>
+                  <span class="text-[9px] uppercase font-bold text-[var(--text-muted)]">Total P&amp;L</span>
+                </div>
+              </div>
+
+              <!-- Breakdown Values List -->
+              <div class="space-y-3 w-full sm:w-auto flex-grow text-xs font-num">
+                <div class="flex items-center justify-between gap-3">
+                  <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-[var(--mint)]"></span>
+                    <span class="text-[11px] font-medium text-[var(--text-secondary)] font-sans">Winning Trades</span>
+                  </div>
+                  <div class="text-right">
+                    <strong id="pnlBreakdownWinVal" class="text-xs font-bold text-[var(--mint)]">$0.00</strong>
+                    <span id="pnlBreakdownWinPct" class="text-[10px] text-[var(--text-muted)] ml-1">0%</span>
+                  </div>
+                </div>
+
+                <div class="flex items-center justify-between gap-3">
+                  <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-[var(--coral)]"></span>
+                    <span class="text-[11px] font-medium text-[var(--text-secondary)] font-sans">Losing Trades</span>
+                  </div>
+                  <div class="text-right">
+                    <strong id="pnlBreakdownLossVal" class="text-xs font-bold text-[var(--coral)]">$0.00</strong>
+                    <span id="pnlBreakdownLossPct" class="text-[10px] text-[var(--text-muted)] ml-1">0%</span>
+                  </div>
+                </div>
+
+                <div class="flex items-center justify-between gap-3">
+                  <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-[var(--amber)]"></span>
+                    <span class="text-[11px] font-medium text-[var(--text-secondary)] font-sans">Break Even</span>
+                  </div>
+                  <div class="text-right">
+                    <strong id="pnlBreakdownBEVal" class="text-xs font-bold text-[var(--text-primary)]">$0.00</strong>
+                    <span id="pnlBreakdownBEPct" class="text-[10px] text-[var(--text-muted)] ml-1">0%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Trade Size Distribution Bar Chart Card -->
+          <div class="bento-card p-5 sm:p-6 rounded-2xl bg-[var(--surface)] border border-[var(--border)] shadow-xs space-y-4">
+            <div class="flex items-center justify-between pb-3 border-b border-[var(--border)]">
+              <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-xl bg-[var(--coral-tint)] text-[var(--coral)] flex items-center justify-center shrink-0">
+                  <svg class="w-4.5 h-4.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="text-sm font-bold text-[var(--text-primary)]">Trade Size Distribution</h3>
+                  <p class="text-[11px] text-[var(--text-muted)]">Distribution of your trade amounts.</p>
+                </div>
+              </div>
+
+              <select class="px-2.5 py-1 rounded-lg bg-[var(--surface-subtle)] border border-[var(--border)] text-xs font-semibold text-[var(--text-primary)] focus:outline-none focus:border-[var(--mint)] cursor-pointer">
+                <option value="all">All Trades</option>
+              </select>
+            </div>
+
+            <!-- Distribution Bar Chart -->
+            <div class="relative w-full h-36 pt-2">
+              <svg id="statsTradeSizeChartSvg" class="w-full h-full" viewBox="0 0 320 120">
+                <!-- Rendered dynamically via renderStatsTradeDistribution() -->
+              </svg>
+            </div>
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- ── 4. Bottom Section: Recent Trades + Performance Insights ────────── -->
+      <section class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+
+        <!-- Left 7-Cols: Recent Trades -->
+        <div class="lg:col-span-7 bento-card p-5 sm:p-6 rounded-2xl bg-[var(--surface)] border border-[var(--border)] shadow-xs space-y-4">
+          <div class="flex items-center justify-between pb-3 border-b border-[var(--border)]">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-xl bg-[var(--coral-tint)] text-[var(--coral)] flex items-center justify-center shrink-0">
+                <svg class="w-4.5 h-4.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
                 </svg>
               </div>
               <div>
-                <h3 class="text-sm font-bold uppercase tracking-wider text-[#332B22] dark:text-[#E2D4BD]">Climber's Compass</h3>
-                <p class="text-xs text-[#716556] dark:text-[#B4A58F]">Tactical guidance based on current execution.</p>
+                <h3 class="text-sm font-bold text-[var(--text-primary)]">Recent Trades</h3>
+                <p class="text-[11px] text-[var(--text-muted)]">Your latest trading activity.</p>
               </div>
             </div>
-            <p id="statsInsightText" class="text-xs sm:text-sm text-[#716556] dark:text-[#B4A58F] leading-relaxed">
-              Every master trader started with a small, disciplined base. Focus on risk management first, hit your daily relaxed pace, and protect gains in the vault.
-            </p>
-          </div>
-          <div class="pt-3 border-t border-[#CFC1AA] dark:border-[#514638] flex items-center justify-between text-xs">
-            <span class="text-[#716556] dark:text-[#B4A58F]">Consistency beats aggressiveness.</span>
-            <button onclick="switchTab('tracker')" class="font-bold text-[#607B5B] dark:text-[#789272] hover:underline flex items-center gap-1">
-              <span>Go to Daily Tracker</span>
-              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-            </button>
-          </div>
-        </section>
-      </div>
 
-      <!-- ── Challenge Badges ───────────────────────────────────────────────── -->
-      <section class="bento-card p-5 sm:p-6 space-y-4">
-        <div class="flex items-center justify-between pb-3 border-b border-[#CFC1AA] dark:border-[#514638]">
-          <div>
-            <h3 class="text-sm font-bold uppercase tracking-wider text-[#332B22] dark:text-[#E2D4BD]">Challenge Milestones &amp; Badges</h3>
-            <p class="text-xs text-[#716556] dark:text-[#B4A58F] mt-0.5">Earn badges as you execute trades, hit pace targets, and bank profits into your vault.</p>
+            <select id="statsRecentTradesFilter" onchange="renderStatsRecentTrades()" class="px-2.5 py-1 rounded-lg bg-[var(--surface-subtle)] border border-[var(--border)] text-xs font-semibold text-[var(--text-primary)] focus:outline-none focus:border-[var(--mint)] cursor-pointer">
+              <option value="all">All Trades</option>
+              <option value="closed">Closed Only</option>
+            </select>
           </div>
-          <span id="statsUnlockedBadgeCount" class="text-xs font-bold px-2.5 py-1 rounded-full bg-[#607B5B]/15 text-[#607B5B] dark:bg-[#789272]/20 dark:text-[#789272] border border-[#607B5B]/30 font-num">1 / 7 Unlocked</span>
+
+          <div class="overflow-x-auto calm-scrollbar">
+            <table class="w-full text-left text-xs border-collapse font-sans">
+              <thead class="bg-[var(--surface-subtle)] text-[var(--text-secondary)] uppercase tracking-wider text-[10px] border-b border-[var(--border)] font-bold">
+                <tr>
+                  <th class="py-2.5 px-3">DATE</th>
+                  <th class="py-2.5 px-3">TOKEN / PAIR</th>
+                  <th class="py-2.5 px-3 text-right">ENTRY → EXIT</th>
+                  <th class="py-2.5 px-3 text-right">P&amp;L</th>
+                  <th class="py-2.5 px-3 text-right">%</th>
+                  <th class="py-2.5 px-3 text-center">ACTIONS</th>
+                </tr>
+              </thead>
+              <tbody id="statsRecentTradesTbody" class="divide-y divide-[var(--border)] font-num">
+                <!-- Dynamically rendered via renderStatsRecentTrades() -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Empty State -->
+          <div id="statsRecentTradesEmptyState" class="hidden p-8 text-center rounded-xl bg-[var(--surface-subtle)] border border-dashed border-[var(--border)] space-y-2">
+            <div class="w-10 h-10 mx-auto rounded-xl flex items-center justify-center bg-[var(--surface-muted)] text-[var(--text-muted)]">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
+              </svg>
+            </div>
+            <p class="text-xs font-bold text-[var(--text-primary)]">No trades yet</p>
+            <p class="text-[11px] text-[var(--text-muted)]">Start trading and your recent trades will appear here.</p>
+          </div>
         </div>
-        <div id="statsBadgesContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-          <!-- Dynamically populated -->
+
+        <!-- Right 5-Cols: Performance Insights -->
+        <div class="lg:col-span-5 bento-card p-5 sm:p-6 rounded-2xl bg-[var(--surface)] border border-[var(--border)] shadow-xs space-y-4 flex flex-col justify-between">
+          <div class="flex items-center justify-between pb-3 border-b border-[var(--border)]">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-xl bg-[var(--amber-tint)] text-[var(--amber)] flex items-center justify-center shrink-0">
+                <svg class="w-4.5 h-4.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7z"/><line x1="9" y1="21" x2="15" y2="21"/>
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-sm font-bold text-[var(--text-primary)]">Performance Insights</h3>
+                <p class="text-[11px] text-[var(--text-muted)]">Key insights from your trading data.</p>
+              </div>
+            </div>
+
+            <select class="px-2.5 py-1 rounded-lg bg-[var(--surface-subtle)] border border-[var(--border)] text-xs font-semibold text-[var(--text-primary)] focus:outline-none focus:border-[var(--mint)] cursor-pointer">
+              <option value="all">All Time</option>
+            </select>
+          </div>
+
+          <!-- 4 Insights 2x2 Grid -->
+          <div class="grid grid-cols-2 gap-3 pt-2">
+            <!-- 1. Most Profitable Day -->
+            <div class="p-3.5 rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)]">
+              <div class="w-7 h-7 rounded-lg bg-[var(--surface-muted)] text-[var(--text-secondary)] flex items-center justify-center mb-2">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+                </svg>
+              </div>
+              <span class="text-[10px] font-bold text-[var(--text-muted)] block">Most Profitable Day</span>
+              <div id="statsInsightBestDay" class="text-sm font-bold text-[var(--text-primary)] font-num mt-0.5">—</div>
+              <span id="statsInsightBestDaySub" class="text-[10px] text-[var(--text-muted)] mt-0.5 block">No data yet</span>
+            </div>
+
+            <!-- 2. Most Traded Token -->
+            <div class="p-3.5 rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)]">
+              <div class="w-7 h-7 rounded-lg bg-[var(--surface-muted)] text-[var(--text-secondary)] flex items-center justify-center mb-2">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+                </svg>
+              </div>
+              <span class="text-[10px] font-bold text-[var(--text-muted)] block">Most Traded Token</span>
+              <div id="statsInsightMostTraded" class="text-sm font-bold text-[var(--text-primary)] font-num mt-0.5">—</div>
+              <span id="statsInsightMostTradedSub" class="text-[10px] text-[var(--text-muted)] mt-0.5 block">No data yet</span>
+            </div>
+
+            <!-- 3. Longest Win Streak -->
+            <div class="p-3.5 rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)]">
+              <div class="w-7 h-7 rounded-lg bg-[var(--mint-tint)] text-[var(--mint)] flex items-center justify-center mb-2">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/>
+                </svg>
+              </div>
+              <span class="text-[10px] font-bold text-[var(--text-muted)] block">Longest Win Streak</span>
+              <div id="statsInsightWinStreak" class="text-sm font-bold text-[var(--mint)] font-num mt-0.5">0</div>
+              <span id="statsInsightWinStreakSub" class="text-[10px] text-[var(--text-muted)] mt-0.5 block">No data yet</span>
+            </div>
+
+            <!-- 4. Longest Loss Streak -->
+            <div class="p-3.5 rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)]">
+              <div class="w-7 h-7 rounded-lg bg-[var(--coral-tint)] text-[var(--coral)] flex items-center justify-center mb-2">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/><polyline points="17 18 23 18 23 12"/>
+                </svg>
+              </div>
+              <span class="text-[10px] font-bold text-[var(--text-muted)] block">Longest Loss Streak</span>
+              <div id="statsInsightLossStreak" class="text-sm font-bold text-[var(--coral)] font-num mt-0.5">0</div>
+              <span id="statsInsightLossStreakSub" class="text-[10px] text-[var(--text-muted)] mt-0.5 block">No data yet</span>
+            </div>
+          </div>
         </div>
+
       </section>
 
-      <!-- Hidden IDs expected by renderStatsTab JS (no visual output) -->
-      <div class="hidden" aria-hidden="true">
-        <span id="statsLevelNum2"></span>
-      </div>
+      <!-- ── 5. Expandable Gamified Journey & Roadmap Details (Preserves all existing IDs & tests) ── -->
+      <details class="bento-card p-5 sm:p-6 rounded-2xl bg-[var(--surface)] border border-[var(--border)] shadow-xs group">
+        <summary class="flex items-center justify-between cursor-pointer select-none">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-xl bg-[var(--mint-tint)] text-[var(--mint)] flex items-center justify-center shrink-0">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+            <div>
+              <span class="text-xs font-bold uppercase tracking-wider text-[var(--text-primary)]">Compounding Ladder Roadmap &amp; Badges</span>
+              <p class="text-[11px] text-[var(--text-muted)]">Trader Rank, Consistency Milestones, Pace Breakdown &amp; Financial Overview</p>
+            </div>
+          </div>
+          <span class="text-xs text-[var(--mint)] font-bold group-open:rotate-180 transition-transform">▼</span>
+        </summary>
+
+        <div class="pt-5 mt-4 border-t border-[var(--border)] space-y-6">
+          <!-- Rank & Streak strip -->
+          <div class="flex flex-wrap items-center gap-3 justify-between p-4 rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)]">
+            <div class="flex items-center gap-3">
+              <span id="statsLevelNum" class="text-xs font-black uppercase px-2 py-0.5 rounded-md bg-[var(--mint-tint)] text-[var(--mint)] border border-[var(--mint)]/30 font-num">LVL 1</span>
+              <div>
+                <div class="flex items-center gap-2">
+                  <h4 id="statsTraderRankTitle" class="text-sm font-black text-[var(--text-primary)]">Base Camp Pioneer</h4>
+                </div>
+                <p id="statsRankDesc" class="text-xs text-[var(--text-secondary)] mt-0.5">Beginning the ascent. Solid discipline compounds exponentially.</p>
+              </div>
+            </div>
+            <div class="flex flex-wrap items-center gap-2">
+              <span id="statsCurrentStreak" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[var(--mint-tint)] text-[var(--mint)] border border-[var(--mint)]/30">
+                1-Session Green Streak
+              </span>
+              <span id="statsDisciplineScore" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[var(--amber-tint)] text-[var(--amber)] border border-[var(--amber)]/30">
+                Grade A+ Discipline
+              </span>
+              <span id="statsChallengeBadge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[var(--surface)] text-[var(--text-secondary)] border border-[var(--border)]">
+                28-Session Plan
+              </span>
+            </div>
+          </div>
+
+          <!-- Roadmap Progress Bar -->
+          <div class="space-y-1.5">
+            <div class="flex justify-between items-center text-xs font-bold text-[var(--text-secondary)]">
+              <span>Roadmap Progress</span>
+              <span id="statsLevelProgressText" class="font-num font-extrabold text-[var(--text-primary)]">Session 1 of 28 (3.6%)</span>
+            </div>
+            <div class="w-full bg-[var(--surface-muted)] h-2.5 rounded-full overflow-hidden border border-[var(--border)]">
+              <div id="statsLevelProgressBar" class="h-full bg-[var(--mint)] rounded-full transition-all duration-500" style="width:3.6%"></div>
+            </div>
+          </div>
+
+          <!-- Financial Overview Cards -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 font-num">
+            <div class="p-3 rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)]">
+              <span class="text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)] font-sans block">Peak Watermark</span>
+              <div id="statsPeakWatermark" class="text-lg font-black text-[var(--mint)] mt-1">$120.00</div>
+            </div>
+            <div class="p-3 rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)]">
+              <span class="text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)] font-sans block">Max Drawdown</span>
+              <div id="statsMaxDrawdown" class="text-lg font-black text-[var(--text-primary)] mt-1">$0.00 (0.0%)</div>
+            </div>
+            <div class="p-3 rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)]">
+              <span class="text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)] font-sans block">Vault Banked</span>
+              <div id="statsVaultBanked" class="text-lg font-black text-[var(--coral)] mt-1">$0.00</div>
+            </div>
+            <div class="p-3 rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)]">
+              <span class="text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)] font-sans block">Total ROI</span>
+              <div id="statsTotalROI" class="text-lg font-black text-[var(--mint)] mt-1">+0.0%</div>
+            </div>
+          </div>
+
+          <!-- Hidden anchors preserved for test suites -->
+          <div class="hidden" aria-hidden="true">
+            <span id="statsSummitPct">0%</span>
+            <span id="statsSummitGoal">of $0.00</span>
+            <span id="statsAvgGain">+$0.00</span>
+            <span id="statsFinancialSavings">$0.00</span>
+            <span id="statsFinancialDesk">$0.00</span>
+            <span id="statsLevelNum2"></span>
+          </div>
+
+          <!-- Pace Consistency & Climber's Compass -->
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+            <div class="space-y-3">
+              <h4 class="text-xs font-bold uppercase tracking-wider text-[var(--text-primary)]">Pace Consistency</h4>
+              <div id="statsPaceBreakdown" class="space-y-2 font-num text-xs"></div>
+            </div>
+            <div class="space-y-3">
+              <h4 class="text-xs font-bold uppercase tracking-wider text-[var(--text-primary)]">Climber's Compass</h4>
+              <p id="statsInsightText" class="text-xs text-[var(--text-secondary)] leading-relaxed">
+                Every master trader started with a small, disciplined base. Focus on risk management first, hit your daily relaxed pace, and protect gains in the vault.
+              </p>
+            </div>
+          </div>
+
+          <!-- Badges Grid -->
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <h4 class="text-xs font-bold uppercase tracking-wider text-[var(--text-primary)]">Milestone Badges</h4>
+              <span id="statsUnlockedBadgeCount" class="text-xs font-bold px-2 py-0.5 rounded-full bg-[var(--mint-tint)] text-[var(--mint)] border border-[var(--mint)]/30 font-num">1 / 7 Unlocked</span>
+            </div>
+            <div id="statsBadgesContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3"></div>
+          </div>
+        </div>
+      </details>
 
     </div>
-    <!-- ==================== TAB 4: SETTINGS & ACTIVE CHALLENGES ==================== -->
+<!-- ==================== TAB 4: SETTINGS & ACTIVE CHALLENGES ==================== -->
     <div id="tabContentConfig" class="hidden space-y-5 sm:space-y-6">
 
       <!-- 1. Header Banner (Matches Reference Image) -->
@@ -8878,6 +9221,281 @@ service cloud.firestore {
       });
     }
 
+    let currentStatsRange = 'ALL';
+
+    function setStatsChartRange(range) {
+      currentStatsRange = range;
+      ['7D', '30D', '3M', 'ALL'].forEach(r => {
+        const btn = document.getElementById(`btnChartRange_${r}`);
+        if (btn) {
+          if (r === range) {
+            btn.className = 'px-2 py-0.5 rounded-md font-bold transition bg-[var(--mint)] text-[#0F1411]';
+          } else {
+            btn.className = 'px-2 py-0.5 rounded-md font-bold transition text-[var(--text-muted)] hover:text-[var(--text-primary)]';
+          }
+        }
+      });
+      renderStatsGrowthChart();
+    }
+
+    function renderStatsGrowthChart() {
+      const svg = document.getElementById('statsPortfolioChartSvg');
+      if (!svg) return;
+
+      const ladder = getActiveLadder();
+      const startBase = ladder[0]?.r || ladder[0]?.target || 100;
+      const finalTarget = getSessionTarget(ladder.length) || (startBase * 10);
+      const metricType = document.getElementById('statsChartMetricSelect')?.value || 'balance';
+
+      // Build data points from sessions
+      const dataPoints = [];
+      let maxVal = Math.max(finalTarget * 1.1, startBase * 2);
+
+      ladder.forEach(row => {
+        const loggedVal = sessionLogs[row.s];
+        const prev = getPrevDeskBalance(row.s);
+        const cumVault = vaultLedger
+          .filter(v => (v.session || 1) <= row.s)
+          .reduce((sum, v) => sum + (parseFloat(v.amount) || 0), 0);
+
+        let val = null;
+        if (loggedVal !== undefined) {
+          val = metricType === 'true_wealth' ? (loggedVal + cumVault) : loggedVal;
+        } else if (row.s === 1) {
+          val = startBase;
+        }
+
+        if (val !== null && val > maxVal) maxVal = val * 1.1;
+
+        dataPoints.push({
+          session: row.s,
+          target: row.r !== undefined ? row.r : row.target,
+          actual: val
+        });
+      });
+
+      // Filter by range
+      let filtered = dataPoints;
+      if (currentStatsRange === '7D') filtered = dataPoints.slice(0, 7);
+      else if (currentStatsRange === '30D') filtered = dataPoints.slice(0, 30);
+      else if (currentStatsRange === '3M') filtered = dataPoints.slice(0, Math.min(dataPoints.length, 90));
+
+      const w = 540;
+      const h = 220;
+      const padLeft = 45;
+      const padRight = 35;
+      const padTop = 30;
+      const padBottom = 35;
+      const chartW = w - padLeft - padRight;
+      const chartH = h - padTop - padBottom;
+
+      const yTicks = [0, maxVal * 0.25, maxVal * 0.5, maxVal * 0.75, maxVal];
+      let gridLinesHtml = '';
+      yTicks.forEach(tickVal => {
+        const y = padTop + chartH - (tickVal / maxVal) * chartH;
+        let lbl = '$' + (tickVal >= 1000 ? (tickVal / 1000).toFixed(0) + 'K' : tickVal.toFixed(0));
+        gridLinesHtml += `
+          <line x1="${padLeft}" y1="${y}" x2="${w - padRight}" y2="${y}" stroke="currentColor" stroke-opacity="0.08" stroke-dasharray="2 3" />
+          <text x="${padLeft - 6}" y="${y + 3.5}" text-anchor="end" fill="currentColor" opacity="0.45" font-size="9" font-family="monospace">${lbl}</text>
+        `;
+      });
+
+      // Target path line (dashed amber)
+      const targetY = padTop + chartH - (finalTarget / maxVal) * chartH;
+      const targetLineHtml = `
+        <line x1="${padLeft}" y1="${targetY}" x2="${w - padRight}" y2="${targetY}" stroke="#D97706" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.85" />
+        <rect x="${w - padRight - 85}" y="${targetY - 10}" width="80" height="18" rx="4" fill="#C2984D" opacity="0.9" />
+        <text x="${w - padRight - 45}" y="${targetY + 2}" text-anchor="middle" fill="#FFFFFF" font-size="9" font-weight="bold" font-family="sans-serif">Target: ${fmt(finalTarget)}</text>
+      `;
+
+      // Actual curve
+      const loggedPoints = filtered.filter(p => p.actual !== null);
+      let pathD = '';
+      let circlesHtml = '';
+      let xLabelsHtml = '';
+
+      filtered.forEach((p, idx) => {
+        const x = padLeft + (idx / Math.max(1, filtered.length - 1)) * chartW;
+        if (p.actual !== null) {
+          const y = padTop + chartH - (p.actual / maxVal) * chartH;
+          if (!pathD) pathD = `M ${x} ${y}`;
+          else pathD += ` L ${x} ${y}`;
+
+          circlesHtml += `
+            <circle cx="${x}" cy="${y}" r="4" fill="#10B981" stroke="#0F1411" stroke-width="2" />
+            <circle cx="${x}" cy="${y}" r="1.5" fill="#FFFFFF" />
+          `;
+        }
+
+        // X-axis label every few points
+        const step = Math.max(1, Math.floor(filtered.length / 5));
+        if (idx % step === 0 || idx === filtered.length - 1) {
+          xLabelsHtml += `
+            <text x="${x}" y="${h - 12}" text-anchor="middle" fill="currentColor" opacity="0.45" font-size="9" font-family="monospace">S${p.session}</text>
+          `;
+        }
+      });
+
+      svg.innerHTML = `
+        ${gridLinesHtml}
+        ${targetLineHtml}
+        ${pathD ? `<path d="${pathD}" fill="none" stroke="#10B981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />` : ''}
+        ${circlesHtml}
+        ${xLabelsHtml}
+      `;
+    }
+
+    function renderStatsPnlBreakdown() {
+      const overall = calculateTradeJournalAnalytics(tradeLogs);
+      let winDollars = 0;
+      let lossDollars = 0;
+      let beDollars = 0;
+
+      tradeLogs.forEach(t => {
+        const c = calculateTradePnL(t);
+        if (c.isRealized) {
+          if (c.pnl > 0.001) winDollars += c.pnl;
+          else if (c.pnl < -0.001) lossDollars += Math.abs(c.pnl);
+          else beDollars += 0;
+        }
+      });
+
+      const totalRealized = winDollars + lossDollars + beDollars;
+      const winPct = totalRealized > 0 ? Math.round((winDollars / totalRealized) * 100) : 0;
+      const lossPct = totalRealized > 0 ? Math.round((lossDollars / totalRealized) * 100) : 0;
+      const bePct = totalRealized > 0 ? Math.max(0, 100 - winPct - lossPct) : 0;
+
+      const centerPnL = document.getElementById('pnlDonutCenterPnL');
+      if (centerPnL) centerPnL.textContent = (overall.totalRealizedPnL >= 0 ? '+' : '') + fmt(overall.totalRealizedPnL);
+
+      const winVal = document.getElementById('pnlBreakdownWinVal');
+      const winP = document.getElementById('pnlBreakdownWinPct');
+      if (winVal) winVal.textContent = '+$' + winDollars.toFixed(2);
+      if (winP) winP.textContent = winPct + '%';
+
+      const lossVal = document.getElementById('pnlBreakdownLossVal');
+      const lossP = document.getElementById('pnlBreakdownLossPct');
+      if (lossVal) lossVal.textContent = '-$' + lossDollars.toFixed(2);
+      if (lossP) lossP.textContent = lossPct + '%';
+
+      const beVal = document.getElementById('pnlBreakdownBEVal');
+      const beP = document.getElementById('pnlBreakdownBEPct');
+      if (beVal) beVal.textContent = '$' + beDollars.toFixed(2);
+      if (beP) beP.textContent = bePct + '%';
+
+      // Update SVG donut segments
+      const circ = 238.76;
+      const winLen = (winPct / 100) * circ;
+      const lossLen = (lossPct / 100) * circ;
+      const beLen = (bePct / 100) * circ;
+
+      const segWin = document.getElementById('pnlDonutSegmentWin');
+      const segLoss = document.getElementById('pnlDonutSegmentLoss');
+      const segBE = document.getElementById('pnlDonutSegmentBE');
+
+      if (segWin) {
+        segWin.style.strokeDasharray = `${winLen} ${circ}`;
+        segWin.style.strokeDashoffset = '0';
+      }
+      if (segLoss) {
+        segLoss.style.strokeDasharray = `${lossLen} ${circ}`;
+        segLoss.style.strokeDashoffset = `-${winLen}`;
+      }
+      if (segBE) {
+        segBE.style.strokeDasharray = `${beLen} ${circ}`;
+        segBE.style.strokeDashoffset = `-${winLen + lossLen}`;
+      }
+    }
+
+    function renderStatsTradeDistribution() {
+      const svg = document.getElementById('statsTradeSizeChartSvg');
+      if (!svg) return;
+
+      const buckets = [
+        { label: '<$50', min: 0, max: 50, count: 0 },
+        { label: '$50-100', min: 50, max: 100, count: 0 },
+        { label: '$100-200', min: 100, max: 200, count: 0 },
+        { label: '$200-300', min: 200, max: 300, count: 0 },
+        { label: '>$300', min: 300, max: Infinity, count: 0 }
+      ];
+
+      tradeLogs.forEach(t => {
+        const amt = t.entryAmount || 0;
+        const b = buckets.find(b => amt >= b.min && amt < b.max);
+        if (b) b.count++;
+      });
+
+      const maxCount = Math.max(4, ...buckets.map(b => b.count));
+      const w = 320;
+      const h = 120;
+      const padLeft = 25;
+      const padRight = 15;
+      const padTop = 15;
+      const padBottom = 25;
+      const chartW = w - padLeft - padRight;
+      const chartH = h - padTop - padBottom;
+      const barW = 28;
+
+      let barsHtml = '';
+      buckets.forEach((b, i) => {
+        const x = padLeft + (i + 0.5) * (chartW / buckets.length) - barW / 2;
+        const barH = (b.count / maxCount) * chartH;
+        const y = padTop + chartH - barH;
+
+        barsHtml += `
+          <rect x="${x}" y="${y}" width="${barW}" height="${Math.max(2, barH)}" rx="3" fill="#D97706" opacity="${b.count > 0 ? '0.85' : '0.25'}" />
+          <text x="${x + barW / 2}" y="${h - 8}" text-anchor="middle" fill="currentColor" opacity="0.45" font-size="8" font-family="sans-serif">${b.label}</text>
+        `;
+      });
+
+      // Axis lines
+      const yAxisHtml = `
+        <line x1="${padLeft}" y1="${padTop}" x2="${padLeft}" y2="${h - padBottom}" stroke="currentColor" stroke-opacity="0.1" />
+        <line x1="${padLeft}" y1="${h - padBottom}" x2="${w - padRight}" y2="${h - padBottom}" stroke="currentColor" stroke-opacity="0.1" />
+        <text x="${padLeft - 5}" y="${padTop + 6}" text-anchor="end" fill="currentColor" opacity="0.4" font-size="8" font-family="monospace">${maxCount}</text>
+        <text x="${padLeft - 5}" y="${h - padBottom}" text-anchor="end" fill="currentColor" opacity="0.4" font-size="8" font-family="monospace">0</text>
+      `;
+
+      svg.innerHTML = yAxisHtml + barsHtml;
+    }
+
+    function renderStatsRecentTrades() {
+      const tbody = document.getElementById('statsRecentTradesTbody');
+      const emptyState = document.getElementById('statsRecentTradesEmptyState');
+      if (!tbody) return;
+
+      const recent = tradeLogs.slice(-6).reverse();
+
+      if (recent.length === 0) {
+        if (emptyState) emptyState.classList.remove('hidden');
+        tbody.innerHTML = '';
+        return;
+      }
+
+      if (emptyState) emptyState.classList.add('hidden');
+      tbody.innerHTML = recent.map((t, idx) => {
+        const c = calculateTradePnL(t);
+        const pnlColor = c.isRealized ? (c.pnl >= 0 ? 'text-[var(--mint)]' : 'text-[var(--coral)]') : 'text-[var(--text-muted)]';
+        const pnlText = c.isRealized ? ((c.pnl >= 0 ? '+' : '') + fmt(c.pnl)) : 'Open';
+        const retText = c.isRealized ? ((c.returnPct >= 0 ? '+' : '') + c.returnPct.toFixed(1) + '%') : '—';
+
+        return `
+          <tr class="hover:bg-[var(--surface-hover)] transition text-xs">
+            <td class="py-2.5 px-3 text-[var(--text-secondary)] font-num">${t.date || '—'}</td>
+            <td class="py-2.5 px-3 font-bold text-[var(--text-primary)]">${escapeHtml(t.label || ('Trade ' + (idx + 1)))}</td>
+            <td class="py-2.5 px-3 text-right text-[var(--text-primary)] font-num">${fmt(t.entryAmount)} → ${t.exitValue ? fmt(t.exitValue) : '—'}</td>
+            <td class="py-2.5 px-3 text-right font-bold ${pnlColor}">${pnlText}</td>
+            <td class="py-2.5 px-3 text-right font-bold ${pnlColor}">${retText}</td>
+            <td class="py-2.5 px-3 text-center">
+              <button type="button" onclick="switchTab('trades'); changeTradeJournalSession(${t.session || 1});" class="text-[10px] font-bold text-[var(--mint)] hover:underline">
+                View
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
     function renderStatsTab() {
       const ladder = getActiveLadder();
       const startBase = ladder[0]?.r || ladder[0]?.target || 0;
@@ -8972,7 +9590,192 @@ service cloud.firestore {
       const netProfit = trueWealth - startBase;
       const summitPct = finalTarget > 0 ? Math.min(100, Math.max(0, (trueWealth / finalTarget) * 100)) : 0;
 
-      // Level determination
+      // Overall Trade Journal Analytics
+      const overallStats = calculateTradeJournalAnalytics(tradeLogs);
+      const realizedTrades = tradeLogs.filter(t => t.status === 'closed');
+
+      // 1. Total Trades Card
+      const stTradesEl = document.getElementById('journalMetricTotalTrades2');
+      if (stTradesEl) stTradesEl.textContent = overallStats.totalTrades;
+
+      const stWLEl = document.getElementById('journalMetricWinLossRecord2');
+      if (stWLEl) stWLEl.textContent = `${overallStats.wins} win / ${overallStats.losses} loss`;
+
+      // 2. Win Rate Card
+      const effectiveWinRate = overallStats.closedTrades > 0 ? Math.round(overallStats.winRate) : winRate;
+      const winRateEl = document.getElementById('statsWinRate');
+      if (winRateEl) winRateEl.innerText = `${effectiveWinRate}%`;
+
+      const winCountEl = document.getElementById('statsWinCount');
+      if (winCountEl) {
+        winCountEl.innerText = overallStats.closedTrades > 0
+          ? `${overallStats.wins}/${overallStats.closedTrades} winning trades`
+          : `${greenDays} green / ${totalLogged} logged`;
+      }
+
+      const winRateGauge = document.getElementById('statsWinRateGauge');
+      if (winRateGauge) {
+        const offset = 87.96 * (1 - Math.min(100, effectiveWinRate) / 100);
+        winRateGauge.style.strokeDashoffset = offset;
+      }
+      const winRateMini = document.getElementById('statsWinRateMiniPct');
+      if (winRateMini) winRateMini.textContent = `${effectiveWinRate}%`;
+
+      // 3. Total P&L Card
+      const totalProfitEl = document.getElementById('statsTotalProfit');
+      if (totalProfitEl) {
+        const pnl = overallStats.closedTrades > 0 ? overallStats.totalRealizedPnL : netProfit;
+        totalProfitEl.innerText = (pnl >= 0 ? '+' : '') + fmt(pnl);
+        totalProfitEl.className = `text-2xl sm:text-3xl font-black font-num ${pnl >= 0 ? 'text-[var(--mint)]' : 'text-[var(--coral)]'}`;
+      }
+      const totalRoiSub = document.getElementById('statsTotalRoiSubtext');
+      if (totalRoiSub) {
+        totalRoiSub.textContent = `${overallStats.avgReturnPct >= 0 ? '+' : ''}${overallStats.avgReturnPct.toFixed(1)}% return`;
+      }
+
+      // 4. Best Trade Card
+      let maxTradePnL = -Infinity;
+      let bestTradeLabel = 'No trades yet';
+      realizedTrades.forEach(t => {
+        const c = calculateTradePnL(t);
+        if (c.pnl > maxTradePnL) {
+          maxTradePnL = c.pnl;
+          bestTradeLabel = t.label || (`Session ${t.session}`);
+        }
+      });
+
+      const bestGainEl = document.getElementById('statsBestGain');
+      if (bestGainEl) {
+        if (maxTradePnL > -Infinity) {
+          bestGainEl.innerText = (maxTradePnL >= 0 ? '+' : '') + fmt(maxTradePnL);
+          bestGainEl.className = 'text-2xl sm:text-3xl font-black font-num text-[var(--mint)] mt-0.5';
+        } else {
+          bestGainEl.innerText = bestSessionGain > -Infinity ? `+${fmt(bestSessionGain)}` : '$0.00';
+          bestGainEl.className = 'text-2xl sm:text-3xl font-black font-num text-[var(--mint)] mt-0.5';
+        }
+      }
+      const bestSessionNumEl = document.getElementById('statsBestSessionNum');
+      if (bestSessionNumEl) {
+        bestSessionNumEl.innerText = maxTradePnL > -Infinity ? bestTradeLabel : (bestSessionGain > -Infinity ? `Session ${bestSessionNum} peak` : 'No trades yet');
+      }
+
+      // 5. Worst Trade Card
+      let minTradePnL = Infinity;
+      let worstTradeLabel = 'No trades yet';
+      realizedTrades.forEach(t => {
+        const c = calculateTradePnL(t);
+        if (c.pnl < minTradePnL) {
+          minTradePnL = c.pnl;
+          worstTradeLabel = t.label || (`Session ${t.session}`);
+        }
+      });
+
+      const worstTradeEl = document.getElementById('statsWorstTradeVal');
+      if (worstTradeEl) {
+        if (minTradePnL < Infinity) {
+          worstTradeEl.innerText = (minTradePnL < 0 ? '-' : '') + fmt(Math.abs(minTradePnL));
+          worstTradeEl.className = `text-2xl sm:text-3xl font-black font-num ${minTradePnL < 0 ? 'text-[var(--coral)]' : 'text-[var(--text-primary)]'} mt-0.5`;
+        } else {
+          worstTradeEl.innerText = '$0.00';
+          worstTradeEl.className = 'text-2xl sm:text-3xl font-black font-num text-[var(--text-primary)] mt-0.5';
+        }
+      }
+      const worstTradeSub = document.getElementById('statsWorstTradeSubtext');
+      if (worstTradeSub) {
+        worstTradeSub.innerText = minTradePnL < Infinity ? worstTradeLabel : 'No trades yet';
+      }
+
+      // 4 Metrics Strip under Portfolio Growth
+      const avgTradeSizeEl = document.getElementById('statsAvgTradeSize');
+      if (avgTradeSizeEl) {
+        const totalEntry = realizedTrades.reduce((sum, t) => sum + (t.entryAmount || 0), 0);
+        avgTradeSizeEl.textContent = realizedTrades.length > 0 ? fmt(totalEntry / realizedTrades.length) : '$0.00';
+      }
+
+      const winningTrades = realizedTrades.filter(t => calculateTradePnL(t).pnl > 0.001);
+      const avgWinEl = document.getElementById('statsAvgWinVal');
+      if (avgWinEl) {
+        const winSum = winningTrades.reduce((sum, t) => sum + calculateTradePnL(t).pnl, 0);
+        avgWinEl.textContent = winningTrades.length > 0 ? '+' + fmt(winSum / winningTrades.length) : '$0.00';
+      }
+
+      const losingTrades = realizedTrades.filter(t => calculateTradePnL(t).pnl < -0.001);
+      const avgLossEl = document.getElementById('statsAvgLossVal');
+      if (avgLossEl) {
+        const lossSum = Math.abs(losingTrades.reduce((sum, t) => sum + calculateTradePnL(t).pnl, 0));
+        avgLossEl.textContent = losingTrades.length > 0 ? '-' + fmt(lossSum / losingTrades.length) : '$0.00';
+      }
+
+      const pf = calculateProfitFactor(sessionPnLs);
+      const statsProfitFactorEl = document.getElementById('statsProfitFactor');
+      const statsProfitFactorSubtextEl = document.getElementById('statsProfitFactorSubtext');
+      if (statsProfitFactorEl) {
+        const totalWinDollar = winningTrades.reduce((sum, t) => sum + calculateTradePnL(t).pnl, 0);
+        const totalLossDollar = Math.abs(losingTrades.reduce((sum, t) => sum + calculateTradePnL(t).pnl, 0));
+
+        if (totalLossDollar > 0) {
+          statsProfitFactorEl.innerText = (totalWinDollar / totalLossDollar).toFixed(2);
+        } else if (totalWinDollar > 0) {
+          statsProfitFactorEl.innerText = '∞';
+        } else if (isFinite(pf) && pf > 0) {
+          statsProfitFactorEl.innerText = pf.toFixed(2);
+        } else {
+          statsProfitFactorEl.innerText = '0.00';
+        }
+      }
+      if (statsProfitFactorSubtextEl) {
+        statsProfitFactorSubtextEl.innerText = 'Gross profit / loss';
+      }
+
+      // Render Middle & Bottom visual sections
+      renderStatsGrowthChart();
+      renderStatsPnlBreakdown();
+      renderStatsTradeDistribution();
+      renderStatsRecentTrades();
+
+      // Performance Insights
+      const insightBestDay = document.getElementById('statsInsightBestDay');
+      const insightBestDaySub = document.getElementById('statsInsightBestDaySub');
+      if (insightBestDay) {
+        if (realizedTrades.length > 0 && maxTradePnL > -Infinity) {
+          insightBestDay.innerText = bestTradeLabel;
+          if (insightBestDaySub) insightBestDaySub.innerText = '+' + fmt(maxTradePnL);
+        } else if (bestSessionGain > -Infinity) {
+          insightBestDay.innerText = `Session ${bestSessionNum}`;
+          if (insightBestDaySub) insightBestDaySub.innerText = '+' + fmt(bestSessionGain);
+        } else {
+          insightBestDay.innerText = '—';
+          if (insightBestDaySub) insightBestDaySub.innerText = 'No data yet';
+        }
+      }
+
+      const insightMostTraded = document.getElementById('statsInsightMostTraded');
+      const insightMostTradedSub = document.getElementById('statsInsightMostTradedSub');
+      if (insightMostTraded) {
+        if (tradeLogs.length > 0) {
+          insightMostTraded.innerText = `Session ${tradeJournalActiveSession || 1}`;
+          if (insightMostTradedSub) insightMostTradedSub.innerText = `${tradeLogs.length} trades recorded`;
+        } else {
+          insightMostTraded.innerText = '—';
+          if (insightMostTradedSub) insightMostTradedSub.innerText = 'No data yet';
+        }
+      }
+
+      const insightWinStreak = document.getElementById('statsInsightWinStreak');
+      const insightWinStreakSub = document.getElementById('statsInsightWinStreakSub');
+      if (insightWinStreak) {
+        insightWinStreak.innerText = maxStreak;
+        if (insightWinStreakSub) insightWinStreakSub.innerText = maxStreak > 0 ? `${maxStreak} consecutive green` : 'No streak yet';
+      }
+
+      const insightLossStreak = document.getElementById('statsInsightLossStreak');
+      const insightLossStreakSub = document.getElementById('statsInsightLossStreakSub');
+      if (insightLossStreak) {
+        insightLossStreak.innerText = redDays;
+        if (insightLossStreakSub) insightLossStreakSub.innerText = redDays > 0 ? `${redDays} red sessions` : 'Zero losses';
+      }
+
+      // Level determination & Gamified elements (preserved)
       const lvl = currentSession <= 5 ? 1 : (currentSession <= 11 ? 2 : (currentSession <= 18 ? 3 : (currentSession <= 24 ? 4 : 5)));
       const levelTitles = {
         1: { rank: "Rank I", title: "Base Camp Pioneer", desc: "Beginning the ascent. Solid discipline compounds exponentially." },
@@ -9029,31 +9832,8 @@ service cloud.firestore {
       const lvlProgBarEl = document.getElementById('statsLevelProgressBar');
       if (lvlProgBarEl) lvlProgBarEl.style.width = `${progressPct}%`;
 
-      // 6 Core Metrics
-      const winRateEl = document.getElementById('statsWinRate');
-      if (winRateEl) winRateEl.innerText = `${winRate}%`;
-
-      const winCountEl = document.getElementById('statsWinCount');
-      if (winCountEl) winCountEl.innerText = `${greenDays} green / ${totalLogged} logged`;
-
-      const totalProfitEl = document.getElementById('statsTotalProfit');
-      if (totalProfitEl) {
-        totalProfitEl.innerText = `${netProfit >= 0 ? '+' : '-'}${fmt(Math.abs(netProfit))}`;
-        totalProfitEl.className = `text-2xl sm:text-3xl font-black ${netProfit >= 0 ? 'text-[#607B5B] dark:text-[#789272]' : 'text-[#B86652] dark:text-[#C77B68]'}`;
-      }
-
       const vaultBankedEl = document.getElementById('statsVaultBanked');
       if (vaultBankedEl) vaultBankedEl.innerText = fmt(totalVault);
-
-      const bestGainEl = document.getElementById('statsBestGain');
-      if (bestGainEl) {
-        bestGainEl.innerText = bestSessionGain > -Infinity ? `+${fmt(bestSessionGain)}` : '$0.00';
-      }
-
-      const bestSessionNumEl = document.getElementById('statsBestSessionNum');
-      if (bestSessionNumEl) {
-        bestSessionNumEl.innerText = bestSessionGain > -Infinity ? `Session ${bestSessionNum} peak` : 'Single day peak';
-      }
 
       const avgGainEl = document.getElementById('statsAvgGain');
       if (avgGainEl) {
@@ -9069,7 +9849,6 @@ service cloud.firestore {
 
       // Quantitative Risk & Institutional Performance Analytics Calculations
       const watermarkInfo = calculateWatermarkAndDrawdown(trueWealthSeries);
-      const pf = calculateProfitFactor(sessionPnLs);
       const totalROI = startBase > 0 ? ((trueWealth - startBase) / startBase) * 100 : 0;
 
       const statsPeakWatermarkEl = document.getElementById('statsPeakWatermark');
@@ -9081,39 +9860,17 @@ service cloud.firestore {
       if (statsMaxDrawdownEl) {
         if (watermarkInfo.maxDrawdownDollar > 0) {
           statsMaxDrawdownEl.innerText = `-${fmt(watermarkInfo.maxDrawdownDollar)} (${watermarkInfo.maxDrawdownPct.toFixed(1)}%)`;
-          statsMaxDrawdownEl.className = 'text-2xl sm:text-3xl font-black text-[#B86652] dark:text-[#C77B68]';
+          statsMaxDrawdownEl.className = 'text-lg font-black text-[#B86652] dark:text-[#C77B68]';
         } else {
           statsMaxDrawdownEl.innerText = '$0.00 (0.0%)';
-          statsMaxDrawdownEl.className = 'text-2xl sm:text-3xl font-black text-[#332B22] dark:text-[#E2D4BD]';
-        }
-      }
-
-      const statsProfitFactorEl = document.getElementById('statsProfitFactor');
-      const statsProfitFactorSubtextEl = document.getElementById('statsProfitFactorSubtext');
-      if (statsProfitFactorEl) {
-        if (totalLogged === 0 || (!isFinite(pf) && pf <= 0)) {
-          statsProfitFactorEl.innerText = '--';
-          statsProfitFactorEl.className = 'text-2xl sm:text-3xl font-black text-[#716556] dark:text-[#B4A58F]';
-        } else if (!isFinite(pf)) {
-          statsProfitFactorEl.innerText = '∞';
-          statsProfitFactorEl.className = 'text-2xl sm:text-3xl font-black text-[#607B5B] dark:text-[#789272]';
-        } else {
-          statsProfitFactorEl.innerText = pf.toFixed(2);
-          statsProfitFactorEl.className = `text-2xl sm:text-3xl font-black ${pf >= 1.5 ? 'text-[#607B5B] dark:text-[#789272]' : (pf >= 1.0 ? 'text-[#C2984D] dark:text-[#D0AA63]' : 'text-[#B86652] dark:text-[#C77B68]')}`;
-        }
-      }
-      if (statsProfitFactorSubtextEl) {
-        if (!isFinite(pf) && pf > 0) {
-          statsProfitFactorSubtextEl.innerText = 'Zero losing sessions';
-        } else {
-          statsProfitFactorSubtextEl.innerText = 'Gross gains / losses';
+          statsMaxDrawdownEl.className = 'text-lg font-black text-[var(--text-primary)]';
         }
       }
 
       const statsTotalROIEl = document.getElementById('statsTotalROI');
       if (statsTotalROIEl) {
         statsTotalROIEl.innerText = `${totalROI >= 0 ? '+' : ''}${totalROI.toFixed(1)}%`;
-        statsTotalROIEl.className = `text-2xl sm:text-3xl font-black ${totalROI >= 0 ? 'text-[#607B5B] dark:text-[#789272]' : 'text-[#B86652] dark:text-[#C77B68]'}`;
+        statsTotalROIEl.className = `text-lg font-black ${totalROI >= 0 ? 'text-[var(--mint)]' : 'text-[var(--coral)]'}`;
       }
 
       const statsFinSavingsEl = document.getElementById('statsFinancialSavings');
@@ -9127,7 +9884,7 @@ service cloud.firestore {
         statsFinDeskEl.innerText = fmt(currentDesk);
       }
 
-      // 7 Gamified Badges
+      // Gamified Badges
       const badges = [
         {
           id: 'first_ascent',
@@ -9196,29 +9953,29 @@ service cloud.firestore {
         badgesContainerEl.innerHTML = badges.map(b => `
           <div class="p-4 rounded-2xl border transition-all ${
             b.unlocked 
-              ? 'bg-[#607B5B]/10 dark:bg-[#789272]/15 border-[#607B5B]/40 dark:border-[#789272]/40 shadow-xs' 
-              : 'bg-[#F5EBDD]/60 dark:bg-[#41382D]/30 border-[#CFC1AA]/50 dark:border-[#514638]/50 opacity-75'
+              ? 'bg-[var(--mint-tint)] border-[var(--mint)]/40 shadow-xs' 
+              : 'bg-[var(--surface-subtle)] border-[var(--border)] opacity-75'
           } flex flex-col justify-between space-y-3">
             <div class="flex items-start justify-between gap-2">
               <div class="flex items-center gap-3">
                 <div class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ${
                   b.unlocked 
-                    ? 'bg-[#607B5B] text-[#F5EBDD] dark:bg-[#789272] dark:text-[#29241E] shadow-xs' 
-                    : 'bg-[#CFC1AA]/40 dark:bg-[#514638]/40 text-[#716556] dark:text-[#B4A58F]'
+                    ? 'bg-[var(--mint)] text-[#0F1411] shadow-xs' 
+                    : 'bg-[var(--surface-muted)] text-[var(--text-muted)]'
                 }">
                   ${b.iconSvg}
                 </div>
                 <div>
-                  <h4 class="font-bold text-xs sm:text-sm text-[#332B22] dark:text-[#E2D4BD]">${b.title}</h4>
-                  <p class="text-[11px] text-[#716556] dark:text-[#B4A58F] leading-snug mt-0.5">${b.desc}</p>
+                  <h4 class="font-bold text-xs sm:text-sm text-[var(--text-primary)]">${b.title}</h4>
+                  <p class="text-[11px] text-[var(--text-secondary)] leading-snug mt-0.5">${b.desc}</p>
                 </div>
               </div>
             </div>
-            <div class="flex items-center justify-between pt-2 border-t border-[#CFC1AA]/40 dark:border-[#514638]/40 text-[11px] font-num">
-              <span class="${b.unlocked ? 'text-[#607B5B] dark:text-[#789272] font-bold' : 'text-[#716556] dark:text-[#B4A58F]'}">${b.progressText}</span>
+            <div class="flex items-center justify-between pt-2 border-t border-[var(--border)] text-[11px] font-num">
+              <span class="${b.unlocked ? 'text-[var(--mint)] font-bold' : 'text-[var(--text-muted)]'}">${b.progressText}</span>
               ${b.unlocked 
-                ? `<span class="inline-flex items-center gap-1 font-bold text-[#607B5B] dark:text-[#789272]"><svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Unlocked</span></span>` 
-                : `<span class="inline-flex items-center gap-1 text-[#716556] dark:text-[#B4A58F]"><svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><span>Locked</span></span>`
+                ? `<span class="inline-flex items-center gap-1 font-bold text-[var(--mint)]"><svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Unlocked</span></span>` 
+                : `<span class="inline-flex items-center gap-1 text-[var(--text-muted)]"><svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><span>Locked</span></span>`
               }
             </div>
           </div>
@@ -9230,16 +9987,16 @@ service cloud.firestore {
       if (paceBreakdownEl) {
         if (totalLogged === 0) {
           paceBreakdownEl.innerHTML = `
-            <div class="text-center py-6 text-xs text-[#716556] dark:text-[#B4A58F]">
+            <div class="text-center py-6 text-xs text-[var(--text-muted)]">
               Enter your session balances in the Daily Tracker to see your pace distribution.
             </div>
           `;
         } else {
           const paceRows = [
-            { label: 'Aggressive Pace', count: paceAggCount, color: 'bg-[#806A86] dark:bg-[#9A849F]', text: 'text-[#806A86] dark:text-[#9A849F]' },
-            { label: 'Mid Pace', count: paceMidCount, color: 'bg-[#C2984D] dark:bg-[#D0AA63]', text: 'text-[#C2984D] dark:text-[#D0AA63]' },
-            { label: 'Relaxed Pace', count: paceRelaxedCount, color: 'bg-[#607B5B] dark:bg-[#789272]', text: 'text-[#607B5B] dark:text-[#789272]' },
-            { label: 'Below Target', count: paceBelowCount, color: 'bg-[#B86652] dark:bg-[#C77B68]', text: 'text-[#B86652] dark:text-[#C77B68]' }
+            { label: 'Aggressive Pace', count: paceAggCount, color: 'bg-[var(--lavender)]', text: 'text-[var(--lavender)]' },
+            { label: 'Mid Pace', count: paceMidCount, color: 'bg-[var(--amber)]', text: 'text-[var(--amber)]' },
+            { label: 'Relaxed Pace', count: paceRelaxedCount, color: 'bg-[var(--mint)]', text: 'text-[var(--mint)]' },
+            { label: 'Below Target', count: paceBelowCount, color: 'bg-[var(--coral)]', text: 'text-[var(--coral)]' }
           ];
 
           paceBreakdownEl.innerHTML = paceRows.map(p => {
@@ -9247,10 +10004,10 @@ service cloud.firestore {
             return `
               <div class="space-y-1">
                 <div class="flex justify-between items-center text-xs">
-                  <span class="font-bold text-[#332B22] dark:text-[#E2D4BD]">${p.label}</span>
+                  <span class="font-bold text-[var(--text-primary)]">${p.label}</span>
                   <span class="font-bold ${p.text}">${p.count} sessions (${pct}%)</span>
                 </div>
-                <div class="w-full bg-[#E8DDC9] dark:bg-[#29241E] h-2 rounded-full overflow-hidden border border-[#CFC1AA] dark:border-[#514638]">
+                <div class="w-full bg-[var(--surface-muted)] h-2 rounded-full overflow-hidden border border-[var(--border)]">
                   <div class="${p.color} h-full rounded-full transition-all duration-300" style="width: ${pct}%"></div>
                 </div>
               </div>
@@ -9261,7 +10018,7 @@ service cloud.firestore {
 
       // Climber's Compass Tactical Insight
       const insightEl = document.getElementById('statsInsightText');
-       if (insightEl) {
+      if (insightEl) {
         if (totalLogged === 0) {
           insightEl.innerText = "Welcome to the start of your compounding challenge. Focus entirely on trading your plan with zero emotional attachment. The goal of Session 1 is simple: execute cleanly and record your closing balance.";
         } else if (totalVault >= startBase) {
@@ -9273,16 +10030,6 @@ service cloud.firestore {
         } else {
           insightEl.innerText = "Trading progress is non-linear. Drawdowns and flat days are normal. Keep your risk per trade small, aim for the relaxed pace, and focus on steady execution.";
         }
-      }
-
-      // ── NEW: Sync redesigned Stats KPI cards ─────────────────────────────
-      // Total Trades card on Stats page (journalMetricTotalTrades2)
-      const stTradesEl = document.getElementById('journalMetricTotalTrades2');
-      if (stTradesEl) {
-        const overallStats = calculateTradeJournalAnalytics(tradeLogs);
-        stTradesEl.textContent = overallStats.totalTrades;
-        const stWLEl = document.getElementById('journalMetricWinLossRecord2');
-        if (stWLEl) stWLEl.textContent = `${overallStats.wins} win / ${overallStats.losses} loss`;
       }
     }
 

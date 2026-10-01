@@ -1805,265 +1805,311 @@
     <div id="tabContentTrades" class="hidden space-y-5 sm:space-y-6">
 
       <!-- ── Organic Header Banner ────────────────────────────────────────── -->
-      <div class="bento-card relative overflow-hidden rounded-2xl" style="min-height:140px">
-        <!-- dark gradient bg -->
-        <div class="absolute inset-0 rounded-2xl" style="background:linear-gradient(135deg,#152117 0%,#1E3020 55%,#25281A 100%)"></div>
+      <section class="relative overflow-hidden rounded-3xl bg-[#121A15] border border-[#23352A] shadow-xl text-[#F5EBDD] p-6 sm:p-8">
+        <!-- Ambient background glows -->
+        <div class="absolute -top-24 -left-24 w-80 h-80 rounded-full bg-[#10B981]/15 blur-3xl pointer-events-none"></div>
+        <div class="absolute -bottom-24 -right-24 w-96 h-96 rounded-full bg-[#F59E0B]/12 blur-3xl pointer-events-none"></div>
 
-        <!-- SVG trading-desk landscape artwork (right side) -->
-        <svg class="absolute right-0 top-0 h-full w-1/2 sm:w-2/5 opacity-60 pointer-events-none" viewBox="0 0 420 160" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMaxYMid slice">
-          <!-- Moon -->
-          <circle cx="320" cy="38" r="28" fill="#D97706" opacity=".25"/>
-          <circle cx="320" cy="38" r="20" fill="#F5EBDD" opacity=".12"/>
-          <!-- Mountain silhouettes -->
-          <polygon points="200,160 310,55 420,160" fill="#1a2e1e" opacity=".7"/>
-          <polygon points="280,160 370,70 460,160" fill="#152519" opacity=".55"/>
-          <polygon points="120,160 230,85 340,160" fill="#213326" opacity=".5"/>
-          <!-- Forest line -->
-          <rect x="0" y="135" width="420" height="25" fill="#111e14" opacity=".8"/>
-          <!-- Monitor -->
-          <rect x="60" y="60" width="100" height="65" rx="6" fill="#0f1a12" stroke="#2E9D68" stroke-width="1.2" opacity=".8"/>
-          <!-- Screen candlesticks -->
-          <g stroke="#2E9D68" stroke-width="1.5" opacity=".9">
-            <line x1="78" y1="100" x2="78" y2="80"/>
-            <rect x="74" y="85" width="8" height="10" fill="#2E9D68" rx="1"/>
-            <line x1="94" y1="95" x2="94" y2="75"/>
-            <rect x="90" y="78" width="8" height="14" fill="#2E9D68" rx="1"/>
-            <line x1="110" y1="90" x2="110" y2="70"/>
-            <rect x="106" y="74" width="8" height="12" fill="#2E9D68" rx="1"/>
-            <line x1="126" y1="95" x2="126" y2="83"/>
-            <rect x="122" y="87" width="8" height="7" fill="#DC4C3E" rx="1" stroke="#DC4C3E"/>
-            <line x1="142" y1="86" x2="142" y2="68"/>
-            <rect x="138" y="72" width="8" height="11" fill="#2E9D68" rx="1"/>
-          </g>
-          <!-- Monitor stand -->
-          <rect x="100" y="125" width="20" height="5" rx="2" fill="#1f2d22" opacity=".7"/>
-          <rect x="105" y="118" width="10" height="8" rx="1" fill="#1f2d22" opacity=".7"/>
-          <!-- Desk surface -->
-          <rect x="40" y="128" width="150" height="6" rx="3" fill="#263a28" opacity=".6"/>
-          <!-- Lamp -->
-          <line x1="180" y1="128" x2="180" y2="95" stroke="#3a5040" stroke-width="2" opacity=".7"/>
-          <ellipse cx="180" cy="92" rx="14" ry="7" fill="#D97706" opacity=".2"/>
-          <!-- Foliage left -->
-          <g opacity=".5" fill="#2E9D68">
-            <ellipse cx="22" cy="110" rx="18" ry="12" transform="rotate(-15,22,110)"/>
-            <ellipse cx="10" cy="120" rx="14" ry="9" transform="rotate(-30,10,120)"/>
-            <ellipse cx="35" cy="118" rx="12" ry="8" transform="rotate(10,35,118)"/>
-          </g>
-        </svg>
-
-        <!-- Sparkle dots -->
-        <div class="absolute top-4 right-1/3 w-1 h-1 rounded-full bg-[var(--amber)] opacity-60"></div>
-        <div class="absolute top-10 right-1/4 w-1.5 h-1.5 rounded-full bg-[var(--mint)] opacity-40"></div>
-
-        <!-- Cursive quote (top-right) -->
-        <p class="absolute top-4 right-4 text-right leading-snug pointer-events-none z-10" style="font-family:'Georgia',serif;font-style:italic;font-size:11px;color:#D97706;opacity:.75;max-width:110px">Small trades today,<br>bigger tomorrow.</p>
-
-        <!-- Header text (left) -->
-        <div class="relative z-10 p-5 sm:p-6 flex items-center gap-4">
-          <div class="w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 shadow-md" style="background:rgba(220,76,62,.18);border:1.5px solid rgba(220,76,62,.35)">
-            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="#DC4C3E" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/>
-            </svg>
-          </div>
-          <div>
-            <p class="text-[10px] font-bold uppercase tracking-widest mb-1" style="color:#8aad8e">Step 2 of 3</p>
-            <h2 class="text-2xl sm:text-3xl font-black text-[#E2D4BD]">Trading Sessions</h2>
-            <p class="text-xs mt-1" style="color:#8aad8e">Log your trades, keep it simple and stay consistent.</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- ── 4 KPI Summary Cards ───────────────────────────────────────────── -->
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-
-        <!-- Total Trades -->
-        <div class="bento-card p-4 sm:p-5 flex items-center gap-3">
-          <div class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style="background:rgba(46,157,104,.15);border:1px solid rgba(46,157,104,.3)">
-            <svg class="w-5 h-5 text-[var(--mint)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
-            </svg>
-          </div>
-          <div class="min-w-0">
-            <p class="text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)]">Total Trades</p>
-            <p class="text-2xl font-black text-[var(--text-primary)] font-num leading-tight" id="journalMetricTotalTrades">0</p>
-            <p class="text-[10px] text-[var(--text-secondary)] font-num" id="journalMetricOpenTrades">0 open positions</p>
-          </div>
-        </div>
-
-        <!-- Net P&L -->
-        <div class="bento-card p-4 sm:p-5 flex items-center gap-3">
-          <div class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style="background:rgba(217,119,6,.15);border:1px solid rgba(217,119,6,.3)">
-            <svg class="w-5 h-5 text-[var(--amber)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
-            </svg>
-          </div>
-          <div class="min-w-0">
-            <p class="text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)]">Net P&amp;L (USD)</p>
-            <p class="text-2xl font-black text-[var(--mint)] font-num leading-tight" id="journalMetricTotalPnL">+$0.00</p>
-            <p class="text-[10px] text-[var(--text-secondary)] font-num">All closed trades</p>
-          </div>
-        </div>
-
-        <!-- Win Rate -->
-        <div class="bento-card p-4 sm:p-5 flex items-center gap-3">
-          <div class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style="background:rgba(124,105,175,.15);border:1px solid rgba(124,105,175,.3)">
-            <svg class="w-5 h-5 text-[var(--lavender)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"/>
-            </svg>
-          </div>
-          <div class="min-w-0">
-            <p class="text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)]">Win Rate</p>
-            <p class="text-2xl font-black text-[var(--lavender)] font-num leading-tight" id="journalMetricWinRate">0.0%</p>
-            <p class="text-[10px] text-[var(--text-secondary)] font-num" id="journalMetricWinLossRecord">0W / 0L</p>
-          </div>
-        </div>
-
-        <!-- Avg P&L -->
-        <div class="bento-card p-4 sm:p-5 flex items-center gap-3">
-          <div class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style="background:rgba(220,76,62,.12);border:1px solid rgba(220,76,62,.25)">
-            <svg class="w-5 h-5 text-[var(--coral)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/>
-            </svg>
-          </div>
-          <div class="min-w-0">
-            <p class="text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)]">Average P&amp;L</p>
-            <p class="text-2xl font-black text-[var(--amber)] font-num leading-tight" id="journalMetricAvgReturn">+0.00%</p>
-            <p class="text-[10px] text-[var(--text-secondary)] font-num">Per closed trade</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- ── Add Trade Form ────────────────────────────────────────────────── -->
-      <section class="bento-card p-5 sm:p-6">
-        <div class="flex items-center gap-3 mb-5">
-          <div class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 bg-[var(--mint)] shadow-sm">
-            <svg class="w-5 h-5 text-white dark:text-[#0F1411]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
-            </svg>
-          </div>
-          <div>
-            <h3 class="text-sm font-bold text-[var(--text-primary)]">Add Trade</h3>
-            <p class="text-xs text-[var(--text-secondary)]">Enter your trade details below.</p>
-          </div>
-        </div>
-
-        <!-- Quick-add inline form — calls the existing modal for full detail -->
-        <div class="grid grid-cols-1 sm:grid-cols-5 gap-3 items-end">
-          <!-- Session selector (reuses existing tradeJournalSessionSelect logic) -->
-          <div>
-            <label class="text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)] block mb-1.5">Session</label>
-            <div class="flex items-center gap-1.5 border border-[var(--border)] rounded-xl px-3 py-2.5 bg-[var(--surface-subtle)]">
-              <select id="tradeJournalSessionSelect" onchange="changeTradeJournalSession(parseInt(this.value))"
-                class="bg-transparent font-num font-bold text-xs text-[var(--text-primary)] focus:outline-none cursor-pointer w-full">
-              </select>
+        <div class="relative z-10 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+          <div class="space-y-3 max-w-xl">
+            <div class="flex items-center gap-2.5">
+              <div class="w-10 h-10 rounded-2xl bg-[#E06D53]/20 border border-[#E06D53]/40 flex items-center justify-center text-[#E06D53] shadow-inner shrink-0">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
+                </svg>
+              </div>
+              <span class="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold tracking-widest uppercase bg-[#23352A] text-[#10B981] border border-[#10B981]/30">
+                Step 2 of 3
+              </span>
+            </div>
+            <div>
+              <h2 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#F5EBDD] tracking-tight">Trading Sessions</h2>
+              <p class="text-xs sm:text-sm text-[#A2B3A6] mt-1 font-medium">Track your trades and analyze individual performance.</p>
             </div>
           </div>
 
-          <!-- Trade No. (read-only preview, actual label set in modal) -->
-          <div>
-            <label class="text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)] block mb-1.5">Trade No.</label>
-            <input type="text" id="quickTradeNoPreview" placeholder="e.g. A" disabled
-              class="w-full border border-[var(--border)] rounded-xl px-3 py-2.5 bg-[var(--surface-subtle)] text-xs font-num text-[var(--text-muted)] focus:outline-none cursor-not-allowed">
+          <!-- Scenic Trading Desk Landscape Art with Script Quote -->
+          <div class="flex items-center gap-4 self-center lg:self-auto shrink-0">
+            <!-- Organic SVG Illustration: Cozy Trading Desk with Candle Monitor & Sunset Window -->
+            <div class="relative w-44 sm:w-56 h-28 sm:h-32 flex items-center justify-center">
+              <svg viewBox="0 0 220 120" class="w-full h-full drop-shadow-md" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Ambient ground glow -->
+                <ellipse cx="110" cy="108" rx="85" ry="10" fill="#0C140E" opacity="0.6"/>
+                <ellipse cx="150" cy="98" rx="40" ry="8" fill="#F59E0B" opacity="0.18" filter="blur(4px)"/>
+
+                <!-- Window frame with mountains & sunset sun -->
+                <rect x="135" y="16" width="75" height="75" rx="6" fill="#14211A" stroke="#2D4233" stroke-width="1.8"/>
+                <circle cx="172" cy="46" r="16" fill="#F59E0B" opacity="0.85"/>
+                <polygon points="136,88 165,48 190,88" fill="#1C3024" opacity="0.9"/>
+                <polygon points="160,88 185,55 210,88" fill="#15241B" opacity="0.95"/>
+                <line x1="172.5" y1="16" x2="172.5" y2="91" stroke="#2D4233" stroke-width="1.2"/>
+                <line x1="135" y1="53.5" x2="210" y2="53.5" stroke="#2D4233" stroke-width="1.2"/>
+
+                <!-- Trading Desk -->
+                <rect x="25" y="94" width="170" height="7" rx="2" fill="#2A3D30" stroke="#3D5644" stroke-width="1.2"/>
+
+                <!-- Computer Monitor -->
+                <rect x="42" y="32" width="76" height="52" rx="4" fill="#0C140E" stroke="#2E9D68" stroke-width="1.5"/>
+                <!-- Screen Candlesticks -->
+                <g stroke="#10B981" stroke-width="1.2">
+                  <line x1="56" y1="68" x2="56" y2="48"/>
+                  <rect x="53" y="52" width="6" height="10" fill="#10B981" rx="1"/>
+                  <line x1="68" y1="64" x2="68" y2="44"/>
+                  <rect x="65" y="47" width="6" height="11" fill="#10B981" rx="1"/>
+                  <line x1="80" y1="66" x2="80" y2="56"/>
+                  <rect x="77" y="59" width="6" height="5" fill="#E06D53" rx="1" stroke="#E06D53"/>
+                  <line x1="92" y1="62" x2="92" y2="42"/>
+                  <rect x="89" y="45" width="6" height="12" fill="#10B981" rx="1"/>
+                  <line x1="104" y1="58" x2="104" y2="38"/>
+                  <rect x="101" y="41" width="6" height="11" fill="#10B981" rx="1"/>
+                </g>
+                <!-- Monitor stand -->
+                <rect x="74" y="84" width="12" height="10" fill="#1C2B20"/>
+                <rect x="66" y="92" width="28" height="3" rx="1" fill="#2A3D30"/>
+
+                <!-- Desk Warm Lamp -->
+                <line x1="126" y1="94" x2="126" y2="60" stroke="#D0AA63" stroke-width="1.8" stroke-linecap="round"/>
+                <path d="M120 60 Q126 50 132 60 Z" fill="#D0AA63"/>
+                <circle cx="126" cy="62" r="8" fill="#F59E0B" opacity="0.35" filter="blur(3px)"/>
+
+                <!-- Foliage around desk -->
+                <path d="M 22 96 Q 14 74 32 62 Q 24 78 34 92 Z" fill="#10B981" opacity="0.85"/>
+                <path d="M 34 96 Q 38 78 50 82 Q 40 88 38 96 Z" fill="#059669" opacity="0.9"/>
+
+                <!-- Warm orbs -->
+                <circle cx="86" cy="20" r="1.5" fill="#FFE5A3" opacity="0.9"/>
+                <circle cx="112" cy="14" r="1.2" fill="#F59E0B" opacity="0.85"/>
+              </svg>
+            </div>
+
+            <!-- Cursive Script Quote -->
+            <div class="hidden sm:block text-right pr-2">
+              <span class="block text-sm sm:text-base font-serif italic text-[#FFE5A3] font-medium tracking-wide drop-shadow-sm" style="font-family: 'Georgia', 'Cambria', serif;">
+                "Track every trade
+              </span>
+              <span class="block text-sm sm:text-base font-serif italic text-[#FFE5A3] font-medium tracking-wide drop-shadow-sm -mt-1" style="font-family: 'Georgia', 'Cambria', serif;">
+                today."
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── 4 KPI Performance Summary Cards ──────────────────────────────── -->
+      <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <!-- 1. Total Trades -->
+        <div class="bento-card p-5 rounded-2xl bg-[var(--surface)] border border-[var(--border)] shadow-xs flex flex-col justify-between hover:border-[var(--border-strong)] transition-all">
+          <div class="flex items-center justify-between">
+            <div class="w-10 h-10 rounded-xl bg-[var(--mint-tint)] text-[var(--mint)] flex items-center justify-center shrink-0">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
+              </svg>
+            </div>
+            <div class="w-7 h-7 rounded-lg bg-[var(--mint-tint)] text-[var(--mint)] flex items-center justify-center">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+            </div>
+          </div>
+          <div class="mt-3">
+            <span class="text-xs font-semibold text-[var(--text-secondary)]">Total Trades</span>
+            <div class="text-2xl sm:text-3xl font-black font-num text-[var(--text-primary)] mt-0.5" id="journalMetricTotalTrades">0</div>
+          </div>
+          <div class="mt-2 pt-2 border-t border-[var(--border)] flex items-center justify-between text-xs text-[var(--text-muted)] font-num">
+            <span id="journalMetricWinLossRecord">0 win / 0 loss</span>
+            <span id="journalMetricOpenTrades" class="text-[10px] text-[var(--text-muted)]">0 open positions</span>
+          </div>
+        </div>
+
+        <!-- 2. Net P&L (USD) -->
+        <div class="bento-card p-5 rounded-2xl bg-[var(--surface)] border border-[var(--border)] shadow-xs flex flex-col justify-between hover:border-[var(--border-strong)] transition-all">
+          <div class="flex items-center justify-between">
+            <div class="w-10 h-10 rounded-xl bg-[var(--amber-tint)] text-[var(--amber)] flex items-center justify-center shrink-0">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
+              </svg>
+            </div>
+            <div class="w-7 h-7 rounded-lg bg-[var(--amber-tint)] text-[var(--amber)] flex items-center justify-center">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+            </div>
+          </div>
+          <div class="mt-3">
+            <span class="text-xs font-semibold text-[var(--text-secondary)]">Net P&amp;L (USD)</span>
+            <div class="text-2xl sm:text-3xl font-black font-num text-[var(--mint)] mt-0.5" id="journalMetricTotalPnL">+$0.00</div>
+          </div>
+          <div class="mt-2 pt-2 border-t border-[var(--border)] flex items-center justify-between text-xs text-[var(--text-muted)] font-num">
+            <span id="journalMetricPnLSubtext">0.0% return</span>
+            <span class="text-[10px] text-[var(--text-muted)]">All closed</span>
+          </div>
+        </div>
+
+        <!-- 3. Win Rate -->
+        <div class="bento-card p-5 rounded-2xl bg-[var(--surface)] border border-[var(--border)] shadow-xs flex flex-col justify-between hover:border-[var(--border-strong)] transition-all">
+          <div class="flex items-center justify-between">
+            <div class="w-10 h-10 rounded-xl bg-[var(--lavender-tint)] text-[var(--lavender)] flex items-center justify-center shrink-0">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"/>
+              </svg>
+            </div>
+            <div class="w-7 h-7 rounded-lg bg-[var(--lavender-tint)] text-[var(--lavender)] flex items-center justify-center">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+          </div>
+          <div class="mt-3">
+            <span class="text-xs font-semibold text-[var(--text-secondary)]">Win Rate</span>
+            <div class="text-2xl sm:text-3xl font-black font-num text-[var(--lavender)] mt-0.5" id="journalMetricWinRate">0%</div>
+          </div>
+          <div class="mt-2 pt-2 border-t border-[var(--border)] flex items-center justify-between text-xs text-[var(--text-muted)] font-num">
+            <span id="journalMetricWinTradesSubtext">0/0 winning trades</span>
+            <span class="text-[10px] text-[var(--text-muted)]">Closed trades</span>
+          </div>
+        </div>
+
+        <!-- 4. Average P&L -->
+        <div class="bento-card p-5 rounded-2xl bg-[var(--surface)] border border-[var(--border)] shadow-xs flex flex-col justify-between hover:border-[var(--border-strong)] transition-all">
+          <div class="flex items-center justify-between">
+            <div class="w-10 h-10 rounded-xl bg-[var(--coral-tint)] text-[var(--coral)] flex items-center justify-center shrink-0">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/>
+              </svg>
+            </div>
+            <div class="w-7 h-7 rounded-lg bg-[var(--coral-tint)] text-[var(--coral)] flex items-center justify-center">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>
+            </div>
+          </div>
+          <div class="mt-3">
+            <span class="text-xs font-semibold text-[var(--text-secondary)]">Average P&amp;L</span>
+            <div class="text-2xl sm:text-3xl font-black font-num text-[var(--text-primary)] mt-0.5" id="journalMetricAvgReturn">$0.00</div>
+          </div>
+          <div class="mt-2 pt-2 border-t border-[var(--border)] flex items-center justify-between text-xs text-[var(--text-muted)] font-num">
+            <span>Per trade</span>
+            <span class="text-[10px] text-[var(--text-muted)]">Expected val</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── Add Trade Form ────────────────────────────────────────────────── -->
+      <section class="bento-card p-5 sm:p-6 rounded-2xl bg-[var(--surface)] border border-[var(--border)] shadow-xs">
+        <div class="flex items-center justify-between gap-3 mb-5 pb-3 border-b border-[var(--border)]">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-[var(--mint-tint)] text-[var(--mint)] border border-[var(--mint)]/30 flex items-center justify-center shrink-0">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+              </svg>
+            </div>
+            <div>
+              <h3 class="text-sm font-bold text-[var(--text-primary)]">Add Trade</h3>
+              <p class="text-xs text-[var(--text-secondary)]">Quickly record a new trade for this session.</p>
+            </div>
           </div>
 
-          <!-- Entry -->
+          <!-- Session indicator/switch link -->
+          <div class="flex items-center gap-1.5 text-xs text-[var(--text-muted)]">
+            <span>Session:</span>
+            <select id="tradeJournalSessionSelect" onchange="changeTradeJournalSession(parseInt(this.value))"
+              class="bg-[var(--surface-subtle)] border border-[var(--border)] font-num font-bold text-xs text-[var(--text-primary)] rounded-lg px-2 py-1 focus:outline-none focus:border-[var(--mint)] cursor-pointer">
+            </select>
+          </div>
+        </div>
+
+        <!-- 4 input fields + 1 submit button -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 items-end">
+          <!-- Trade No. -->
           <div>
-            <label class="text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)] block mb-1.5">Entry (USD)</label>
-            <div class="flex items-center border border-[var(--border)] rounded-xl overflow-hidden bg-[var(--surface-subtle)]">
+            <label class="text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)] block mb-1.5">Trade No.</label>
+            <input type="text" id="quickTradeNoPreview" placeholder="e.g. 1"
+              class="w-full border border-[var(--border)] rounded-xl px-3 py-2.5 bg-[var(--surface-subtle)] text-xs font-num font-bold text-[var(--text-primary)] focus:outline-none focus:border-[var(--mint)]">
+          </div>
+
+          <!-- Entry Price -->
+          <div>
+            <label class="text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)] block mb-1.5">Entry Price</label>
+            <div class="flex items-center border border-[var(--border)] rounded-xl overflow-hidden bg-[var(--surface-subtle)] focus-within:border-[var(--mint)]">
               <span class="px-2.5 text-xs font-bold text-[var(--text-muted)] border-r border-[var(--border)]">$</span>
-              <input type="number" id="quickEntryInput" min="0" step="0.01" placeholder="0.00"
+              <input type="number" id="quickEntryInput" min="0" step="0.01" placeholder="0.00" oninput="handleQuickTradeCalc('entry')"
                 class="flex-1 px-2.5 py-2.5 bg-transparent text-xs font-num text-[var(--text-primary)] focus:outline-none">
             </div>
           </div>
 
-          <!-- Exit -->
+          <!-- Exit Price -->
           <div>
-            <label class="text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)] block mb-1.5">Exit (USD)</label>
-            <div class="flex items-center border border-[var(--border)] rounded-xl overflow-hidden bg-[var(--surface-subtle)]">
+            <label class="text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)] block mb-1.5">Exit Price</label>
+            <div class="flex items-center border border-[var(--border)] rounded-xl overflow-hidden bg-[var(--surface-subtle)] focus-within:border-[var(--mint)]">
               <span class="px-2.5 text-xs font-bold text-[var(--text-muted)] border-r border-[var(--border)]">$</span>
-              <input type="number" id="quickExitInput" min="0" step="0.01" placeholder="0.00"
+              <input type="number" id="quickExitInput" min="0" step="0.01" placeholder="0.00" oninput="handleQuickTradeCalc('exit')"
+                class="flex-1 px-2.5 py-2.5 bg-transparent text-xs font-num text-[var(--text-primary)] focus:outline-none">
+            </div>
+          </div>
+
+          <!-- P&L -->
+          <div>
+            <label class="text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)] block mb-1.5">P&amp;L</label>
+            <div class="flex items-center border border-[var(--border)] rounded-xl overflow-hidden bg-[var(--surface-subtle)] focus-within:border-[var(--mint)]">
+              <span class="px-2.5 text-xs font-bold text-[var(--text-muted)] border-r border-[var(--border)]">$</span>
+              <input type="text" id="quickPnlInput" placeholder="0.00" oninput="handleQuickTradeCalc('pnl')"
                 class="flex-1 px-2.5 py-2.5 bg-transparent text-xs font-num text-[var(--text-primary)] focus:outline-none">
             </div>
           </div>
 
           <!-- Add Trade button -->
           <div>
-            <button onclick="handleQuickAddTrade()" 
-              class="w-full px-4 py-2.5 rounded-xl font-bold text-xs transition active:scale-95 shadow-sm flex items-center justify-center gap-1.5"
-              style="background:var(--mint);color:#F5EBDD">
+            <button type="button" id="quickAddTradeBtn" onclick="handleQuickAddTrade()" 
+              class="w-full px-4 py-2.5 rounded-xl font-bold text-xs transition active:scale-95 shadow-sm flex items-center justify-center gap-1.5 bg-[var(--mint)] hover:bg-[var(--mint-hover)] text-[#0F1411]">
               <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
               </svg>
-              Add Trade
+              + Add Trade
             </button>
           </div>
         </div>
 
-        <!-- Or use full form -->
         <p class="text-[11px] text-[var(--text-muted)] mt-3 text-center">
-          Need more options (status, fees, notes)?
+          Need extra fields (status, fees, notes)?
           <button onclick="openLogTradeModal()" class="font-bold text-[var(--mint)] hover:underline ml-1">Open full form →</button>
         </p>
       </section>
 
       <!-- ── Session Performance Strip ────────────────────────────────────── -->
-      <section class="bento-card px-5 sm:px-6 py-4">
-        <div class="flex items-center gap-2 mb-3">
-          <svg class="w-3.5 h-3.5 text-[var(--text-muted)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <section class="bento-card px-5 py-3.5 rounded-2xl bg-[var(--surface)] border border-[var(--border)] shadow-xs flex flex-wrap items-center justify-between gap-3">
+        <div class="flex items-center gap-2">
+          <svg class="w-4 h-4 text-[var(--text-muted)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
           </svg>
-          <span class="text-[10px] font-bold uppercase tracking-widest text-[var(--text-muted)]">
+          <span class="text-xs font-bold text-[var(--text-primary)]">
             Session Performance — <span id="journalTableSessionTitle">Session 1</span>
-            <span id="journalSessionBadge" class="ml-2 text-[9px] px-2 py-0.5 rounded-full bg-[var(--mint-tint)] text-[var(--mint)] border border-[var(--mint)]/30 font-num">Active</span>
           </span>
+          <span id="journalSessionBadge" class="ml-1 text-[9px] px-2 py-0.5 rounded-full bg-[var(--mint-tint)] text-[var(--mint)] border border-[var(--mint)]/30 font-num font-bold">Active</span>
         </div>
-        <div class="grid grid-cols-3 gap-3">
-          <!-- Wins -->
-          <div class="rounded-xl p-3 flex items-center gap-2.5" style="background:rgba(46,157,104,.1);border:1px solid rgba(46,157,104,.2)">
-            <div class="w-7 h-7 rounded-lg flex items-center justify-center shrink-0" style="background:rgba(46,157,104,.2)">
-              <svg class="w-4 h-4 text-[var(--mint)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="20 6 9 17 4 12"/>
-              </svg>
-            </div>
-            <div>
-              <p class="text-[10px] text-[var(--text-muted)] font-bold uppercase tracking-wider">Wins</p>
-              <p class="text-lg font-black text-[var(--mint)] font-num leading-none" id="journalSessionWinsCount">0</p>
-            </div>
+
+        <div class="flex items-center gap-2 sm:gap-3 text-xs">
+          <!-- Winning Trades -->
+          <div class="flex items-center gap-2 px-3 py-1.5 rounded-xl" style="background:rgba(46,157,104,.1);border:1px solid rgba(46,157,104,.2)">
+            <span class="w-2 h-2 rounded-full bg-[var(--mint)]"></span>
+            <span class="text-[var(--text-secondary)] font-medium text-[11px]">Winning:</span>
+            <span id="journalSessionWinsCount" class="font-bold text-[var(--mint)] font-num">0</span>
           </div>
-          <!-- Losses -->
-          <div class="rounded-xl p-3 flex items-center gap-2.5" style="background:rgba(220,76,62,.08);border:1px solid rgba(220,76,62,.18)">
-            <div class="w-7 h-7 rounded-lg flex items-center justify-center shrink-0" style="background:rgba(220,76,62,.15)">
-              <svg class="w-4 h-4 text-[var(--coral)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
-              </svg>
-            </div>
-            <div>
-              <p class="text-[10px] text-[var(--text-muted)] font-bold uppercase tracking-wider">Losses</p>
-              <p class="text-lg font-black text-[var(--coral)] font-num leading-none" id="journalSessionLossesCount">0</p>
-            </div>
+
+          <!-- Losing Trades -->
+          <div class="flex items-center gap-2 px-3 py-1.5 rounded-xl" style="background:rgba(220,76,62,.08);border:1px solid rgba(220,76,62,.18)">
+            <span class="w-2 h-2 rounded-full bg-[var(--coral)]"></span>
+            <span class="text-[var(--text-secondary)] font-medium text-[11px]">Losing:</span>
+            <span id="journalSessionLossesCount" class="font-bold text-[var(--coral)] font-num">0</span>
           </div>
-          <!-- Breakeven -->
-          <div class="rounded-xl p-3 flex items-center gap-2.5 bg-[var(--surface-subtle)] border border-[var(--border)]">
-            <div class="w-7 h-7 rounded-lg flex items-center justify-center shrink-0 bg-[var(--mint-tint)]">
-              <svg class="w-4 h-4 text-[var(--text-secondary)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="5" y1="12" x2="19" y2="12"/>
-              </svg>
-            </div>
-            <div>
-              <p class="text-[10px] text-[var(--text-muted)] font-bold uppercase tracking-wider">Breakeven</p>
-              <p class="text-lg font-black text-[var(--text-secondary)] font-num leading-none" id="journalSessionBreakevenCount">0</p>
-            </div>
+
+          <!-- Breakeven Trades -->
+          <div class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)]">
+            <span class="w-2 h-2 rounded-full bg-[var(--text-muted)]"></span>
+            <span class="text-[var(--text-secondary)] font-medium text-[11px]">Breakeven:</span>
+            <span id="journalSessionBreakevenCount" class="font-bold text-[var(--text-primary)] font-num">0</span>
           </div>
         </div>
       </section>
 
       <!-- ── Trade History Table ────────────────────────────────────────────── -->
-      <section class="bento-card p-5 sm:p-6 space-y-4">
+      <section class="bento-card p-5 sm:p-6 rounded-2xl bg-[var(--surface)] border border-[var(--border)] shadow-xs space-y-4">
         <div class="flex items-center justify-between pb-3 border-b border-[var(--border)]">
           <div class="flex items-center gap-3">
             <div class="w-9 h-9 rounded-xl flex items-center justify-center shrink-0" style="background:rgba(220,76,62,.15);border:1px solid rgba(220,76,62,.25)">
               <svg class="w-4.5 h-4.5 text-[var(--coral)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
               </svg>
             </div>
             <div>
@@ -2084,14 +2130,11 @@
           <table class="w-full text-left text-xs border-collapse bg-[var(--surface)]">
             <thead class="bg-[var(--surface-subtle)] text-[var(--text-secondary)] uppercase tracking-wider text-[10px] border-b border-[var(--border)] font-bold font-sans">
               <tr>
-                <th class="py-3 px-3 sm:px-4">#</th>
-                <th class="py-3 px-3 sm:px-4">Date</th>
-                <th class="py-3 px-3 sm:px-4">Status</th>
-                <th class="py-3 px-3 sm:px-4 text-right">Entry (USD)</th>
-                <th class="py-3 px-3 sm:px-4 text-right">Exit (USD)</th>
-                <th class="py-3 px-3 sm:px-4 text-right">P&amp;L (USD)</th>
-                <th class="py-3 px-3 sm:px-4 text-right">Return %</th>
-                <th class="py-3 px-3 sm:px-4 text-center">Actions</th>
+                <th class="py-3 px-4 font-bold text-left">#</th>
+                <th class="py-3 px-4 font-bold text-right">Entry (USD)</th>
+                <th class="py-3 px-4 font-bold text-right">Exit (USD)</th>
+                <th class="py-3 px-4 font-bold text-right">P&amp;L (USD)</th>
+                <th class="py-3 px-4 font-bold text-center">Actions</th>
               </tr>
             </thead>
             <tbody id="tradeLogTableBody" class="divide-y divide-[var(--border)] font-num">
@@ -2100,18 +2143,18 @@
         </div>
 
         <!-- Empty state -->
-        <div id="journalEmptyState" class="hidden p-10 text-center rounded-xl bg-[var(--surface-subtle)] border border-dashed border-[var(--border)] space-y-3">
-          <div class="w-12 h-12 mx-auto rounded-2xl flex items-center justify-center" style="background:rgba(46,157,104,.12);border:1px solid rgba(46,157,104,.2)">
-            <svg class="w-6 h-6 text-[var(--mint)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+        <div id="journalEmptyState" class="hidden p-10 text-center rounded-xl bg-[var(--surface-subtle)] border border-dashed border-[var(--border)] space-y-2">
+          <div class="w-10 h-10 mx-auto rounded-xl flex items-center justify-center bg-[var(--surface-muted)] text-[var(--text-muted)]">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
             </svg>
           </div>
           <p class="text-xs font-bold text-[var(--text-primary)]">No trades yet</p>
-          <p class="text-[11px] text-[var(--text-secondary)]">Add your first trade above to start tracking your sessions.</p>
+          <p class="text-[11px] text-[var(--text-secondary)]">Start trading and your logged trades will appear here.</p>
           <p class="text-[10px] text-[var(--text-muted)]">Session <span id="journalEmptySessionNum">1</span></p>
         </div>
 
-        <!-- Overall stats footer (hidden but IDs preserved for JS) -->
+        <!-- Overall stats footer (hidden but IDs preserved for JS/tests) -->
         <div class="hidden">
           <span id="journalAllTradesSummaryBadge">0 Closed / 0 Open</span>
           <span id="journalSessionStartBal">$0.00</span>
@@ -8424,6 +8467,31 @@ service cloud.firestore {
       renderTradesTab();
     }
 
+    function handleQuickTradeCalc(source) {
+      const entryEl = document.getElementById('quickEntryInput');
+      const exitEl  = document.getElementById('quickExitInput');
+      const pnlEl   = document.getElementById('quickPnlInput');
+      if (!entryEl || !exitEl || !pnlEl) return;
+
+      const entry = parseFloat(entryEl.value);
+      const exit  = parseFloat(exitEl.value);
+
+      if (source === 'entry' || source === 'exit') {
+        if (!isNaN(entry) && !isNaN(exit)) {
+          const diff = Number((exit - entry).toFixed(2));
+          pnlEl.value = (diff >= 0 ? '+' : '') + diff.toFixed(2);
+        } else if (isNaN(exit) && pnlEl.value && !isNaN(entry)) {
+          const pnlVal = parseFloat(pnlEl.value);
+          if (!isNaN(pnlVal)) exitEl.value = (entry + pnlVal).toFixed(2);
+        }
+      } else if (source === 'pnl') {
+        const pnlVal = parseFloat(pnlEl.value);
+        if (!isNaN(entry) && !isNaN(pnlVal)) {
+          exitEl.value = (entry + pnlVal).toFixed(2);
+        }
+      }
+    }
+
     function renderTradesTab() {
       const container = document.getElementById('tabContentTrades');
       if (!container) return;
@@ -8431,21 +8499,25 @@ service cloud.firestore {
       const ladder = getActiveLadder();
       const totalSessions = ladder.length || 28;
 
-      // 1. Populate session select
-      const select = document.getElementById('tradeJournalSessionSelect');
-      if (select) {
-        if (!tradeJournalActiveSession || tradeJournalActiveSession < 1 || tradeJournalActiveSession > totalSessions) {
-          tradeJournalActiveSession = currentSession;
-        }
-        select.innerHTML = '';
+      // 1. Populate session selectors
+      const selectMain = document.getElementById('tradeJournalSessionSelect');
+      const selectHist = document.getElementById('tradeJournalSessionSelectHistory');
+
+      if (!tradeJournalActiveSession || tradeJournalActiveSession < 1 || tradeJournalActiveSession > totalSessions) {
+        tradeJournalActiveSession = currentSession;
+      }
+
+      [selectMain, selectHist].forEach(sel => {
+        if (!sel) return;
+        sel.innerHTML = '';
         for (let i = 1; i <= totalSessions; i++) {
           const opt = document.createElement('option');
           opt.value = i;
           opt.textContent = `Session ${i}${i === currentSession ? ' (Current)' : ''}`;
           if (i === tradeJournalActiveSession) opt.selected = true;
-          select.appendChild(opt);
+          sel.appendChild(opt);
         }
-      }
+      });
 
       // 2. Compute session metrics
       const prevDesk = getPrevDeskBalance(tradeJournalActiveSession);
@@ -8486,116 +8558,23 @@ service cloud.firestore {
 
       // 3. Render Session Header & Table
       const titleEl = document.getElementById('journalTableSessionTitle');
-      if (titleEl) titleEl.textContent = `Session ${tradeJournalActiveSession} Trades`;
+      if (titleEl) titleEl.textContent = `Session ${tradeJournalActiveSession}`;
 
       const badgeEl = document.getElementById('journalSessionBadge');
       if (badgeEl) {
         if (tradeJournalActiveSession === currentSession) {
           badgeEl.textContent = 'Active Session';
-          badgeEl.className = 'text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#607B5B]/15 text-[#607B5B] dark:bg-[#789272]/20 dark:text-[#789272] border border-[#607B5B]/30 font-num';
+          badgeEl.className = 'text-[9px] font-bold px-2 py-0.5 rounded-full bg-[var(--mint-tint)] text-[var(--mint)] border border-[var(--mint)]/30 font-num';
         } else if (tradeJournalActiveSession < currentSession) {
           badgeEl.textContent = 'Past Session';
-          badgeEl.className = 'text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#716556]/15 text-[#716556] dark:bg-[#B4A58F]/20 dark:text-[#B4A58F] border border-[#716556]/30 font-num';
+          badgeEl.className = 'text-[9px] font-bold px-2 py-0.5 rounded-full bg-[var(--surface-subtle)] text-[var(--text-muted)] border border-[var(--border)] font-num';
         } else {
-          badgeEl.textContent = 'Upcoming Session';
-          badgeEl.className = 'text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#C2984D]/15 text-[#C2984D] dark:bg-[#D0AA63]/20 dark:text-[#D0AA63] border border-[#C2984D]/30 font-num';
+          badgeEl.textContent = 'Upcoming';
+          badgeEl.className = 'text-[9px] font-bold px-2 py-0.5 rounded-full bg-[var(--amber-tint)] text-[var(--amber)] border border-[var(--amber)]/30 font-num';
         }
       }
 
-      const tbody = document.getElementById('tradeLogTableBody');
-      const emptyState = document.getElementById('journalEmptyState');
-      const emptySessionNum = document.getElementById('journalEmptySessionNum');
-      if (emptySessionNum) emptySessionNum.textContent = tradeJournalActiveSession;
-
-      if (!tbody) return;
-
-      if (sessionTrades.length === 0) {
-        if (emptyState) emptyState.classList.remove('hidden');
-        tbody.innerHTML = '';
-      } else {
-        if (emptyState) emptyState.classList.add('hidden');
-        tbody.innerHTML = sessionTrades.map(trade => {
-          const calc = calculateTradePnL(trade);
-
-          let statusBadge = '';
-          if (trade.status === 'open') {
-            statusBadge = '<span class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-[#617D91]/15 text-[#617D91] dark:bg-[#7894A6]/20 dark:text-[#7894A6] border border-[#617D91]/30 uppercase tracking-wider">Open</span>';
-          } else if (trade.status === 'partial') {
-            statusBadge = '<span class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-[#C2984D]/15 text-[#C2984D] dark:bg-[#D0AA63]/20 dark:text-[#D0AA63] border border-[#C2984D]/30 uppercase tracking-wider">Partial</span>';
-          } else {
-            statusBadge = '<span class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-[#607B5B]/15 text-[#607B5B] dark:bg-[#789272]/20 dark:text-[#789272] border border-[#607B5B]/30 uppercase tracking-wider">Closed</span>';
-          }
-
-          let pnlHtml = '';
-          let returnHtml = '';
-          if (calc.isRealized) {
-            const isGreen = calc.pnl >= 0;
-            pnlHtml = `<span class="${isGreen ? 'text-[#607B5B] dark:text-[#789272]' : 'text-[#B86652] dark:text-[#C77B68]'} font-bold">${isGreen ? '+' : ''}${fmt(calc.pnl)}</span>`;
-            returnHtml = `<span class="${calc.returnPct >= 0 ? 'text-[#607B5B] dark:text-[#789272]' : 'text-[#B86652] dark:text-[#C77B68]'} font-bold">${calc.returnPct >= 0 ? '+' : ''}${calc.returnPct.toFixed(2)}%</span>`;
-          } else {
-            pnlHtml = '<span class="text-[#716556] dark:text-[#B4A58F] italic text-[11px]">Unrealized</span>';
-            returnHtml = '<span class="text-[#716556] dark:text-[#B4A58F] italic text-[11px]">—</span>';
-          }
-
-          return `
-            <tr class="hover:bg-[#EAE0D0]/50 dark:hover:bg-[#3D352B]/50 transition">
-              <td class="py-3 px-3 sm:px-4 font-bold text-[#332B22] dark:text-[#E2D4BD]">${escapeHtml(trade.label || 'Trade')}</td>
-              <td class="py-3 px-3 sm:px-4 text-[11px] text-[#716556] dark:text-[#B4A58F]">${trade.date || '—'}</td>
-              <td class="py-3 px-3 sm:px-4">${statusBadge}</td>
-              <td class="py-3 px-3 sm:px-4 text-right text-[#332B22] dark:text-[#E2D4BD]">${fmt(trade.entryAmount)}</td>
-              <td class="py-3 px-3 sm:px-4 text-right text-[#332B22] dark:text-[#E2D4BD]">${fmt(trade.exitValue)}</td>
-              <td class="py-3 px-3 sm:px-4 text-right text-[#716556] dark:text-[#B4A58F]">${fmt(trade.fees)}</td>
-              <td class="py-3 px-3 sm:px-4 text-right">${pnlHtml}</td>
-              <td class="py-3 px-3 sm:px-4 text-right">${returnHtml}</td>
-              <td class="py-3 px-3 sm:px-4 text-[11px] text-[#716556] dark:text-[#B4A58F] max-w-[150px] truncate" title="${escapeHtml(trade.notes || '')}">
-                ${trade.notes ? escapeHtml(trade.notes) : '—'}
-              </td>
-              <td class="py-3 px-3 sm:px-4 text-center">
-                <div class="inline-flex items-center gap-1">
-                  <button type="button" onclick="openEditTradeModal(${trade.id})" class="p-1 rounded-lg text-[#716556] hover:text-[#332B22] dark:text-[#B4A58F] dark:hover:text-[#E2D4BD] transition" title="Edit trade">
-                    <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-                  </button>
-                  <button type="button" onclick="deleteTrade(${trade.id})" class="p-1 rounded-lg text-[#B86652] hover:text-[#A75542] dark:text-[#C77B68] transition" title="Delete trade">
-                    <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-                  </button>
-                </div>
-              </td>
-            </tr>
-          `;
-        }).join('');
-      }
-
-      // 4. Overall Trade Journal Analytics (across ALL sessions in tradeLogs)
-      const overall = calculateTradeJournalAnalytics(tradeLogs);
-      const overallBadge = document.getElementById('journalAllTradesSummaryBadge');
-      if (overallBadge) overallBadge.textContent = `${overall.closedTrades} Closed / ${overall.openTrades} Open`;
-
-      const metricPnL = document.getElementById('journalMetricTotalPnL');
-      if (metricPnL) {
-        metricPnL.textContent = (overall.totalRealizedPnL >= 0 ? '+' : '') + fmt(overall.totalRealizedPnL);
-        metricPnL.className = overall.totalRealizedPnL >= 0 
-          ? 'text-base text-[#607B5B] dark:text-[#789272] font-bold' 
-          : 'text-base text-[#B86652] dark:text-[#C77B68] font-bold';
-      }
-
-      const metricTrades = document.getElementById('journalMetricTotalTrades');
-      if (metricTrades) metricTrades.textContent = overall.totalTrades;
-
-      const metricOpen = document.getElementById('journalMetricOpenTrades');
-      if (metricOpen) metricOpen.textContent = `${overall.openTrades} open position${overall.openTrades === 1 ? '' : 's'}`;
-
-      const metricWinLoss = document.getElementById('journalMetricWinLossRecord');
-      if (metricWinLoss) metricWinLoss.textContent = `${overall.wins}W / ${overall.losses}L`;
-
-      const metricWinRate = document.getElementById('journalMetricWinRate');
-      if (metricWinRate) metricWinRate.textContent = `${overall.winRate.toFixed(1)}%`;
-
-      const metricAvgRet = document.getElementById('journalMetricAvgReturn');
-      if (metricAvgRet) {
-        metricAvgRet.textContent = `${overall.avgReturnPct >= 0 ? '+' : ''}${overall.avgReturnPct.toFixed(2)}%`;
-      }
-
-      // ── NEW: Session Performance Strip (wins / losses / breakeven) ───────
+      // ── Session Performance Strip (wins / losses / breakeven) ───────────
       const sessionWinsEl    = document.getElementById('journalSessionWinsCount');
       const sessionLossesEl  = document.getElementById('journalSessionLossesCount');
       const sessionBEEl      = document.getElementById('journalSessionBreakevenCount');
@@ -8613,46 +8592,133 @@ service cloud.firestore {
       if (sessionLossesEl) sessionLossesEl.textContent = sLosses;
       if (sessionBEEl)     sessionBEEl.textContent     = sBE;
 
-      // ── NEW: Sync second history session selector ─────────────────────────
-      const selectHistory = document.getElementById('tradeJournalSessionSelectHistory');
-      if (selectHistory) {
-        selectHistory.innerHTML = '';
-        for (let i = 1; i <= totalSessions; i++) {
-          const opt = document.createElement('option');
-          opt.value = i;
-          opt.textContent = `Session ${i}${i === currentSession ? ' (Current)' : ''}`;
-          if (i === tradeJournalActiveSession) opt.selected = true;
-          selectHistory.appendChild(opt);
+      // ── Simple Trade History Table (5 columns) ───────────────────────────
+      const tbody = document.getElementById('tradeLogTableBody');
+      const emptyState = document.getElementById('journalEmptyState');
+      const emptySessionNum = document.getElementById('journalEmptySessionNum');
+      if (emptySessionNum) emptySessionNum.textContent = tradeJournalActiveSession;
+
+      if (tbody) {
+        if (sessionTrades.length === 0) {
+          if (emptyState) emptyState.classList.remove('hidden');
+          tbody.innerHTML = '';
+        } else {
+          if (emptyState) emptyState.classList.add('hidden');
+          tbody.innerHTML = sessionTrades.map((trade, idx) => {
+            const calc = calculateTradePnL(trade);
+
+            let pnlHtml = '';
+            if (calc.isRealized) {
+              const isGreen = calc.pnl >= 0;
+              pnlHtml = `<span class="${isGreen ? 'text-[var(--mint)]' : 'text-[var(--coral)]'} font-bold font-num">${isGreen ? '+' : ''}${fmt(calc.pnl)}</span>`;
+            } else {
+              pnlHtml = '<span class="text-[var(--text-muted)] italic text-[11px] font-sans">Open</span>';
+            }
+
+            const tradeLabel = escapeHtml(trade.label || ('Trade ' + (idx + 1)));
+
+            return `
+              <tr class="hover:bg-[var(--surface-hover)] transition">
+                <td class="py-3 px-4 font-bold text-[var(--text-primary)] font-num flex items-center gap-2">
+                  <span class="w-1.5 h-1.5 rounded-full ${calc.isRealized ? (calc.pnl >= 0 ? 'bg-[var(--mint)]' : 'bg-[var(--coral)]') : 'bg-[var(--lavender)]'}"></span>
+                  ${tradeLabel}
+                </td>
+                <td class="py-3 px-4 text-right text-[var(--text-primary)] font-num">${fmt(trade.entryAmount)}</td>
+                <td class="py-3 px-4 text-right text-[var(--text-primary)] font-num">${trade.exitValue ? fmt(trade.exitValue) : '—'}</td>
+                <td class="py-3 px-4 text-right">${pnlHtml}</td>
+                <td class="py-3 px-4 text-center">
+                  <div class="inline-flex items-center gap-1.5 justify-center">
+                    <button type="button" onclick="openEditTradeModal(${trade.id})" class="p-1 rounded-lg text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-subtle)] transition" title="Edit trade">
+                      <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                    </button>
+                    <button type="button" onclick="deleteTrade(${trade.id})" class="p-1 rounded-lg text-[var(--coral)] hover:bg-[var(--coral-tint)] transition" title="Delete trade">
+                      <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            `;
+          }).join('');
         }
       }
 
-      // ── NEW: Update redesigned P&L KPI text and color ────────────────────
-      const pnlKpi = document.getElementById('journalMetricTotalPnL');
-      if (pnlKpi) {
-        pnlKpi.textContent = (overall.totalRealizedPnL >= 0 ? '+' : '') + fmt(overall.totalRealizedPnL);
-        pnlKpi.className   = overall.totalRealizedPnL >= 0
-          ? 'text-2xl font-black text-[var(--mint)] font-num leading-tight'
-          : 'text-2xl font-black text-[var(--coral)] font-num leading-tight';
+      // 4. Overall Trade Journal Analytics (across ALL sessions in tradeLogs)
+      const overall = calculateTradeJournalAnalytics(tradeLogs);
+      const overallBadge = document.getElementById('journalAllTradesSummaryBadge');
+      if (overallBadge) overallBadge.textContent = `${overall.closedTrades} Closed / ${overall.openTrades} Open`;
+
+      // 1. Total Trades Card
+      const metricTrades = document.getElementById('journalMetricTotalTrades');
+      if (metricTrades) metricTrades.textContent = overall.totalTrades;
+
+      const metricWinLoss = document.getElementById('journalMetricWinLossRecord');
+      if (metricWinLoss) metricWinLoss.textContent = `${overall.wins} win / ${overall.losses} loss`;
+
+      const metricOpen = document.getElementById('journalMetricOpenTrades');
+      if (metricOpen) metricOpen.textContent = `${overall.openTrades} open position${overall.openTrades === 1 ? '' : 's'}`;
+
+      // 2. Net P&L Card
+      const metricPnL = document.getElementById('journalMetricTotalPnL');
+      if (metricPnL) {
+        metricPnL.textContent = (overall.totalRealizedPnL >= 0 ? '+' : '') + fmt(overall.totalRealizedPnL);
+        metricPnL.className = overall.totalRealizedPnL >= 0 
+          ? 'text-2xl sm:text-3xl font-black text-[var(--mint)] font-num mt-0.5' 
+          : 'text-2xl sm:text-3xl font-black text-[var(--coral)] font-num mt-0.5';
+      }
+      const metricPnLSub = document.getElementById('journalMetricPnLSubtext');
+      if (metricPnLSub) {
+        metricPnLSub.textContent = `${overall.avgReturnPct >= 0 ? '+' : ''}${overall.avgReturnPct.toFixed(1)}% return`;
       }
 
-      // ── NEW: Quick-add trade number preview ──────────────────────────────
+      // 3. Win Rate Card
+      const metricWinRate = document.getElementById('journalMetricWinRate');
+      if (metricWinRate) metricWinRate.textContent = `${overall.winRate.toFixed(1)}%`;
+
+      const metricWinTradesSub = document.getElementById('journalMetricWinTradesSubtext');
+      if (metricWinTradesSub) {
+        metricWinTradesSub.textContent = `${overall.wins}/${overall.closedTrades} winning trades`;
+      }
+
+      // 4. Average P&L Card (computed in dollars per closed trade)
+      const metricAvgRet = document.getElementById('journalMetricAvgReturn');
+      if (metricAvgRet) {
+        const avgDollarPnL = overall.closedTrades > 0 ? (overall.totalRealizedPnL / overall.closedTrades) : 0;
+        metricAvgRet.textContent = (avgDollarPnL >= 0 ? '+' : '') + fmt(avgDollarPnL);
+        metricAvgRet.className = avgDollarPnL >= 0
+          ? 'text-2xl sm:text-3xl font-black text-[var(--mint)] font-num mt-0.5'
+          : 'text-2xl sm:text-3xl font-black text-[var(--coral)] font-num mt-0.5';
+      }
+
+      // ── Pre-fill Next Trade No. ───────────────────────────────────────────
       const qPreview = document.getElementById('quickTradeNoPreview');
       if (qPreview) {
-        const nextLbl = generateNextTradeLabel(sessionTrades);
-        qPreview.value = nextLbl;
+        const nextNum = sessionTrades.length + 1;
+        qPreview.value = `Trade ${nextNum}`;
       }
     }
 
     function handleQuickAddTrade() {
       const entry = parseFloat(document.getElementById('quickEntryInput')?.value) || 0;
-      const exit  = parseFloat(document.getElementById('quickExitInput')?.value)  || 0;
+      const exitEl = document.getElementById('quickExitInput');
+      const pnlEl = document.getElementById('quickPnlInput');
+      let exit = parseFloat(exitEl?.value);
+      const pnl = parseFloat(pnlEl?.value);
+
       if (entry <= 0) {
-        showToast('Please enter a valid entry amount.', false);
+        showToast('Please enter a valid entry price.', false);
         return;
       }
+
+      if (isNaN(exit) && !isNaN(pnl)) {
+        exit = Number((entry + pnl).toFixed(2));
+      } else if (isNaN(exit)) {
+        exit = entry; // default breakeven if neither exit nor pnl provided
+      }
+
       const sessionTrades = tradeLogs.filter(t => t.session === tradeJournalActiveSession);
-      const label = generateNextTradeLabel(sessionTrades);
-      const calc  = { pnl: exit - entry }; // simple closed trade — fees 0
+      const userLabel = document.getElementById('quickTradeNoPreview')?.value.trim();
+      const label = userLabel || (`Trade ${sessionTrades.length + 1}`);
+
       tradeLogs.push({
         id:          Date.now(),
         session:     tradeJournalActiveSession,
@@ -8664,15 +8730,21 @@ service cloud.firestore {
         fees:        0,
         notes:       ''
       });
+
       localStorage.setItem('pgl_trade_logs_v10', JSON.stringify(tradeLogs));
+
       // clear quick form
       const qEntry = document.getElementById('quickEntryInput');
       const qExit  = document.getElementById('quickExitInput');
+      const qPnl   = document.getElementById('quickPnlInput');
       if (qEntry) qEntry.value = '';
       if (qExit)  qExit.value  = '';
+      if (qPnl)   qPnl.value   = '';
+
       renderTradesTab();
       syncToFirestore();
-      showToast(`Trade ${label} added!`);
+      debouncedSyncToWebhook();
+      showToast(`Trade ${label} recorded!`);
     }
 
     function openLogTradeModal() {

@@ -18,62 +18,82 @@
           },
           colors: {
             // Earthy Foundation Neutrals
-            canvas: { light: '#E8DDC9', dark: '#29241E' },
-            surface: { light: '#F0E6D5', dark: '#352E25' },
-            elevated: { light: '#F5EBDD', dark: '#41382D' },
-            secondary: { light: '#DCD0BB', dark: '#41382D' },
-            border: { light: '#CFC1AA', dark: '#514638' },
+            canvas: { light: '#FAF7F2', dark: '#0F1411' },
+            surface: { light: '#FFFFFF', dark: '#19221D' },
+            elevated: { light: '#FDFCFA', dark: '#222D26' },
+            secondary: { light: '#F5EFE6', dark: '#151C17' },
+            border: { light: '#E5DED2', dark: '#26342B' },
             text: {
-              primary: { light: '#332B22', dark: '#E2D4BD' },
-              secondary: { light: '#716556', dark: '#B4A58F' }
+              primary: { light: '#1C1917', dark: '#F7F5F0' },
+              secondary: { light: '#5C5549', dark: '#B2ABA0' }
             },
 
-            // Assigned Semantic Accents & Tints
-            moss: {
-              DEFAULT: '#607B5B',
-              light: '#789272',
-              tint: '#DCE5D7'
+            // Assigned Expressive Semantic Accents
+            mint: {
+              DEFAULT: '#2E9D68',
+              light: '#4EBA88',
+              tint: 'rgba(46, 157, 104, 0.12)'
             },
-            clay: {
-              DEFAULT: '#B86652',
-              light: '#C77B68',
-              tint: '#EEDBD2'
+            moss: {
+              DEFAULT: '#2E9D68',
+              light: '#4EBA88',
+              tint: 'rgba(46, 157, 104, 0.12)'
+            },
+            amber: {
+              DEFAULT: '#D97706',
+              light: '#F59E0B',
+              tint: 'rgba(217, 119, 6, 0.12)'
             },
             ochre: {
-              DEFAULT: '#C2984D',
-              light: '#D0AA63',
-              tint: '#EEE2C5'
+              DEFAULT: '#D97706',
+              light: '#F59E0B',
+              tint: 'rgba(217, 119, 6, 0.12)'
             },
-            dustyblue: {
-              DEFAULT: '#617D91',
-              light: '#7894A6',
-              tint: '#DCE4E8'
+            lavender: {
+              DEFAULT: '#7C69AF',
+              light: '#A78BFA',
+              tint: 'rgba(124, 105, 175, 0.12)'
             },
             purple: {
-              DEFAULT: '#806A86',
-              light: '#9A849F',
-              tint: '#E4DCE5'
+              DEFAULT: '#7C69AF',
+              light: '#A78BFA',
+              tint: 'rgba(124, 105, 175, 0.12)'
+            },
+            coral: {
+              DEFAULT: '#DC4C3E',
+              light: '#F87171',
+              tint: 'rgba(220, 76, 62, 0.12)'
+            },
+            clay: {
+              DEFAULT: '#DC4C3E',
+              light: '#F87171',
+              tint: 'rgba(220, 76, 62, 0.12)'
             },
             peach: {
-              DEFAULT: '#C98278',
-              light: '#D99B91',
-              tint: '#EED7D0'
+              DEFAULT: '#DC4C3E',
+              light: '#F87171',
+              tint: 'rgba(220, 76, 62, 0.12)'
+            },
+            dustyblue: {
+              DEFAULT: '#4A88A9',
+              light: '#60A5FA',
+              tint: 'rgba(74, 136, 169, 0.12)'
             },
 
             // Backward-compat aliases
             stone: {
-              50: '#F5EBDD',
-              100: '#F0E6D5',
-              200: '#CFC1AA',
-              250: '#DCD0BB',
-              300: '#CFC1AA',
-              400: '#B4A58F',
-              500: '#716556',
-              600: '#514638',
-              700: '#514638',
-              800: '#41382D',
-              900: '#352E25',
-              950: '#29241E'
+              50: '#FAF7F2',
+              100: '#F2EDE4',
+              200: '#E5DED2',
+              250: '#F5EFE6',
+              300: '#E5DED2',
+              400: '#B2ABA0',
+              500: '#5C5549',
+              600: '#384C3F',
+              700: '#26342B',
+              800: '#222D26',
+              900: '#19221D',
+              950: '#0F1411'
             }
           }
         }
@@ -92,79 +112,84 @@
 
   <style>
     /* ==========================================================================
-       PLAYFUL & EXPRESSIVE DESIGN SYSTEM — PORTFOLIO GROWTH LADDER
-       Modern, warm, tactile paper canvas with rich layered dark mode & curated accents.
-       Preserves legacy tokens for backward compatibility: #E8DDC9, #29241E, #607B5B, #C2984D
+       PLAYFUL & EXPRESSIVE ART-DIRECTED DESIGN SYSTEM — PORTFOLIO GROWTH LADDER
+       Layered charcoal & forest green surfaces, warm off-white tactile canvas,
+       expressive soft mint, warm amber, muted lavender, and restrained coral accents.
        ========================================================================== */
 
     :root, :root[data-theme="light"] {
       /* Warm Luminous Paper Canvas (Clean, tactile, not muddy or rustic) */
-      --app-bg: #F8F6F1;
-      --sidebar-bg: #EFECE3;
+      --app-bg: #FAF7F2;
+      --sidebar-bg: #F2EDE4;
       --surface: #FFFFFF;
       --surface-raised: #FFFFFF;
-      --surface-subtle: #F4EFE6;
-      --surface-hover: #ECE7DC;
+      --surface-subtle: #F5EFE6;
+      --surface-hover: #EDE6DA;
       
       /* Hairline tactile borders */
-      --border: #E4DED3;
-      --border-strong: #D3CBC0;
-      --border-focus: #16A34A;
+      --border: #E5DED2;
+      --border-strong: #D4C9BA;
+      --border-focus: #2E9D68;
 
       /* High-contrast typography */
       --text-primary: #1C1917;    /* Deep warm espresso stone */
-      --text-secondary: #57534E;  /* Warm stone */
-      --text-muted: #8C857B;      /* Soft stone */
+      --text-secondary: #5C5549;  /* Warm stone */
+      --text-muted: #8C8273;      /* Soft stone */
 
       /* Curated Expressive Accents */
-      --accent: #16A34A;          /* Vibrant emerald green */
-      --accent-hover: #15803D;
-      --accent-soft: #DCFCE7;
+      --accent: #2E9D68;          /* Soft rich mint */
+      --accent-hover: #238255;
+      --accent-soft: rgba(46, 157, 104, 0.12);
       
-      --emerald: #16A34A;
-      --emerald-tint: #DCFCE7;
+      --mint: #2E9D68;
+      --mint-tint: rgba(46, 157, 104, 0.12);
+      --emerald: #2E9D68;
+      --emerald-tint: rgba(46, 157, 104, 0.12);
       
       --amber: #D97706;           /* Radiant amber gold */
-      --amber-tint: #FEF3C7;
+      --amber-tint: rgba(217, 119, 6, 0.12);
       
-      --terracotta: #EA580C;      /* Warm rust orange */
-      --terracotta-tint: #FFEDD5;
+      --lavender: #7C69AF;        /* Muted refined lavender */
+      --lavender-tint: rgba(124, 105, 175, 0.12);
       
-      --rose: #E11D48;            /* Protected vault rose */
-      --rose-tint: #FFE4E6;
+      --coral: #DC4C3E;           /* Restrained coral */
+      --coral-tint: rgba(220, 76, 62, 0.12);
       
-      --indigo: #4F46E5;          /* Fortress savings iris */
-      --indigo-tint: #EEF2FF;
-      
-      --sky: #0284C7;             /* Clean cerulean sky */
-      --sky-tint: #E0F2FE;
+      --terracotta: #DC4C3E;
+      --terracotta-tint: rgba(220, 76, 62, 0.12);
+      --rose: #DC4C3E;
+      --rose-tint: rgba(220, 76, 62, 0.12);
+      --indigo: #7C69AF;
+      --indigo-tint: rgba(124, 105, 175, 0.12);
+      --sky: #4A88A9;
+      --sky-tint: rgba(74, 136, 169, 0.12);
 
       /* Backward-Compatible Foundation Variables */
-      --bg-canvas: #F8F6F1;
+      --bg-canvas: #FAF7F2;
       --bg-card: #FFFFFF;
-      --bg-elevated: #F4EFE6;
-      --bg-secondary: #EFECE3;
-      --border-divider: #E4DED3;
+      --bg-elevated: #F5EFE6;
+      --bg-secondary: #F2EDE4;
+      --border-divider: #E5DED2;
 
       /* Backward-Compatible Accent Aliases */
-      --accent-moss: #16A34A;
-      --accent-moss-light: #22C55E;
-      --accent-moss-tint: #DCFCE7;
-      --accent-clay: #EA580C;
-      --accent-clay-light: #FB923C;
-      --accent-clay-tint: #FFEDD5;
+      --accent-moss: #2E9D68;
+      --accent-moss-light: #4EBA88;
+      --accent-moss-tint: rgba(46, 157, 104, 0.12);
+      --accent-clay: #DC4C3E;
+      --accent-clay-light: #F87171;
+      --accent-clay-tint: rgba(220, 76, 62, 0.12);
       --accent-ochre: #D97706;
-      --accent-ochre-light: #FBBF24;
-      --accent-ochre-tint: #FEF3C7;
-      --accent-blue: #0284C7;
-      --accent-blue-light: #38BDF8;
-      --accent-blue-tint: #E0F2FE;
-      --accent-purple: #4F46E5;
-      --accent-purple-light: #818CF8;
-      --accent-purple-tint: #EEF2FF;
-      --accent-peach: #E11D48;
-      --accent-peach-light: #FB7185;
-      --accent-peach-tint: #FFE4E6;
+      --accent-ochre-light: #F59E0B;
+      --accent-ochre-tint: rgba(217, 119, 6, 0.12);
+      --accent-blue: #4A88A9;
+      --accent-blue-light: #60A5FA;
+      --accent-blue-tint: rgba(74, 136, 169, 0.12);
+      --accent-purple: #7C69AF;
+      --accent-purple-light: #A78BFA;
+      --accent-purple-tint: rgba(124, 105, 175, 0.12);
+      --accent-peach: #DC4C3E;
+      --accent-peach-light: #F87171;
+      --accent-peach-tint: rgba(220, 76, 62, 0.12);
 
       /* Tactile Elevation Shadows */
       --shadow-subtle: 0 1px 3px 0 rgba(28, 25, 23, 0.04), 0 1px 2px 0 rgba(28, 25, 23, 0.02);
@@ -176,73 +201,78 @@
     }
 
     .dark, :root[data-theme="dark"] {
-      /* Rich, Atmospheric Obsidian Forest (Deep, layered, not muddy brown) */
-      --app-bg: #111412;
-      --sidebar-bg: #151916;
-      --surface: #1B211D;
-      --surface-raised: #232B25;
-      --surface-subtle: #181D19;
-      --surface-hover: #28332A;
+      /* Rich, Layered Charcoal & Forest Green Obsidian */
+      --app-bg: #0F1411;
+      --sidebar-bg: #131A15;
+      --surface: #19221D;
+      --surface-raised: #222D26;
+      --surface-subtle: #151C17;
+      --surface-hover: #28362E;
 
       /* Luminous hairline borders */
-      --border: #2A352D;
-      --border-strong: #3D4C40;
-      --border-focus: #34D399;
+      --border: #26342B;
+      --border-strong: #384C3F;
+      --border-focus: #4EBA88;
 
       /* High-contrast luminous typography */
-      --text-primary: #F4F2EC;    /* Warm glowing cream */
-      --text-secondary: #A8A399;  /* Refined warm stone */
-      --text-muted: #757067;      /* Subtle stone */
+      --text-primary: #F7F5F0;    /* Warm glowing off-white cream */
+      --text-secondary: #B2ABA0;  /* Refined warm stone */
+      --text-muted: #7E776C;      /* Subtle stone */
 
       /* Curated Luminous Accents */
-      --accent: #34D399;          /* Luminous mint emerald */
+      --accent: #4EBA88;          /* Luminous soft mint */
       --accent-hover: #6EE7B7;
-      --accent-soft: rgba(52, 211, 153, 0.14);
+      --accent-soft: rgba(78, 186, 136, 0.16);
 
-      --emerald: #34D399;
-      --emerald-tint: rgba(52, 211, 153, 0.14);
+      --mint: #4EBA88;
+      --mint-tint: rgba(78, 186, 136, 0.16);
+      --emerald: #4EBA88;
+      --emerald-tint: rgba(78, 186, 136, 0.16);
 
-      --amber: #FBBF24;
-      --amber-tint: rgba(251, 191, 36, 0.14);
+      --amber: #F59E0B;           /* Warm glowing amber */
+      --amber-tint: rgba(245, 158, 11, 0.16);
 
-      --terracotta: #FB923C;
-      --terracotta-tint: rgba(251, 146, 60, 0.14);
+      --lavender: #A78BFA;        /* Muted glowing lavender */
+      --lavender-tint: rgba(167, 139, 250, 0.16);
 
-      --rose: #FB7185;
-      --rose-tint: rgba(251, 113, 133, 0.14);
+      --coral: #F87171;           /* Restrained luminous coral */
+      --coral-tint: rgba(248, 113, 113, 0.16);
 
-      --indigo: #818CF8;
-      --indigo-tint: rgba(129, 140, 248, 0.14);
-
-      --sky: #38BDF8;
-      --sky-tint: rgba(56, 189, 248, 0.14);
+      --terracotta: #F87171;
+      --terracotta-tint: rgba(248, 113, 113, 0.16);
+      --rose: #F87171;
+      --rose-tint: rgba(248, 113, 113, 0.16);
+      --indigo: #A78BFA;
+      --indigo-tint: rgba(167, 139, 250, 0.16);
+      --sky: #60A5FA;
+      --sky-tint: rgba(96, 165, 250, 0.16);
 
       /* Backward-Compatible Foundation Variables */
-      --bg-canvas: #111412;
-      --bg-card: #1B211D;
-      --bg-elevated: #232B25;
-      --bg-secondary: #181D19;
-      --border-divider: #2A352D;
+      --bg-canvas: #0F1411;
+      --bg-card: #19221D;
+      --bg-elevated: #222D26;
+      --bg-secondary: #151C17;
+      --border-divider: #26342B;
 
       /* Backward-Compatible Accent Aliases */
-      --accent-moss: #34D399;
+      --accent-moss: #4EBA88;
       --accent-moss-light: #6EE7B7;
-      --accent-moss-tint: rgba(52, 211, 153, 0.14);
-      --accent-clay: #FB923C;
-      --accent-clay-light: #FDBA74;
-      --accent-clay-tint: rgba(251, 146, 60, 0.14);
-      --accent-ochre: #FBBF24;
+      --accent-moss-tint: rgba(78, 186, 136, 0.16);
+      --accent-clay: #F87171;
+      --accent-clay-light: #FCA5A5;
+      --accent-clay-tint: rgba(248, 113, 113, 0.16);
+      --accent-ochre: #F59E0B;
       --accent-ochre-light: #FDE68A;
-      --accent-ochre-tint: rgba(251, 191, 36, 0.14);
-      --accent-blue: #38BDF8;
-      --accent-blue-light: #7DD3FC;
-      --accent-blue-tint: rgba(56, 189, 248, 0.14);
-      --accent-purple: #818CF8;
-      --accent-purple-light: #A5B4FC;
-      --accent-purple-tint: rgba(129, 140, 248, 0.14);
-      --accent-peach: #FB7185;
-      --accent-peach-light: #FDA4AF;
-      --accent-peach-tint: rgba(251, 113, 133, 0.14);
+      --accent-ochre-tint: rgba(245, 158, 11, 0.16);
+      --accent-blue: #60A5FA;
+      --accent-blue-light: #93C5FD;
+      --accent-blue-tint: rgba(96, 165, 250, 0.16);
+      --accent-purple: #A78BFA;
+      --accent-purple-light: #C4B5FD;
+      --accent-purple-tint: rgba(167, 139, 250, 0.16);
+      --accent-peach: #F87171;
+      --accent-peach-light: #FCA5A5;
+      --accent-peach-tint: rgba(248, 113, 113, 0.16);
 
       /* Atmospheric Dark Shadows */
       --shadow-subtle: 0 1px 3px 0 rgba(0, 0, 0, 0.35);
@@ -434,26 +464,42 @@
     .dark .text-\[\#B4A58F\], .dark [class*="text-[#B4A58F]"] { color: var(--text-secondary) !important; }
 
     /* Luminous accent overrides for text */
-    .text-\[\#607B5B\], [class*="text-[#607B5B]"] { color: var(--emerald) !important; }
-    .dark .text-\[\#789272\], .dark [class*="text-[#789272]"] { color: var(--emerald) !important; }
+    .text-\[\#607B5B\], [class*="text-[#607B5B]"] { color: var(--mint) !important; }
+    .dark .text-\[\#789272\], .dark [class*="text-[#789272]"] { color: var(--mint) !important; }
     .text-\[\#C2984D\], [class*="text-[#C2984D]"] { color: var(--amber) !important; }
     .dark .text-\[\#D0AA63\], .dark [class*="text-[#D0AA63]"] { color: var(--amber) !important; }
-    .text-\[\#C98278\], [class*="text-[#C98278]"] { color: var(--rose) !important; }
-    .dark .text-\[\#D99B91\], .dark [class*="text-[#D99B91]"] { color: var(--rose) !important; }
-    .text-\[\#806A86\], [class*="text-[#806A86]"] { color: var(--indigo) !important; }
-    .dark .text-\[\#9A849F\], .dark [class*="text-[#9A849F]"] { color: var(--indigo) !important; }
+    .text-\[\#C98278\], [class*="text-[#C98278]"] { color: var(--coral) !important; }
+    .dark .text-\[\#D99B91\], .dark [class*="text-[#D99B91]"] { color: var(--coral) !important; }
+    .text-\[\#806A86\], [class*="text-[#806A86]"] { color: var(--lavender) !important; }
+    .dark .text-\[\#9A849F\], .dark [class*="text-[#9A849F]"] { color: var(--lavender) !important; }
     .text-\[\#617D91\], [class*="text-[#617D91]"] { color: var(--sky) !important; }
     .dark .text-\[\#7894A6\], .dark [class*="text-[#7894A6]"] { color: var(--sky) !important; }
-    .text-\[\#B86652\], [class*="text-[#B86652]"] { color: var(--terracotta) !important; }
-    .dark .text-\[\#C77B68\], .dark [class*="text-[#C77B68]"] { color: var(--terracotta) !important; }
+    .text-\[\#B86652\], [class*="text-[#B86652]"] { color: var(--coral) !important; }
+    .dark .text-\[\#C77B68\], .dark [class*="text-[#C77B68]"] { color: var(--coral) !important; }
 
     /* Button and badge solid accent backgrounds */
-    .bg-\[\#607B5B\]:not([class*="/"]) { background-color: var(--emerald) !important; }
+    .bg-\[\#607B5B\]:not([class*="/"]) { background-color: var(--mint) !important; }
     .hover\:bg-\[\#4F674B\]:hover, .hover\:bg-\[\#526a4e\]:hover { background-color: var(--accent-hover) !important; }
     .bg-\[\#C2984D\]:not([class*="/"]) { background-color: var(--amber) !important; }
     .hover\:bg-\[\#B3893F\]:hover { background-color: #B45309 !important; }
-    .bg-\[\#C98278\]:not([class*="/"]) { background-color: var(--rose) !important; }
-    .hover\:bg-\[\#B77066\]:hover { background-color: #BE123C !important; }
+    .bg-\[\#C98278\]:not([class*="/"]) { background-color: var(--coral) !important; }
+    .hover\:bg-\[\#B77066\]:hover { background-color: #B91C1C !important; }
+    .bg-\[\#806A86\]:not([class*="/"]) { background-color: var(--lavender) !important; }
+    .hover\:bg-\[\#6D5873\]:hover { background-color: #6D28D9 !important; }
+
+    /* Sidebar Organic Decorative Contour Background Motion */
+    @keyframes contourDrift {
+      0%, 100% {
+        transform: translateY(0px) scale(1);
+      }
+      50% {
+        transform: translateY(-5px) scale(1.015);
+      }
+    }
+    .sidebar-organic-bg svg {
+      animation: contourDrift 20s ease-in-out infinite;
+      transform-origin: center bottom;
+    }
 
     /* Accessibility: Respect prefers-reduced-motion */
     @media (prefers-reduced-motion: reduce) {
@@ -462,6 +508,9 @@
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
         scroll-behavior: auto !important;
+      }
+      .sidebar-organic-bg svg {
+        animation: none !important;
       }
       #organicParticlesCanvas {
         display: none !important;
@@ -482,10 +531,57 @@
   <div class="min-h-screen flex flex-col lg:flex-row">
 
     <!-- ==================== DESKTOP PERSISTENT SIDEBAR (Section 4 & 6 of Spec) ==================== -->
-    <aside id="appSidebar" class="hidden lg:flex lg:w-64 xl:w-72 lg:shrink-0 lg:flex-col lg:justify-between lg:sticky lg:top-0 lg:h-screen bg-[var(--sidebar-bg)] border-r border-[var(--border)] p-4 xl:p-5 z-30 transition-colors duration-200">
+    <aside id="appSidebar" class="hidden lg:flex lg:w-64 xl:w-72 lg:shrink-0 lg:flex-col lg:justify-between lg:sticky lg:top-0 lg:h-screen bg-[var(--sidebar-bg)] border-r border-[var(--border)] p-4 xl:p-5 z-30 transition-colors duration-200 relative overflow-hidden">
       
-      <!-- Top Branding & Navigation -->
-      <div class="space-y-5">
+      <!-- Subtle Organic Decorative Background (Atmospheric flowing contours & soft mint ambient glow) -->
+      <div class="sidebar-organic-bg absolute inset-0 pointer-events-none overflow-hidden z-0 select-none" aria-hidden="true">
+        <!-- Soft Mint & Ambient Forest Gradient Glows in Lower Half -->
+        <div class="absolute -bottom-20 -left-16 w-72 h-72 rounded-full bg-emerald-500/10 dark:bg-emerald-400/8 blur-3xl pointer-events-none"></div>
+        <div class="absolute -bottom-28 -right-16 w-64 h-64 rounded-full bg-teal-500/8 dark:bg-emerald-300/6 blur-2xl pointer-events-none"></div>
+        
+        <!-- Flowing Topographical Contour Lines (Concentrated in lower half) -->
+        <svg class="absolute bottom-0 left-0 w-full h-[54%] text-emerald-800 dark:text-emerald-400 pointer-events-none opacity-80" viewBox="0 0 280 420" fill="none" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="sbContourGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="currentColor" stop-opacity="0.04" />
+              <stop offset="50%" stop-color="currentColor" stop-opacity="0.16" />
+              <stop offset="100%" stop-color="currentColor" stop-opacity="0.05" />
+            </linearGradient>
+            <linearGradient id="sbContourGrad2" x1="100%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="currentColor" stop-opacity="0.06" />
+              <stop offset="60%" stop-color="currentColor" stop-opacity="0.22" />
+              <stop offset="100%" stop-color="currentColor" stop-opacity="0.04" />
+            </linearGradient>
+            <linearGradient id="sbSoftMintGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#34D399" stop-opacity="0.32" />
+              <stop offset="100%" stop-color="#10B981" stop-opacity="0.06" />
+            </linearGradient>
+          </defs>
+          
+          <!-- Layered organic elevation contour curves -->
+          <path d="M-20,95 C45,80 85,125 155,100 C215,80 255,115 300,95" stroke="url(#sbContourGrad1)" stroke-width="1.2" stroke-linecap="round" />
+          <path d="M-20,135 C55,120 115,165 175,135 C235,110 265,150 300,130" stroke="url(#sbContourGrad2)" stroke-width="1.4" stroke-linecap="round" />
+          <path d="M-20,178 C35,160 85,205 145,180 C205,155 255,195 300,175" stroke="url(#sbSoftMintGrad)" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="3 3.5" />
+          <path d="M-20,222 C65,200 125,245 185,215 C245,190 275,230 300,212" stroke="url(#sbContourGrad1)" stroke-width="1.2" stroke-linecap="round" />
+          <path d="M-20,265 C45,245 95,290 165,260 C225,235 265,275 300,255" stroke="url(#sbContourGrad2)" stroke-width="1.6" stroke-linecap="round" />
+          <path d="M-20,310 C75,285 135,330 195,300 C245,275 285,312 300,295" stroke="url(#sbSoftMintGrad)" stroke-width="1.4" stroke-linecap="round" />
+          <path d="M-20,355 C55,335 105,375 175,348 C235,325 265,362 300,345" stroke="url(#sbContourGrad1)" stroke-width="1.2" stroke-linecap="round" />
+          <path d="M-20,395 C85,375 145,412 215,382 C265,360 285,390 300,380" stroke="url(#sbContourGrad2)" stroke-width="1.5" stroke-linecap="round" />
+          
+          <!-- Sparse tiny elevation nodes -->
+          <circle cx="85" cy="125" r="1.5" fill="currentColor" opacity="0.3" />
+          <circle cx="175" cy="135" r="1.75" fill="#34D399" opacity="0.5" />
+          <circle cx="145" cy="180" r="1.5" fill="currentColor" opacity="0.3" />
+          <circle cx="245" cy="190" r="1.75" fill="#34D399" opacity="0.45" />
+          <circle cx="165" cy="260" r="2" fill="currentColor" opacity="0.35" />
+          <circle cx="75" cy="285" r="1.5" fill="#34D399" opacity="0.5" />
+          <circle cx="195" cy="300" r="1.75" fill="currentColor" opacity="0.35" />
+          <circle cx="105" cy="375" r="1.5" fill="#34D399" opacity="0.55" />
+        </svg>
+      </div>
+
+      <!-- Top Branding & Navigation (Above background layer) -->
+      <div class="relative z-10 space-y-5">
         <!-- Brand Wordmark & Playful Geometric Mountain Badge -->
         <div class="flex items-center justify-between pb-3.5 border-b border-[var(--border)]">
           <div class="flex items-center gap-3">
@@ -507,7 +603,7 @@
           <span class="text-[9px] font-bold px-2 py-0.5 rounded-full bg-[var(--surface)] text-[var(--text-secondary)] border border-[var(--border)] font-num shadow-2xs">v10</span>
         </div>
 
-        <!-- 5 Canonical Navigation Links (Section 16.1 of Spec) with Expressive Icon Treatments -->
+        <!-- 5 Canonical Navigation Links with Expressive Icon Treatments -->
         <nav class="space-y-1.5 font-sans" aria-label="Main Navigation">
           <!-- 1. Setup -->
           <button type="button" onclick="switchTab('config')" data-tab-target="config" class="sidebar-nav-btn w-full px-3 py-2.5 rounded-xl transition-all flex items-center justify-between gap-3 text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-hover)] border border-transparent font-semibold text-xs group">
@@ -540,7 +636,7 @@
           <!-- 3. Trading Sessions -->
           <button type="button" onclick="switchTab('trades')" data-tab-target="trades" class="sidebar-nav-btn w-full px-3 py-2.5 rounded-xl transition-all flex items-center justify-between gap-3 text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-hover)] border border-transparent font-semibold text-xs group">
             <div class="flex items-center gap-2.5">
-              <div class="w-7 h-7 rounded-lg bg-indigo-500/10 text-indigo-700 dark:text-indigo-300 dark:bg-indigo-400/15 flex items-center justify-center shrink-0 transition-transform group-hover:scale-105">
+              <div class="w-7 h-7 rounded-lg bg-[#7C69AF]/10 text-[#7C69AF] dark:text-[#A78BFA] dark:bg-[#7C69AF]/20 flex items-center justify-center shrink-0 transition-transform group-hover:scale-105">
                 <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
                   <polyline points="14 2 14 8 20 8"></polyline>
@@ -556,14 +652,14 @@
           <!-- 4. Capital Vault -->
           <button type="button" onclick="switchTab('milestones')" data-tab-target="milestones" class="sidebar-nav-btn w-full px-3 py-2.5 rounded-xl transition-all flex items-center justify-between gap-3 text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-hover)] border border-transparent font-semibold text-xs group">
             <div class="flex items-center gap-2.5">
-              <div class="w-7 h-7 rounded-lg bg-rose-500/10 text-rose-700 dark:text-rose-400 dark:bg-rose-400/15 flex items-center justify-center shrink-0 transition-transform group-hover:scale-105">
+              <div class="w-7 h-7 rounded-lg bg-[#DC4C3E]/10 text-[#DC4C3E] dark:text-[#F87171] dark:bg-[#DC4C3E]/20 flex items-center justify-center shrink-0 transition-transform group-hover:scale-105">
                 <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
                 </svg>
               </div>
               <span class="font-bold">Capital Vault</span>
             </div>
-            <span id="navMilestoneIndicator" class="sidebar-milestone-indicator w-2 h-2 rounded-full bg-rose-500 dark:bg-rose-400 hidden animate-pulse"></span>
+            <span id="navMilestoneIndicator" class="sidebar-milestone-indicator w-2 h-2 rounded-full bg-[#DC4C3E] dark:bg-[#F87171] hidden animate-pulse"></span>
           </button>
 
           <!-- 5. Stats & Performance -->
@@ -587,10 +683,10 @@
       </div>
 
       <!-- Bottom Wealth Overview, Theme Switch & Ridge Contour -->
-      <div class="space-y-3 pt-3 border-t border-[var(--border)]">
+      <div class="relative z-10 space-y-3 pt-3 border-t border-[var(--border)]">
         
         <!-- Quick Wealth Chip in Sidebar -->
-        <div class="p-3.5 rounded-xl bg-[var(--surface)] border border-[var(--border)] space-y-2 font-num text-xs shadow-subtle">
+        <div class="p-3.5 rounded-xl bg-[var(--surface)]/90 backdrop-blur-xs border border-[var(--border)] space-y-2 font-num text-xs shadow-subtle">
           <div class="flex items-center justify-between text-[10px] uppercase font-bold text-[var(--text-muted)] font-sans">
             <span class="flex items-center gap-1.5">
               <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
@@ -600,7 +696,7 @@
           </div>
           <div class="flex items-baseline justify-between">
             <span class="text-[11px] text-[var(--text-secondary)] font-sans">Vault Banked:</span>
-            <span id="sidebarVaultBalance" class="font-bold text-rose-600 dark:text-rose-400">$0.00</span>
+            <span id="sidebarVaultBalance" class="font-bold text-[#DC4C3E] dark:text-[#F87171]">$0.00</span>
           </div>
           <div class="flex items-baseline justify-between pt-1 border-t border-[var(--border)]/70">
             <span class="text-[11px] text-[var(--text-secondary)] font-sans">Total Wealth:</span>
@@ -610,7 +706,7 @@
 
         <!-- Sidebar Theme Toggle Button -->
         <button type="button" onclick="toggleTheme()" id="sidebarThemeToggleBtn" title="Toggle Light / Dark mode"
-          class="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-[var(--surface)] hover:bg-[var(--surface-hover)] border border-[var(--border)] text-xs font-bold text-[var(--text-primary)] transition active:scale-95 shadow-subtle">
+          class="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-[var(--surface)]/90 backdrop-blur-xs hover:bg-[var(--surface-hover)] border border-[var(--border)] text-xs font-bold text-[var(--text-primary)] transition active:scale-95 shadow-subtle">
           <span class="flex items-center gap-2.5">
             <svg id="sidebarThemeIcon" class="w-4 h-4 text-amber-500 dark:text-amber-400 icon-hover-rotate" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z" />
@@ -619,14 +715,6 @@
           </span>
           <span class="text-[10px] text-[var(--text-muted)] uppercase font-bold font-num" id="sidebarThemeModeText">Dark</span>
         </button>
-
-        <!-- Subtle Topographical Ridge Silhouette Detail -->
-        <div class="px-1 pt-1 opacity-20 dark:opacity-30 select-none pointer-events-none" aria-hidden="true">
-          <svg class="w-full h-6 text-[var(--text-muted)]" viewBox="0 0 240 28" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M0,24 Q30,12 60,20 T120,8 T180,18 T240,10"/>
-            <path d="M0,28 Q40,18 80,24 T160,14 T240,22" opacity="0.5"/>
-          </svg>
-        </div>
       </div>
     </aside>
 
@@ -659,8 +747,29 @@
 
     <!-- Mobile Navigation Drawer Overlay (Section 4 of Spec) -->
     <div id="mobileDrawerBackdrop" onclick="closeMobileDrawer()" class="hidden fixed inset-0 z-50 bg-[#1D1915]/65 backdrop-blur-xs transition-opacity duration-200 lg:hidden">
-      <div id="mobileDrawerPanel" onclick="event.stopPropagation()" class="w-72 max-w-[85vw] h-full bg-[var(--sidebar-bg)] border-r border-[var(--border)] p-5 flex flex-col justify-between overflow-y-auto">
-        <div class="space-y-5">
+      <div id="mobileDrawerPanel" onclick="event.stopPropagation()" class="w-72 max-w-[85vw] h-full bg-[var(--sidebar-bg)] border-r border-[var(--border)] p-5 flex flex-col justify-between overflow-y-auto relative overflow-hidden">
+        <!-- Subtle Organic Decorative Background -->
+        <div class="sidebar-organic-bg absolute inset-0 pointer-events-none overflow-hidden z-0 select-none" aria-hidden="true">
+          <div class="absolute -bottom-20 -left-16 w-64 h-64 rounded-full bg-emerald-500/10 dark:bg-emerald-400/8 blur-3xl pointer-events-none"></div>
+          <svg class="absolute bottom-0 left-0 w-full h-[52%] text-emerald-800 dark:text-emerald-400 pointer-events-none opacity-80" viewBox="0 0 280 420" fill="none" preserveAspectRatio="none">
+            <path d="M-20,95 C45,80 85,125 155,100 C215,80 255,115 300,95" stroke="currentColor" stroke-opacity="0.12" stroke-width="1.2" stroke-linecap="round" />
+            <path d="M-20,135 C55,120 115,165 175,135 C235,110 265,150 300,130" stroke="currentColor" stroke-opacity="0.18" stroke-width="1.4" stroke-linecap="round" />
+            <path d="M-20,178 C35,160 85,205 145,180 C205,155 255,195 300,175" stroke="#34D399" stroke-opacity="0.3" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="3 3.5" />
+            <path d="M-20,222 C65,200 125,245 185,215 C245,190 275,230 300,212" stroke="currentColor" stroke-opacity="0.12" stroke-width="1.2" stroke-linecap="round" />
+            <path d="M-20,265 C45,245 95,290 165,260 C225,235 265,275 300,255" stroke="currentColor" stroke-opacity="0.2" stroke-width="1.6" stroke-linecap="round" />
+            <path d="M-20,310 C75,285 135,330 195,300 C245,275 285,312 300,295" stroke="#34D399" stroke-opacity="0.25" stroke-width="1.4" stroke-linecap="round" />
+            <path d="M-20,355 C55,335 105,375 175,348 C235,325 265,362 300,345" stroke="currentColor" stroke-opacity="0.14" stroke-width="1.2" stroke-linecap="round" />
+            <path d="M-20,395 C85,375 145,412 215,382 C265,360 285,390 300,380" stroke="currentColor" stroke-opacity="0.18" stroke-width="1.5" stroke-linecap="round" />
+            <circle cx="85" cy="125" r="1.5" fill="currentColor" opacity="0.3" />
+            <circle cx="175" cy="135" r="1.75" fill="#34D399" opacity="0.5" />
+            <circle cx="145" cy="180" r="1.5" fill="currentColor" opacity="0.3" />
+            <circle cx="245" cy="190" r="1.75" fill="#34D399" opacity="0.45" />
+            <circle cx="165" cy="260" r="2" fill="currentColor" opacity="0.35" />
+            <circle cx="75" cy="285" r="1.5" fill="#34D399" opacity="0.5" />
+          </svg>
+        </div>
+
+        <div class="relative z-10 space-y-5">
           <div class="flex items-center justify-between pb-3 border-b border-[var(--border)]">
             <div class="flex items-center gap-2.5">
               <div class="w-8 h-8 rounded-lg bg-[#607B5B]/15 text-[#607B5B] dark:bg-[#789272]/20 dark:text-[#789272] flex items-center justify-center">
@@ -694,7 +803,7 @@
             </button>
             <button type="button" onclick="switchTab('trades')" data-tab-target="trades" class="w-full px-3 py-2.5 rounded-xl transition-all flex items-center justify-between gap-3 text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-hover)] font-semibold text-xs group">
               <div class="flex items-center gap-2.5">
-                <div class="w-7 h-7 rounded-lg bg-indigo-500/10 text-indigo-700 dark:text-indigo-300 dark:bg-indigo-400/15 flex items-center justify-center shrink-0">
+                <div class="w-7 h-7 rounded-lg bg-[#7C69AF]/10 text-[#7C69AF] dark:text-[#A78BFA] dark:bg-[#7C69AF]/20 flex items-center justify-center shrink-0">
                   <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/></svg>
                 </div>
                 <span class="font-bold">Trading Sessions</span>
@@ -703,7 +812,7 @@
             </button>
             <button type="button" onclick="switchTab('milestones')" data-tab-target="milestones" class="w-full px-3 py-2.5 rounded-xl transition-all flex items-center justify-between gap-3 text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-hover)] font-semibold text-xs group">
               <div class="flex items-center gap-2.5">
-                <div class="w-7 h-7 rounded-lg bg-rose-500/10 text-rose-700 dark:text-rose-400 dark:bg-rose-400/15 flex items-center justify-center shrink-0">
+                <div class="w-7 h-7 rounded-lg bg-[#DC4C3E]/10 text-[#DC4C3E] dark:text-[#F87171] dark:bg-[#DC4C3E]/20 flex items-center justify-center shrink-0">
                   <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
                 </div>
                 <span class="font-bold">Capital Vault</span>
@@ -722,7 +831,7 @@
           </nav>
         </div>
 
-        <div class="pt-4 border-t border-[var(--border)] text-xs text-[var(--text-muted)]">
+        <div class="relative z-10 pt-4 border-t border-[var(--border)] text-xs text-[var(--text-muted)]">
           <p class="font-medium">Portfolio Growth Ladder &amp; Vault</p>
         </div>
       </div>
@@ -734,46 +843,46 @@
 
     <!-- Top Bento Header -->
     <header class="bento-card p-4 sm:p-5 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-      <div class="flex items-center gap-3.5">
-        <div class="w-11 h-11 rounded-xl bg-[#607B5B]/15 text-[#607B5B] dark:bg-[#789272]/20 dark:text-[#789272] border border-[#607B5B]/30 dark:border-[#789272]/30 flex items-center justify-center shadow-sm shrink-0">
-          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+      <div class="flex items-center gap-3.5 min-w-0">
+        <div class="w-11 h-11 rounded-2xl bg-emerald-500/10 dark:bg-emerald-400/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/25 dark:border-emerald-400/30 flex items-center justify-center shadow-xs shrink-0 group">
+          <svg class="w-5 h-5 transition-transform duration-200 group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="9" />
             <circle cx="12" cy="12" r="5" />
             <circle cx="12" cy="12" r="1.5" fill="currentColor" />
           </svg>
         </div>
-        <div>
+        <div class="min-w-0">
           <div class="flex items-center gap-2 flex-wrap">
-            <h1 class="text-xl sm:text-2xl font-black tracking-tight text-[#332B22] dark:text-[#E2D4BD]">
+            <h1 class="text-xl sm:text-2xl font-black tracking-tight text-[var(--text-primary)]">
               Welcome Dcniper
             </h1>
-            <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold bg-[#607B5B]/10 text-[#607B5B] border border-[#607B5B]/30 dark:bg-[#789272]/15 dark:text-[#789272] dark:border-[#789272]/30">
-              <span class="w-1.5 h-1.5 rounded-full bg-[#607B5B] dark:bg-[#789272] animate-pulse"></span>
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border border-emerald-500/25 dark:border-emerald-400/30 font-num">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
               <span id="headerLiveDate">26th September</span>
             </span>
           </div>
-          <p class="text-xs text-[#716556] dark:text-[#B4A58F] mt-1 flex items-center gap-2 flex-wrap">
-            <span class="font-bold text-[#332B22] dark:text-[#E2D4BD]">Session <span id="headerSessionNum">1</span> of <span id="headerTotalSessions">28</span></span>
+          <p class="text-xs text-[var(--text-secondary)] mt-1 flex items-center gap-2 flex-wrap">
+            <span class="font-bold text-[var(--text-primary)]">Session <span id="headerSessionNum">1</span> of <span id="headerTotalSessions">28</span></span>
             <span class="opacity-40">•</span>
-            <span id="headerActiveLadderName" class="font-medium">28-Session Compounding Challenge</span>
+            <span id="headerActiveLadderName" class="font-medium text-[var(--text-secondary)] truncate max-w-[200px] sm:max-w-none">28-Session Compounding Challenge</span>
             <span class="opacity-40">•</span>
-            <span id="headerTimestamp">Ready for session</span>
+            <span id="headerTimestamp" class="text-[var(--text-muted)] font-num">Ready for session</span>
           </p>
         </div>
       </div>
 
       <!-- Quick Status Badges + Status Bar + Theme Switcher -->
-      <div class="flex items-center gap-2.5 flex-wrap">
+      <div class="flex items-center gap-2.5 flex-wrap shrink-0">
         
         <!-- Header Status Bar: Cloud Sync + Link Sheet -->
-        <div class="inline-flex items-center gap-1.5 p-1 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] shadow-sm">
+        <div class="inline-flex items-center gap-1.5 p-1 rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)] shadow-xs">
           <!-- Cloud Status Indicator -->
           <div id="cloudStatusPill" onclick="openLinkSheetModal()" class="cursor-pointer">
             <!-- Dynamically rendered -->
           </div>
 
           <!-- Link Sheet Button -->
-          <button onclick="openLinkSheetModal()" id="btnLinkSheet" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#617D91] hover:bg-[#526C7F] text-[#F5EBDD] dark:bg-[#7894A6] dark:hover:bg-[#678395] dark:text-[#29241E] font-bold text-xs transition active:scale-95 shadow-sm">
+          <button onclick="openLinkSheetModal()" id="btnLinkSheet" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#4A88A9] hover:bg-[#3B728F] text-[#FFFFFF] dark:bg-[#60A5FA] dark:hover:bg-[#3B82F6] dark:text-[#0F1411] font-bold text-xs transition active:scale-95 shadow-xs">
             <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
               <rect x="3" y="3" width="18" height="18" rx="2" />
               <path d="M3 9h18" />
@@ -783,39 +892,40 @@
           </button>
         </div>
 
-        <!-- Vault Cash Chip (Pinky Peach) -->
-        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-[#C98278]/10 dark:bg-[#D99B91]/15 border border-[#C98278]/30 dark:border-[#D99B91]/30 text-xs font-semibold shadow-sm font-num">
-          <svg class="w-4 h-4 text-[#C98278] dark:text-[#D99B91]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M6 9h12l-1.5 10a2 2 0 0 1-2 2h-5a2 2 0 0 1-2-2L6 9z" />
-            <path d="M9 5a3 3 0 0 1 6 0v4H9V5z" />
-            <path d="M12 13v3" />
-          </svg>
+        <!-- Vault Cash Chip (Coral Accent) -->
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-[#DC4C3E]/10 dark:bg-[#F87171]/15 border border-[#DC4C3E]/25 dark:border-[#F87171]/30 text-xs font-semibold shadow-xs font-num">
+          <div class="w-6 h-6 rounded-lg bg-[#DC4C3E]/15 dark:bg-[#F87171]/20 text-[#DC4C3E] dark:text-[#F87171] flex items-center justify-center shrink-0">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+          </div>
           <div>
-            <span class="text-[#716556] dark:text-[#B4A58F] uppercase text-[9px] font-bold block tracking-wider">Vault Saved</span>
-            <span id="headerVaultBalance" class="text-[#C98278] dark:text-[#D99B91] font-black text-xs sm:text-sm">$0.00</span>
+            <span class="text-[var(--text-muted)] uppercase text-[9px] font-bold block tracking-wider font-sans">Vault Saved</span>
+            <span id="headerVaultBalance" class="text-[#DC4C3E] dark:text-[#F87171] font-black text-xs sm:text-sm">$0.00</span>
           </div>
         </div>
 
-        <!-- Total Wealth Chip (Moss) -->
-        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-[#607B5B]/10 dark:bg-[#789272]/15 border border-[#607B5B]/30 dark:border-[#789272]/30 text-xs font-semibold shadow-sm font-num">
-          <svg class="w-4 h-4 text-[#607B5B] dark:text-[#789272]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 22v-9" />
-            <path d="M12 13c0-4.97 4.03-9 9-9 0 4.97-4.03 9-9 9z" />
-            <path d="M12 17c0-3.31-2.69-6-6-6 0 3.31 2.69 6 6 6z" />
-          </svg>
+        <!-- Total Wealth Chip (Mint Accent) -->
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-emerald-500/10 dark:bg-emerald-400/15 border border-emerald-500/25 dark:border-emerald-400/30 text-xs font-semibold shadow-xs font-num">
+          <div class="w-6 h-6 rounded-lg bg-emerald-500/15 dark:bg-emerald-400/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
+              <polyline points="16 7 22 7 22 13" />
+            </svg>
+          </div>
           <div>
-            <span class="text-[#716556] dark:text-[#B4A58F] uppercase text-[9px] font-bold block tracking-wider">Total Capital</span>
-            <span id="headerTrueWealth" class="text-[#607B5B] dark:text-[#789272] font-black text-xs sm:text-sm">$120.00</span>
+            <span class="text-[var(--text-muted)] uppercase text-[9px] font-bold block tracking-wider font-sans">Total Capital</span>
+            <span id="headerTrueWealth" class="text-emerald-600 dark:text-emerald-400 font-black text-xs sm:text-sm">$120.00</span>
           </div>
         </div>
 
         <!-- Light / Dark Mode Toggle -->
         <button onclick="toggleTheme()" id="themeToggleBtn" title="Toggle Light / Dark mode"
-          class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#F5EBDD] hover:bg-[#F0E6D5] dark:bg-[#41382D] dark:hover:bg-[#352E25] border border-[#CFC1AA] dark:border-[#514638] text-[#332B22] dark:text-[#E2D4BD] transition active:scale-95 text-xs font-bold shadow-sm">
-          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[var(--surface-subtle)] hover:bg-[var(--surface-hover)] border border-[var(--border)] text-[var(--text-primary)] transition active:scale-95 text-xs font-bold shadow-xs">
+          <svg class="w-3.5 h-3.5 text-amber-500 dark:text-amber-400 icon-hover-rotate" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z" />
           </svg>
-          <span class="hidden sm:inline">Theme</span>
+          <span class="hidden sm:inline font-sans">Theme</span>
         </button>
       </div>
     </header>
@@ -882,22 +992,21 @@
     <!-- ==================== TAB 1: TRACKER (SEGMENTED CONSOLE) ==================== -->
     <div id="tabContentTracker" class="space-y-5 sm:space-y-6">
 
-      <!-- Empty State Banner if no challenges exist -->
-      <div id="noChallengeAlert" class="hidden p-4 sm:p-5 rounded-2xl bg-[#C2984D]/15 dark:bg-[#D0AA63]/15 border border-[#C2984D]/40 dark:border-[#D0AA63]/40 text-[#332B22] dark:text-[#E2D4BD] flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 shadow-xs">
-        <div class="flex items-center gap-3">
-          <div class="w-9 h-9 rounded-xl bg-[#C2984D]/20 text-[#C2984D] dark:bg-[#D0AA63]/25 dark:text-[#D0AA63] flex items-center justify-center shrink-0">
+      <!-- Integrated Challenge Onboarding Banner if no challenges exist -->
+      <div id="noChallengeAlert" class="hidden p-4 sm:p-5 rounded-2xl bg-[var(--surface)] border border-amber-500/30 dark:border-amber-400/25 text-[var(--text-primary)] flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 shadow-card">
+        <div class="flex items-center gap-3.5">
+          <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0 border border-amber-500/20">
             <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="12" cy="12" r="10"></circle>
-              <line x1="12" y1="8" x2="12" y2="12"></line>
-              <line x1="12" y1="16" x2="12.01" y2="16"></line>
+              <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" />
             </svg>
           </div>
           <div>
-            <h4 class="text-xs sm:text-sm font-bold text-[#332B22] dark:text-[#E2D4BD]">No Active Challenge Found</h4>
-            <p class="text-xs text-[#716556] dark:text-[#B4A58F]">Create your own custom challenge in Settings to begin logging compounding sessions.</p>
+            <h4 class="text-sm font-bold text-[var(--text-primary)]">Ready for your next expedition?</h4>
+            <p class="text-xs text-[var(--text-secondary)] mt-0.5">Activate a compounding challenge to begin tracking daily sessions, goals, and capital vault.</p>
           </div>
         </div>
-        <button onclick="switchTab('config')" class="px-4 py-2 rounded-xl bg-[#607B5B] hover:bg-[#4F674B] text-[#F5EBDD] dark:bg-[#789272] dark:hover:bg-[#607B5B] dark:text-[#29241E] font-bold text-xs transition active:scale-95 shadow-xs shrink-0 inline-flex items-center justify-center gap-1.5">
+        <button onclick="switchTab('config')" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white dark:bg-emerald-500 dark:hover:bg-emerald-600 dark:text-[#0F1411] font-bold text-xs transition active:scale-95 shadow-xs shrink-0 inline-flex items-center justify-center gap-1.5 font-sans">
           <span>+ Create Challenge</span>
           <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="9 18 15 12 9 6"></polyline>
@@ -905,30 +1014,30 @@
         </button>
       </div>
 
-      <!-- 5-Card Current Position Top Bar (Section 16.3 B of Spec) - Varied Hierarchy & Subtle Asymmetry -->
+      <!-- 5-Card Current Position Top Bar - Varied Hierarchy & Expressive Layout -->
       <section id="currentPositionBar" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 font-num">
         
         <!-- Hero Card 1: Current Portfolio Balance -->
-        <div class="bento-card p-4 sm:p-5 flex flex-col justify-between group">
+        <div class="bento-card p-4 sm:p-5 flex flex-col justify-between group bg-gradient-to-br from-[var(--surface)] to-[var(--surface-subtle)] min-w-0">
           <div class="flex items-center justify-between text-[11px] font-bold uppercase tracking-wider text-[var(--text-muted)] font-sans">
-            <span>Portfolio Balance</span>
-            <div class="w-7 h-7 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0">
+            <span class="truncate">Portfolio Balance</span>
+            <div class="w-7 h-7 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0 border border-emerald-500/20">
               <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
               </svg>
             </div>
           </div>
           <div class="mt-2.5">
-            <span id="posCurrentBal" class="text-2xl sm:text-3xl font-black text-[var(--text-primary)] block tracking-tight">$0.00</span>
-            <span id="posStartBal" class="text-xs text-[var(--text-muted)] block mt-0.5 font-medium">Started: $0.00</span>
+            <span id="posCurrentBal" class="text-2xl sm:text-3xl font-black text-[var(--text-primary)] block tracking-tight truncate">$0.00</span>
+            <span id="posStartBal" class="text-xs text-[var(--text-muted)] block mt-0.5 font-medium truncate font-sans">Started: $0.00</span>
           </div>
         </div>
 
         <!-- Hero Card 2: Today's Profit/Loss -->
-        <div class="bento-card p-4 sm:p-5 flex flex-col justify-between group">
+        <div class="bento-card p-4 sm:p-5 flex flex-col justify-between group min-w-0">
           <div class="flex items-center justify-between text-[11px] font-bold uppercase tracking-wider text-[var(--text-muted)] font-sans">
-            <span>Today's Profit/Loss</span>
-            <div class="w-7 h-7 rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0">
+            <span class="truncate">Today's Profit/Loss</span>
+            <div class="w-7 h-7 rounded-lg bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0 border border-amber-500/20">
               <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
                 <polyline points="17 6 23 6 23 12"></polyline>
@@ -936,16 +1045,16 @@
             </div>
           </div>
           <div class="mt-2.5">
-            <span id="posTodayPnL" class="text-2xl sm:text-3xl font-black text-[var(--text-primary)] block tracking-tight">$0.00</span>
-            <span id="posTodayReturn" class="text-xs text-[var(--text-muted)] block mt-0.5 font-medium">0.0% session</span>
+            <span id="posTodayPnL" class="text-2xl sm:text-3xl font-black text-[var(--text-primary)] block tracking-tight truncate">$0.00</span>
+            <span id="posTodayReturn" class="text-xs text-[var(--text-muted)] block mt-0.5 font-medium truncate font-sans">0.0% session</span>
           </div>
         </div>
 
         <!-- Card 3: Overall Profit/Loss -->
-        <div class="bento-card p-4 sm:p-5 flex flex-col justify-between group">
+        <div class="bento-card p-4 sm:p-5 flex flex-col justify-between group min-w-0">
           <div class="flex items-center justify-between text-[11px] font-bold uppercase tracking-wider text-[var(--text-muted)] font-sans">
-            <span>Overall P&amp;L</span>
-            <div class="w-7 h-7 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0">
+            <span class="truncate">Overall P&amp;L</span>
+            <div class="w-7 h-7 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0 border border-emerald-500/20">
               <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
                 <polyline points="16 7 22 7 22 13" />
@@ -953,30 +1062,30 @@
             </div>
           </div>
           <div class="mt-2.5">
-            <span id="posOverallPnL" class="text-2xl sm:text-3xl font-black text-[var(--text-primary)] block tracking-tight">$0.00</span>
-            <span id="posOverallReturn" class="text-xs text-[var(--text-muted)] block mt-0.5 font-medium">0.0% ROI</span>
+            <span id="posOverallPnL" class="text-2xl sm:text-3xl font-black text-[var(--text-primary)] block tracking-tight truncate">$0.00</span>
+            <span id="posOverallReturn" class="text-xs text-[var(--text-muted)] block mt-0.5 font-medium truncate font-sans">0.0% ROI</span>
           </div>
         </div>
 
         <!-- Card 4: Target Progress -->
-        <div class="bento-card p-4 sm:p-5 flex flex-col justify-between group">
+        <div class="bento-card p-4 sm:p-5 flex flex-col justify-between group min-w-0">
           <div class="flex items-center justify-between text-[11px] font-bold uppercase tracking-wider text-[var(--text-muted)] font-sans">
-            <span>Target Progress</span>
+            <span class="truncate">Target Progress</span>
             <span id="posProgressPct" class="text-xs font-black text-amber-600 dark:text-amber-400 font-num">0.0%</span>
           </div>
           <div class="mt-2.5 space-y-2">
             <div class="w-full bg-[#E5D7C3] dark:bg-[#151916] h-2.5 rounded-full overflow-hidden border border-[#CFC1AA]/60 dark:border-[#2A352D]">
               <div id="posProgressBar" class="bg-gradient-to-r from-amber-500 to-emerald-500 h-full transition-all duration-500 rounded-full" style="width: 0%"></div>
             </div>
-            <span id="posProgressGoal" class="text-xs text-[var(--text-muted)] block font-medium">Goal: $0.00</span>
+            <span id="posProgressGoal" class="text-xs text-[var(--text-muted)] block font-medium truncate font-sans">Goal: $0.00</span>
           </div>
         </div>
 
         <!-- Card 5: Active Session & Date -->
-        <div class="bento-card p-4 sm:p-5 col-span-2 sm:col-span-1 lg:col-span-1 flex flex-col justify-between group">
+        <div class="bento-card p-4 sm:p-5 col-span-2 sm:col-span-1 lg:col-span-1 flex flex-col justify-between group min-w-0">
           <div class="flex items-center justify-between text-[11px] font-bold uppercase tracking-wider text-[var(--text-muted)] font-sans">
-            <span>Expedition Session</span>
-            <div class="w-7 h-7 rounded-lg bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 flex items-center justify-center shrink-0">
+            <span class="truncate">Expedition Session</span>
+            <div class="w-7 h-7 rounded-lg bg-[#7C69AF]/10 text-[#7C69AF] dark:text-[#A78BFA] flex items-center justify-center shrink-0 border border-[#7C69AF]/20">
               <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
                 <line x1="16" y1="2" x2="16" y2="6"></line>
@@ -995,34 +1104,37 @@
         </div>
       </section>
 
-      <!-- Total Financial Goal Overview (Section 10.1 of Spec) -->
+      <!-- Total Financial Goal Overview - Refined, Lighter Bento Card -->
       <section id="totalFinancialGoalWidget" class="bento-card p-4 sm:p-5">
-        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-3 border-b border-[#CFC1AA] dark:border-[#514638]">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-3 border-b border-[var(--border)]">
           <div class="flex items-center gap-2.5">
-            <div class="w-8 h-8 rounded-lg bg-[#C2984D]/15 text-[#C2984D] dark:bg-[#D0AA63]/20 dark:text-[#D0AA63] flex items-center justify-center shrink-0">
-              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></svg>
+            <div class="w-8 h-8 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0 border border-amber-500/20">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="m9 12 2 2 4-4"></path>
+              </svg>
             </div>
             <div>
               <div class="flex items-center gap-2">
-                <h3 class="text-sm font-bold text-[#332B22] dark:text-[#E2D4BD]">Total Financial Goal</h3>
-                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#E5D7C3] dark:bg-[#41382D] text-[#716556] dark:text-[#B4A58F]">Trading + Savings + Bills</span>
+                <h3 class="text-sm font-bold text-[var(--text-primary)]">Total Financial Goal</h3>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[var(--surface-subtle)] text-[var(--text-secondary)] border border-[var(--border)] font-sans">Trading • Savings • Bills</span>
               </div>
-              <p class="text-xs text-[#716556] dark:text-[#B4A58F]">Combined target planning overview across all financial categories</p>
+              <p class="text-xs text-[var(--text-secondary)]">Combined target planning overview across all financial categories</p>
             </div>
           </div>
           
           <div class="flex items-center gap-4 text-xs font-num">
             <div>
-              <span class="text-[#716556] dark:text-[#B4A58F] block text-[10px] uppercase font-bold font-sans">Total Target</span>
-              <span id="tfgTotalGoal" class="text-base sm:text-lg font-black text-[#332B22] dark:text-[#E2D4BD]">$0.00</span>
+              <span class="text-[var(--text-muted)] block text-[10px] uppercase font-bold font-sans">Total Target</span>
+              <span id="tfgTotalGoal" class="text-base sm:text-lg font-black text-[var(--text-primary)]">$0.00</span>
             </div>
-            <div class="border-l border-[#CFC1AA] dark:border-[#514638] pl-4">
-              <span class="text-[#716556] dark:text-[#B4A58F] block text-[10px] uppercase font-bold font-sans">Total Achieved</span>
-              <span id="tfgTotalAchieved" class="text-base sm:text-lg font-black text-[#607B5B] dark:text-[#789272]">$0.00</span>
+            <div class="border-l border-[var(--border)] pl-4">
+              <span class="text-[var(--text-muted)] block text-[10px] uppercase font-bold font-sans">Total Achieved</span>
+              <span id="tfgTotalAchieved" class="text-base sm:text-lg font-black text-emerald-600 dark:text-emerald-400">$0.00</span>
             </div>
-            <div class="border-l border-[#CFC1AA] dark:border-[#514638] pl-4">
-              <span class="text-[#716556] dark:text-[#B4A58F] block text-[10px] uppercase font-bold font-sans">Remaining</span>
-              <span id="tfgTotalRemaining" class="text-base sm:text-lg font-black text-[#C2984D] dark:text-[#D0AA63]">$0.00</span>
+            <div class="border-l border-[var(--border)] pl-4">
+              <span class="text-[var(--text-muted)] block text-[10px] uppercase font-bold font-sans">Remaining</span>
+              <span id="tfgTotalRemaining" class="text-base sm:text-lg font-black text-amber-600 dark:text-amber-400">$0.00</span>
             </div>
           </div>
         </div>
@@ -1030,75 +1142,75 @@
         <!-- Combined Progress Bar -->
         <div class="mt-3.5 space-y-1.5">
           <div class="flex items-center justify-between text-xs font-num">
-            <span class="font-bold text-[#716556] dark:text-[#B4A58F] flex items-center gap-1.5 font-sans">
+            <span class="font-bold text-[var(--text-secondary)] flex items-center gap-1.5 font-sans">
               <span>Overall Goal Completion</span>
-              <span id="tfgStatusBadge" class="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-[#607B5B]/15 text-[#607B5B] dark:text-[#789272]">On Track</span>
+              <span id="tfgStatusBadge" class="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border border-emerald-500/20">On Track</span>
             </span>
-            <span id="tfgOverallProgressPct" class="font-black text-sm text-[#332B22] dark:text-[#E2D4BD]">0.0%</span>
+            <span id="tfgOverallProgressPct" class="font-black text-sm text-[var(--text-primary)]">0.0%</span>
           </div>
-          <div class="w-full bg-[#E5D7C3] dark:bg-[#41382D] h-2.5 rounded-full overflow-hidden flex">
-            <div id="tfgTradingBar" class="bg-[#617D91] h-full transition-all duration-300" style="width: 0%" title="Trading"></div>
-            <div id="tfgSavingsBar" class="bg-[#806A86] h-full transition-all duration-300" style="width: 0%" title="Savings"></div>
-            <div id="tfgBillsBar" class="bg-[#607B5B] h-full transition-all duration-300" style="width: 0%" title="Bills"></div>
+          <div class="w-full bg-[#E5D7C3] dark:bg-[#151916] h-2.5 rounded-full overflow-hidden flex border border-[#CFC1AA]/40 dark:border-[#2A352D]">
+            <div id="tfgTradingBar" class="bg-[#4A88A9] dark:bg-[#60A5FA] h-full transition-all duration-300" style="width: 0%" title="Trading"></div>
+            <div id="tfgSavingsBar" class="bg-[#7C69AF] dark:bg-[#A78BFA] h-full transition-all duration-300" style="width: 0%" title="Savings"></div>
+            <div id="tfgBillsBar" class="bg-[#2E9D68] dark:bg-[#4EBA88] h-full transition-all duration-300" style="width: 0%" title="Bills"></div>
           </div>
         </div>
 
         <!-- 3-Category Breakdown Grid -->
-        <div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-3 pt-3 border-t border-[#CFC1AA]/60 dark:border-[#514638]/60 font-num">
+        <div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-3 pt-3 border-t border-[var(--border)]/70 font-num">
           <!-- Category 1: Trading Portfolio -->
-          <div class="p-3 rounded-xl bg-[#F5EBDD]/60 dark:bg-[#352E25]/60 border border-[#CFC1AA]/50 dark:border-[#514638]/50">
+          <div class="p-3.5 rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)]">
             <div class="flex items-center justify-between text-xs">
-              <span class="font-bold text-[#617D91] dark:text-[#7D98AB] flex items-center gap-1 font-sans">
-                <span class="w-2 h-2 rounded-full bg-[#617D91]"></span>
+              <span class="font-bold text-[#4A88A9] dark:text-[#60A5FA] flex items-center gap-1 font-sans">
+                <span class="w-2 h-2 rounded-full bg-[#4A88A9] dark:bg-[#60A5FA]"></span>
                 Trading Target
               </span>
-              <span id="tfgTradingProgressPct" class="font-bold text-[#332B22] dark:text-[#E2D4BD]">0.0%</span>
+              <span id="tfgTradingProgressPct" class="font-bold text-[var(--text-primary)]">0.0%</span>
             </div>
             <div class="mt-1.5 flex items-baseline justify-between">
-              <span id="tfgTradingBalance" class="text-sm font-black text-[#332B22] dark:text-[#E2D4BD]">$0.00</span>
-              <span class="text-[11px] text-[#716556] dark:text-[#B4A58F]">Target: <span id="tfgTradingTarget" class="font-bold">$0.00</span></span>
+              <span id="tfgTradingBalance" class="text-sm font-black text-[var(--text-primary)]">$0.00</span>
+              <span class="text-[11px] text-[var(--text-secondary)]">Target: <span id="tfgTradingTarget" class="font-bold">$0.00</span></span>
             </div>
-            <div class="mt-1 text-[11px] text-[#716556] dark:text-[#B4A58F] flex items-center justify-between font-sans">
+            <div class="mt-1 text-[11px] text-[var(--text-secondary)] flex items-center justify-between font-sans">
               <span id="tfgTradingRemainingLabel">Remaining to target:</span>
-              <span id="tfgTradingRemaining" class="font-bold font-num text-[#332B22] dark:text-[#E2D4BD]">$0.00</span>
+              <span id="tfgTradingRemaining" class="font-bold font-num text-[var(--text-primary)]">$0.00</span>
             </div>
           </div>
 
           <!-- Category 2: Savings Reserve -->
-          <div class="p-3 rounded-xl bg-[#F5EBDD]/60 dark:bg-[#352E25]/60 border border-[#CFC1AA]/50 dark:border-[#514638]/50">
+          <div class="p-3.5 rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)]">
             <div class="flex items-center justify-between text-xs">
-              <span class="font-bold text-[#806A86] dark:text-[#98849E] flex items-center gap-1 font-sans">
-                <span class="w-2 h-2 rounded-full bg-[#806A86]"></span>
+              <span class="font-bold text-[#7C69AF] dark:text-[#A78BFA] flex items-center gap-1 font-sans">
+                <span class="w-2 h-2 rounded-full bg-[#7C69AF] dark:bg-[#A78BFA]"></span>
                 Savings Target
               </span>
-              <span id="tfgSavingsProgressPct" class="font-bold text-[#332B22] dark:text-[#E2D4BD]">0.0%</span>
+              <span id="tfgSavingsProgressPct" class="font-bold text-[var(--text-primary)]">0.0%</span>
             </div>
             <div class="mt-1.5 flex items-baseline justify-between">
-              <span id="tfgSavingsBalance" class="text-sm font-black text-[#332B22] dark:text-[#E2D4BD]">$0.00</span>
-              <span class="text-[11px] text-[#716556] dark:text-[#B4A58F]">Target: <span id="tfgSavingsTarget" class="font-bold">$0.00</span></span>
+              <span id="tfgSavingsBalance" class="text-sm font-black text-[var(--text-primary)]">$0.00</span>
+              <span class="text-[11px] text-[var(--text-secondary)]">Target: <span id="tfgSavingsTarget" class="font-bold">$0.00</span></span>
             </div>
-            <div class="mt-1 text-[11px] text-[#716556] dark:text-[#B4A58F] flex items-center justify-between font-sans">
+            <div class="mt-1 text-[11px] text-[var(--text-secondary)] flex items-center justify-between font-sans">
               <span id="tfgSavingsDeficitSurplusLabel">Remaining:</span>
-              <span id="tfgSavingsDeficitSurplus" class="font-bold font-num text-[#332B22] dark:text-[#E2D4BD]">$0.00</span>
+              <span id="tfgSavingsDeficitSurplus" class="font-bold font-num text-[var(--text-primary)]">$0.00</span>
             </div>
           </div>
 
           <!-- Category 3: Bills Obligation -->
-          <div class="p-3 rounded-xl bg-[#F5EBDD]/60 dark:bg-[#352E25]/60 border border-[#CFC1AA]/50 dark:border-[#514638]/50">
+          <div class="p-3.5 rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)]">
             <div class="flex items-center justify-between text-xs">
-              <span class="font-bold text-[#607B5B] dark:text-[#789272] flex items-center gap-1 font-sans">
-                <span class="w-2 h-2 rounded-full bg-[#607B5B]"></span>
+              <span class="font-bold text-emerald-700 dark:text-emerald-400 flex items-center gap-1 font-sans">
+                <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
                 Bills Target
               </span>
-              <span id="tfgBillsProgressPct" class="font-bold text-[#332B22] dark:text-[#E2D4BD]">0.0%</span>
+              <span id="tfgBillsProgressPct" class="font-bold text-[var(--text-primary)]">0.0%</span>
             </div>
             <div class="mt-1.5 flex items-baseline justify-between">
-              <span id="tfgBillsCovered" class="text-sm font-black text-[#332B22] dark:text-[#E2D4BD]">$0.00</span>
-              <span class="text-[11px] text-[#716556] dark:text-[#B4A58F]">Total Due: <span id="tfgBillsTarget" class="font-bold">$0.00</span></span>
+              <span id="tfgBillsCovered" class="text-sm font-black text-[var(--text-primary)]">$0.00</span>
+              <span class="text-[11px] text-[var(--text-secondary)]">Total Due: <span id="tfgBillsTarget" class="font-bold">$0.00</span></span>
             </div>
-            <div class="mt-1 text-[11px] text-[#716556] dark:text-[#B4A58F] flex items-center justify-between font-sans">
+            <div class="mt-1 text-[11px] text-[var(--text-secondary)] flex items-center justify-between font-sans">
               <span>Outstanding:</span>
-              <span id="tfgBillsOutstanding" class="font-bold font-num text-[#B86652] dark:text-[#C77B68]">$0.00</span>
+              <span id="tfgBillsOutstanding" class="font-bold font-num text-[#DC4C3E] dark:text-[#F87171]">$0.00</span>
             </div>
           </div>
         </div>
@@ -1106,24 +1218,24 @@
 
       <!-- ==================== MASTER CARD 1: DAILY EXECUTION STATION ==================== -->
       <section id="executionStationCard" class="bento-card overflow-hidden">
-        <div class="grid grid-cols-1 lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x divide-[#CFC1AA] dark:divide-[#514638]">
+        <div class="grid grid-cols-1 lg:grid-cols-12 divide-y lg:divide-y-0 lg:divide-x divide-[var(--border)]">
           
           <!-- Column 1 (Cols 1-6): Closing Balance Logger -->
           <div class="lg:col-span-6 p-5 sm:p-6 flex flex-col justify-between space-y-4">
             
             <!-- Stepper & Live Glow Indicator -->
-            <div class="flex items-center justify-between pb-3 border-b border-[#CFC1AA] dark:border-[#514638]">
+            <div class="flex items-center justify-between pb-3 border-b border-[var(--border)]">
               <!-- Session Stepper -->
-              <div class="inline-flex items-center gap-1.5 bg-[#F5EBDD] dark:bg-[#41382D] rounded-lg p-1 border border-[#CFC1AA] dark:border-[#514638] font-num">
-                <button onclick="navigateSession(-1)" title="Previous Session" class="w-7 h-7 rounded-md hover:bg-[#F0E6D5] dark:hover:bg-[#352E25] text-[#332B22] dark:text-[#E2D4BD] flex items-center justify-center font-bold text-base transition active:scale-90">
+              <div class="inline-flex items-center gap-1.5 bg-[var(--surface-subtle)] rounded-xl p-1 border border-[var(--border)] font-num shadow-xs">
+                <button onclick="navigateSession(-1)" title="Previous Session" class="w-7 h-7 rounded-lg hover:bg-[var(--surface-hover)] text-[var(--text-primary)] flex items-center justify-center font-bold text-base transition active:scale-90">
                   ‹
                 </button>
                 <div class="px-2 flex items-center gap-1 text-xs">
-                  <span class="text-[#716556] dark:text-[#B4A58F] uppercase font-semibold text-[10px]">Session</span>
-                  <span id="activeSessionNumDisplay" class="font-extrabold text-sm text-[#332B22] dark:text-[#E2D4BD]">1</span>
-                  <span class="text-[#716556] dark:text-[#B4A58F] text-xs">/ <span id="totalSessionsDisplay">28</span></span>
+                  <span class="text-[var(--text-muted)] uppercase font-semibold text-[10px]">Session</span>
+                  <span id="activeSessionNumDisplay" class="font-extrabold text-sm text-[var(--text-primary)]">1</span>
+                  <span class="text-[var(--text-muted)] text-xs">/ <span id="totalSessionsDisplay">28</span></span>
                 </div>
-                <button onclick="navigateSession(1)" title="Next Session" class="w-7 h-7 rounded-md hover:bg-[#F0E6D5] dark:hover:bg-[#352E25] text-[#332B22] dark:text-[#E2D4BD] flex items-center justify-center font-bold text-base transition active:scale-90">
+                <button onclick="navigateSession(1)" title="Next Session" class="w-7 h-7 rounded-lg hover:bg-[var(--surface-hover)] text-[var(--text-primary)] flex items-center justify-center font-bold text-base transition active:scale-90">
                   ›
                 </button>
               </div>
@@ -1137,22 +1249,22 @@
             <!-- Main Input Section -->
             <div>
               <div class="flex items-center justify-between mb-1.5">
-                <label for="sessionBalanceInput" class="text-xs font-bold uppercase tracking-wider text-[#716556] dark:text-[#B4A58F] flex items-center gap-1.5">
+                <label for="sessionBalanceInput" class="text-xs font-bold uppercase tracking-wider text-[var(--text-secondary)] flex items-center gap-1.5">
                   <span>Closing Balance</span>
-                  <span class="text-[10px] text-[#716556]/80 dark:text-[#B4A58F]/80 font-normal">(Today's End Balance)</span>
+                  <span class="text-[10px] text-[var(--text-muted)] font-normal">(Today's End Balance)</span>
                 </label>
-                <span class="text-xs text-[#716556] dark:text-[#B4A58F]">
-                  Started with: <strong id="prevSessionBalLabel" class="text-[#332B22] dark:text-[#E2D4BD] font-num font-bold">$120.00</strong>
+                <span class="text-xs text-[var(--text-secondary)]">
+                  Started with: <strong id="prevSessionBalLabel" class="text-[var(--text-primary)] font-num font-bold">$120.00</strong>
                 </span>
               </div>
 
               <div class="relative group">
-                <span class="absolute left-4 top-3 text-[#716556] dark:text-[#B4A58F] text-2xl font-bold font-num select-none">$</span>
+                <span class="absolute left-4 top-3 text-[var(--text-muted)] text-2xl font-bold font-num select-none">$</span>
                 <input type="number" step="0.01" id="sessionBalanceInput" placeholder="0.00" oninput="handleBalanceInput(this.value)"
-                  class="w-full bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] focus:border-[#607B5B] dark:focus:border-[#8CA887] focus:bg-[#F5EBDD] dark:focus:bg-[#41382D] rounded-xl pl-10 pr-4 py-3 font-num text-3xl sm:text-4xl font-black text-[#332B22] dark:text-[#E2D4BD] focus:outline-none transition shadow-inner" />
+                  class="w-full bg-[var(--surface-subtle)] border border-[var(--border)] focus:border-[var(--mint)] focus:bg-[var(--surface)] rounded-xl pl-10 pr-4 py-3 font-num text-3xl sm:text-4xl font-black text-[var(--text-primary)] focus:outline-none transition shadow-inner" />
               </div>
 
-              <p id="executionTimestampDisplay" class="text-[11px] text-[#716556] dark:text-[#B4A58F] font-num mt-2 flex items-center gap-1.5">
+              <p id="executionTimestampDisplay" class="text-[11px] text-[var(--text-muted)] font-num mt-2 flex items-center gap-1.5">
                 <svg class="w-3.5 h-3.5 inline-block opacity-75 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
                   <circle cx="12" cy="12" r="9" /><polyline points="12 7 12 12 15 15" />
                 </svg>
@@ -1161,8 +1273,8 @@
             </div>
 
             <!-- Action Buttons Bar -->
-            <div class="pt-3 border-t border-[#CFC1AA] dark:border-[#514638] flex items-center justify-between gap-2 flex-wrap">
-              <button onclick="fillTargetForActiveSession()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#607B5B]/10 hover:bg-[#607B5B]/20 text-[#607B5B] dark:bg-[#789272]/15 dark:hover:bg-[#789272]/25 dark:text-[#789272] font-bold transition active:scale-95 border border-[#607B5B]/30 dark:border-[#789272]/30 text-xs">
+            <div class="pt-3 border-t border-[var(--border)] flex items-center justify-between gap-2 flex-wrap">
+              <button onclick="fillTargetForActiveSession()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[var(--mint-tint)] hover:bg-[var(--mint)]/20 text-[var(--mint)] font-bold transition active:scale-95 border border-[var(--mint)]/30 text-xs shadow-xs">
                 <svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
                   <path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3z"/>
                 </svg>
@@ -1170,7 +1282,7 @@
               </button>
 
               <!-- Lock / Unlock Session Button -->
-              <button onclick="toggleLockActiveSession()" id="btnLockSession" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-[#C2984D] hover:bg-[#B3893F] text-[#F5EBDD] dark:bg-[#D0AA63] dark:hover:bg-[#C2984D] dark:text-[#29241E] font-bold transition active:scale-95 text-xs shadow-sm">
+              <button onclick="toggleLockActiveSession()" id="btnLockSession" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-[var(--amber)] hover:opacity-90 text-[#F5EBDD] dark:text-[#0F1411] font-bold transition active:scale-95 text-xs shadow-sm">
                 <svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
                   <rect x="5" y="11" width="14" height="10" rx="2" />
                   <path d="M8 11V7a4 4 0 0 1 8 0v4" />
@@ -1182,15 +1294,15 @@
           </div>
 
           <!-- Column 2 (Cols 7-12): Today's PnL & Weekly Progression -->
-          <div class="lg:col-span-6 p-5 sm:p-6 flex flex-col justify-between space-y-4 bg-[#F0E6D5]/40 dark:bg-[#352E25]/30">
+          <div class="lg:col-span-6 p-5 sm:p-6 flex flex-col justify-between space-y-4 bg-[var(--surface-subtle)]/40">
             
             <!-- Top Half: Today's Profit / Loss or Suggestive Goal -->
-            <div class="space-y-3 pb-4 border-b border-[#CFC1AA] dark:border-[#514638]">
+            <div class="space-y-3 pb-4 border-b border-[var(--border)]">
               <div class="flex items-center justify-between gap-2 flex-wrap">
                 <!-- Segmented Tabs for Today's Card -->
-                <div class="inline-flex items-center p-0.5 rounded-lg bg-[#E8DDC9] dark:bg-[#29241E] border border-[#CFC1AA] dark:border-[#514638] gap-1">
+                <div class="inline-flex items-center p-0.5 rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)] gap-1">
                   <button type="button" onclick="switchTodayCardTab('pnl')" id="todayTabBtn_pnl"
-                    class="px-2.5 py-1 rounded-md text-xs font-bold transition flex items-center gap-1 bg-[#F5EBDD] dark:bg-[#41382D] text-[#332B22] dark:text-[#E2D4BD] shadow-xs">
+                    class="px-2.5 py-1 rounded-lg text-xs font-bold transition flex items-center gap-1 bg-[var(--surface)] text-[var(--text-primary)] shadow-xs">
                     <svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
                       <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
                       <polyline points="16 7 22 7 22 13" />
@@ -1198,7 +1310,7 @@
                     <span>Today's PnL</span>
                   </button>
                   <button type="button" onclick="switchTodayCardTab('suggestive')" id="todayTabBtn_suggestive"
-                    class="px-2.5 py-1 rounded-md text-xs font-bold transition flex items-center gap-1 text-[#716556] dark:text-[#B4A58F] hover:text-[#332B22] dark:hover:text-[#E2D4BD]">
+                    class="px-2.5 py-1 rounded-lg text-xs font-bold transition flex items-center gap-1 text-[var(--text-secondary)] hover:text-[var(--text-primary)]">
                     <svg class="w-3.5 h-3.5 shrink-0 text-[#C98278] dark:text-[#D99B91]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
                       <path d="M6 9h12l-1.5 10a2 2 0 0 1-2 2h-5a2 2 0 0 1-2-2L6 9z" />
                       <path d="M9 5a3 3 0 0 1 6 0v4H9V5z" />
@@ -1212,16 +1324,16 @@
               <!-- VIEW A: Today's Profit / Loss -->
               <div id="todayCardView_pnl" class="space-y-1.5">
                 <div class="flex items-center gap-1.5 flex-wrap">
-                  <span class="text-xs font-bold uppercase tracking-wider text-[#716556] dark:text-[#B4A58F]">
+                  <span class="text-xs font-bold uppercase tracking-wider text-[var(--text-secondary)]">
                     Today's Profit / Loss
                   </span>
-                  <span class="text-xs font-num font-semibold text-[#716556] dark:text-[#B4A58F]">
-                    • Pace Goal: <strong id="sessionTargetValDisplay" class="text-[#332B22] dark:text-[#E2D4BD]">$120.00</strong>
+                  <span class="text-xs font-num font-semibold text-[var(--text-muted)]">
+                    • Pace Goal: <strong id="sessionTargetValDisplay" class="text-[var(--text-primary)]">$120.00</strong>
                   </span>
                 </div>
 
                 <div class="flex items-baseline gap-3">
-                  <div class="text-3xl sm:text-4xl font-black font-num tracking-tight text-[#332B22] dark:text-[#E2D4BD]" id="sessionPnlDollar">
+                  <div class="text-3xl sm:text-4xl font-black font-num tracking-tight text-[var(--text-primary)]" id="sessionPnlDollar">
                     $0.00
                   </div>
                   <div class="text-sm font-bold font-num" id="sessionPnlPct">
@@ -1229,8 +1341,8 @@
                   </div>
                 </div>
 
-                <p class="text-xs text-[#716556] dark:text-[#B4A58F] font-medium pt-1 flex items-center gap-1.5" id="sessionPnlVibe">
-                  <span class="w-2 h-2 rounded-full bg-[#607B5B] dark:bg-[#789272] inline-block shrink-0"></span>
+                <p class="text-xs text-[var(--text-secondary)] font-medium pt-1 flex items-center gap-1.5" id="sessionPnlVibe">
+                  <span class="w-2 h-2 rounded-full bg-[var(--mint)] inline-block shrink-0"></span>
                   <span>Clean slate! Enter today's closing balance to see your score.</span>
                 </p>
               </div>
@@ -1293,11 +1405,11 @@
             <div class="space-y-2.5">
               <div class="flex items-center justify-between flex-wrap gap-2">
                 <div class="flex items-center gap-1.5">
-                  <svg class="w-4 h-4 text-[#C2984D] dark:text-[#D0AA63] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                  <svg class="w-4 h-4 text-[var(--amber)] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" />
                     <line x1="4" y1="22" x2="4" y2="15" />
                   </svg>
-                  <span class="text-xs font-bold text-[#332B22] dark:text-[#E2D4BD]" id="weeklyMilestoneLabel">
+                  <span class="text-xs font-bold text-[var(--text-primary)]" id="weeklyMilestoneLabel">
                     Week 1 Checkpoint: $1,000.00
                   </span>
                 </div>
@@ -1308,10 +1420,10 @@
 
               <!-- Progression Bar -->
               <div>
-                <div class="w-full bg-[#F0E6D5] dark:bg-[#41382D] h-3 rounded-full overflow-hidden p-0.5 border border-[#CFC1AA] dark:border-[#514638]">
-                  <div id="weeklyProgressBar" class="bg-gradient-to-r from-[#C98278] via-[#C2984D] to-[#607B5B] h-full rounded-full transition-all duration-300" style="width: 0%"></div>
+                <div class="w-full bg-[#E5D7C3] dark:bg-[#151916] h-3 rounded-full overflow-hidden p-0.5 border border-[#CFC1AA]/60 dark:border-[#2A352D]">
+                  <div id="weeklyProgressBar" class="bg-gradient-to-r from-[var(--coral)] via-[var(--amber)] to-[var(--mint)] h-full rounded-full transition-all duration-300" style="width: 0%"></div>
                 </div>
-                <div class="flex items-center justify-between text-[11px] text-[#716556] dark:text-[#B4A58F] font-num mt-1">
+                <div class="flex items-center justify-between text-[11px] text-[var(--text-secondary)] font-num mt-1">
                   <span id="weeklyProgressPctLabel">0% to milestone</span>
                   <span id="cumulativeBasePnl">+$0.00 vs $120 Base</span>
                 </div>
@@ -1850,10 +1962,10 @@
 
       <!-- 1. Header & Session Controls -->
       <section class="bento-card p-5 sm:p-6 space-y-4">
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between pb-3 border-b border-[#CFC1AA] dark:border-[#514638] gap-3">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between pb-3 border-b border-[var(--border)] gap-3">
           <div>
             <div class="flex items-center gap-2">
-              <div class="w-8 h-8 rounded-xl bg-[#607B5B]/15 text-[#607B5B] dark:bg-[#789272]/20 dark:text-[#789272] flex items-center justify-center shrink-0">
+              <div class="w-8 h-8 rounded-xl bg-[var(--mint-tint)] text-[var(--mint)] flex items-center justify-center shrink-0">
                 <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
                   <polyline points="14 2 14 8 20 8"></polyline>
@@ -1862,24 +1974,24 @@
                   <polyline points="10 9 9 9 8 9"></polyline>
                 </svg>
               </div>
-              <h2 class="text-base sm:text-lg font-bold text-[#332B22] dark:text-[#E2D4BD]">Trading Sessions Journal</h2>
+              <h2 class="text-base sm:text-lg font-bold text-[var(--text-primary)]">Trading Sessions Journal</h2>
             </div>
-            <p class="text-xs text-[#716556] dark:text-[#B4A58F] mt-0.5">
-              Manually log individual trades to track your execution discipline and performance without affecting main portfolio targets.
+            <p class="text-xs text-[var(--text-secondary)] mt-0.5">
+              Manually log individual trades to track execution discipline and win rates without altering main portfolio targets.
             </p>
           </div>
 
           <!-- Controls: Session Selector & Log Trade Button -->
           <div class="flex items-center gap-2.5 flex-wrap sm:flex-nowrap">
-            <div class="flex items-center gap-1.5 bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-1.5 text-xs font-bold text-[#332B22] dark:text-[#E2D4BD]">
-              <span class="text-[#716556] dark:text-[#B4A58F] text-[10px] uppercase font-bold font-sans">Session:</span>
+            <div class="flex items-center gap-1.5 bg-[var(--surface-subtle)] border border-[var(--border)] rounded-xl px-3 py-1.5 text-xs font-bold text-[var(--text-primary)]">
+              <span class="text-[var(--text-muted)] text-[10px] uppercase font-bold font-sans">Session:</span>
               <select id="tradeJournalSessionSelect" onchange="changeTradeJournalSession(parseInt(this.value))"
-                class="bg-transparent font-num font-bold text-xs text-[#332B22] dark:text-[#E2D4BD] focus:outline-none cursor-pointer">
+                class="bg-transparent font-num font-bold text-xs text-[var(--text-primary)] focus:outline-none cursor-pointer">
                 <!-- Dynamically populated -->
               </select>
             </div>
 
-            <button onclick="openLogTradeModal()" class="px-4 py-2 rounded-xl bg-[#607B5B] hover:bg-[#4F674B] text-[#F5EBDD] dark:bg-[#789272] dark:hover:bg-[#607B5B] dark:text-[#29241E] font-bold text-xs transition active:scale-95 shadow-sm inline-flex items-center gap-1.5 shrink-0">
+            <button onclick="openLogTradeModal()" class="px-4 py-2 rounded-xl bg-[var(--mint)] hover:bg-[var(--accent-hover)] text-[#F5EBDD] dark:text-[#0F1411] font-bold text-xs transition active:scale-95 shadow-sm inline-flex items-center gap-1.5 shrink-0">
               <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line>
               </svg>
@@ -1890,44 +2002,44 @@
 
         <!-- Session Overview KPI Bar -->
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs font-num">
-          <div class="p-3.5 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638]">
-            <span class="text-[#716556] dark:text-[#B4A58F] block text-[10px] uppercase font-bold font-sans">Starting Balance</span>
-            <strong class="text-base text-[#332B22] dark:text-[#E2D4BD]" id="journalSessionStartBal">$120.00</strong>
-            <span class="text-[10px] text-[#716556] dark:text-[#B4A58F] block mt-0.5 font-sans">Session start reference</span>
+          <div class="p-3.5 rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)]">
+            <span class="text-[var(--text-muted)] block text-[10px] uppercase font-bold font-sans">Starting Balance</span>
+            <strong class="text-base text-[var(--text-primary)]" id="journalSessionStartBal">$120.00</strong>
+            <span class="text-[10px] text-[var(--text-secondary)] block mt-0.5 font-sans">Session start reference</span>
           </div>
-          <div class="p-3.5 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638]">
-            <span class="text-[#716556] dark:text-[#B4A58F] block text-[10px] uppercase font-bold font-sans">Trades Profit / Loss</span>
-            <strong class="text-base text-[#607B5B] dark:text-[#789272]" id="journalSessionPnL">+$0.00</strong>
-            <span class="text-[10px] text-[#716556] dark:text-[#B4A58F] block mt-0.5 font-sans" id="journalSessionReturnPct">+0.00% return</span>
+          <div class="p-3.5 rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)]">
+            <span class="text-[var(--text-muted)] block text-[10px] uppercase font-bold font-sans">Trades Profit / Loss</span>
+            <strong class="text-base text-[var(--mint)]" id="journalSessionPnL">+$0.00</strong>
+            <span class="text-[10px] text-[var(--text-secondary)] block mt-0.5 font-sans" id="journalSessionReturnPct">+0.00% return</span>
           </div>
-          <div class="p-3.5 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638]">
-            <span class="text-[#716556] dark:text-[#B4A58F] block text-[10px] uppercase font-bold font-sans">Trades Logged</span>
-            <strong class="text-base text-[#332B22] dark:text-[#E2D4BD]" id="journalSessionTradeCount">0 Trades</strong>
-            <span class="text-[10px] text-[#716556] dark:text-[#B4A58F] block mt-0.5 font-sans" id="journalSessionWinLoss">0 wins / 0 losses</span>
+          <div class="p-3.5 rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)]">
+            <span class="text-[var(--text-muted)] block text-[10px] uppercase font-bold font-sans">Trades Logged</span>
+            <strong class="text-base text-[var(--text-primary)]" id="journalSessionTradeCount">0 Trades</strong>
+            <span class="text-[10px] text-[var(--text-secondary)] block mt-0.5 font-sans" id="journalSessionWinLoss">0 wins / 0 losses</span>
           </div>
-          <div class="p-3.5 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638]">
-            <span class="text-[#716556] dark:text-[#B4A58F] block text-[10px] uppercase font-bold font-sans">Closing Balance</span>
-            <strong class="text-base text-[#C2984D] dark:text-[#D0AA63]" id="journalSessionClosingBal">$120.00</strong>
-            <span class="text-[10px] text-[#716556] dark:text-[#B4A58F] block mt-0.5 font-sans" id="journalSessionClosingSubtext">From daily log</span>
+          <div class="p-3.5 rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)]">
+            <span class="text-[var(--text-muted)] block text-[10px] uppercase font-bold font-sans">Closing Balance</span>
+            <strong class="text-base text-[var(--amber)]" id="journalSessionClosingBal">$120.00</strong>
+            <span class="text-[10px] text-[var(--text-secondary)] block mt-0.5 font-sans" id="journalSessionClosingSubtext">From daily log</span>
           </div>
         </div>
       </section>
 
       <!-- 2. Trades Table for Selected Session -->
       <section class="bento-card p-5 sm:p-6 space-y-4">
-        <div class="flex items-center justify-between pb-3 border-b border-[#CFC1AA] dark:border-[#514638]">
+        <div class="flex items-center justify-between pb-3 border-b border-[var(--border)]">
           <div class="flex items-center gap-2">
-            <h3 class="text-sm font-bold text-[#332B22] dark:text-[#E2D4BD] uppercase tracking-wider">
+            <h3 class="text-sm font-bold text-[var(--text-primary)] uppercase tracking-wider">
               <span id="journalTableSessionTitle">Session 1 Trades</span>
             </h3>
-            <span id="journalSessionBadge" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#607B5B]/15 text-[#607B5B] dark:bg-[#789272]/20 dark:text-[#789272] border border-[#607B5B]/30 font-num">Active Session</span>
+            <span id="journalSessionBadge" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[var(--mint-tint)] text-[var(--mint)] border border-[var(--mint)]/30 font-num">Active Session</span>
           </div>
-          <span class="text-xs text-[#716556] dark:text-[#B4A58F]">Journal only • Keeps portfolio data untouched</span>
+          <span class="text-xs text-[var(--text-muted)]">Journal only • Keeps portfolio data untouched</span>
         </div>
 
-        <div class="overflow-x-auto calm-scrollbar rounded-xl border border-[#CFC1AA] dark:border-[#514638]">
-          <table class="w-full text-left text-xs border-collapse bg-[#F0E6D5] dark:bg-[#352E25]">
-            <thead class="bg-[#F5EBDD] dark:bg-[#41382D] text-[#716556] dark:text-[#B4A58F] uppercase tracking-wider text-[10px] border-b border-[#CFC1AA] dark:border-[#514638] font-bold font-sans">
+        <div class="overflow-x-auto calm-scrollbar rounded-xl border border-[var(--border)]">
+          <table class="w-full text-left text-xs border-collapse bg-[var(--surface)]">
+            <thead class="bg-[var(--surface-subtle)] text-[var(--text-secondary)] uppercase tracking-wider text-[10px] border-b border-[var(--border)] font-bold font-sans">
               <tr>
                 <th class="py-3 px-3 sm:px-4">Trade</th>
                 <th class="py-3 px-3 sm:px-4">Date</th>
@@ -1941,56 +2053,56 @@
                 <th class="py-3 px-3 sm:px-4 text-center">Actions</th>
               </tr>
             </thead>
-            <tbody id="tradeLogTableBody" class="divide-y divide-[#CFC1AA]/60 dark:divide-[#514638]/60 font-num">
+            <tbody id="tradeLogTableBody" class="divide-y divide-[var(--border)] font-num">
               <!-- Dynamically populated -->
             </tbody>
           </table>
         </div>
 
-        <div id="journalEmptyState" class="hidden p-8 text-center rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-dashed border-[#CFC1AA] dark:border-[#514638] space-y-2">
-          <div class="w-10 h-10 mx-auto rounded-full bg-[#607B5B]/15 text-[#607B5B] dark:bg-[#789272]/20 dark:text-[#789272] flex items-center justify-center">
+        <div id="journalEmptyState" class="hidden p-8 text-center rounded-xl bg-[var(--surface-subtle)] border border-dashed border-[var(--border)] space-y-2">
+          <div class="w-10 h-10 mx-auto rounded-full bg-[var(--mint-tint)] text-[var(--mint)] flex items-center justify-center">
             <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
           </div>
-          <p class="text-xs font-bold text-[#332B22] dark:text-[#E2D4BD]">No trades logged for this session yet.</p>
-          <p class="text-[11px] text-[#716556] dark:text-[#B4A58F]">Click "+ Log Trade" above to record Trade A for Session <span id="journalEmptySessionNum">1</span>.</p>
+          <p class="text-xs font-bold text-[var(--text-primary)]">No trades logged for this session yet.</p>
+          <p class="text-[11px] text-[var(--text-secondary)]">Click "+ Log Trade" above to record Trade A for Session <span id="journalEmptySessionNum">1</span>.</p>
         </div>
       </section>
 
       <!-- 3. Overall Trade Journal Analytics -->
       <section class="bento-card p-5 sm:p-6 space-y-3">
-        <div class="flex items-center justify-between pb-2 border-b border-[#CFC1AA] dark:border-[#514638]">
+        <div class="flex items-center justify-between pb-2 border-b border-[var(--border)]">
           <div>
-            <h4 class="text-xs font-bold uppercase tracking-wider text-[#716556] dark:text-[#B4A58F]">Trade Journal Overall Performance</h4>
-            <p class="text-[11px] text-[#716556] dark:text-[#B4A58F] mt-0.5">Summary metrics across all logged closed trades. Open trades are excluded from realized results.</p>
+            <h4 class="text-xs font-bold uppercase tracking-wider text-[var(--text-secondary)]">Trade Journal Overall Performance</h4>
+            <p class="text-[11px] text-[var(--text-muted)] mt-0.5">Summary metrics across all logged closed trades. Open trades are excluded from realized results.</p>
           </div>
-          <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#617D91]/15 text-[#617D91] dark:bg-[#7894A6]/20 dark:text-[#7894A6] border border-[#617D91]/30 font-num" id="journalAllTradesSummaryBadge">0 Closed</span>
+          <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[var(--sky-tint)] text-[var(--sky)] border border-[var(--sky)]/30 font-num" id="journalAllTradesSummaryBadge">0 Closed</span>
         </div>
 
         <div class="grid grid-cols-2 sm:grid-cols-5 gap-3 text-xs font-num">
-          <div class="p-3 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638]">
-            <span class="text-[#716556] dark:text-[#B4A58F] block text-[10px] uppercase font-bold font-sans">Total Realized PnL</span>
-            <strong class="text-base text-[#607B5B] dark:text-[#789272]" id="journalMetricTotalPnL">+$0.00</strong>
-            <span class="text-[10px] text-[#716556] dark:text-[#B4A58F] block mt-0.5 font-sans">All closed trades</span>
+          <div class="p-3 rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)]">
+            <span class="text-[var(--text-muted)] block text-[10px] uppercase font-bold font-sans">Total Realized PnL</span>
+            <strong class="text-base text-[var(--mint)]" id="journalMetricTotalPnL">+$0.00</strong>
+            <span class="text-[10px] text-[var(--text-secondary)] block mt-0.5 font-sans">All closed trades</span>
           </div>
-          <div class="p-3 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638]">
-            <span class="text-[#716556] dark:text-[#B4A58F] block text-[10px] uppercase font-bold font-sans">Trades Logged</span>
-            <strong class="text-base text-[#332B22] dark:text-[#E2D4BD]" id="journalMetricTotalTrades">0</strong>
-            <span class="text-[10px] text-[#716556] dark:text-[#B4A58F] block mt-0.5 font-sans" id="journalMetricOpenTrades">0 open positions</span>
+          <div class="p-3 rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)]">
+            <span class="text-[var(--text-muted)] block text-[10px] uppercase font-bold font-sans">Trades Logged</span>
+            <strong class="text-base text-[var(--text-primary)]" id="journalMetricTotalTrades">0</strong>
+            <span class="text-[10px] text-[var(--text-secondary)] block mt-0.5 font-sans" id="journalMetricOpenTrades">0 open positions</span>
           </div>
-          <div class="p-3 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638]">
-            <span class="text-[#716556] dark:text-[#B4A58F] block text-[10px] uppercase font-bold font-sans">Wins vs Losses</span>
-            <strong class="text-base text-[#332B22] dark:text-[#E2D4BD]" id="journalMetricWinLossRecord">0W / 0L</strong>
-            <span class="text-[10px] text-[#716556] dark:text-[#B4A58F] block mt-0.5 font-sans">Realized trades</span>
+          <div class="p-3 rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)]">
+            <span class="text-[var(--text-muted)] block text-[10px] uppercase font-bold font-sans">Wins vs Losses</span>
+            <strong class="text-base text-[var(--text-primary)]" id="journalMetricWinLossRecord">0W / 0L</strong>
+            <span class="text-[10px] text-[var(--text-secondary)] block mt-0.5 font-sans">Realized trades</span>
           </div>
-          <div class="p-3 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638]">
-            <span class="text-[#716556] dark:text-[#B4A58F] block text-[10px] uppercase font-bold font-sans">Win Rate</span>
-            <strong class="text-base text-[#607B5B] dark:text-[#789272]" id="journalMetricWinRate">0.0%</strong>
-            <span class="text-[10px] text-[#716556] dark:text-[#B4A58F] block mt-0.5 font-sans">Profitable trades</span>
+          <div class="p-3 rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)]">
+            <span class="text-[var(--text-muted)] block text-[10px] uppercase font-bold font-sans">Win Rate</span>
+            <strong class="text-base text-[var(--mint)]" id="journalMetricWinRate">0.0%</strong>
+            <span class="text-[10px] text-[var(--text-secondary)] block mt-0.5 font-sans">Profitable trades</span>
           </div>
-          <div class="p-3 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638]">
-            <span class="text-[#716556] dark:text-[#B4A58F] block text-[10px] uppercase font-bold font-sans">Avg Return %</span>
-            <strong class="text-base text-[#C2984D] dark:text-[#D0AA63]" id="journalMetricAvgReturn">+0.00%</strong>
-            <span class="text-[10px] text-[#716556] dark:text-[#B4A58F] block mt-0.5 font-sans">Per closed trade</span>
+          <div class="p-3 rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)]">
+            <span class="text-[var(--text-muted)] block text-[10px] uppercase font-bold font-sans">Avg Return %</span>
+            <strong class="text-base text-[var(--amber)]" id="journalMetricAvgReturn">+0.00%</strong>
+            <span class="text-[10px] text-[var(--text-secondary)] block mt-0.5 font-sans">Per closed trade</span>
           </div>
         </div>
       </section>
@@ -2378,9 +2490,9 @@
 
       <!-- Header & Rank Banner -->
       <section class="bento-card p-5 sm:p-6 space-y-4">
-        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-[#CFC1AA] dark:border-[#514638]">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-[var(--border)]">
           <div class="flex items-center gap-3.5">
-            <div class="relative w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-[#607B5B]/15 dark:bg-[#789272]/20 border border-[#607B5B]/35 dark:border-[#789272]/35 flex flex-col items-center justify-center text-[#607B5B] dark:text-[#789272] shrink-0 shadow-xs">
+            <div class="relative w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-[var(--mint-tint)] border border-[var(--mint)]/35 flex flex-col items-center justify-center text-[var(--mint)] shrink-0 shadow-xs">
               <svg class="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
               </svg>
@@ -2388,23 +2500,23 @@
             </div>
             <div>
               <div class="flex items-center gap-2">
-                <h2 id="statsTraderRankTitle" class="text-base sm:text-lg font-black text-[#332B22] dark:text-[#E2D4BD]">Base Camp Pioneer</h2>
-                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#607B5B]/15 text-[#607B5B] dark:bg-[#789272]/20 dark:text-[#789272] border border-[#607B5B]/30 font-num">Rank I</span>
+                <h2 id="statsTraderRankTitle" class="text-base sm:text-lg font-black text-[var(--text-primary)]">Base Camp Pioneer</h2>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[var(--mint-tint)] text-[var(--mint)] border border-[var(--mint)]/30 font-num">Rank I</span>
               </div>
-              <p id="statsRankDesc" class="text-xs text-[#716556] dark:text-[#B4A58F] mt-0.5">Beginning the ascent. Solid discipline compounds exponentially.</p>
+              <p id="statsRankDesc" class="text-xs text-[var(--text-secondary)] mt-0.5">Beginning the ascent. Solid discipline compounds exponentially.</p>
             </div>
           </div>
 
           <div class="flex flex-wrap items-center gap-2">
-            <span id="statsCurrentStreak" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#607B5B]/15 text-[#607B5B] dark:bg-[#789272]/20 dark:text-[#789272] border border-[#607B5B]/30 shadow-xs">
+            <span id="statsCurrentStreak" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[var(--mint-tint)] text-[var(--mint)] border border-[var(--mint)]/30 shadow-xs">
               <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2c.5 3 2.5 5 4.5 7.5A8 8 0 1 1 5 13c0-3 2-6 7-11z"/></svg>
               <span>1-Session Green Streak</span>
             </span>
-            <span id="statsDisciplineScore" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#C2984D]/15 text-[#C2984D] dark:bg-[#D0AA63]/20 dark:text-[#D0AA63] border border-[#C2984D]/30 shadow-xs">
+            <span id="statsDisciplineScore" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[var(--amber-tint)] text-[var(--amber)] border border-[var(--amber)]/30 shadow-xs">
               <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
               <span>Grade A+ Discipline</span>
             </span>
-            <span id="statsChallengeBadge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#F5EBDD] dark:bg-[#41382D] text-[#716556] dark:text-[#B4A58F] border border-[#CFC1AA] dark:border-[#514638]">
+            <span id="statsChallengeBadge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[var(--surface-subtle)] text-[var(--text-secondary)] border border-[var(--border)]">
               28-Session Plan
             </span>
           </div>
@@ -2412,89 +2524,89 @@
 
         <!-- Level / Roadmap Progress Bar -->
         <div class="space-y-1.5">
-          <div class="flex justify-between items-center text-xs font-bold text-[#716556] dark:text-[#B4A58F]">
+          <div class="flex justify-between items-center text-xs font-bold text-[var(--text-secondary)]">
             <span class="flex items-center gap-1.5">
               <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
               <span>Roadmap Progress</span>
             </span>
-            <span id="statsLevelProgressText" class="font-num font-extrabold text-[#332B22] dark:text-[#E2D4BD]">Session 1 of 28 (3.6%)</span>
+            <span id="statsLevelProgressText" class="font-num font-extrabold text-[var(--text-primary)]">Session 1 of 28 (3.6%)</span>
           </div>
-          <div class="w-full bg-[#CFC1AA] dark:bg-[#514638] h-2.5 rounded-full overflow-hidden">
-            <div id="statsLevelProgressBar" class="h-full bg-[#607B5B] dark:bg-[#789272] rounded-full transition-all duration-500" style="width: 3.6%"></div>
+          <div class="w-full bg-[#E5D7C3] dark:bg-[#151916] h-2.5 rounded-full overflow-hidden border border-[#CFC1AA]/60 dark:border-[#2A352D]">
+            <div id="statsLevelProgressBar" class="h-full bg-[var(--mint)] rounded-full transition-all duration-500" style="width: 3.6%"></div>
           </div>
         </div>
       </section>
 
       <!-- SECTION 1: PORTFOLIO GROWTH -->
       <section class="bento-card p-5 sm:p-6 space-y-4">
-        <div class="pb-3 border-b border-[#CFC1AA] dark:border-[#514638]">
-          <h3 class="text-sm font-bold uppercase tracking-wider text-[#332B22] dark:text-[#E2D4BD] flex items-center gap-2">
-            <svg class="w-4 h-4 text-[#607B5B] dark:text-[#789272]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+        <div class="pb-3 border-b border-[var(--border)]">
+          <h3 class="text-sm font-bold uppercase tracking-wider text-[var(--text-primary)] flex items-center gap-2">
+            <svg class="w-4 h-4 text-[var(--mint)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
             <span>1. Portfolio Growth &amp; Trajectory</span>
           </h3>
-          <p class="text-xs text-[#716556] dark:text-[#B4A58F] mt-0.5">Progress toward challenge target and trajectory milestones.</p>
+          <p class="text-xs text-[var(--text-secondary)] mt-0.5">Progress toward challenge target and trajectory milestones.</p>
         </div>
 
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 font-num">
-          <div class="p-4 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638]">
-            <span class="text-[10px] font-bold uppercase tracking-wider text-[#716556] dark:text-[#B4A58F] font-sans block">Goal Reach</span>
-            <div id="statsSummitPct" class="text-2xl sm:text-3xl font-black text-[#806A86] dark:text-[#9A849F] mt-1">1.7%</div>
-            <p id="statsSummitGoal" class="text-[11px] text-[#716556] dark:text-[#B4A58F] mt-0.5 font-sans">of $7,000.00</p>
+          <div class="p-4 rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)]">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)] font-sans block">Goal Reach</span>
+            <div id="statsSummitPct" class="text-2xl sm:text-3xl font-black text-[var(--lavender)] mt-1">1.7%</div>
+            <p id="statsSummitGoal" class="text-[11px] text-[var(--text-secondary)] mt-0.5 font-sans">of $7,000.00</p>
           </div>
 
-          <div class="p-4 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638]">
-            <span class="text-[10px] font-bold uppercase tracking-wider text-[#716556] dark:text-[#B4A58F] font-sans block">Peak Watermark</span>
-            <div id="statsPeakWatermark" class="text-2xl sm:text-3xl font-black text-[#607B5B] dark:text-[#789272] mt-1">$120.00</div>
-            <p class="text-[11px] text-[#716556] dark:text-[#B4A58F] mt-0.5 font-sans">All-time high true wealth</p>
+          <div class="p-4 rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)]">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)] font-sans block">Peak Watermark</span>
+            <div id="statsPeakWatermark" class="text-2xl sm:text-3xl font-black text-[var(--mint)] mt-1">$120.00</div>
+            <p class="text-[11px] text-[var(--text-secondary)] mt-0.5 font-sans">All-time high true wealth</p>
           </div>
 
-          <div class="p-4 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638]">
-            <span class="text-[10px] font-bold uppercase tracking-wider text-[#716556] dark:text-[#B4A58F] font-sans block">Net Profit</span>
-            <div id="statsTotalProfit" class="text-2xl sm:text-3xl font-black text-[#607B5B] dark:text-[#789272] mt-1">+$0.00</div>
-            <p class="text-[11px] text-[#716556] dark:text-[#B4A58F] mt-0.5 font-sans">Above start base</p>
+          <div class="p-4 rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)]">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)] font-sans block">Net Profit</span>
+            <div id="statsTotalProfit" class="text-2xl sm:text-3xl font-black text-[var(--mint)] mt-1">+$0.00</div>
+            <p class="text-[11px] text-[var(--text-secondary)] mt-0.5 font-sans">Above start base</p>
           </div>
 
-          <div class="p-4 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638]">
-            <span class="text-[10px] font-bold uppercase tracking-wider text-[#716556] dark:text-[#B4A58F] font-sans block">Daily Average</span>
-            <div id="statsAvgGain" class="text-2xl sm:text-3xl font-black text-[#332B22] dark:text-[#E2D4BD] mt-1">+$0.00</div>
-            <p class="text-[11px] text-[#716556] dark:text-[#B4A58F] mt-0.5 font-sans">Per session gain</p>
+          <div class="p-4 rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)]">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)] font-sans block">Daily Average</span>
+            <div id="statsAvgGain" class="text-2xl sm:text-3xl font-black text-[var(--text-primary)] mt-1">+$0.00</div>
+            <p class="text-[11px] text-[var(--text-secondary)] mt-0.5 font-sans">Per session gain</p>
           </div>
         </div>
       </section>
 
       <!-- SECTION 2: PERFORMANCE AND RISK -->
       <section class="bento-card p-5 sm:p-6 space-y-4">
-        <div class="pb-3 border-b border-[#CFC1AA] dark:border-[#514638]">
-          <h3 class="text-sm font-bold uppercase tracking-wider text-[#332B22] dark:text-[#E2D4BD] flex items-center gap-2">
-            <svg class="w-4 h-4 text-[#B86652] dark:text-[#C77B68]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <div class="pb-3 border-b border-[var(--border)]">
+          <h3 class="text-sm font-bold uppercase tracking-wider text-[var(--text-primary)] flex items-center gap-2">
+            <svg class="w-4 h-4 text-[var(--coral)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
             <span>2. Performance &amp; Risk Analytics</span>
           </h3>
-          <p class="text-xs text-[#716556] dark:text-[#B4A58F] mt-0.5">Institutional drawdowns, profit factor, win rates, and streak discipline.</p>
+          <p class="text-xs text-[var(--text-secondary)] mt-0.5">Institutional drawdowns, profit factor, win rates, and streak discipline.</p>
         </div>
 
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 font-num">
-          <div class="p-4 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638]">
-            <span class="text-[10px] font-bold uppercase tracking-wider text-[#716556] dark:text-[#B4A58F] font-sans block">Green Rate</span>
-            <div id="statsWinRate" class="text-2xl sm:text-3xl font-black text-[#607B5B] dark:text-[#789272] mt-1">100%</div>
-            <p id="statsWinCount" class="text-[11px] text-[#716556] dark:text-[#B4A58F] mt-0.5 font-sans">1 profitable / 1 total</p>
+          <div class="p-4 rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)]">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)] font-sans block">Green Rate</span>
+            <div id="statsWinRate" class="text-2xl sm:text-3xl font-black text-[var(--mint)] mt-1">100%</div>
+            <p id="statsWinCount" class="text-[11px] text-[var(--text-secondary)] mt-0.5 font-sans">1 profitable / 1 total</p>
           </div>
 
-          <div class="p-4 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638]">
-            <span class="text-[10px] font-bold uppercase tracking-wider text-[#716556] dark:text-[#B4A58F] font-sans block">Max Drawdown</span>
-            <div id="statsMaxDrawdown" class="text-2xl sm:text-3xl font-black text-[#332B22] dark:text-[#E2D4BD] mt-1">$0.00 (0.0%)</div>
-            <p class="text-[11px] text-[#716556] dark:text-[#B4A58F] mt-0.5 font-sans">Peak-to-trough pullback</p>
+          <div class="p-4 rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)]">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)] font-sans block">Max Drawdown</span>
+            <div id="statsMaxDrawdown" class="text-2xl sm:text-3xl font-black text-[var(--text-primary)] mt-1">$0.00 (0.0%)</div>
+            <p class="text-[11px] text-[var(--text-secondary)] mt-0.5 font-sans">Peak-to-trough pullback</p>
           </div>
 
-          <div class="p-4 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638]">
-            <span class="text-[10px] font-bold uppercase tracking-wider text-[#716556] dark:text-[#B4A58F] font-sans block">Profit Factor</span>
-            <div id="statsProfitFactor" class="text-2xl sm:text-3xl font-black text-[#C2984D] dark:text-[#D0AA63] mt-1">--</div>
-            <p id="statsProfitFactorSubtext" class="text-[11px] text-[#716556] dark:text-[#B4A58F] mt-0.5 font-sans">Gross gains / losses</p>
+          <div class="p-4 rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)]">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)] font-sans block">Profit Factor</span>
+            <div id="statsProfitFactor" class="text-2xl sm:text-3xl font-black text-[var(--amber)] mt-1">--</div>
+            <p id="statsProfitFactorSubtext" class="text-[11px] text-[var(--text-secondary)] mt-0.5 font-sans">Gross gains / losses</p>
           </div>
 
-          <div class="p-4 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638]">
-            <span class="text-[10px] font-bold uppercase tracking-wider text-[#716556] dark:text-[#B4A58F] font-sans block">Best Session</span>
-            <div id="statsBestGain" class="text-2xl sm:text-3xl font-black text-[#C2984D] dark:text-[#D0AA63] mt-1">+$0.00</div>
-            <p id="statsBestSessionNum" class="text-[11px] text-[#716556] dark:text-[#B4A58F] mt-0.5 font-sans">Single day peak</p>
+          <div class="p-4 rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)]">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)] font-sans block">Best Session</span>
+            <div id="statsBestGain" class="text-2xl sm:text-3xl font-black text-[var(--amber)] mt-1">+$0.00</div>
+            <p id="statsBestSessionNum" class="text-[11px] text-[var(--text-secondary)] mt-0.5 font-sans">Single day peak</p>
           </div>
         </div>
       </section>
@@ -2561,43 +2673,43 @@
 
       <!-- SECTION 4: FINANCIAL OVERVIEW -->
       <section class="bento-card p-5 sm:p-6 space-y-4">
-        <div class="pb-3 border-b border-[#CFC1AA] dark:border-[#514638] flex items-center justify-between">
+        <div class="pb-3 border-b border-[var(--border)] flex items-center justify-between">
           <div>
-            <h3 class="text-sm font-bold uppercase tracking-wider text-[#332B22] dark:text-[#E2D4BD] flex items-center gap-2">
-              <svg class="w-4 h-4 text-[#C2984D] dark:text-[#D0AA63]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+            <h3 class="text-sm font-bold uppercase tracking-wider text-[var(--text-primary)] flex items-center gap-2">
+              <svg class="w-4 h-4 text-[var(--amber)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
               <span>4. Financial Overview</span>
             </h3>
-            <p class="text-xs text-[#716556] dark:text-[#B4A58F] mt-0.5">Combined capital position, return on investment, and capital preservation.</p>
+            <p class="text-xs text-[var(--text-secondary)] mt-0.5">Combined capital position, return on investment, and capital preservation.</p>
           </div>
-          <button onclick="switchTab('trades')" class="text-xs font-bold text-[#607B5B] dark:text-[#789272] hover:underline flex items-center gap-1">
+          <button onclick="switchTab('trades')" class="text-xs font-bold text-[var(--mint)] hover:underline flex items-center gap-1">
             <span>View Trade Journal</span>
             <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
           </button>
         </div>
 
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 font-num">
-          <div class="p-4 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638]">
-            <span class="text-[10px] font-bold uppercase tracking-wider text-[#716556] dark:text-[#B4A58F] font-sans block">Banked in Vault</span>
-            <div id="statsVaultBanked" class="text-2xl sm:text-3xl font-black text-[#C98278] dark:text-[#D99B91] mt-1">$0.00</div>
-            <p class="text-[11px] text-[#716556] dark:text-[#B4A58F] mt-0.5 font-sans">Protected profits</p>
+          <div class="p-4 rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)]">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)] font-sans block">Banked in Vault</span>
+            <div id="statsVaultBanked" class="text-2xl sm:text-3xl font-black text-[var(--coral)] mt-1">$0.00</div>
+            <p class="text-[11px] text-[var(--text-secondary)] mt-0.5 font-sans">Protected profits</p>
           </div>
 
-          <div class="p-4 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638]">
-            <span class="text-[10px] font-bold uppercase tracking-wider text-[#716556] dark:text-[#B4A58F] font-sans block">Total ROI</span>
-            <div id="statsTotalROI" class="text-2xl sm:text-3xl font-black text-[#607B5B] dark:text-[#789272] mt-1">+0.0%</div>
-            <p class="text-[11px] text-[#716556] dark:text-[#B4A58F] mt-0.5 font-sans">Return on start base</p>
+          <div class="p-4 rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)]">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)] font-sans block">Total ROI</span>
+            <div id="statsTotalROI" class="text-2xl sm:text-3xl font-black text-[var(--mint)] mt-1">+0.0%</div>
+            <p class="text-[11px] text-[var(--text-secondary)] mt-0.5 font-sans">Return on start base</p>
           </div>
 
-          <div class="p-4 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638]">
-            <span class="text-[10px] font-bold uppercase tracking-wider text-[#716556] dark:text-[#B4A58F] font-sans block">Long-Term Savings</span>
-            <div id="statsFinancialSavings" class="text-2xl sm:text-3xl font-black text-[#806A86] dark:text-[#9A849F] mt-1">$0.00</div>
-            <p class="text-[11px] text-[#716556] dark:text-[#B4A58F] mt-0.5 font-sans">Capital Fortress</p>
+          <div class="p-4 rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)]">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)] font-sans block">Long-Term Savings</span>
+            <div id="statsFinancialSavings" class="text-2xl sm:text-3xl font-black text-[var(--lavender)] mt-1">$0.00</div>
+            <p class="text-[11px] text-[var(--text-secondary)] mt-0.5 font-sans">Capital Fortress</p>
           </div>
 
-          <div class="p-4 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638]">
-            <span class="text-[10px] font-bold uppercase tracking-wider text-[#716556] dark:text-[#B4A58F] font-sans block">Active Desk Balance</span>
-            <div id="statsFinancialDesk" class="text-2xl sm:text-3xl font-black text-[#332B22] dark:text-[#E2D4BD] mt-1">$120.00</div>
-            <p class="text-[11px] text-[#716556] dark:text-[#B4A58F] mt-0.5 font-sans">Current in play</p>
+          <div class="p-4 rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)]">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)] font-sans block">Active Desk Balance</span>
+            <div id="statsFinancialDesk" class="text-2xl sm:text-3xl font-black text-[var(--text-primary)] mt-1">$120.00</div>
+            <p class="text-[11px] text-[var(--text-secondary)] mt-0.5 font-sans">Current in play</p>
           </div>
         </div>
       </section>
@@ -2609,35 +2721,35 @@
       <!-- Page Heading (Section 16.2 A) -->
       <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 pb-1">
         <div>
-          <h2 class="text-lg sm:text-xl font-black text-[#332B22] dark:text-[#E2D4BD]">Setup</h2>
-          <p class="text-xs text-[#716556] dark:text-[#B4A58F]">Configure your challenge parameters and optional financial planning targets.</p>
+          <h2 class="text-lg sm:text-xl font-black text-[var(--text-primary)]">Setup</h2>
+          <p class="text-xs text-[var(--text-secondary)]">Configure your challenge parameters and optional financial planning targets.</p>
         </div>
       </div>
 
       <!-- A. Active Challenge Summary Card (Section 16.2 B & D) -->
       <section id="activeChallengeSummaryCard" class="bento-card p-5 sm:p-6 space-y-4">
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between pb-3 border-b border-[#CFC1AA] dark:border-[#514638] gap-3">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between pb-3 border-b border-[var(--border)] gap-3">
           <div>
             <div class="flex items-center gap-2">
-              <h3 id="cfgSummaryTitle" class="text-base font-bold text-[#332B22] dark:text-[#E2D4BD]">Active Challenge</h3>
-              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#607B5B]/15 text-[#607B5B] dark:bg-[#789272]/20 dark:text-[#789272] border border-[#607B5B]/30 font-num">Active</span>
+              <h3 id="cfgSummaryTitle" class="text-base font-bold text-[var(--text-primary)]">Active Challenge</h3>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[var(--mint-tint)] text-[var(--mint)] border border-[var(--mint)]/30 font-num">Active</span>
             </div>
-            <p id="cfgInfoEstFinish" class="text-xs text-[#716556] dark:text-[#B4A58F] mt-0.5 font-num"></p>
+            <p id="cfgInfoEstFinish" class="text-xs text-[var(--text-secondary)] mt-0.5 font-num"></p>
           </div>
           <div class="flex items-center gap-2 flex-wrap sm:flex-nowrap">
-            <button type="button" onclick="openEditChallengeSettings()" class="px-3.5 py-2 rounded-xl bg-[#607B5B] hover:bg-[#4F674B] text-[#F5EBDD] dark:bg-[#789272] dark:hover:bg-[#607B5B] dark:text-[#29241E] text-xs font-bold transition active:scale-95 flex items-center gap-1.5 shadow-xs">
+            <button type="button" onclick="openEditChallengeSettings()" class="px-3.5 py-2 rounded-xl bg-[var(--mint)] hover:bg-[var(--accent-hover)] text-[#F5EBDD] dark:text-[#0F1411] text-xs font-bold transition active:scale-95 flex items-center gap-1.5 shadow-xs">
               <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
               <span>Edit Setup</span>
             </button>
-            <button type="button" onclick="openNewChallengeForm()" class="px-3.5 py-2 rounded-xl bg-[#F5EBDD] hover:bg-[#EAE0D0] dark:bg-[#41382D] dark:hover:bg-[#4D4235] text-[#332B22] dark:text-[#E2D4BD] border border-[#CFC1AA] dark:border-[#514638] text-xs font-bold transition active:scale-95 flex items-center gap-1.5 shadow-xs">
+            <button type="button" onclick="openNewChallengeForm()" class="px-3.5 py-2 rounded-xl bg-[var(--surface-subtle)] hover:bg-[var(--surface-hover)] text-[var(--text-primary)] border border-[var(--border)] text-xs font-bold transition active:scale-95 flex items-center gap-1.5 shadow-xs">
               <span>+ New Challenge</span>
             </button>
             <select id="ladderProfileSelector" onchange="switchLadderProfile(this.value)"
-              class="bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 text-xs font-bold text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#789272]">
+              class="bg-[var(--surface-subtle)] border border-[var(--border)] rounded-xl px-3 py-2 text-xs font-bold text-[var(--text-primary)] focus:outline-none focus:border-[var(--mint)]">
               <!-- Dynamically populated -->
             </select>
             <button type="button" onclick="deleteSelectedChallenge()" id="btnDeleteActiveChallenge" title="Delete selected challenge"
-              class="px-2.5 py-2 rounded-xl bg-[#B86652]/15 hover:bg-[#B86652]/25 text-[#B86652] dark:bg-[#C77B68]/20 dark:hover:bg-[#C77B68]/30 dark:text-[#C77B68] border border-[#B86652]/30 dark:border-[#C77B68]/30 text-xs font-bold transition active:scale-95 flex items-center gap-1.5 shrink-0">
+              class="px-2.5 py-2 rounded-xl bg-[var(--coral-tint)] hover:bg-[var(--coral)]/25 text-[var(--coral)] border border-[var(--coral)]/30 text-xs font-bold transition active:scale-95 flex items-center gap-1.5 shrink-0">
               <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <polyline points="3 6 5 6 21 6"></polyline>
                 <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
@@ -2648,22 +2760,22 @@
 
         <!-- 4 Key Numbers -->
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs font-num">
-          <div class="p-3.5 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638]">
-            <span class="text-[#716556] dark:text-[#B4A58F] block text-[10px] uppercase font-bold font-sans">Starting Deposit</span>
-            <strong class="text-base text-[#332B22] dark:text-[#E2D4BD]" id="cfgInfoStart">$120.00</strong>
+          <div class="p-3.5 rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)]">
+            <span class="text-[var(--text-muted)] block text-[10px] uppercase font-bold font-sans">Starting Deposit</span>
+            <strong class="text-base text-[var(--text-primary)]" id="cfgInfoStart">$120.00</strong>
           </div>
-          <div class="p-3.5 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638]">
-            <span class="text-[#716556] dark:text-[#B4A58F] block text-[10px] uppercase font-bold font-sans">Target Goal</span>
-            <strong class="text-base text-[#607B5B] dark:text-[#789272]" id="cfgInfoFinal">$7,000.00</strong>
+          <div class="p-3.5 rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)]">
+            <span class="text-[var(--text-muted)] block text-[10px] uppercase font-bold font-sans">Target Goal</span>
+            <strong class="text-base text-[var(--mint)]" id="cfgInfoFinal">$7,000.00</strong>
           </div>
-          <div class="p-3.5 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638]">
-            <span class="text-[#716556] dark:text-[#B4A58F] block text-[10px] uppercase font-bold font-sans">Current Progress</span>
-            <strong class="text-base text-[#332B22] dark:text-[#E2D4BD]" id="cfgInfoCurrentSession">Session 1 of 28</strong>
-            <span class="block text-[10px] text-[#716556] dark:text-[#B4A58F]" id="cfgInfoProgressPct">0.0% toward target</span>
+          <div class="p-3.5 rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)]">
+            <span class="text-[var(--text-muted)] block text-[10px] uppercase font-bold font-sans">Current Progress</span>
+            <strong class="text-base text-[var(--text-primary)]" id="cfgInfoCurrentSession">Session 1 of 28</strong>
+            <span class="block text-[10px] text-[var(--text-secondary)]" id="cfgInfoProgressPct">0.0% toward target</span>
           </div>
-          <div class="p-3.5 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638]">
-            <span class="text-[#716556] dark:text-[#B4A58F] block text-[10px] uppercase font-bold font-sans">Growth Factor</span>
-            <strong class="text-base text-[#C2984D] dark:text-[#D0AA63]" id="cfgInfoMultiple">58.3x</strong>
+          <div class="p-3.5 rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)]">
+            <span class="text-[var(--text-muted)] block text-[10px] uppercase font-bold font-sans">Growth Factor</span>
+            <strong class="text-base text-[var(--amber)]" id="cfgInfoMultiple">58.3x</strong>
           </div>
         </div>
 

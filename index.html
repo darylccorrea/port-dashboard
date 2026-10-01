@@ -2926,7 +2926,7 @@
                 <label class="block font-bold text-[var(--text-muted)] uppercase text-[10px]">Savings Goal ($)</label>
                 <div class="relative mt-1">
                   <span class="absolute left-3 top-2 text-[var(--text-muted)] font-bold font-num">$</span>
-                  <input type="number" step="10" id="cfgMilestoneGoal" value="1500" onchange="saveMilestoneConfig()"
+                  <input type="number" step="10" id="cfgMilestoneGoal" placeholder="0.00" onchange="saveMilestoneConfig()"
                     class="w-full bg-[var(--surface-subtle)] border border-[var(--border)] rounded-xl pl-8 pr-3 py-2 font-bold font-num text-[var(--text-primary)] focus:outline-none focus:border-[var(--mint)]" />
                 </div>
               </div>
@@ -2941,7 +2941,7 @@
                 <label class="block font-bold text-[var(--text-muted)] uppercase text-[10px]">Keep on Trading Desk (Min $)</label>
                 <div class="relative mt-1">
                   <span class="absolute left-3 top-2 text-[var(--text-muted)] font-bold font-num">$</span>
-                  <input type="number" step="10" id="cfgDeskReserve" value="1000" onchange="saveMilestoneConfig()"
+                  <input type="number" step="10" id="cfgDeskReserve" placeholder="0.00" onchange="saveMilestoneConfig()"
                     class="w-full bg-[var(--surface-subtle)] border border-[var(--border)] rounded-xl pl-8 pr-3 py-2 font-bold font-num text-[var(--text-primary)] focus:outline-none focus:border-[var(--mint)]" />
                 </div>
               </div>
@@ -3758,7 +3758,7 @@
                       <label for="genBase" class="block text-xs font-bold text-[var(--text-primary)] mb-1.5 font-sans">Starting Balance (USD)</label>
                       <div class="flex items-center rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)] focus-within:border-[var(--mint)] transition overflow-hidden">
                         <span class="px-3.5 py-2.5 text-[var(--text-secondary)] font-bold text-sm select-none border-r border-[var(--border)]/60 font-num">$</span>
-                        <input type="number" step="0.01" min="1" id="genBase" required value="120" oninput="updateGenPreview(); updateSetupVisuals();"
+                        <input type="number" step="0.01" min="1" id="genBase" required placeholder="0.00" oninput="updateGenPreview(); updateSetupVisuals();"
                           class="w-full bg-transparent px-3 py-2.5 font-num font-bold text-sm text-[var(--text-primary)] focus:outline-none placeholder-[var(--text-muted)]" placeholder="0.00" />
                       </div>
                       <p class="text-[11px] text-[var(--text-secondary)] mt-1 font-sans">Your current trading portfolio balance</p>
@@ -3771,7 +3771,7 @@
                         <span class="px-2.5 py-2.5 text-[var(--lavender)] font-bold text-sm select-none border-r border-[var(--border)]/60 flex items-center justify-center">
                           <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
                         </span>
-                        <input type="number" step="1" min="1" id="genTarget" required value="7000" oninput="updateGenPreview(); updateSetupVisuals();"
+                        <input type="number" step="1" min="1" id="genTarget" required placeholder="0.00" oninput="updateGenPreview(); updateSetupVisuals();"
                           class="w-full bg-transparent px-3 py-2.5 font-num font-bold text-sm text-[var(--text-primary)] focus:outline-none placeholder-[var(--text-muted)]" placeholder="0.00" />
                       </div>
                       <p class="text-[11px] text-[var(--text-secondary)] mt-1 font-sans">Your trading goal for this challenge</p>
@@ -3797,7 +3797,7 @@
                         <span class="px-2.5 py-2.5 text-[var(--mint)] font-bold text-sm select-none border-r border-[var(--border)]/60 flex items-center justify-center">
                           <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                         </span>
-                        <input type="number" step="1" min="3" max="100" id="genSessions" required value="28" oninput="updateGenPreview(); updateSetupVisuals();"
+                        <input type="number" step="1" min="3" max="100" id="genSessions" required placeholder="28" oninput="updateGenPreview(); updateSetupVisuals();"
                           class="w-full bg-transparent px-3 py-2.5 font-num font-bold text-sm text-[var(--text-primary)] focus:outline-none" placeholder="28" />
                         <span id="setupDurationChip" class="pr-3 text-xs font-bold text-[var(--text-secondary)] whitespace-nowrap font-num">4 Wks</span>
                       </div>
@@ -3808,7 +3808,7 @@
                   <!-- Challenge Name Input -->
                   <div class="pt-2 border-t border-[var(--border)]/50">
                     <label for="genName" class="block text-[11px] font-bold text-[var(--text-secondary)] uppercase tracking-wider mb-1 font-sans">Challenge Name / Label</label>
-                    <input type="text" id="genName" required value="28-Session Compounding Challenge"
+                    <input type="text" id="genName" required placeholder="e.g. My Compounding Challenge"
                       class="w-full bg-[var(--surface-subtle)] border border-[var(--border)] rounded-xl px-3.5 py-2 text-xs font-semibold text-[var(--text-primary)] focus:outline-none focus:border-[var(--mint)] font-sans" />
                   </div>
                 </div>
@@ -4114,14 +4114,14 @@
 
                 <div>
                   <label for="genWithdrawalTarget" class="block text-xs font-bold text-[var(--text-primary)] mb-1.5 font-sans">Targeted Withdrawal ($)</label>
-                  <input type="number" step="1" min="0" id="genWithdrawalTarget" value="0" oninput="updateGenPreview(); updateSetupVisuals();"
+                  <input type="number" step="1" min="0" id="genWithdrawalTarget" placeholder="0.00" oninput="updateGenPreview(); updateSetupVisuals();"
                     class="w-full bg-[var(--surface-subtle)] border border-[var(--border)] rounded-xl px-3 py-2.5 font-num font-bold text-xs text-[var(--text-primary)] focus:outline-none focus:border-[var(--mint)]" placeholder="0.00" />
                   <p class="text-[11px] text-[var(--text-secondary)] mt-1 font-sans">Optional cash-out buffer to bank</p>
                 </div>
 
                 <div>
                   <label for="genWithdrawalDays" class="block text-xs font-bold text-[var(--text-primary)] mb-1.5 font-sans">Withdrawal Timeline (Sessions)</label>
-                  <input type="number" step="1" min="1" max="100" id="genWithdrawalDays" value="28" oninput="updateGenPreview(); updateSetupVisuals();"
+                  <input type="number" step="1" min="1" max="100" id="genWithdrawalDays" placeholder="28" oninput="updateGenPreview(); updateSetupVisuals();"
                     class="w-full bg-[var(--surface-subtle)] border border-[var(--border)] rounded-xl px-3 py-2.5 font-num font-bold text-xs text-[var(--text-primary)] focus:outline-none focus:border-[var(--mint)]" />
                   <p class="text-[11px] text-[var(--text-secondary)] mt-1 font-sans">Sessions to complete withdrawal</p>
                 </div>
@@ -4280,7 +4280,7 @@
                   <p class="text-xs text-[var(--text-secondary)]">Sync across your phone, laptop, and desktop in real-time with your Firebase project credentials.</p>
                   <div>
                     <label for="cfgInputSyncKey" class="block font-bold text-[var(--text-secondary)] uppercase text-[10px] tracking-wider mb-1">Portfolio Sync Key (Device Identifier)</label>
-                    <input type="text" id="cfgInputSyncKey" value="dcniper_portfolio" placeholder="e.g. dcniper_portfolio"
+                    <input type="text" id="cfgInputSyncKey" placeholder="e.g. my_portfolio_key"
                       class="w-full bg-[var(--surface-subtle)] border border-[var(--border)] rounded-xl px-3 py-2 text-xs font-num font-bold text-[var(--text-primary)] focus:outline-none focus:border-[var(--amber)]" />
                   </div>
                   <div>
@@ -4427,7 +4427,7 @@
               <label class="block font-bold text-[#716556] dark:text-[#B4A58F] uppercase text-[10px] tracking-wider mb-1">
                 Portfolio Sync Key (Device Identifier)
               </label>
-              <input type="text" id="inputSyncKey" value="dcniper_portfolio" placeholder="e.g. dcniper_portfolio"
+              <input type="text" id="inputSyncKey" placeholder="e.g. my_portfolio_key"
                 class="w-full bg-[#F0E6D5] dark:bg-[#352E25] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 text-xs font-num font-bold text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#C2984D] dark:focus:border-[#D0AA63] shadow-inner" />
               <span class="text-[10px] text-[#716556] dark:text-[#B4A58F] mt-0.5 block">Use the same Sync Key on your other devices to see the exact same portfolio.</span>
             </div>
@@ -4646,13 +4646,13 @@ service cloud.firestore {
           <div class="grid grid-cols-2 gap-3">
             <div>
               <label class="block font-bold text-[#716556] dark:text-[#B4A58F] uppercase text-[10px]">Total Amount Due ($) *</label>
-              <input type="number" step="0.01" min="0.01" id="billAmountDueInput" required placeholder="120.00"
+              <input type="number" step="0.01" min="0.01" id="billAmountDueInput" required placeholder="0.00"
                 class="w-full mt-1 bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 font-num font-bold text-xs text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#789272]" />
             </div>
 
             <div>
               <label class="block font-bold text-[#716556] dark:text-[#B4A58F] uppercase text-[10px]">Amount Already Set Aside ($)</label>
-              <input type="number" step="0.01" min="0" id="billAmountReservedInput" value="0.00"
+              <input type="number" step="0.01" min="0" id="billAmountReservedInput" placeholder="0.00"
                 class="w-full mt-1 bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 font-num font-bold text-xs text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#789272]" />
             </div>
           </div>
@@ -4797,19 +4797,19 @@ service cloud.firestore {
           <div class="grid grid-cols-3 gap-2.5">
             <div>
               <label class="block font-bold text-[#716556] dark:text-[#B4A58F] uppercase text-[10px]">Entry ($) *</label>
-              <input type="number" step="0.01" min="0" id="tradeEntryAmountInput" required placeholder="50.00" oninput="updateTradeModalPreview()"
+              <input type="number" step="0.01" min="0" id="tradeEntryAmountInput" required placeholder="0.00" oninput="updateTradeModalPreview()"
                 class="w-full mt-1 bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 font-num font-bold text-xs text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#789272]" />
             </div>
 
             <div>
               <label class="block font-bold text-[#716556] dark:text-[#B4A58F] uppercase text-[10px]">Exit ($)</label>
-              <input type="number" step="0.01" min="0" id="tradeExitValueInput" value="0.00" oninput="updateTradeModalPreview()"
+              <input type="number" step="0.01" min="0" id="tradeExitValueInput" placeholder="0.00" oninput="updateTradeModalPreview()"
                 class="w-full mt-1 bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 font-num font-bold text-xs text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#789272]" />
             </div>
 
             <div>
               <label class="block font-bold text-[#716556] dark:text-[#B4A58F] uppercase text-[10px]">Fees ($)</label>
-              <input type="number" step="0.01" min="0" id="tradeFeesInput" value="0.00" oninput="updateTradeModalPreview()"
+              <input type="number" step="0.01" min="0" id="tradeFeesInput" placeholder="0.00" oninput="updateTradeModalPreview()"
                 class="w-full mt-1 bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 font-num text-xs text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#789272]" />
             </div>
           </div>
@@ -7971,10 +7971,12 @@ service cloud.firestore {
     }
 
     function saveMilestoneConfig() {
+      const gVal = parseFloat(document.getElementById('cfgMilestoneGoal').value);
+      const rVal = parseFloat(document.getElementById('cfgDeskReserve').value);
       milestoneConfig = {
-        targetGoal: parseFloat(document.getElementById('cfgMilestoneGoal').value) || 1500,
+        targetGoal: !isNaN(gVal) ? gVal : 0,
         targetDeadline: document.getElementById('cfgMilestoneDeadline').value || '',
-        reserveFloor: parseFloat(document.getElementById('cfgDeskReserve').value) || 1000,
+        reserveFloor: !isNaN(rVal) ? rVal : 0,
         strategy: document.getElementById('cfgSkimStrategy').value
       };
       localStorage.setItem('pgl_milestone_cfg_v10', JSON.stringify(milestoneConfig));
@@ -8144,11 +8146,11 @@ service cloud.firestore {
       const toggleEl = document.getElementById('milestoneToggleCheckbox');
       if (toggleEl) toggleEl.checked = milestoneFeatureEnabled;
       const cfgGoalEl = document.getElementById('cfgMilestoneGoal');
-      if (cfgGoalEl) cfgGoalEl.value = milestoneConfig.targetGoal;
+      if (cfgGoalEl) cfgGoalEl.value = (milestoneConfig.targetGoal && milestoneConfig.targetGoal > 0) ? milestoneConfig.targetGoal : '';
       const cfgDeadlineEl = document.getElementById('cfgMilestoneDeadline');
       if (cfgDeadlineEl) cfgDeadlineEl.value = milestoneConfig.targetDeadline || '';
       const cfgDeskFloorEl = document.getElementById('cfgDeskReserve');
-      if (cfgDeskFloorEl) cfgDeskFloorEl.value = milestoneConfig.reserveFloor;
+      if (cfgDeskFloorEl) cfgDeskFloorEl.value = (milestoneConfig.reserveFloor && milestoneConfig.reserveFloor > 0) ? milestoneConfig.reserveFloor : '';
       const cfgStratEl = document.getElementById('cfgSkimStrategy');
       if (cfgStratEl) cfgStratEl.value = milestoneConfig.strategy;
 
@@ -9035,8 +9037,7 @@ service cloud.firestore {
       // ── Pre-fill Next Trade No. ───────────────────────────────────────────
       const qPreview = document.getElementById('quickTradeNoPreview');
       if (qPreview) {
-        const nextNum = sessionTrades.length + 1;
-        qPreview.value = `Trade ${nextNum}`;
+        qPreview.placeholder = `e.g. ${sessionTrades.length + 1}`;
       }
     }
 
@@ -9102,7 +9103,7 @@ service cloud.firestore {
       document.getElementById('tradeStatusInput').value = 'closed';
       document.getElementById('tradeEntryAmountInput').value = '';
       document.getElementById('tradeExitValueInput').value = '';
-      document.getElementById('tradeFeesInput').value = '0.00';
+      document.getElementById('tradeFeesInput').value = '';
       document.getElementById('tradeNotesInput').value = '';
       updateTradeModalPreview();
       document.getElementById('tradeModal').classList.remove('hidden');
@@ -10231,18 +10232,18 @@ service cloud.firestore {
         const estFinishEl = document.getElementById('cfgInfoEstFinish');
         if (estFinishEl) estFinishEl.innerText = estFinishDate ? `Est finish: ${estFinishDate}` : '';
 
-        // If inputs exist and are not actively being focused/edited by the user, populate from active profile
-        if (!isEditingChallenge) {
+        // If inputs exist, only populate if actively in edit mode for an existing challenge
+        if (isEditingChallenge) {
           const baseEl = document.getElementById('genBase');
-          if (baseEl && document.activeElement !== baseEl && (!baseEl.value || baseEl.value === '120')) baseEl.value = activeProf.base || 120;
+          if (baseEl && document.activeElement !== baseEl && !baseEl.value) baseEl.value = activeProf.base || '';
           const targetEl = document.getElementById('genTarget');
-          if (targetEl && document.activeElement !== targetEl && (!targetEl.value || targetEl.value === '7000')) targetEl.value = activeProf.portTarget || 7000;
+          if (targetEl && document.activeElement !== targetEl && !targetEl.value) targetEl.value = activeProf.portTarget || '';
           const sessionsEl = document.getElementById('genSessions');
-          if (sessionsEl && document.activeElement !== sessionsEl && (!sessionsEl.value || sessionsEl.value === '28')) sessionsEl.value = activeProf.sessions?.length || 28;
+          if (sessionsEl && document.activeElement !== sessionsEl && !sessionsEl.value) sessionsEl.value = activeProf.sessions?.length || '';
           const dateEl = document.getElementById('genStartDate');
-          if (dateEl && document.activeElement !== dateEl && !dateEl.value) dateEl.value = activeProf.startDate || new Date().toISOString().split('T')[0];
+          if (dateEl && document.activeElement !== dateEl && !dateEl.value) dateEl.value = activeProf.startDate || '';
           const nameEl = document.getElementById('genName');
-          if (nameEl && document.activeElement !== nameEl && (!nameEl.value || nameEl.value === '28-Session Compounding Challenge')) nameEl.value = activeProf.name || '28-Session Compounding Challenge';
+          if (nameEl && document.activeElement !== nameEl && !nameEl.value) nameEl.value = activeProf.name || '';
         }
       }
 
@@ -10319,7 +10320,7 @@ service cloud.firestore {
       // Populate setup financial planning values
       const setupSavingsInput = document.getElementById('setupSavingsTargetInput');
       if (setupSavingsInput && document.activeElement !== setupSavingsInput) {
-        setupSavingsInput.value = milestoneConfig.targetGoal || 1500;
+        setupSavingsInput.value = (milestoneConfig.targetGoal && milestoneConfig.targetGoal > 0) ? milestoneConfig.targetGoal : '';
       }
       const billsSummary = calculateBillsSummary(billsBreakdown);
       const setupBillsCountBadge = document.getElementById('setupBillsCountBadge');
@@ -10399,19 +10400,19 @@ service cloud.firestore {
       if (submitBtn) submitBtn.innerText = "+ Create & Activate Challenge";
 
       const nameEl = document.getElementById('genName');
-      if (nameEl) nameEl.value = `Challenge ${ladderProfiles.length + 1}`;
+      if (nameEl) nameEl.value = '';
       const baseEl = document.getElementById('genBase');
-      if (baseEl) baseEl.value = 120;
+      if (baseEl) baseEl.value = '';
       const targetEl = document.getElementById('genTarget');
-      if (targetEl) targetEl.value = 7000;
+      if (targetEl) targetEl.value = '';
       const sessionsEl = document.getElementById('genSessions');
-      if (sessionsEl) sessionsEl.value = 28;
+      if (sessionsEl) sessionsEl.value = '';
       const dateEl = document.getElementById('genStartDate');
-      if (dateEl) dateEl.value = new Date().toISOString().split('T')[0];
+      if (dateEl) dateEl.value = '';
       const withTargetEl = document.getElementById('genWithdrawalTarget');
-      if (withTargetEl) withTargetEl.value = 0;
+      if (withTargetEl) withTargetEl.value = '';
       const withDaysEl = document.getElementById('genWithdrawalDays');
-      if (withDaysEl) withDaysEl.value = 28;
+      if (withDaysEl) withDaysEl.value = '';
       const curveTypeEl = document.getElementById('genCurveType');
       if (curveTypeEl) curveTypeEl.value = 'tri_pace_independent';
       const skimModeEl = document.getElementById('genSkimMode');

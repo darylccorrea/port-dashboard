@@ -8,14 +8,14 @@
    - [1.1 Simplified Strategy Language & Terminology Guide](#11-simplified-strategy-language--terminology-guide)
 2. [Architecture & Technology Stack](#2-architecture--technology-stack)
 3. [Design System & Interface Ergonomics](#3-design-system--interface-ergonomics)
-4. [Master Features Breakdown by Module](#4-master-features-breakdown-by-module)
+4. [Master Features Breakdown by Module (The 5 Canonical Sections)](#4-master-features-breakdown-by-module)
    - [4.1 Global Header & Cloud Sync Hub](#41-global-header--cloud-sync-hub)
    - [4.2 True Realized Wealth & Hero Banner](#42-true-realized-wealth--hero-banner)
-   - [4.3 Tab 1: Daily Tracker & Active Execution Console](#43-tab-1-daily-tracker--active-execution-console)
-   - [4.4 Tab 2: Trading Sessions Journal](#44-tab-2-trading-sessions-journal)
-   - [4.5 Tab 3: Capital Vault & Bills Breakdown](#45-tab-3-capital-vault--bills-breakdown)
-   - [4.6 Tab 4: Climber's Analytics & Stats Hub](#46-tab-4-climbers-analytics--stats-hub)
-   - [4.7 Tab 5: Settings, Challenge Roadmaps & Cloud Integrations](#47-tab-5-settings-challenge-roadmaps--cloud-integrations)
+   - [4.3 Section 1: Setup](#43-section-1-setup)
+   - [4.4 Section 2: Daily Tracker](#44-section-2-daily-tracker)
+   - [4.5 Section 3: Trading Sessions](#45-section-3-trading-sessions)
+   - [4.6 Section 4: Capital Vault](#46-section-4-capital-vault)
+   - [4.7 Section 5: Stats & Performance](#47-section-5-stats--performance)
 5. [Complete Mathematical Formulas & Algorithms](#5-complete-mathematical-formulas--algorithms)
    - [5.1 Geometric Compounding Curve (Smooth)](#51-geometric-compounding-curve-smooth)
    - [5.2 Front-Loaded Compounding Decay Curve](#52-front-loaded-compounding-decay-curve)
@@ -28,6 +28,7 @@
    - [5.9 Win Rate, Streaks & Profit Factor](#59-win-rate-streaks--profit-factor)
    - [5.10 Bills Breakdown Daily & Per-Session Set-Aside Engine](#510-bills-breakdown-daily--per-session-set-aside-engine)
    - [5.11 Trade Journal Realized PnL & Performance Analytics Engine](#511-trade-journal-realized-pnl--performance-analytics-engine)
+   - [5.12 Total Financial Goal Engine (Combined Goal across Trading, Savings, and Bills)](#512-total-financial-goal-engine-combined-goal-across-trading-savings-and-bills)
 6. [Data Schemas & Local Storage Architecture](#6-data-schemas--local-storage-architecture)
    - [6.1 LocalStorage Keys & Data Types](#61-localstorage-keys--data-types)
    - [6.2 Ladder Profile Schema](#62-ladder-profile-schema)
@@ -164,205 +165,182 @@ Located at the top of the Tracker tab:
 
 ---
 
-### 4.3 Tab 1: Active Execution Tracker & Daily Console
+### 4.3 Section 1: Setup
 
-#### 1. Active Session Console (Box 1)
-- **Session Stepper (`‹` and `›`):** Step backward or forward through trading history.
-- **Closing Balance Input (`#sessionBalanceInput`):**
-  - Currency-formatted input where the trader enters the final desk balance for the session.
-  - Supports automatic comma formatting and numerical sanitization.
-- **Session Lock Engine (`toggleLockActiveSession`):**
-  - **Lock to Protect:** Freezes the closing balance, preventing accidental edits.
-  - **Unlock to Edit:** Re-enables input with auto-focus and performs an atomic Firestore update so unlocked sessions stay unlocked across devices.
-- **Day 1 Awaiting Balance Guard:** Prevents premature "Goal Met" badges on Session 1 until the trader explicitly enters a closing balance.
-- **Session Notes System (`openSessionNotesModal`):**
-  - Records trade execution notes, setups taken, or psychological observations tagged with execution timestamps.
-- **Fast PnL Action Buttons:** Quick shortcuts (`+ Win`, `+ Loss`, `Clear`) to assist rapid logging.
-- **Dynamic PnL & Psychological Vibe:**
-  - Shows Dollar Gain/Loss and Percentage return for the active session.
-  - Vibe Indicator dynamically adapts:
-    - *Green Day:* "Awesome green day! Keep your cool and protect gains."
-    - *Red Day:* "Small red day. Capital preservation is your superpower!"
-    - *Even Day:* "Even session. Ready whenever good setups appear."
-    - *Unlogged:* "Session live. Enter closing balance when session completes."
+The **Setup** section configures and manages the trading challenge. Designed around simplicity, it presents only essential inputs and converts into a concise summary once a challenge is active.
 
-#### 2. Daily Pace Targets & Skim Mode (Box 2)
-Presents three interactive pacing options for the active session:
-- **Relaxed Pace Card:** Lowest stress baseline target designed to comfortably reach the challenge finish.
-- **Mid Pace Card:** $+15\%$ over baseline, representing accelerated momentum.
-- **Aggressive Pace Card:** $+30\%$ over baseline, designed for high-conviction market environments.
-- **Active Card Selection:** Clicking any card switches the active target tracking to that pace (`setPace`).
-- **Goal Completion Badges:** When the logged balance hits or exceeds a pace, the card illuminates with a distinct border and displays `Goal Met (+Delta)`.
-- **Skim Mode Header Badge:** When Skim Mode is active, displays `Skim Mode (+$X.XX / session)` in the header.
-- **Suggestive Desk Target Card:** Real-time computation showing the exact balance required today to maintain progress toward external financial targets and deadlines.
+```
++------------------------------------------------------------------------+
+|                         SECTION 1: SETUP                               |
+|                                                                        |
+|   Active Challenge Summary Card:                                       |
+|   * Starting Balance ($)  * Target Portfolio Balance ($)               |
+|   * Current Progress (Session X of Y, % to Goal) * Multiplier (X.Xx)   |
+|   * Estimated Finish Date * Action: [Edit Settings] [+ New Challenge] |
+|                                                                        |
+|   Challenge Configuration Form (Shown on new / edit):                  |
+|   * Essential Inputs Only: Name, Starting Bal, Target Bal,             |
+|     Start Date, Duration (Sessions)                                    |
+|   * Collapsed Optional Details: Bill/Cash-out goal, strategy type,     |
+|     Skim Mode toggle, live projection preview                          |
+|   * Editing Settings preserves historical records, trade logs,         |
+|     and locked sessions without resetting progress                     |
+|                                                                        |
+|   Cloud Synchronization & Spreadsheet Integration:                     |
+|   * Collapsed Firebase Firestore credentials & status                  |
+|   * Collapsed Google Sheets Webhook URL & copy script tool             |
+|   * Collapsed Data Management, CSV exports & challenge reset tools     |
++------------------------------------------------------------------------+
+```
 
-#### 3. Modular Tabbed Widget Hub (Box 3)
-A flexible container with 4 switchable views:
-1. **Trading Activity Calendar (`switchWidgetTab('calendar')`):**
-   - Monthly summary bar: Days Traded, Green Sessions, Red Sessions, Net Monthly PnL.
-   - 7-Day responsive grid (Mon–Sun) mapping execution sessions to calendar dates.
-   - Color-coded cells with green/red badges and click-to-jump navigation.
-2. **Daily Paces Deep Dive (`switchWidgetTab('paces')`):**
-   - Stage-by-stage compounding corridor view with surplus cushions.
-3. **Cycle Checkpoints (`switchWidgetTab('milestones')`):**
-   - 4 modular compounding phase cards showing percentage progress toward the final challenge summit.
-4. **Master Session Ledger Table (`switchWidgetTab('ledger')`):**
-   - Comprehensive tabular breakdown of all $N$ sessions.
-   - Displays Session Number, Execution Timestamp, Desk Balance, Session PnL, Surplus / Deficit vs Target, Checkpoint Tags, and Lock Status.
-   - **Show All Paces Toggle:** Switches between a focused target view and a complete triple-column display (Relaxed, Mid, Aggressive).
-   - **Copy Ledger TSV:** Copies the entire table in tab-separated format for pasting directly into Google Sheets or Microsoft Excel.
+#### Core Setup Rules
+- **Concise Active Summary:** Active challenge details appear in a compact 4-card overview bar.
+- **Progress Preservation:** Editing challenge settings recomputes session pacing curves while preserving all historical session logs, timestamps, notes, and trade journals.
+- **Default Load State:** If an active challenge exists, the dashboard loads directly into the **Daily Tracker**. If no challenge exists, it opens to **Setup**.
 
 ---
 
-### 4.4 Tab 2: Trading Sessions Journal
+### 4.4 Section 2: Daily Tracker
 
-The **Trading Sessions Journal** provides a dedicated, lightweight workspace for manually logging and reviewing individual trade executions on a session-by-session basis.
+The **Daily Tracker** is the primary operational console of the application, designed to let traders understand their position and log closing balances in seconds.
 
 ```
-┌────────────────────────────────────────────────────────────────────────┐
-│                      TRADING SESSIONS JOURNAL                          │
-│                                                                        │
-│   [Session Selector: Session 1 ▾]       [+ Log Trade Button]           │
-│  ┌──────────────────────┬──────────────────────┬────────────────────┐  │
-│  │ Starting Balance     │ Trades Profit / Loss │ Trades Logged      │  │
-│  │ $120.00              │ +$33.50 (+33.5% avg) │ 2 Wins / 0 Losses  │  │
-│  └──────────────────────┴──────────────────────┴────────────────────┘  │
-│                                                                        │
-│   Session Trades Table:                                                │
-│   • Sequential Generic Labels: Trade A, Trade B, Trade C...            │
-│   • Entry Amount ($), Exit Value ($), Brokerage Fees ($)               │
-│   • Realized Profit/Loss ($) & Return (%) per trade                    │
-│   • Position Status: Closed, Partially Closed, or Open                 │
-│                                                                        │
-│   Overall Performance Analytics (All Sessions Combined):               │
-│   • Total Realized PnL ($)  • Total Trades Logged & Open Positions     │
-│   • Win / Loss Ratio        • Win Rate (%)  • Average Return (%)       │
-└────────────────────────────────────────────────────────────────────────┘
++------------------------------------------------------------------------+
+|                      SECTION 2: DAILY TRACKER                          |
+|                                                                        |
+|   Current Position Top Bar (5 Key KPI Cards):                          |
+|   +--------------+--------------+--------------+-----------+---------+ |
+|   | Current Bal  | Today's PnL  | Overall PnL  | Target %  | Session | |
+|   | $150.00      | +$30.00      | +$30.00      | 2.1%      | S1 / 28 | |
+|   +--------------+--------------+--------------+-----------+---------+ |
+|                                                                        |
+|   Daily Execution Station:                                             |
+|   * One primary input for Closing Portfolio Balance                    |
+|   * Prominent "Save Session" button (locks & confirms balance)         |
+|   * Collapsed "+ Add session notes" field (auto-saved & synced)        |
+|   * Fast "Fill Target" action button                                   |
+|                                                                        |
+|   Three Growth Plans Comparison:                                       |
+|   * Compact corridor comparing Relaxed, Mid, and Aggressive targets    |
+|   * Visual indicators showing whether today's balance met the target   |
+|                                                                        |
+|   Weekly Progress Bar & Shortfall Averted Guidance:                    |
+|   * Displays progress toward current 7-session checkpoint              |
+|   * Calculates ahead / behind status without false drawdown alarms     |
++------------------------------------------------------------------------+
+```
+
+#### Operational Workflow
+1. Open the app (automatically lands on Daily Tracker).
+2. Check the 5 Current Position cards at a glance.
+3. Enter today's closing balance into the primary input.
+4. Optionally expand notes to record market observations or discipline checks.
+5. Click **Save Session** - balance locks, timestamps save, and cloud sync broadcasts instantly.
+
+---
+
+### 4.5 Section 3: Trading Sessions
+
+The **Trading Sessions** tab provides an observational trading journal for logging individual trade executions without affecting the portfolio growth ladder.
+
+```
++------------------------------------------------------------------------+
+|                    SECTION 3: TRADING SESSIONS                         |
+|                                                                        |
+|   [Session Selector: Session 1 v]       [+ Log Trade Button]           |
+|  +----------------------+----------------------+--------------------+  |
+|  | Starting Balance     | Trades Profit / Loss | Trades Logged      |  |
+|  | $120.00              | +$33.50 (+33.5% avg) | 2 Wins / 0 Losses  |  |
+|  +----------------------+----------------------+--------------------+  |
+|                                                                        |
+|   Session Trades Table:                                                |
+|   * Sequential Generic Labels: Trade A, Trade B, Trade C...            |
+|   * Entry Amount ($), Exit Value ($), Brokerage Fees ($)               |
+|   * Realized Profit/Loss ($) & Return (%) per trade                    |
+|   * Position Status: Closed, Partially Closed, or Open                 |
+|                                                                        |
+|   Overall Performance Analytics (All Sessions Combined):               |
+|   * Total Realized PnL ($)  * Total Trades Logged & Open Positions     |
+|   * Win / Loss Ratio        * Win Rate (%)  * Average Return (%)       |
++------------------------------------------------------------------------+
 ```
 
 #### Core Journaling Principles
 - **Strict Decoupling from Ladder Targets:** Logging a trade in this tab is an observational journal tool. It never mutates active desk capital, historical daily logs, or ladder compounding curves.
-- **Generic Sequential Naming:** To reduce bias and maintain structured logs, trades in a given session are automatically assigned sequential labels (`Trade A`, `Trade B`, `Trade C`, ...). Custom labels remain fully editable.
-- **Open Trade Handling:** Open positions are flagged with a blue badge and their unrealized equity is explicitly excluded from realized profit/loss, win rate, and return metrics.
-- **Real-Time Modal Preview:** While logging or editing a trade, the modal dynamically computes net profit/loss and return percentage in real-time as entry, exit, and fee inputs are typed.
+- **Generic Sequential Naming:** Trades in a given session are automatically assigned sequential labels (`Trade A`, `Trade B`, ...).
+- **Open Trade Handling:** Open positions are flagged and their unrealized equity is explicitly excluded from realized profit/loss and win rate metrics until closed.
 
 ---
 
-### 4.5 Tab 3: Capital Vault & Bills Breakdown
+### 4.6 Section 4: Capital Vault
 
-The **Capital Vault** secures profits outside the trading desk to guarantee real-world financial independence.
+The **Capital Vault** manages all money outside the active trading portfolio, structured into three clearly separated, compact areas:
 
 ```
-┌────────────────────────────────────────────────────────────────────────┐
-│                        CAPITAL VAULT WORKFLOW                          │
-│                                                                        │
-│   Active Trading Desk Balance ───► [Skim Form / Quick Preset]          │
-│                                                   │                    │
-│                                                   ▼                    │
-│       ┌─────────────────────────────────────────────────────────┐      │
-│       │ Capital Floor Check (Desk After >= Floor Reserve $1000) │      │
-│       └───────────────────────────┬─────────────────────────────┘      │
-│                                   │                                    │
-│                 ┌─────────────────┴─────────────────┐                  │
-│                 ▼                                   ▼                  │
-│        [Passes Floor]                      [Below Floor Warning]       │
-│                 │                                   │                  │
-│                 ▼                                   ▼                  │
-│   Transferred to Vault Ledger          Modal Confirmation Required     │
-│   True Wealth Invariant Intact         User Override or Abort          │
-└────────────────────────────────────────────────────────────────────────┘
++------------------------------------------------------------------------+
+|                       SECTION 4: CAPITAL VAULT                         |
+|                                                                        |
+|   Consolidated Summary Bar (4 Unified KPI Cards):                      |
+|   +--------------+--------------+--------------+---------------------+ |
+|   | Total Vault  | Bills Res.   | Savings Res. | Total True Wealth   | |
+|   | $0.00        | $0.00 / $0   | $0.00        | $120.00             | |
+|   +--------------+--------------+--------------+---------------------+ |
+|                                                                        |
+|   Area 1: Bills Breakdown & Planning                                   |
+|   * Individual bill entries: Name, Amount Due, Due Date, Priority,     |
+|     Amount Reserved, Status (Unfunded, Partial, Funded, Paid), Notes   |
+|   * Calendar Days vs Trading Sessions set-aside calculation            |
+|   * Set-aside suggestions: (Remaining Due / Time Units Left)           |
+|   * Informational reference comparison with available skim             |
+|   * Action to mark paid without duplicating withdrawal records         |
+|                                                                        |
+|   Area 2: Withdrawals & Transfers                                      |
+|   * Simple transfer form to move profits into vault buckets            |
+|   * Completed withdrawals & cash-outs audit history table              |
+|                                                                        |
+|   Area 3: Savings & Capital Safety                                     |
+|   * Accumulated savings balance protected from trading risk           |
+|   * 3 Capital Safety Milestones: Initial Recouped, Cushion, Goal Met   |
+|   * Collapsed optional Vault planning & pacing settings                |
++------------------------------------------------------------------------+
 ```
 
-#### 1. Optional Bills Breakdown & Planning
-Located directly inside the Capital Vault, this tool allows traders to split their overall Bills Reserve into specific real-world expenses (e.g., rent, utilities, subscriptions, debt service) without affecting active trading calculations.
-
-- **Configurable Fields per Bill:**
-  - **Bill Name:** Descriptive label (e.g., "Electricity", "Apartment Rent").
-  - **Total Amount Due ($):** Total obligation required.
-  - **Amount Already Set Aside ($):** Funds currently earmarked for this bill.
-  - **Due Date:** Specific calendar date for the payment deadline.
-  - **Priority:** `High (Essential)`, `Medium (Standard)`, or `Low (Flexible)`.
-  - **Payment Status:** `Unfunded`, `Partially Funded`, `Fully Funded`, or `Paid`.
-  - **Notes:** Optional reference details (e.g., account numbers, auto-debit dates).
-- **Dual Basis Pacing Toggle:**
-  - **Calendar Days:** Calculates suggested daily set-aside based on calendar days remaining until the bill's due date.
-  - **Trading Sessions:** Calculates suggested set-aside based on trading sessions remaining until the target session.
-- **Suggested Set-Aside Logic:**
-  - Computes $\frac{\text{Remaining Due}}{\text{Time Units Left}}$.
-  - Overdue and due-today bills require full remaining funding immediately.
-  - Paid bills require $\$0.00$ set-aside.
-- **Informational Skim Comparison Banner:**
-  - Compares the total suggested bill set-aside against the active trading surplus or skim target.
-  - Purely informational reference to assist financial planning without automated deductions.
-- **Strict Accounting Invariance:** Adding, editing, reserving, or deleting a bill never alters active desk balances, vault ledger totals, or compounding milestones.
-
-#### 2. Vault Reserves & Milestone Badges
-- **Multi-Reserve Partitioning:** Deposits can be allocated into **Bills Reserve**, **General Vault**, or **Long-Term Savings**.
-- **The Three Safety Milestone Badges:**
-  - **Step 1: Initial Deposit Recouped:** Unlocks when Vault $\ge \text{Starting Deposit}$ (e.g., $\$120.00$), marking the transition to trading purely on market gains.
-  - **Step 2: Safety Cushion:** Unlocks when $\$500.00$ is saved in the Vault.
-  - **Step 3: Target Goal Cleared:** Unlocks when $100\%$ of the personal savings goal is funded.
-- **Capital Floor Protection Warning:** Prevents accidental withdrawals that would drop the desk below the configured reserve floor (e.g., $\$1,000.00$).
-- **Chronological Vault Ledger:** Complete audit trail of all banked profits with reversal capability.
-
 ---
 
-### 4.6 Tab 4: Climber's Analytics & Stats Hub
+### 4.7 Section 5: Stats & Performance
 
-- **Trader Rank & Level System:**
-  - **Rank I — Base Camp Pioneer (LVL 1):** Sessions 1 to 5. Initial capital foundation.
-  - **Rank II — Steady Climber (LVL 2):** Sessions 6 to 11. Early compounding velocity.
-  - **Rank III — Highland Navigator (LVL 3):** Sessions 12 to 18. Mid-cycle equity expansion.
-  - **Rank IV — Alpine Ridge Master (LVL 4):** Sessions 19 to 24. High-altitude risk protection.
-  - **Rank V — Summit Champion (LVL 5):** Sessions 25+. Challenge peak execution.
-- **Discipline Scoring Engine:**
-  - Computes trading consistency: Grade A+ ($\ge 75\%$ green rate), Grade A ($\ge 50\%$), Grade B ($\ge 35\%$), or Rebuilding Discipline.
-- **Streak Tracker:** Real-time counter of consecutive profitable trading sessions.
-- **Performance Metrics Grid:**
-  - **Win Rate:** Percentage of green sessions over total logged sessions.
-  - **Average Session Gain:** Mean dollar return across all logged sessions.
-  - **Peak Capital (All-Time High Watermark):** Highest historical true wealth recorded.
-  - **Max Drawdown:** Maximum dollar and percentage retracement from peak wealth.
-  - **Profit Factor:** Ratio of gross profits to gross losses.
-  - **Cycle ROI:** Total percentage return generated since Challenge Day 1.
-- **Pace Corridor Distribution:** Bar chart showing how many sessions were completed in Aggressive, Mid, Relaxed, or Below-Pace territories.
-- **Climber's Compass Tactical Insights:** Algorithmic coach delivering personalized feedback based on win rate, streak length, drawdown depth, and vault security status.
+The **Stats & Performance** section reviews past results and analyzes progress toward the challenge goal, organized into four clean analytical groups:
 
----
-
-### 4.7 Tab 5: Settings, Challenge Roadmaps & Cloud Integrations
-
-#### 1. Active Challenge Management
-- **Profile Selector Dropdown:** Instant switching between stored challenge roadmaps.
-- **Delete Selected Challenge:** Safely removes the currently selected challenge after user confirmation.
-- **Visual Challenge Cards:** Previews each challenge's Starting Deposit, Final Target, Session Count, Multiple ($X\text{x}$), Strategy Type, and Cash-Out checkpoints.
-- **Empty State Guard:** Allows completely deleting all challenges with zero default challenges retained, displaying clean creation prompts.
-
-#### 2. Skim Mode (Withdrawal Rate Assist)
-- Dedicated card featuring an interactive toggle switch (`toggleSkimMode`).
-- Displays Targeted Withdrawal ($), Accumulation Timeline, and Daily Skim Increment ($+\$X.XX / \text{session}$).
-- When enabled, automatically integrates the daily savings requirement into session targets across the dashboard.
-
-#### 3. Start a New Challenge Form & Generator
-Allows generating custom mathematical compounding roadmaps:
-- **Challenge Name:** Descriptive roadmap label.
-- **Starting Balance ($):** Initial deposit (e.g., $\$150.00$).
-- **Trading Desk Target ($):** Desired trading desk balance to keep compounding at the end of the challenge.
-- **Number of Sessions:** Total trading sessions ($3$ to $100$).
-- **Withdrawal Target ($):** Amount of cash to extract for personal finances.
-- **Withdrawal Timeline (Sessions / Days):** Number of sessions by which the withdrawal must be secured.
-- **Type of Strategy:**
-  - **`port target + withdrawal`:** Adjusts the final summit to $\text{Portfolio Target} + \text{Withdrawal Target}$, accelerating early pacing to ensure the cash-out is banked by session $D$, after which compounding continues to the portfolio target.
-  - **`decay`:** Sprint early, protect gains later (exponential decay curve).
-  - **`smooth`:** Constant geometric compounding rate every session.
-- **Enable Skim Mode Checkbox:** Integrates daily withdrawal pacing into session targets.
-- **Dynamic Live Strategy Preview Card:** Updates in real-time as values are typed, displaying Adjusted Summit, Desk Target, Withdrawal Goal, Daily Skim Rate, and tactical strategy explanations.
-
-#### 4. Reset & Fresh Start Tools
-- **Reset Progress to Session 1:** Clears logged balances and timestamps while keeping ladder curves and Vault records intact.
-- **Clear Vault History:** Empties the Vault ledger without modifying desk balances.
-- **Restore Default Preset:** Re-inserts the standard 28-Session Tri-Pace profile ($120 \rightarrow 7\text{K} / 12.6\text{K} / 17.5\text{K}$).
-- **Wipe All Challenge Data:** Full system purge of all profiles, logs, and vaults for a 100% clean slate.
+```
++------------------------------------------------------------------------+
+|                   SECTION 5: STATS & PERFORMANCE                       |
+|                                                                        |
+|   Rank & Discipline Banner: Level, Rank Title, Green Streak, Grade     |
+|                                                                        |
+|   1. Portfolio Growth & Trajectory:                                    |
+|   * Goal Reach (%) toward final target                                 |
+|   * Peak Capital Watermark (All-time high true wealth)                 |
+|   * Net Profit generated above initial deposit                         |
+|   * Daily Average session gain                                         |
+|                                                                        |
+|   2. Performance & Risk Analytics:                                     |
+|   * Green Session Win Rate (%) & profitable session count              |
+|   * Maximum Drawdown ($ and %) peak-to-trough retracement              |
+|   * Profit Factor (Gross gains / Gross losses)                         |
+|   * Best Session Gain ($ and session peak)                             |
+|                                                                        |
+|   3. Consistency & Pace Adherence:                                     |
+|   * Pace Target Mastery distribution (Relaxed, Mid, Aggressive, Below) |
+|   * Climber's Compass: Personalized algorithmic trading guidance       |
+|   * Challenge Milestones & 7 Gamified Achievement Badges               |
+|                                                                        |
+|   4. Financial Overview:                                               |
+|   * Total Cash Banked in Safe Vault                                    |
+|   * Total Return on Investment (ROI %)                                 |
+|   * Long-Term Savings Fortress Balance                                 |
+|   * Active Trading Desk Balance                                        |
++------------------------------------------------------------------------+
+```
 
 ---
 
@@ -559,6 +537,51 @@ $$\text{Total Realized PnL} = \sum_{t \in \mathcal{C}} \text{Realized PnL}(t)$$
 $$\text{Win Rate \%} = \left(\frac{|\{t \in \mathcal{C} \mid \text{Realized PnL}(t) > 0.001\}|}{|\mathcal{C}|}\right) \times 100$$
 
 $$\text{Average Return \%} = \frac{1}{|\mathcal{C}|} \sum_{t \in \mathcal{C}} \text{Return \%}(t)$$
+
+---
+
+### 5.12 Total Financial Goal Engine (Combined Goal across Trading, Savings, and Bills)
+
+The **Total Financial Goal** brings together the user's three primary financial targets into a unified planning summary without cross-contaminating accounts or executing automatic transfers:
+
+$$\text{Total Financial Goal} = T_{\text{trading}} + T_{\text{savings}} + T_{\text{bills}}$$
+
+Where:
+- $T_{\text{trading}}$: Target configured for the active trading challenge.
+- $T_{\text{savings}}$: Separately configured savings reserve goal (`milestoneConfig.targetGoal`).
+- $T_{\text{bills}}$: Total bill requirement for the relevant period ($\sum b_i.\text{amountDue}$ across active bills).
+
+#### Category Contribution & Achievement Formulas:
+1. **Trading Portfolio:**
+   - Balance: $B_{\text{trading}} = \text{Current Desk Balance}$
+   - Achieved: $A_{\text{trading}} = \min(T_{\text{trading}}, \max(0, B_{\text{trading}}))$
+   - Remaining: $R_{\text{trading}} = \max(0, T_{\text{trading}} - B_{\text{trading}})$
+   - Surplus: $S_{\text{trading}} = \max(0, B_{\text{trading}} - T_{\text{trading}})$
+
+2. **Savings Reserve:**
+   - Balance: $B_{\text{savings}} = \text{Total Vault Savings Banked}$
+   - Achieved: $A_{\text{savings}} = \min(T_{\text{savings}}, \max(0, B_{\text{savings}}))$
+   - Remaining / Deficit: $R_{\text{savings}} = \max(0, T_{\text{savings}} - B_{\text{savings}})$
+   - Surplus: $S_{\text{savings}} = \max(0, B_{\text{savings}} - T_{\text{savings}})$
+
+3. **Bills Obligations:**
+   - Achieved: $A_{\text{bills}} = \sum \min(b_i.\text{amountDue}, b_i.\text{status} = \text{'paid'} \ ? \ b_i.\text{amountDue} : b_i.\text{amountReserved})$
+   - Remaining Outstanding: $R_{\text{bills}} = \max(0, T_{\text{bills}} - A_{\text{bills}})$
+
+#### Combined Metrics & Progress Percentage:
+$$\text{Total Achieved} = A_{\text{trading}} + A_{\text{savings}} + A_{\text{bills}}$$
+
+$$\text{Total Remaining} = R_{\text{trading}} + R_{\text{savings}} + R_{\text{bills}}$$
+
+$$\text{Overall Progress \%} = \begin{cases} 
+0 & \text{if } \text{Total Financial Goal} \le 0 \\
+\left(\frac{\text{Total Achieved}}{\text{Total Financial Goal}}\right) \times 100 & \text{otherwise}
+\end{cases}$$
+
+#### Strict Accounting Safeguards:
+- **No Automatic Transfers:** A savings deficit or bill requirement never triggers automated withdrawals from trading desk balance.
+- **No Double Counting:** Recording a bill payment marks the bill as covered without creating a duplicate withdrawal from the desk.
+- **Independent Surplus Retention:** Savings or trading surpluses remain in their respective accounts.
 
 ---
 

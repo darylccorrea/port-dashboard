@@ -27,3 +27,6 @@ desktop.ini
 firebase-debug.log
 firestore-debug.log
 ui-debug.log
+
+# Scratch scripts & temporary test artifacts
+scratch/

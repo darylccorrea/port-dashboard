@@ -814,6 +814,7 @@
               <circle cx="12" cy="12" r="9" /><circle cx="12" cy="12" r="5" /><circle cx="12" cy="12" r="1.5" />
             </svg>
             <span>Daily Pace Targets</span>
+            <span id="skimModeTrackerBadge" class="hidden text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#C2984D]/15 text-[#C2984D] dark:bg-[#D0AA63]/20 dark:text-[#D0AA63] border border-[#C2984D]/30 font-num">Skim Mode (+<span id="skimModeTrackerRate">$0.00</span>/session)</span>
             <span class="font-normal text-[11px] text-[#716556]/80 dark:text-[#B4A58F]/80">(Click any card to select active target pace)</span>
           </h2>
           <span class="text-xs text-[#716556] dark:text-[#B4A58F] font-num">Session <span id="targetCardSessionNum">1</span></span>
@@ -1707,14 +1708,52 @@
         </div>
       </section>
 
-      <!-- 2. Create a New Challenge (Plain English) -->
+      <!-- 2. Skim Mode (Withdrawal Rate Assist) Card -->
+      <section class="bento-card p-5 sm:p-6 space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between pb-3 border-b border-[#CFC1AA] dark:border-[#514638] gap-3">
+          <div class="space-y-1">
+            <div class="flex items-center gap-2">
+              <h3 class="text-sm font-bold text-[#332B22] dark:text-[#E2D4BD] uppercase tracking-wider">Skim Mode (Withdrawal Rate Assist)</h3>
+              <span id="settingSkimModeStatusBadge" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#716556]/15 text-[#716556] dark:bg-[#B4A58F]/20 dark:text-[#B4A58F] border border-[#716556]/30 font-num">Disabled</span>
+            </div>
+            <p class="text-xs text-[#716556] dark:text-[#B4A58F]">
+              Calculates the capital needed for your withdrawal target and timeframe, adding a small incremental increase to each session target so accumulating withdrawal money is easier.
+            </p>
+          </div>
+          <div class="flex items-center gap-3 shrink-0">
+            <span class="text-xs font-bold text-[#716556] dark:text-[#B4A58F]">Skim Mode:</span>
+            <label class="relative inline-flex items-center cursor-pointer">
+              <input type="checkbox" id="settingSkimModeToggle" onchange="toggleSkimMode(this.checked)" class="sr-only peer">
+              <div class="w-11 h-6 bg-[#CFC1AA] dark:bg-[#514638] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-[#F5EBDD] after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-[#F5EBDD] after:border-[#CFC1AA] after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#607B5B] dark:peer-checked:bg-[#789272]"></div>
+            </label>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs font-num">
+          <div class="p-3.5 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638]">
+            <span class="text-[#716556] dark:text-[#B4A58F] block text-[10px] uppercase font-bold">Targeted Withdrawal</span>
+            <strong class="text-base text-[#332B22] dark:text-[#E2D4BD]" id="settingSkimTargetVal">$0.00</strong>
+          </div>
+          <div class="p-3.5 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638]">
+            <span class="text-[#716556] dark:text-[#B4A58F] block text-[10px] uppercase font-bold">Accumulation Timeline</span>
+            <strong class="text-base text-[#332B22] dark:text-[#E2D4BD]" id="settingSkimTimelineVal">--</strong>
+          </div>
+          <div class="p-3.5 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638]">
+            <span class="text-[#716556] dark:text-[#B4A58F] block text-[10px] uppercase font-bold">Daily Skim Increment</span>
+            <strong class="text-base text-[#607B5B] dark:text-[#789272]" id="settingSkimIncrementVal">+$0.00 / session</strong>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. Create a New Challenge (Plain English) -->
       <section class="bento-card p-5 sm:p-6 space-y-4">
         <div class="pb-3 border-b border-[#CFC1AA] dark:border-[#514638]">
           <h3 class="text-sm font-bold text-[#332B22] dark:text-[#E2D4BD] uppercase tracking-wider">Start a New Challenge</h3>
-          <p class="text-xs text-[#716556] dark:text-[#B4A58F] mt-0.5">Pick your own starting money, final target, and how many sessions you want to trade.</p>
+          <p class="text-xs text-[#716556] dark:text-[#B4A58F] mt-0.5">Customize your starting capital, portfolio target, withdrawal goals, and strategy pacing.</p>
         </div>
 
         <form onsubmit="handleGenerateLadderSubmit(event)" class="space-y-4 text-xs">
+          <!-- Row 1: Core Parameters -->
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
             <div>
               <label class="block font-bold text-[#716556] dark:text-[#B4A58F] uppercase text-[10px] tracking-wider">Challenge Name</label>
@@ -1724,38 +1763,94 @@
 
             <div>
               <label class="block font-bold text-[#716556] dark:text-[#B4A58F] uppercase text-[10px] tracking-wider">Starting Balance ($)</label>
-              <input type="number" step="0.01" min="1" id="genBase" required value="150"
+              <input type="number" step="0.01" min="1" id="genBase" required value="150" oninput="updateGenPreview()"
                 class="w-full mt-1 bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 font-num font-bold text-xs text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#789272]" />
             </div>
 
             <div>
-              <label class="block font-bold text-[#716556] dark:text-[#B4A58F] uppercase text-[10px] tracking-wider">Final Goal Target ($)</label>
-              <input type="number" step="1" min="1" id="genTarget" required value="2500"
+              <label class="block font-bold text-[#716556] dark:text-[#B4A58F] uppercase text-[10px] tracking-wider">Portfolio Retained Target ($)</label>
+              <input type="number" step="1" min="1" id="genTarget" required value="2500" oninput="updateGenPreview()"
                 class="w-full mt-1 bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 font-num font-bold text-xs text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#789272]" />
             </div>
 
             <div>
               <label class="block font-bold text-[#716556] dark:text-[#B4A58F] uppercase text-[10px] tracking-wider">Number of Sessions</label>
-              <input type="number" step="1" min="3" max="100" id="genSessions" required value="14"
+              <input type="number" step="1" min="3" max="100" id="genSessions" required value="14" oninput="updateGenPreview()"
                 class="w-full mt-1 bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 font-num font-bold text-xs text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#789272]" />
             </div>
           </div>
 
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+          <!-- Row 2: Withdrawal Setup & Strategy -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
             <div>
-              <label class="block font-bold text-[#716556] dark:text-[#B4A58F] uppercase text-[10px] tracking-wider">Growth Pacing Style</label>
-              <select id="genCurveType"
+              <label class="block font-bold text-[#716556] dark:text-[#B4A58F] uppercase text-[10px] tracking-wider">Withdrawal Target ($)</label>
+              <input type="number" step="1" min="0" id="genWithdrawalTarget" value="500" oninput="updateGenPreview()"
+                class="w-full mt-1 bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 font-num font-bold text-xs text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#789272]" />
+            </div>
+
+            <div>
+              <label class="block font-bold text-[#716556] dark:text-[#B4A58F] uppercase text-[10px] tracking-wider">Withdrawal Timeline (Sessions / Days)</label>
+              <input type="number" step="1" min="1" max="100" id="genWithdrawalDays" value="7" oninput="updateGenPreview()"
+                class="w-full mt-1 bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 font-num font-bold text-xs text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#789272]" />
+            </div>
+
+            <div>
+              <label class="block font-bold text-[#716556] dark:text-[#B4A58F] uppercase text-[10px] tracking-wider">Type of Strategy</label>
+              <select id="genCurveType" onchange="updateGenPreview()"
                 class="w-full mt-1 bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 text-xs font-semibold text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#789272]">
-                <option value="decay">Faster Start, Steady Finish (Recommended: sprint early, protect gains later)</option>
+                <option value="port_target_withdrawal" selected>port target + withdrawal (Adjusted for cash-out deadline)</option>
+                <option value="decay">Faster Start, Steady Finish (Decaying sprint)</option>
                 <option value="smooth">Even Daily Growth (Same compounding rate every day)</option>
               </select>
             </div>
+          </div>
 
-            <div class="flex items-end">
-              <button type="submit" class="w-full py-2.5 bg-[#607B5B] hover:bg-[#4F674B] text-[#F5EBDD] dark:bg-[#789272] dark:hover:bg-[#607B5B] dark:text-[#29241E] font-bold text-xs rounded-xl transition active:scale-95 shadow-sm">
-                + Create &amp; Activate Challenge
-              </button>
+          <!-- Skim Mode Checkbox option -->
+          <div class="p-3 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] flex items-center justify-between gap-3">
+            <div class="flex items-center gap-2.5">
+              <input type="checkbox" id="genSkimMode" checked onchange="updateGenPreview()"
+                class="w-4 h-4 rounded border-[#CFC1AA] dark:border-[#514638] text-[#607B5B] dark:text-[#789272] focus:ring-0 cursor-pointer" />
+              <label for="genSkimMode" class="text-xs font-semibold text-[#332B22] dark:text-[#E2D4BD] cursor-pointer">
+                Enable Skim Mode on this challenge
+                <span class="block text-[11px] font-normal text-[#716556] dark:text-[#B4A58F]">Adds small progressive withdrawal accumulation rate to session targets</span>
+              </label>
             </div>
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#607B5B]/15 text-[#607B5B] dark:bg-[#789272]/20 dark:text-[#789272] border border-[#607B5B]/30 font-num shrink-0">Recommended</span>
+          </div>
+
+          <!-- Dynamic Live Strategy Preview Card -->
+          <div id="genSummaryPreview" class="p-4 rounded-xl bg-[#F0E6D5] dark:bg-[#352E25] border border-[#CFC1AA] dark:border-[#514638] space-y-2.5">
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] uppercase font-bold tracking-wider text-[#716556] dark:text-[#B4A58F]">Strategy Projection Preview</span>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#C2984D]/15 text-[#C2984D] dark:bg-[#D0AA63]/20 dark:text-[#D0AA63] border border-[#C2984D]/30 font-num">Live Calculation</span>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs font-num">
+              <div>
+                <span class="text-[9px] uppercase font-bold text-[#716556] dark:text-[#B4A58F] block">Adjusted Summit</span>
+                <span id="previewAdjustedSummit" class="text-sm font-black text-[#607B5B] dark:text-[#789272]">$3,000.00</span>
+              </div>
+              <div>
+                <span class="text-[9px] uppercase font-bold text-[#716556] dark:text-[#B4A58F] block">Desk Target</span>
+                <span id="previewDeskTarget" class="text-sm font-bold text-[#332B22] dark:text-[#E2D4BD]">$2,500.00</span>
+              </div>
+              <div>
+                <span class="text-[9px] uppercase font-bold text-[#716556] dark:text-[#B4A58F] block">Withdrawal Goal</span>
+                <span id="previewWithdrawalTarget" class="text-sm font-bold text-[#C2984D] dark:text-[#D0AA63]">$500.00 by S7</span>
+              </div>
+              <div>
+                <span class="text-[9px] uppercase font-bold text-[#716556] dark:text-[#B4A58F] block">Daily Skim Rate</span>
+                <span id="previewDailySkim" class="text-sm font-bold text-[#332B22] dark:text-[#E2D4BD]">+$71.43 / day</span>
+              </div>
+            </div>
+            <p id="previewStrategyDesc" class="text-[11px] text-[#716556] dark:text-[#B4A58F] pt-1 border-t border-[#CFC1AA]/60 dark:border-[#514638]/60">
+              Pacing accelerates over the first 7 sessions to build a $500.00 cash-out buffer, reaching an adjusted summit of $3,000.00 while keeping $2,500.00 compounding on your trading desk.
+            </p>
+          </div>
+
+          <div>
+            <button type="submit" class="w-full py-2.5 bg-[#607B5B] hover:bg-[#4F674B] text-[#F5EBDD] dark:bg-[#789272] dark:hover:bg-[#607B5B] dark:text-[#29241E] font-bold text-xs rounded-xl transition active:scale-95 shadow-sm">
+              + Create &amp; Activate Challenge
+            </button>
           </div>
         </form>
       </section>
@@ -2187,6 +2282,7 @@ service cloud.firestore {
     };
     if (!milestoneConfig.targetDeadline) milestoneConfig.targetDeadline = '';
     let vaultLedger = JSON.parse(localStorage.getItem('pgl_vault_ledger_v10')) || [];
+    let skimModeEnabled = localStorage.getItem('pgl_skim_mode_v10') === 'true';
 
     /* Custom Ladder Profiles */
     let ladderProfiles = JSON.parse(localStorage.getItem('pgl_ladder_profiles_v10')) || [];
@@ -2584,15 +2680,30 @@ service cloud.firestore {
       if (!ladder || ladder.length === 0) return 0;
       const row = ladder.find(i => i.s === sessionNum) || ladder[ladder.length - 1];
       if (!row) return 0;
+
+      let baseVal = 0;
       if (pace === 'finreq') {
         const base = row.r !== undefined ? row.r : (row.target || 0);
         const metrics = getFinancialRequirementMetrics();
         return Number((base + metrics.dailyRateNeeded).toFixed(2));
       }
       if (row.r !== undefined && row.m !== undefined && row.a !== undefined) {
-        return pace === 'relaxed' ? row.r : (pace === 'mid' ? row.m : row.a);
+        baseVal = pace === 'relaxed' ? row.r : (pace === 'mid' ? row.m : row.a);
+      } else {
+        baseVal = row.target || 0;
       }
-      return row.target || 0;
+
+      // Skim Mode: adds small daily increase to assist accumulating withdrawal money
+      const profile = ladderProfiles.find(p => p.id === activeProfileId);
+      const isSkimActive = skimModeEnabled || (profile && profile.skimMode);
+      if (isSkimActive && (!profile || profile.curveType !== 'port_target_withdrawal')) {
+        const metrics = getFinancialRequirementMetrics();
+        if (metrics.dailyRateNeeded > 0 && !metrics.isAchieved) {
+          return Number((baseVal + metrics.dailyRateNeeded).toFixed(2));
+        }
+      }
+
+      return baseVal;
     }
 
     function getDeskBalance(sessionNum) {
@@ -2682,8 +2793,17 @@ service cloud.firestore {
         delete lockedSessions[currentSession];
         localStorage.setItem('pgl_locked_sessions_v10', JSON.stringify(lockedSessions));
         renderTracker();
+        const balInput = document.getElementById('sessionBalanceInput');
+        if (balInput) {
+          balInput.disabled = false;
+          balInput.classList.remove('opacity-75', 'cursor-not-allowed');
+          setTimeout(() => balInput.focus(), 50);
+        }
         showToast(`Session ${currentSession} unlocked for editing`);
         syncToFirestore();
+        if (localStorage.getItem('pgl_webhook_url_v10')) {
+          syncToCloudWebhook(false);
+        }
       } else {
         const bal = sessionLogs[currentSession];
         if (bal === undefined || isNaN(bal)) {
@@ -3003,6 +3123,25 @@ service cloud.firestore {
           sugDeadText.innerText = `${finReq.daysLeft > 0 ? finReq.daysLeft + ' days left' : 'Due today'} • ${fmt(finReq.remainingToBank)} remaining to goal`;
         } else {
           sugDeadText.innerText = `${finReq.sessionsRemaining} sessions left in ladder • ${fmt(finReq.remainingToBank)} to bank`;
+        }
+      }
+
+      // Update Skim Mode Badge in Daily Pace Targets Header
+      const skimBadge = document.getElementById('skimModeTrackerBadge');
+      const skimRateEl = document.getElementById('skimModeTrackerRate');
+      const activeProf = ladderProfiles.find(p => p.id === activeProfileId);
+      const isSkimOn = skimModeEnabled || (activeProf && activeProf.skimMode);
+      if (skimBadge && skimRateEl) {
+        if (isSkimOn) {
+          const rate = (activeProf && activeProf.dailySkimRate) ? activeProf.dailySkimRate : finReq.dailyRateNeeded;
+          if (rate > 0) {
+            skimBadge.classList.remove('hidden');
+            skimRateEl.innerText = fmt(rate);
+          } else {
+            skimBadge.classList.add('hidden');
+          }
+        } else {
+          skimBadge.classList.add('hidden');
         }
       }
 
@@ -4270,6 +4409,8 @@ service cloud.firestore {
             const pFinal = p.sessions[p.sessions.length - 1]?.r || p.sessions[p.sessions.length - 1]?.target || 7000.00;
             const pMult = pStart > 0 ? (pFinal / pStart).toFixed(1) : '0.0';
             const safeName = (p.name || '').replace(/['"\\]/g, '');
+            const isWithdrawalStrat = p.curveType === 'port_target_withdrawal';
+            const hasWithdrawal = p.withdrawalTarget > 0;
             return `
               <div class="p-4 rounded-2xl border transition-all ${
                 isActive
@@ -4279,7 +4420,10 @@ service cloud.firestore {
                 <div class="flex items-center justify-between gap-2">
                   <div class="flex items-center gap-2 min-w-0">
                     <span class="w-2.5 h-2.5 rounded-full shrink-0 ${isActive ? 'bg-[#607B5B] dark:bg-[#789272]' : 'bg-[#CFC1AA] dark:bg-[#514638]'}"></span>
-                    <h4 class="font-bold text-xs sm:text-sm text-[#332B22] dark:text-[#E2D4BD] truncate">${p.name}</h4>
+                    <div class="min-w-0">
+                      <h4 class="font-bold text-xs sm:text-sm text-[#332B22] dark:text-[#E2D4BD] truncate">${p.name}</h4>
+                      ${isWithdrawalStrat ? `<span class="inline-block text-[9px] font-bold uppercase tracking-wider text-[#C2984D] dark:text-[#D0AA63] font-num">Port Target + Withdrawal</span>` : ''}
+                    </div>
                   </div>
                   <div class="flex items-center gap-1.5 shrink-0">
                     ${isActive 
@@ -4308,11 +4452,51 @@ service cloud.firestore {
                     <span class="font-bold text-[#332B22] dark:text-[#E2D4BD]">${p.sessions.length} (${pMult}x)</span>
                   </div>
                 </div>
+                ${hasWithdrawal ? `
+                  <div class="pt-1.5 border-t border-[#CFC1AA]/40 dark:border-[#514638]/40 flex items-center justify-between text-[11px] font-num">
+                    <span class="text-[#716556] dark:text-[#B4A58F]">Cash-Out Target:</span>
+                    <span class="font-bold text-[#C2984D] dark:text-[#D0AA63]">${fmt(p.withdrawalTarget)} (by S${p.withdrawalDays || p.sessions.length})</span>
+                  </div>
+                ` : ''}
               </div>
             `;
           }).join('');
         }
       }
+
+      // Update Skim Mode settings card
+      const skimToggleEl = document.getElementById('settingSkimModeToggle');
+      if (skimToggleEl) skimToggleEl.checked = skimModeEnabled;
+
+      const skimBadgeEl = document.getElementById('settingSkimModeStatusBadge');
+      if (skimBadgeEl) {
+        if (skimModeEnabled) {
+          skimBadgeEl.innerText = 'Active';
+          skimBadgeEl.className = 'text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#607B5B]/15 text-[#607B5B] dark:bg-[#789272]/20 dark:text-[#789272] border border-[#607B5B]/30 font-num';
+        } else {
+          skimBadgeEl.innerText = 'Disabled';
+          skimBadgeEl.className = 'text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#716556]/15 text-[#716556] dark:bg-[#B4A58F]/20 dark:text-[#B4A58F] border border-[#716556]/30 font-num';
+        }
+      }
+
+      const activeProf = ladderProfiles.find(p => p.id === activeProfileId);
+      const finReq = getFinancialRequirementMetrics();
+      const skimTarget = (activeProf && activeProf.withdrawalTarget !== undefined && activeProf.withdrawalTarget > 0) ? activeProf.withdrawalTarget : finReq.goal;
+      const skimTimeline = (activeProf && activeProf.withdrawalDays) 
+        ? `${activeProf.withdrawalDays} Sessions` 
+        : (finReq.deadlineStr ? `${finReq.daysLeft !== null ? finReq.daysLeft + ' Days' : 'Target date'}` : `${finReq.sessionsRemaining} Sessions`);
+      const dailySkimRate = (activeProf && activeProf.dailySkimRate) ? activeProf.dailySkimRate : finReq.dailyRateNeeded;
+
+      const targetValEl = document.getElementById('settingSkimTargetVal');
+      if (targetValEl) targetValEl.innerText = fmt(skimTarget);
+
+      const timelineValEl = document.getElementById('settingSkimTimelineVal');
+      if (timelineValEl) timelineValEl.innerText = skimTimeline;
+
+      const incValEl = document.getElementById('settingSkimIncrementVal');
+      if (incValEl) incValEl.innerText = `+${fmt(dailySkimRate)} / session`;
+
+      updateGenPreview();
     }
 
     function switchLadderProfile(id) {
@@ -4379,23 +4563,135 @@ service cloud.firestore {
       syncToFirestore();
     }
 
+    function toggleSkimMode(enabled) {
+      skimModeEnabled = !!enabled;
+      localStorage.setItem('pgl_skim_mode_v10', skimModeEnabled ? 'true' : 'false');
+
+      const profile = ladderProfiles.find(p => p.id === activeProfileId);
+      if (profile) {
+        profile.skimMode = skimModeEnabled;
+        localStorage.setItem('pgl_ladder_profiles_v10', JSON.stringify(ladderProfiles));
+      }
+
+      renderConfigTab();
+      renderTracker();
+      renderMilestonesTab();
+      showToast(skimModeEnabled ? "Skim Mode enabled" : "Skim Mode disabled");
+      syncToFirestore();
+    }
+
+    function updateGenPreview() {
+      const baseEl = document.getElementById('genBase');
+      const targetEl = document.getElementById('genTarget');
+      const sessionsEl = document.getElementById('genSessions');
+      const withTargetEl = document.getElementById('genWithdrawalTarget');
+      const withDaysEl = document.getElementById('genWithdrawalDays');
+      const curveTypeEl = document.getElementById('genCurveType');
+      const skimModeEl = document.getElementById('genSkimMode');
+
+      if (!baseEl || !targetEl || !sessionsEl) return;
+
+      const base = parseFloat(baseEl.value) || 0;
+      const portTarget = parseFloat(targetEl.value) || 0;
+      const sessions = parseInt(sessionsEl.value) || 14;
+      const withdrawalTarget = parseFloat(withTargetEl ? withTargetEl.value : 0) || 0;
+      let withdrawalDays = parseInt(withDaysEl ? withDaysEl.value : sessions) || sessions;
+      if (withdrawalDays < 1) withdrawalDays = 1;
+      if (withdrawalDays > sessions) withdrawalDays = sessions;
+
+      const curveType = curveTypeEl ? curveTypeEl.value : 'port_target_withdrawal';
+      const skimMode = skimModeEl ? skimModeEl.checked : true;
+
+      const adjustedSummit = portTarget + withdrawalTarget;
+      const dailySkim = withdrawalDays > 0 ? (withdrawalTarget / withdrawalDays) : 0;
+
+      const summitEl = document.getElementById('previewAdjustedSummit');
+      if (summitEl) summitEl.innerText = fmt(curveType === 'port_target_withdrawal' ? adjustedSummit : (skimMode && withdrawalTarget > 0 ? adjustedSummit : portTarget));
+
+      const deskEl = document.getElementById('previewDeskTarget');
+      if (deskEl) deskEl.innerText = fmt(portTarget);
+
+      const withGoalEl = document.getElementById('previewWithdrawalTarget');
+      if (withGoalEl) withGoalEl.innerText = `${fmt(withdrawalTarget)} by S${withdrawalDays}`;
+
+      const dailyEl = document.getElementById('previewDailySkim');
+      if (dailyEl) dailyEl.innerText = `+${fmt(dailySkim)} / day`;
+
+      const descEl = document.getElementById('previewStrategyDesc');
+      if (descEl) {
+        if (curveType === 'port_target_withdrawal') {
+          descEl.innerText = `Pacing accelerates over the first ${withdrawalDays} sessions to build a ${fmt(withdrawalTarget)} cash-out buffer, reaching an adjusted summit of ${fmt(adjustedSummit)} while keeping ${fmt(portTarget)} compounding on your trading desk.`;
+        } else if (curveType === 'decay') {
+          descEl.innerText = `Decaying growth pace: front-loads sprint in early sessions, steadily plateauing toward ${fmt(skimMode && withdrawalTarget > 0 ? adjustedSummit : portTarget)}.`;
+        } else {
+          descEl.innerText = `Smooth compounding pace: constant daily rate of return to hit ${fmt(skimMode && withdrawalTarget > 0 ? adjustedSummit : portTarget)} across ${sessions} sessions.`;
+        }
+      }
+    }
+
     function handleGenerateLadderSubmit(e) {
       e.preventDefault();
       const name = document.getElementById('genName').value.trim();
       const base = parseFloat(document.getElementById('genBase').value);
-      const target = parseFloat(document.getElementById('genTarget').value);
+      const portTarget = parseFloat(document.getElementById('genTarget').value);
       const totalSessions = parseInt(document.getElementById('genSessions').value);
-      const curveType = document.getElementById('genCurveType').value;
+      const withTargetEl = document.getElementById('genWithdrawalTarget');
+      const withDaysEl = document.getElementById('genWithdrawalDays');
+      const withdrawalTarget = parseFloat(withTargetEl ? withTargetEl.value : 0) || 0;
+      let withdrawalDays = parseInt(withDaysEl ? withDaysEl.value : totalSessions) || totalSessions;
+      if (isNaN(withdrawalDays) || withdrawalDays < 1) withdrawalDays = totalSessions;
+      if (withdrawalDays > totalSessions) withdrawalDays = totalSessions;
 
-      if (!name || isNaN(base) || isNaN(target) || isNaN(totalSessions) || totalSessions < 3) {
+      const curveType = document.getElementById('genCurveType').value;
+      const skimModeChecked = document.getElementById('genSkimMode') ? document.getElementById('genSkimMode').checked : false;
+
+      if (!name || isNaN(base) || isNaN(portTarget) || isNaN(totalSessions) || totalSessions < 3) {
         showToast("Invalid ladder parameters", false);
         return;
       }
 
+      const adjustedSummit = Number((portTarget + withdrawalTarget).toFixed(2));
+      const dailySkimRate = withdrawalDays > 0 ? Number((withdrawalTarget / withdrawalDays).toFixed(2)) : 0;
       const generatedSessions = [];
 
-      if (curveType === 'smooth') {
-        const dailyRate = Math.pow(target / base, 1 / (totalSessions - 1)) - 1;
+      if (curveType === 'port_target_withdrawal') {
+        // Port Target + Withdrawal Strategy:
+        // Pacing dynamically adjusts according to withdrawal date D + port target P.
+        // For s <= D: targets accumulate desk compounding + pro-rata withdrawal buffer (W * (s-1)/(D-1)).
+        // For s > D: desk continues compounding toward portTarget while holding W in the Vault.
+        // Total summit target = portTarget + withdrawalTarget.
+        for (let s = 1; s <= totalSessions; s++) {
+          const deskProgress = (s - 1) / (totalSessions - 1);
+          const deskCompounded = base * Math.pow(portTarget / base, deskProgress);
+
+          let withdrawalAccumulated = 0;
+          if (withdrawalTarget > 0) {
+            if (s <= withdrawalDays) {
+              withdrawalAccumulated = withdrawalDays > 1 
+                ? withdrawalTarget * ((s - 1) / (withdrawalDays - 1))
+                : withdrawalTarget;
+            } else {
+              withdrawalAccumulated = withdrawalTarget;
+            }
+          }
+
+          const totalWealthTarget = deskCompounded + withdrawalAccumulated;
+          const isWithdrawalCheckpoint = (s === withdrawalDays && withdrawalTarget > 0);
+
+          generatedSessions.push({
+            s: s,
+            r: Number(totalWealthTarget.toFixed(2)),
+            m: Number((totalWealthTarget * 1.15).toFixed(2)),
+            a: Number((totalWealthTarget * 1.30).toFixed(2)),
+            target: Number(totalWealthTarget.toFixed(2)),
+            deskTarget: Number(deskCompounded.toFixed(2)),
+            withdrawalGoal: isWithdrawalCheckpoint ? withdrawalTarget : undefined,
+            tag: isWithdrawalCheckpoint ? `Cash-Out Checkpoint: Bank ${fmt(withdrawalTarget)}` : undefined
+          });
+        }
+      } else if (curveType === 'smooth') {
+        const finalTarget = (withdrawalTarget > 0 && skimModeChecked) ? adjustedSummit : portTarget;
+        const dailyRate = Math.pow(finalTarget / base, 1 / (totalSessions - 1)) - 1;
         for (let s = 1; s <= totalSessions; s++) {
           const val = base * Math.pow(1 + dailyRate, s - 1);
           generatedSessions.push({
@@ -4406,12 +4702,12 @@ service cloud.firestore {
             target: Number(val.toFixed(2))
           });
         }
-      } else {
+      } else { // decay
+        const finalTarget = (withdrawalTarget > 0 && skimModeChecked) ? adjustedSummit : portTarget;
         for (let s = 1; s <= totalSessions; s++) {
           const progress = (s - 1) / (totalSessions - 1);
           const curveFactor = Math.pow(progress, 0.72);
-          const val = base * Math.pow(target / base, curveFactor);
-
+          const val = base * Math.pow(finalTarget / base, curveFactor);
           generatedSessions.push({
             s: s,
             r: Number(val.toFixed(2)),
@@ -4422,9 +4718,30 @@ service cloud.firestore {
         }
       }
 
+      // Automatically configure milestone goal if withdrawal target set
+      if (withdrawalTarget > 0) {
+        milestoneConfig.targetGoal = withdrawalTarget;
+        const targetDate = new Date();
+        targetDate.setDate(targetDate.getDate() + withdrawalDays);
+        milestoneConfig.targetDeadline = targetDate.toISOString().split('T')[0];
+        localStorage.setItem('pgl_milestone_cfg_v10', JSON.stringify(milestoneConfig));
+      }
+
+      // Save Skim Mode state
+      skimModeEnabled = skimModeChecked;
+      localStorage.setItem('pgl_skim_mode_v10', skimModeEnabled ? 'true' : 'false');
+
       const newProfile = {
         id: `custom_${Date.now()}`,
         name: name,
+        base: base,
+        portTarget: portTarget,
+        withdrawalTarget: withdrawalTarget,
+        withdrawalDays: withdrawalDays,
+        adjustedSummit: adjustedSummit,
+        dailySkimRate: dailySkimRate,
+        curveType: curveType,
+        skimMode: skimModeEnabled,
         sessions: generatedSessions
       };
 
@@ -4441,6 +4758,7 @@ service cloud.firestore {
       localStorage.setItem('pgl_session_v10', 1);
 
       renderConfigTab();
+      renderMilestonesTab();
       renderTracker();
       renderStatsTab();
       showToast(`Created & activated "${name}"!`);
@@ -4812,6 +5130,14 @@ function doGet(e) {
           currentPace = data.currentPace;
           localStorage.setItem('pgl_pace_v10', currentPace);
         }
+        if (data.milestoneConfig !== undefined) {
+          milestoneConfig = data.milestoneConfig || milestoneConfig;
+          localStorage.setItem('pgl_milestone_cfg_v10', JSON.stringify(milestoneConfig));
+        }
+        if (data.skimModeEnabled !== undefined) {
+          skimModeEnabled = !!data.skimModeEnabled;
+          localStorage.setItem('pgl_skim_mode_v10', skimModeEnabled ? 'true' : 'false');
+        }
 
         renderConfigTab();
         renderTracker();
@@ -4853,11 +5179,13 @@ function doGet(e) {
         vaultLedger: vaultLedger,
         currentSession: currentSession,
         currentPace: currentPace,
+        milestoneConfig: milestoneConfig,
+        skimModeEnabled: skimModeEnabled,
         updatedAt: firebase.firestore.FieldValue.serverTimestamp()
       };
 
       updateCloudStatus('firestore_syncing');
-      firestoreDb.collection("portfolios").doc(syncKey).set(payload, { merge: true })
+      firestoreDb.collection("portfolios").doc(syncKey).set(payload)
         .then(() => {
           updateCloudStatus();
         })

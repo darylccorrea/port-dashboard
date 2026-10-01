@@ -4,6 +4,8 @@ A calm, organic, zero-jargon trading desk dashboard designed for disciplined por
 
 Built with **Tailwind CSS**, **Vanilla JavaScript**, and **Firebase Firestore** — zero build step, zero npm dependencies, runs instantly anywhere.
 
+> 📖 **Complete System Documentation & Mathematical Formulas**: See [PORTFOLIO_DASHBOARD_MASTER_MANUAL.md](PORTFOLIO_DASHBOARD_MASTER_MANUAL.md) for exhaustive technical, mathematical, and algorithmic documentation of every feature.
+
 ---
 
 ## 🧭 Dashboard Architecture

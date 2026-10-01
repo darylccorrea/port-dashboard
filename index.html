@@ -776,6 +776,81 @@
         </div>
       </section>
 
+      <!-- Profit Allocation Engine Preview Card (Active on Realized Gains) -->
+      <section id="profitAllocationCard" class="hidden bento-card p-4 sm:p-5 bg-[#607B5B]/10 dark:bg-[#789272]/15 border border-[#607B5B]/30 dark:border-[#789272]/30 space-y-3">
+        <div class="flex items-center justify-between flex-wrap gap-2">
+          <div class="flex items-center gap-2">
+            <div class="w-8 h-8 rounded-xl bg-[#607B5B]/20 text-[#607B5B] dark:bg-[#789272]/25 dark:text-[#789272] flex items-center justify-center shrink-0">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+              </svg>
+            </div>
+            <div>
+              <h3 class="text-xs sm:text-sm font-bold uppercase tracking-wider text-[#332B22] dark:text-[#E2D4BD] flex items-center gap-2">
+                <span>Realized Profit Allocation</span>
+                <span id="allocPhaseBadge" class="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-[#607B5B] text-[#F5EBDD] dark:bg-[#789272] dark:text-[#29241E] font-num">Phase 1 (Bills Priority)</span>
+              </h3>
+              <p class="text-[11px] text-[#716556] dark:text-[#B4A58F]">
+                Net gain: <span id="allocNetGainVal" class="font-bold font-num text-[#607B5B] dark:text-[#789272]">+$0.00</span> today. Strategic capital split ready for transfer.
+              </p>
+            </div>
+          </div>
+          <span id="allocOverflowBadge" class="hidden text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#C2984D]/15 text-[#C2984D] dark:bg-[#D0AA63]/20 dark:text-[#D0AA63] border border-[#C2984D]/30 font-num">
+            Overflow Reallocated
+          </span>
+        </div>
+
+        <!-- Allocation Breakdown Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-xs font-num">
+          <!-- 1. Bills Reserve -->
+          <div class="p-3 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638]">
+            <div class="flex items-center justify-between text-[#716556] dark:text-[#B4A58F] text-[10px] uppercase font-bold">
+              <span>Bills Reserve (<span id="allocBillsPct">70%</span>)</span>
+              <span id="allocBillsCapStatus">To Goal</span>
+            </div>
+            <div class="text-lg font-black text-[#C98278] dark:text-[#D99B91] mt-1" id="allocBillsAmt">+$0.00</div>
+            <div class="text-[10px] text-[#716556] dark:text-[#B4A58F] mt-0.5" id="allocBillsSubtext">New balance: $0.00</div>
+          </div>
+
+          <!-- 2. Portfolio Retained -->
+          <div class="p-3 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638]">
+            <div class="flex items-center justify-between text-[#716556] dark:text-[#B4A58F] text-[10px] uppercase font-bold">
+              <span>Trading Desk (<span id="allocDeskPct">20%</span>)</span>
+              <span>Compounding</span>
+            </div>
+            <div class="text-lg font-black text-[#607B5B] dark:text-[#789272] mt-1" id="allocDeskAmt">+$0.00</div>
+            <div class="text-[10px] text-[#716556] dark:text-[#B4A58F] mt-0.5" id="allocDeskSubtext">Desk after: $0.00</div>
+          </div>
+
+          <!-- 3. Long-Term Savings -->
+          <div class="p-3 rounded-xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638]">
+            <div class="flex items-center justify-between text-[#716556] dark:text-[#B4A58F] text-[10px] uppercase font-bold">
+              <span>Savings (<span id="allocSavingsPct">10%</span>)</span>
+              <span>Fortress</span>
+            </div>
+            <div class="text-lg font-black text-[#806A86] dark:text-[#9A849F] mt-1" id="allocSavingsAmt">+$0.00</div>
+            <div class="text-[10px] text-[#716556] dark:text-[#B4A58F] mt-0.5" id="allocSavingsSubtext">New balance: $0.00</div>
+          </div>
+        </div>
+
+        <!-- Warning / Status Note -->
+        <div id="allocFloorWarning" class="hidden text-[11px] p-2 rounded-lg bg-[#B86652]/10 text-[#B86652] dark:bg-[#C77B68]/15 dark:text-[#C77B68] border border-[#B86652]/30 flex items-center gap-1.5 font-medium">
+          <svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <span id="allocFloorWarningText">Desk balance will drop below capital floor. Confirmation required.</span>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex items-center gap-2 pt-1 flex-wrap">
+          <button type="button" onclick="confirmExecuteAllocation()" class="px-4 py-2 rounded-xl bg-[#607B5B] hover:bg-[#526a4e] text-[#F5EBDD] dark:bg-[#789272] dark:hover:bg-[#688262] dark:text-[#29241E] text-xs font-bold transition active:scale-95 shadow-sm inline-flex items-center gap-1.5">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Confirm &amp; Transfer to Reserves</span>
+          </button>
+          <button type="button" onclick="dismissAllocationForSession()" class="px-3.5 py-2 rounded-xl bg-transparent hover:bg-[#CFC1AA]/40 dark:hover:bg-[#514638]/40 text-[#716556] dark:text-[#B4A58F] text-xs font-semibold transition">
+            Keep All on Desk
+          </button>
+        </div>
+      </section>
+
       <!-- Optional Milestone Savings Alert (Collapsible Warm Banner) -->
       <section id="skimAlertBox" class="hidden bento-card p-4 sm:p-5 bg-[#C98278]/10 dark:bg-[#D99B91]/15 border border-[#C98278]/30 dark:border-[#D99B91]/30 space-y-2.5">
         <div class="flex items-center justify-between">
@@ -808,16 +883,45 @@
 
       <!-- ==================== 3 TARGET PACES (ALWAYS VISIBLE) ==================== -->
       <section class="space-y-2.5">
-        <div class="flex items-center justify-between px-1">
-          <h2 class="text-xs font-bold uppercase tracking-wider text-[#716556] dark:text-[#B4A58F] flex items-center gap-1.5">
-            <svg class="w-3.5 h-3.5 text-[#607B5B] dark:text-[#789272] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="9" /><circle cx="12" cy="12" r="5" /><circle cx="12" cy="12" r="1.5" />
-            </svg>
-            <span>Daily Pace Targets</span>
-            <span id="skimModeTrackerBadge" class="hidden text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#C2984D]/15 text-[#C2984D] dark:bg-[#D0AA63]/20 dark:text-[#D0AA63] border border-[#C2984D]/30 font-num">Skim Mode (+<span id="skimModeTrackerRate">$0.00</span>/session)</span>
-            <span class="font-normal text-[11px] text-[#716556]/80 dark:text-[#B4A58F]/80">(Click any card to select active target pace)</span>
-          </h2>
-          <span class="text-xs text-[#716556] dark:text-[#B4A58F] font-num">Session <span id="targetCardSessionNum">1</span></span>
+        <div class="flex items-center justify-between px-1 flex-wrap gap-2">
+          <div class="flex items-center gap-2 flex-wrap">
+            <h2 class="text-xs font-bold uppercase tracking-wider text-[#716556] dark:text-[#B4A58F] flex items-center gap-1.5">
+              <svg class="w-3.5 h-3.5 text-[#607B5B] dark:text-[#789272] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="9" /><circle cx="12" cy="12" r="5" /><circle cx="12" cy="12" r="1.5" />
+              </svg>
+              <span>Daily Pace Targets</span>
+              <span id="skimModeTrackerBadge" class="hidden text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#C2984D]/15 text-[#C2984D] dark:bg-[#D0AA63]/20 dark:text-[#D0AA63] border border-[#C2984D]/30 font-num">Skim Mode (+<span id="skimModeTrackerRate">$0.00</span>/session)</span>
+            </h2>
+            <span class="text-xs text-[#716556] dark:text-[#B4A58F] font-num">Session <span id="targetCardSessionNum">1</span></span>
+          </div>
+
+          <!-- Dual Target View Mode Toggle: Original Plan vs Rebased Scenario -->
+          <div class="inline-flex items-center p-0.5 rounded-xl bg-[#E8DDC9] dark:bg-[#29241E] border border-[#CFC1AA] dark:border-[#514638] gap-1 shrink-0">
+            <button type="button" id="btnPlanMode_original" onclick="setPlanViewMode('original')"
+              class="px-2.5 py-1 rounded-lg text-xs font-bold transition flex items-center gap-1.5 bg-[#F5EBDD] dark:bg-[#41382D] text-[#332B22] dark:text-[#E2D4BD] shadow-xs">
+              <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/></svg>
+              <span>Original Plan</span>
+            </button>
+            <button type="button" id="btnPlanMode_rebased" onclick="setPlanViewMode('rebased')"
+              class="px-2.5 py-1 rounded-lg text-xs font-bold transition flex items-center gap-1.5 text-[#716556] dark:text-[#B4A58F] hover:text-[#332B22] dark:hover:text-[#E2D4BD]">
+              <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+              <span>Rebased Scenario</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Rebased Scenario Status Banner -->
+        <div id="rebasedScenarioBanner" class="hidden p-3 rounded-xl bg-[#617D91]/10 dark:bg-[#7894A6]/15 border border-[#617D91]/30 dark:border-[#7894A6]/30 text-xs flex items-center justify-between flex-wrap gap-2">
+          <div class="flex items-center gap-2">
+            <div class="w-6 h-6 rounded-lg bg-[#617D91]/20 text-[#617D91] dark:bg-[#7894A6]/30 dark:text-[#7894A6] flex items-center justify-center shrink-0">
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
+            </div>
+            <div>
+              <span class="font-extrabold text-[#332B22] dark:text-[#E2D4BD]">Rebased Target Scenario Active:</span>
+              <span id="rebasedBannerDesc" class="text-[#716556] dark:text-[#B4A58F] ml-1">Targets dynamically recalculated from latest closing balance to reach summit without altering original plan.</span>
+            </div>
+          </div>
+          <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#617D91]/20 text-[#617D91] dark:bg-[#7894A6]/30 dark:text-[#7894A6] border border-[#617D91]/40 font-num">Scenario Only</span>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -1279,53 +1383,85 @@
         </div>
       </section>
 
-      <!-- 4 Status Metric Cards -->
+      <!-- Multi-Reserve Status Metric Cards -->
       <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <!-- Card 1: Banked Cash -->
-        <div class="bento-card p-5 bg-[#C98278]/10 dark:bg-[#D99B91]/15 border-[#C98278]/30 dark:border-[#D99B91]/30 space-y-2">
+        <!-- Card 1: Bills Reserve -->
+        <div class="bento-card p-5 bg-[#C2984D]/10 dark:bg-[#D0AA63]/15 border-[#C2984D]/30 dark:border-[#D0AA63]/30 space-y-2 flex flex-col justify-between">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold uppercase tracking-wider text-[#C2984D] dark:text-[#D0AA63]">Bills Reserve</span>
+            <span id="vaultBillsPercentBadge" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#C2984D] text-[#F5EBDD] dark:bg-[#D0AA63] dark:text-[#29241E] font-num">0%</span>
+          </div>
+          <div>
+            <div class="text-3xl font-black font-num text-[#C2984D] dark:text-[#D0AA63]" id="vaultBillsReserveVal">$0.00</div>
+            <div class="w-full bg-[#F0E6D5] dark:bg-[#41382D] h-2 rounded-full overflow-hidden border border-[#CFC1AA] dark:border-[#514638] mt-2">
+              <div id="vaultProgressBar" class="bg-[#C2984D] dark:bg-[#D0AA63] h-full rounded-full transition-all duration-300" style="width: 0%"></div>
+            </div>
+          </div>
+          <p class="text-[11px] text-[#716556] dark:text-[#B4A58F] font-num" id="vaultGoalSummary">
+            $0.00 banked of $1,500.00 goal
+          </p>
+        </div>
+
+        <!-- Card 2: Long-Term Savings -->
+        <div class="bento-card p-5 bg-[#806A86]/10 dark:bg-[#9A849F]/15 border-[#806A86]/30 dark:border-[#9A849F]/30 space-y-2 flex flex-col justify-between">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold uppercase tracking-wider text-[#806A86] dark:text-[#9A849F]">Long-Term Savings</span>
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#806A86] text-[#F5EBDD] dark:bg-[#9A849F] dark:text-[#29241E] font-num">Fortress</span>
+          </div>
+          <div>
+            <div class="text-3xl font-black font-num text-[#806A86] dark:text-[#9A849F]" id="vaultSavingsReserveVal">$0.00</div>
+            <p class="text-xs text-[#716556] dark:text-[#B4A58F] mt-2">Permanent wealth reserve</p>
+          </div>
+          <p class="text-[11px] text-[#716556] dark:text-[#B4A58F] font-num" id="vaultSavingsSubtext">
+            Compounding safety buffer
+          </p>
+        </div>
+
+        <!-- Card 3: Combined Vault Reserves -->
+        <div class="bento-card p-5 bg-[#C98278]/10 dark:bg-[#D99B91]/15 border-[#C98278]/30 dark:border-[#D99B91]/30 space-y-2 flex flex-col justify-between">
           <div class="flex items-center justify-between">
             <span class="text-xs font-bold uppercase tracking-wider text-[#C98278] dark:text-[#D99B91]">Total in Vault</span>
             <span id="vaultLogsCount" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#C98278] text-[#F5EBDD] dark:bg-[#D99B91] dark:text-[#29241E] font-num">0 Deposits</span>
           </div>
-          <div class="text-3xl font-black font-num text-[#C98278] dark:text-[#D99B91]" id="vaultTotalWithdrawnVal">$0.00</div>
-          <p class="text-xs text-[#716556] dark:text-[#B4A58F]">Cash locked away safe from trading pullbacks</p>
-        </div>
-
-        <!-- Card 2: Combined Net Worth -->
-        <div class="bento-card p-5 bg-[#607B5B]/10 dark:bg-[#789272]/15 border-[#607B5B]/30 dark:border-[#789272]/30 space-y-2">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-bold uppercase tracking-wider text-[#607B5B] dark:text-[#789272]">Total Net Worth</span>
-            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#607B5B] text-[#F5EBDD] dark:bg-[#789272] dark:text-[#29241E] font-num">Desk + Vault</span>
+          <div>
+            <div class="text-3xl font-black font-num text-[#C98278] dark:text-[#D99B91]" id="vaultTotalWithdrawnVal">$0.00</div>
+            <p class="text-xs text-[#716556] dark:text-[#B4A58F] mt-2">Combined protected capital</p>
           </div>
-          <div class="text-3xl font-black font-num text-[#607B5B] dark:text-[#789272]" id="vaultTrueWealthVal">$120.00</div>
-          <p class="text-xs text-[#716556] dark:text-[#B4A58F]">Your combined portfolio and saved cash</p>
-        </div>
-
-        <!-- Card 3: Goal Progress -->
-        <div class="bento-card p-5 space-y-2 flex flex-col justify-between">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-bold uppercase tracking-wider text-[#716556] dark:text-[#B4A58F]">Goal Progress</span>
-            <span id="vaultGoalPercent" class="text-xs font-bold font-num text-[#C98278] dark:text-[#D99B91]">0.0%</span>
-          </div>
-          <div class="w-full bg-[#F0E6D5] dark:bg-[#41382D] h-2.5 rounded-full overflow-hidden border border-[#CFC1AA] dark:border-[#514638]">
-            <div id="vaultProgressBar" class="bg-[#C98278] dark:bg-[#D99B91] h-full rounded-full transition-all duration-300" style="width: 0%"></div>
-          </div>
-          <p class="text-[11px] text-[#716556] dark:text-[#B4A58F] font-num" id="vaultGoalSummary">
-            $0.00 saved of $1,500.00 goal
+          <p class="text-[11px] text-[#716556] dark:text-[#B4A58F] font-num" id="vaultRunRateDisplay">
+            Run-rate: $0.00/day
           </p>
         </div>
 
-        <!-- Card 4: Daily Savings Target (Peach) -->
-        <div class="bento-card p-5 bg-[#C98278]/10 dark:bg-[#D99B91]/15 border-[#C98278]/30 dark:border-[#D99B91]/30 space-y-2 flex flex-col justify-between">
+        <!-- Card 4: True Wealth (Desk + Reserves) -->
+        <div class="bento-card p-5 bg-[#607B5B]/10 dark:bg-[#789272]/15 border-[#607B5B]/30 dark:border-[#789272]/30 space-y-2 flex flex-col justify-between">
           <div class="flex items-center justify-between">
-            <span class="text-xs font-bold uppercase tracking-wider text-[#C98278] dark:text-[#D99B91]">Daily Savings Target</span>
-            <span id="vaultDeadlineStatusBadge" class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#C98278] text-[#F5EBDD] dark:bg-[#D99B91] dark:text-[#29241E] font-num">Flexible</span>
+            <span class="text-xs font-bold uppercase tracking-wider text-[#607B5B] dark:text-[#789272]">Total True Wealth</span>
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#607B5B] text-[#F5EBDD] dark:bg-[#789272] dark:text-[#29241E] font-num">Desk + Vault</span>
           </div>
           <div>
-            <div class="text-3xl font-black font-num text-[#C98278] dark:text-[#D99B91]" id="vaultRunRateDisplay">$0.00/day</div>
-            <div class="text-xs font-semibold text-[#716556] dark:text-[#B4A58F] mt-0.5" id="vaultDaysLeftDisplay">Pacing guide</div>
+            <div class="text-3xl font-black font-num text-[#607B5B] dark:text-[#789272]" id="vaultTrueWealthVal">$120.00</div>
+            <p class="text-xs text-[#716556] dark:text-[#B4A58F] mt-2">Active Trading + All Reserves</p>
           </div>
-          <p class="text-[11px] text-[#716556] dark:text-[#B4A58F] font-num" id="vaultDeadlineDateText">Target date: Not set</p>
+          <p class="text-[11px] text-[#716556] dark:text-[#B4A58F] font-num">
+            Transfer invariant wealth
+          </p>
+        </div>
+      </section>
+
+      <!-- Pacing & Deadline Card -->
+      <section class="bento-card p-4 sm:p-5 flex items-center justify-between flex-wrap gap-3 border border-[#CFC1AA] dark:border-[#514638]">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-xl bg-[#C2984D]/15 text-[#C2984D] dark:bg-[#D0AA63]/20 dark:text-[#D0AA63] flex items-center justify-center shrink-0">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div>
+            <span class="text-xs font-bold text-[#332B22] dark:text-[#E2D4BD] block">Bills Reserve Goal Timeline</span>
+            <span id="vaultDaysLeftDisplay" class="text-[11px] text-[#716556] dark:text-[#B4A58F]">Pacing guide</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <span id="vaultDeadlineStatusBadge" class="text-[10px] font-bold px-2.5 py-0.5 rounded-full font-num bg-[#716556] text-[#F5EBDD] dark:bg-[#B4A58F] dark:text-[#29241E]">Flexible</span>
+          <span id="vaultDeadlineDateText" class="text-xs font-num font-semibold text-[#716556] dark:text-[#B4A58F]">Target date: Not set</span>
         </div>
       </section>
 
@@ -1376,6 +1512,15 @@
           </div>
 
           <form onsubmit="handleManualSkimSubmit(event)" class="space-y-3.5 text-xs">
+            <div>
+              <label class="block font-bold text-[#716556] dark:text-[#B4A58F] uppercase text-[10px]">Reserve Bucket Destination</label>
+              <select id="skimFormBucket" class="w-full mt-1 bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 font-medium text-xs text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#789272]">
+                <option value="bills" selected>Bills Reserve (Priority)</option>
+                <option value="savings">Long-Term Savings (Fortress)</option>
+                <option value="general">General Vault Reserve</option>
+              </select>
+            </div>
+
             <div>
               <label class="block font-bold text-[#716556] dark:text-[#B4A58F] uppercase text-[10px]">Amount to Save ($)</label>
               <div class="relative mt-1">
@@ -1579,6 +1724,69 @@
           <div>
             <div id="statsSummitPct" class="text-2xl sm:text-3xl font-black text-[#806A86] dark:text-[#9A849F]">1.7%</div>
             <p id="statsSummitGoal" class="text-[11px] text-[#716556] dark:text-[#B4A58F] mt-0.5 font-sans">of $7,000.00</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Quantitative Risk & Institutional Performance Analytics -->
+      <section class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 font-num">
+        <!-- 1. Peak Watermark -->
+        <div class="bento-card p-4 sm:p-5 flex flex-col justify-between space-y-2">
+          <div class="flex items-center justify-between text-[#716556] dark:text-[#B4A58F]">
+            <span class="text-[10px] font-bold uppercase tracking-wider font-sans">Peak Watermark</span>
+            <svg class="w-4 h-4 text-[#607B5B] dark:text-[#789272]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+            </svg>
+          </div>
+          <div>
+            <div id="statsPeakWatermark" class="text-2xl sm:text-3xl font-black text-[#607B5B] dark:text-[#789272]">$120.00</div>
+            <p class="text-[11px] text-[#716556] dark:text-[#B4A58F] mt-0.5 font-sans">All-time high true wealth</p>
+          </div>
+        </div>
+
+        <!-- 2. Max Drawdown -->
+        <div class="bento-card p-4 sm:p-5 flex flex-col justify-between space-y-2">
+          <div class="flex items-center justify-between text-[#716556] dark:text-[#B4A58F]">
+            <span class="text-[10px] font-bold uppercase tracking-wider font-sans">Max Drawdown</span>
+            <svg class="w-4 h-4 text-[#B86652] dark:text-[#C77B68]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="23 18 13.5 8.5 8.5 13.5 1 6" />
+              <polyline points="17 18 23 18 23 12" />
+            </svg>
+          </div>
+          <div>
+            <div id="statsMaxDrawdown" class="text-2xl sm:text-3xl font-black text-[#332B22] dark:text-[#E2D4BD]">$0.00 (0.0%)</div>
+            <p class="text-[11px] text-[#716556] dark:text-[#B4A58F] mt-0.5 font-sans">Peak-to-trough pullback</p>
+          </div>
+        </div>
+
+        <!-- 3. Profit Factor -->
+        <div class="bento-card p-4 sm:p-5 flex flex-col justify-between space-y-2">
+          <div class="flex items-center justify-between text-[#716556] dark:text-[#B4A58F]">
+            <span class="text-[10px] font-bold uppercase tracking-wider font-sans">Profit Factor</span>
+            <svg class="w-4 h-4 text-[#C2984D] dark:text-[#D0AA63]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10" />
+              <line x1="12" y1="8" x2="12" y2="12" />
+              <line x1="12" y1="16" x2="12.01" y2="16" />
+            </svg>
+          </div>
+          <div>
+            <div id="statsProfitFactor" class="text-2xl sm:text-3xl font-black text-[#C2984D] dark:text-[#D0AA63]">--</div>
+            <p id="statsProfitFactorSubtext" class="text-[11px] text-[#716556] dark:text-[#B4A58F] mt-0.5 font-sans">Gross gains / losses</p>
+          </div>
+        </div>
+
+        <!-- 4. True Wealth ROI -->
+        <div class="bento-card p-4 sm:p-5 flex flex-col justify-between space-y-2">
+          <div class="flex items-center justify-between text-[#716556] dark:text-[#B4A58F]">
+            <span class="text-[10px] font-bold uppercase tracking-wider font-sans">Total ROI</span>
+            <svg class="w-4 h-4 text-[#607B5B] dark:text-[#789272]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="16 3 21 3 21 8" />
+              <line x1="4" y1="20" x2="21" y2="3" />
+            </svg>
+          </div>
+          <div>
+            <div id="statsTotalROI" class="text-2xl sm:text-3xl font-black text-[#607B5B] dark:text-[#789272]">+0.0%</div>
+            <p class="text-[11px] text-[#716556] dark:text-[#B4A58F] mt-0.5 font-sans">Return on start base</p>
           </div>
         </div>
       </section>
@@ -1798,7 +2006,8 @@
               <label class="block font-bold text-[#716556] dark:text-[#B4A58F] uppercase text-[10px] tracking-wider">Type of Strategy</label>
               <select id="genCurveType" onchange="updateGenPreview()"
                 class="w-full mt-1 bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] rounded-xl px-3 py-2 text-xs font-semibold text-[#332B22] dark:text-[#E2D4BD] focus:outline-none focus:border-[#607B5B] dark:focus:border-[#789272]">
-                <option value="port_target_withdrawal" selected>port target + withdrawal (Adjusted for cash-out deadline)</option>
+                <option value="tri_pace_independent" selected>Independent Tri-Pace Growth (Piecewise Checkpoints to Final Goal)</option>
+                <option value="port_target_withdrawal">port target + withdrawal (Adjusted for cash-out deadline)</option>
                 <option value="decay">Faster Start, Steady Finish (Decaying sprint)</option>
                 <option value="smooth">Even Daily Growth (Same compounding rate every day)</option>
               </select>
@@ -2283,6 +2492,376 @@ service cloud.firestore {
     if (!milestoneConfig.targetDeadline) milestoneConfig.targetDeadline = '';
     let vaultLedger = JSON.parse(localStorage.getItem('pgl_vault_ledger_v10')) || [];
     let skimModeEnabled = localStorage.getItem('pgl_skim_mode_v10') === 'true';
+    let planViewMode = localStorage.getItem('pgl_plan_view_mode_v10') || 'original'; // 'original' | 'rebased'
+    const appSessionStorage = {
+      getItem: (k) => {
+        try {
+          return typeof sessionStorage !== 'undefined' ? sessionStorage.getItem(k) : null;
+        } catch (e) {
+          return null;
+        }
+      },
+      setItem: (k, v) => {
+        try {
+          if (typeof sessionStorage !== 'undefined') sessionStorage.setItem(k, v);
+        } catch (e) {}
+      },
+      removeItem: (k) => {
+        try {
+          if (typeof sessionStorage !== 'undefined') sessionStorage.removeItem(k);
+        } catch (e) {}
+      }
+    };
+
+    /* =========================================================
+       AUTHORITATIVE QUANTITATIVE & FINANCIAL CALCULATION ENGINES
+       ========================================================= */
+
+    /**
+     * Validates compounding input parameters according to mathematical specification.
+     */
+    function validateCompoundingInputs(base, target, totalSessions) {
+      if (typeof base !== 'number' || isNaN(base) || base <= 0) {
+        throw new Error('Starting base balance must be a positive number');
+      }
+      if (typeof target !== 'number' || isNaN(target) || target <= 0) {
+        throw new Error('Target balance must be a positive number');
+      }
+      if (!Number.isInteger(totalSessions) || totalSessions < 2) {
+        throw new Error('Total sessions must be an integer of at least 2');
+      }
+    }
+
+    /**
+     * Generates a smooth geometric compounding series.
+     * T(s) = B * (P / B)^((s - 1) / (S - 1))
+     */
+    function calculateSmoothSeries(base, target, totalSessions) {
+      validateCompoundingInputs(base, target, totalSessions);
+      const series = [];
+      for (let s = 1; s <= totalSessions; s++) {
+        const progress = (s - 1) / (totalSessions - 1);
+        const val = base * Math.pow(target / base, progress);
+        series.push(Number(val.toFixed(2)));
+      }
+      return series;
+    }
+
+    /**
+     * Generates a front-loaded decaying compounding series.
+     * T(s) = B * (P / B)^(((s - 1) / (S - 1))^0.72)
+     */
+    function calculateDecaySeries(base, target, totalSessions) {
+      validateCompoundingInputs(base, target, totalSessions);
+      const series = [];
+      for (let s = 1; s <= totalSessions; s++) {
+        const progress = (s - 1) / (totalSessions - 1);
+        const factor = Math.pow(progress, 0.72);
+        const val = base * Math.pow(target / base, factor);
+        series.push(Number(val.toFixed(2)));
+      }
+      return series;
+    }
+
+    /**
+     * Generates a two-segment piecewise compounding series.
+     * Segment 1 (s = 1 to S1): compounds from base to checkpoint1.
+     * Segment 2 (s = S1 to S): compounds from checkpoint1 to endpoint.
+     */
+    function calculatePiecewiseSeries(base, checkpoint1, endpoint, totalSessions, checkpointSession, curveType = 'smooth') {
+      validateCompoundingInputs(base, endpoint, totalSessions);
+      if (typeof checkpoint1 !== 'number' || checkpoint1 <= 0) {
+        throw new Error('Checkpoint target must be a positive number');
+      }
+      if (!Number.isInteger(checkpointSession) || checkpointSession <= 1 || checkpointSession >= totalSessions) {
+        throw new Error('Checkpoint session must be between session 2 and totalSessions - 1');
+      }
+
+      const series = [];
+
+      // Segment 1: sessions 1 to checkpointSession
+      const s1Count = checkpointSession;
+      let seg1Values;
+      if (curveType === 'decay') {
+        seg1Values = calculateDecaySeries(base, checkpoint1, s1Count);
+      } else {
+        seg1Values = calculateSmoothSeries(base, checkpoint1, s1Count);
+      }
+
+      // Segment 2: sessions checkpointSession to totalSessions
+      const s2Count = totalSessions - checkpointSession + 1;
+      let seg2Values;
+      if (curveType === 'decay') {
+        seg2Values = calculateDecaySeries(checkpoint1, endpoint, s2Count);
+      } else {
+        seg2Values = calculateSmoothSeries(checkpoint1, endpoint, s2Count);
+      }
+
+      // Combine segments without duplicating the joint session
+      for (let i = 0; i < seg1Values.length; i++) {
+        series.push(seg1Values[i]);
+      }
+      // seg2Values[0] is checkpointSession (checkpoint1), skip it to avoid duplicate
+      for (let j = 1; j < seg2Values.length; j++) {
+        series.push(seg2Values[j]);
+      }
+
+      return series;
+    }
+
+    /**
+     * Generates independent Tri-Pace tracks for configurable challenges.
+     * Default Checkpoints (scaled proportionally if custom endpoint):
+     * - Relaxed: Base -> 1,000 -> 10,000
+     * - Mid: Base -> 1,800 -> 10,000
+     * - Aggressive: Base -> 2,500 -> 10,000
+     */
+    function generateIndependentTriPaceLadder(config) {
+      const {
+        base = 120,
+        totalSessions = 28,
+        checkpointSession = Math.max(2, Math.round(totalSessions * 0.25)),
+        curveType = 'smooth',
+        relaxedCheckpoint = 1000,
+        relaxedEndpoint = 10000,
+        midCheckpoint = 1800,
+        midEndpoint = 10000,
+        aggCheckpoint = 2500,
+        aggEndpoint = 10000
+      } = config;
+
+      const relSeries = calculatePiecewiseSeries(base, relaxedCheckpoint, relaxedEndpoint, totalSessions, checkpointSession, curveType);
+      const midSeries = calculatePiecewiseSeries(base, midCheckpoint, midEndpoint, totalSessions, checkpointSession, curveType);
+      const aggSeries = calculatePiecewiseSeries(base, aggCheckpoint, aggEndpoint, totalSessions, checkpointSession, curveType);
+
+      const sessions = [];
+      for (let s = 1; s <= totalSessions; s++) {
+        const idx = s - 1;
+        const isCheckpoint = (s === checkpointSession);
+        const isEndpoint = (s === totalSessions);
+        sessions.push({
+          s: s,
+          r: relSeries[idx],
+          m: midSeries[idx],
+          a: aggSeries[idx],
+          target: relSeries[idx],
+          tag: isCheckpoint ? 'Week 1 Checkpoint' : (isEndpoint ? 'Final Goal' : undefined)
+        });
+      }
+
+      return {
+        base,
+        totalSessions,
+        checkpointSession,
+        sessions
+      };
+    }
+
+    /**
+     * Generates a Rebased Plan scenario.
+     * Takes the actual closing balance at anchorSession, and recalculates remaining
+     * targets from (anchorSession + 1) to totalSessions to hit the chosen endpoint.
+     */
+    function calculateRebasedPlan(actualBalance, currentSession, totalSessions, endpoint, curveType = 'smooth') {
+      if (currentSession >= totalSessions) {
+        return {};
+      }
+      if (typeof actualBalance !== 'number' || actualBalance <= 0) {
+        throw new Error('Actual balance must be a positive number to compute a rebased plan');
+      }
+
+      const remainingSessions = totalSessions - currentSession + 1;
+      const series = curveType === 'decay'
+        ? calculateDecaySeries(actualBalance, endpoint, remainingSessions)
+        : calculateSmoothSeries(actualBalance, endpoint, remainingSessions);
+
+      const rebasedTargets = {};
+      for (let i = 0; i < series.length; i++) {
+        const s = currentSession + i;
+        rebasedTargets[s] = series[i];
+      }
+      return rebasedTargets;
+    }
+
+    /**
+     * Profit Allocation Preview Engine with overflow redistribution.
+     */
+    function calculateProfitAllocationPreview(params) {
+      const {
+        eligibleProfit,
+        currentDesk,
+        billsBalance = 0,
+        billsTarget = 1500,
+        savingsBalance = 0,
+        reserveFloor = 1000,
+        customPercentages = null
+      } = params;
+
+      if (typeof eligibleProfit !== 'number' || eligibleProfit <= 0) {
+        return {
+          eligibleProfit: 0,
+          phase: billsBalance >= billsTarget ? 2 : 1,
+          billsAllocation: 0,
+          portfolioAllocation: 0,
+          savingsAllocation: 0,
+          overflow: 0,
+          deskAfter: currentDesk,
+          billsAfter: billsBalance,
+          savingsAfter: savingsBalance,
+          passesFloor: currentDesk >= reserveFloor,
+          canAllocate: false,
+          message: 'No eligible realized net profit to allocate'
+        };
+      }
+
+      const isPhase2 = (billsBalance >= billsTarget);
+      const phase = isPhase2 ? 2 : 1;
+
+      // Default percentages or custom
+      let pBills, pDesk, pSavings;
+      if (customPercentages) {
+        pBills = customPercentages.bills;
+        pDesk = customPercentages.portfolio;
+        pSavings = customPercentages.savings;
+      } else if (!isPhase2) {
+        pBills = 0.70;
+        pDesk = 0.20;
+        pSavings = 0.10;
+      } else {
+        pDesk = 0.45;
+        pSavings = 0.35;
+        pBills = 0.20;
+      }
+
+      let rawBills = eligibleProfit * pBills;
+      let rawDesk = eligibleProfit * pDesk;
+      let rawSavings = eligibleProfit * pSavings;
+
+      let billsAllocation = rawBills;
+      let portfolioAllocation = rawDesk;
+      let savingsAllocation = rawSavings;
+      let overflow = 0;
+
+      // Overflow Handling: If Bills Reserve is not yet full, but rawBills exceeds needed amount
+      const billsNeeded = Math.max(0, billsTarget - billsBalance);
+      if (!isPhase2 && rawBills > billsNeeded) {
+        billsAllocation = billsNeeded;
+        overflow = rawBills - billsNeeded;
+
+        // Distribute overflow pro-rata between Trading Desk and Savings
+        const otherWeights = pDesk + pSavings;
+        if (otherWeights > 0) {
+          portfolioAllocation += overflow * (pDesk / otherWeights);
+          savingsAllocation += overflow * (pSavings / otherWeights);
+        } else {
+          portfolioAllocation += overflow;
+        }
+      }
+
+      // Rounding policy to 2 decimal places with cent reconciliation
+      billsAllocation = Number(billsAllocation.toFixed(2));
+      savingsAllocation = Number(savingsAllocation.toFixed(2));
+      portfolioAllocation = Number((eligibleProfit - billsAllocation - savingsAllocation).toFixed(2));
+
+      // Transfers out of trading desk to reserves
+      const totalTransferredOut = Number((billsAllocation + savingsAllocation).toFixed(2));
+      const deskAfter = Number((currentDesk - totalTransferredOut).toFixed(2));
+      const billsAfter = Number((billsBalance + billsAllocation).toFixed(2));
+      const savingsAfter = Number((savingsBalance + savingsAllocation).toFixed(2));
+      const passesFloor = (deskAfter >= reserveFloor);
+
+      return {
+        eligibleProfit: Number(eligibleProfit.toFixed(2)),
+        phase,
+        billsAllocation,
+        portfolioAllocation,
+        savingsAllocation,
+        totalTransferredOut,
+        overflow: Number(overflow.toFixed(2)),
+        deskAfter,
+        billsAfter,
+        savingsAfter,
+        passesFloor,
+        canAllocate: true,
+        message: passesFloor 
+          ? 'Ready to execute allocation' 
+          : `Warning: Allocating transfers will drop trading desk to ${fmt(deskAfter)}, below floor of ${fmt(reserveFloor)}`
+      };
+    }
+
+    /**
+     * Multi-Reserve Balance Aggregator.
+     */
+    function getVaultBalances() {
+      let bills = 0;
+      let savings = 0;
+      let general = 0;
+      vaultLedger.forEach(item => {
+        const amt = parseFloat(item.amount) || 0;
+        const bucket = item.bucket || 'bills';
+        if (bucket === 'savings') savings += amt;
+        else if (bucket === 'general') general += amt;
+        else bills += amt;
+      });
+      return {
+        bills: Number(bills.toFixed(2)),
+        savings: Number(savings.toFixed(2)),
+        general: Number(general.toFixed(2)),
+        total: Number((bills + savings + general).toFixed(2))
+      };
+    }
+
+    /**
+     * Computes Peak All-Time High Watermark and Maximum Drawdown from a true wealth series.
+     */
+    function calculateWatermarkAndDrawdown(trueWealthSeries) {
+      let peak = 0;
+      let maxDrawdownDollar = 0;
+      let maxDrawdownPct = 0;
+
+      for (let i = 0; i < trueWealthSeries.length; i++) {
+        const val = trueWealthSeries[i];
+        if (val > peak) {
+          peak = val;
+        }
+        const ddDollar = peak - val;
+        const ddPct = peak > 0 ? (ddDollar / peak) * 100 : 0;
+
+        if (ddDollar > maxDrawdownDollar) {
+          maxDrawdownDollar = ddDollar;
+        }
+        if (ddPct > maxDrawdownPct) {
+          maxDrawdownPct = ddPct;
+        }
+      }
+
+      return {
+        peak: Number(peak.toFixed(2)),
+        maxDrawdownDollar: Number(maxDrawdownDollar.toFixed(2)),
+        maxDrawdownPct: Number(maxDrawdownPct.toFixed(2))
+      };
+    }
+
+    /**
+     * Computes institutional Profit Factor from an array of session PnLs.
+     */
+    function calculateProfitFactor(sessionPnLs) {
+      let grossGains = 0;
+      let grossLosses = 0;
+
+      sessionPnLs.forEach(pnl => {
+        if (pnl > 0.001) {
+          grossGains += pnl;
+        } else if (pnl < -0.001) {
+          grossLosses += Math.abs(pnl);
+        }
+      });
+
+      if (grossLosses === 0) {
+        return grossGains > 0 ? Infinity : 0;
+      }
+      return Number((grossGains / grossLosses).toFixed(2));
+    }
 
     /* Custom Ladder Profiles */
     let ladderProfiles = JSON.parse(localStorage.getItem('pgl_ladder_profiles_v10')) || [];
@@ -2846,6 +3425,97 @@ service cloud.firestore {
       renderMasterTable(getActiveLadder());
     }
 
+    let currentAllocPreview = null;
+
+    function setPlanViewMode(mode) {
+      planViewMode = (mode === 'rebased') ? 'rebased' : 'original';
+      localStorage.setItem('pgl_plan_view_mode_v10', planViewMode);
+      renderTracker();
+      if (planViewMode === 'rebased') {
+        showToast("Rebased Scenario Active: targets recalculated from actual balance");
+      } else {
+        showToast("Original Plan Active: viewing baseline challenge targets");
+      }
+    }
+
+    function confirmExecuteAllocation() {
+      if (!currentAllocPreview || !currentAllocPreview.canAllocate) {
+        showToast("No active allocation available to execute", false);
+        return;
+      }
+
+      const { billsAllocation, savingsAllocation, passesFloor } = currentAllocPreview;
+      const totalTransferred = Number((billsAllocation + savingsAllocation).toFixed(2));
+
+      const performTransfer = () => {
+        const s = currentSession;
+        const nowIso = new Date().toISOString();
+        const curDesk = getDeskBalance(s);
+        let runningDesk = curDesk;
+
+        // 1. If billsAllocation > 0, record Bills Reserve deposit
+        if (billsAllocation > 0) {
+          runningDesk = Number((runningDesk - billsAllocation).toFixed(2));
+          vaultLedger.push({
+            id: Date.now(),
+            amount: billsAllocation,
+            dateTime: nowIso,
+            deskAfter: runningDesk,
+            note: `Phase ${currentAllocPreview.phase} Profit Allocation (Bills Reserve)`,
+            session: s,
+            bucket: 'bills'
+          });
+        }
+
+        // 2. If savingsAllocation > 0, record Long-Term Savings deposit
+        if (savingsAllocation > 0) {
+          runningDesk = Number((runningDesk - savingsAllocation).toFixed(2));
+          vaultLedger.push({
+            id: Date.now() + 1,
+            amount: savingsAllocation,
+            dateTime: nowIso,
+            deskAfter: runningDesk,
+            note: `Phase ${currentAllocPreview.phase} Profit Allocation (Long-Term Savings)`,
+            session: s,
+            bucket: 'savings'
+          });
+        }
+
+        // 3. Update Desk balance for currentSession
+        sessionLogs[s] = runningDesk;
+        saveTrackerState();
+        localStorage.setItem('pgl_vault_ledger_v10', JSON.stringify(vaultLedger));
+
+        // Mark dismissed for this session so card hides
+        appSessionStorage.setItem(`dismiss_alloc_s${s}`, 'true');
+
+        renderTracker();
+        renderMilestonesTab();
+        showToast(`Allocated ${fmt(totalTransferred)} into Reserves!`);
+        syncToFirestore();
+        if (localStorage.getItem('pgl_webhook_url_v10')) {
+          syncToCloudWebhook(false);
+        }
+      };
+
+      if (!passesFloor) {
+        openModal({
+          title: "Capital Floor Protection Warning",
+          msg: currentAllocPreview.message + "<br><br>Do you wish to proceed anyway?",
+          onConfirm: performTransfer
+        });
+      } else {
+        performTransfer();
+      }
+    }
+
+    function dismissAllocationForSession() {
+      appSessionStorage.setItem(`dismiss_alloc_s${currentSession}`, 'true');
+      const card = document.getElementById('profitAllocationCard');
+      if (card) card.classList.add('hidden');
+      showToast("Profit retained on Trading Desk for this session");
+    }
+
     function renderTracker() {
       const ladder = getActiveLadder();
       const currentDesk = getDeskBalance(currentSession);
@@ -3009,17 +3679,160 @@ service cloud.firestore {
       const overallCompletion = finalTarget > 0 ? Math.min(100, Math.max(0, (trueWealth / finalTarget) * 100)) : 0;
       document.getElementById('overallCycleCompletionLabel').innerText = `${overallCompletion.toFixed(1)}% to Finish ($${finalTarget.toLocaleString()})`;
 
+      // Render Realized Profit Allocation Preview Card
+      const allocCard = document.getElementById('profitAllocationCard');
+      const isDismissedAlloc = appSessionStorage.getItem(`dismiss_alloc_s${currentSession}`) === 'true';
+
+      if (allocCard) {
+        if (hasLoggedCurrentSession && sessionPnl > 0.001 && !isDismissedAlloc) {
+          const balances = getVaultBalances();
+          const preview = calculateProfitAllocationPreview({
+            eligibleProfit: sessionPnl,
+            currentDesk: currentDesk,
+            billsBalance: balances.bills,
+            billsTarget: milestoneConfig.targetGoal || 1500,
+            savingsBalance: balances.savings,
+            reserveFloor: milestoneConfig.reserveFloor || 1000
+          });
+          currentAllocPreview = preview;
+
+          allocCard.classList.remove('hidden');
+          const phaseBadge = document.getElementById('allocPhaseBadge');
+          if (phaseBadge) {
+            phaseBadge.innerText = preview.phase === 1 
+              ? 'Phase 1: Bills Priority (70/20/10)' 
+              : 'Phase 2: Wealth Building (45/35/20)';
+            phaseBadge.className = preview.phase === 1
+              ? 'text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-[#C2984D] text-[#F5EBDD] dark:bg-[#D0AA63] dark:text-[#29241E] font-num'
+              : 'text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-[#607B5B] text-[#F5EBDD] dark:bg-[#789272] dark:text-[#29241E] font-num';
+          }
+
+          document.getElementById('allocNetGainVal').innerText = `+${fmt(sessionPnl)}`;
+          document.getElementById('allocBillsAmt').innerText = `+${fmt(preview.billsAllocation)}`;
+          document.getElementById('allocBillsSubtext').innerText = `Reserve after: ${fmt(preview.billsAfter)}`;
+          document.getElementById('allocBillsPct').innerText = preview.phase === 1 ? '70%' : '20%';
+
+          document.getElementById('allocDeskAmt').innerText = `+${fmt(preview.portfolioAllocation)}`;
+          document.getElementById('allocDeskSubtext').innerText = `Desk after: ${fmt(preview.deskAfter)}`;
+          document.getElementById('allocDeskPct').innerText = preview.phase === 1 ? '20%' : '45%';
+
+          document.getElementById('allocSavingsAmt').innerText = `+${fmt(preview.savingsAllocation)}`;
+          document.getElementById('allocSavingsSubtext').innerText = `Savings after: ${fmt(preview.savingsAfter)}`;
+          document.getElementById('allocSavingsPct').innerText = preview.phase === 1 ? '10%' : '35%';
+
+          const overflowBadge = document.getElementById('allocOverflowBadge');
+          if (overflowBadge) {
+            overflowBadge.classList.toggle('hidden', preview.overflow <= 0);
+            if (preview.overflow > 0) {
+              overflowBadge.innerText = `+${fmt(preview.overflow)} Overflow Reallocated`;
+            }
+          }
+
+          const floorWarn = document.getElementById('allocFloorWarning');
+          const floorText = document.getElementById('allocFloorWarningText');
+          if (floorWarn && floorText) {
+            floorWarn.classList.toggle('hidden', preview.passesFloor);
+            if (!preview.passesFloor) {
+              floorText.innerText = `Allocating will drop Desk to ${fmt(preview.deskAfter)}, below floor of ${fmt(milestoneConfig.reserveFloor || 1000)}.`;
+            }
+          }
+        } else {
+          allocCard.classList.add('hidden');
+          currentAllocPreview = null;
+        }
+      }
+
+      // Dual Plan Target Resolution (Original Plan vs Rebased Scenario)
+      const btnOrig = document.getElementById('btnPlanMode_original');
+      const btnRebased = document.getElementById('btnPlanMode_rebased');
+      const rebasedBanner = document.getElementById('rebasedScenarioBanner');
+      const rebasedDesc = document.getElementById('rebasedBannerDesc');
+
+      if (btnOrig && btnRebased) {
+        if (planViewMode === 'rebased') {
+          btnRebased.className = "px-2.5 py-1 rounded-lg text-xs font-bold transition flex items-center gap-1.5 bg-[#617D91] text-[#F5EBDD] dark:bg-[#7894A6] dark:text-[#29241E] shadow-xs";
+          btnOrig.className = "px-2.5 py-1 rounded-lg text-xs font-bold transition flex items-center gap-1.5 text-[#716556] dark:text-[#B4A58F] hover:text-[#332B22] dark:hover:text-[#E2D4BD]";
+        } else {
+          btnOrig.className = "px-2.5 py-1 rounded-lg text-xs font-bold transition flex items-center gap-1.5 bg-[#F5EBDD] dark:bg-[#41382D] text-[#332B22] dark:text-[#E2D4BD] shadow-xs";
+          btnRebased.className = "px-2.5 py-1 rounded-lg text-xs font-bold transition flex items-center gap-1.5 text-[#716556] dark:text-[#B4A58F] hover:text-[#332B22] dark:hover:text-[#E2D4BD]";
+        }
+      }
+
+      // Find anchor session for rebasing
+      let anchorSession = 0;
+      let anchorBalance = 0;
+      for (let s = currentSession; s >= 1; s--) {
+        if (sessionLogs[s] !== undefined && !isNaN(sessionLogs[s])) {
+          anchorSession = s;
+          anchorBalance = Number(sessionLogs[s]);
+          break;
+        }
+      }
+
+      let isRebasedActive = (planViewMode === 'rebased' && anchorSession > 0 && anchorBalance > 0);
+      let rebasedRTargets = {};
+      let rebasedMTargets = {};
+      let rebasedATargets = {};
+
+      if (isRebasedActive) {
+        const finalRow = ladder[ladder.length - 1] || {};
+        const rEndpoint = finalRow.r !== undefined ? finalRow.r : (finalRow.target || 10000);
+        const mEndpoint = finalRow.m !== undefined ? finalRow.m : rEndpoint;
+        const aEndpoint = finalRow.a !== undefined ? finalRow.a : rEndpoint;
+        const activeProf = ladderProfiles.find(p => p.id === activeProfileId);
+        const curveType = activeProf ? activeProf.curveType : 'smooth';
+
+        try {
+          if (anchorSession < ladder.length) {
+            rebasedRTargets = calculateRebasedPlan(anchorBalance, anchorSession, ladder.length, rEndpoint, curveType === 'decay' ? 'decay' : 'smooth');
+            rebasedMTargets = calculateRebasedPlan(anchorBalance, anchorSession, ladder.length, mEndpoint, curveType === 'decay' ? 'decay' : 'smooth');
+            rebasedATargets = calculateRebasedPlan(anchorBalance, anchorSession, ladder.length, aEndpoint, curveType === 'decay' ? 'decay' : 'smooth');
+          }
+        } catch (e) {
+          console.warn("Rebased plan calculation error:", e);
+          isRebasedActive = false;
+        }
+      }
+
+      if (rebasedBanner) {
+        if (planViewMode === 'rebased') {
+          rebasedBanner.classList.remove('hidden');
+          if (anchorSession > 0) {
+            rebasedDesc.innerText = `Anchored to ${fmt(anchorBalance)} from Session ${anchorSession}. Recalculating remaining ${ladder.length - anchorSession} sessions to ${fmt(finalTarget)} without modifying original plan.`;
+          } else {
+            rebasedDesc.innerText = `No recorded closing balance found yet. Enter Session 1 closing balance to activate rebased projection.`;
+          }
+        } else {
+          rebasedBanner.classList.add('hidden');
+        }
+      }
+
       // Render 3 Target Bento Boxes (Relaxed, Mid, Aggressive)
       const ladderRow = ladder.find(i => i.s === currentSession) || ladder[0] || { r: 0, m: 0, a: 0, target: 0 };
-      const rVal = ladderRow.r !== undefined ? ladderRow.r : (ladderRow.target || 0);
-      const mVal = ladderRow.m !== undefined ? ladderRow.m : ((ladderRow.target || 0) * 1.15);
-      const aVal = ladderRow.a !== undefined ? ladderRow.a : ((ladderRow.target || 0) * 1.30);
+      const origRVal = ladderRow.r !== undefined ? ladderRow.r : (ladderRow.target || 0);
+      const origMVal = ladderRow.m !== undefined ? ladderRow.m : ((ladderRow.target || 0) * 1.15);
+      const origAVal = ladderRow.a !== undefined ? ladderRow.a : ((ladderRow.target || 0) * 1.30);
+
+      const rVal = (isRebasedActive && currentSession > anchorSession && rebasedRTargets[currentSession] !== undefined)
+        ? rebasedRTargets[currentSession]
+        : origRVal;
+      const mVal = (isRebasedActive && currentSession > anchorSession && rebasedMTargets[currentSession] !== undefined)
+        ? rebasedMTargets[currentSession]
+        : origMVal;
+      const aVal = (isRebasedActive && currentSession > anchorSession && rebasedATargets[currentSession] !== undefined)
+        ? rebasedATargets[currentSession]
+        : origAVal;
 
       // 1. Relaxed Box (Target Port & Day Target PnL)
       const rTarget = rVal;
       const rPnl = rTarget - prevDesk;
       const rPnlPct = prevDesk > 0 ? (rPnl / prevDesk) * 100 : 0;
-      document.getElementById('targetValRelaxed').innerText = fmt(rTarget);
+      const relValEl = document.getElementById('targetValRelaxed');
+      if (isRebasedActive && currentSession > anchorSession) {
+        relValEl.innerHTML = `<span>${fmt(rTarget)}</span><span class="text-[10px] font-bold block text-[#617D91] dark:text-[#7894A6]">Rebased (Orig: ${fmt(origRVal)})</span>`;
+      } else {
+        relValEl.innerText = fmt(rTarget);
+      }
       document.getElementById('targetPnlRelaxed').innerText = `${rPnl >= 0 ? '+' : ''}${fmt(rPnl)} (${rPnlPct.toFixed(1)}%)`;
       const diffRelaxed = currentDesk - rTarget;
 
@@ -3027,7 +3840,12 @@ service cloud.firestore {
       const mTarget = mVal;
       const mPnl = mTarget - prevDesk;
       const mPnlPct = prevDesk > 0 ? (mPnl / prevDesk) * 100 : 0;
-      document.getElementById('targetValMid').innerText = fmt(mTarget);
+      const midValEl = document.getElementById('targetValMid');
+      if (isRebasedActive && currentSession > anchorSession) {
+        midValEl.innerHTML = `<span>${fmt(mTarget)}</span><span class="text-[10px] font-bold block text-[#617D91] dark:text-[#7894A6]">Rebased (Orig: ${fmt(origMVal)})</span>`;
+      } else {
+        midValEl.innerText = fmt(mTarget);
+      }
       document.getElementById('targetPnlMid').innerText = `${mPnl >= 0 ? '+' : ''}${fmt(mPnl)} (${mPnlPct.toFixed(1)}%)`;
       const diffMid = currentDesk - mTarget;
 
@@ -3035,7 +3853,12 @@ service cloud.firestore {
       const aTarget = aVal;
       const aPnl = aTarget - prevDesk;
       const aPnlPct = prevDesk > 0 ? (aPnl / prevDesk) * 100 : 0;
-      document.getElementById('targetValAggressive').innerText = fmt(aTarget);
+      const aggValEl = document.getElementById('targetValAggressive');
+      if (isRebasedActive && currentSession > anchorSession) {
+        aggValEl.innerHTML = `<span>${fmt(aTarget)}</span><span class="text-[10px] font-bold block text-[#617D91] dark:text-[#7894A6]">Rebased (Orig: ${fmt(origAVal)})</span>`;
+      } else {
+        aggValEl.innerText = fmt(aTarget);
+      }
       document.getElementById('targetPnlAggressive').innerText = `${aPnl >= 0 ? '+' : ''}${fmt(aPnl)} (${aPnlPct.toFixed(1)}%)`;
       const diffAgg = currentDesk - aTarget;
 
@@ -3164,7 +3987,7 @@ service cloud.firestore {
           surplusAmt = delta;
         }
 
-        if (shouldAlert && !sessionStorage.getItem(`dismiss_skim_s${currentSession}`)) {
+        if (shouldAlert && !appSessionStorage.getItem(`dismiss_skim_s${currentSession}`)) {
           skimAlert.classList.remove('hidden');
           document.getElementById('skimAlertSurplusLabel').innerText = `Save Suggestion: ${fmt(surplusAmt)}`;
           document.getElementById('skimAlertText').innerText = `You are ahead of target by ${fmt(surplusAmt)}! Transfer this into your Vault to lock in real-world profit safe from trading pullbacks.`;
@@ -3750,7 +4573,7 @@ service cloud.firestore {
     }
 
     function dismissSkimAlert() {
-      sessionStorage.setItem(`dismiss_skim_s${currentSession}`, 'true');
+      appSessionStorage.setItem(`dismiss_skim_s${currentSession}`, 'true');
       document.getElementById('skimAlertBox').classList.add('hidden');
     }
 
@@ -3779,7 +4602,7 @@ service cloud.firestore {
       document.getElementById('skimFormAmount').value = amt;
     }
 
-    function executeSkim(amount, note, bypassFloorWarning = false) {
+    function executeSkim(amount, note, bypassFloorWarning = false, bucket = 'bills') {
       const currentDesk = getDeskBalance(currentSession);
       const floor = milestoneConfig.reserveFloor || 1000;
       const deskAfter = currentDesk - amount;
@@ -3789,7 +4612,7 @@ service cloud.firestore {
           title: "Capital Floor Protection Warning",
           msg: `Transferring ${fmt(amount)} will drop your desk balance to ${fmt(deskAfter)}, below your capital floor of ${fmt(floor)}.<br><br>Do you want to proceed with this transfer?`,
           onConfirm: () => {
-            executeSkim(amount, note, true);
+            executeSkim(amount, note, true, bucket);
           }
         });
         return;
@@ -3805,13 +4628,14 @@ service cloud.firestore {
         dateTime: new Date().toISOString(),
         deskAfter: newDesk,
         note: note || "Banked profit",
-        session: currentSession
+        session: currentSession,
+        bucket: bucket
       });
       localStorage.setItem('pgl_vault_ledger_v10', JSON.stringify(vaultLedger));
 
       renderTracker();
       renderMilestonesTab();
-      showToast(`Secured ${fmt(amount)} into Vault!`);
+      showToast(`Secured ${fmt(amount)} into ${bucket === 'savings' ? 'Long-Term Savings' : (bucket === 'general' ? 'General Vault' : 'Bills Reserve')}!`);
       syncToFirestore();
 
       if (localStorage.getItem('pgl_webhook_url_v10')) {
@@ -3823,25 +4647,40 @@ service cloud.firestore {
       e.preventDefault();
       const amount = parseFloat(document.getElementById('skimFormAmount').value);
       const note = document.getElementById('skimFormNote').value.trim();
+      const bucketEl = document.getElementById('skimFormBucket');
+      const bucket = bucketEl ? bucketEl.value : 'bills';
 
       if (isNaN(amount) || amount <= 0) return;
 
-      executeSkim(amount, note || "Manual extraction");
+      executeSkim(amount, note || "Manual extraction", false, bucket);
       document.getElementById('skimFormAmount').value = '';
       document.getElementById('skimFormNote').value = '';
     }
 
     function deleteVaultRecord(id) {
+      const item = vaultLedger.find(v => v.id === id);
+      if (!item) return;
+
       openModal({
-        title: "Delete Vault Entry",
-        msg: "Remove this skim entry from the Vault history? Note: Desk balance will remain unchanged.",
+        title: "Reverse Vault Entry",
+        msg: `Reversing this transfer of ${fmt(item.amount)} will restore ${fmt(item.amount)} back to your Trading Desk for Session ${item.session || currentSession}, preserving accounting invariance.<br><br>Do you want to proceed with this reversal?`,
         onConfirm: () => {
+          const targetSession = item.session || currentSession;
+          const targetCurrent = (sessionLogs[targetSession] !== undefined)
+            ? sessionLogs[targetSession]
+            : getDeskBalance(targetSession);
+          sessionLogs[targetSession] = Number((targetCurrent + Number(item.amount)).toFixed(2));
+          saveTrackerState();
+
           vaultLedger = vaultLedger.filter(v => v.id !== id);
           localStorage.setItem('pgl_vault_ledger_v10', JSON.stringify(vaultLedger));
           renderMilestonesTab();
           renderTracker();
-          showToast("Vault record deleted");
+          showToast(`Vault entry reversed. Restored ${fmt(item.amount)} to Desk.`);
           syncToFirestore();
+          if (localStorage.getItem('pgl_webhook_url_v10')) {
+            syncToCloudWebhook(false);
+          }
         }
       });
     }
@@ -3853,26 +4692,37 @@ service cloud.firestore {
       document.getElementById('cfgDeskReserve').value = milestoneConfig.reserveFloor;
       document.getElementById('cfgSkimStrategy').value = milestoneConfig.strategy;
 
-      const totalVault = getTotalVaultWithdrawn();
+      const balances = getVaultBalances();
       const currentDesk = getDeskBalance(currentSession);
-      const trueWealth = currentDesk + totalVault;
+      const trueWealth = currentDesk + balances.total;
 
-      animateNumber(document.getElementById('vaultTotalWithdrawnVal'), totalVault, true, false);
+      const billsReserveEl = document.getElementById('vaultBillsReserveVal');
+      if (billsReserveEl) animateNumber(billsReserveEl, balances.bills, true, false);
+
+      const savingsReserveEl = document.getElementById('vaultSavingsReserveVal');
+      if (savingsReserveEl) animateNumber(savingsReserveEl, balances.savings, true, false);
+
+      animateNumber(document.getElementById('vaultTotalWithdrawnVal'), balances.total, true, false);
       animateNumber(document.getElementById('vaultTrueWealthVal'), trueWealth, true, false);
       document.getElementById('vaultLogsCount').innerText = `${vaultLedger.length} Deposits`;
 
       const goal = milestoneConfig.targetGoal || 1500;
-      const pct = Math.min(100, Math.max(0, (totalVault / goal) * 100));
-      document.getElementById('vaultGoalPercent').innerText = `${pct.toFixed(1)}%`;
-      document.getElementById('vaultProgressBar').style.width = `${pct}%`;
-      document.getElementById('vaultGoalSummary').innerText = `${fmt(totalVault)} saved of ${fmt(goal)} goal`;
+      const billsPct = Math.min(100, Math.max(0, (balances.bills / goal) * 100));
+      const billsBadge = document.getElementById('vaultBillsPercentBadge');
+      if (billsBadge) billsBadge.innerText = `${billsPct.toFixed(0)}%`;
+
+      document.getElementById('vaultProgressBar').style.width = `${billsPct}%`;
+      document.getElementById('vaultGoalSummary').innerText = `${fmt(balances.bills)} banked of ${fmt(goal)} goal`;
 
       // Target Deadline & Daily Savings Target Card
       const finReq = getFinancialRequirementMetrics();
-      document.getElementById('vaultRunRateDisplay').innerText = `${fmt(finReq.dailyRateNeeded)}/day`;
+      const runRateEl = document.getElementById('vaultRunRateDisplay');
+      if (runRateEl) runRateEl.innerText = `Run-rate: ${fmt(finReq.dailyRateNeeded)}/day`;
       const badgeStatusEl = document.getElementById('vaultDeadlineStatusBadge');
-      badgeStatusEl.innerText = finReq.statusBadge;
-      badgeStatusEl.className = `text-[10px] font-bold px-2 py-0.5 rounded-full font-num ${finReq.statusBadgeClass}`;
+      if (badgeStatusEl) {
+        badgeStatusEl.innerText = finReq.statusBadge;
+        badgeStatusEl.className = `text-[10px] font-bold px-2 py-0.5 rounded-full font-num ${finReq.statusBadgeClass}`;
+      }
 
       if (finReq.isAchieved) {
         document.getElementById('vaultDaysLeftDisplay').innerText = `100% of goal saved`;
@@ -3894,16 +4744,16 @@ service cloud.firestore {
       }
 
       // 3 Simple Safety Milestones
-      const seedRecouped = totalVault >= 120.00;
-      const bufferSecured = totalVault >= 500.00;
-      const goalCleared = totalVault >= goal;
+      const seedRecouped = balances.total >= 120.00;
+      const bufferSecured = balances.total >= 500.00;
+      const goalCleared = balances.bills >= goal;
       const unlockedCount = (seedRecouped ? 1 : 0) + (bufferSecured ? 1 : 0) + (goalCleared ? 1 : 0);
 
       document.getElementById('vaultMilestoneBadgesSummary').innerText = `${unlockedCount} of 3 Milestones Unlocked`;
 
       // Badge 1: Seed
       const badgeSeedEl = document.getElementById('badgeSeedRecouped');
-      const seedPct = Math.min(100, (totalVault / 120) * 100);
+      const seedPct = Math.min(100, (balances.total / 120) * 100);
       badgeSeedEl.className = `p-4 rounded-2xl border transition-all space-y-2 ${
         seedRecouped 
           ? 'bg-[#607B5B]/10 border-[#607B5B]/40 dark:bg-[#789272]/15 dark:border-[#789272]/40' 
@@ -3924,13 +4774,13 @@ service cloud.firestore {
         </div>
         <div class="text-lg font-black font-num text-[#332B22] dark:text-[#E2D4BD]">$120.00 Initial Deposit</div>
         <p class="text-[11px] text-[#716556] dark:text-[#B4A58F]">
-          ${seedRecouped ? 'Initial deposit safely back in your hands. Trading purely with market gains!' : `${fmt(totalVault)} of $120.00 saved in Vault`}
+          ${seedRecouped ? 'Initial deposit safely back in your hands. Trading purely with market gains!' : `${fmt(balances.total)} of $120.00 saved in Vault`}
         </p>
       `;
 
       // Badge 2: Buffer
       const badgeBufferEl = document.getElementById('badgeBufferSecured');
-      const bufferPct = Math.min(100, (totalVault / 500) * 100);
+      const bufferPct = Math.min(100, (balances.total / 500) * 100);
       badgeBufferEl.className = `p-4 rounded-2xl border transition-all space-y-2 ${
         bufferSecured 
           ? 'bg-[#607B5B]/10 border-[#607B5B]/40 dark:bg-[#789272]/15 dark:border-[#789272]/40' 
@@ -3951,7 +4801,7 @@ service cloud.firestore {
         </div>
         <div class="text-lg font-black font-num text-[#332B22] dark:text-[#E2D4BD]">$500.00 Cushion</div>
         <p class="text-[11px] text-[#716556] dark:text-[#B4A58F]">
-          ${bufferSecured ? 'Safety cushion saved so trading never impacts personal finances.' : `${fmt(totalVault)} of $500.00 saved`}
+          ${bufferSecured ? 'Safety cushion saved so trading never impacts personal finances.' : `${fmt(balances.total)} of $500.00 saved`}
         </p>
       `;
 
@@ -3972,12 +4822,12 @@ service cloud.firestore {
               ? 'bg-[#C98278] text-[#F5EBDD] dark:bg-[#D99B91] dark:text-[#29241E]' 
               : 'bg-[#CFC1AA]/40 text-[#716556] dark:bg-[#514638]/60 dark:text-[#B4A58F]'
           }">
-            ${goalCleared ? '<span class="inline-flex items-center gap-1"><svg class="w-2.5 h-2.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Goal Achieved</span></span>' : `${pct.toFixed(0)}%`}
+            ${goalCleared ? '<span class="inline-flex items-center gap-1"><svg class="w-2.5 h-2.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg><span>Goal Achieved</span></span>' : `${billsPct.toFixed(0)}%`}
           </span>
         </div>
         <div class="text-lg font-black font-num text-[#332B22] dark:text-[#E2D4BD]">${fmt(goal)} Target</div>
         <p class="text-[11px] text-[#716556] dark:text-[#B4A58F]">
-          ${goalCleared ? 'Your personal savings target is 100% funded and locked in the vault!' : `${fmt(totalVault)} of ${fmt(goal)} saved`}
+          ${goalCleared ? 'Your personal savings target is 100% funded and locked in the vault!' : `${fmt(balances.bills)} of ${fmt(goal)} saved`}
         </p>
       `;
 
@@ -3999,25 +4849,37 @@ service cloud.firestore {
         return;
       }
 
-      list.innerHTML = vaultLedger.slice().reverse().map(item => `
+      list.innerHTML = vaultLedger.slice().reverse().map(item => {
+        const bucket = item.bucket || 'bills';
+        const bucketBadge = bucket === 'savings'
+          ? '<span class="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-[#806A86]/20 text-[#806A86] dark:text-[#9A849F]">Savings</span>'
+          : (bucket === 'general' 
+            ? '<span class="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-[#716556]/20 text-[#716556] dark:text-[#B4A58F]">General</span>'
+            : '<span class="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-[#C2984D]/20 text-[#C2984D] dark:text-[#D0AA63]">Bills</span>');
+
+        return `
         <div class="flex items-center justify-between p-3 rounded-2xl bg-[#F5EBDD] dark:bg-[#41382D] border border-[#CFC1AA] dark:border-[#514638] transition">
           <div class="flex items-center gap-3">
             <div class="w-8 h-8 rounded-xl bg-[#C98278]/15 text-[#C98278] dark:bg-[#D99B91]/20 dark:text-[#D99B91] border border-[#C98278]/30 dark:border-[#D99B91]/30 flex items-center justify-center font-bold text-xs font-num">
               $
             </div>
             <div>
-              <div class="font-bold text-[#C98278] dark:text-[#D99B91] font-num text-sm">${fmt(item.amount)}</div>
+              <div class="flex items-center gap-1.5">
+                <span class="font-bold text-[#C98278] dark:text-[#D99B91] font-num text-sm">${fmt(item.amount)}</span>
+                ${bucketBadge}
+              </div>
               <div class="text-[11px] text-[#716556] dark:text-[#B4A58F]">${fmtTimestamp(item.dateTime)} • Desk at ${fmt(item.deskAfter)} • ${item.note}</div>
             </div>
           </div>
-          <button onclick="deleteVaultRecord(${item.id})" class="text-[#B86652] hover:text-[#A75542] dark:text-[#C77B68] dark:hover:text-[#D99281] p-1.5 rounded-xl bg-[#B86652]/10 dark:bg-[#C77B68]/15 border border-[#B86652]/30 dark:border-[#C77B68]/30 transition active:scale-95 flex items-center justify-center" title="Delete record">
+          <button onclick="deleteVaultRecord(${item.id})" class="text-[#B86652] hover:text-[#A75542] dark:text-[#C77B68] dark:hover:text-[#D99281] p-1.5 rounded-xl bg-[#B86652]/10 dark:bg-[#C77B68]/15 border border-[#B86652]/30 dark:border-[#C77B68]/30 transition active:scale-95 flex items-center justify-center" title="Reverse record to desk">
             <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <line x1="18" y1="6" x2="6" y2="18" />
               <line x1="6" y1="6" x2="18" y2="18" />
             </svg>
           </button>
         </div>
-      `).join('');
+      `;
+      }).join('');
     }
 
     function renderStatsTab() {
@@ -4041,6 +4903,8 @@ service cloud.firestore {
       let paceMidCount = 0;
       let paceAggCount = 0;
       let paceBelowCount = 0;
+      const sessionPnLs = [];
+      const trueWealthSeries = [startBase];
 
       ladder.forEach(row => {
         const loggedVal = sessionLogs[row.s];
@@ -4053,6 +4917,12 @@ service cloud.firestore {
             .reduce((sum, v) => sum + (parseFloat(v.amount) || 0), 0);
           const sessionPnL = (loggedVal + rowSkims) - prev;
           totalPnLSum += sessionPnL;
+          sessionPnLs.push(sessionPnL);
+
+          const cumVaultAtRow = vaultLedger
+            .filter(v => (v.session || 1) <= row.s)
+            .reduce((sum, v) => sum + (parseFloat(v.amount) || 0), 0);
+          trueWealthSeries.push(loggedVal + cumVaultAtRow);
 
           if (sessionPnL > 0.001) {
             greenDays++;
@@ -4200,6 +5070,55 @@ service cloud.firestore {
 
       const summitGoalEl = document.getElementById('statsSummitGoal');
       if (summitGoalEl) summitGoalEl.innerText = `of ${fmt(finalTarget)}`;
+
+      // Quantitative Risk & Institutional Performance Analytics Calculations
+      const watermarkInfo = calculateWatermarkAndDrawdown(trueWealthSeries);
+      const pf = calculateProfitFactor(sessionPnLs);
+      const totalROI = startBase > 0 ? ((trueWealth - startBase) / startBase) * 100 : 0;
+
+      const statsPeakWatermarkEl = document.getElementById('statsPeakWatermark');
+      if (statsPeakWatermarkEl) {
+        statsPeakWatermarkEl.innerText = fmt(watermarkInfo.peak || startBase);
+      }
+
+      const statsMaxDrawdownEl = document.getElementById('statsMaxDrawdown');
+      if (statsMaxDrawdownEl) {
+        if (watermarkInfo.maxDrawdownDollar > 0) {
+          statsMaxDrawdownEl.innerText = `-${fmt(watermarkInfo.maxDrawdownDollar)} (${watermarkInfo.maxDrawdownPct.toFixed(1)}%)`;
+          statsMaxDrawdownEl.className = 'text-2xl sm:text-3xl font-black text-[#B86652] dark:text-[#C77B68]';
+        } else {
+          statsMaxDrawdownEl.innerText = '$0.00 (0.0%)';
+          statsMaxDrawdownEl.className = 'text-2xl sm:text-3xl font-black text-[#332B22] dark:text-[#E2D4BD]';
+        }
+      }
+
+      const statsProfitFactorEl = document.getElementById('statsProfitFactor');
+      const statsProfitFactorSubtextEl = document.getElementById('statsProfitFactorSubtext');
+      if (statsProfitFactorEl) {
+        if (totalLogged === 0 || (!isFinite(pf) && pf <= 0)) {
+          statsProfitFactorEl.innerText = '--';
+          statsProfitFactorEl.className = 'text-2xl sm:text-3xl font-black text-[#716556] dark:text-[#B4A58F]';
+        } else if (!isFinite(pf)) {
+          statsProfitFactorEl.innerText = '∞';
+          statsProfitFactorEl.className = 'text-2xl sm:text-3xl font-black text-[#607B5B] dark:text-[#789272]';
+        } else {
+          statsProfitFactorEl.innerText = pf.toFixed(2);
+          statsProfitFactorEl.className = `text-2xl sm:text-3xl font-black ${pf >= 1.5 ? 'text-[#607B5B] dark:text-[#789272]' : (pf >= 1.0 ? 'text-[#C2984D] dark:text-[#D0AA63]' : 'text-[#B86652] dark:text-[#C77B68]')}`;
+        }
+      }
+      if (statsProfitFactorSubtextEl) {
+        if (!isFinite(pf) && pf > 0) {
+          statsProfitFactorSubtextEl.innerText = 'Zero losing sessions';
+        } else {
+          statsProfitFactorSubtextEl.innerText = 'Gross gains / losses';
+        }
+      }
+
+      const statsTotalROIEl = document.getElementById('statsTotalROI');
+      if (statsTotalROIEl) {
+        statsTotalROIEl.innerText = `${totalROI >= 0 ? '+' : ''}${totalROI.toFixed(1)}%`;
+        statsTotalROIEl.className = `text-2xl sm:text-3xl font-black ${totalROI >= 0 ? 'text-[#607B5B] dark:text-[#789272]' : 'text-[#B86652] dark:text-[#C77B68]'}`;
+      }
 
       // 7 Gamified Badges
       const badges = [
@@ -4599,7 +5518,7 @@ service cloud.firestore {
       if (withdrawalDays < 1) withdrawalDays = 1;
       if (withdrawalDays > sessions) withdrawalDays = sessions;
 
-      const curveType = curveTypeEl ? curveTypeEl.value : 'port_target_withdrawal';
+      const curveType = curveTypeEl ? curveTypeEl.value : 'tri_pace_independent';
       const skimMode = skimModeEl ? skimModeEl.checked : true;
 
       const adjustedSummit = portTarget + withdrawalTarget;
@@ -4619,7 +5538,12 @@ service cloud.firestore {
 
       const descEl = document.getElementById('previewStrategyDesc');
       if (descEl) {
-        if (curveType === 'port_target_withdrawal') {
+        if (curveType === 'tri_pace_independent') {
+          const w1Rel = portTarget === 10000 ? 1000 : portTarget * 0.10;
+          const w1Mid = portTarget === 10000 ? 1800 : portTarget * 0.18;
+          const w1Agg = portTarget === 10000 ? 2500 : portTarget * 0.25;
+          descEl.innerText = `Independent Tri-Pace piecewise tracks reaching Week 1 checkpoints (${fmt(w1Rel)} Relaxed, ${fmt(w1Mid)} Mid, ${fmt(w1Agg)} Aggressive) and converging on the final ${fmt(portTarget)} goal.`;
+        } else if (curveType === 'port_target_withdrawal') {
           descEl.innerText = `Pacing accelerates over the first ${withdrawalDays} sessions to build a ${fmt(withdrawalTarget)} cash-out buffer, reaching an adjusted summit of ${fmt(adjustedSummit)} while keeping ${fmt(portTarget)} compounding on your trading desk.`;
         } else if (curveType === 'decay') {
           descEl.innerText = `Decaying growth pace: front-loads sprint in early sessions, steadily plateauing toward ${fmt(skimMode && withdrawalTarget > 0 ? adjustedSummit : portTarget)}.`;
@@ -4645,8 +5569,8 @@ service cloud.firestore {
       const curveType = document.getElementById('genCurveType').value;
       const skimModeChecked = document.getElementById('genSkimMode') ? document.getElementById('genSkimMode').checked : false;
 
-      if (!name || isNaN(base) || isNaN(portTarget) || isNaN(totalSessions) || totalSessions < 3) {
-        showToast("Invalid ladder parameters", false);
+      if (!name || isNaN(base) || base <= 0 || isNaN(portTarget) || portTarget <= 0 || isNaN(totalSessions) || totalSessions < 2) {
+        showToast("Invalid challenge parameters: Base and Target must be positive, sessions at least 2", false);
         return;
       }
 
@@ -4654,12 +5578,36 @@ service cloud.firestore {
       const dailySkimRate = withdrawalDays > 0 ? Number((withdrawalTarget / withdrawalDays).toFixed(2)) : 0;
       const generatedSessions = [];
 
-      if (curveType === 'port_target_withdrawal') {
-        // Port Target + Withdrawal Strategy:
-        // Pacing dynamically adjusts according to withdrawal date D + port target P.
-        // For s <= D: targets accumulate desk compounding + pro-rata withdrawal buffer (W * (s-1)/(D-1)).
-        // For s > D: desk continues compounding toward portTarget while holding W in the Vault.
-        // Total summit target = portTarget + withdrawalTarget.
+      if (curveType === 'tri_pace_independent') {
+        const checkpointSession = Math.max(2, Math.round(totalSessions * 0.25));
+        const relCkpt = portTarget === 10000 ? 1000 : Number((portTarget * 0.10).toFixed(2));
+        const midCkpt = portTarget === 10000 ? 1800 : Number((portTarget * 0.18).toFixed(2));
+        const aggCkpt = portTarget === 10000 ? 2500 : Number((portTarget * 0.25).toFixed(2));
+
+        const triLadder = generateIndependentTriPaceLadder({
+          base: base,
+          totalSessions: totalSessions,
+          checkpointSession: checkpointSession,
+          relaxedCheckpoint: relCkpt,
+          relaxedEndpoint: portTarget,
+          midCheckpoint: midCkpt,
+          midEndpoint: portTarget,
+          aggCheckpoint: aggCkpt,
+          aggEndpoint: portTarget,
+          curveType: 'smooth'
+        });
+
+        triLadder.sessions.forEach(row => {
+          generatedSessions.push({
+            s: row.s,
+            r: row.r,
+            m: row.m,
+            a: row.a,
+            target: row.r,
+            tag: row.tag
+          });
+        });
+      } else if (curveType === 'port_target_withdrawal') {
         for (let s = 1; s <= totalSessions; s++) {
           const deskProgress = (s - 1) / (totalSessions - 1);
           const deskCompounded = base * Math.pow(portTarget / base, deskProgress);
@@ -4678,11 +5626,15 @@ service cloud.firestore {
           const totalWealthTarget = deskCompounded + withdrawalAccumulated;
           const isWithdrawalCheckpoint = (s === withdrawalDays && withdrawalTarget > 0);
 
+          const progressFactor = (s - 1) / (totalSessions - 1);
+          const midCurve = base * Math.pow(adjustedSummit / base, Math.pow(progressFactor, 0.85));
+          const aggCurve = base * Math.pow(adjustedSummit / base, Math.pow(progressFactor, 0.72));
+
           generatedSessions.push({
             s: s,
             r: Number(totalWealthTarget.toFixed(2)),
-            m: Number((totalWealthTarget * 1.15).toFixed(2)),
-            a: Number((totalWealthTarget * 1.30).toFixed(2)),
+            m: Number(midCurve.toFixed(2)),
+            a: Number(aggCurve.toFixed(2)),
             target: Number(totalWealthTarget.toFixed(2)),
             deskTarget: Number(deskCompounded.toFixed(2)),
             withdrawalGoal: isWithdrawalCheckpoint ? withdrawalTarget : undefined,
@@ -4691,29 +5643,44 @@ service cloud.firestore {
         }
       } else if (curveType === 'smooth') {
         const finalTarget = (withdrawalTarget > 0 && skimModeChecked) ? adjustedSummit : portTarget;
-        const dailyRate = Math.pow(finalTarget / base, 1 / (totalSessions - 1)) - 1;
+        const rSeries = calculateSmoothSeries(base, finalTarget, totalSessions);
+        const mSeries = calculateDecaySeries(base, finalTarget, totalSessions);
+        const aSeries = [];
         for (let s = 1; s <= totalSessions; s++) {
-          const val = base * Math.pow(1 + dailyRate, s - 1);
+          const factor = Math.pow((s - 1) / (totalSessions - 1), 0.60);
+          aSeries.push(Number((base * Math.pow(finalTarget / base, factor)).toFixed(2)));
+        }
+
+        for (let s = 1; s <= totalSessions; s++) {
+          const idx = s - 1;
           generatedSessions.push({
             s: s,
-            r: Number(val.toFixed(2)),
-            m: Number(val.toFixed(2)),
-            a: Number(val.toFixed(2)),
-            target: Number(val.toFixed(2))
+            r: rSeries[idx],
+            m: mSeries[idx],
+            a: aSeries[idx],
+            target: rSeries[idx]
           });
         }
       } else { // decay
         const finalTarget = (withdrawalTarget > 0 && skimModeChecked) ? adjustedSummit : portTarget;
+        const rSeries = calculateDecaySeries(base, finalTarget, totalSessions);
+        const mSeries = [];
+        const aSeries = [];
         for (let s = 1; s <= totalSessions; s++) {
-          const progress = (s - 1) / (totalSessions - 1);
-          const curveFactor = Math.pow(progress, 0.72);
-          const val = base * Math.pow(finalTarget / base, curveFactor);
+          const fMid = Math.pow((s - 1) / (totalSessions - 1), 0.60);
+          const fAgg = Math.pow((s - 1) / (totalSessions - 1), 0.48);
+          mSeries.push(Number((base * Math.pow(finalTarget / base, fMid)).toFixed(2)));
+          aSeries.push(Number((base * Math.pow(finalTarget / base, fAgg)).toFixed(2)));
+        }
+
+        for (let s = 1; s <= totalSessions; s++) {
+          const idx = s - 1;
           generatedSessions.push({
             s: s,
-            r: Number(val.toFixed(2)),
-            m: Number((val * 1.15).toFixed(2)),
-            a: Number((val * 1.30).toFixed(2)),
-            target: Number(val.toFixed(2))
+            r: rSeries[idx],
+            m: mSeries[idx],
+            a: aSeries[idx],
+            target: rSeries[idx]
           });
         }
       }
@@ -5428,6 +6395,31 @@ service cloud.firestore {
 
       const ladder = getActiveLadder();
       const activeProfile = ladderProfiles.find(p => p.id === activeProfileId) || ladderProfiles[0];
+      const startBase = ladder[0]?.r || ladder[0]?.target || 0;
+      const currentDesk = getDeskBalance(currentSession);
+      const vaultBalances = getVaultBalances();
+      const trueWealth = currentDesk + vaultBalances.total;
+
+      const sessionPnLs = [];
+      const trueWealthSeries = [startBase];
+      let runningVault = 0;
+      ladder.forEach(r => {
+        const logged = sessionLogs[r.s];
+        if (logged !== undefined) {
+          const prev = getPrevDeskBalance(r.s);
+          const skims = vaultLedger
+            .filter(v => v.session === r.s)
+            .reduce((sum, v) => sum + (parseFloat(v.amount) || 0), 0);
+          runningVault += skims;
+          const pnl = (logged + skims) - prev;
+          sessionPnLs.push(pnl);
+          trueWealthSeries.push(logged + runningVault);
+        }
+      });
+      const ddInfo = calculateWatermarkAndDrawdown(trueWealthSeries);
+      const pf = calculateProfitFactor(sessionPnLs);
+      const totalROI = startBase > 0 ? Number((((trueWealth - startBase) / startBase) * 100).toFixed(2)) : 0;
+
       const payload = {
         action: "fullSync",
         syncedAt: new Date().toISOString(),
@@ -5453,10 +6445,18 @@ service cloud.firestore {
         }),
         vault: vaultLedger,
         summary: {
-          totalVault: getTotalVaultWithdrawn(),
-          currentDesk: getDeskBalance(currentSession),
-          trueWealth: getDeskBalance(currentSession) + getTotalVaultWithdrawn(),
-          currentSession: currentSession
+          totalVault: vaultBalances.total,
+          currentDesk: currentDesk,
+          trueWealth: trueWealth,
+          currentSession: currentSession,
+          reserves: vaultBalances,
+          analytics: {
+            peakWatermark: ddInfo.peak,
+            maxDrawdownDollar: ddInfo.maxDrawdownDollar,
+            maxDrawdownPct: ddInfo.maxDrawdownPct,
+            profitFactor: pf,
+            totalROI: totalROI
+          }
         }
       };
 

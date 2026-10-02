@@ -1,0 +1,1512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio Growth Ladder & Capital Vault</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Firebase Compat for Cloud Sync -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col">
+
+  <!-- ================= TOP HEADER ================= -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-lg bg-emerald-600 text-white flex items-center justify-center font-bold text-lg">🌿</div>
+        <div>
+          <h1 class="text-base sm:text-lg font-bold text-slate-800 leading-tight">Portfolio Growth Ladder & Capital Vault</h1>
+          <div class="flex items-center gap-2 text-xs text-slate-500">
+            <span>Challenge: <strong id="headerProfileName" class="text-slate-700">28-Day Challenge</strong></span>
+            <span>•</span>
+            <span id="headerSyncStatus" class="badge badge-gray">Cloud: Offline</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <button id="btnHeaderQuickEdit" onclick="openQuickEditParamsModal()" class="px-3 py-1.5 text-xs font-medium bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-md border border-slate-300 transition">
+          ⚡ Quick Edit Parameters
+        </button>
+        <button id="btnHeaderCloudSync" onclick="openLinkSheetModal()" class="px-3 py-1.5 text-xs font-medium bg-blue-50 hover:bg-blue-100 text-blue-700 rounded-md border border-blue-200 transition">
+          ☁️ Cloud / Sheets
+        </button>
+      </div>
+    </div>
+
+    <!-- PRIMARY APP MODULE NAVIGATION TABS -->
+    <nav class="max-w-7xl mx-auto px-4 flex space-x-1 overflow-x-auto border-t border-slate-100 text-sm font-medium">
+      <button id="navTrackerBtn" onclick="switchMainTab('tracker')" class="px-4 py-2.5 text-emerald-600 border-b-2 border-emerald-600 whitespace-nowrap">
+        📈 1. Daily Tracker
+      </button>
+      <button id="navConfigBtn" onclick="switchMainTab('config')" class="px-4 py-2.5 text-slate-600 hover:text-slate-900 border-b-2 border-transparent whitespace-nowrap">
+        ⚙️ 2. Setup Plan & Roadmap
+      </button>
+      <button id="navTradesBtn" onclick="switchMainTab('trades')" class="px-4 py-2.5 text-slate-600 hover:text-slate-900 border-b-2 border-transparent whitespace-nowrap">
+        📝 3. Trade Journal
+      </button>
+      <button id="navMilestonesBtn" onclick="switchMainTab('milestones')" class="px-4 py-2.5 text-slate-600 hover:text-slate-900 border-b-2 border-transparent whitespace-nowrap">
+        🏦 4. Capital Vault & Bills
+      </button>
+      <button id="navStatsBtn" onclick="switchMainTab('stats')" class="px-4 py-2.5 text-slate-600 hover:text-slate-900 border-b-2 border-transparent whitespace-nowrap">
+        📊 5. Stats & Analytics
+      </button>
+    </nav>
+  </header>
+
+  <!-- ================= MAIN VIEWPORT ================= -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-4 py-6 space-y-6">
+
+    <!-- ================= MODULE 1: DAILY TRACKER ================= -->
+    <section id="tabContentTracker" class="tab-content active space-y-6">
+      
+      <!-- PERSISTENT TOP POSITION BAR -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3 bg-white p-4 rounded-xl border border-slate-200 shadow-sm text-center">
+        <div class="p-2 bg-slate-50 rounded-lg border border-slate-100">
+          <div class="text-[11px] text-slate-500 font-semibold uppercase">Current Balance</div>
+          <div id="posCurrentBal" class="text-base sm:text-lg font-bold font-num text-slate-900">$100.00</div>
+        </div>
+        <div onclick="openQuickEditParamsModal()" class="p-2 bg-slate-50 rounded-lg border border-slate-100 cursor-pointer hover:bg-slate-100 transition group" title="Click to quick-edit starting deposit">
+          <div class="text-[11px] text-slate-500 font-semibold uppercase flex items-center justify-center gap-1">
+            <span>Started Capital</span>
+            <span class="text-[10px] text-slate-400 group-hover:text-slate-700">✏️</span>
+          </div>
+          <div id="posStartBal" class="text-base sm:text-lg font-bold font-num text-slate-700">$100.00</div>
+        </div>
+        <div class="p-2 bg-slate-50 rounded-lg border border-slate-100">
+          <div class="text-[11px] text-slate-500 font-semibold uppercase">Today's P&L</div>
+          <div id="posTodayPnL" class="text-base sm:text-lg font-bold font-num text-emerald-600">+$0.00</div>
+        </div>
+        <div class="p-2 bg-slate-50 rounded-lg border border-slate-100">
+          <div class="text-[11px] text-slate-500 font-semibold uppercase">Today's Return</div>
+          <div id="posTodayReturn" class="text-base sm:text-lg font-bold font-num text-emerald-600">+0.00%</div>
+        </div>
+        <div class="p-2 bg-slate-50 rounded-lg border border-slate-100">
+          <div class="text-[11px] text-slate-500 font-semibold uppercase">All-Time P&L</div>
+          <div id="posOverallPnL" class="text-base sm:text-lg font-bold font-num text-emerald-600">+$0.00</div>
+        </div>
+        <div class="p-2 bg-slate-50 rounded-lg border border-slate-100">
+          <div class="text-[11px] text-slate-500 font-semibold uppercase">All-Time ROI</div>
+          <div id="posOverallReturn" class="text-base sm:text-lg font-bold font-num text-emerald-600">+0.00%</div>
+        </div>
+        <div class="p-2 bg-slate-50 rounded-lg border border-slate-100">
+          <div class="text-[11px] text-slate-500 font-semibold uppercase">Summit Target</div>
+          <div id="posOverallTarget" class="text-base sm:text-lg font-bold font-num text-purple-700">$7,000.00</div>
+        </div>
+        <div class="p-2 bg-slate-50 rounded-lg border border-slate-100">
+          <div class="text-[11px] text-slate-500 font-semibold uppercase">Green Streak</div>
+          <div id="posStreakCount" class="text-base sm:text-lg font-bold font-num text-amber-600">0 🔥</div>
+        </div>
+      </div>
+
+      <!-- STATIC 3-PACE TARGETS SECTION (Above sub-tab switchers) -->
+      <div id="dailyPaceTargetsSection" class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-3">
+        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-2">
+          <div>
+            <h2 class="text-sm font-bold text-slate-800 uppercase tracking-wide">Daily Target Paces for Active Session</h2>
+            <p class="text-xs text-slate-500">Pick an active benchmark. Targets automatically adjust compounding trajectory.</p>
+          </div>
+          <div class="flex items-center gap-1.5 text-xs font-medium">
+            <span class="text-slate-500">Active Pace Aim:</span>
+            <span id="activePaceLabel" class="badge badge-green">Relaxed</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
+          <!-- Relaxed Pace -->
+          <div id="paceCardRelaxed" onclick="setPace('relaxed')" class="p-3.5 rounded-lg border border-emerald-200 bg-emerald-50/60 hover:bg-emerald-50 cursor-pointer transition flex flex-col justify-between">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-emerald-800 uppercase">Relaxed Pace</span>
+              <span id="badgePaceRel" class="badge badge-green text-[10px]">Active</span>
+            </div>
+            <div class="my-2">
+              <div id="targetRelVal" class="text-xl font-bold font-num text-emerald-900">$100.00</div>
+              <div id="diffRelVal" class="text-xs font-num text-slate-600">Diff: $0.00</div>
+            </div>
+            <div class="text-[11px] text-emerald-700">Baseline milestone compounding to $7,000</div>
+          </div>
+
+          <!-- Mid Pace -->
+          <div id="paceCardMid" onclick="setPace('mid')" class="p-3.5 rounded-lg border border-amber-200 bg-amber-50/60 hover:bg-amber-50 cursor-pointer transition flex flex-col justify-between">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-amber-800 uppercase">Mid Pace</span>
+              <span id="badgePaceMid" class="hidden badge badge-amber text-[10px]">Active</span>
+            </div>
+            <div class="my-2">
+              <div id="targetMidVal" class="text-xl font-bold font-num text-amber-900">$100.00</div>
+              <div id="diffMidVal" class="text-xs font-num text-slate-600">Diff: $0.00</div>
+            </div>
+            <div class="text-[11px] text-amber-700">1.8x acceleration target to $12,600</div>
+          </div>
+
+          <!-- Aggressive Pace -->
+          <div id="paceCardAgg" onclick="setPace('aggressive')" class="p-3.5 rounded-lg border border-purple-200 bg-purple-50/60 hover:bg-purple-50 cursor-pointer transition flex flex-col justify-between">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-purple-800 uppercase">Aggressive Pace</span>
+              <span id="badgePaceAgg" class="hidden badge badge-purple text-[10px]">Active</span>
+            </div>
+            <div class="my-2">
+              <div id="targetAggVal" class="text-xl font-bold font-num text-purple-900">$100.00</div>
+              <div id="diffAggVal" class="text-xs font-num text-slate-600">Diff: $0.00</div>
+            </div>
+            <div class="text-[11px] text-purple-700">2.5x summit accelerator to $17,500</div>
+          </div>
+
+          <!-- Financial Requirement Pace (FinReq) -->
+          <div id="paceCardFinreq" onclick="setPace('finreq')" class="p-3.5 rounded-lg border border-blue-200 bg-blue-50/60 hover:bg-blue-50 cursor-pointer transition flex flex-col justify-between">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-blue-800 uppercase">Financial Req.</span>
+              <span id="badgePaceFinreq" class="hidden badge badge-blue text-[10px]">Active</span>
+            </div>
+            <div class="my-2">
+              <div id="targetFinreqVal" class="text-xl font-bold font-num text-blue-900">$100.00</div>
+              <div id="diffFinreqVal" class="text-xs font-num text-slate-600">Diff: $0.00</div>
+            </div>
+            <div class="text-[11px] text-blue-700">Target to clear bills + savings obligations</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DAILY TRACKER SUB-HEADER NAVIGATION -->
+      <div class="flex items-center justify-between border-b border-slate-200">
+        <div class="flex space-x-2">
+          <button id="subnavDeskBtn" onclick="switchTrackerSubTab('desk')" class="px-3 py-2 text-sm font-semibold text-emerald-700 border-b-2 border-emerald-600">
+            📊 Daily Desk
+          </button>
+          <button id="subnavCalendarBtn" onclick="switchTrackerSubTab('calendar')" class="px-3 py-2 text-sm font-semibold text-slate-500 hover:text-slate-800 border-b-2 border-transparent">
+            📅 Activity Calendar
+          </button>
+          <button id="subnavTfgBtn" onclick="switchTrackerSubTab('tfg')" class="px-3 py-2 text-sm font-semibold text-slate-500 hover:text-slate-800 border-b-2 border-transparent">
+            🎯 Total Financial Goal
+          </button>
+        </div>
+      </div>
+
+      <!-- SUB-TAB 1: DAILY DESK PANEL -->
+      <div id="subtabDesk" class="subtab-content active space-y-6">
+        
+        <!-- ACTIVE SESSION LOGGER CARD -->
+        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+              <button onclick="navigateSession(-1)" class="w-8 h-8 rounded-lg border border-slate-300 hover:bg-slate-100 flex items-center justify-center font-bold text-slate-600">‹</button>
+              <div>
+                <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+                  <span id="activeSessionTitle">Session 1 of 28</span>
+                  <span id="sessionLockBadge" class="badge badge-gray text-[11px]">🔓 Unlocked</span>
+                </h3>
+                <p id="activeSessionDate" class="text-xs text-slate-500">Date: 2026-10-02</p>
+              </div>
+              <button onclick="navigateSession(1)" class="w-8 h-8 rounded-lg border border-slate-300 hover:bg-slate-100 flex items-center justify-center font-bold text-slate-600">›</button>
+            </div>
+
+            <!-- Quick Session Select Dropdown -->
+            <div class="flex items-center gap-2">
+              <label for="sessionSelectDropdown" class="text-xs text-slate-500">Jump to:</label>
+              <select id="sessionSelectDropdown" onchange="jumpToSession(parseInt(this.value))" class="text-xs border border-slate-300 rounded-md p-1.5 bg-slate-50">
+                <!-- Dynamically populated -->
+              </select>
+            </div>
+          </div>
+
+          <!-- INPUT FORM -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Closing Desk Balance ($)</label>
+              <div class="relative">
+                <span class="absolute left-3 top-2.5 text-slate-400 font-num font-semibold">$</span>
+                <input id="sessionBalanceInput" type="number" step="0.01" placeholder="Enter balance..." oninput="handleSessionBalanceChange(this.value)" class="w-full pl-8 pr-3 py-2 border border-slate-300 rounded-lg font-num text-lg font-bold text-slate-900 focus:outline-none focus:border-emerald-500">
+              </div>
+              <div id="sessionTimestampText" class="text-[11px] text-slate-400 mt-1">Not logged yet</div>
+            </div>
+
+            <div class="flex items-end gap-2">
+              <button id="btnToggleLockSession" onclick="toggleLockActiveSession()" class="flex-1 py-2.5 px-3 rounded-lg border border-slate-300 hover:bg-slate-100 font-semibold text-xs text-slate-700 transition">
+                🔒 Lock Session
+              </button>
+              <button id="btnAutoFillTarget" onclick="fillTargetForActiveSession()" class="flex-1 py-2.5 px-3 rounded-lg bg-emerald-50 border border-emerald-200 hover:bg-emerald-100 font-semibold text-xs text-emerald-800 transition">
+                🎯 Auto-Fill Target
+              </button>
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Trader Notes & Execution Review</label>
+              <textarea id="sessionNotesInput" rows="2" placeholder="Record trade setups, psychological state, market conditions..." oninput="handleSessionNotesChange(this.value)" class="w-full p-2 border border-slate-300 rounded-lg text-xs text-slate-800 focus:outline-none focus:border-emerald-500"></textarea>
+            </div>
+          </div>
+
+          <!-- SHORTFALL & REBASE ALERT CARD (Appears when desk < target) -->
+          <div id="shortfallCard" class="hidden p-4 rounded-lg bg-amber-50 border border-amber-200 text-amber-900 space-y-2">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="text-base">⚠️</span>
+                <strong class="text-xs font-bold uppercase">Shortfall Detected for Active Session</strong>
+              </div>
+              <span id="shortfallAmountBadge" class="badge badge-amber font-num">-$25.00</span>
+            </div>
+            <p id="shortfallDescription" class="text-xs text-amber-800">
+              Your desk balance is below target. Required daily compounding rate to reach summit from current balance is <strong id="rebasedRateNeeded">14.2%</strong> per session.
+            </p>
+            <div class="flex items-center gap-2 pt-1">
+              <button id="btnPlanModeOriginal" onclick="setPlanViewMode('original')" class="px-2.5 py-1 text-xs font-semibold rounded bg-white border border-amber-300 text-amber-900 shadow-sm">
+                Original Benchmark
+              </button>
+              <button id="btnPlanModeRebased" onclick="setPlanViewMode('rebased')" class="px-2.5 py-1 text-xs font-semibold rounded bg-amber-200 border border-amber-400 text-amber-950 shadow-sm">
+                Switch to Rebased Recovery Plan
+              </button>
+            </div>
+          </div>
+
+          <!-- PROFIT ALLOCATION CARD (Appears when session daily gain > 0) -->
+          <div id="profitAllocationCard" class="hidden p-4 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-950 space-y-3">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <div class="flex items-center gap-2">
+                <span class="text-base">🎉</span>
+                <strong class="text-xs font-bold uppercase">Realized Profit Allocation Engine</strong>
+                <span id="profitAllocPhaseBadge" class="badge badge-blue text-[10px]">Phase 1: Bills Priority</span>
+              </div>
+              <div class="text-xs font-semibold font-num text-emerald-800">
+                Daily Gain: <strong id="profitAllocGainVal">+$150.00</strong>
+              </div>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
+              <div class="p-2 bg-white rounded border border-emerald-200">
+                <div class="text-[10px] text-slate-500 uppercase font-semibold">To Trading Desk (20%)</div>
+                <div id="profitAllocDeskVal" class="text-sm font-bold font-num text-slate-900">$30.00</div>
+              </div>
+              <div class="p-2 bg-white rounded border border-emerald-200">
+                <div class="text-[10px] text-slate-500 uppercase font-semibold">To Bills Reserve (70%)</div>
+                <div id="profitAllocBillsVal" class="text-sm font-bold font-num text-slate-900">$105.00</div>
+              </div>
+              <div class="p-2 bg-white rounded border border-emerald-200">
+                <div class="text-[10px] text-slate-500 uppercase font-semibold">To Savings Reserve (10%)</div>
+                <div id="profitAllocSavingsVal" class="text-sm font-bold font-num text-slate-900">$15.00</div>
+              </div>
+            </div>
+            <div class="flex items-center justify-between pt-1">
+              <span id="profitAllocFloorNote" class="text-[11px] text-emerald-800">Post-skim desk balance: <strong>$130.00</strong> (Above $100 floor)</span>
+              <button id="btnExecuteProfitAlloc" onclick="executeProfitAllocation()" class="px-3 py-1.5 text-xs font-bold rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white transition shadow-sm">
+                ✓ 1-Click Execute Skim Allocation
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- GAMIFIED MOUNTAIN TRAIL VISUALIZER -->
+        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-2">
+          <div class="flex items-center justify-between">
+            <h3 class="text-xs font-bold text-slate-700 uppercase tracking-wide">Mountain Trail Roadmap & Checkpoints</h3>
+            <span class="text-[11px] text-slate-500">Interactive: Click node to jump session</span>
+          </div>
+          <div id="mountainTrailContainer" class="w-full overflow-x-auto py-2">
+            <!-- Mountain Trail SVG generated dynamically -->
+          </div>
+        </div>
+
+        <!-- MASTER SESSION TABLE -->
+        <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+          <div class="p-4 bg-slate-50 border-b border-slate-200 flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <h3 class="text-sm font-bold text-slate-800">Master Session Compounding Ledger</h3>
+              <p class="text-xs text-slate-500">Full roadmap from Base Camp to Summit with normalized daily PnL and skims.</p>
+            </div>
+            <button id="btnCopyMasterTable" onclick="copyMasterTableToClipboard()" class="px-3 py-1.5 text-xs font-semibold rounded-md border border-slate-300 bg-white hover:bg-slate-100 text-slate-700 transition">
+              📋 Copy Table (TSV / Excel)
+            </button>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="simple-table">
+              <thead>
+                <tr>
+                  <th>Session</th>
+                  <th>Date</th>
+                  <th>Relaxed ($)</th>
+                  <th>Mid ($)</th>
+                  <th>Aggressive ($)</th>
+                  <th>Closing Balance ($)</th>
+                  <th>Vault Skims ($)</th>
+                  <th>Daily PnL ($)</th>
+                  <th>Return (%)</th>
+                  <th>Lock</th>
+                  <th>Notes</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="masterTableBody">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUB-TAB 2: ACTIVITY CALENDAR PANEL -->
+      <div id="subtabCalendar" class="subtab-content space-y-4">
+        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+            <div class="flex items-center gap-2">
+              <button onclick="navigateCalendarMonth(-1)" class="px-2.5 py-1 rounded border border-slate-300 hover:bg-slate-100 text-sm font-bold">‹</button>
+              <h3 id="calendarMonthTitle" class="text-base font-bold text-slate-900">October 2026</h3>
+              <button onclick="navigateCalendarMonth(1)" class="px-2.5 py-1 rounded border border-slate-300 hover:bg-slate-100 text-sm font-bold">›</button>
+            </div>
+            <button onclick="setCalendarToday()" class="px-3 py-1 rounded border border-slate-300 hover:bg-slate-100 text-xs font-semibold">Today</button>
+          </div>
+          <div id="calendarGrid" class="grid grid-cols-7 gap-2">
+            <!-- Calendar Days dynamically populated -->
+          </div>
+          <div class="flex items-center gap-4 text-xs text-slate-500 pt-2 border-t border-slate-100">
+            <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-emerald-500"></span> Profitable Session</span>
+            <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-red-500"></span> Unprofitable Session</span>
+            <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-slate-300"></span> Unlogged Day</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUB-TAB 3: TOTAL FINANCIAL GOAL PANEL -->
+      <div id="subtabTfg" class="subtab-content space-y-6">
+        <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm space-y-6">
+          <div class="border-b border-slate-100 pb-4">
+            <h3 class="text-base font-bold text-slate-900">Total Financial Goal (TFG) Mathematical Unification</h3>
+            <p class="text-xs text-slate-500 mt-1">
+              Harmonized equation: <code>Total Financial Goal = Trading Target + Savings Target + Monthly Bills Target</code>
+            </p>
+          </div>
+
+          <!-- MASTER PROGRESS BAR -->
+          <div class="space-y-2">
+            <div class="flex justify-between text-xs font-semibold text-slate-700">
+              <span>Overall Goal Completion</span>
+              <span id="tfgOverallPercent" class="font-num text-purple-700">0.0%</span>
+            </div>
+            <div class="w-full h-4 bg-slate-100 rounded-full overflow-hidden flex">
+              <div id="tfgBarTrading" class="bg-emerald-500 h-full" style="width: 0%" title="Trading Desk"></div>
+              <div id="tfgBarSavings" class="bg-purple-500 h-full" style="width: 0%" title="Savings Reserve"></div>
+              <div id="tfgBarBills" class="bg-amber-500 h-full" style="width: 0%" title="Bills Covered"></div>
+            </div>
+            <div class="flex justify-between text-[11px] text-slate-500">
+              <span id="tfgAchievedTotal" class="font-num">Achieved: $100.00</span>
+              <span id="tfgTargetTotal" class="font-num">Total Target: $12,500.00</span>
+            </div>
+          </div>
+
+          <!-- THREE PILLAR CARDS -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <!-- 1. Trading Desk -->
+            <div class="p-4 rounded-xl border border-emerald-200 bg-emerald-50/50 space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-emerald-800 uppercase">1. Trading Desk Target</span>
+                <span class="badge badge-green text-[10px]">Active Profile</span>
+              </div>
+              <div class="text-xl font-bold font-num text-emerald-950" id="tfgTradingCurrent">$100.00</div>
+              <div class="text-xs space-y-1 text-slate-600 font-num">
+                <div class="flex justify-between"><span>Summit Goal:</span><strong id="tfgTradingTarget">$7,000.00</strong></div>
+                <div class="flex justify-between"><span>Remaining:</span><strong id="tfgTradingRemaining">$6,900.00</strong></div>
+              </div>
+            </div>
+
+            <!-- 2. Savings Reserve -->
+            <div class="p-4 rounded-xl border border-purple-200 bg-purple-50/50 space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-purple-800 uppercase">2. Savings Reserve Target</span>
+                <span class="badge badge-purple text-[10px]">Vault Storage</span>
+              </div>
+              <div class="text-xl font-bold font-num text-purple-950" id="tfgSavingsCurrent">$0.00</div>
+              <div class="text-xs space-y-1 text-slate-600 font-num">
+                <div class="flex justify-between"><span>Milestone Goal:</span><strong id="tfgSavingsTarget">$5,000.00</strong></div>
+                <div class="flex justify-between"><span>Remaining:</span><strong id="tfgSavingsRemaining">$5,000.00</strong></div>
+              </div>
+            </div>
+
+            <!-- 3. Monthly Bills -->
+            <div class="p-4 rounded-xl border border-amber-200 bg-amber-50/50 space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-amber-800 uppercase">3. Monthly Bills Target</span>
+                <span class="badge badge-amber text-[10px]">Liabilities</span>
+              </div>
+              <div class="text-xl font-bold font-num text-amber-950" id="tfgBillsCurrent">$0.00</div>
+              <div class="text-xs space-y-1 text-slate-600 font-num">
+                <div class="flex justify-between"><span>Total Due:</span><strong id="tfgBillsTarget">$0.00</strong></div>
+                <div class="flex justify-between"><span>Remaining:</span><strong id="tfgBillsRemaining">$0.00</strong></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= MODULE 2: SETUP PLAN & CHALLENGE ROADMAP ================= -->
+    <section id="tabContentConfig" class="tab-content space-y-6">
+      <!-- SUB-HEADER NAVIGATION -->
+      <div class="flex space-x-2 border-b border-slate-200">
+        <button id="subnavCfgActiveBtn" onclick="switchConfigSubTab('active')" class="px-4 py-2 text-sm font-semibold text-emerald-700 border-b-2 border-emerald-600">
+          🎯 Active Challenge
+        </button>
+        <button id="subnavCfgWizardBtn" onclick="switchConfigSubTab('wizard')" class="px-4 py-2 text-sm font-semibold text-slate-500 hover:text-slate-800 border-b-2 border-transparent">
+          🧙 Challenge Wizard
+        </button>
+        <button id="subnavCfgSyncBtn" onclick="switchConfigSubTab('sync')" class="px-4 py-2 text-sm font-semibold text-slate-500 hover:text-slate-800 border-b-2 border-transparent">
+          ☁️ Cloud & Sheets Sync
+        </button>
+        <button id="subnavCfgResetBtn" onclick="switchConfigSubTab('reset')" class="px-4 py-2 text-sm font-semibold text-slate-500 hover:text-slate-800 border-b-2 border-transparent">
+          🛡️ Safe Reset
+        </button>
+      </div>
+
+      <!-- SUB-TAB 1: ACTIVE CHALLENGE OVERVIEW -->
+      <div id="subtabCfgActive" class="subtab-content active space-y-6">
+        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-3">
+            <div>
+              <h3 id="cfgActiveChallengeName" class="text-lg font-bold text-slate-900">28-Day Challenge (Tri-Pace)</h3>
+              <p id="cfgActiveChallengeDates" class="text-xs text-slate-500">Start: 2026-10-02 • Projected Finish: 2026-10-29</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <label for="ladderProfileSelector" class="text-xs text-slate-500 font-semibold">Active Profile:</label>
+              <select id="ladderProfileSelector" onchange="handleProfileSelect(this.value)" class="text-xs border border-slate-300 rounded-md p-1.5 bg-slate-50 font-semibold">
+                <!-- Dynamically populated -->
+              </select>
+              <button onclick="openQuickEditParamsModal()" class="px-2.5 py-1.5 text-xs font-semibold rounded bg-slate-100 hover:bg-slate-200 border border-slate-300">
+                ⚡ Quick Edit
+              </button>
+            </div>
+          </div>
+
+          <!-- KEY METRICS -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
+            <div class="p-3 bg-slate-50 rounded-lg border border-slate-100">
+              <div class="text-[11px] text-slate-500 uppercase font-semibold">Starting Deposit</div>
+              <div id="cfgMetricBase" class="text-lg font-bold font-num text-slate-900">$100.00</div>
+            </div>
+            <div class="p-3 bg-slate-50 rounded-lg border border-slate-100">
+              <div class="text-[11px] text-slate-500 uppercase font-semibold">Summit Target</div>
+              <div id="cfgMetricTarget" class="text-lg font-bold font-num text-purple-700">$7,000.00</div>
+            </div>
+            <div class="p-3 bg-slate-50 rounded-lg border border-slate-100">
+              <div class="text-[11px] text-slate-500 uppercase font-semibold">Sessions Progress</div>
+              <div id="cfgMetricSessions" class="text-lg font-bold font-num text-emerald-600">1 / 28</div>
+            </div>
+            <div class="p-3 bg-slate-50 rounded-lg border border-slate-100">
+              <div class="text-[11px] text-slate-500 uppercase font-semibold">Growth Multiplier</div>
+              <div id="cfgMetricMultiplier" class="text-lg font-bold font-num text-amber-600">70.0x</div>
+            </div>
+          </div>
+
+          <!-- SAVED CHALLENGES LIST -->
+          <div class="space-y-3 pt-2">
+            <div class="flex items-center justify-between">
+              <h4 class="text-xs font-bold text-slate-700 uppercase">Saved Challenge Roadmaps</h4>
+              <button onclick="switchConfigSubTab('wizard')" class="text-xs font-semibold text-emerald-600 hover:underline">+ New Challenge</button>
+            </div>
+            <div id="cfgActiveChallengeList" class="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUB-TAB 2: CHALLENGE WIZARD -->
+      <div id="subtabCfgWizard" class="subtab-content space-y-6">
+        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-5">
+          <!-- WIZARD STEP HEADER -->
+          <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+            <div>
+              <h3 class="text-base font-bold text-slate-900">Roadmap Strategy Generator</h3>
+              <p class="text-xs text-slate-500">Configure parameters, compounding mathematics, and cash-out checkpoints.</p>
+            </div>
+            <div class="flex items-center gap-1 text-xs">
+              <span id="stepIndicator1" class="px-2 py-0.5 rounded-full font-bold bg-emerald-600 text-white">1</span>
+              <span class="text-slate-300">›</span>
+              <span id="stepIndicator2" class="px-2 py-0.5 rounded-full font-bold bg-slate-200 text-slate-600">2</span>
+              <span class="text-slate-300">›</span>
+              <span id="stepIndicator3" class="px-2 py-0.5 rounded-full font-bold bg-slate-200 text-slate-600">3</span>
+            </div>
+          </div>
+
+          <!-- STEP 1: CORE PARAMETERS -->
+          <div id="wizardStep1" class="space-y-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Challenge Name</label>
+                <input id="genName" type="text" value="30-Day Growth Ladder" class="w-full p-2 border border-slate-300 rounded-lg text-sm">
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Start Date</label>
+                <input id="genStartDate" type="date" class="w-full p-2 border border-slate-300 rounded-lg text-sm">
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Starting Balance ($ C0)</label>
+                <input id="genBase" type="number" step="1" value="100" class="w-full p-2 border border-slate-300 rounded-lg text-sm font-num font-bold">
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Target Summit ($ T)</label>
+                <input id="genTarget" type="number" step="1" value="7000" class="w-full p-2 border border-slate-300 rounded-lg text-sm font-num font-bold">
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Total Duration (Sessions N)</label>
+                <input id="genSessions" type="number" step="1" value="28" class="w-full p-2 border border-slate-300 rounded-lg text-sm font-num">
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Quick Apply to Active Challenge</label>
+                <button id="btnQuickSaveStep1" onclick="handleQuickSaveStep1()" class="w-full py-2 px-3 rounded-lg bg-emerald-50 border border-emerald-300 hover:bg-emerald-100 font-semibold text-xs text-emerald-800 transition">
+                  ⚡ Quick Apply Step 1 to Active Challenge
+                </button>
+              </div>
+            </div>
+            <div class="flex justify-end pt-3 border-t border-slate-100">
+              <button onclick="setSetupStep(2)" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold">
+                Next: Curve Strategy ›
+              </button>
+            </div>
+          </div>
+
+          <!-- STEP 2: GROWTH STRATEGY & PACING -->
+          <div id="wizardStep2" class="hidden space-y-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Compounding Curve Engine</label>
+                <select id="genCurveType" onchange="handleCurveTypeChange(this.value)" class="w-full p-2 border border-slate-300 rounded-lg text-sm">
+                  <option value="tri_pace_independent">Independent Tri-Pace (Relaxed / Mid / Aggressive)</option>
+                  <option value="smooth">Smooth Exponential Compounding</option>
+                  <option value="decay">Front-Loaded Decay Compounding</option>
+                  <option value="port_target_withdrawal">Portfolio Target with Scheduled Cash-Out</option>
+                </select>
+              </div>
+              <div id="wizardCashoutSettings" class="hidden space-y-2">
+                <div>
+                  <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Withdrawal Target ($)</label>
+                  <input id="genWithdrawalTarget" type="number" step="1" value="1000" class="w-full p-2 border border-slate-300 rounded-lg text-sm font-num">
+                </div>
+                <div>
+                  <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Withdrawal Window (Sessions)</label>
+                  <input id="genWithdrawalDays" type="number" step="1" value="14" class="w-full p-2 border border-slate-300 rounded-lg text-sm font-num">
+                </div>
+              </div>
+              <div class="flex items-center gap-2 pt-4">
+                <input id="genSkimMode" type="checkbox" class="w-4 h-4 text-emerald-600 rounded">
+                <label for="genSkimMode" class="text-xs font-semibold text-slate-700">Enable Skim Mode (Augment daily targets with cash-out run rate)</label>
+              </div>
+            </div>
+            <div class="flex justify-between pt-3 border-t border-slate-100">
+              <button onclick="setSetupStep(1)" class="px-4 py-2 border border-slate-300 rounded-lg text-xs font-semibold">‹ Back</button>
+              <button onclick="setSetupStep(3)" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold">Next: Verification ›</button>
+            </div>
+          </div>
+
+          <!-- STEP 3: VERIFICATION & ACTIVATION -->
+          <div id="wizardStep3" class="hidden space-y-4">
+            <h4 class="text-xs font-bold text-slate-700 uppercase">Checkpoints Preview</h4>
+            <div id="wizardCheckpointsPreview" class="border border-slate-200 rounded-lg overflow-x-auto text-xs">
+              <!-- Dynamically populated -->
+            </div>
+            <div class="flex flex-wrap justify-between gap-2 pt-3 border-t border-slate-100">
+              <button onclick="setSetupStep(2)" class="px-4 py-2 border border-slate-300 rounded-lg text-xs font-semibold">‹ Back</button>
+              <div class="flex gap-2">
+                <button onclick="handleSaveProfile(false)" class="px-4 py-2 bg-white border border-emerald-600 text-emerald-700 hover:bg-emerald-50 rounded-lg text-xs font-bold">
+                  Save as New Profile
+                </button>
+                <button onclick="handleSaveProfile(true)" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold">
+                  ✓ Update & Activate Active Profile
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUB-TAB 3: CLOUD & SHEETS SYNC -->
+      <div id="subtabCfgSync" class="subtab-content space-y-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Firebase Firestore -->
+          <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-2">
+              <div class="flex items-center gap-2">
+                <span class="text-lg">🔥</span>
+                <h3 class="text-sm font-bold text-slate-800">Firebase Firestore Real-Time Sync</h3>
+              </div>
+              <span id="firebaseStatusBadge" class="badge badge-gray text-[10px]">Disconnected</span>
+            </div>
+            <p class="text-xs text-slate-500">Sync all your balances, sessions, and vault transactions live across multiple devices for free.</p>
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Firebase Config JSON</label>
+              <textarea id="firebaseCfgInput" rows="4" placeholder='{ "apiKey": "...", "projectId": "..." }' class="w-full p-2 border border-slate-300 rounded-lg text-xs font-num"></textarea>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Sync Key (Unique Portfolio Identifier)</label>
+              <input id="syncKeyInput" type="text" placeholder="e.g. my_trading_portfolio" class="w-full p-2 border border-slate-300 rounded-lg text-xs">
+            </div>
+            <div class="flex flex-wrap gap-2 pt-1">
+              <button onclick="handleSaveFirebaseConfig()" class="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-bold">
+                Connect Firestore
+              </button>
+              <button onclick="handleManualCloudSync()" class="px-3 py-1.5 border border-slate-300 hover:bg-slate-100 rounded-lg text-xs font-semibold">
+                Sync Now
+              </button>
+              <button onclick="copyFirestoreRulesToClipboard()" class="px-3 py-1.5 border border-slate-300 hover:bg-slate-100 rounded-lg text-xs font-semibold">
+                📋 Copy Rules
+              </button>
+            </div>
+          </div>
+
+          <!-- Google Sheets Webhook -->
+          <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-2">
+              <div class="flex items-center gap-2">
+                <span class="text-lg">📊</span>
+                <h3 class="text-sm font-bold text-slate-800">Google Sheets Webhook Sync</h3>
+              </div>
+              <span id="sheetsStatusBadge" class="badge badge-gray text-[10px]">Ready</span>
+            </div>
+            <p class="text-xs text-slate-500">Export session balances and vault skims to your private Google Spreadsheet automatically.</p>
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Google Apps Script Web App URL</label>
+              <input id="webhookUrlInput" type="url" placeholder="https://script.google.com/macros/s/.../exec" class="w-full p-2 border border-slate-300 rounded-lg text-xs">
+            </div>
+            <div class="flex flex-wrap gap-2 pt-1">
+              <button onclick="handleSaveWebhookUrl()" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold">
+                Save Webhook
+              </button>
+              <button onclick="handleSyncToSheets()" class="px-3 py-1.5 border border-slate-300 hover:bg-slate-100 rounded-lg text-xs font-semibold">
+                Push to Sheet
+              </button>
+              <button onclick="openAppsScriptModal()" class="px-3 py-1.5 border border-slate-300 hover:bg-slate-100 rounded-lg text-xs font-semibold">
+                📄 View Apps Script Code
+              </button>
+              <button onclick="exportDataToCsv()" class="px-3 py-1.5 border border-slate-300 hover:bg-slate-100 rounded-lg text-xs font-semibold">
+                💾 Export CSV
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUB-TAB 4: SAFE RESET & DATA MANAGEMENT -->
+      <div id="subtabCfgReset" class="subtab-content space-y-6">
+        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-5">
+          <div class="border-b border-slate-100 pb-2">
+            <h3 class="text-sm font-bold text-slate-800">Safe Reset & Data Preservation Controls</h3>
+            <p class="text-xs text-slate-500">All actions enforce double-confirmation dialogs to prevent accidental data loss.</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- Reset 1 -->
+            <div class="p-4 rounded-lg border border-amber-200 bg-amber-50/40 space-y-2">
+              <h4 class="text-xs font-bold text-amber-900 uppercase">1. Reset Session Logs</h4>
+              <p class="text-xs text-slate-600">Clears closing balances, notes, and timestamps. Preserves challenge settings and vault funds.</p>
+              <button id="btnResetLogs" onclick="confirmResetSessionLogs()" class="px-3 py-1.5 bg-amber-600 hover:bg-amber-700 text-white rounded-lg text-xs font-bold">
+                Reset Session Logs
+              </button>
+            </div>
+
+            <!-- Reset 2 -->
+            <div class="p-4 rounded-lg border border-amber-200 bg-amber-50/40 space-y-2">
+              <h4 class="text-xs font-bold text-amber-900 uppercase">2. Clear Capital Vault</h4>
+              <p class="text-xs text-slate-600">Clears vault ledger deposits, transfers, and bill payment history. Keeps trading desk logs intact.</p>
+              <button id="btnClearVault" onclick="confirmClearVault()" class="px-3 py-1.5 bg-amber-600 hover:bg-amber-700 text-white rounded-lg text-xs font-bold">
+                Clear Capital Vault
+              </button>
+            </div>
+
+            <!-- Reset 3 -->
+            <div class="p-4 rounded-lg border border-slate-300 bg-slate-50 space-y-2">
+              <h4 class="text-xs font-bold text-slate-900 uppercase">3. Restore Default Challenge</h4>
+              <p class="text-xs text-slate-600">Resets active profile back to canonical 28-session tri-pace roadmap ($100 to $7,000).</p>
+              <button id="btnRestoreDefaultChallenge" onclick="confirmRestoreDefaultChallenge()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-900 text-white rounded-lg text-xs font-bold">
+                Restore Canonical Roadmap
+              </button>
+            </div>
+
+            <!-- Reset 4 -->
+            <div class="p-4 rounded-lg border border-red-200 bg-red-50/40 space-y-2">
+              <h4 class="text-xs font-bold text-red-900 uppercase">4. Full Factory Reset</h4>
+              <p class="text-xs text-slate-600">Purges all localStorage keys and restores application to clean factory state.</p>
+              <button id="btnFactoryReset" onclick="confirmFactoryReset()" class="px-3 py-1.5 bg-red-600 hover:bg-red-700 text-white rounded-lg text-xs font-bold">
+                Full Factory Reset
+              </button>
+            </div>
+          </div>
+
+          <!-- JSON BACKUP & RESTORE -->
+          <div class="pt-4 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <h4 class="text-xs font-bold text-slate-800">Complete JSON Backup & Restore</h4>
+              <p class="text-xs text-slate-500">Download a snapshot of your entire database or restore from a backup file.</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <button id="btnExportJsonBackup" onclick="exportJsonBackup()" class="px-3 py-1.5 border border-slate-300 hover:bg-slate-100 rounded-lg text-xs font-semibold">
+                📥 Export Backup (.json)
+              </button>
+              <input type="file" id="fileImportBackup" accept=".json" class="hidden" onchange="handleImportJsonBackup(event)">
+              <button id="btnImportJsonBackup" onclick="document.getElementById('fileImportBackup').click()" class="px-3 py-1.5 border border-slate-300 hover:bg-slate-100 rounded-lg text-xs font-semibold">
+                📤 Import Backup (.json)
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= MODULE 3: TRADING SESSIONS & TRADE JOURNAL ================= -->
+    <section id="tabContentTrades" class="tab-content space-y-6">
+      <!-- SUB-HEADER NAVIGATION -->
+      <div class="flex space-x-2 border-b border-slate-200">
+        <button id="subnavTradesLoggerBtn" onclick="switchTradesSubTab('logger')" class="px-4 py-2 text-sm font-semibold text-emerald-700 border-b-2 border-emerald-600">
+          ⚡ Quick Logger
+        </button>
+        <button id="subnavTradesHistoryBtn" onclick="switchTradesSubTab('journal')" class="px-4 py-2 text-sm font-semibold text-slate-500 hover:text-slate-800 border-b-2 border-transparent">
+          📜 Trade History
+        </button>
+        <button id="subnavTradesAnalyticsBtn" onclick="switchTradesSubTab('analytics')" class="px-4 py-2 text-sm font-semibold text-slate-500 hover:text-slate-800 border-b-2 border-transparent">
+          📊 Execution Analytics
+        </button>
+      </div>
+
+      <!-- SUB-TAB 1: QUICK LOGGER -->
+      <div id="subtabTradesLogger" class="subtab-content active space-y-6">
+        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-4">
+          <div class="border-b border-slate-100 pb-2">
+            <h3 class="text-sm font-bold text-slate-800">Quick Trade Logger</h3>
+            <p class="text-xs text-slate-500">Log trade execution metrics independently of session desk balance.</p>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Session</label>
+              <select id="tradeSessionSelect" class="w-full p-2 border border-slate-300 rounded-lg text-xs">
+                <!-- Dynamically populated -->
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Trade Label / Number</label>
+              <input id="tradeLabelInput" type="text" value="Trade A" class="w-full p-2 border border-slate-300 rounded-lg text-xs">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Date</label>
+              <input id="tradeDateInput" type="date" class="w-full p-2 border border-slate-300 rounded-lg text-xs">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Status</label>
+              <select id="tradeStatusSelect" class="w-full p-2 border border-slate-300 rounded-lg text-xs">
+                <option value="closed">Closed</option>
+                <option value="open">Open</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Entry Amount ($)</label>
+              <input id="tradeEntryInput" type="number" step="0.01" placeholder="50.00" oninput="calculateTradePreview()" class="w-full p-2 border border-slate-300 rounded-lg text-sm font-num font-bold">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Exit Value ($)</label>
+              <input id="tradeExitInput" type="number" step="0.01" placeholder="65.00" oninput="calculateTradePreview()" class="w-full p-2 border border-slate-300 rounded-lg text-sm font-num font-bold">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Fees & Slippage ($)</label>
+              <input id="tradeFeesInput" type="number" step="0.01" value="0.50" oninput="calculateTradePreview()" class="w-full p-2 border border-slate-300 rounded-lg text-sm font-num">
+            </div>
+            <div class="p-3 bg-slate-50 rounded-lg border border-slate-200 flex flex-col justify-center">
+              <div class="text-[10px] text-slate-500 uppercase font-semibold">Live PnL & Return Preview</div>
+              <div class="flex items-center gap-2">
+                <span id="tradePreviewNetPnL" class="text-base font-bold font-num text-emerald-600">+$0.00</span>
+                <span id="tradePreviewReturn" class="text-xs font-semibold font-num text-emerald-700">(0.00%)</span>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Trade Notes / Strategy Setup</label>
+            <input id="tradeNotesInput" type="text" placeholder="Breakout pullback on 5m chart, risk 1:3..." class="w-full p-2 border border-slate-300 rounded-lg text-xs">
+          </div>
+
+          <div class="flex justify-end pt-2">
+            <button id="btnAddTrade" onclick="handleAddTradeSubmit()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold shadow-sm">
+              + Log Trade to Journal
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUB-TAB 2: TRADE HISTORY -->
+      <div id="subtabTradesHistory" class="subtab-content space-y-4">
+        <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+          <div class="p-4 bg-slate-50 border-b border-slate-200 flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+              <h3 class="text-sm font-bold text-slate-800">Trade Journal Execution History</h3>
+              <div class="flex items-center gap-2">
+                <select id="tradeHistorySessionFilter" onchange="renderTradeHistoryTable()" class="text-xs border border-slate-300 rounded p-1 bg-white">
+                  <option value="all">All Sessions</option>
+                </select>
+                <select id="tradeHistoryStatusFilter" onchange="renderTradeHistoryTable()" class="text-xs border border-slate-300 rounded p-1 bg-white">
+                  <option value="all">All Status</option>
+                  <option value="closed">Closed Only</option>
+                  <option value="open">Open Only</option>
+                </select>
+              </div>
+            </div>
+            <button onclick="openLogTradeModal()" class="px-3 py-1.5 text-xs font-bold rounded bg-emerald-600 text-white hover:bg-emerald-700">
+              + Add Trade
+            </button>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="simple-table">
+              <thead>
+                <tr>
+                  <th>Session</th>
+                  <th>Trade #</th>
+                  <th>Date</th>
+                  <th>Status</th>
+                  <th>Entry ($)</th>
+                  <th>Exit ($)</th>
+                  <th>Fees ($)</th>
+                  <th>Net PnL ($)</th>
+                  <th>Return (%)</th>
+                  <th>Notes</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="tradeHistoryTableBody">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUB-TAB 3: TRADE JOURNAL ANALYTICS -->
+      <div id="subtabTradesAnalytics" class="subtab-content space-y-6">
+        <div class="grid grid-cols-2 sm:grid-cols-5 gap-3 text-center">
+          <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-sm">
+            <div class="text-[11px] text-slate-500 uppercase font-semibold">Total Trades</div>
+            <div id="metricTradeCount" class="text-xl font-bold font-num text-slate-900">0</div>
+          </div>
+          <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-sm">
+            <div class="text-[11px] text-slate-500 uppercase font-semibold">Closed vs Open</div>
+            <div id="metricTradeOpenClosed" class="text-xl font-bold font-num text-slate-700">0 / 0</div>
+          </div>
+          <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-sm">
+            <div class="text-[11px] text-slate-500 uppercase font-semibold">Win Rate</div>
+            <div id="metricTradeWinRate" class="text-xl font-bold font-num text-emerald-600">0.0%</div>
+          </div>
+          <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-sm">
+            <div class="text-[11px] text-slate-500 uppercase font-semibold">Avg Return / Trade</div>
+            <div id="metricTradeAvgReturn" class="text-xl font-bold font-num text-emerald-600">0.00%</div>
+          </div>
+          <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-sm">
+            <div class="text-[11px] text-slate-500 uppercase font-semibold">Realized Net Gain</div>
+            <div id="metricTradeRealizedPnL" class="text-xl font-bold font-num text-emerald-600">+$0.00</div>
+          </div>
+        </div>
+
+        <div class="p-4 bg-blue-50 border border-blue-200 rounded-xl text-xs text-blue-900">
+          ℹ️ <strong>Trade Journal Independence Rule:</strong> Trade entries track execution quality and win rate. Individual trade PnL does not mutate the active trading desk balance directly, preventing accounting drift.
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= MODULE 4: CAPITAL VAULT & FINANCIAL PLANNING ================= -->
+    <section id="tabContentMilestones" class="tab-content space-y-6">
+      
+      <!-- TOP KPI CARDS -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
+        <div class="p-3.5 bg-white rounded-xl border border-slate-200 shadow-sm">
+          <div class="text-[11px] text-slate-500 uppercase font-semibold">Total Vault Banked</div>
+          <div id="vaultTotalWithdrawnVal" class="text-xl font-bold font-num text-emerald-600">$0.00</div>
+        </div>
+        <div class="p-3.5 bg-white rounded-xl border border-slate-200 shadow-sm">
+          <div class="text-[11px] text-slate-500 uppercase font-semibold">Savings Reserve</div>
+          <div id="vaultSavingsReserveVal" class="text-xl font-bold font-num text-purple-700">$0.00</div>
+        </div>
+        <div class="p-3.5 bg-white rounded-xl border border-slate-200 shadow-sm">
+          <div class="text-[11px] text-slate-500 uppercase font-semibold">Bills Reserved</div>
+          <div id="vaultBillsReserveVal" class="text-xl font-bold font-num text-amber-600">$0.00</div>
+        </div>
+        <div class="p-3.5 bg-white rounded-xl border border-slate-200 shadow-sm">
+          <div class="text-[11px] text-slate-500 uppercase font-semibold">Available on Desk</div>
+          <div id="vaultDeskDisplayVal" class="text-xl font-bold font-num text-slate-900">$100.00</div>
+        </div>
+      </div>
+
+      <!-- SUB-HEADER NAVIGATION -->
+      <div class="flex space-x-2 border-b border-slate-200">
+        <button id="subnavVaultOverviewBtn" onclick="switchVaultSubTab('overview')" class="px-4 py-2 text-sm font-semibold text-emerald-700 border-b-2 border-emerald-600">
+          🏛️ Vault Overview
+        </button>
+        <button id="subnavVaultBillsBtn" onclick="switchVaultSubTab('bills')" class="px-4 py-2 text-sm font-semibold text-slate-500 hover:text-slate-800 border-b-2 border-transparent">
+          🧾 Bills & Schedule
+        </button>
+        <button id="subnavVaultSavingsBtn" onclick="switchVaultSubTab('savings')" class="px-4 py-2 text-sm font-semibold text-slate-500 hover:text-slate-800 border-b-2 border-transparent">
+          💎 Savings Reserve
+        </button>
+        <button id="subnavVaultMilestonesBtn" onclick="switchVaultSubTab('milestones')" class="px-4 py-2 text-sm font-semibold text-slate-500 hover:text-slate-800 border-b-2 border-transparent">
+          🛡️ Safety Milestones & Skims
+        </button>
+      </div>
+
+      <!-- SUB-TAB 1: VAULT OVERVIEW -->
+      <div id="subtabVaultOverview" class="subtab-content active space-y-6">
+        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-3">
+            <h3 class="text-sm font-bold text-slate-800">Quick Actions</h3>
+            <div class="flex items-center gap-2">
+              <button onclick="openAddSavingsModal()" class="px-3 py-1.5 text-xs font-bold rounded-lg bg-purple-600 text-white hover:bg-purple-700">
+                + Add Savings
+              </button>
+              <button onclick="handleQuickPayNextBill()" class="px-3 py-1.5 text-xs font-bold rounded-lg bg-amber-600 text-white hover:bg-amber-700">
+                ⚡ Pay Next Due Bill
+              </button>
+              <button onclick="switchVaultSubTab('milestones')" class="px-3 py-1.5 text-xs font-semibold rounded-lg border border-slate-300 hover:bg-slate-100">
+                Transfer / Skim Funds
+              </button>
+            </div>
+          </div>
+
+          <!-- ALLOCATION DISTRIBUTION DONUT / BAR -->
+          <div class="space-y-2">
+            <div class="flex justify-between text-xs font-semibold text-slate-700">
+              <span>Capital Distribution Breakdown</span>
+              <span id="vaultDistributionText">Desk 100% • Savings 0% • Bills 0%</span>
+            </div>
+            <div class="w-full h-3 bg-slate-100 rounded-full overflow-hidden flex">
+              <div id="distBarDesk" class="bg-blue-500 h-full" style="width: 100%" title="Trading Desk"></div>
+              <div id="distBarSavings" class="bg-purple-500 h-full" style="width: 0%" title="Savings Reserve"></div>
+              <div id="distBarBills" class="bg-amber-500 h-full" style="width: 0%" title="Bills Reserved"></div>
+            </div>
+          </div>
+
+          <!-- RECENT VAULT TRANSACTIONS LEDGER -->
+          <div class="space-y-2 pt-2">
+            <h4 class="text-xs font-bold text-slate-700 uppercase">Recent Vault Transactions</h4>
+            <div class="border border-slate-200 rounded-lg overflow-x-auto">
+              <table class="simple-table">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Session</th>
+                    <th>Bucket</th>
+                    <th>Amount ($)</th>
+                    <th>Note</th>
+                  </tr>
+                </thead>
+                <tbody id="vaultRecentLedgerBody">
+                  <!-- Dynamically populated -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUB-TAB 2: BILLS & SCHEDULE -->
+      <div id="subtabVaultBills" class="subtab-content space-y-4">
+        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-3">
+            <div>
+              <h3 class="text-sm font-bold text-slate-800">Recurring Bills & Liabilities</h3>
+              <p class="text-xs text-slate-500">Track liabilities, set aside reserve funds, and mark paid from the Vault.</p>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="flex items-center gap-1.5 text-xs">
+                <span class="text-slate-500 font-semibold">Pacing Basis:</span>
+                <button id="basisBtnDays" onclick="setBillsBasis('days')" class="px-2 py-1 rounded bg-slate-800 text-white font-semibold text-xs">Calendar Days</button>
+                <button id="basisBtnSessions" onclick="setBillsBasis('sessions')" class="px-2 py-1 rounded bg-slate-100 text-slate-700 font-semibold text-xs">Trading Sessions</button>
+              </div>
+              <button onclick="openAddBillModal()" class="px-3 py-1.5 text-xs font-bold rounded-lg bg-emerald-600 text-white hover:bg-emerald-700">
+                + Add Bill
+              </button>
+            </div>
+          </div>
+
+          <!-- RUN RATE METRIC -->
+          <div id="billsRunRateBanner" class="p-3 bg-amber-50 border border-amber-200 rounded-lg text-xs text-amber-900 flex justify-between items-center">
+            <span>Required Run-Rate to Cover Unfunded Bills: <strong id="billsRunRateValue">$0.00 / day</strong></span>
+            <span id="billsTotalUnfundedText">Total Unfunded: $0.00</span>
+          </div>
+
+          <!-- BILLS TABLE -->
+          <div class="border border-slate-200 rounded-lg overflow-x-auto">
+            <table class="simple-table">
+              <thead>
+                <tr>
+                  <th>Bill Name</th>
+                  <th>Priority</th>
+                  <th>Due Date</th>
+                  <th>Amount Due ($)</th>
+                  <th>Reserved ($)</th>
+                  <th>Status</th>
+                  <th>Notes</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="billsTableBody">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUB-TAB 3: SAVINGS RESERVE -->
+      <div id="subtabVaultSavings" class="subtab-content space-y-4">
+        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-3">
+            <div>
+              <h3 class="text-sm font-bold text-slate-800">Permanent Savings Reserve</h3>
+              <p class="text-xs text-slate-500">Capital banked safely in the vault, isolated from trading drawdowns.</p>
+            </div>
+            <button onclick="openAddSavingsModal()" class="px-3 py-1.5 text-xs font-bold rounded-lg bg-purple-600 text-white hover:bg-purple-700">
+              + Deposit to Savings
+            </button>
+          </div>
+
+          <!-- SAVINGS PROGRESS -->
+          <div class="p-4 bg-purple-50 border border-purple-200 rounded-xl space-y-2">
+            <div class="flex justify-between text-xs font-semibold text-purple-900">
+              <span>Milestone Savings Progress</span>
+              <span id="savingsProgressPercent" class="font-num">0.0%</span>
+            </div>
+            <div class="w-full h-3 bg-purple-200 rounded-full overflow-hidden">
+              <div id="savingsProgressBar" class="h-full bg-purple-600" style="width: 0%"></div>
+            </div>
+            <div class="flex justify-between text-xs text-purple-800 font-num">
+              <span id="savingsAchievedText">Current: $0.00</span>
+              <span id="savingsTargetText">Goal: $5,000.00</span>
+            </div>
+          </div>
+
+          <!-- SAVINGS AUDIT TABLE -->
+          <div class="space-y-2">
+            <h4 class="text-xs font-bold text-slate-700 uppercase">Savings Deposits History</h4>
+            <div class="border border-slate-200 rounded-lg overflow-x-auto">
+              <table class="simple-table">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Session</th>
+                    <th>Amount ($)</th>
+                    <th>Note</th>
+                  </tr>
+                </thead>
+                <tbody id="savingsLedgerTableBody">
+                  <!-- Dynamically populated -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUB-TAB 4: SAFETY MILESTONES & SKIMS -->
+      <div id="subtabVaultMilestones" class="subtab-content space-y-6">
+        <!-- 3 MILESTONE BADGES -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div id="milestoneStep1Card" class="p-4 rounded-xl border border-slate-200 bg-white shadow-sm space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-slate-600 uppercase">Step 1: Recoup Start Deposit</span>
+              <span id="milestoneStep1Badge" class="badge badge-gray text-[10px]">In Progress</span>
+            </div>
+            <div class="text-lg font-bold font-num text-slate-900" id="milestoneStep1Progress">$0 / $100</div>
+            <p class="text-[11px] text-slate-500">Unlocked when total vault banked ≥ initial seed capital $C0.</p>
+          </div>
+
+          <div id="milestoneStep2Card" class="p-4 rounded-xl border border-slate-200 bg-white shadow-sm space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-slate-600 uppercase">Step 2: Safety Cushion</span>
+              <span id="milestoneStep2Badge" class="badge badge-gray text-[10px]">In Progress</span>
+            </div>
+            <div class="text-lg font-bold font-num text-slate-900" id="milestoneStep2Progress">$0 / $1,000</div>
+            <p class="text-[11px] text-slate-500">Unlocked when total vault banked ≥ configured reserve floor.</p>
+          </div>
+
+          <div id="milestoneStep3Card" class="p-4 rounded-xl border border-slate-200 bg-white shadow-sm space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-slate-600 uppercase">Step 3: Target Goal Cleared</span>
+              <span id="milestoneStep3Badge" class="badge badge-gray text-[10px]">In Progress</span>
+            </div>
+            <div class="text-lg font-bold font-num text-slate-900" id="milestoneStep3Progress">$0 / $5,000</div>
+            <p class="text-[11px] text-slate-500">Unlocked when total vault banked ≥ milestone savings goal.</p>
+          </div>
+        </div>
+
+        <!-- MANUAL PROFIT SKIM FORM & PACING CONTROLS -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Manual Skim -->
+          <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-4">
+            <div class="border-b border-slate-100 pb-2">
+              <h3 class="text-sm font-bold text-slate-800">Manual Profit Skim & Transfer</h3>
+              <p class="text-xs text-slate-500">Transfer trading profits from desk to vault with capital floor protection.</p>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Destination Bucket</label>
+              <select id="manualSkimBucket" class="w-full p-2 border border-slate-300 rounded-lg text-xs">
+                <option value="bills">Bills Reserve Bucket</option>
+                <option value="savings">Savings Reserve Bucket</option>
+                <option value="general">General Vault Holding</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Skim Amount ($)</label>
+              <input id="manualSkimAmount" type="number" step="0.01" placeholder="50.00" class="w-full p-2 border border-slate-300 rounded-lg text-sm font-num font-bold">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Transfer Note</label>
+              <input id="manualSkimNote" type="text" placeholder="Weekly surplus skim..." class="w-full p-2 border border-slate-300 rounded-lg text-xs">
+            </div>
+            <button id="btnSubmitManualSkim" onclick="handleManualSkimSubmit()" class="w-full py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold">
+              Execute Skim to Vault
+            </button>
+          </div>
+
+          <!-- Milestone Pacing Settings -->
+          <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-4">
+            <div class="border-b border-slate-100 pb-2">
+              <h3 class="text-sm font-bold text-slate-800">Milestone Pacing & Reserve Floor Controls</h3>
+              <p class="text-xs text-slate-500">Set capital floor protection and automated savings suggestions.</p>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Milestone Savings Goal ($)</label>
+              <input id="milestoneGoalInput" type="number" step="10" value="5000" class="w-full p-2 border border-slate-300 rounded-lg text-xs font-num font-bold">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Keep on Trading Desk Reserve Floor ($)</label>
+              <input id="milestoneFloorInput" type="number" step="10" value="100" class="w-full p-2 border border-slate-300 rounded-lg text-xs font-num font-bold">
+              <p class="text-[10px] text-slate-400 mt-0.5">Floor check blocks skims that would leave desk below this balance.</p>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Savings Suggestion Pacing Strategy</label>
+              <select id="milestoneStrategySelect" class="w-full p-2 border border-slate-300 rounded-lg text-xs">
+                <option value="gradual">Gradual (Suggests 25% of gain when daily PnL > $30)</option>
+                <option value="checkpoints">Checkpoints (Suggests skims at weekly checkpoints)</option>
+                <option value="manual">Manual (No automatic suggestions)</option>
+              </select>
+            </div>
+            <button id="btnSaveMilestoneConfig" onclick="handleSaveMilestoneConfig()" class="w-full py-2 bg-slate-800 hover:bg-slate-900 text-white rounded-lg text-xs font-bold">
+              Save Pacing Settings
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= MODULE 5: STATS & PERFORMANCE ANALYTICS ================= -->
+    <section id="tabContentStats" class="tab-content space-y-6">
+      
+      <!-- CORE SUMMARY METRICS -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3 text-center">
+        <div class="p-3 bg-white rounded-xl border border-slate-200 shadow-sm">
+          <div class="text-[10px] text-slate-500 uppercase font-semibold">All-Time ROI</div>
+          <div id="statAllTimeRoi" class="text-base font-bold font-num text-emerald-600">+0.00%</div>
+        </div>
+        <div class="p-3 bg-white rounded-xl border border-slate-200 shadow-sm">
+          <div class="text-[10px] text-slate-500 uppercase font-semibold">Peak Watermark</div>
+          <div id="statPeakWatermark" class="text-base font-bold font-num text-slate-900">$100.00</div>
+        </div>
+        <div class="p-3 bg-white rounded-xl border border-slate-200 shadow-sm">
+          <div class="text-[10px] text-slate-500 uppercase font-semibold">Max Drawdown</div>
+          <div id="statMaxDrawdown" class="text-base font-bold font-num text-red-600">0.00%</div>
+        </div>
+        <div class="p-3 bg-white rounded-xl border border-slate-200 shadow-sm">
+          <div class="text-[10px] text-slate-500 uppercase font-semibold">Session Record</div>
+          <div id="statWinLossRecord" class="text-base font-bold font-num text-slate-800">0W - 0L</div>
+        </div>
+        <div class="p-3 bg-white rounded-xl border border-slate-200 shadow-sm">
+          <div class="text-[10px] text-slate-500 uppercase font-semibold">Win Rate</div>
+          <div id="statWinRate" class="text-base font-bold font-num text-emerald-600">0.0%</div>
+        </div>
+        <div class="p-3 bg-white rounded-xl border border-slate-200 shadow-sm">
+          <div class="text-[10px] text-slate-500 uppercase font-semibold">Profit Factor</div>
+          <div id="statProfitFactor" class="text-base font-bold font-num text-emerald-600">0.00</div>
+        </div>
+        <div class="p-3 bg-white rounded-xl border border-slate-200 shadow-sm">
+          <div class="text-[10px] text-slate-500 uppercase font-semibold">Avg Daily Return</div>
+          <div id="statAvgDailyReturn" class="text-base font-bold font-num text-emerald-600">+0.00%</div>
+        </div>
+        <div class="p-3 bg-white rounded-xl border border-slate-200 shadow-sm">
+          <div class="text-[10px] text-slate-500 uppercase font-semibold">Best Session PnL</div>
+          <div id="statBestSession" class="text-base font-bold font-num text-emerald-600">+$0.00</div>
+        </div>
+      </div>
+
+      <!-- VISUALIZERS GRID -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Equity Curve Chart -->
+        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-3">
+          <div class="flex items-center justify-between border-b border-slate-100 pb-2">
+            <h3 class="text-xs font-bold text-slate-700 uppercase">True Wealth vs Trading Desk Equity Curve</h3>
+            <div class="flex items-center gap-3 text-[11px]">
+              <span class="flex items-center gap-1 text-purple-700 font-semibold"><span class="w-2.5 h-2.5 bg-purple-600 rounded-full"></span> True Wealth</span>
+              <span class="flex items-center gap-1 text-emerald-700 font-semibold"><span class="w-2.5 h-2.5 bg-emerald-500 rounded-full"></span> Trading Desk</span>
+            </div>
+          </div>
+          <div id="chartEquityCurve" class="w-full h-56 flex items-center justify-center">
+            <!-- Dynamic SVG Chart -->
+          </div>
+        </div>
+
+        <!-- Daily PnL Distribution Chart -->
+        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-3">
+          <div class="flex items-center justify-between border-b border-slate-100 pb-2">
+            <h3 class="text-xs font-bold text-slate-700 uppercase">Daily PnL Distribution</h3>
+            <span class="text-[11px] text-slate-500">Green = Gains • Red = Losses</span>
+          </div>
+          <div id="chartDailyPnL" class="w-full h-56 flex items-center justify-center">
+            <!-- Dynamic SVG Chart -->
+          </div>
+        </div>
+      </div>
+
+      <!-- TRADE SIZE DISTRIBUTION & CONSISTENCY SCORE -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-3">
+          <h3 class="text-xs font-bold text-slate-700 uppercase border-b border-slate-100 pb-2">Trade Journal Size & Frequency Distribution</h3>
+          <div id="chartTradeDistribution" class="space-y-2 text-xs">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+
+        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-3">
+          <h3 class="text-xs font-bold text-slate-700 uppercase border-b border-slate-100 pb-2">Compounding Consistency Rating</h3>
+          <div class="flex items-center gap-4 py-2">
+            <div id="consistencyScoreCircle" class="w-16 h-16 rounded-full bg-emerald-50 border-4 border-emerald-500 flex items-center justify-center font-bold text-lg text-emerald-700 font-num">
+              95
+            </div>
+            <div>
+              <div id="consistencyBadge" class="text-sm font-bold text-slate-900">Disciplined Compounding</div>
+              <p id="consistencyDesc" class="text-xs text-slate-500">Strict adherence to target paces with healthy profit extraction into the Vault.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= MODALS ================= -->
+
+  <!-- 1. QUICK EDIT PARAMETERS MODAL -->
+  <div id="quickEditParamsModal" class="modal-overlay">
+    <div class="bg-white rounded-xl border border-slate-200 shadow-xl max-w-sm w-full p-5 space-y-4">
+      <div class="flex justify-between items-center border-b border-slate-100 pb-2">
+        <h3 class="text-sm font-bold text-slate-900">⚡ Quick Edit Parameters</h3>
+        <button onclick="closeModal('quickEditParamsModal')" class="text-slate-400 hover:text-slate-600 text-lg leading-none">✕</button>
+      </div>
+      <div>
+        <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Starting Balance ($ C0)</label>
+        <input id="quickEditBaseInput" type="number" step="1" class="w-full p-2 border border-slate-300 rounded-lg text-sm font-num font-bold">
+      </div>
+      <div>
+        <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Target Summit ($ T)</label>
+        <input id="quickEditTargetInput" type="number" step="1" class="w-full p-2 border border-slate-300 rounded-lg text-sm font-num font-bold">
+      </div>
+      <div class="flex justify-end gap-2 pt-2">
+        <button onclick="closeModal('quickEditParamsModal')" class="px-3 py-1.5 border border-slate-300 rounded-lg text-xs font-semibold">Cancel</button>
+        <button onclick="handleQuickEditApply()" class="px-4 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold">Apply Changes</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. BILL MODAL (Add / Edit) -->
+  <div id="billModal" class="modal-overlay">
+    <div class="bg-white rounded-xl border border-slate-200 shadow-xl max-w-md w-full p-5 space-y-4">
+      <div class="flex justify-between items-center border-b border-slate-100 pb-2">
+        <h3 id="billModalTitle" class="text-sm font-bold text-slate-900">Add Recurring Bill Liability</h3>
+        <button onclick="closeModal('billModal')" class="text-slate-400 hover:text-slate-600 text-lg leading-none">✕</button>
+      </div>
+      <input type="hidden" id="billModalId">
+      <div>
+        <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Bill Name</label>
+        <input id="billNameInput" type="text" placeholder="e.g. Rent, Electricity, Internet..." class="w-full p-2 border border-slate-300 rounded-lg text-xs">
+      </div>
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Amount Due ($)</label>
+          <input id="billAmountDueInput" type="number" step="0.01" class="w-full p-2 border border-slate-300 rounded-lg text-xs font-num font-bold">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Amount Reserved ($)</label>
+          <input id="billAmountReservedInput" type="number" step="0.01" value="0" class="w-full p-2 border border-slate-300 rounded-lg text-xs font-num">
+        </div>
+      </div>
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Due Date</label>
+          <input id="billDueDateInput" type="date" class="w-full p-2 border border-slate-300 rounded-lg text-xs">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Priority</label>
+          <select id="billPrioritySelect" class="w-full p-2 border border-slate-300 rounded-lg text-xs">
+            <option value="high">High</option>
+            <option value="medium">Medium</option>
+            <option value="low">Low</option>
+          </select>
+        </div>
+      </div>
+      <div>
+        <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Status</label>
+        <select id="billStatusSelect" class="w-full p-2 border border-slate-300 rounded-lg text-xs">
+          <option value="unfunded">Unfunded</option>
+          <option value="partial">Partial</option>
+          <option value="funded">Funded</option>
+          <option value="paid">Paid</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Notes</label>
+        <input id="billNotesInput" type="text" placeholder="Account #, auto-pay date..." class="w-full p-2 border border-slate-300 rounded-lg text-xs">
+      </div>
+      <div class="flex justify-end gap-2 pt-2">
+        <button onclick="closeModal('billModal')" class="px-3 py-1.5 border border-slate-300 rounded-lg text-xs font-semibold">Cancel</button>
+        <button onclick="handleSaveBillSubmit()" class="px-4 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold">Save Bill</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. SAVINGS MODAL -->
+  <div id="savingsModal" class="modal-overlay">
+    <div class="bg-white rounded-xl border border-slate-200 shadow-xl max-w-sm w-full p-5 space-y-4">
+      <div class="flex justify-between items-center border-b border-slate-100 pb-2">
+        <h3 class="text-sm font-bold text-slate-900">💎 Deposit to Savings Reserve</h3>
+        <button onclick="closeModal('savingsModal')" class="text-slate-400 hover:text-slate-600 text-lg leading-none">✕</button>
+      </div>
+      <div>
+        <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Deposit Amount ($)</label>
+        <input id="savingsAmountInput" type="number" step="1" value="50" class="w-full p-2 border border-slate-300 rounded-lg text-sm font-num font-bold">
+      </div>
+      <div class="flex items-center gap-1.5">
+        <span class="text-[11px] text-slate-500 font-semibold">Quick Chips:</span>
+        <button onclick="addSavingsAmountChip(25)" class="px-2 py-0.5 rounded bg-slate-100 hover:bg-slate-200 text-xs font-num font-semibold">+25</button>
+        <button onclick="addSavingsAmountChip(50)" class="px-2 py-0.5 rounded bg-slate-100 hover:bg-slate-200 text-xs font-num font-semibold">+50</button>
+        <button onclick="addSavingsAmountChip(100)" class="px-2 py-0.5 rounded bg-slate-100 hover:bg-slate-200 text-xs font-num font-semibold">+100</button>
+        <button onclick="addSavingsAmountChip(250)" class="px-2 py-0.5 rounded bg-slate-100 hover:bg-slate-200 text-xs font-num font-semibold">+250</button>
+      </div>
+      <div>
+        <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Deposit Note</label>
+        <input id="savingsNoteInput" type="text" value="Surplus profit transfer" class="w-full p-2 border border-slate-300 rounded-lg text-xs">
+      </div>
+      <div class="flex justify-end gap-2 pt-2">
+        <button onclick="closeModal('savingsModal')" class="px-3 py-1.5 border border-slate-300 rounded-lg text-xs font-semibold">Cancel</button>
+        <button onclick="handleConfirmSavingsDeposit()" class="px-4 py-1.5 bg-purple-600 hover:bg-purple-700 text-white rounded-lg text-xs font-bold">Confirm Deposit</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. TRADE MODAL (Add / Edit) -->
+  <div id="tradeModal" class="modal-overlay">
+    <div class="bg-white rounded-xl border border-slate-200 shadow-xl max-w-md w-full p-5 space-y-4">
+      <div class="flex justify-between items-center border-b border-slate-100 pb-2">
+        <h3 id="tradeModalTitle" class="text-sm font-bold text-slate-900">Trade Entry</h3>
+        <button onclick="closeModal('tradeModal')" class="text-slate-400 hover:text-slate-600 text-lg leading-none">✕</button>
+      </div>
+      <input type="hidden" id="tradeModalId">
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Session</label>
+          <select id="modalTradeSessionSelect" class="w-full p-2 border border-slate-300 rounded-lg text-xs"></select>
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Trade Label</label>
+          <input id="modalTradeLabelInput" type="text" class="w-full p-2 border border-slate-300 rounded-lg text-xs">
+        </div>
+      </div>
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Date</label>
+          <input id="modalTradeDateInput" type="date" class="w-full p-2 border border-slate-300 rounded-lg text-xs">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Status</label>
+          <select id="modalTradeStatusSelect" class="w-full p-2 border border-slate-300 rounded-lg text-xs">
+            <option value="closed">Closed</option>
+            <option value="open">Open</option>
+          </select>
+        </div>
+      </div>
+      <div class="grid grid-cols-3 gap-3">
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Entry ($)</label>
+          <input id="modalTradeEntryInput" type="number" step="0.01" class="w-full p-2 border border-slate-300 rounded-lg text-xs font-num font-bold">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Exit ($)</label>
+          <input id="modalTradeExitInput" type="number" step="0.01" class="w-full p-2 border border-slate-300 rounded-lg text-xs font-num font-bold">
+        </div>
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Fees ($)</label>
+          <input id="modalTradeFeesInput" type="number" step="0.01" class="w-full p-2 border border-slate-300 rounded-lg text-xs font-num">
+        </div>
+      </div>
+      <div>
+        <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Notes</label>
+        <input id="modalTradeNotesInput" type="text" class="w-full p-2 border border-slate-300 rounded-lg text-xs">
+      </div>
+      <div class="flex justify-end gap-2 pt-2">
+        <button onclick="closeModal('tradeModal')" class="px-3 py-1.5 border border-slate-300 rounded-lg text-xs font-semibold">Cancel</button>
+        <button onclick="handleSaveTradeModalSubmit()" class="px-4 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold">Save Trade</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. SHEET / CLOUD SYNC MODAL -->
+  <div id="sheetSyncModal" class="modal-overlay">
+    <div class="bg-white rounded-xl border border-slate-200 shadow-xl max-w-md w-full p-5 space-y-4">
+      <div class="flex justify-between items-center border-b border-slate-100 pb-2">
+        <h3 class="text-sm font-bold text-slate-900">☁️ Cloud & Google Sheets Sync Hub</h3>
+        <button onclick="closeModal('sheetSyncModal')" class="text-slate-400 hover:text-slate-600 text-lg leading-none">✕</button>
+      </div>
+      <div>
+        <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Sync Key (Portfolio ID)</label>
+        <input id="modalSyncKeyInput" type="text" placeholder="dcniper_portfolio" class="w-full p-2 border border-slate-300 rounded-lg text-xs">
+      </div>
+      <div>
+        <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Firebase Project Config (JSON)</label>
+        <textarea id="modalFirebaseCfgInput" rows="3" placeholder='{ "apiKey": "...", "projectId": "..." }' class="w-full p-2 border border-slate-300 rounded-lg text-xs font-num"></textarea>
+      </div>
+      <div>
+        <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Google Sheets Webhook URL</label>
+        <input id="modalWebhookUrlInput" type="url" placeholder="https://script.google.com/macros/s/.../exec" class="w-full p-2 border border-slate-300 rounded-lg text-xs">
+      </div>
+      <div class="flex justify-between gap-2 pt-2">
+        <button onclick="handleManualCloudSync()" class="px-3 py-1.5 border border-slate-300 rounded-lg text-xs font-semibold">Sync to Cloud Now</button>
+        <button onclick="handleSaveSyncModal()" class="px-4 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-bold">Save & Connect</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. APPS SCRIPT CODE GENERATOR MODAL -->
+  <div id="appsScriptModal" class="modal-overlay">
+    <div class="bg-white rounded-xl border border-slate-200 shadow-xl max-w-2xl w-full p-5 space-y-4">
+      <div class="flex justify-between items-center border-b border-slate-100 pb-2">
+        <h3 class="text-sm font-bold text-slate-900">Google Apps Script Generator</h3>
+        <button onclick="closeModal('appsScriptModal')" class="text-slate-400 hover:text-slate-600 text-lg leading-none">✕</button>
+      </div>
+      <p class="text-xs text-slate-600">Copy this code into <strong>Extensions > Apps Script</strong> in your Google Sheet, then click <strong>Deploy > New deployment > Web app</strong> (Access: Anyone).</p>
+      <textarea id="appsScriptCodeText" readonly rows="12" class="w-full p-2.5 bg-slate-900 text-emerald-400 font-num text-xs rounded-lg"></textarea>
+      <div class="flex justify-end gap-2">
+        <button onclick="copyAppsScriptCode()" class="px-4 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold">📋 Copy Code to Clipboard</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. UNIVERSAL CUSTOM MODAL (Confirmation & Prompts) -->
+  <div id="customModal" class="modal-overlay">
+    <div class="bg-white rounded-xl border border-slate-200 shadow-xl max-w-sm w-full p-5 space-y-4">
+      <div class="border-b border-slate-100 pb-2">
+        <h3 id="customModalTitle" class="text-sm font-bold text-slate-900">Confirmation</h3>
+      </div>
+      <p id="customModalMessage" class="text-xs text-slate-600 leading-relaxed"></p>
+      <div id="customModalInputContainer" class="hidden">
+        <label id="customModalInputLabel" class="block text-xs font-semibold text-slate-700 uppercase mb-1">Value</label>
+        <input id="customModalInput" type="text" class="w-full p-2 border border-slate-300 rounded-lg text-xs font-num">
+      </div>
+      <div class="flex justify-end gap-2 pt-2">
+        <button id="customModalCancelBtn" onclick="closeCustomModal(false)" class="px-3 py-1.5 border border-slate-300 rounded-lg text-xs font-semibold">Cancel</button>
+        <button id="customModalConfirmBtn" onclick="closeCustomModal(true)" class="px-4 py-1.5 bg-slate-900 hover:bg-black text-white rounded-lg text-xs font-bold">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- APPLICATION JAVASCRIPT -->
+  <script src="app.js"></script>
+</body>
+</html>

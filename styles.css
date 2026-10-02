@@ -1,0 +1,122 @@
+/* Simple, clean functional styling for Portfolio Growth Ladder & Capital Vault */
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: #f8fafc;
+  color: #1e293b;
+  min-height: 100vh;
+}
+
+/* Modals */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(15, 23, 42, 0.6);
+  z-index: 50;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.modal-overlay.active {
+  display: flex;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Tab Switching */
+.tab-content {
+  display: none;
+}
+.tab-content.active {
+  display: block;
+}
+
+.subtab-content {
+  display: none;
+}
+.subtab-content.active {
+  display: block;
+}
+
+/* Table styling */
+.simple-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+.simple-table th {
+  background-color: #f1f5f9;
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #64748b;
+  border-bottom: 1px solid #e2e8f0;
+}
+.simple-table td {
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+.simple-table tr:hover {
+  background-color: #f8fafc;
+}
+
+/* Monospace numerals */
+.font-num {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Status Badges */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.5rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.badge-green {
+  background-color: #dcfce7;
+  color: #15803d;
+}
+.badge-red {
+  background-color: #fee2e2;
+  color: #b91c1c;
+}
+.badge-blue {
+  background-color: #e0f2fe;
+  color: #0369a1;
+}
+.badge-amber {
+  background-color: #fef3c7;
+  color: #b45309;
+}
+.badge-purple {
+  background-color: #f3e8ff;
+  color: #7e22ce;
+}
+.badge-gray {
+  background-color: #f1f5f9;
+  color: #475569;
+}

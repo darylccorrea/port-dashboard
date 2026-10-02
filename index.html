@@ -1069,15 +1069,15 @@
       <!-- 3. Sub-Header Navigation Bar for Daily Tracker -->
       <div class="flex items-center justify-between gap-3 border-b border-[var(--border)] pb-2 flex-wrap">
         <div class="inline-flex p-1 rounded-2xl bg-[var(--surface-subtle)] border border-[var(--border)] gap-1 flex-wrap">
-          <button type="button" onclick="switchSubTab('tabContentTracker', 'desk')" data-subtab-target="desk"
-            class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-2 bg-[var(--surface)] text-[var(--text-primary)] border border-[var(--border)] shadow-xs active-subtab cursor-pointer">
-            <svg class="w-3.5 h-3.5 text-[var(--mint)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-            <span>Daily Desk</span>
-          </button>
           <button type="button" onclick="switchSubTab('tabContentTracker', 'paces')" data-subtab-target="paces"
-            class="px-3.5 py-1.5 rounded-xl text-xs font-semibold transition flex items-center gap-2 text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-hover)] border border-transparent cursor-pointer">
+            class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-2 bg-[var(--surface)] text-[var(--text-primary)] border border-[var(--border)] shadow-xs active-subtab cursor-pointer">
             <svg class="w-3.5 h-3.5 text-[var(--amber)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="12 6 12 12 16 14"/></svg>
             <span>3-Pace Targets</span>
+          </button>
+          <button type="button" onclick="switchSubTab('tabContentTracker', 'desk')" data-subtab-target="desk"
+            class="px-3.5 py-1.5 rounded-xl text-xs font-semibold transition flex items-center gap-2 text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-hover)] border border-transparent cursor-pointer">
+            <svg class="w-3.5 h-3.5 text-[var(--mint)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            <span>Daily Desk</span>
           </button>
           <button type="button" onclick="switchSubTab('tabContentTracker', 'calendar')" data-subtab-target="calendar"
             class="px-3.5 py-1.5 rounded-xl text-xs font-semibold transition flex items-center gap-2 text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-hover)] border border-transparent cursor-pointer">
@@ -1092,8 +1092,123 @@
         </div>
       </div>
 
-      <!-- PANEL 1: Daily Execution Desk (Default Active) -->
-      <div data-subtab-panel="desk" class="space-y-5 sm:space-y-6">
+      <!-- PANEL 1: 3-Pace Targets & Compounding Curves (Default Active) -->
+      <div data-subtab-panel="paces" class="space-y-5 sm:space-y-6">
+        <section id="dailyPaceTargetsSection" class="bento-card p-5 sm:p-6 border border-[var(--border)] rounded-2xl bg-[var(--surface)] space-y-4">
+          <div class="flex items-center justify-between pb-3.5 border-b border-[var(--border)] flex-wrap gap-3">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-2xl bg-[var(--mint-tint)] border border-[var(--mint)]/30 text-[var(--mint)] flex items-center justify-center shrink-0">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"/>
+                  <polygon points="12 6 12 12 16 14"/>
+                </svg>
+              </div>
+              <div>
+                <div class="flex items-center gap-2 flex-wrap">
+                  <h3 class="text-base font-black text-[var(--text-primary)]">Daily Pace Targets &amp; Compounding Curves</h3>
+                  <span id="skimModeTrackerBadge" class="hidden text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30 font-num">Skim Mode (+<span id="skimModeTrackerRate">$0.00</span>/session)</span>
+                </div>
+                <p class="text-xs text-[var(--text-secondary)] mt-0.5">Select a compounding path to guide today's profit targets and shortfall recovery.</p>
+              </div>
+            </div>
+          </div>
+<div class="flex items-center justify-between flex-wrap gap-3">
+            <span class="text-xs text-[var(--text-secondary)] font-sans">Active Pacing Guidance &amp; Recovery Plan:</span>
+            <div class="inline-flex items-center p-0.5 rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)] gap-1 shrink-0">
+              <button type="button" id="btnPlanMode_original" onclick="setPlanViewMode('original')" class="px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 bg-[var(--surface)] text-[var(--text-primary)] shadow-xs cursor-pointer">
+                <span>Original Plan</span>
+              </button>
+              <button type="button" id="btnPlanMode_rebased" onclick="setPlanViewMode('rebased')" class="px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 text-[var(--text-secondary)] hover:text-[var(--text-primary)] cursor-pointer">
+                <span>Updated Plan</span>
+              </button>
+            </div>
+          </div>
+
+          <div id="rebasedScenarioBanner" class="hidden p-3 rounded-xl bg-sky-500/10 border border-sky-500/30 text-xs flex items-center justify-between flex-wrap gap-2">
+            <span id="rebasedBannerDesc" class="text-[var(--text-secondary)]"></span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <!-- Relaxed Pace Card -->
+            <div id="paceCard_relaxed" onclick="setPace('relaxed')" class="bento-card p-4 sm:p-5 cursor-pointer transition-all border border-[var(--border)] rounded-xl bg-[var(--surface-subtle)] space-y-3">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-[var(--mint)]"></span>
+                  <h5 class="text-sm font-extrabold text-[var(--text-primary)]">Relaxed Pace</h5>
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <span id="paceCompletedBadge_relaxed" class="hidden px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-[var(--mint)] text-[#0F1411]">Completed</span>
+                  <span id="paceActiveBadge_relaxed" class="hidden px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-[var(--mint)] text-[#0F1411]">Active</span>
+                </div>
+              </div>
+              <div class="grid grid-cols-2 gap-2 text-xs font-num">
+                <div class="p-2 rounded-lg bg-[var(--surface)] border border-[var(--border)]">
+                  <span class="text-[10px] text-[var(--text-muted)] uppercase block">Target</span>
+                  <div class="text-base font-black text-[var(--mint)]" id="targetValRelaxed">$0.00</div>
+                </div>
+                <div class="p-2 rounded-lg bg-[var(--surface)] border border-[var(--border)]">
+                  <span class="text-[10px] text-[var(--text-muted)] uppercase block">Profit Needed</span>
+                  <div class="text-base font-black text-[var(--mint)]" id="targetPnlRelaxed">+$0.00</div>
+                </div>
+              </div>
+              <div class="pt-1 text-xs font-semibold text-[var(--text-muted)] font-num" id="targetStatusRelaxed">Goal Met</div>
+            </div>
+
+            <!-- Mid Pace Card -->
+            <div id="paceCard_mid" onclick="setPace('mid')" class="bento-card p-4 sm:p-5 cursor-pointer transition-all border border-[var(--border)] rounded-xl bg-[var(--surface-subtle)] space-y-3">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-[var(--amber)]"></span>
+                  <h5 class="text-sm font-extrabold text-[var(--text-primary)]">Mid Pace</h5>
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <span id="paceCompletedBadge_mid" class="hidden px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-[var(--amber)] text-[#0F1411]">Completed</span>
+                  <span id="paceActiveBadge_mid" class="hidden px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-[var(--amber)] text-[#0F1411]">Active</span>
+                </div>
+              </div>
+              <div class="grid grid-cols-2 gap-2 text-xs font-num">
+                <div class="p-2 rounded-lg bg-[var(--surface)] border border-[var(--border)]">
+                  <span class="text-[10px] text-[var(--text-muted)] uppercase block">Target</span>
+                  <div class="text-base font-black text-[var(--amber)]" id="targetValMid">$0.00</div>
+                </div>
+                <div class="p-2 rounded-lg bg-[var(--surface)] border border-[var(--border)]">
+                  <span class="text-[10px] text-[var(--text-muted)] uppercase block">Profit Needed</span>
+                  <div class="text-base font-black text-[var(--amber)]" id="targetPnlMid">+$0.00</div>
+                </div>
+              </div>
+              <div class="pt-1 text-xs font-semibold text-[var(--text-muted)] font-num" id="targetStatusMid">Goal Met</div>
+            </div>
+
+            <!-- Aggressive Pace Card -->
+            <div id="paceCard_aggressive" onclick="setPace('aggressive')" class="bento-card p-4 sm:p-5 cursor-pointer transition-all border border-[var(--border)] rounded-xl bg-[var(--surface-subtle)] space-y-3">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-[#806A86]"></span>
+                  <h5 class="text-sm font-extrabold text-[var(--text-primary)]">Aggressive Pace</h5>
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <span id="paceCompletedBadge_aggressive" class="hidden px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-[#806A86] text-white">Completed</span>
+                  <span id="paceActiveBadge_aggressive" class="hidden px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-[#806A86] text-white">Active</span>
+                </div>
+              </div>
+              <div class="grid grid-cols-2 gap-2 text-xs font-num">
+                <div class="p-2 rounded-lg bg-[var(--surface)] border border-[var(--border)]">
+                  <span class="text-[10px] text-[var(--text-muted)] uppercase block">Target</span>
+                  <div class="text-base font-black text-[#806A86]" id="targetValAggressive">$0.00</div>
+                </div>
+                <div class="p-2 rounded-lg bg-[var(--surface)] border border-[var(--border)]">
+                  <span class="text-[10px] text-[var(--text-muted)] uppercase block">Profit Needed</span>
+                  <div class="text-base font-black text-[#806A86]" id="targetPnlAggressive">+$0.00</div>
+                </div>
+              </div>
+              <div class="pt-1 text-xs font-semibold text-[var(--text-muted)] font-num" id="targetStatusAggressive">Goal Met</div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- PANEL 2: Daily Execution Desk -->
+      <div data-subtab-panel="desk" class="hidden space-y-5 sm:space-y-6">
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6">
 
         <!-- Left Column (Cols 1-6): Log Today's Session Card -->
@@ -1377,121 +1492,6 @@
           <p class="text-xs text-[var(--text-secondary)]">Log your first session above to start tracking your progress.</p>
         </div>
       </section>
-      </div>
-
-      <!-- PANEL 2: 3-Pace Targets & Compounding Curves -->
-      <div data-subtab-panel="paces" class="hidden space-y-5 sm:space-y-6">
-        <section id="dailyPaceTargetsSection" class="bento-card p-5 sm:p-6 border border-[var(--border)] rounded-2xl bg-[var(--surface)] space-y-4">
-          <div class="flex items-center justify-between pb-3.5 border-b border-[var(--border)] flex-wrap gap-3">
-            <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-2xl bg-[var(--mint-tint)] border border-[var(--mint)]/30 text-[var(--mint)] flex items-center justify-center shrink-0">
-                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="12" cy="12" r="10"/>
-                  <polygon points="12 6 12 12 16 14"/>
-                </svg>
-              </div>
-              <div>
-                <div class="flex items-center gap-2 flex-wrap">
-                  <h3 class="text-base font-black text-[var(--text-primary)]">Daily Pace Targets &amp; Compounding Curves</h3>
-                  <span id="skimModeTrackerBadge" class="hidden text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30 font-num">Skim Mode (+<span id="skimModeTrackerRate">$0.00</span>/session)</span>
-                </div>
-                <p class="text-xs text-[var(--text-secondary)] mt-0.5">Select a compounding path to guide today's profit targets and shortfall recovery.</p>
-              </div>
-            </div>
-          </div>
-<div class="flex items-center justify-between flex-wrap gap-3">
-            <span class="text-xs text-[var(--text-secondary)] font-sans">Active Pacing Guidance &amp; Recovery Plan:</span>
-            <div class="inline-flex items-center p-0.5 rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)] gap-1 shrink-0">
-              <button type="button" id="btnPlanMode_original" onclick="setPlanViewMode('original')" class="px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 bg-[var(--surface)] text-[var(--text-primary)] shadow-xs cursor-pointer">
-                <span>Original Plan</span>
-              </button>
-              <button type="button" id="btnPlanMode_rebased" onclick="setPlanViewMode('rebased')" class="px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 text-[var(--text-secondary)] hover:text-[var(--text-primary)] cursor-pointer">
-                <span>Updated Plan</span>
-              </button>
-            </div>
-          </div>
-
-          <div id="rebasedScenarioBanner" class="hidden p-3 rounded-xl bg-sky-500/10 border border-sky-500/30 text-xs flex items-center justify-between flex-wrap gap-2">
-            <span id="rebasedBannerDesc" class="text-[var(--text-secondary)]"></span>
-          </div>
-
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <!-- Relaxed Pace Card -->
-            <div id="paceCard_relaxed" onclick="setPace('relaxed')" class="bento-card p-4 sm:p-5 cursor-pointer transition-all border border-[var(--border)] rounded-xl bg-[var(--surface-subtle)] space-y-3">
-              <div class="flex items-center justify-between">
-                <div class="flex items-center gap-2">
-                  <span class="w-2.5 h-2.5 rounded-full bg-[var(--mint)]"></span>
-                  <h5 class="text-sm font-extrabold text-[var(--text-primary)]">Relaxed Pace</h5>
-                </div>
-                <div class="flex items-center gap-1.5">
-                  <span id="paceCompletedBadge_relaxed" class="hidden px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-[var(--mint)] text-[#0F1411]">Completed</span>
-                  <span id="paceActiveBadge_relaxed" class="hidden px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-[var(--mint)] text-[#0F1411]">Active</span>
-                </div>
-              </div>
-              <div class="grid grid-cols-2 gap-2 text-xs font-num">
-                <div class="p-2 rounded-lg bg-[var(--surface)] border border-[var(--border)]">
-                  <span class="text-[10px] text-[var(--text-muted)] uppercase block">Target</span>
-                  <div class="text-base font-black text-[var(--mint)]" id="targetValRelaxed">$0.00</div>
-                </div>
-                <div class="p-2 rounded-lg bg-[var(--surface)] border border-[var(--border)]">
-                  <span class="text-[10px] text-[var(--text-muted)] uppercase block">Profit Needed</span>
-                  <div class="text-base font-black text-[var(--mint)]" id="targetPnlRelaxed">+$0.00</div>
-                </div>
-              </div>
-              <div class="pt-1 text-xs font-semibold text-[var(--text-muted)] font-num" id="targetStatusRelaxed">Goal Met</div>
-            </div>
-
-            <!-- Mid Pace Card -->
-            <div id="paceCard_mid" onclick="setPace('mid')" class="bento-card p-4 sm:p-5 cursor-pointer transition-all border border-[var(--border)] rounded-xl bg-[var(--surface-subtle)] space-y-3">
-              <div class="flex items-center justify-between">
-                <div class="flex items-center gap-2">
-                  <span class="w-2.5 h-2.5 rounded-full bg-[var(--amber)]"></span>
-                  <h5 class="text-sm font-extrabold text-[var(--text-primary)]">Mid Pace</h5>
-                </div>
-                <div class="flex items-center gap-1.5">
-                  <span id="paceCompletedBadge_mid" class="hidden px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-[var(--amber)] text-[#0F1411]">Completed</span>
-                  <span id="paceActiveBadge_mid" class="hidden px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-[var(--amber)] text-[#0F1411]">Active</span>
-                </div>
-              </div>
-              <div class="grid grid-cols-2 gap-2 text-xs font-num">
-                <div class="p-2 rounded-lg bg-[var(--surface)] border border-[var(--border)]">
-                  <span class="text-[10px] text-[var(--text-muted)] uppercase block">Target</span>
-                  <div class="text-base font-black text-[var(--amber)]" id="targetValMid">$0.00</div>
-                </div>
-                <div class="p-2 rounded-lg bg-[var(--surface)] border border-[var(--border)]">
-                  <span class="text-[10px] text-[var(--text-muted)] uppercase block">Profit Needed</span>
-                  <div class="text-base font-black text-[var(--amber)]" id="targetPnlMid">+$0.00</div>
-                </div>
-              </div>
-              <div class="pt-1 text-xs font-semibold text-[var(--text-muted)] font-num" id="targetStatusMid">Goal Met</div>
-            </div>
-
-            <!-- Aggressive Pace Card -->
-            <div id="paceCard_aggressive" onclick="setPace('aggressive')" class="bento-card p-4 sm:p-5 cursor-pointer transition-all border border-[var(--border)] rounded-xl bg-[var(--surface-subtle)] space-y-3">
-              <div class="flex items-center justify-between">
-                <div class="flex items-center gap-2">
-                  <span class="w-2.5 h-2.5 rounded-full bg-[#806A86]"></span>
-                  <h5 class="text-sm font-extrabold text-[var(--text-primary)]">Aggressive Pace</h5>
-                </div>
-                <div class="flex items-center gap-1.5">
-                  <span id="paceCompletedBadge_aggressive" class="hidden px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-[#806A86] text-white">Completed</span>
-                  <span id="paceActiveBadge_aggressive" class="hidden px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-[#806A86] text-white">Active</span>
-                </div>
-              </div>
-              <div class="grid grid-cols-2 gap-2 text-xs font-num">
-                <div class="p-2 rounded-lg bg-[var(--surface)] border border-[var(--border)]">
-                  <span class="text-[10px] text-[var(--text-muted)] uppercase block">Target</span>
-                  <div class="text-base font-black text-[#806A86]" id="targetValAggressive">$0.00</div>
-                </div>
-                <div class="p-2 rounded-lg bg-[var(--surface)] border border-[var(--border)]">
-                  <span class="text-[10px] text-[var(--text-muted)] uppercase block">Profit Needed</span>
-                  <div class="text-base font-black text-[#806A86]" id="targetPnlAggressive">+$0.00</div>
-                </div>
-              </div>
-              <div class="pt-1 text-xs font-semibold text-[var(--text-muted)] font-num" id="targetStatusAggressive">Goal Met</div>
-            </div>
-          </div>
-        </section>
       </div>
 
       <!-- PANEL 3: Trading Activity Calendar -->
@@ -2879,7 +2879,7 @@
                 <label class="block font-bold text-[var(--text-muted)] uppercase text-[10px]">Amount ($)</label>
                 <div class="relative mt-1">
                   <span class="absolute left-3 top-2 text-[var(--text-muted)] font-bold font-num">$</span>
-                  <input type="number" step="0.01" min="0.01" id="skimFormAmount" required placeholder="100.00"
+                  <input type="number" step="0.01" min="0.01" id="skimFormAmount" required placeholder="0.00"
                     class="w-full bg-[var(--surface)] border border-[var(--border)] rounded-xl pl-8 pr-3 py-2 font-num font-bold text-xs text-[var(--text-primary)] focus:outline-none focus:border-[var(--mint)]" />
                 </div>
               </div>
@@ -4793,7 +4793,7 @@ service cloud.firestore {
             <label class="block font-bold text-[var(--text-muted)] uppercase text-[10px]">Amount ($) *</label>
             <div class="relative mt-1">
               <span class="absolute left-3 top-2.5 text-[var(--text-muted)] font-bold font-num">$</span>
-              <input type="number" step="0.01" min="0.01" id="savingsAmountInput" required placeholder="50.00"
+              <input type="number" step="0.01" min="0.01" id="savingsAmountInput" required placeholder="0.00"
                 class="w-full bg-[var(--surface-subtle)] border border-[var(--border)] rounded-xl pl-8 pr-3 py-2.5 font-num font-bold text-sm text-[var(--text-primary)] focus:outline-none focus:border-[var(--mint)]" />
             </div>
             <div class="flex items-center gap-1.5 mt-2 flex-wrap">
@@ -5551,11 +5551,27 @@ service cloud.firestore {
       const profile = (ladderProfiles && ladderProfiles.find(p => p.id === activeProfileId)) || {};
       const currentDesk = getDeskBalance(currentSession);
 
+      // Check for live form input if in wizard or config tab
+      let liveTarget = null;
+      let liveSavings = null;
+      const genTargetInput = (typeof document !== 'undefined') ? document.getElementById('genTarget') : null;
+      if (genTargetInput && genTargetInput.value !== '' && (activeTab === 'config' || isEditingChallenge)) {
+        const val = parseFloat(genTargetInput.value);
+        if (!isNaN(val) && val > 0) liveTarget = val;
+      }
+      const setupSavingsInput = (typeof document !== 'undefined') ? document.getElementById('setupSavingsTargetInput') : null;
+      if (setupSavingsInput && setupSavingsInput.value !== '' && activeTab === 'config') {
+        const val = parseFloat(setupSavingsInput.value);
+        if (!isNaN(val) && val >= 0) liveSavings = val;
+      }
+
       // 1. Trading Target
       let tradingTarget = 0;
-      if (profile.portTarget !== undefined && profile.portTarget !== null) {
+      if (liveTarget !== null) {
+        tradingTarget = liveTarget;
+      } else if (profile.portTarget !== undefined && profile.portTarget !== null && !isNaN(profile.portTarget)) {
         tradingTarget = Number(profile.portTarget) || 0;
-      } else if (profile.targetBalance !== undefined && profile.targetBalance !== null) {
+      } else if (profile.targetBalance !== undefined && profile.targetBalance !== null && !isNaN(profile.targetBalance)) {
         tradingTarget = Number(profile.targetBalance) || 0;
       } else if (ladder && ladder.length > 0) {
         tradingTarget = getSessionTarget(ladder.length) || 0;
@@ -5571,7 +5587,12 @@ service cloud.firestore {
         : 0;
 
       // 2. Savings Target
-      const savingsTarget = Number(((milestoneConfig && milestoneConfig.targetGoal) || 0).toFixed(2));
+      let savingsTarget = 0;
+      if (liveSavings !== null) {
+        savingsTarget = liveSavings;
+      } else {
+        savingsTarget = Number(((milestoneConfig && milestoneConfig.targetGoal) || 0).toFixed(2));
+      }
       const isSavingsTargetSet = savingsTarget > 0;
       const vaultBalances = getVaultBalances();
       const savingsBalance = Number(vaultBalances.savings.toFixed(2));
@@ -6445,23 +6466,34 @@ service cloud.firestore {
       return baseVal;
     }
 
+    function getActiveProfile() {
+      if (!ladderProfiles || !Array.isArray(ladderProfiles) || ladderProfiles.length === 0) return null;
+      return ladderProfiles.find(p => p.id === activeProfileId) || ladderProfiles[0];
+    }
+
     function getDeskBalance(sessionNum) {
       if (sessionLogs[sessionNum] !== undefined) return sessionLogs[sessionNum];
       for (let s = sessionNum - 1; s >= 1; s--) {
         if (sessionLogs[s] !== undefined) return sessionLogs[s];
       }
+      const prof = getActiveProfile();
+      if (prof && typeof prof.base === 'number' && !isNaN(prof.base) && prof.base > 0) return prof.base;
       const ladder = getActiveLadder();
       return ladder[0]?.r || ladder[0]?.target || 0;
     }
 
     function getPrevDeskBalance(sessionNum) {
       if (sessionNum <= 1) {
+        const prof = getActiveProfile();
+        if (prof && typeof prof.base === 'number' && !isNaN(prof.base) && prof.base > 0) return prof.base;
         const ladder = getActiveLadder();
         return ladder[0]?.r || ladder[0]?.target || 0;
       }
       for (let s = sessionNum - 1; s >= 1; s--) {
         if (sessionLogs[s] !== undefined) return sessionLogs[s];
       }
+      const prof = getActiveProfile();
+      if (prof && typeof prof.base === 'number' && !isNaN(prof.base) && prof.base > 0) return prof.base;
       const ladder = getActiveLadder();
       return ladder[0]?.r || ladder[0]?.target || 0;
     }
@@ -6755,10 +6787,13 @@ service cloud.firestore {
       }
 
       const totalSessions = ladder.length;
-      const baseStart = ladder[0]?.r || ladder[0]?.target || 120;
-      let targetBal = 7000;
+      const prof = typeof getActiveProfile === 'function' ? getActiveProfile() : null;
+      const baseStart = (prof && typeof prof.base === 'number' && !isNaN(prof.base) && prof.base > 0)
+        ? prof.base
+        : (ladder[0]?.r || ladder[0]?.target || 0);
+      let targetBal = 0;
       if (typeof getSessionTarget === 'function') {
-        targetBal = getSessionTarget(totalSessions, currentPace) || 7000;
+        targetBal = getSessionTarget(totalSessions, currentPace) || (prof?.portTarget || 0);
       } else {
         const lastRow = ladder[ladder.length - 1];
         if (lastRow) {
@@ -6768,6 +6803,7 @@ service cloud.firestore {
           else if (lastRow.target) targetBal = lastRow.target;
         }
       }
+      if (!targetBal && prof && prof.portTarget) targetBal = prof.portTarget;
 
       const loggedKeys = Object.keys(sessionLogs).filter(k => sessionLogs[k] !== undefined && !isNaN(sessionLogs[k]));
       const loggedCount = loggedKeys.length;
@@ -6863,7 +6899,7 @@ service cloud.firestore {
               ${cp.icon} ${cp.name}
             </text>
             <text x="0" y="24" text-anchor="middle" fill="currentColor" fill-opacity="0.6" font-size="8.5" font-family="monospace">
-              ${cp.s === 1 ? '$' + baseStart.toFixed(0) : (cp.s === totalSessions ? '$' + (targetBal >= 1000 ? (targetBal/1000).toFixed(1)+'k' : targetBal) : cp.label)}
+              ${cp.s === 1 ? '$' + (baseStart >= 1000 ? (baseStart/1000).toFixed(1)+'k' : baseStart.toFixed(0)) : (cp.s === totalSessions ? '$' + (targetBal >= 1000 ? (targetBal/1000).toFixed(1)+'k' : targetBal) : cp.label)}
             </text>
           </g>
         `;
@@ -6894,7 +6930,10 @@ service cloud.firestore {
       const targetReq = getSessionTarget(currentSession);
       const totalVault = getTotalVaultWithdrawn();
       const trueWealth = currentDesk + totalVault;
-      const baseStart = ladder[0]?.r || ladder[0]?.target || 0;
+      const prof = typeof getActiveProfile === 'function' ? getActiveProfile() : null;
+      const baseStart = (prof && typeof prof.base === 'number' && !isNaN(prof.base) && prof.base > 0)
+        ? prof.base
+        : (ladder[0]?.r || ladder[0]?.target || 0);
       const isLocked = !!lockedSessions[currentSession];
 
       // Empty State Banner Alert in Tracker
@@ -7104,7 +7143,9 @@ service cloud.firestore {
         posOverallReturnEl.innerText = `${overallPnL >= 0 ? '+' : ''}${overallRoi.toFixed(1)}% ROI`;
       }
 
-      const targetSummit = finalTarget || 7000;
+      const targetSummit = (prof && typeof prof.portTarget === 'number' && !isNaN(prof.portTarget) && prof.portTarget > 0)
+        ? prof.portTarget
+        : (finalTarget || 0);
       const summitPct = targetSummit > baseStart ? Math.min(100, Math.max(0, ((currentDesk - baseStart) / (targetSummit - baseStart)) * 100)) : 0;
       const posProgressPctEl = document.getElementById('posProgressPct');
       if (posProgressPctEl) posProgressPctEl.innerText = `${summitPct.toFixed(1)}%`;
@@ -8297,7 +8338,7 @@ service cloud.firestore {
       const balances = getVaultBalances();
       const currentDesk = getDeskBalance(currentSession);
       const trueWealth = currentDesk + balances.total;
-      const goal = milestoneConfig.targetGoal || 1500;
+      const goal = (milestoneConfig && milestoneConfig.targetGoal && milestoneConfig.targetGoal > 0) ? milestoneConfig.targetGoal : 0;
       const finReq = getFinancialRequirementMetrics();
 
       // --- 1. Total Vault Balance Card ---
@@ -8319,9 +8360,11 @@ service cloud.firestore {
       if (savingsReserveEl) animateNumber(savingsReserveEl, balances.savings, true, false);
 
       const savingsTargetSubtext = document.getElementById('savingsTargetSubtext');
-      if (savingsTargetSubtext) savingsTargetSubtext.innerText = `Target: ${fmt(goal)}`;
+      if (savingsTargetSubtext) {
+        savingsTargetSubtext.innerText = goal > 0 ? `Target: ${fmt(goal)}` : 'Target: Not Set';
+      }
 
-      const savingsPct = Math.min(100, Math.max(0, (balances.savings / goal) * 100));
+      const savingsPct = goal > 0 ? Math.min(100, Math.max(0, (balances.savings / goal) * 100)) : 0;
       const savingsMiniRing = document.getElementById('savingsMiniRingPct');
       if (savingsMiniRing) savingsMiniRing.innerText = `${savingsPct.toFixed(0)}%`;
       const savingsMiniCircle = document.getElementById('savingsMiniRingCircle');
@@ -8336,9 +8379,11 @@ service cloud.firestore {
 
       const totalBillsDue = finReq.totalBillsDue || 0;
       const billsTargetSubtext = document.getElementById('billsTargetSubtext');
-      if (billsTargetSubtext) billsTargetSubtext.innerText = `Monthly target: ${fmt(totalBillsDue)}`;
+      if (billsTargetSubtext) {
+        billsTargetSubtext.innerText = totalBillsDue > 0 ? `Monthly target: ${fmt(totalBillsDue)}` : 'No bills added';
+      }
 
-      const billsPct = goal > 0 ? Math.min(100, Math.max(0, (balances.bills / goal) * 100)) : 0;
+      const billsPct = goal > 0 ? Math.min(100, Math.max(0, (balances.bills / goal) * 100)) : (totalBillsDue > 0 ? Math.min(100, Math.max(0, (balances.bills / totalBillsDue) * 100)) : 0);
       const billsBadge = document.getElementById('vaultBillsPercentBadge');
       if (billsBadge) billsBadge.innerText = `${billsPct.toFixed(0)}%`;
       const billsMiniCircle = document.getElementById('billsMiniRingCircle');
@@ -8350,7 +8395,9 @@ service cloud.firestore {
       const progressBarEl = document.getElementById('vaultProgressBar');
       if (progressBarEl) progressBarEl.style.width = `${billsPct}%`;
       const goalSummaryEl = document.getElementById('vaultGoalSummary');
-      if (goalSummaryEl) goalSummaryEl.innerText = `${fmt(balances.bills)} banked of ${fmt(goal)} goal`;
+      if (goalSummaryEl) {
+        goalSummaryEl.innerText = goal > 0 ? `${fmt(balances.bills)} banked of ${fmt(goal)} goal` : `${fmt(balances.bills)} banked in vault`;
+      }
 
       // --- 4. Available to Trade Card ---
       const deskDisplayEl = document.getElementById('vaultDeskDisplayVal');
@@ -8393,9 +8440,13 @@ service cloud.firestore {
 
       // --- 3 Simple Safety Milestones ---
       const ladder = (typeof getActiveLadder === 'function') ? getActiveLadder() : (cfg.ladder || []);
-      const startBase = ladder[0]?.r || ladder[0]?.target || 0;
+      const activeProf = typeof getActiveProfile === 'function' ? getActiveProfile() : null;
+      const startBase = (activeProf && typeof activeProf.base === 'number' && !isNaN(activeProf.base) && activeProf.base > 0)
+        ? activeProf.base
+        : (ladder[0]?.r || ladder[0]?.target || 0);
       const seedRecouped = startBase > 0 && balances.total >= startBase;
-      const bufferSecured = balances.total >= 500.00;
+      const reserveFloorVal = (milestoneConfig && milestoneConfig.reserveFloor && milestoneConfig.reserveFloor > 0) ? milestoneConfig.reserveFloor : 0;
+      const bufferSecured = reserveFloorVal > 0 ? balances.total >= reserveFloorVal : false;
       const goalCleared = goal > 0 && balances.bills >= goal;
       const unlockedCount = (seedRecouped ? 1 : 0) + (bufferSecured ? 1 : 0) + (goalCleared ? 1 : 0);
 
@@ -8421,7 +8472,7 @@ service cloud.firestore {
                 ? 'bg-[var(--mint)] text-[#0F1411]' 
                 : 'bg-[var(--surface-muted)] text-[var(--text-muted)]'
             }">
-              ${seedRecouped ? '<span class="inline-flex items-center gap-1"><svg class="w-2.5 h-2.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span>Recouped</span></span>' : `${seedPct.toFixed(0)}%`}
+              ${seedRecouped ? '<span class="inline-flex items-center gap-1"><svg class="w-2.5 h-2.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span>Recouped</span></span>' : (startBase > 0 ? `${seedPct.toFixed(0)}%` : '0%')}
             </span>
           </div>
           <div class="text-base font-black font-num text-[var(--text-primary)]">${startBase > 0 ? fmt(startBase) + ' ' : ''}Initial Deposit</div>
@@ -8434,7 +8485,7 @@ service cloud.firestore {
       // Badge 2: Buffer
       const badgeBufferEl = document.getElementById('badgeBufferSecured');
       if (badgeBufferEl) {
-        const bufferPct = Math.min(100, (balances.total / 500) * 100);
+        const bufferPct = reserveFloorVal > 0 ? Math.min(100, (balances.total / reserveFloorVal) * 100) : 0;
         badgeBufferEl.className = `p-4 rounded-xl border transition-all space-y-2 ${
           bufferSecured 
             ? 'bg-[var(--mint-tint)] border-[var(--mint)]/40' 
@@ -8450,12 +8501,12 @@ service cloud.firestore {
                 ? 'bg-[var(--mint)] text-[#0F1411]' 
                 : 'bg-[var(--surface-muted)] text-[var(--text-muted)]'
             }">
-              ${bufferSecured ? '<span class="inline-flex items-center gap-1"><svg class="w-2.5 h-2.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span>Cushion Saved</span></span>' : `${bufferPct.toFixed(0)}%`}
+              ${bufferSecured ? '<span class="inline-flex items-center gap-1"><svg class="w-2.5 h-2.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span>Cushion Saved</span></span>' : (reserveFloorVal > 0 ? `${bufferPct.toFixed(0)}%` : 'Not Set')}
             </span>
           </div>
-          <div class="text-base font-black font-num text-[var(--text-primary)]">$500.00 Cushion</div>
+          <div class="text-base font-black font-num text-[var(--text-primary)]">${reserveFloorVal > 0 ? fmt(reserveFloorVal) + ' ' : ''}Cushion</div>
           <p class="text-[11px] text-[var(--text-muted)]">
-            ${bufferSecured ? 'Safety cushion secured against market drawdowns.' : `${fmt(balances.total)} of $500.00 saved`}
+            ${bufferSecured ? 'Safety cushion secured against market drawdowns.' : (reserveFloorVal > 0 ? `${fmt(balances.total)} of ${fmt(reserveFloorVal)} saved` : 'Set a reserve floor below to establish your safety cushion.')}
           </p>
         `;
       }
@@ -8478,12 +8529,12 @@ service cloud.firestore {
                 ? 'bg-[var(--amber)] text-[#0F1411]' 
                 : 'bg-[var(--surface-muted)] text-[var(--text-muted)]'
             }">
-              ${goalCleared ? '<span class="inline-flex items-center gap-1"><svg class="w-2.5 h-2.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span>Goal Achieved</span></span>' : `${billsPct.toFixed(0)}%`}
+              ${goalCleared ? '<span class="inline-flex items-center gap-1"><svg class="w-2.5 h-2.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span>Goal Achieved</span></span>' : (goal > 0 ? `${billsPct.toFixed(0)}%` : 'Not Set')}
             </span>
           </div>
-          <div class="text-base font-black font-num text-[var(--text-primary)]">${fmt(goal)} Target</div>
+          <div class="text-base font-black font-num text-[var(--text-primary)]">${goal > 0 ? fmt(goal) + ' ' : ''}Target</div>
           <p class="text-[11px] text-[var(--text-muted)]">
-            ${goalCleared ? 'Your personal savings target is 100% funded and locked in the vault!' : `${fmt(balances.bills)} of ${fmt(goal)} saved`}
+            ${goalCleared ? 'Your personal savings target is 100% funded and locked in the vault!' : (goal > 0 ? `${fmt(balances.bills)} of ${fmt(goal)} saved` : 'Set a personal savings goal below to track progress.')}
           </p>
         `;
       }
@@ -10353,8 +10404,11 @@ service cloud.firestore {
         const estFinishEl = document.getElementById('cfgInfoEstFinish');
         if (estFinishEl) estFinishEl.innerText = '';
       } else {
-        const start = ladder[0]?.r || ladder[0]?.target || 0;
-        const final = getSessionTarget(ladder.length);
+        const prof = activeProf;
+        const start = (prof && typeof prof.base === 'number' && !isNaN(prof.base) && prof.base > 0)
+          ? prof.base
+          : (ladder[0]?.r || ladder[0]?.target || 0);
+        const final = getSessionTarget(ladder.length) || (prof?.portTarget || 0);
         const curDesk = getDeskBalance(currentSession);
         const progressPct = final > start ? Math.min(100, Math.max(0, ((curDesk - start) / (final - start)) * 100)) : 0;
         const estFinishDate = getEstimatedDateForSession(activeProf.startDate || activeProf.createdDate || new Date(), ladder.length);
@@ -10377,9 +10431,9 @@ service cloud.firestore {
         // If inputs exist, only populate if actively in edit mode for an existing challenge
         if (isEditingChallenge) {
           const baseEl = document.getElementById('genBase');
-          if (baseEl && document.activeElement !== baseEl && !baseEl.value) baseEl.value = activeProf.base || '';
+          if (baseEl && document.activeElement !== baseEl && !baseEl.value) baseEl.value = (activeProf.base != null && !isNaN(activeProf.base)) ? activeProf.base : (activeProf.sessions?.[0]?.r || '');
           const targetEl = document.getElementById('genTarget');
-          if (targetEl && document.activeElement !== targetEl && !targetEl.value) targetEl.value = activeProf.portTarget || '';
+          if (targetEl && document.activeElement !== targetEl && !targetEl.value) targetEl.value = (activeProf.portTarget != null && !isNaN(activeProf.portTarget)) ? activeProf.portTarget : (activeProf.targetBalance || '');
           const sessionsEl = document.getElementById('genSessions');
           if (sessionsEl && document.activeElement !== sessionsEl && !sessionsEl.value) sessionsEl.value = activeProf.sessions?.length || '';
           const dateEl = document.getElementById('genStartDate');
@@ -10409,7 +10463,7 @@ service cloud.firestore {
                     ${isActive ? '<span class="px-1.5 py-0.5 rounded-full bg-[var(--mint-tint)] text-[var(--mint)] text-[9px] font-bold font-num">Active</span>' : ''}
                   </div>
                   <p class="text-[11px] text-[var(--text-secondary)] font-num mt-0.5">
-                    ${fmt(p.base || 120)} → ${fmt(p.portTarget || 7000)} (${p.sessions?.length || 28} Sessions)
+                    ${fmt(p.base != null ? p.base : (p.sessions?.[0]?.r || 0))} → ${fmt(p.portTarget != null ? p.portTarget : (p.targetBalance || getSessionTarget(p.sessions?.length || 28) || 0))} (${p.sessions?.length || 28} Sessions)
                   </p>
                 </div>
                 <div class="flex items-center gap-1.5 shrink-0">
@@ -10501,11 +10555,11 @@ service cloud.firestore {
       const nameEl = document.getElementById('genName');
       if (nameEl) nameEl.value = profile.name || '';
       const baseEl = document.getElementById('genBase');
-      if (baseEl) baseEl.value = profile.base != null ? profile.base : '';
+      if (baseEl) baseEl.value = (profile.base != null && !isNaN(profile.base)) ? profile.base : (profile.sessions?.[0]?.r || '');
       const targetEl = document.getElementById('genTarget');
-      if (targetEl) targetEl.value = profile.portTarget != null ? profile.portTarget : '';
+      if (targetEl) targetEl.value = (profile.portTarget != null && !isNaN(profile.portTarget)) ? profile.portTarget : (profile.targetBalance || '');
       const sessionsEl = document.getElementById('genSessions');
-      if (sessionsEl) sessionsEl.value = profile.sessions?.length || '';
+      if (sessionsEl) sessionsEl.value = profile.sessions?.length || 28;
       const dateEl = document.getElementById('genStartDate');
       if (dateEl) dateEl.value = profile.startDate || '';
       const withTargetEl = document.getElementById('genWithdrawalTarget');
@@ -10902,6 +10956,7 @@ service cloud.firestore {
           ladderProfiles[profIdx].name = name;
           ladderProfiles[profIdx].base = base;
           ladderProfiles[profIdx].portTarget = portTarget;
+          ladderProfiles[profIdx].targetBalance = portTarget;
           ladderProfiles[profIdx].withdrawalTarget = withdrawalTarget;
           ladderProfiles[profIdx].withdrawalDays = withdrawalDays;
           ladderProfiles[profIdx].adjustedSummit = adjustedSummit;
@@ -10935,6 +10990,7 @@ service cloud.firestore {
         name: name,
         base: base,
         portTarget: portTarget,
+        targetBalance: portTarget,
         withdrawalTarget: withdrawalTarget,
         withdrawalDays: withdrawalDays,
         adjustedSummit: adjustedSummit,

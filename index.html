@@ -682,9 +682,25 @@
         </nav>
       </div>
 
-      <!-- Bottom Wealth Overview, Theme Switch & Ridge Contour -->
-      <div class="relative z-10 space-y-3 pt-3 border-t border-[var(--border)]">
+      <!-- Bottom Wealth Overview, Sync Status, Theme Switch & Ridge Contour -->
+      <div class="relative z-10 space-y-2.5 pt-3 border-t border-[var(--border)]">
         
+        <!-- Cloud Status & Link Sheet Utility Bar in Sidebar -->
+        <div class="flex items-center gap-2">
+          <div id="cloudStatusPill" onclick="openLinkSheetModal()" class="cursor-pointer flex-1 min-w-0">
+            <!-- Dynamically rendered -->
+          </div>
+          <button onclick="openLinkSheetModal()" id="btnLinkSheet" title="Link Excel or Google Sheets"
+            class="inline-flex items-center justify-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-[#4A88A9] hover:bg-[#3B728F] text-[#FFFFFF] dark:bg-[#60A5FA] dark:hover:bg-[#3B82F6] dark:text-[#0F1411] font-bold text-xs transition active:scale-95 shadow-xs shrink-0 cursor-pointer">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="18" height="18" rx="2" />
+              <path d="M3 9h18" />
+              <path d="M9 21V9" />
+            </svg>
+            <span>Sheets</span>
+          </button>
+        </div>
+
         <!-- Quick Wealth Chip in Sidebar -->
         <div class="p-3.5 rounded-xl bg-[var(--surface)]/90 backdrop-blur-xs border border-[var(--border)] space-y-2 font-num text-xs shadow-subtle">
           <div class="flex items-center justify-between text-[10px] uppercase font-bold text-[var(--text-muted)] font-sans">
@@ -697,16 +713,18 @@
           <div class="flex items-baseline justify-between">
             <span class="text-[11px] text-[var(--text-secondary)] font-sans">Vault Banked:</span>
             <span id="sidebarVaultBalance" class="font-bold text-[#DC4C3E] dark:text-[#F87171]">$0.00</span>
+            <span id="headerVaultBalance" class="hidden"></span>
           </div>
           <div class="flex items-baseline justify-between pt-1 border-t border-[var(--border)]/70">
             <span class="text-[11px] text-[var(--text-secondary)] font-sans">Total Wealth:</span>
             <span id="sidebarTrueWealth" class="font-black text-emerald-600 dark:text-emerald-400 text-sm">$0.00</span>
+            <span id="headerTrueWealth" class="hidden"></span>
           </div>
         </div>
 
         <!-- Sidebar Theme Toggle Button -->
         <button type="button" onclick="toggleTheme()" id="sidebarThemeToggleBtn" title="Toggle Light / Dark mode"
-          class="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-[var(--surface)]/90 backdrop-blur-xs hover:bg-[var(--surface-hover)] border border-[var(--border)] text-xs font-bold text-[var(--text-primary)] transition active:scale-95 shadow-subtle">
+          class="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-[var(--surface)]/90 backdrop-blur-xs hover:bg-[var(--surface-hover)] border border-[var(--border)] text-xs font-bold text-[var(--text-primary)] transition active:scale-95 shadow-subtle cursor-pointer">
           <span class="flex items-center gap-2.5">
             <svg id="sidebarThemeIcon" class="w-4 h-4 text-amber-500 dark:text-amber-400 icon-hover-rotate" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z" />
@@ -715,6 +733,7 @@
           </span>
           <span class="text-[10px] text-[var(--text-muted)] uppercase font-bold font-num" id="sidebarThemeModeText">Dark</span>
         </button>
+        <button id="themeToggleBtn" onclick="toggleTheme()" class="hidden"></button>
       </div>
     </aside>
 
@@ -841,94 +860,7 @@
     <div class="flex-1 min-w-0 flex flex-col">
       <main class="max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-7 space-y-5 sm:space-y-6">
 
-    <!-- Top Bento Header -->
-    <header class="bento-card p-4 sm:p-5 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-      <div class="flex items-center gap-3.5 min-w-0">
-        <div class="w-11 h-11 rounded-2xl bg-emerald-500/10 dark:bg-emerald-400/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/25 dark:border-emerald-400/30 flex items-center justify-center shadow-xs shrink-0 group">
-          <svg class="w-5 h-5 transition-transform duration-200 group-hover:scale-110" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="9" />
-            <circle cx="12" cy="12" r="5" />
-            <circle cx="12" cy="12" r="1.5" fill="currentColor" />
-          </svg>
-        </div>
-        <div class="min-w-0">
-          <div class="flex items-center gap-2 flex-wrap">
-            <h1 class="text-xl sm:text-2xl font-black tracking-tight text-[var(--text-primary)]">
-              Welcome Dcniper
-            </h1>
-            <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 border border-emerald-500/25 dark:border-emerald-400/30 font-num">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-              <span id="headerLiveDate">26th September</span>
-            </span>
-          </div>
-          <p class="text-xs text-[var(--text-secondary)] mt-1 flex items-center gap-2 flex-wrap">
-            <span class="font-bold text-[var(--text-primary)]">Session <span id="headerSessionNum">1</span> of <span id="headerTotalSessions">28</span></span>
-            <span class="opacity-40">•</span>
-            <span id="headerActiveLadderName" class="font-medium text-[var(--text-secondary)] truncate max-w-[200px] sm:max-w-none">28-Session Compounding Challenge</span>
-            <span class="opacity-40">•</span>
-            <span id="headerTimestamp" class="text-[var(--text-muted)] font-num">Ready for session</span>
-          </p>
-        </div>
-      </div>
-
-      <!-- Quick Status Badges + Status Bar + Theme Switcher -->
-      <div class="flex items-center gap-2.5 flex-wrap shrink-0">
-        
-        <!-- Header Status Bar: Cloud Sync + Link Sheet -->
-        <div class="inline-flex items-center gap-1.5 p-1 rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)] shadow-xs">
-          <!-- Cloud Status Indicator -->
-          <div id="cloudStatusPill" onclick="openLinkSheetModal()" class="cursor-pointer">
-            <!-- Dynamically rendered -->
-          </div>
-
-          <!-- Link Sheet Button -->
-          <button onclick="openLinkSheetModal()" id="btnLinkSheet" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#4A88A9] hover:bg-[#3B728F] text-[#FFFFFF] dark:bg-[#60A5FA] dark:hover:bg-[#3B82F6] dark:text-[#0F1411] font-bold text-xs transition active:scale-95 shadow-xs">
-            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="3" y="3" width="18" height="18" rx="2" />
-              <path d="M3 9h18" />
-              <path d="M9 21V9" />
-            </svg>
-            <span>Link Sheet</span>
-          </button>
-        </div>
-
-        <!-- Vault Cash Chip (Coral Accent) -->
-        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-[#DC4C3E]/10 dark:bg-[#F87171]/15 border border-[#DC4C3E]/25 dark:border-[#F87171]/30 text-xs font-semibold shadow-xs font-num">
-          <div class="w-6 h-6 rounded-lg bg-[#DC4C3E]/15 dark:bg-[#F87171]/20 text-[#DC4C3E] dark:text-[#F87171] flex items-center justify-center shrink-0">
-            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-            </svg>
-          </div>
-          <div>
-            <span class="text-[var(--text-muted)] uppercase text-[9px] font-bold block tracking-wider font-sans">Vault Saved</span>
-            <span id="headerVaultBalance" class="text-[#DC4C3E] dark:text-[#F87171] font-black text-xs sm:text-sm">$0.00</span>
-          </div>
-        </div>
-
-        <!-- Total Wealth Chip (Mint Accent) -->
-        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-emerald-500/10 dark:bg-emerald-400/15 border border-emerald-500/25 dark:border-emerald-400/30 text-xs font-semibold shadow-xs font-num">
-          <div class="w-6 h-6 rounded-lg bg-emerald-500/15 dark:bg-emerald-400/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0">
-            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
-              <polyline points="16 7 22 7 22 13" />
-            </svg>
-          </div>
-          <div>
-            <span class="text-[var(--text-muted)] uppercase text-[9px] font-bold block tracking-wider font-sans">Total Capital</span>
-            <span id="headerTrueWealth" class="text-emerald-600 dark:text-emerald-400 font-black text-xs sm:text-sm">$0.00</span>
-          </div>
-        </div>
-
-        <!-- Light / Dark Mode Toggle -->
-        <button onclick="toggleTheme()" id="themeToggleBtn" title="Toggle Light / Dark mode"
-          class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[var(--surface-subtle)] hover:bg-[var(--surface-hover)] border border-[var(--border)] text-[var(--text-primary)] transition active:scale-95 text-xs font-bold shadow-xs">
-          <svg class="w-3.5 h-3.5 text-amber-500 dark:text-amber-400 icon-hover-rotate" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z" />
-          </svg>
-          <span class="hidden sm:inline font-sans">Theme</span>
-        </button>
-      </div>
-    </header>
+<!-- Top Header Retired: Clean Desk Mode active -->
 
     <!-- ==================== TAB 1: TRACKER (REDESIGNED) ==================== -->
     <div id="tabContentTracker" class="space-y-5 sm:space-y-6">
@@ -969,11 +901,24 @@
               </svg>
             </div>
             <div>
-              <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[var(--surface-subtle)] border border-[var(--border)] text-[10px] font-bold text-[var(--text-muted)] tracking-wider uppercase mb-1.5 font-sans">
+              <div class="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-[var(--surface-subtle)] border border-[var(--border)] text-[10px] font-bold text-[var(--text-muted)] tracking-wider uppercase mb-1.5 font-sans flex-wrap">
                 <span>STEP 2 OF 3</span>
+                <span class="opacity-40">•</span>
+                <span class="inline-flex items-center gap-1.5 text-emerald-700 dark:text-emerald-300 font-num">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                  <span id="headerLiveDate">26th September</span>
+                </span>
               </div>
               <h1 class="text-2xl sm:text-3xl font-black text-[var(--text-primary)] tracking-tight">Daily Tracker</h1>
-              <p class="text-xs sm:text-sm text-[var(--text-secondary)] mt-1 font-sans">Log your closing balance, track your progress and stay consistent.</p>
+              <p class="text-xs sm:text-sm text-[var(--text-secondary)] mt-1 font-sans flex items-center gap-2 flex-wrap">
+                <span>Log your closing balance, track your progress and stay consistent.</span>
+                <span class="hidden sm:inline opacity-40">•</span>
+                <span class="font-bold text-[var(--text-primary)]">Session <span id="headerSessionNum">1</span> of <span id="headerTotalSessions">28</span></span>
+                <span class="opacity-40">•</span>
+                <span id="headerActiveLadderName" class="font-medium text-[var(--text-secondary)] truncate max-w-[200px] sm:max-w-none">28-Session Compounding Challenge</span>
+                <span class="opacity-40">•</span>
+                <span id="headerTimestamp" class="text-[var(--text-muted)] font-num">Ready for session</span>
+              </p>
             </div>
           </div>
 
@@ -1121,118 +1066,8 @@
 
       </section>
 
-      <!-- 3. Daily Pace Targets (Moved Above Console For Easy Use) -->
-      <section id="dailyPaceTargetsSection" class="bento-card p-5 sm:p-6 border border-[var(--border)] rounded-2xl bg-[var(--surface)] space-y-4">
-        <div class="flex items-center justify-between flex-wrap gap-3">
-          <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-2xl bg-[var(--mint-tint)] border border-[var(--mint)]/30 text-[var(--mint)] flex items-center justify-center shrink-0">
-              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="10"/>
-                <polygon points="12 6 12 12 16 14"/>
-              </svg>
-            </div>
-            <div>
-              <div class="flex items-center gap-2 flex-wrap">
-                <h3 class="text-base font-black text-[var(--text-primary)]">Daily Pace Targets</h3>
-                <span id="skimModeTrackerBadge" class="hidden text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30 font-num">Skim Mode (+<span id="skimModeTrackerRate">$0.00</span>/session)</span>
-              </div>
-              <p class="text-xs text-[var(--text-secondary)] mt-0.5">Select a compounding path to guide today's profit targets.</p>
-            </div>
-          </div>
-          <div class="inline-flex items-center p-0.5 rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)] gap-1 shrink-0">
-            <button type="button" id="btnPlanMode_original" onclick="setPlanViewMode('original')" class="px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 bg-[var(--surface)] text-[var(--text-primary)] shadow-xs">
-              <span>Original Plan</span>
-            </button>
-            <button type="button" id="btnPlanMode_rebased" onclick="setPlanViewMode('rebased')" class="px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 text-[var(--text-secondary)] hover:text-[var(--text-primary)]">
-              <span>Updated Plan</span>
-            </button>
-          </div>
-        </div>
-
-        <div id="rebasedScenarioBanner" class="hidden p-3 rounded-xl bg-sky-500/10 border border-sky-500/30 text-xs flex items-center justify-between flex-wrap gap-2">
-          <span id="rebasedBannerDesc" class="text-[var(--text-secondary)]"></span>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <!-- Relaxed Pace Card -->
-          <div id="paceCard_relaxed" onclick="setPace('relaxed')" class="bento-card p-4 sm:p-5 cursor-pointer transition-all border border-[var(--border)] rounded-xl bg-[var(--surface-subtle)] space-y-3">
-            <div class="flex items-center justify-between">
-              <div class="flex items-center gap-2">
-                <span class="w-2.5 h-2.5 rounded-full bg-[var(--mint)]"></span>
-                <h5 class="text-sm font-extrabold text-[var(--text-primary)]">Relaxed Pace</h5>
-              </div>
-              <div class="flex items-center gap-1.5">
-                <span id="paceCompletedBadge_relaxed" class="hidden px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-[var(--mint)] text-[#0F1411]">Completed</span>
-                <span id="paceActiveBadge_relaxed" class="hidden px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-[var(--mint)] text-[#0F1411]">Active</span>
-              </div>
-            </div>
-            <div class="grid grid-cols-2 gap-2 text-xs font-num">
-              <div class="p-2 rounded-lg bg-[var(--surface)] border border-[var(--border)]">
-                <span class="text-[10px] text-[var(--text-muted)] uppercase block">Target</span>
-                <div class="text-base font-black text-[var(--mint)]" id="targetValRelaxed">$0.00</div>
-              </div>
-              <div class="p-2 rounded-lg bg-[var(--surface)] border border-[var(--border)]">
-                <span class="text-[10px] text-[var(--text-muted)] uppercase block">Profit Needed</span>
-                <div class="text-base font-black text-[var(--mint)]" id="targetPnlRelaxed">+$0.00</div>
-              </div>
-            </div>
-            <div class="pt-1 text-xs font-semibold text-[var(--text-muted)] font-num" id="targetStatusRelaxed">Goal Met</div>
-          </div>
-
-          <!-- Mid Pace Card -->
-          <div id="paceCard_mid" onclick="setPace('mid')" class="bento-card p-4 sm:p-5 cursor-pointer transition-all border border-[var(--border)] rounded-xl bg-[var(--surface-subtle)] space-y-3">
-            <div class="flex items-center justify-between">
-              <div class="flex items-center gap-2">
-                <span class="w-2.5 h-2.5 rounded-full bg-[var(--amber)]"></span>
-                <h5 class="text-sm font-extrabold text-[var(--text-primary)]">Mid Pace</h5>
-              </div>
-              <div class="flex items-center gap-1.5">
-                <span id="paceCompletedBadge_mid" class="hidden px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-[var(--amber)] text-[#0F1411]">Completed</span>
-                <span id="paceActiveBadge_mid" class="hidden px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-[var(--amber)] text-[#0F1411]">Active</span>
-              </div>
-            </div>
-            <div class="grid grid-cols-2 gap-2 text-xs font-num">
-              <div class="p-2 rounded-lg bg-[var(--surface)] border border-[var(--border)]">
-                <span class="text-[10px] text-[var(--text-muted)] uppercase block">Target</span>
-                <div class="text-base font-black text-[var(--amber)]" id="targetValMid">$0.00</div>
-              </div>
-              <div class="p-2 rounded-lg bg-[var(--surface)] border border-[var(--border)]">
-                <span class="text-[10px] text-[var(--text-muted)] uppercase block">Profit Needed</span>
-                <div class="text-base font-black text-[var(--amber)]" id="targetPnlMid">+$0.00</div>
-              </div>
-            </div>
-            <div class="pt-1 text-xs font-semibold text-[var(--text-muted)] font-num" id="targetStatusMid">Goal Met</div>
-          </div>
-
-          <!-- Aggressive Pace Card -->
-          <div id="paceCard_aggressive" onclick="setPace('aggressive')" class="bento-card p-4 sm:p-5 cursor-pointer transition-all border border-[var(--border)] rounded-xl bg-[var(--surface-subtle)] space-y-3">
-            <div class="flex items-center justify-between">
-              <div class="flex items-center gap-2">
-                <span class="w-2.5 h-2.5 rounded-full bg-[#806A86]"></span>
-                <h5 class="text-sm font-extrabold text-[var(--text-primary)]">Aggressive Pace</h5>
-              </div>
-              <div class="flex items-center gap-1.5">
-                <span id="paceCompletedBadge_aggressive" class="hidden px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-[#806A86] text-white">Completed</span>
-                <span id="paceActiveBadge_aggressive" class="hidden px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-[#806A86] text-white">Active</span>
-              </div>
-            </div>
-            <div class="grid grid-cols-2 gap-2 text-xs font-num">
-              <div class="p-2 rounded-lg bg-[var(--surface)] border border-[var(--border)]">
-                <span class="text-[10px] text-[var(--text-muted)] uppercase block">Target</span>
-                <div class="text-base font-black text-[#806A86]" id="targetValAggressive">$0.00</div>
-              </div>
-              <div class="p-2 rounded-lg bg-[var(--surface)] border border-[var(--border)]">
-                <span class="text-[10px] text-[var(--text-muted)] uppercase block">Profit Needed</span>
-                <div class="text-base font-black text-[#806A86]" id="targetPnlAggressive">+$0.00</div>
-              </div>
-            </div>
-            <div class="pt-1 text-xs font-semibold text-[var(--text-muted)] font-num" id="targetStatusAggressive">Goal Met</div>
-          </div>
-        </div>
-      </section>
-
-      <!-- 4. Middle 2-Column Section (Log Today's Session Console & Growth Progress Chart) -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6">
+      <!-- 3. Middle 2-Column Section (Log Today's Session Console & Growth Progress Chart - Matches Reference Design) -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6">
 
         <!-- Left Column (Cols 1-6): Log Today's Session Card -->
         <section id="executionStationCard" class="lg:col-span-6 bento-card p-5 sm:p-6 space-y-4 flex flex-col justify-between border border-[var(--border)] rounded-2xl bg-[var(--surface)]">
@@ -1421,6 +1256,126 @@
 
       </div>
 
+      <!-- 4. Collapsible Daily Pace Targets Drawer -->
+      <details id="dailyPaceTargetsSection" class="bento-card p-4 sm:p-5 border border-[var(--border)] rounded-2xl bg-[var(--surface)] group space-y-4">
+        <summary class="cursor-pointer font-bold text-xs text-[var(--text-primary)] flex items-center justify-between select-none list-none">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-xl bg-[var(--mint-tint)] border border-[var(--mint)]/30 text-[var(--mint)] flex items-center justify-center shrink-0">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <polygon points="12 6 12 12 16 14"/>
+              </svg>
+            </div>
+            <div>
+              <div class="flex items-center gap-2 flex-wrap">
+                <span class="text-sm font-bold text-[var(--text-primary)]">Daily Pace Targets &amp; Compounding Curves</span>
+                <span id="skimModeTrackerBadge" class="hidden text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-500/15 text-amber-600 dark:text-amber-400 border border-amber-500/30 font-num">Skim Mode (+<span id="skimModeTrackerRate">$0.00</span>/session)</span>
+              </div>
+              <p class="text-[11px] text-[var(--text-secondary)] font-normal mt-0.5">Inspect all 3 pacing trajectories (Relaxed, Mid, Aggressive) and recovery plans</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 text-[var(--text-muted)]">
+            <span class="text-[11px] font-medium hidden sm:inline group-open:hidden">View 3 paces</span>
+            <svg class="w-4 h-4 transition-transform duration-200 group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+        </summary>
+
+        <div class="pt-3 border-t border-[var(--border)] space-y-4">
+          <div class="flex items-center justify-between flex-wrap gap-3">
+            <span class="text-xs text-[var(--text-secondary)] font-sans">Active Pacing Guidance &amp; Recovery Plan:</span>
+            <div class="inline-flex items-center p-0.5 rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)] gap-1 shrink-0">
+              <button type="button" id="btnPlanMode_original" onclick="setPlanViewMode('original')" class="px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 bg-[var(--surface)] text-[var(--text-primary)] shadow-xs cursor-pointer">
+                <span>Original Plan</span>
+              </button>
+              <button type="button" id="btnPlanMode_rebased" onclick="setPlanViewMode('rebased')" class="px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1.5 text-[var(--text-secondary)] hover:text-[var(--text-primary)] cursor-pointer">
+                <span>Updated Plan</span>
+              </button>
+            </div>
+          </div>
+
+          <div id="rebasedScenarioBanner" class="hidden p-3 rounded-xl bg-sky-500/10 border border-sky-500/30 text-xs flex items-center justify-between flex-wrap gap-2">
+            <span id="rebasedBannerDesc" class="text-[var(--text-secondary)]"></span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <!-- Relaxed Pace Card -->
+            <div id="paceCard_relaxed" onclick="setPace('relaxed')" class="bento-card p-4 sm:p-5 cursor-pointer transition-all border border-[var(--border)] rounded-xl bg-[var(--surface-subtle)] space-y-3">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-[var(--mint)]"></span>
+                  <h5 class="text-sm font-extrabold text-[var(--text-primary)]">Relaxed Pace</h5>
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <span id="paceCompletedBadge_relaxed" class="hidden px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-[var(--mint)] text-[#0F1411]">Completed</span>
+                  <span id="paceActiveBadge_relaxed" class="hidden px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-[var(--mint)] text-[#0F1411]">Active</span>
+                </div>
+              </div>
+              <div class="grid grid-cols-2 gap-2 text-xs font-num">
+                <div class="p-2 rounded-lg bg-[var(--surface)] border border-[var(--border)]">
+                  <span class="text-[10px] text-[var(--text-muted)] uppercase block">Target</span>
+                  <div class="text-base font-black text-[var(--mint)]" id="targetValRelaxed">$0.00</div>
+                </div>
+                <div class="p-2 rounded-lg bg-[var(--surface)] border border-[var(--border)]">
+                  <span class="text-[10px] text-[var(--text-muted)] uppercase block">Profit Needed</span>
+                  <div class="text-base font-black text-[var(--mint)]" id="targetPnlRelaxed">+$0.00</div>
+                </div>
+              </div>
+              <div class="pt-1 text-xs font-semibold text-[var(--text-muted)] font-num" id="targetStatusRelaxed">Goal Met</div>
+            </div>
+
+            <!-- Mid Pace Card -->
+            <div id="paceCard_mid" onclick="setPace('mid')" class="bento-card p-4 sm:p-5 cursor-pointer transition-all border border-[var(--border)] rounded-xl bg-[var(--surface-subtle)] space-y-3">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-[var(--amber)]"></span>
+                  <h5 class="text-sm font-extrabold text-[var(--text-primary)]">Mid Pace</h5>
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <span id="paceCompletedBadge_mid" class="hidden px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-[var(--amber)] text-[#0F1411]">Completed</span>
+                  <span id="paceActiveBadge_mid" class="hidden px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-[var(--amber)] text-[#0F1411]">Active</span>
+                </div>
+              </div>
+              <div class="grid grid-cols-2 gap-2 text-xs font-num">
+                <div class="p-2 rounded-lg bg-[var(--surface)] border border-[var(--border)]">
+                  <span class="text-[10px] text-[var(--text-muted)] uppercase block">Target</span>
+                  <div class="text-base font-black text-[var(--amber)]" id="targetValMid">$0.00</div>
+                </div>
+                <div class="p-2 rounded-lg bg-[var(--surface)] border border-[var(--border)]">
+                  <span class="text-[10px] text-[var(--text-muted)] uppercase block">Profit Needed</span>
+                  <div class="text-base font-black text-[var(--amber)]" id="targetPnlMid">+$0.00</div>
+                </div>
+              </div>
+              <div class="pt-1 text-xs font-semibold text-[var(--text-muted)] font-num" id="targetStatusMid">Goal Met</div>
+            </div>
+
+            <!-- Aggressive Pace Card -->
+            <div id="paceCard_aggressive" onclick="setPace('aggressive')" class="bento-card p-4 sm:p-5 cursor-pointer transition-all border border-[var(--border)] rounded-xl bg-[var(--surface-subtle)] space-y-3">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-[#806A86]"></span>
+                  <h5 class="text-sm font-extrabold text-[var(--text-primary)]">Aggressive Pace</h5>
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <span id="paceCompletedBadge_aggressive" class="hidden px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-[#806A86] text-white">Completed</span>
+                  <span id="paceActiveBadge_aggressive" class="hidden px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-[#806A86] text-white">Active</span>
+                </div>
+              </div>
+              <div class="grid grid-cols-2 gap-2 text-xs font-num">
+                <div class="p-2 rounded-lg bg-[var(--surface)] border border-[var(--border)]">
+                  <span class="text-[10px] text-[var(--text-muted)] uppercase block">Target</span>
+                  <div class="text-base font-black text-[#806A86]" id="targetValAggressive">$0.00</div>
+                </div>
+                <div class="p-2 rounded-lg bg-[var(--surface)] border border-[var(--border)]">
+                  <span class="text-[10px] text-[var(--text-muted)] uppercase block">Profit Needed</span>
+                  <div class="text-base font-black text-[#806A86]" id="targetPnlAggressive">+$0.00</div>
+                </div>
+              </div>
+              <div class="pt-1 text-xs font-semibold text-[var(--text-muted)] font-num" id="targetStatusAggressive">Goal Met</div>
+            </div>
+          </div>
+        </div>
+      </details>
+
       <!-- 4. Session History Card (Matches Reference Image) -->
       <section class="bento-card p-5 sm:p-6 space-y-4 border border-[var(--border)] rounded-2xl bg-[var(--surface)]">
         <!-- Card Header & Filter Dropdown -->
@@ -1500,6 +1455,28 @@
         </div>
       </section>
 
+      <!-- 6. Secondary Analytics Drawer: Total Financial Goal & Activity Calendar -->
+      <details class="bento-card p-4 sm:p-5 border border-[var(--border)] rounded-2xl bg-[var(--surface)] group space-y-4">
+        <summary class="cursor-pointer font-bold text-xs text-[var(--text-primary)] flex items-center justify-between select-none list-none">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="m9 12 2 2 4-4"></path>
+              </svg>
+            </div>
+            <div>
+              <span class="text-sm font-bold text-[var(--text-primary)]">Total Financial Goal &amp; Trading Activity Calendar</span>
+              <p class="text-[11px] text-[var(--text-secondary)] font-normal mt-0.5">Comprehensive view of combined goals (Trading, Savings, Bills) and consistency calendar</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 text-[var(--text-muted)]">
+            <span class="text-[11px] font-medium hidden sm:inline group-open:hidden">View analytics</span>
+            <svg class="w-4 h-4 transition-transform duration-200 group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+        </summary>
+
+        <div class="pt-3 border-t border-[var(--border)] space-y-5">
       <!-- 5. Total Financial Goal Overview -->
       <section id="totalFinancialGoalWidget" class="bento-card p-4 sm:p-5 border border-[var(--border)] rounded-2xl bg-[var(--surface)]">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-3 border-b border-[var(--border)]">
@@ -1667,6 +1644,8 @@
         <div id="widgetContent_paces" class="hidden"></div>
         <div id="widgetContent_ledger" class="hidden"></div>
       </section>
+        </div>
+      </details>
 
       <!-- Preserved Realized Profit Allocation & Skim Alerts (Condition-Driven) -->
       <section id="profitAllocationCard" class="hidden bento-card p-4 sm:p-5 bg-emerald-500/10 border border-emerald-500/30 rounded-2xl space-y-3">
@@ -3627,6 +3606,70 @@
         </div>
       </div>
 
+      <!-- 2. Active Challenge Overview & Profile Switcher (Primary Management Desk) -->
+            <section id="activeChallengeSummaryCard" class="bento-card p-5 sm:p-6 space-y-4">
+              <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between pb-3 border-b border-[var(--border)] gap-3">
+                <div>
+                  <div class="flex items-center gap-2">
+                    <h3 id="cfgSummaryTitle" class="text-base font-bold text-[var(--text-primary)]">Active Challenge</h3>
+                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[var(--mint-tint)] text-[var(--mint)] border border-[var(--mint)]/30 font-num">Active</span>
+                  </div>
+                  <p id="cfgInfoEstFinish" class="text-xs text-[var(--text-secondary)] mt-0.5 font-num"></p>
+                </div>
+                <div class="flex items-center gap-2 flex-wrap sm:flex-nowrap">
+                  <select id="ladderProfileSelector" onchange="switchLadderProfile(this.value)"
+                    class="bg-[var(--surface-subtle)] border border-[var(--border)] rounded-xl px-3 py-2 text-xs font-bold text-[var(--text-primary)] focus:outline-none focus:border-[var(--mint)]">
+                    <!-- Dynamically populated -->
+                  </select>
+                  <button type="button" onclick="openEditChallengeSettings()" class="px-3.5 py-2 rounded-xl bg-[var(--surface-subtle)] hover:bg-[var(--surface-hover)] text-[var(--text-primary)] border border-[var(--border)] text-xs font-bold transition active:scale-95 flex items-center gap-1.5 shadow-xs cursor-pointer">
+                    <svg class="w-3.5 h-3.5 text-[var(--mint)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+                    </svg>
+                    <span>Edit Settings</span>
+                  </button>
+                  <button type="button" onclick="openNewChallengeForm()" class="px-3.5 py-2 rounded-xl bg-[var(--mint-tint)] hover:bg-[var(--mint)]/25 text-[var(--mint)] border border-[var(--mint)]/30 text-xs font-bold transition active:scale-95 flex items-center gap-1.5 shadow-xs cursor-pointer">
+                    <span>+ New Challenge</span>
+                  </button>
+                  <button type="button" onclick="deleteSelectedChallenge()" id="btnDeleteActiveChallenge" title="Delete selected challenge"
+                    class="px-2.5 py-2 rounded-xl bg-[var(--coral-tint)] hover:bg-[var(--coral)]/25 text-[var(--coral)] border border-[var(--coral)]/30 text-xs font-bold transition active:scale-95 flex items-center gap-1.5 shrink-0 cursor-pointer">
+                    <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="3 6 5 6 21 6"></polyline>
+                      <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              <!-- 4 Key Numbers -->
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs font-num">
+                <div class="p-3.5 rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)]">
+                  <span class="text-[var(--text-muted)] block text-[10px] uppercase font-bold font-sans">Starting Deposit</span>
+                  <strong class="text-base text-[var(--text-primary)]" id="cfgInfoStart">$0.00</strong>
+                </div>
+                <div class="p-3.5 rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)]">
+                  <span class="text-[var(--text-muted)] block text-[10px] uppercase font-bold font-sans">Target Goal</span>
+                  <strong class="text-base text-[var(--mint)]" id="cfgInfoFinal">$0.00</strong>
+                </div>
+                <div class="p-3.5 rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)]">
+                  <span class="text-[var(--text-muted)] block text-[10px] uppercase font-bold font-sans">Current Progress</span>
+                  <strong class="text-base text-[var(--text-primary)]" id="cfgInfoCurrentSession">Session 1 of 28</strong>
+                  <span class="block text-[10px] text-[var(--text-secondary)]" id="cfgInfoProgressPct">0.0% toward target</span>
+                </div>
+                <div class="p-3.5 rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)]">
+                  <span class="text-[var(--text-muted)] block text-[10px] uppercase font-bold font-sans">Growth Factor</span>
+                  <strong class="text-base text-[var(--amber)]" id="cfgInfoMultiple">58.3x</strong>
+                </div>
+              </div>
+
+              <!-- Available Challenges List -->
+              <div class="pt-2">
+                <span class="text-[11px] font-bold text-[var(--text-secondary)] block mb-2 font-sans">Available Challenge Roadmaps:</span>
+                <div id="cfgActiveChallengeList" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <!-- Dynamically populated by renderConfigTab -->
+                </div>
+              </div>
+            </section>
+
       <!-- 2. Quick Start Bar & Step Tracker (Matches Reference Image) -->
       <div class="bento-card p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div class="flex items-center gap-3">
@@ -4126,63 +4169,7 @@
 
           <!-- ==================== STEP 3: REVIEW & ROADMAPS ==================== -->
           <div id="setupStep3Container" class="hidden space-y-5">
-            <!-- Active Challenge Summary & Selector -->
-            <section id="activeChallengeSummaryCard" class="bento-card p-5 sm:p-6 space-y-4">
-              <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between pb-3 border-b border-[var(--border)] gap-3">
-                <div>
-                  <div class="flex items-center gap-2">
-                    <h3 id="cfgSummaryTitle" class="text-base font-bold text-[var(--text-primary)]">Active Challenge</h3>
-                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[var(--mint-tint)] text-[var(--mint)] border border-[var(--mint)]/30 font-num">Active</span>
-                  </div>
-                  <p id="cfgInfoEstFinish" class="text-xs text-[var(--text-secondary)] mt-0.5 font-num"></p>
-                </div>
-                <div class="flex items-center gap-2 flex-wrap sm:flex-nowrap">
-                  <select id="ladderProfileSelector" onchange="switchLadderProfile(this.value)"
-                    class="bg-[var(--surface-subtle)] border border-[var(--border)] rounded-xl px-3 py-2 text-xs font-bold text-[var(--text-primary)] focus:outline-none focus:border-[var(--mint)]">
-                    <!-- Dynamically populated -->
-                  </select>
-                  <button type="button" onclick="openNewChallengeForm()" class="px-3.5 py-2 rounded-xl bg-[var(--surface-subtle)] hover:bg-[var(--surface-hover)] text-[var(--text-primary)] border border-[var(--border)] text-xs font-bold transition active:scale-95 flex items-center gap-1.5 shadow-xs cursor-pointer">
-                    <span>+ New Challenge</span>
-                  </button>
-                  <button type="button" onclick="deleteSelectedChallenge()" id="btnDeleteActiveChallenge" title="Delete selected challenge"
-                    class="px-2.5 py-2 rounded-xl bg-[var(--coral-tint)] hover:bg-[var(--coral)]/25 text-[var(--coral)] border border-[var(--coral)]/30 text-xs font-bold transition active:scale-95 flex items-center gap-1.5 shrink-0 cursor-pointer">
-                    <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <polyline points="3 6 5 6 21 6"></polyline>
-                      <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                    </svg>
-                  </button>
-                </div>
-              </div>
-
-              <!-- 4 Key Numbers -->
-              <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs font-num">
-                <div class="p-3.5 rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)]">
-                  <span class="text-[var(--text-muted)] block text-[10px] uppercase font-bold font-sans">Starting Deposit</span>
-                  <strong class="text-base text-[var(--text-primary)]" id="cfgInfoStart">$0.00</strong>
-                </div>
-                <div class="p-3.5 rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)]">
-                  <span class="text-[var(--text-muted)] block text-[10px] uppercase font-bold font-sans">Target Goal</span>
-                  <strong class="text-base text-[var(--mint)]" id="cfgInfoFinal">$0.00</strong>
-                </div>
-                <div class="p-3.5 rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)]">
-                  <span class="text-[var(--text-muted)] block text-[10px] uppercase font-bold font-sans">Current Progress</span>
-                  <strong class="text-base text-[var(--text-primary)]" id="cfgInfoCurrentSession">Session 1 of 28</strong>
-                  <span class="block text-[10px] text-[var(--text-secondary)]" id="cfgInfoProgressPct">0.0% toward target</span>
-                </div>
-                <div class="p-3.5 rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)]">
-                  <span class="text-[var(--text-muted)] block text-[10px] uppercase font-bold font-sans">Growth Factor</span>
-                  <strong class="text-base text-[var(--amber)]" id="cfgInfoMultiple">58.3x</strong>
-                </div>
-              </div>
-
-              <!-- Available Challenges List -->
-              <div class="pt-2">
-                <span class="text-[11px] font-bold text-[var(--text-secondary)] block mb-2 font-sans">Available Challenge Roadmaps:</span>
-                <div id="cfgActiveChallengeList" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <!-- Dynamically populated by renderConfigTab -->
-                </div>
-              </div>
-            </section>
+            <!-- Active Challenge Summary relocated to top of Setup -->
 
             <!-- Primary Submit Action Bar -->
             <div class="bento-card p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -4200,7 +4187,16 @@
               </div>
             </div>
 
-            <!-- Integrations & Safe Reset Accordions -->
+            <!-- Integrations relocated to bottom of Setup -->
+
+          </div>
+
+        </form>
+      </section>
+
+      <!-- 3. Integrations & Browser Data Management (Always Accessible) -->
+      <section class="space-y-3">
+        <h4 class="text-xs font-bold text-[var(--text-muted)] uppercase tracking-wider px-1">Settings &amp; Integrations</h4>
             <div class="space-y-3">
               <!-- Firebase Firestore Cloud Sync Accordion -->
               <details class="group bento-card p-4 sm:p-5">
@@ -4286,9 +4282,6 @@
                 </div>
               </details>
             </div>
-          </div>
-
-        </form>
       </section>
 
     </div>
@@ -6216,7 +6209,7 @@ service cloud.firestore {
 
         // Also update legacy nav- ID elements if any
         const legacyBtn = document.getElementById(`nav-${t}`);
-        if (legacyBtn && !legacyBtn.hasAttribute('data-tab-target')) {
+        if (legacyBtn && typeof legacyBtn.hasAttribute === 'function' && !legacyBtn.hasAttribute('data-tab-target')) {
           if (t === tab) {
             legacyBtn.className = "flex-1 sm:flex-initial px-4 sm:px-6 py-2 rounded-lg transition-all flex items-center justify-center gap-2 bg-[#F5EBDD] dark:bg-[#41382D] text-[#332B22] dark:text-[#E2D4BD] border border-[#CFC1AA] dark:border-[#514638] shadow-sm font-bold text-xs whitespace-nowrap active-nav-item";
           } else {

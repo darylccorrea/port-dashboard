@@ -990,7 +990,7 @@
           </div>
           <div class="mt-2.5">
             <span id="posCurrentBal" class="text-2xl sm:text-3xl font-black text-[var(--text-primary)] block tracking-tight truncate">$0.00</span>
-            <span id="posStartBal" class="text-xs text-[var(--text-muted)] block mt-0.5 font-medium truncate font-sans">Started: $0.00</span>
+            <button type="button" onclick="openQuickEditParamsModal()" class="text-xs text-[var(--text-muted)] hover:text-[var(--mint)] flex items-center gap-1 mt-0.5 font-medium truncate font-sans cursor-pointer group transition text-left" title="Click to quick-edit starting balance and target"><span id="posStartBal">Started: $0.00</span><svg class="w-3 h-3 opacity-60 group-hover:opacity-100 text-[var(--mint)] transition shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></button>
           </div>
         </div>
 
@@ -3751,6 +3751,7 @@
                     class="bg-[var(--surface-subtle)] border border-[var(--border)] rounded-xl px-3 py-2 text-xs font-bold text-[var(--text-primary)] focus:outline-none focus:border-[var(--mint)]">
                     <!-- Dynamically populated -->
                   </select>
+                  <button type="button" onclick="openQuickEditParamsModal()" class="px-3.5 py-2 rounded-xl bg-[var(--mint-tint)] hover:bg-[var(--mint)]/25 text-[var(--mint)] border border-[var(--mint)]/30 text-xs font-bold transition active:scale-95 flex items-center gap-1.5 shadow-xs cursor-pointer" title="Quick edit starting balance and target"><svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg><span>Quick Edit</span></button>
                   <button type="button" onclick="openEditChallengeSettings()" class="px-3.5 py-2 rounded-xl bg-[var(--surface-subtle)] hover:bg-[var(--surface-hover)] text-[var(--text-primary)] border border-[var(--border)] text-xs font-bold transition active:scale-95 flex items-center gap-1.5 shadow-xs cursor-pointer">
                     <svg class="w-3.5 h-3.5 text-[var(--mint)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                       <path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
@@ -3772,11 +3773,11 @@
 
               <!-- 4 Key Numbers -->
               <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs font-num">
-                <div class="p-3.5 rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)]">
+                <div onclick="openQuickEditParamsModal()" class="p-3.5 rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)] hover:border-[var(--mint)] transition cursor-pointer group" title="Click to quick-edit starting deposit">
                   <span class="text-[var(--text-muted)] block text-[10px] uppercase font-bold font-sans">Starting Deposit</span>
                   <strong class="text-base text-[var(--text-primary)]" id="cfgInfoStart">$0.00</strong>
                 </div>
-                <div class="p-3.5 rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)]">
+                <div onclick="openQuickEditParamsModal()" class="p-3.5 rounded-xl bg-[var(--surface-subtle)] border border-[var(--border)] hover:border-[var(--mint)] transition cursor-pointer group" title="Click to quick-edit target goal">
                   <span class="text-[var(--text-muted)] block text-[10px] uppercase font-bold font-sans">Target Goal</span>
                   <strong class="text-base text-[var(--mint)]" id="cfgInfoFinal">$0.00</strong>
                 </div>
@@ -4186,7 +4187,8 @@
                   <p class="text-xs text-[var(--text-secondary)]">Once you've set your details, continue to the next step to configure your growth plan.</p>
                 </div>
               </div>
-              <div class="flex items-center gap-2.5 sm:self-center shrink-0">
+              <div class="flex items-center gap-2.5 sm:self-center shrink-0 flex-wrap">
+                <button type="button" onclick="saveQuickSetupStep1()" id="btnQuickSaveStep1" class="px-4 py-2.5 rounded-xl bg-[var(--surface-subtle)] hover:bg-[var(--surface-hover)] text-[var(--text-primary)] border border-[var(--border)] font-bold text-xs sm:text-sm transition active:scale-95 shadow-xs flex items-center gap-1.5 cursor-pointer" title="Apply these parameters directly to your active challenge"><svg class="w-4 h-4 text-[var(--mint)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span>Apply to Challenge</span></button>
                 <button type="button" onclick="setSetupStep(2)" class="px-5 py-2.5 rounded-xl bg-[var(--mint)] hover:bg-[var(--accent-hover)] text-[#FAF7F2] dark:text-[#0F1411] font-bold text-xs sm:text-sm transition active:scale-95 shadow-sm flex items-center gap-2 cursor-pointer">
                   <span>Continue to Goals</span>
                   <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
@@ -4908,6 +4910,55 @@ service cloud.firestore {
       </div>
     </div>
 
+    <!-- Quick Edit Challenge Starting Balance & Target Modal -->
+    <div id="quickEditParamsModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#29241E]/60 dark:bg-[#1C1814]/75 backdrop-blur-sm hidden transition-opacity duration-200">
+      <div class="bg-[var(--surface)] rounded-2xl max-w-md w-full p-6 shadow-2xl border border-[var(--border)] space-y-4">
+        <div class="flex items-center justify-between pb-2 border-b border-[var(--border)]">
+          <div class="flex items-center gap-2.5">
+            <div class="w-8 h-8 rounded-xl bg-[var(--mint-tint)] text-[var(--mint)] flex items-center justify-center">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+            </div>
+            <div>
+              <h3 class="text-base font-bold text-[var(--text-primary)]">Quick Edit Portfolio Parameters</h3>
+              <p class="text-[11px] text-[var(--text-muted)] font-sans">Update your starting deposit and target goal directly.</p>
+            </div>
+          </div>
+          <button type="button" onclick="closeQuickEditParamsModal()" class="w-7 h-7 rounded-lg hover:bg-[var(--surface-muted)] flex items-center justify-center text-[var(--text-muted)] hover:text-[var(--text-primary)] cursor-pointer">✕</button>
+        </div>
+
+        <form id="quickEditParamsForm" onsubmit="handleQuickEditParamsSubmit(event)" class="space-y-3.5 text-xs">
+          <div>
+            <label class="block font-bold text-[var(--text-muted)] uppercase text-[10px]">Starting Balance (USD) *</label>
+            <div class="relative mt-1">
+              <span class="absolute left-3 top-2.5 text-[var(--text-muted)] font-bold font-num">$</span>
+              <input type="number" step="0.01" min="1" id="quickEditStartBalInput" required placeholder="0.00"
+                class="w-full bg-[var(--surface-subtle)] border border-[var(--border)] rounded-xl pl-8 pr-3 py-2.5 font-num font-bold text-sm text-[var(--text-primary)] focus:outline-none focus:border-[var(--mint)]" />
+            </div>
+            <p class="text-[11px] text-[var(--text-muted)] mt-1 font-sans">The capital you started trading with for this challenge.</p>
+          </div>
+
+          <div>
+            <label class="block font-bold text-[var(--text-muted)] uppercase text-[10px]">Target Goal (USD) *</label>
+            <div class="relative mt-1">
+              <span class="absolute left-3 top-2.5 text-[var(--text-muted)] font-bold font-num">$</span>
+              <input type="number" step="1" min="1" id="quickEditTargetBalInput" required placeholder="0.00"
+                class="w-full bg-[var(--surface-subtle)] border border-[var(--border)] rounded-xl pl-8 pr-3 py-2.5 font-num font-bold text-sm text-[var(--text-primary)] focus:outline-none focus:border-[var(--mint)]" />
+            </div>
+            <p class="text-[11px] text-[var(--text-muted)] mt-1 font-sans">Your compounding summit target for this challenge.</p>
+          </div>
+
+          <div class="flex items-center justify-end gap-2 pt-2 border-t border-[var(--border)]">
+            <button type="button" onclick="closeQuickEditParamsModal()" class="px-4 py-2 rounded-xl text-xs font-bold text-[var(--text-secondary)] hover:bg-[var(--surface-muted)] transition cursor-pointer">
+              Cancel
+            </button>
+            <button type="submit" class="px-4 py-2 rounded-xl text-xs font-bold bg-[var(--mint)] hover:bg-[var(--mint-hover)] text-[#0F1411] transition shadow-sm cursor-pointer">
+              Apply &amp; Save
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
     <!-- Custom Modal Dialog -->
     <div id="customModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#29241E]/60 dark:bg-[#1C1814]/75 backdrop-blur-sm hidden transition-opacity duration-200">
       <div class="bg-[#F0E6D5] dark:bg-[#352E25] rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-[#CFC1AA] dark:border-[#514638] space-y-4">
@@ -5266,9 +5317,9 @@ service cloud.firestore {
         eligibleProfit,
         currentDesk,
         billsBalance = 0,
-        billsTarget = 1500,
+        billsTarget = 0,
         savingsBalance = 0,
-        reserveFloor = 1000,
+        reserveFloor = 0,
         customPercentages = null
       } = params;
 
@@ -5808,6 +5859,14 @@ service cloud.firestore {
       if (cfgRemVal) cfgRemVal.innerText = fmt(goal.totalRemaining);
       const cfgProgPct = document.getElementById('cfgTotalFinancialProgressPct');
       if (cfgProgPct) cfgProgPct.innerText = `${goal.overallProgressPct.toFixed(1)}% achieved`;
+
+      // Setup Equation Chips (Ensure 100% mathematical consistency with Total Goal)
+      const cfgTfgTradingVal = document.getElementById('cfgTfgTradingTargetVal');
+      if (cfgTfgTradingVal) cfgTfgTradingVal.innerText = fmt(goal.trading.target);
+      const cfgTfgSavingsVal = document.getElementById('cfgTfgSavingsTargetVal');
+      if (cfgTfgSavingsVal) cfgTfgSavingsVal.innerText = fmt(goal.savings.target);
+      const cfgTfgBillsVal = document.getElementById('cfgTfgBillsTargetVal');
+      if (cfgTfgBillsVal) cfgTfgBillsVal.innerText = fmt(goal.bills.target);
 
       // --- Capital Vault Banner Elements ---
       const vaultTfgGoal = document.getElementById('vaultTfgTotalGoal');
@@ -7228,7 +7287,7 @@ service cloud.firestore {
             billsBalance: balances.bills,
             billsTarget: (milestoneConfig && milestoneConfig.targetGoal) ? milestoneConfig.targetGoal : 0,
             savingsBalance: balances.savings,
-            reserveFloor: milestoneConfig.reserveFloor || 1000
+            reserveFloor: (milestoneConfig && milestoneConfig.reserveFloor > 0) ? milestoneConfig.reserveFloor : (prof?.base || 0)
           });
           currentAllocPreview = preview;
 
@@ -7271,7 +7330,7 @@ service cloud.firestore {
           if (floorWarn && floorText) {
             floorWarn.classList.toggle('hidden', preview.passesFloor);
             if (!preview.passesFloor) {
-              floorText.innerText = `Allocating will drop Desk to ${fmt(preview.deskAfter)}, below floor of ${fmt(milestoneConfig.reserveFloor || 1000)}.`;
+              floorText.innerText = `Allocating will drop Desk to ${fmt(preview.deskAfter)}, below floor of ${fmt((milestoneConfig && milestoneConfig.reserveFloor > 0) ? milestoneConfig.reserveFloor : (prof?.base || 0))}.`;
             }
           }
         } else {
@@ -7517,9 +7576,12 @@ service cloud.firestore {
           shouldAlert = true;
           surplusAmt = sessionPnl * 0.25;
         } else if (milestoneConfig.strategy === 'checkpoints') {
-          if (currentDesk >= 450 && totalVault < 100) { shouldAlert = true; surplusAmt = 100; }
-          else if (currentDesk >= 900 && totalVault < 500) { shouldAlert = true; surplusAmt = 400; }
-          else if (currentDesk >= 1500 && totalVault < 1000) { shouldAlert = true; surplusAmt = 500; }
+          const w1Target = getSessionTarget(Math.min(ladder.length, 7));
+          const w2Target = getSessionTarget(Math.min(ladder.length, 14));
+          const w3Target = getSessionTarget(Math.min(ladder.length, 21));
+          if (w1Target > 0 && currentDesk >= w1Target && totalVault < (w1Target * 0.1)) { shouldAlert = true; surplusAmt = Number((w1Target * 0.1).toFixed(2)); }
+          else if (w2Target > 0 && currentDesk >= w2Target && totalVault < (w2Target * 0.15)) { shouldAlert = true; surplusAmt = Number((w2Target * 0.15).toFixed(2)); }
+          else if (w3Target > 0 && currentDesk >= w3Target && totalVault < (w3Target * 0.2)) { shouldAlert = true; surplusAmt = Number((w3Target * 0.2).toFixed(2)); }
         } else if (delta > 50) {
           shouldAlert = true;
           surplusAmt = delta;
@@ -8172,7 +8234,8 @@ service cloud.firestore {
 
     function executeSkim(amount, note, bypassFloorWarning = false, bucket = 'bills') {
       const currentDesk = getDeskBalance(currentSession);
-      const floor = milestoneConfig.reserveFloor || 1000;
+      const activeP = typeof getActiveProfile === 'function' ? getActiveProfile() : null;
+      const floor = (milestoneConfig && milestoneConfig.reserveFloor > 0) ? milestoneConfig.reserveFloor : (activeP?.base || 0);
       const deskAfter = currentDesk - amount;
 
       if (!bypassFloorWarning && deskAfter < floor) {
@@ -10285,8 +10348,10 @@ service cloud.firestore {
       const startDateEl = document.getElementById('genStartDate');
       const savingsInput = document.getElementById('setupSavingsTargetInput');
 
-      const base = parseFloat(baseEl ? baseEl.value : 0) || 0;
-      const target = parseFloat(targetEl ? targetEl.value : 0) || 0;
+      const prof = typeof getActiveProfile === 'function' ? getActiveProfile() : null;
+      const ladder = typeof getActiveLadder === 'function' ? getActiveLadder() : [];
+      const base = (baseEl && baseEl.value !== '') ? (parseFloat(baseEl.value) || 0) : ((prof && typeof prof.base === 'number' && !isNaN(prof.base)) ? prof.base : (ladder[0]?.r || 0));
+      const target = (targetEl && targetEl.value !== '') ? (parseFloat(targetEl.value) || 0) : ((prof && (prof.portTarget || prof.targetBalance)) || getSessionTarget(ladder.length) || 0);
       const sessions = parseInt(sessionsEl ? sessionsEl.value : 28) || 28;
       const startDateStr = (startDateEl && startDateEl.value) ? startDateEl.value : new Date().toISOString().split('T')[0];
       const savingsTarget = parseFloat(savingsInput ? savingsInput.value : 0) || (milestoneConfig?.targetGoal || 0);
@@ -10426,7 +10491,7 @@ service cloud.firestore {
         if (estFinishEl) estFinishEl.innerText = estFinishDate ? `Est finish: ${estFinishDate}` : '';
 
         // If inputs exist, only populate if actively in edit mode for an existing challenge
-        if (isEditingChallenge) {
+        if (activeProf) {
           const baseEl = document.getElementById('genBase');
           if (baseEl && document.activeElement !== baseEl && !baseEl.value) baseEl.value = (activeProf.base != null && !isNaN(activeProf.base)) ? activeProf.base : (activeProf.sessions?.[0]?.r || '');
           const targetEl = document.getElementById('genTarget');
@@ -10527,6 +10592,155 @@ service cloud.firestore {
       renderTotalFinancialGoal();
       updateGenPreview();
       updateSetupVisuals();
+    }
+
+    function updateActiveProfileParams(newBase, newTarget) {
+      if (isNaN(newBase) || newBase <= 0) {
+        showToast("Please enter a valid starting balance", false);
+        return false;
+      }
+      const prof = typeof getActiveProfile === 'function' ? getActiveProfile() : null;
+      if (!prof) {
+        showToast("No active challenge found to update", false);
+        return false;
+      }
+
+      prof.base = Number(newBase.toFixed(2));
+      if (newTarget && !isNaN(newTarget) && newTarget > 0) {
+        prof.portTarget = Number(newTarget.toFixed(2));
+        prof.targetBalance = Number(newTarget.toFixed(2));
+      }
+
+      const totalSessions = prof.sessions?.length || 28;
+      const targetVal = prof.portTarget || prof.targetBalance || (newBase * 10);
+      const curve = prof.curveType || 'tri_pace_independent';
+
+      if (curve === 'tri_pace_independent') {
+        const checkpointSession = Math.max(2, Math.round(totalSessions * 0.25));
+        const relCkpt = targetVal === 10000 ? 1000 : Number((targetVal * 0.10).toFixed(2));
+        const midCkpt = targetVal === 10000 ? 1800 : Number((targetVal * 0.18).toFixed(2));
+        const aggCkpt = targetVal === 10000 ? 2500 : Number((targetVal * 0.25).toFixed(2));
+
+        const triLadder = generateIndependentTriPaceLadder({
+          base: prof.base,
+          totalSessions: totalSessions,
+          checkpointSession: checkpointSession,
+          relaxedCheckpoint: relCkpt,
+          relaxedEndpoint: targetVal,
+          midCheckpoint: midCkpt,
+          midEndpoint: targetVal,
+          aggCheckpoint: aggCkpt,
+          aggEndpoint: targetVal,
+          curveType: 'smooth'
+        });
+
+        prof.sessions = triLadder.sessions.map(row => ({
+          s: row.s,
+          r: row.r,
+          m: row.m,
+          a: row.a,
+          target: row.r,
+          tag: row.tag
+        }));
+      } else {
+        const rSeries = calculateSmoothSeries(prof.base, targetVal, totalSessions);
+        const mSeries = calculateDecaySeries(prof.base, targetVal, totalSessions);
+        prof.sessions = prof.sessions.map((row, idx) => ({
+          ...row,
+          r: rSeries[idx] !== undefined ? rSeries[idx] : row.r,
+          m: mSeries[idx] !== undefined ? mSeries[idx] : row.m,
+          a: mSeries[idx] !== undefined ? mSeries[idx] : row.a,
+          target: rSeries[idx] !== undefined ? rSeries[idx] : row.target
+        }));
+      }
+
+      const baseEl = document.getElementById('genBase');
+      if (baseEl) baseEl.value = prof.base;
+      const targetEl = document.getElementById('genTarget');
+      if (targetEl) targetEl.value = prof.portTarget;
+
+      localStorage.setItem('pgl_ladder_profiles_v10', JSON.stringify(ladderProfiles));
+      renderConfigTab();
+      renderTracker();
+      renderMilestonesTab();
+      renderStatsTab();
+      updateSetupVisuals();
+      renderTotalFinancialGoal();
+      if (typeof updateGrowthProgressChart === 'function') updateGrowthProgressChart();
+      syncToFirestore();
+      showToast(`Challenge updated: Start ${fmt(prof.base)} • Target ${fmt(prof.portTarget)}`);
+      return true;
+    }
+
+    function openQuickEditParamsModal() {
+      const prof = typeof getActiveProfile === 'function' ? getActiveProfile() : null;
+      const ladder = typeof getActiveLadder === 'function' ? getActiveLadder() : [];
+      const currentBase = (prof && typeof prof.base === 'number' && !isNaN(prof.base)) ? prof.base : (ladder[0]?.r || 120);
+      const currentTarget = (prof && (prof.portTarget || prof.targetBalance)) || getSessionTarget(ladder.length) || 7000;
+
+      const startInput = document.getElementById('quickEditStartBalInput');
+      if (startInput) startInput.value = currentBase;
+      const targetInput = document.getElementById('quickEditTargetBalInput');
+      if (targetInput) targetInput.value = currentTarget;
+
+      const modal = document.getElementById('quickEditParamsModal');
+      if (modal) modal.classList.remove('hidden');
+      if (startInput) setTimeout(() => startInput.focus(), 50);
+    }
+
+    function closeQuickEditParamsModal() {
+      const modal = document.getElementById('quickEditParamsModal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function handleQuickEditParamsSubmit(e) {
+      if (e && e.preventDefault) e.preventDefault();
+      const startInput = document.getElementById('quickEditStartBalInput');
+      const targetInput = document.getElementById('quickEditTargetBalInput');
+      const newBase = parseFloat(startInput ? startInput.value : 0);
+      const newTarget = parseFloat(targetInput ? targetInput.value : 0);
+
+      if (isNaN(newBase) || newBase <= 0) {
+        showToast("Please enter a valid starting balance", false);
+        return;
+      }
+      if (isNaN(newTarget) || newTarget <= 0) {
+        showToast("Please enter a valid target balance", false);
+        return;
+      }
+
+      const success = updateActiveProfileParams(newBase, newTarget);
+      if (success) {
+        closeQuickEditParamsModal();
+      }
+    }
+
+    function saveQuickSetupStep1() {
+      const baseEl = document.getElementById('genBase');
+      const targetEl = document.getElementById('genTarget');
+      const newBase = parseFloat(baseEl ? baseEl.value : 0);
+      const newTarget = parseFloat(targetEl ? targetEl.value : 0);
+
+      if (isNaN(newBase) || newBase <= 0) {
+        showToast("Please enter a valid starting balance", false);
+        if (baseEl) baseEl.focus();
+        return;
+      }
+      if (isNaN(newTarget) || newTarget <= 0) {
+        showToast("Please enter a valid target balance", false);
+        if (targetEl) targetEl.focus();
+        return;
+      }
+
+      const prof = getActiveProfile();
+      if (prof) {
+        const nameEl = document.getElementById('genName');
+        if (nameEl && nameEl.value.trim()) prof.name = nameEl.value.trim();
+        const dateEl = document.getElementById('genStartDate');
+        if (dateEl && dateEl.value) prof.startDate = dateEl.value;
+      }
+
+      updateActiveProfileParams(newBase, newTarget);
     }
 
     function openEditChallengeSettings() {

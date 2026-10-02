@@ -1066,35 +1066,8 @@
 
       </section>
 
-      <!-- 3. Sub-Header Navigation Bar for Daily Tracker -->
-      <div class="flex items-center justify-between gap-3 border-b border-[var(--border)] pb-2 flex-wrap">
-        <div class="inline-flex p-1 rounded-2xl bg-[var(--surface-subtle)] border border-[var(--border)] gap-1 flex-wrap">
-          <button type="button" onclick="switchSubTab('tabContentTracker', 'paces')" data-subtab-target="paces"
-            class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-2 bg-[var(--surface)] text-[var(--text-primary)] border border-[var(--border)] shadow-xs active-subtab cursor-pointer">
-            <svg class="w-3.5 h-3.5 text-[var(--amber)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="12 6 12 12 16 14"/></svg>
-            <span>3-Pace Targets</span>
-          </button>
-          <button type="button" onclick="switchSubTab('tabContentTracker', 'desk')" data-subtab-target="desk"
-            class="px-3.5 py-1.5 rounded-xl text-xs font-semibold transition flex items-center gap-2 text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-hover)] border border-transparent cursor-pointer">
-            <svg class="w-3.5 h-3.5 text-[var(--mint)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-            <span>Daily Desk</span>
-          </button>
-          <button type="button" onclick="switchSubTab('tabContentTracker', 'calendar')" data-subtab-target="calendar"
-            class="px-3.5 py-1.5 rounded-xl text-xs font-semibold transition flex items-center gap-2 text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-hover)] border border-transparent cursor-pointer">
-            <svg class="w-3.5 h-3.5 text-sky-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-            <span>Activity Calendar</span>
-          </button>
-          <button type="button" onclick="switchSubTab('tabContentTracker', 'tfg')" data-subtab-target="tfg"
-            class="px-3.5 py-1.5 rounded-xl text-xs font-semibold transition flex items-center gap-2 text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-hover)] border border-transparent cursor-pointer">
-            <svg class="w-3.5 h-3.5 text-[#7C69AF] dark:text-[#A78BFA]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
-            <span>Total Financial Goal</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- PANEL 1: 3-Pace Targets & Compounding Curves (Default Active) -->
-      <div data-subtab-panel="paces" class="space-y-5 sm:space-y-6">
-        <section id="dailyPaceTargetsSection" class="bento-card p-5 sm:p-6 border border-[var(--border)] rounded-2xl bg-[var(--surface)] space-y-4">
+      <!-- 3. Static Daily Pace Targets & Compounding Curves (Always Visible Above Tabs) -->
+      <section id="dailyPaceTargetsSection" class="bento-card p-5 sm:p-6 border border-[var(--border)] rounded-2xl bg-[var(--surface)] space-y-4">
           <div class="flex items-center justify-between pb-3.5 border-b border-[var(--border)] flex-wrap gap-3">
             <div class="flex items-center gap-3">
               <div class="w-10 h-10 rounded-2xl bg-[var(--mint-tint)] border border-[var(--mint)]/30 text-[var(--mint)] flex items-center justify-center shrink-0">
@@ -1205,10 +1178,30 @@
             </div>
           </div>
         </section>
+
+      <!-- 4. Sub-Header Navigation Bar for Daily Tracker -->
+      <div class="flex items-center justify-between gap-3 border-b border-[var(--border)] pb-2 flex-wrap">
+        <div class="inline-flex p-1 rounded-2xl bg-[var(--surface-subtle)] border border-[var(--border)] gap-1 flex-wrap">
+          <button type="button" onclick="switchSubTab('tabContentTracker', 'desk')" data-subtab-target="desk"
+            class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition flex items-center gap-2 bg-[var(--surface)] text-[var(--text-primary)] border border-[var(--border)] shadow-xs active-subtab cursor-pointer">
+            <svg class="w-3.5 h-3.5 text-[var(--mint)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            <span>Daily Desk</span>
+          </button>
+          <button type="button" onclick="switchSubTab('tabContentTracker', 'calendar')" data-subtab-target="calendar"
+            class="px-3.5 py-1.5 rounded-xl text-xs font-semibold transition flex items-center gap-2 text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-hover)] border border-transparent cursor-pointer">
+            <svg class="w-3.5 h-3.5 text-sky-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <span>Activity Calendar</span>
+          </button>
+          <button type="button" onclick="switchSubTab('tabContentTracker', 'tfg')" data-subtab-target="tfg"
+            class="px-3.5 py-1.5 rounded-xl text-xs font-semibold transition flex items-center gap-2 text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-hover)] border border-transparent cursor-pointer">
+            <svg class="w-3.5 h-3.5 text-[#7C69AF] dark:text-[#A78BFA]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+            <span>Total Financial Goal</span>
+          </button>
+        </div>
       </div>
 
-      <!-- PANEL 2: Daily Execution Desk -->
-      <div data-subtab-panel="desk" class="hidden space-y-5 sm:space-y-6">
+      <!-- PANEL 1: Daily Execution Desk (Default Active) -->
+      <div data-subtab-panel="desk" class="space-y-5 sm:space-y-6">
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6">
 
         <!-- Left Column (Cols 1-6): Log Today's Session Card -->
@@ -6394,6 +6387,10 @@ service cloud.firestore {
     function switchSubTab(sectionId, subTabName) {
       const section = document.getElementById(sectionId);
       if (!section || typeof section.querySelectorAll !== 'function') return;
+
+      if (sectionId === 'tabContentTracker' && subTabName === 'paces') {
+        subTabName = 'desk';
+      }
 
       // 1. Manage sub-tab panels
       const panels = section.querySelectorAll('[data-subtab-panel]');

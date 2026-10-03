@@ -89,9 +89,9 @@ function generateIndependentTriPaceLadder(base, target, totalSessions) {
     }
 
     let tag = '';
-    if (s === 1) tag = 'Base Camp';
+    if (s === 1) tag = 'Outpost Camp';
     else if (s === K) tag = `Checkpoint K (${Math.round((K / N) * 100)}%)`;
-    else if (s === N) tag = 'Summit Target';
+    else if (s === N) tag = 'Trove Target';
     else if (s % 7 === 0) tag = `Week ${s / 7} Checkpoint`;
 
     sessions.push({
@@ -125,7 +125,7 @@ function calculateSmoothSeries(base, target, totalSessions) {
       m: Math.round(m * 100) / 100,
       a: Math.round(a * 100) / 100,
       target: Math.round(r * 100) / 100,
-      tag: s === 1 ? 'Base Camp' : (s === N ? 'Summit Target' : (s % 7 === 0 ? `Week ${s / 7}` : ''))
+      tag: s === 1 ? 'Outpost Camp' : (s === N ? 'Trove Target' : (s % 7 === 0 ? `Week ${s / 7}` : ''))
     });
   }
   return sessions;
@@ -150,7 +150,7 @@ function calculateDecaySeries(base, target, totalSessions) {
       m: Math.round(m * 100) / 100,
       a: Math.round(a * 100) / 100,
       target: Math.round(r * 100) / 100,
-      tag: s === 1 ? 'Base Camp' : (s === N ? 'Summit Target' : (s % 7 === 0 ? `Week ${s / 7}` : ''))
+      tag: s === 1 ? 'Outpost Camp' : (s === N ? 'Trove Target' : (s % 7 === 0 ? `Week ${s / 7}` : ''))
     });
   }
   return sessions;
@@ -184,7 +184,7 @@ function calculatePortTargetWithdrawal(base, target, totalSessions, withdrawalTa
       m: Math.round((deskTarget * 1.8 + withdrawalGoal) * 100) / 100,
       a: Math.round((deskTarget * 2.5 + withdrawalGoal) * 100) / 100,
       target: Math.round(totalTarget * 100) / 100,
-      tag: s === 1 ? 'Base Camp' : (s === N ? 'Summit Target' : (s === Dwith ? 'Cash-Out Completed' : ''))
+      tag: s === 1 ? 'Outpost Camp' : (s === N ? 'Trove Target' : (s === Dwith ? 'Cash-Out Completed' : ''))
     });
   }
   return sessions;
@@ -1021,7 +1021,7 @@ function renderMountainTrail() {
   const balance = getCurrentDeskBalance();
   const targetProgress = target > 0 ? Math.min(100, Math.max(0, balance / target * 100)) : 0;
   const checkpoints = [...new Set([1, Math.ceil(N * .25), Math.ceil(N * .5), Math.ceil(N * .75), N])].sort((a, b) => a - b);
-  const names = ['Trailhead', 'Fernwood', 'Crystal Pass', 'Cloudrest', 'Summit'];
+  const names = ['The Outpost', 'Ancient Ruins', 'Shadow Grotto', 'Dragon Hoard', 'Treasure Trove'];
   const ys = [140, 96, 124, 76, 104];
   const points = checkpoints.map((session, i) => {
     const targetVal = getActiveTargetForSession(session);
@@ -1043,7 +1043,7 @@ function renderMountainTrail() {
   const reachedCount = points.filter(p => p.reached).length;
   const currentLevel = Math.floor(completed / 5) + 1;
   const nextStop = points.find(p => !p.reached) || points[points.length - 1];
-  const safeNext = nextStop || { name: 'Summit', session: N, target: target };
+  const safeNext = nextStop || { name: 'Treasure Trove', session: N, target: target };
   const nextTarget = safeNext.target || getActiveTargetForSession(safeNext.session);
   const diffToNext = Math.max(0, nextTarget - balance);
 
@@ -1076,7 +1076,7 @@ function renderMountainTrail() {
   }).join('');
 
   const nextStatusBadge = completed >= N
-    ? `<span class="quest-next-amt-badge is-reached">Summit reached — legendary!</span>`
+    ? `<span class="quest-next-amt-badge is-reached">Treasure Trove unlocked — Legendary!</span>`
     : (balance >= nextTarget
         ? `<span class="quest-next-amt-badge is-reached">Target Cleared (${formatCurrency(nextTarget)}) ✓</span>`
         : `<span class="quest-next-amt-badge">Target: <strong>${formatCurrency(nextTarget)}</strong> · Need +${formatCurrency(diffToNext)}</span>`);
@@ -1099,7 +1099,7 @@ function renderMountainTrail() {
         <span style="width:${progress * 100}%"></span>
       </div>
     </div>
-    <svg class="quest-map" viewBox="0 0 600 238" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Isometric wilderness map with ${completed} of ${N} sessions completed and ${reachedCount} checkpoints reached">
+    <svg class="quest-map" viewBox="0 0 600 238" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Expedition adventure map with ${completed} of ${N} sessions completed and ${reachedCount} milestones reached">
       <use href="#location-route" x="0" y="0" width="600" height="238"/>
       <path d="M0 180h600v58H0z" fill="#4f6548" opacity=".8"/>
       <polyline points="${route}" fill="none" stroke="#4c4130" stroke-width="12" stroke-linecap="square" stroke-linejoin="bevel"/>
@@ -1118,7 +1118,7 @@ function renderMountainTrail() {
         <div>
           <small>NEXT CHECKPOINT</small>
           <div class="quest-next-details">
-            <strong>${completed >= N ? 'Summit Reached' : `${safeNext.name} · S${safeNext.session}`}</strong>
+            <strong>${completed >= N ? 'Treasure Trove Reached' : `${safeNext.name} · S${safeNext.session}`}</strong>
             ${nextStatusBadge}
           </div>
         </div>

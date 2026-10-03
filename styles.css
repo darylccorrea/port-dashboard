@@ -22,23 +22,23 @@
 }
 [data-theme="dark"] {
   color-scheme: dark;
-  --sky: #263d3a; --far: #354b3c; --grass: #536349; --earth: #332b25;
-  --paper: #273329; --paper-hi: #202a22; --paper-shadow: #111812;
-  --world: #101611; --wood: #604831; --wood-dark: #0b100c; --gold: #e0bd70;
-  --ink: #f2e8d2; --muted: #c5b99e; --green: #a2c18d; --green-bright: #b0ca99;
-  --red: #e1a18a; --blue: #a0c4c4; --purple: #b49dbb; --line: #3d4b3e;
-  --panel-edge: #485749; --field: #151d17; --shadow: #080c09;
-  --primary: #91ad7d; --primary-ink: #172016; --surface-soft: #2b372d;
-  --on-wood: #f3ead4; --header-muted: #d0c3a7; --header-active: #e5c77a;
-  --chart-grid: #63705f; --chart-wealth: #b49ac2; --chart-desk: #a4c18c; --chart-loss: #e19b83;
-  --green-soft: #27372b; --green-soft-ink: #c8d9bc; --green-solid: #91ad7d; --green-solid-ink: #172016;
-  --blue-soft: #293638; --blue-soft-ink: #c6d8d6; --blue-solid: #739394; --blue-solid-ink: #101714;
-  --purple-soft: #332e38; --purple-soft-ink: #d8cbe0; --purple-solid: #9885a0; --purple-solid-ink: #17141a;
-  --gold-soft: #393424; --gold-soft-ink: #ead9a8; --gold-solid: #c7a957; --gold-solid-ink: #2e281a;
-  --red-soft: #392c28; --red-soft-ink: #e6bcae; --red-solid: #b57966; --red-solid-ink: #1a1411;
-  --pace-relaxed-soft: #253428; --pace-relaxed-fill: #789174; --pace-relaxed-ink: #f0e8d5;
-  --pace-mid-soft: #393424; --pace-mid-fill: #c3a556; --pace-mid-ink: #f2ead7;
-  --pace-aggressive-soft: #332e38; --pace-aggressive-fill: #8d7b96; --pace-aggressive-ink: #f0e9f1;
+  --sky: #1a2a24; --far: #223226; --grass: #374836; --earth: #221c17;
+  --paper: #131c15; --paper-hi: #0e1510; --paper-shadow: #060906;
+  --world: #080d09; --wood: #453221; --wood-dark: #070b08; --gold: #d1ad5e;
+  --ink: #ede3cd; --muted: #a89d84; --green: #89ad75; --green-bright: #9ebf8a;
+  --red: #cf8974; --blue: #8aaeb0; --purple: #a58ea8; --line: #223024;
+  --panel-edge: #2c3d2f; --field: #0a0e0b; --shadow: #040604;
+  --primary: #7e9c6c; --primary-ink: #0d140e; --surface-soft: #172118;
+  --on-wood: #ede3cd; --header-muted: #b5a88c; --header-active: #d6b86e;
+  --chart-grid: #435244; --chart-wealth: #a087ad; --chart-desk: #89ad75; --chart-loss: #cf8974;
+  --green-soft: #142216; --green-soft-ink: #bed1b2; --green-solid: #7e9c6c; --green-solid-ink: #0d140e;
+  --blue-soft: #152224; --blue-soft-ink: #b8ccca; --blue-solid: #5f7e80; --blue-solid-ink: #090e0c;
+  --purple-soft: #201a24; --purple-soft-ink: #ccbfd3; --purple-solid: #826f8b; --purple-solid-ink: #100d13;
+  --gold-soft: #262014; --gold-soft-ink: #decb99; --gold-solid: #b5984c; --gold-solid-ink: #1c170d;
+  --red-soft: #261916; --red-soft-ink: #d8aba0; --red-solid: #a06757; --red-solid-ink: #140d0a;
+  --pace-relaxed-soft: #142116; --pace-relaxed-fill: #446547; --pace-relaxed-ink: #e5edd6;
+  --pace-mid-soft: #241d11; --pace-mid-fill: #8f6e2b; --pace-mid-ink: #f7edd4;
+  --pace-aggressive-soft: #1f1724; --pace-aggressive-fill: #634771; --pace-aggressive-ink: #f2e9f7;
 }
 
 * { box-sizing: border-box; }
@@ -332,176 +332,176 @@ input:focus,select:focus,textarea:focus { outline:2px solid var(--gold)!importan
 /* ====================================================================
    DAILY PACE CARDS: NOT COMPLETED (Outline with Low Fill)
    ==================================================================== */
-/* Light Mode - Incomplete */
+/* Light Mode - Incomplete (Earthy, natural washes) */
 #dailyPaceTargetsSection #paceCardRelaxed:not(.is-complete) {
-  background: rgba(16, 185, 129, 0.08) !important;
-  border: 2px solid #10b981 !important;
-  border-left: 6px solid #059669 !important;
-  box-shadow: 0 2px 6px rgba(16, 185, 129, 0.08) !important;
+  background: rgba(85, 119, 88, 0.08) !important;
+  border: 2px solid #5a7d5e !important;
+  border-left: 6px solid #456c4d !important;
+  box-shadow: 0 2px 5px rgba(69, 108, 77, 0.08) !important;
 }
 #dailyPaceTargetsSection #paceCardRelaxed:not(.is-complete) > div:first-child > span:first-child {
-  color: #047857 !important;
+  color: #35563b !important;
 }
 #dailyPaceTargetsSection #paceCardRelaxed:not(.is-complete) #targetRelVal {
-  color: #064e3b !important;
+  color: #203524 !important;
 }
 #dailyPaceTargetsSection #paceCardRelaxed:not(.is-complete) #diffRelVal,
 #dailyPaceTargetsSection #paceCardRelaxed:not(.is-complete) > div:last-child {
-  color: #047857 !important;
+  color: #456c4d !important;
 }
 
 #dailyPaceTargetsSection #paceCardMid:not(.is-complete) {
-  background: rgba(245, 158, 11, 0.08) !important;
-  border: 2px solid #f59e0b !important;
-  border-left: 6px solid #d97706 !important;
-  box-shadow: 0 2px 6px rgba(245, 158, 11, 0.08) !important;
+  background: rgba(184, 142, 60, 0.08) !important;
+  border: 2px solid #a8833b !important;
+  border-left: 6px solid #8c6a28 !important;
+  box-shadow: 0 2px 5px rgba(140, 106, 40, 0.08) !important;
 }
 #dailyPaceTargetsSection #paceCardMid:not(.is-complete) > div:first-child > span:first-child {
-  color: #b45309 !important;
+  color: #6e4f16 !important;
 }
 #dailyPaceTargetsSection #paceCardMid:not(.is-complete) #targetMidVal {
-  color: #78350f !important;
+  color: #3b2a08 !important;
 }
 #dailyPaceTargetsSection #paceCardMid:not(.is-complete) #diffMidVal,
 #dailyPaceTargetsSection #paceCardMid:not(.is-complete) > div:last-child {
-  color: #92400e !important;
+  color: #7a5c24 !important;
 }
 
 #dailyPaceTargetsSection #paceCardAgg:not(.is-complete) {
-  background: rgba(168, 85, 247, 0.08) !important;
-  border: 2px solid #a855f7 !important;
-  border-left: 6px solid #7c3aed !important;
-  box-shadow: 0 2px 6px rgba(168, 85, 247, 0.08) !important;
+  background: rgba(123, 98, 138, 0.08) !important;
+  border: 2px solid #826691 !important;
+  border-left: 6px solid #634771 !important;
+  box-shadow: 0 2px 5px rgba(99, 71, 113, 0.08) !important;
 }
 #dailyPaceTargetsSection #paceCardAgg:not(.is-complete) > div:first-child > span:first-child {
-  color: #7c3aed !important;
+  color: #4f335b !important;
 }
 #dailyPaceTargetsSection #paceCardAgg:not(.is-complete) #targetAggVal {
-  color: #581c87 !important;
+  color: #301d3a !important;
 }
 #dailyPaceTargetsSection #paceCardAgg:not(.is-complete) #diffAggVal,
 #dailyPaceTargetsSection #paceCardAgg:not(.is-complete) > div:last-child {
-  color: #6b21a8 !important;
+  color: #634771 !important;
 }
 
-/* Dark Mode - Incomplete */
+/* Dark Mode - Incomplete (Subtle dark forest/trove shadows) */
 [data-theme="dark"] #dailyPaceTargetsSection #paceCardRelaxed:not(.is-complete) {
-  background: rgba(16, 185, 129, 0.10) !important;
-  border: 2px solid rgba(16, 185, 129, 0.6) !important;
-  border-left: 6px solid #34d399 !important;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25) !important;
+  background: rgba(22, 35, 24, 0.6) !important;
+  border: 2px solid #364d39 !important;
+  border-left: 6px solid #557859 !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35) !important;
 }
 [data-theme="dark"] #dailyPaceTargetsSection #paceCardRelaxed:not(.is-complete) > div:first-child > span:first-child {
-  color: #34d399 !important;
+  color: #8dae8e !important;
 }
 [data-theme="dark"] #dailyPaceTargetsSection #paceCardRelaxed:not(.is-complete) #targetRelVal {
-  color: #ecfdf5 !important;
+  color: #ede5d3 !important;
 }
 [data-theme="dark"] #dailyPaceTargetsSection #paceCardRelaxed:not(.is-complete) #diffRelVal,
 [data-theme="dark"] #dailyPaceTargetsSection #paceCardRelaxed:not(.is-complete) > div:last-child {
-  color: #a7f3d0 !important;
+  color: #9cb89d !important;
 }
 
 [data-theme="dark"] #dailyPaceTargetsSection #paceCardMid:not(.is-complete) {
-  background: rgba(245, 158, 11, 0.10) !important;
-  border: 2px solid rgba(245, 158, 11, 0.6) !important;
-  border-left: 6px solid #fbbf24 !important;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25) !important;
+  background: rgba(36, 28, 16, 0.6) !important;
+  border: 2px solid #574321 !important;
+  border-left: 6px solid #8c6e33 !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35) !important;
 }
 [data-theme="dark"] #dailyPaceTargetsSection #paceCardMid:not(.is-complete) > div:first-child > span:first-child {
-  color: #fbbf24 !important;
+  color: #cfad63 !important;
 }
 [data-theme="dark"] #dailyPaceTargetsSection #paceCardMid:not(.is-complete) #targetMidVal {
-  color: #fffbeb !important;
+  color: #ede5d3 !important;
 }
 [data-theme="dark"] #dailyPaceTargetsSection #paceCardMid:not(.is-complete) #diffMidVal,
 [data-theme="dark"] #dailyPaceTargetsSection #paceCardMid:not(.is-complete) > div:last-child {
-  color: #fde68a !important;
+  color: #bfa571 !important;
 }
 
 [data-theme="dark"] #dailyPaceTargetsSection #paceCardAgg:not(.is-complete) {
-  background: rgba(168, 85, 247, 0.10) !important;
-  border: 2px solid rgba(168, 85, 247, 0.6) !important;
-  border-left: 6px solid #c084fc !important;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25) !important;
+  background: rgba(31, 23, 36, 0.6) !important;
+  border: 2px solid #4a3454 !important;
+  border-left: 6px solid #755584 !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35) !important;
 }
 [data-theme="dark"] #dailyPaceTargetsSection #paceCardAgg:not(.is-complete) > div:first-child > span:first-child {
-  color: #c084fc !important;
+  color: #b89ac4 !important;
 }
 [data-theme="dark"] #dailyPaceTargetsSection #paceCardAgg:not(.is-complete) #targetAggVal {
-  color: #faf5ff !important;
+  color: #ede5d3 !important;
 }
 [data-theme="dark"] #dailyPaceTargetsSection #paceCardAgg:not(.is-complete) #diffAggVal,
 [data-theme="dark"] #dailyPaceTargetsSection #paceCardAgg:not(.is-complete) > div:last-child {
-  color: #e9d5ff !important;
+  color: #ab8fb7 !important;
 }
 
 /* ====================================================================
-   DAILY PACE CARDS: COMPLETED (Outline with Heavy Fill)
+   DAILY PACE CARDS: COMPLETED (Outline with Heavy Fill - No Neon)
    ==================================================================== */
 /* Shared text properties for all completed cards */
 #dailyPaceTargetsSection [id^="paceCard"].is-complete {
   color: #ffffff !important;
 }
 #dailyPaceTargetsSection [id^="paceCard"].is-complete [id$="Val"] {
-  color: #ffffff !important;
+  color: #fffdf7 !important;
   font-weight: 800 !important;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
 }
 #dailyPaceTargetsSection [id^="paceCard"].is-complete > div:first-child > span:first-child {
-  color: #ffffff !important;
+  color: #fffdf7 !important;
   font-weight: 700 !important;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 #dailyPaceTargetsSection [id^="paceCard"].is-complete [id^="diff"],
 #dailyPaceTargetsSection [id^="paceCard"].is-complete > div:last-child {
-  color: rgba(255, 255, 255, 0.94) !important;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  color: rgba(255, 253, 247, 0.92) !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 #dailyPaceTargetsSection [id^="paceCard"].is-complete [id^="badgePace"] {
-  background: rgba(255, 255, 255, 0.25) !important;
+  background: rgba(255, 253, 247, 0.22) !important;
   color: #ffffff !important;
-  border: 1px solid rgba(255, 255, 255, 0.45) !important;
+  border: 1px solid rgba(255, 253, 247, 0.4) !important;
 }
 
-/* Light Mode - Completed (Heavy saturated fill) */
+/* Light Mode - Completed (Heavy grounded tones) */
 #dailyPaceTargetsSection #paceCardRelaxed.is-complete {
-  background: linear-gradient(135deg, #059669 0%, #10b981 100%) !important;
-  border: 2px solid #047857 !important;
-  border-left: 6px solid #34d399 !important;
-  box-shadow: 0 4px 14px rgba(5, 150, 105, 0.35) !important;
+  background: #3f6343 !important;
+  border: 2px solid #2e4a31 !important;
+  border-left: 6px solid #58825c !important;
+  box-shadow: 0 3px 8px rgba(46, 74, 49, 0.28) !important;
 }
 #dailyPaceTargetsSection #paceCardMid.is-complete {
-  background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%) !important;
-  border: 2px solid #b45309 !important;
-  border-left: 6px solid #fbbf24 !important;
-  box-shadow: 0 4px 14px rgba(217, 119, 6, 0.35) !important;
+  background: #876523 !important;
+  border: 2px solid #664c17 !important;
+  border-left: 6px solid #b08738 !important;
+  box-shadow: 0 3px 8px rgba(102, 76, 23, 0.28) !important;
 }
 #dailyPaceTargetsSection #paceCardAgg.is-complete {
-  background: linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%) !important;
-  border: 2px solid #6d28d9 !important;
-  border-left: 6px solid #c084fc !important;
-  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.35) !important;
+  background: #5d406b !important;
+  border: 2px solid #442d50 !important;
+  border-left: 6px solid #7c588e !important;
+  box-shadow: 0 3px 8px rgba(68, 45, 80, 0.28) !important;
 }
 
-/* Dark Mode - Completed (Heavy jewel-toned glowing fill) */
+/* Dark Mode - Completed (Heavy deep explorer tones, grounded & moody) */
 [data-theme="dark"] #dailyPaceTargetsSection #paceCardRelaxed.is-complete {
-  background: linear-gradient(135deg, #047857 0%, #059669 100%) !important;
-  border: 2px solid #34d399 !important;
-  border-left: 6px solid #6ee7b7 !important;
-  box-shadow: 0 0 20px rgba(16, 185, 129, 0.5), 0 2px 6px rgba(0, 0, 0, 0.3) !important;
+  background: #233b26 !important;
+  border: 2px solid #3c5d41 !important;
+  border-left: 6px solid #56805b !important;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.55) !important;
 }
 [data-theme="dark"] #dailyPaceTargetsSection #paceCardMid.is-complete {
-  background: linear-gradient(135deg, #b45309 0%, #d97706 100%) !important;
-  border: 2px solid #fbbf24 !important;
-  border-left: 6px solid #fde047 !important;
-  box-shadow: 0 0 20px rgba(245, 158, 11, 0.5), 0 2px 6px rgba(0, 0, 0, 0.3) !important;
+  background: #4a3514 !important;
+  border: 2px solid #755523 !important;
+  border-left: 6px solid #a37b37 !important;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.55) !important;
 }
 [data-theme="dark"] #dailyPaceTargetsSection #paceCardAgg.is-complete {
-  background: linear-gradient(135deg, #7e22ce 0%, #9333ea 100%) !important;
-  border: 2px solid #c084fc !important;
-  border-left: 6px solid #e9d5ff !important;
-  box-shadow: 0 0 20px rgba(168, 85, 247, 0.5), 0 2px 6px rgba(0, 0, 0, 0.3) !important;
+  background: #3a2345 !important;
+  border: 2px solid #5a3a69 !important;
+  border-left: 6px solid #7e5591 !important;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.55) !important;
 }
 
 

@@ -2699,7 +2699,7 @@ function handleLoadProfileIntoWizard(profileId) {
 
   const wizardPanel = document.getElementById('subtabCfgWizard');
   if (wizardPanel) {
-    wizardPanel.style.display = 'block';
+    wizardPanel.style.display = '';
   }
   document.querySelector('#subtabCfgWizard .setup-optional-details')?.setAttribute('open', '');
   renderSetupChallengePreview();

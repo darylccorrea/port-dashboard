@@ -1022,30 +1022,115 @@ function renderMountainTrail() {
   const targetProgress = target > 0 ? Math.min(100, Math.max(0, balance / target * 100)) : 0;
   const checkpoints = [...new Set([1, Math.ceil(N * .25), Math.ceil(N * .5), Math.ceil(N * .75), N])].sort((a, b) => a - b);
   const names = ['Trailhead', 'Fernwood', 'Crystal Pass', 'Cloudrest', 'Summit'];
-  const ys = [158, 108, 137, 82, 117];
-  const points = checkpoints.map((session, i) => ({
-    session,
-    x: 44 + (i / Math.max(1, checkpoints.length - 1)) * 512,
-    y: ys[Math.round(i * (ys.length - 1) / Math.max(1, checkpoints.length - 1))],
-    name: names[Math.round(i * (names.length - 1) / Math.max(1, checkpoints.length - 1))],
-    reached: completed >= session
-  }));
+  const ys = [140, 96, 124, 76, 104];
+  const points = checkpoints.map((session, i) => {
+    const targetVal = getActiveTargetForSession(session);
+    return {
+      session,
+      x: 48 + (i / Math.max(1, checkpoints.length - 1)) * 504,
+      y: ys[Math.round(i * (ys.length - 1) / Math.max(1, checkpoints.length - 1))],
+      name: names[Math.round(i * (names.length - 1) / Math.max(1, checkpoints.length - 1))],
+      target: targetVal,
+      formattedTarget: formatCurrency(targetVal),
+      reached: completed >= session
+    };
+  });
   const route = points.map(p => `${p.x},${p.y}`).join(' ');
-  const currentX = 44 + progress * 512;
+  const currentX = 48 + progress * 504;
   const segment = Math.min(points.length - 2, Math.floor(progress * Math.max(1, points.length - 1)));
   const segmentPct = progress >= 1 ? 1 : (progress * Math.max(1, points.length - 1)) - segment;
   const currentY = points[segment].y + (points[segment + 1].y - points[segment].y) * segmentPct;
   const reachedCount = points.filter(p => p.reached).length;
   const currentLevel = Math.floor(completed / 5) + 1;
   const nextStop = points.find(p => !p.reached) || points[points.length - 1];
+  const safeNext = nextStop || { name: 'Summit', session: N, target: target };
+  const nextTarget = safeNext.target || getActiveTargetForSession(safeNext.session);
+  const diffToNext = Math.max(0, nextTarget - balance);
+
   const checkpointsSvg = points.map(p => {
     const active = !p.reached && p.session === nextStop.session;
     const color = p.reached ? '#64d59a' : (active ? '#f0c763' : '#ded0a8');
     const flag = p.reached ? '#59ad70' : (active ? '#e9a84d' : '#b58b55');
-    return `<g class="quest-checkpoint ${p.reached ? 'is-reached' : ''} ${active ? 'is-next' : ''}" role="button" tabindex="0" aria-label="${p.name}, session ${p.session}${p.reached ? ', complete' : ''}" onclick="jumpToSession(${p.session})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();jumpToSession(${p.session})}"><path d="m${p.x-22} ${p.y+12} 22-12 22 12-22 12z" fill="#594d36" stroke="#382f25" stroke-width="3"/><path d="M${p.x} ${p.y+5}v-28" stroke="#49382a" stroke-width="4"/><path class="checkpoint-banner" d="M${p.x+2} ${p.y-22}h24v15h-24z" fill="${flag}" stroke="#49382a" stroke-width="2"/><path d="M${p.x+5} ${p.y-19}h7v3h-7zm10 0h7v3h-7z" fill="#f8e8b9"/><rect x="${p.x-4}" y="${p.y+1}" width="8" height="8" fill="${color}" stroke="#49382a" stroke-width="2"/><text x="${p.x}" y="${p.y+38}" text-anchor="middle" font-size="9" font-weight="700" fill="#fff0c4" stroke="#26382c" stroke-width="3" paint-order="stroke">${p.name}</text><text x="${p.x}" y="${p.y+50}" text-anchor="middle" font-size="8" fill="#fff0c4" stroke="#26382c" stroke-width="3" paint-order="stroke">SESSION ${p.session}</text>${p.reached ? `<rect x="${p.x+14}" y="${p.y-32}" width="5" height="5" fill="#ffe18e"/>` : ''}</g>`;
+    const pillW = 76;
+    const pillH = 26;
+    const pillX = Math.max(4, Math.min(600 - pillW - 4, p.x - (pillW / 2)));
+    const pillY = p.y + 24;
+    const pillBg = p.reached ? '#1b3823' : (active ? '#422e11' : '#26221c');
+    const pillBorder = p.reached ? '#48b868' : (active ? '#f5c85b' : '#6b5c47');
+    const pillText = p.reached ? '#a7f3d0' : (active ? '#fef08a' : '#ded0a8');
+    const pillAmt = p.reached ? '#6ee7b7' : (active ? '#fde047' : '#f5e8c6');
+
+    return `<g class="quest-checkpoint ${p.reached ? 'is-reached' : ''} ${active ? 'is-next' : ''}" role="button" tabindex="0" aria-label="${p.name}, session ${p.session}, target ${p.formattedTarget}${p.reached ? ', complete' : ''}" onclick="jumpToSession(${p.session})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();jumpToSession(${p.session})}">
+      <path d="m${p.x-20} ${p.y+10} 20-10 20 10-20 10z" fill="#50442f" stroke="#332a1e" stroke-width="2.5"/>
+      <path d="M${p.x} ${p.y+4}v-26" stroke="#49382a" stroke-width="3.5"/>
+      <path class="checkpoint-banner" d="M${p.x+2} ${p.y-22}h24v14h-24z" fill="${flag}" stroke="#3e2e1c" stroke-width="2"/>
+      <path d="M${p.x+5} ${p.y-19}h7v3h-7zm10 0h7v3h-7z" fill="#f8e8b9"/>
+      <rect x="${p.x-4}" y="${p.y}" width="8" height="8" fill="${color}" stroke="#3e2e1c" stroke-width="2"/>
+      <g class="checkpoint-tag">
+        <rect x="${pillX}" y="${pillY}" width="${pillW}" height="${pillH}" rx="3" fill="${pillBg}" stroke="${pillBorder}" stroke-width="1.8"/>
+        <text x="${pillX + pillW/2}" y="${pillY + 10}" text-anchor="middle" font-size="7.5" font-weight="700" fill="${pillText}">${p.name} · S${p.session}</text>
+        <text x="${pillX + pillW/2}" y="${pillY + 21}" text-anchor="middle" font-size="8.5" font-weight="800" font-family="'DM Mono', monospace" fill="${pillAmt}">${p.reached ? '✓ ' : ''}${p.formattedTarget}</text>
+      </g>
+      ${p.reached ? `<rect x="${p.x+14}" y="${p.y-30}" width="5" height="5" fill="#ffe18e"/>` : ''}
+    </g>`;
   }).join('');
-  const safeNext = nextStop || { name: 'Summit', session: N };
-  container.innerHTML = `<div class="quest-progress-top"><div><span class="quest-level">LEVEL ${currentLevel}</span><span class="quest-session">${completed} / ${N} sessions logged · ${reachedCount} landmarks reached</span></div><div class="quest-xp-track" role="progressbar" aria-label="Challenge sessions completed" aria-valuenow="${completed}" aria-valuemin="0" aria-valuemax="${N}"><span style="width:${progress * 100}%"></span></div></div><svg class="quest-map" viewBox="0 0 600 238" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Isometric wilderness map with ${completed} of ${N} sessions completed and ${reachedCount} checkpoints reached"><use href="#location-route" x="0" y="0" width="600" height="238"/><path d="M0 180h600v58H0z" fill="#4f6548" opacity=".8"/><polyline points="${route}" fill="none" stroke="#4c4130" stroke-width="12" stroke-linecap="square" stroke-linejoin="bevel"/><polyline points="${route}" fill="none" stroke="#e0bf78" stroke-width="4" stroke-linecap="square" stroke-linejoin="bevel" stroke-dasharray="3 8" stroke-dashoffset="${Math.round((1 - progress) * 72)}"/>${checkpointsSvg}<g class="quest-player-sprite" transform="translate(${currentX - 15} ${currentY - 46}) scale(.72)"><use href="#sprite-hero"/></g><g fill="#ffe09a"><rect x="112" y="44" width="4" height="4"><animate attributeName="opacity" values=".4;1;.4" dur="1.8s" repeatCount="indefinite"/></rect><rect x="316" y="35" width="4" height="4"><animate attributeName="opacity" values="1;.3;1" dur="2.3s" repeatCount="indefinite"/></rect><rect x="473" y="67" width="4" height="4"><animate attributeName="opacity" values=".3;1;.3" dur="2s" repeatCount="indefinite"/></rect></g></svg><div class="quest-map-footer"><div class="quest-next-stop"><span class="quest-next-icon">⚑</span><div><small>NEXT CHECKPOINT</small><strong>${completed >= N ? 'Summit reached — legendary!' : `${safeNext.name} · Session ${safeNext.session}`}</strong></div></div><div class="quest-goal-progress"><span>Goal progress</span><strong>${targetProgress.toFixed(1)}%</strong></div></div>`;
+
+  const nextStatusBadge = completed >= N
+    ? `<span class="quest-next-amt-badge is-reached">Summit reached — legendary!</span>`
+    : (balance >= nextTarget
+        ? `<span class="quest-next-amt-badge is-reached">Target Cleared (${formatCurrency(nextTarget)}) ✓</span>`
+        : `<span class="quest-next-amt-badge">Target: <strong>${formatCurrency(nextTarget)}</strong> · Need +${formatCurrency(diffToNext)}</span>`);
+
+  container.innerHTML = `
+    <div class="quest-progress-top">
+      <div class="quest-top-row">
+        <div class="quest-top-left">
+          <span class="quest-level">LEVEL ${currentLevel}</span>
+          <span class="quest-stat-pill"><strong>${completed}</strong> / ${N} Sessions</span>
+          <span class="quest-stat-pill"><strong>${reachedCount}</strong> / ${checkpoints.length} Milestones</span>
+        </div>
+        <div class="quest-top-right">
+          <span class="quest-money-metric">Desk: <strong class="text-emerald-500 font-num">${formatCurrency(balance)}</strong></span>
+          <span class="quest-money-divider">/</span>
+          <span class="quest-money-metric">Target: <strong class="text-amber-400 font-num">${formatCurrency(target)}</strong></span>
+        </div>
+      </div>
+      <div class="quest-xp-track" role="progressbar" aria-label="Challenge sessions completed" aria-valuenow="${completed}" aria-valuemin="0" aria-valuemax="${N}">
+        <span style="width:${progress * 100}%"></span>
+      </div>
+    </div>
+    <svg class="quest-map" viewBox="0 0 600 238" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Isometric wilderness map with ${completed} of ${N} sessions completed and ${reachedCount} checkpoints reached">
+      <use href="#location-route" x="0" y="0" width="600" height="238"/>
+      <path d="M0 180h600v58H0z" fill="#4f6548" opacity=".8"/>
+      <polyline points="${route}" fill="none" stroke="#4c4130" stroke-width="12" stroke-linecap="square" stroke-linejoin="bevel"/>
+      <polyline points="${route}" fill="none" stroke="#e0bf78" stroke-width="4" stroke-linecap="square" stroke-linejoin="bevel" stroke-dasharray="3 8" stroke-dashoffset="${Math.round((1 - progress) * 72)}"/>
+      ${checkpointsSvg}
+      <g class="quest-player-sprite" transform="translate(${currentX - 15} ${currentY - 46}) scale(.72)"><use href="#sprite-hero"/></g>
+      <g fill="#ffe09a">
+        <rect x="112" y="44" width="4" height="4"><animate attributeName="opacity" values=".4;1;.4" dur="1.8s" repeatCount="indefinite"/></rect>
+        <rect x="316" y="35" width="4" height="4"><animate attributeName="opacity" values="1;.3;1" dur="2.3s" repeatCount="indefinite"/></rect>
+        <rect x="473" y="67" width="4" height="4"><animate attributeName="opacity" values=".3;1;.3" dur="2s" repeatCount="indefinite"/></rect>
+      </g>
+    </svg>
+    <div class="quest-map-footer">
+      <div class="quest-next-stop">
+        <span class="quest-next-icon">⚑</span>
+        <div>
+          <small>NEXT CHECKPOINT</small>
+          <div class="quest-next-details">
+            <strong>${completed >= N ? 'Summit Reached' : `${safeNext.name} · S${safeNext.session}`}</strong>
+            ${nextStatusBadge}
+          </div>
+        </div>
+      </div>
+      <div class="quest-goal-stat">
+        <small>GOAL PROGRESS</small>
+        <div class="quest-goal-row">
+          <strong>${targetProgress.toFixed(1)}%</strong>
+          <span class="quest-goal-sub">${formatCurrency(balance)} of ${formatCurrency(target)}</span>
+        </div>
+      </div>
+    </div>`;
 }
 
 /**

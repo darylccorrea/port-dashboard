@@ -1111,7 +1111,10 @@
           <!-- Relaxed Pace -->
           <div id="paceCardRelaxed" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();setPace('relaxed')}" onclick="setPace('relaxed')" class="p-3.5 rounded-lg border border-emerald-200 bg-emerald-50/60 hover:bg-emerald-50 cursor-pointer transition flex flex-col justify-between">
             <div class="flex items-center justify-between">
-              <span class="text-xs font-bold text-emerald-800 uppercase">Relaxed Pace</span>
+              <span class="text-xs font-bold text-emerald-800 uppercase flex items-center gap-1.5">
+                <span>Relaxed Pace</span>
+                <span class="pace-complete-star" aria-label="Completed" title="Pace Completed">★</span>
+              </span>
               <span id="badgePaceRel" class="badge badge-green text-[10px]">Active</span>
             </div>
             <div class="my-2">
@@ -1124,7 +1127,10 @@
           <!-- Mid Pace -->
           <div id="paceCardMid" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();setPace('mid')}" onclick="setPace('mid')" class="p-3.5 rounded-lg border border-amber-200 bg-amber-50/60 hover:bg-amber-50 cursor-pointer transition flex flex-col justify-between">
             <div class="flex items-center justify-between">
-              <span class="text-xs font-bold text-amber-800 uppercase">Mid Pace</span>
+              <span class="text-xs font-bold text-amber-800 uppercase flex items-center gap-1.5">
+                <span>Mid Pace</span>
+                <span class="pace-complete-star" aria-label="Completed" title="Pace Completed">★</span>
+              </span>
               <span id="badgePaceMid" class="hidden badge badge-amber text-[10px]">Active</span>
             </div>
             <div class="my-2">
@@ -1137,7 +1143,10 @@
           <!-- Aggressive Pace -->
           <div id="paceCardAgg" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();setPace('aggressive')}" onclick="setPace('aggressive')" class="p-3.5 rounded-lg border border-purple-200 bg-purple-50/60 hover:bg-purple-50 cursor-pointer transition flex flex-col justify-between">
             <div class="flex items-center justify-between">
-              <span class="text-xs font-bold text-purple-800 uppercase">Aggressive Pace</span>
+              <span class="text-xs font-bold text-purple-800 uppercase flex items-center gap-1.5">
+                <span>Aggressive Pace</span>
+                <span class="pace-complete-star" aria-label="Completed" title="Pace Completed">★</span>
+              </span>
               <span id="badgePaceAgg" class="hidden badge badge-purple text-[10px]">Active</span>
             </div>
             <div class="my-2">
@@ -1150,7 +1159,10 @@
           <!-- Financial Requirement Pace (FinReq) -->
           <div id="paceCardFinreq" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();setPace('finreq')}" onclick="setPace('finreq')" class="p-3.5 rounded-lg border border-blue-200 bg-blue-50/60 hover:bg-blue-50 cursor-pointer transition flex flex-col justify-between">
             <div class="flex items-center justify-between">
-              <span class="text-xs font-bold text-blue-800 uppercase">Financial Req.</span>
+              <span class="text-xs font-bold text-blue-800 uppercase flex items-center gap-1.5">
+                <span>Financial Req.</span>
+                <span class="pace-complete-star" aria-label="Completed" title="Pace Completed">★</span>
+              </span>
               <span id="badgePaceFinreq" class="hidden badge badge-blue text-[10px]">Active</span>
             </div>
             <div class="my-2">

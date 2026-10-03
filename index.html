@@ -44,19 +44,19 @@
     <nav class="max-w-7xl mx-auto px-4 flex space-x-1 overflow-x-auto border-t border-slate-100 text-sm font-medium">
       <div class="nav-caption">YOUR EXPEDITION</div>
       <button id="navTrackerBtn" onclick="switchMainTab('tracker')" class="px-4 py-2.5 text-emerald-600 border-b-2 border-emerald-600 whitespace-nowrap active-nav-item">
-        <svg class="world-node-sprite" viewBox="0 0 56 56" aria-hidden="true"><use href="#sprite-pine"/></svg> Trailhead
+        <svg class="world-node-sprite" viewBox="0 0 56 56" aria-hidden="true"><use href="#sprite-pine"/></svg> Daily Sessions
       </button>
       <button id="navConfigBtn" onclick="switchMainTab('config')" class="px-4 py-2.5 text-slate-600 hover:text-slate-900 border-b-2 border-transparent whitespace-nowrap">
-        <svg class="world-node-sprite" viewBox="0 0 54 42" aria-hidden="true"><use href="#sprite-flame"/></svg> Camp
+        <svg class="world-node-sprite" viewBox="0 0 54 42" aria-hidden="true"><use href="#sprite-flame"/></svg> Setup
       </button>
       <button id="navTradesBtn" onclick="switchMainTab('trades')" class="px-4 py-2.5 text-slate-600 hover:text-slate-900 border-b-2 border-transparent whitespace-nowrap">
-        <svg class="world-node-sprite" viewBox="0 0 56 44" aria-hidden="true"><use href="#sprite-chest"/></svg> Market
+        <svg class="world-node-sprite" viewBox="0 0 56 44" aria-hidden="true"><use href="#sprite-chest"/></svg> Trading Sessions
       </button>
       <button id="navMilestonesBtn" onclick="switchMainTab('milestones')" class="px-4 py-2.5 text-slate-600 hover:text-slate-900 border-b-2 border-transparent whitespace-nowrap">
-        <svg class="world-node-sprite" viewBox="0 0 56 44" aria-hidden="true"><use href="#sprite-chest"/></svg> Treasure Vault
+        <svg class="world-node-sprite" viewBox="0 0 56 44" aria-hidden="true"><use href="#sprite-chest"/></svg> Capital Vault
       </button>
       <button id="navStatsBtn" onclick="switchMainTab('stats')" class="px-4 py-2.5 text-slate-600 hover:text-slate-900 border-b-2 border-transparent whitespace-nowrap">
-        <svg class="world-node-sprite" viewBox="0 0 56 44" aria-hidden="true"><use href="#sprite-bird"/></svg> Lookout
+        <svg class="world-node-sprite" viewBox="0 0 56 44" aria-hidden="true"><use href="#sprite-bird"/></svg> Stats
       </button>
     </nav>
   </header>
@@ -231,43 +231,43 @@
     <!-- ================= MODULE 1: DAILY TRACKER ================= -->
     <section id="tabContentTracker" class="tab-content active space-y-6">
       <div class="daily-hero">
-        <svg class="world-panorama world-panorama--route" viewBox="0 0 960 380" role="img" aria-label="An isometric trailhead with mountains, a riverside bridge, a camp and a treasure marker"><use href="#location-route"/></svg>
+        <svg class="world-panorama world-panorama--route" viewBox="0 0 960 380" preserveAspectRatio="xMidYMid meet" role="img" aria-label="An isometric trailhead with mountains, a riverside bridge, a camp and a treasure marker"><use href="#location-route"/></svg>
         <div class="daily-hero-copy"><span class="daily-kicker">REGION 01 · THE GREENWARD</span><div class="daily-title-row"><span class="daily-title-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m15.8 8.2-2.4 5.2-5.2 2.4 2.4-5.2z"/><path d="M12 3v2m0 14v2"/></svg></span><div><h2>The Trailhead</h2><p>Mark today’s progress before setting out again.</p></div></div></div>
         <svg class="iso-scene iso-scene--daily" viewBox="0 0 720 220" aria-hidden="true"><use href="#world-daily"></use></svg>
         <div class="daily-landscape" aria-hidden="true"><svg viewBox="0 0 720 170" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="dailySky" x2="0" y2="1"><stop stop-color="#18251d"/><stop offset="1" stop-color="#303a2c"/></linearGradient><linearGradient id="dailyValley" x2="0" y2="1"><stop stop-color="#314a35"/><stop offset="1" stop-color="#18251b"/></linearGradient></defs><rect width="720" height="170" fill="url(#dailySky)"/><circle cx="516" cy="52" r="34" fill="#f7b763"/><path d="M0 112 57 71l48 37 75-73 58 56 73-48 61 55 76-67 54 58 76-41 53 52 59-69v119H0Z" fill="#334333"/><path d="m0 130 74-44 64 45 73-41 57 42 78-42 63 43 68-38 78 45 73-51 92 45v36H0Z" fill="url(#dailyValley)"/><path d="M313 170q83-54 190-55 103 2 217 55" fill="none" stroke="#758759" stroke-width="3" opacity=".65"/><g fill="#142019"><path d="M42 130 58 83l16 47zm23 5 20-58 20 58zm520 4 17-50 17 50zm39 1 20-62 20 62z"/></g><g fill="#80a66a"><path d="M50 115q-22-20-21-43 24 8 31 37zm605-4q18-24 16-43-23 12-27 39z"/></g></svg></div>
         <div class="daily-hero-quote">Small steps<br><span>build big freedom.</span></div>
       </div>
 
-      <div class="daily-progress-card daily-route-board bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-2">
-        <div class="daily-progress-heading"><span class="daily-progress-icon">✦</span><div><h3>Growth Quest</h3><p>Follow your route from the trailhead to the treasure trove.</p></div><select id="questPaceSelect" aria-label="Growth target pace" onchange="setPace(this.value)"><option value="relaxed">Relaxed pace</option><option value="mid">Mid pace</option><option value="aggressive">Aggressive pace</option><option value="finreq">Financial goal</option></select></div>
+      <div id="dailyGrowthQuest" class="daily-progress-card daily-route-board bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-2">
+        <div class="daily-progress-heading"><span class="daily-progress-icon">✦</span><div><h3>Growth Quest</h3><p>Follow your route to the treasure.</p></div><select id="questPaceSelect" aria-label="Growth target pace" onchange="setPace(this.value)"><option value="relaxed">Relaxed pace</option><option value="mid">Mid pace</option><option value="aggressive">Aggressive pace</option><option value="finreq">Financial goal</option></select></div>
         <div id="mountainTrailContainer" class="quest-map-wrap"><!-- Gamified progress map rendered from challenge state --></div>
       </div>
 
       <!-- DAILY PERFORMANCE SUMMARY -->
       <div class="daily-stats">
-        <article class="daily-stat stat-balance"><span class="daily-stat-icon">◈</span><div><label>Current Balance</label><strong id="posCurrentBal">$0.00</strong><small>Started: <span id="posStartBal">$0.00</span></small></div></article>
-        <article class="daily-stat stat-pnl"><span class="daily-stat-icon">▥</span><div><label>Today’s P&amp;L</label><strong id="posTodayPnL">$0.00</strong><small id="posTodayReturn">0.0% session</small></div></article>
+        <article class="daily-stat stat-balance"><span class="daily-stat-icon">◈</span><div><label>Current Bal</label><strong id="posCurrentBal">$0.00</strong><small>Start: <span id="posStartBal">$0.00</span></small></div></article>
+        <article class="daily-stat stat-pnl"><span class="daily-stat-icon">▥</span><div><label>Tdy PnL</label><strong id="posTodayPnL">$0.00</strong><small id="posTodayReturn">0.0% today</small></div></article>
         <article class="daily-stat stat-overall"><span class="daily-stat-icon">◎</span><div><label>Overall P&amp;L</label><strong id="posOverallPnL">$0.00</strong><small id="posOverallReturn">0.0% total</small></div></article>
         <article class="daily-stat stat-target"><span class="daily-stat-icon">⚑</span><div><label>Target Progress</label><strong id="dailyTargetProgress">0.0%</strong><div class="daily-target-track"><span id="dailyTargetFill"></span></div><small>Goal: <span id="posOverallTarget">$0.00</span></small></div></article>
-        <article class="daily-stat stat-streak"><span class="daily-stat-icon">♨</span><div><label>Current Streak</label><strong id="posStreakCount">0</strong><small>days</small></div></article>
+        <article class="daily-stat stat-streak"><span class="daily-stat-icon">♨</span><div><label>Streak</label><strong id="posStreakCount">0</strong><small>days</small></div></article>
       </div>
 
       <!-- STATIC 3-PACE TARGETS SECTION (Above sub-tab switchers) -->
       <div id="dailyPaceTargetsSection" class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-3">
         <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-2">
           <div>
-            <h2 class="text-sm font-bold text-slate-800 uppercase tracking-wide">Daily Target Paces for Active Session</h2>
-            <p class="text-xs text-slate-500">Pick an active benchmark. Targets automatically adjust compounding trajectory.</p>
+            <h2 class="text-sm font-bold text-slate-800 uppercase tracking-wide">Daily Pace</h2>
+            <p class="text-xs text-slate-500">Choose your pace for today.</p>
           </div>
           <div class="flex items-center gap-1.5 text-xs font-medium">
-            <span class="text-slate-500">Active Pace Aim:</span>
+            <span class="text-slate-500">Active:</span>
             <span id="activePaceLabel" class="badge badge-green">Relaxed</span>
           </div>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
           <!-- Relaxed Pace -->
-          <div id="paceCardRelaxed" onclick="setPace('relaxed')" class="p-3.5 rounded-lg border border-emerald-200 bg-emerald-50/60 hover:bg-emerald-50 cursor-pointer transition flex flex-col justify-between">
+          <div id="paceCardRelaxed" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();setPace('relaxed')}" onclick="setPace('relaxed')" class="p-3.5 rounded-lg border border-emerald-200 bg-emerald-50/60 hover:bg-emerald-50 cursor-pointer transition flex flex-col justify-between">
             <div class="flex items-center justify-between">
               <span class="text-xs font-bold text-emerald-800 uppercase">Relaxed Pace</span>
               <span id="badgePaceRel" class="badge badge-green text-[10px]">Active</span>
@@ -276,11 +276,11 @@
               <div id="targetRelVal" class="text-xl font-bold font-num text-emerald-900">$100.00</div>
               <div id="diffRelVal" class="text-xs font-num text-slate-600">Diff: $0.00</div>
             </div>
-            <div class="text-[11px] text-emerald-700">Baseline milestone compounding to $7,000</div>
+              <div class="text-[11px] text-emerald-700">Steady progress</div>
           </div>
 
           <!-- Mid Pace -->
-          <div id="paceCardMid" onclick="setPace('mid')" class="p-3.5 rounded-lg border border-amber-200 bg-amber-50/60 hover:bg-amber-50 cursor-pointer transition flex flex-col justify-between">
+          <div id="paceCardMid" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();setPace('mid')}" onclick="setPace('mid')" class="p-3.5 rounded-lg border border-amber-200 bg-amber-50/60 hover:bg-amber-50 cursor-pointer transition flex flex-col justify-between">
             <div class="flex items-center justify-between">
               <span class="text-xs font-bold text-amber-800 uppercase">Mid Pace</span>
               <span id="badgePaceMid" class="hidden badge badge-amber text-[10px]">Active</span>
@@ -289,11 +289,11 @@
               <div id="targetMidVal" class="text-xl font-bold font-num text-amber-900">$100.00</div>
               <div id="diffMidVal" class="text-xs font-num text-slate-600">Diff: $0.00</div>
             </div>
-            <div class="text-[11px] text-amber-700">1.8x acceleration target to $12,600</div>
+              <div class="text-[11px] text-amber-700">Faster progress</div>
           </div>
 
           <!-- Aggressive Pace -->
-          <div id="paceCardAgg" onclick="setPace('aggressive')" class="p-3.5 rounded-lg border border-purple-200 bg-purple-50/60 hover:bg-purple-50 cursor-pointer transition flex flex-col justify-between">
+          <div id="paceCardAgg" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();setPace('aggressive')}" onclick="setPace('aggressive')" class="p-3.5 rounded-lg border border-purple-200 bg-purple-50/60 hover:bg-purple-50 cursor-pointer transition flex flex-col justify-between">
             <div class="flex items-center justify-between">
               <span class="text-xs font-bold text-purple-800 uppercase">Aggressive Pace</span>
               <span id="badgePaceAgg" class="hidden badge badge-purple text-[10px]">Active</span>
@@ -302,11 +302,11 @@
               <div id="targetAggVal" class="text-xl font-bold font-num text-purple-900">$100.00</div>
               <div id="diffAggVal" class="text-xs font-num text-slate-600">Diff: $0.00</div>
             </div>
-            <div class="text-[11px] text-purple-700">2.5x summit accelerator to $17,500</div>
+              <div class="text-[11px] text-purple-700">Fastest progress</div>
           </div>
 
           <!-- Financial Requirement Pace (FinReq) -->
-          <div id="paceCardFinreq" onclick="setPace('finreq')" class="p-3.5 rounded-lg border border-blue-200 bg-blue-50/60 hover:bg-blue-50 cursor-pointer transition flex flex-col justify-between">
+          <div id="paceCardFinreq" role="button" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();setPace('finreq')}" onclick="setPace('finreq')" class="p-3.5 rounded-lg border border-blue-200 bg-blue-50/60 hover:bg-blue-50 cursor-pointer transition flex flex-col justify-between">
             <div class="flex items-center justify-between">
               <span class="text-xs font-bold text-blue-800 uppercase">Financial Req.</span>
               <span id="badgePaceFinreq" class="hidden badge badge-blue text-[10px]">Active</span>
@@ -321,7 +321,7 @@
       </div>
 
       <!-- DAILY TRACKER SUB-HEADER NAVIGATION -->
-      <div class="flex items-center justify-between border-b border-slate-200">
+      <div id="trackerSubnav" class="flex items-center justify-between border-b border-slate-200">
         <div class="flex space-x-2">
           <button id="subnavDeskBtn" onclick="switchTrackerSubTab('desk')" class="px-3 py-2 text-sm font-semibold text-emerald-700 border-b-2 border-emerald-600">
             📊 Daily Desk
@@ -330,7 +330,7 @@
             📅 Activity Calendar
           </button>
           <button id="subnavTfgBtn" onclick="switchTrackerSubTab('tfg')" class="px-3 py-2 text-sm font-semibold text-slate-500 hover:text-slate-800 border-b-2 border-transparent">
-            🎯 Total Financial Goal
+            🎯 Goal
           </button>
         </div>
       </div>
@@ -345,7 +345,7 @@
               <button onclick="navigateSession(-1)" class="w-8 h-8 rounded-lg border border-slate-300 hover:bg-slate-100 flex items-center justify-center font-bold text-slate-600">‹</button>
               <div>
                 <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
-                  <span>Log Today’s Session</span><span id="activeSessionTitle" class="session-number-chip">Session 1 of 2</span>
+                  <span>Daily Desk</span><span id="activeSessionTitle" class="session-number-chip">Session 1 of 2</span>
                   <span id="sessionLockBadge" class="badge badge-gray text-[11px]">🔓 Unlocked</span>
                 </h3>
                 <p id="activeSessionDate" class="text-xs text-slate-500">Date: 2026-10-02</p>
@@ -365,7 +365,7 @@
           <!-- INPUT FORM -->
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2 daily-log-fields">
             <div>
-              <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Closing Desk Balance ($)</label>
+              <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Closing balance ($)</label>
               <div class="relative">
                 <span class="absolute left-3 top-2.5 text-slate-400 font-num font-semibold">$</span>
                 <input id="sessionBalanceInput" type="number" step="0.01" placeholder="Enter balance..." oninput="handleSessionBalanceChange(this.value)" class="w-full pl-8 pr-3 py-2 border border-slate-300 rounded-lg font-num text-lg font-bold text-slate-900 focus:outline-none focus:border-emerald-500">
@@ -379,18 +379,18 @@
             </div>
 
             <div class="flex items-end gap-2 daily-session-actions">
-              <button id="btnSaveDailySession" onclick="saveActiveSession()" class="btn-save-session sprite-action"><svg viewBox="0 0 40 56" aria-hidden="true"><use href="#sprite-hero"/></svg>Pin today to the journal</button>
-              <button id="btnToggleLockSession" onclick="toggleLockActiveSession()" class="flex-1 py-2.5 px-3 rounded-lg border border-slate-300 hover:bg-slate-100 font-semibold text-xs text-slate-700 transition">
-                🔒 Lock Session
+              <button id="btnSaveDailySession" onclick="saveActiveSession()" class="btn-save-session sprite-action"><svg viewBox="0 0 40 56" aria-hidden="true"><use href="#sprite-hero"/></svg>Save session</button>
+                <button id="btnToggleLockSession" onclick="toggleLockActiveSession()" class="flex-1 py-2.5 px-3 rounded-lg border border-slate-300 hover:bg-slate-100 font-semibold text-xs text-slate-700 transition">
+                🔒 Lock
               </button>
               <button id="btnAutoFillTarget" onclick="fillTargetForActiveSession()" class="flex-1 py-2.5 px-3 rounded-lg bg-emerald-50 border border-emerald-200 hover:bg-emerald-100 font-semibold text-xs text-emerald-800 transition">
-                🎯 Auto-Fill Target
+                🎯 Fill target
               </button>
             </div>
 
             <div class="daily-session-notes">
-              <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Trader Notes & Execution Review</label>
-              <textarea id="sessionNotesInput" rows="2" placeholder="Record trade setups, psychological state, market conditions..." oninput="handleSessionNotesChange(this.value)" class="w-full p-2 border border-slate-300 rounded-lg text-xs text-slate-800 focus:outline-none focus:border-emerald-500"></textarea>
+              <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Notes</label>
+              <textarea id="sessionNotesInput" rows="2" placeholder="Notes for today..." oninput="handleSessionNotesChange(this.value)" class="w-full p-2 border border-slate-300 rounded-lg text-xs text-slate-800 focus:outline-none focus:border-emerald-500"></textarea>
             </div>
           </div>
 
@@ -408,10 +408,10 @@
             </p>
             <div class="flex items-center gap-2 pt-1">
               <button id="btnPlanModeOriginal" onclick="setPlanViewMode('original')" class="px-2.5 py-1 text-xs font-semibold rounded bg-white border border-amber-300 text-amber-900 shadow-sm">
-                Original Benchmark
+                Original pace
               </button>
               <button id="btnPlanModeRebased" onclick="setPlanViewMode('rebased')" class="px-2.5 py-1 text-xs font-semibold rounded bg-amber-200 border border-amber-400 text-amber-950 shadow-sm">
-                Switch to Rebased Recovery Plan
+                New pace
               </button>
             </div>
           </div>
@@ -445,7 +445,7 @@
             <div class="flex items-center justify-between pt-1">
               <span id="profitAllocFloorNote" class="text-[11px] text-emerald-800">Post-skim desk balance: <strong>$130.00</strong> (Above $100 floor)</span>
               <button id="btnExecuteProfitAlloc" onclick="executeProfitAllocation()" class="px-3 py-1.5 text-xs font-bold rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white transition shadow-sm">
-                ✓ 1-Click Execute Skim Allocation
+                ✓ Apply skim
               </button>
             </div>
           </div>
@@ -459,7 +459,7 @@
               <p class="text-xs text-slate-500">Your recorded daily balances and performance.</p>
             </div>
             <button id="btnCopyMasterTable" onclick="copyMasterTableToClipboard()" class="px-3 py-1.5 text-xs font-semibold rounded-md border border-slate-300 bg-white hover:bg-slate-100 text-slate-700 transition">
-              📋 Copy Table (TSV / Excel)
+              📋 Copy table
             </button>
           </div>
           <div class="overflow-x-auto">
@@ -585,7 +585,7 @@
     <!-- ================= MODULE 2: SETUP PLAN & CHALLENGE ROADMAP ================= -->
     <section id="tabContentConfig" class="tab-content space-y-6">
       <div class="setup-hero">
-        <svg class="world-panorama world-panorama--camp" viewBox="0 0 960 380" role="img" aria-label="The adventurer's forest camp with a tent, cabin and a crackling campfire"><use href="#location-camp"/></svg>
+        <svg class="world-panorama world-panorama--camp" viewBox="0 0 960 380" preserveAspectRatio="xMidYMid meet" role="img" aria-label="The adventurer's forest camp with a tent, cabin and a crackling campfire"><use href="#location-camp"/></svg>
         <div class="setup-hero-copy"><span class="setup-kicker">SAFE CAMP · EXPEDITION PREP</span><div class="setup-title-row"><span class="setup-title-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21V11m0 3c-4 0-6-2-6-6 4 0 6 2 6 6Zm0-3c0-4 2-6 6-6 0 4-2 6-6 6Z"/><path d="M5 21h14"/><circle cx="12" cy="4" r="1"/></svg></span><div><h2>Base Camp</h2><p>Choose your starting provisions and the summit you’re aiming for.</p></div></div></div>
         <svg class="iso-scene iso-scene--setup" viewBox="0 0 720 220" aria-hidden="true"><use href="#world-setup"></use></svg>
         <div class="setup-landscape" aria-hidden="true"><svg viewBox="0 0 720 160" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="setupSky" x2="0" y2="1"><stop stop-color="#17241b"/><stop offset="1" stop-color="#27372b"/></linearGradient></defs><rect width="720" height="160" fill="url(#setupSky)"/><circle cx="514" cy="47" r="31" fill="#e8c88f"/><path d="m0 116 68-46 54 37 78-68 62 58 65-45 68 50 74-68 55 58 73-42 63 44 60-59v125H0Z" fill="#344736"/><path d="m0 134 82-42 67 39 77-45 62 47 75-44 64 44 72-48 71 47 82-46 68 36v38H0Z" fill="#19291f"/><path d="M0 148q119-23 216 1t198-4q127-34 306-1" fill="none" stroke="#748957" stroke-width="3" opacity=".55"/><g fill="#89a878"><path d="M55 130q-22-24-14-48 23 13 25 39zm602 3q22-23 17-46-23 12-27 38z"/></g></svg></div>
@@ -679,9 +679,9 @@
               </div>
             </div>
             <div class="flex justify-end pt-3 border-t border-slate-100 setup-start-row">
-                <button onclick="setSetupStep(2)" class="setup-advanced-button">More strategy options</button>
+              <button onclick="setSetupStep(2)" class="setup-advanced-button">Advanced</button>
                 <button onclick="startChallengeFromSetup()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold sprite-action">
-                <svg viewBox="0 0 40 56" aria-hidden="true"><use href="#sprite-hero"/></svg> Begin the expedition
+                <svg viewBox="0 0 40 56" aria-hidden="true"><use href="#sprite-hero"/></svg> Start
               </button>
             </div>
             </div>
@@ -691,13 +691,14 @@
           <div id="wizardStep2" class="hidden space-y-4">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Compounding Curve Engine</label>
+                <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Growth strategy</label>
                 <select id="genCurveType" onchange="handleCurveTypeChange(this.value)" class="w-full p-2 border border-slate-300 rounded-lg text-sm">
-                  <option value="tri_pace_independent">Independent Tri-Pace (Relaxed / Mid / Aggressive)</option>
-                  <option value="smooth">Smooth Exponential Compounding</option>
-                  <option value="decay">Front-Loaded Decay Compounding</option>
-                  <option value="port_target_withdrawal">Portfolio Target with Scheduled Cash-Out</option>
+                  <option value="tri_pace_independent">Three pace paths</option>
+                  <option value="smooth">Smooth climb</option>
+                  <option value="decay">Early push</option>
+                  <option value="port_target_withdrawal">Cash-out plan</option>
                 </select>
+                <p id="strategyDescription" class="strategy-description" aria-live="polite">Keeps relaxed, steady and fast target paths separate.</p>
               </div>
               <div id="wizardCashoutSettings" class="hidden space-y-2">
                 <div>
@@ -877,7 +878,7 @@
     <!-- ================= MODULE 3: TRADING SESSIONS & TRADE JOURNAL ================= -->
     <section id="tabContentTrades" class="tab-content space-y-6">
       <div class="trade-hero">
-        <svg class="world-panorama world-panorama--market" viewBox="0 0 960 380" role="img" aria-label="A bustling isometric woodland market with trading stalls and travelling merchants"><use href="#location-market"/></svg>
+        <svg class="world-panorama world-panorama--market" viewBox="0 0 960 380" preserveAspectRatio="xMidYMid meet" role="img" aria-label="A bustling isometric woodland market with trading stalls and travelling merchants"><use href="#location-market"/></svg>
         <div class="trade-hero-copy"><span class="trade-kicker">REGION 02 · WAYFARER’S MARKET</span><div class="trade-title-row"><span class="trade-title-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 12h7M9 16h7"/></svg></span><div><h2>Wayfarer’s Market</h2><p>Keep a clear ledger of every bargain and result.</p></div></div></div>
         <svg class="iso-scene iso-scene--trades" viewBox="0 0 720 220" aria-hidden="true"><use href="#world-trades"></use></svg>
         <div class="trade-landscape" aria-hidden="true"><svg viewBox="0 0 720 180" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="tradeSky" x2="0" y2="1"><stop stop-color="#14231c"/><stop offset="1" stop-color="#27372b"/></linearGradient><linearGradient id="tradeDesk" x2="0" y2="1"><stop stop-color="#a45e2c"/><stop offset="1" stop-color="#422c1d"/></linearGradient></defs><rect width="720" height="180" fill="url(#tradeSky)"/><circle cx="570" cy="54" r="34" fill="#f6ad55" opacity=".92"/><path d="M0 105 60 74l45 34 58-56 64 48 53-38 46 52 49-39 52 42 48-48 56 42 54-61 52 48 83-49v131H0Z" fill="#17271d"/><path d="m0 130 90-41 66 42 78-49 65 44 80-37 68 40 82-47 68 38 63-45 60 30v75H0Z" fill="#101b15"/><path d="M0 143h720v37H0Z" fill="url(#tradeDesk)"/><rect x="390" y="20" width="124" height="74" rx="7" fill="#131a18" stroke="#92744a" stroke-width="3"/><rect x="398" y="28" width="108" height="57" rx="3" fill="#152822"/><path d="M402 72 420 62l14 6 15-27 15 19 13-8 12 9 16-21" fill="none" stroke="#29c69d" stroke-width="2"/><path d="M451 94h6v10h-6M430 104h49" stroke="#72553a" stroke-width="4"/><path d="M536 0v78m-10-4h20" stroke="#b4874b" stroke-width="3"/><path d="M551 77q30-14 55 2v19h-58z" fill="#473a27"/><path d="M578 96v19" stroke="#d49a50" stroke-width="2"/><path d="M615 130q7-37 14-5 8-29 16 3 8-44 15 2 9-34 17 3v30h-62z" fill="#0d1912"/></svg></div>
@@ -1009,7 +1010,7 @@
     <!-- ================= MODULE 4: CAPITAL VAULT & FINANCIAL PLANNING ================= -->
     <section id="tabContentMilestones" class="tab-content space-y-6">
       <div class="vault-hero">
-        <svg class="world-panorama world-panorama--vault" viewBox="0 0 960 380" role="img" aria-label="A treasure vault set inside a torch-lit cavern"><use href="#location-vault"/></svg>
+        <svg class="world-panorama world-panorama--vault" viewBox="0 0 960 380" preserveAspectRatio="xMidYMid meet" role="img" aria-label="A treasure vault set inside a torch-lit cavern"><use href="#location-vault"/></svg>
         <div class="vault-hero-copy"><span class="vault-eyebrow">REGION 03 · THE UNDERKEEP</span><div class="vault-title-row"><span class="vault-title-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h16v11H4zM3 6h18v4H3z"/><path d="M8 6V4h8v2m-4 3v11m-3-7h2m2 0h2"/></svg></span><h2>The Treasure Vault</h2></div><p>Store reserves, settle provisions and keep the hoard accounted for.</p><span class="vault-quote">“Every coin has a place.”</span></div>
         <svg class="vault-art" viewBox="0 0 220 120" role="img" aria-label="Illustration of a secure vault with savings">
           <defs><radialGradient id="vaultGlow"><stop stop-color="#F59E0B" stop-opacity=".32"/><stop offset="1" stop-color="#F59E0B" stop-opacity="0"/></radialGradient><linearGradient id="safeMetal" x2="0" y2="1"><stop stop-color="#334B3D"/><stop offset="1" stop-color="#101A14"/></linearGradient></defs>
@@ -1048,10 +1049,10 @@
                 <svg viewBox="0 0 54 42" aria-hidden="true"><use href="#sprite-chest"/></svg>Stow treasure
               </button>
               <button onclick="handleQuickPayNextBill()" class="px-3 py-1.5 text-xs font-bold rounded-lg bg-amber-600 text-white hover:bg-amber-700 sprite-action">
-                <svg viewBox="0 0 30 40" aria-hidden="true"><use href="#sprite-flame"/></svg>Pay next toll
+                <svg viewBox="0 0 30 40" aria-hidden="true"><use href="#sprite-flame"/></svg>Pay bill
               </button>
               <button onclick="document.getElementById('vaultSafetySettings').open=true;document.getElementById('vaultSafetySettings').scrollIntoView({behavior:'smooth',block:'start'})" class="px-3 py-1.5 text-xs font-semibold rounded-lg border border-slate-300 hover:bg-slate-100">
-                Transfer / Skim Funds
+                Transfer
               </button>
             </div>
           </div>
@@ -1259,7 +1260,7 @@
     <!-- ================= MODULE 5: STATS & PERFORMANCE ANALYTICS ================= -->
     <section id="tabContentStats" class="tab-content space-y-6">
       <div class="stats-hero">
-        <svg class="world-panorama world-panorama--lookout" viewBox="0 0 960 380" role="img" aria-label="A high mountain lookout and cartographer's observatory overlooking the expedition route"><use href="#location-lookout"/></svg>
+        <svg class="world-panorama world-panorama--lookout" viewBox="0 0 960 380" preserveAspectRatio="xMidYMid meet" role="img" aria-label="A high mountain lookout and cartographer's observatory overlooking the expedition route"><use href="#location-lookout"/></svg>
         <div class="stats-hero-copy"><span class="stats-kicker">REGION 04 · HIGH AERIE</span><div class="stats-title-row"><span class="stats-title-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4h8v5a4 4 0 0 1-8 0zm0 2H4v2a4 4 0 0 0 4 4m8-6h4v2a4 4 0 0 1-4 4m-4 1v5m-4 2h8m-7-5h6"/></svg></span><div><h2>The Lookout</h2><p>Read the map, review your trail and learn from the journey.</p></div></div></div>
         <svg class="iso-scene iso-scene--stats" viewBox="0 0 720 220" aria-hidden="true"><use href="#world-stats"></use></svg>
         <div class="stats-landscape" aria-hidden="true"><svg viewBox="0 0 720 160" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="statsSky" x2="0" y2="1"><stop stop-color="#17241b"/><stop offset="1" stop-color="#27372b"/></linearGradient></defs><rect width="720" height="160" fill="url(#statsSky)"/><circle cx="516" cy="44" r="32" fill="#f3b65f"/><path d="m0 111 65-46 56 37 76-69 61 60 65-45 66 49 71-68 55 58 76-42 65 45 64-62v132H0Z" fill="#344736"/><path d="m0 132 84-43 62 39 76-46 64 47 74-44 65 45 73-48 69 48 82-47 71 36v41H0Z" fill="#19291f"/><path d="M0 149q118-24 216 1t199-4q126-35 305-1" fill="none" stroke="#748957" stroke-width="3" opacity=".55"/><g fill="#101b14"><path d="m35 136 18-52 18 52zm603 0 18-57 18 57z"/></g></svg></div>

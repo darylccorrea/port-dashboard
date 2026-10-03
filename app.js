@@ -800,7 +800,7 @@ function renderDailyDesk() {
     lockBadge.className = isLocked ? 'badge badge-amber text-[11px]' : 'badge badge-gray text-[11px]';
   }
   if (lockBtn) {
-    lockBtn.textContent = isLocked ? '🔓 Unlock Session' : '🔒 Lock Session';
+    lockBtn.textContent = isLocked ? '🔓 Unlock' : '🔒 Lock';
   }
 
   // Session selector dropdown
@@ -948,7 +948,7 @@ function renderMountainTrail() {
     return `<g class="quest-checkpoint ${p.reached ? 'is-reached' : ''} ${active ? 'is-next' : ''}" role="button" tabindex="0" aria-label="${p.name}, session ${p.session}${p.reached ? ', complete' : ''}" onclick="jumpToSession(${p.session})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();jumpToSession(${p.session})}"><path d="m${p.x-22} ${p.y+12} 22-12 22 12-22 12z" fill="#594d36" stroke="#382f25" stroke-width="3"/><path d="M${p.x} ${p.y+5}v-28" stroke="#49382a" stroke-width="4"/><path class="checkpoint-banner" d="M${p.x+2} ${p.y-22}h24v15h-24z" fill="${flag}" stroke="#49382a" stroke-width="2"/><path d="M${p.x+5} ${p.y-19}h7v3h-7zm10 0h7v3h-7z" fill="#f8e8b9"/><rect x="${p.x-4}" y="${p.y+1}" width="8" height="8" fill="${color}" stroke="#49382a" stroke-width="2"/><text x="${p.x}" y="${p.y+38}" text-anchor="middle" font-size="9" font-weight="700" fill="#fff0c4" stroke="#26382c" stroke-width="3" paint-order="stroke">${p.name}</text><text x="${p.x}" y="${p.y+50}" text-anchor="middle" font-size="8" fill="#fff0c4" stroke="#26382c" stroke-width="3" paint-order="stroke">SESSION ${p.session}</text>${p.reached ? `<rect x="${p.x+14}" y="${p.y-32}" width="5" height="5" fill="#ffe18e"/>` : ''}</g>`;
   }).join('');
   const safeNext = nextStop || { name: 'Summit', session: N };
-  container.innerHTML = `<div class="quest-progress-top"><div><span class="quest-level">LEVEL ${currentLevel}</span><span class="quest-session">${completed} / ${N} sessions logged · ${reachedCount} landmarks reached</span></div><div class="quest-xp-track" role="progressbar" aria-label="Challenge sessions completed" aria-valuenow="${completed}" aria-valuemin="0" aria-valuemax="${N}"><span style="width:${progress * 100}%"></span></div></div><svg class="quest-map" viewBox="0 0 600 238" role="img" aria-label="Isometric wilderness map with ${completed} of ${N} sessions completed and ${reachedCount} checkpoints reached"><use href="#location-route" x="0" y="0" width="600" height="238"/><path d="M0 180h600v58H0z" fill="#4f6548" opacity=".8"/><polyline points="${route}" fill="none" stroke="#4c4130" stroke-width="12" stroke-linecap="square" stroke-linejoin="bevel"/><polyline points="${route}" fill="none" stroke="#e0bf78" stroke-width="4" stroke-linecap="square" stroke-linejoin="bevel" stroke-dasharray="3 8" stroke-dashoffset="${Math.round((1 - progress) * 72)}"/>${checkpointsSvg}<g class="quest-player-sprite" transform="translate(${currentX - 15} ${currentY - 46}) scale(.72)"><use href="#sprite-hero"/></g><g fill="#ffe09a"><rect x="112" y="44" width="4" height="4"><animate attributeName="opacity" values=".4;1;.4" dur="1.8s" repeatCount="indefinite"/></rect><rect x="316" y="35" width="4" height="4"><animate attributeName="opacity" values="1;.3;1" dur="2.3s" repeatCount="indefinite"/></rect><rect x="473" y="67" width="4" height="4"><animate attributeName="opacity" values=".3;1;.3" dur="2s" repeatCount="indefinite"/></rect></g></svg><div class="quest-map-footer"><div class="quest-next-stop"><span class="quest-next-icon">⚑</span><div><small>NEXT CHECKPOINT</small><strong>${completed >= N ? 'Summit reached — legendary!' : `${safeNext.name} · Session ${safeNext.session}`}</strong></div></div><div class="quest-goal-progress"><span>Summit balance</span><strong>${targetProgress.toFixed(1)}%</strong></div></div>`;
+  container.innerHTML = `<div class="quest-progress-top"><div><span class="quest-level">LEVEL ${currentLevel}</span><span class="quest-session">${completed} / ${N} sessions logged · ${reachedCount} landmarks reached</span></div><div class="quest-xp-track" role="progressbar" aria-label="Challenge sessions completed" aria-valuenow="${completed}" aria-valuemin="0" aria-valuemax="${N}"><span style="width:${progress * 100}%"></span></div></div><svg class="quest-map" viewBox="0 0 600 238" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Isometric wilderness map with ${completed} of ${N} sessions completed and ${reachedCount} checkpoints reached"><use href="#location-route" x="0" y="0" width="600" height="238"/><path d="M0 180h600v58H0z" fill="#4f6548" opacity=".8"/><polyline points="${route}" fill="none" stroke="#4c4130" stroke-width="12" stroke-linecap="square" stroke-linejoin="bevel"/><polyline points="${route}" fill="none" stroke="#e0bf78" stroke-width="4" stroke-linecap="square" stroke-linejoin="bevel" stroke-dasharray="3 8" stroke-dashoffset="${Math.round((1 - progress) * 72)}"/>${checkpointsSvg}<g class="quest-player-sprite" transform="translate(${currentX - 15} ${currentY - 46}) scale(.72)"><use href="#sprite-hero"/></g><g fill="#ffe09a"><rect x="112" y="44" width="4" height="4"><animate attributeName="opacity" values=".4;1;.4" dur="1.8s" repeatCount="indefinite"/></rect><rect x="316" y="35" width="4" height="4"><animate attributeName="opacity" values="1;.3;1" dur="2.3s" repeatCount="indefinite"/></rect><rect x="473" y="67" width="4" height="4"><animate attributeName="opacity" values=".3;1;.3" dur="2s" repeatCount="indefinite"/></rect></g></svg><div class="quest-map-footer"><div class="quest-next-stop"><span class="quest-next-icon">⚑</span><div><small>NEXT CHECKPOINT</small><strong>${completed >= N ? 'Summit reached — legendary!' : `${safeNext.name} · Session ${safeNext.session}`}</strong></div></div><div class="quest-goal-progress"><span>Goal progress</span><strong>${targetProgress.toFixed(1)}%</strong></div></div>`;
 }
 
 /**
@@ -1235,6 +1235,7 @@ function renderConfigModule() {
   if (firebaseCfgInp) firebaseCfgInp.value = appState.firebaseCfg;
   if (webhookUrlInp) webhookUrlInp.value = appState.webhookUrl;
   renderSetupChallengePreview();
+  handleCurveTypeChange(document.getElementById('genCurveType')?.value || 'tri_pace_independent');
 }
 
 function renderSetupChallengePreview() {
@@ -1762,10 +1763,10 @@ function renderEquityCurveSvg(history) {
 
   container.innerHTML = `
     <svg width="100%" height="100%" viewBox="0 0 ${w} ${h}">
-      <line x1="${pad}" y1="${h - pad}" x2="${w - pad}" y2="${h - pad}" stroke="#536257" stroke-width="1" />
-      <line x1="${pad}" y1="${pad}" x2="${pad}" y2="${h - pad}" stroke="#536257" stroke-width="1" />
-      <polyline fill="none" stroke="#bd7be5" stroke-width="2.5" stroke-linecap="round" points="${ptsWealth}" />
-      <polyline fill="none" stroke="#35d6a4" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="4,2" points="${ptsDesk}" />
+      <line x1="${pad}" y1="${h - pad}" x2="${w - pad}" y2="${h - pad}" stroke="var(--chart-grid)" stroke-width="1" />
+      <line x1="${pad}" y1="${pad}" x2="${pad}" y2="${h - pad}" stroke="var(--chart-grid)" stroke-width="1" />
+      <polyline fill="none" stroke="var(--chart-wealth)" stroke-width="2.5" stroke-linecap="round" points="${ptsWealth}" />
+      <polyline fill="none" stroke="var(--chart-desk)" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="4,2" points="${ptsDesk}" />
     </svg>
   `;
 }
@@ -1792,13 +1793,13 @@ function renderDailyPnLSvg(history) {
     const x = pad + i * ((w - pad * 2) / history.length) + 2;
     const barH = (Math.abs(d.pnl) / maxAbs) * (h / 2 - pad);
     const y = d.pnl >= 0 ? zeroY - barH : zeroY;
-    const color = d.pnl >= 0 ? '#35d6a4' : '#f17870';
+    const color = d.pnl >= 0 ? 'var(--chart-desk)' : 'var(--chart-loss)';
     return `<rect x="${x}" y="${y}" width="${barWidth}" height="${Math.max(2, barH)}" fill="${color}" rx="2" />`;
   }).join('');
 
   container.innerHTML = `
     <svg width="100%" height="100%" viewBox="0 0 ${w} ${h}">
-      <line x1="${pad}" y1="${zeroY}" x2="${w - pad}" y2="${zeroY}" stroke="#536257" stroke-width="1" stroke-dasharray="3,3" />
+      <line x1="${pad}" y1="${zeroY}" x2="${w - pad}" y2="${zeroY}" stroke="var(--chart-grid)" stroke-width="1" stroke-dasharray="3,3" />
       ${bars}
     </svg>
   `;
@@ -2075,11 +2076,11 @@ function saveActiveSession() {
   refreshAllViews();
   const button = document.getElementById('btnSaveDailySession');
   if (button) {
-    button.textContent = '✓ Session Saved';
+    button.textContent = '✓ Saved';
     button.classList.add('is-saved');
     setTimeout(() => {
       if (!button.isConnected) return;
-      button.textContent = '✓ Save Today’s Session';
+      button.innerHTML = '<svg viewBox="0 0 40 56" aria-hidden="true"><use href="#sprite-hero"/></svg>Save session';
       button.classList.remove('is-saved');
     }, 1800);
   }
@@ -2326,6 +2327,14 @@ function setSetupStep(step) {
 
 function handleCurveTypeChange(type) {
   const cashoutBox = document.getElementById('wizardCashoutSettings');
+  const descriptions = {
+    tri_pace_independent: 'Keeps relaxed, steady and fast target paths separate.',
+    smooth: 'Spreads growth evenly from your start to your goal.',
+    decay: 'Sets bigger early steps, then eases the targets later.',
+    port_target_withdrawal: 'Adds planned withdrawals to your portfolio targets.'
+  };
+  const description = document.getElementById('strategyDescription');
+  if (description) description.textContent = descriptions[type] || descriptions.tri_pace_independent;
   if (cashoutBox) {
     if (type === 'port_target_withdrawal') {
       cashoutBox.classList.remove('hidden');

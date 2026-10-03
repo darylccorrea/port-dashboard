@@ -911,9 +911,7 @@ function renderDailyDesk() {
   renderMasterTable();
 }
 
-/**
- * Mountain Trail Progress Visualizer (Section 4.1)
- */
+/** Isometric pixel-island challenge route; checkpoints remain fully interactive. */
 function renderMountainTrail() {
   const container = document.getElementById('mountainTrailContainer');
   if (!container) return;
@@ -927,30 +925,31 @@ function renderMountainTrail() {
   const targetProgress = target > 0 ? Math.min(100, Math.max(0, balance / target * 100)) : 0;
   const checkpoints = [...new Set([1, Math.ceil(N * .25), Math.ceil(N * .5), Math.ceil(N * .75), N])].sort((a, b) => a - b);
   const names = ['Trailhead', 'Fernwood', 'Crystal Pass', 'Cloudrest', 'Summit'];
-  const ys = [132, 81, 112, 58, 87];
+  const ys = [128, 84, 111, 65, 91];
   const points = checkpoints.map((session, i) => ({
     session,
-    x: 38 + (i / Math.max(1, checkpoints.length - 1)) * 524,
+    x: 44 + (i / Math.max(1, checkpoints.length - 1)) * 512,
     y: ys[Math.round(i * (ys.length - 1) / Math.max(1, checkpoints.length - 1))],
     name: names[Math.round(i * (names.length - 1) / Math.max(1, checkpoints.length - 1))],
     reached: completed >= session
   }));
   const route = points.map(p => `${p.x},${p.y}`).join(' ');
-  const currentX = 38 + progress * 524;
+  const currentX = 44 + progress * 512;
   const segment = Math.min(points.length - 2, Math.floor(progress * Math.max(1, points.length - 1)));
   const segmentPct = progress >= 1 ? 1 : (progress * Math.max(1, points.length - 1)) - segment;
   const currentY = points[segment].y + (points[segment + 1].y - points[segment].y) * segmentPct;
   const reachedCount = points.filter(p => p.reached).length;
   const currentLevel = Math.floor(completed / 5) + 1;
   const nextStop = points.find(p => !p.reached) || points[points.length - 1];
-  const checkpointsSvg = points.map((p, i) => {
+  const checkpointsSvg = points.map(p => {
     const active = !p.reached && p.session === nextStop.session;
-    const color = p.reached ? '#42d6a4' : (active ? '#ffc45b' : '#77847a');
-    const icon = p.reached ? '✓' : (active ? '✦' : '◆');
-    return `<g class="quest-checkpoint ${p.reached ? 'is-reached' : ''} ${active ? 'is-next' : ''}" role="button" tabindex="0" aria-label="${p.name}, session ${p.session}${p.reached ? ', complete' : ''}" onclick="jumpToSession(${p.session})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();jumpToSession(${p.session})}"><circle cx="${p.x}" cy="${p.y}" r="${active ? 17 : 14}" fill="#10231b" stroke="${color}" stroke-width="${active ? 3 : 2}"/><text x="${p.x}" y="${p.y + 5}" text-anchor="middle" font-size="15" font-weight="700" fill="${color}">${icon}</text><text x="${p.x}" y="${p.y + 35}" text-anchor="middle" font-size="10" font-weight="700" fill="#d7ddcf">${p.name}</text><text x="${p.x}" y="${p.y + 49}" text-anchor="middle" font-size="9" fill="#9ca99c">S${p.session}</text>${p.reached ? `<path d="M${p.x + 15} ${p.y - 20}l2 5 5 1-4 3 1 5-4-3-4 3 1-5-4-3 5-1z" fill="#ffd166"/>` : ''}</g>`;
+    const color = p.reached ? '#42d6a4' : (active ? '#ffc45b' : '#879184');
+    const tile = active ? '#72552d' : (p.reached ? '#285643' : '#39483d');
+    const glyph = p.reached ? '✓' : (active ? '✦' : '·');
+    return `<g class="quest-checkpoint ${p.reached ? 'is-reached' : ''} ${active ? 'is-next' : ''}" role="button" tabindex="0" aria-label="${p.name}, session ${p.session}${p.reached ? ', complete' : ''}" onclick="jumpToSession(${p.session})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();jumpToSession(${p.session})}"><path d="M${p.x - 15} ${p.y - 4}l15-8 15 8v17l-15 8-15-8z" fill="#17271e"/><path d="m${p.x - 15} ${p.y - 4} 15 8 15-8-15-8z" fill="${tile}" stroke="${color}" stroke-width="1.5"/><path d="M${p.x - 15} ${p.y - 4}v17l15 8V${p.y + 4}z" fill="#26392e"/><path d="M${p.x} ${p.y + 4}v17l15-8V${p.y - 4}z" fill="#1e3026"/><text x="${p.x}" y="${p.y + 4}" text-anchor="middle" font-size="12" font-weight="800" fill="${color}">${glyph}</text><text x="${p.x}" y="${p.y + 38}" text-anchor="middle" font-size="9" font-weight="700" fill="#f0eee4">${p.name}</text><text x="${p.x}" y="${p.y + 50}" text-anchor="middle" font-size="8" fill="#c0c5b8">S${p.session}</text>${p.reached ? `<rect x="${p.x + 12}" y="${p.y - 20}" width="5" height="5" fill="#ffd166"/>` : ''}</g>`;
   }).join('');
   const safeNext = nextStop || { name: 'Summit', session: N };
-  container.innerHTML = `<div class="quest-progress-top"><div><span class="quest-level">LEVEL ${currentLevel}</span><span class="quest-session">${completed} / ${N} sessions logged</span></div><div class="quest-xp-track" role="progressbar" aria-label="Challenge sessions completed" aria-valuenow="${completed}" aria-valuemin="0" aria-valuemax="${N}"><span style="width:${progress * 100}%"></span></div></div><svg class="quest-map" viewBox="0 0 600 190" role="img" aria-label="A trail with ${completed} of ${N} sessions completed and ${reachedCount} checkpoints reached"><defs><linearGradient id="questSky" x2="0" y2="1"><stop stop-color="#14231c"/><stop offset="1" stop-color="#18281e"/></linearGradient><linearGradient id="questPath" x2="1"><stop stop-color="#37d5a1"/><stop offset="1" stop-color="#ffbf58"/></linearGradient><filter id="questGlow"><feGaussianBlur stdDeviation="4" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><rect width="600" height="190" rx="16" fill="url(#questSky)"/><circle cx="513" cy="33" r="17" fill="#f8c86c" opacity=".84"/><path d="M0 111 76 72l57 32 74-68 58 57 61-42 61 49 74-66 57 47 82-38v147H0Z" fill="#263a2c"/><path d="m0 137 89-39 65 42 74-46 67 45 67-43 69 41 79-46 90 40v59H0Z" fill="#17291f"/><path d="M15 150Q90 164 145 126T270 129Q344 140 392 100T580 93" fill="none" stroke="#354d37" stroke-width="16" stroke-linecap="round"/><polyline points="${route}" fill="none" stroke="#0b1610" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><polyline points="${route}" fill="none" stroke="url(#questPath)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 7" stroke-dashoffset="${Math.round((1 - progress) * 72)}" filter="url(#questGlow)"/>${checkpointsSvg}<g class="quest-player" transform="translate(${currentX} ${currentY - 26})"><circle r="13" fill="#12271f" stroke="#39d5a5" stroke-width="2"/><text y="5" text-anchor="middle" font-size="17">🧭</text></g><g fill="#ffd166"><circle cx="101" cy="40" r="2"/><circle cx="323" cy="31" r="2"/><circle cx="466" cy="79" r="1.6"/></g></svg><div class="quest-map-footer"><div class="quest-next-stop"><span class="quest-next-icon">✧</span><div><small>NEXT CHECKPOINT</small><strong>${completed >= N ? 'Summit reached — legendary!' : `${safeNext.name} · Session ${safeNext.session}`}</strong></div></div><div class="quest-goal-progress"><span>Summit balance</span><strong>${targetProgress.toFixed(1)}%</strong></div></div>`;
+  container.innerHTML = `<div class="quest-progress-top"><div><span class="quest-level">LEVEL ${currentLevel}</span><span class="quest-session">${completed} / ${N} sessions logged</span></div><div class="quest-xp-track" role="progressbar" aria-label="Challenge sessions completed" aria-valuenow="${completed}" aria-valuemin="0" aria-valuemax="${N}"><span style="width:${progress * 100}%"></span></div></div><svg class="quest-map" viewBox="0 0 600 190" role="img" aria-label="A trail with ${completed} of ${N} sessions completed and ${reachedCount} checkpoints reached"><defs><linearGradient id="questPath" x2="1"><stop stop-color="#37d5a1"/><stop offset="1" stop-color="#ffbf58"/></linearGradient><filter id="questGlow"><feGaussianBlur stdDeviation="2.5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><rect width="600" height="190" rx="16" fill="#17241c"/><use href="#world-trail"/><polyline points="${route}" fill="none" stroke="#17241c" stroke-width="9" stroke-linecap="square" stroke-linejoin="bevel"/><polyline points="${route}" fill="none" stroke="url(#questPath)" stroke-width="4" stroke-linecap="square" stroke-linejoin="bevel" stroke-dasharray="7 6" stroke-dashoffset="${Math.round((1 - progress) * 72)}" filter="url(#questGlow)"/>${checkpointsSvg}<g class="quest-player" transform="translate(${currentX} ${currentY - 22})"><path d="M-8 3 0-7 8 3 0 10z" fill="#d9bd7d" stroke="#fff0b5" stroke-width="1.5"/><rect x="-3" y="-2" width="6" height="6" fill="#4c7658"/><rect x="-2" y="-1" width="1.5" height="1.5" fill="#f8e4aa"/><rect x="1" y="-1" width="1.5" height="1.5" fill="#f8e4aa"/></g><g fill="#ffe09a"><rect x="112" y="44" width="3" height="3"/><rect x="316" y="35" width="3" height="3"/><rect x="473" y="67" width="3" height="3"/></g></svg><div class="quest-map-footer"><div class="quest-next-stop"><span class="quest-next-icon">✧</span><div><small>NEXT CHECKPOINT</small><strong>${completed >= N ? 'Summit reached — legendary!' : `${safeNext.name} · Session ${safeNext.session}`}</strong></div></div><div class="quest-goal-progress"><span>Summit balance</span><strong>${targetProgress.toFixed(1)}%</strong></div></div>`;
 }
 
 /**

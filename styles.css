@@ -347,3 +347,29 @@ body>header nav button:hover .nav-icon{transform:rotate(-5deg) scale(1.06);backg
 @keyframes progressShimmer{0%{background-position:100% 0}100%{background-position:-80% 0}}
 ::selection{background:rgba(59,196,146,.28);color:inherit}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+
+/* Pixel-isometric world: quiet exploration details, with no game UI imposed on the data. */
+.pixel-world-atlas{position:absolute;width:0;height:0;overflow:hidden;pointer-events:none}
+.iso-scene,.vault-pixel-scene{position:absolute;z-index:1;right:8%;bottom:-5px;width:min(58%,720px);height:100%;overflow:visible;pointer-events:none;shape-rendering:crispEdges;filter:drop-shadow(0 12px 14px rgba(10,18,12,.2));transform-origin:70% 100%;animation:pixelWorldFloat 7s ease-in-out infinite}
+.iso-scene use,.vault-pixel-scene use{width:100%;height:100%}
+.iso-scene--daily{right:7%;width:min(58%,720px)}
+.iso-scene--setup{right:8%;width:min(57%,720px);animation-delay:-2s}
+.iso-scene--trades{right:9%;width:min(56%,720px);animation-delay:-1s}
+.iso-scene--stats{right:7%;width:min(57%,720px);animation-delay:-3s}
+.vault-pixel-scene{right:8%;width:min(58%,720px);height:100%;animation-delay:-2.5s}
+.daily-landscape,.setup-landscape,.trade-landscape,.stats-landscape,.vault-art{display:none!important}
+.daily-hero-quote,.setup-hero-quote,.trade-hero-quote,.stats-hero-quote{display:none!important}
+.daily-hero-copy,.setup-hero-copy,.trade-hero-copy,.stats-hero-copy,.vault-hero-copy,.daily-hero-quote,.setup-hero-quote,.trade-hero-quote,.stats-hero-quote{position:relative;z-index:2}
+.quest-map{shape-rendering:crispEdges;image-rendering:pixelated}
+.quest-map .quest-checkpoint{transform-box:fill-box;transform-origin:center;transition:filter .18s ease,transform .18s steps(3,end)}
+.quest-map .quest-checkpoint:hover{transform:translateY(-3px)}
+.quest-map .quest-checkpoint.is-next{animation:checkpointPulse 2.2s steps(2,end) infinite}
+.quest-player{animation:spriteIdle 1.2s steps(2,end) infinite alternate;transform-box:fill-box;transform-origin:center}
+.quest-map-footer{backdrop-filter:blur(6px)}
+@keyframes pixelWorldFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+@keyframes checkpointPulse{0%,100%{filter:drop-shadow(0 0 0 rgba(255,196,91,0))}50%{filter:drop-shadow(0 0 5px rgba(255,196,91,.45))}}
+@keyframes spriteIdle{from{translate:0 0}to{translate:0 -3px}}
+@media(max-width:850px){.iso-scene,.vault-pixel-scene{right:2%;width:62%;opacity:.86}.daily-hero-copy,.setup-hero-copy,.trade-hero-copy,.stats-hero-copy,.vault-hero-copy{max-width:70%}}
+@media(max-width:600px){.iso-scene,.vault-pixel-scene{right:-4%;width:68%;opacity:.48}.daily-hero-copy,.setup-hero-copy,.trade-hero-copy,.stats-hero-copy,.vault-hero-copy{max-width:100%}.quest-map{max-height:175px}}
+:root:not([data-theme="dark"]) .iso-scene,:root:not([data-theme="dark"]) .vault-pixel-scene{filter:drop-shadow(0 10px 11px rgba(79,67,43,.16))}
+@media(prefers-reduced-motion:reduce){.iso-scene,.vault-pixel-scene,.quest-map .quest-checkpoint.is-next,.quest-player{animation:none!important}.quest-map .quest-checkpoint{transition:none!important}}

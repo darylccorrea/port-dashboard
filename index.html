@@ -59,6 +59,74 @@
     </nav>
   </header>
 
+  <!-- Shared isometric pixel-art sprite atlas. Decorative art only; app controls remain standard UI. -->
+  <svg class="pixel-world-atlas" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+    <symbol id="world-daily" viewBox="0 0 720 220">
+      <g shape-rendering="crispEdges">
+        <path d="M214 126 455 53 701 127 464 205Z" fill="#72896a"/><path d="m214 126 250 79v16l-250-80z" fill="#394d41"/><path d="m464 205 237-78v16l-237 78z" fill="#293e34"/>
+        <path d="m388 113 77-38 83 27-77 40z" fill="#d2a66a"/><path d="m388 113 83 29v43l-83-30z" fill="#9a6843"/><path d="m471 142 77-40v43l-77 40z" fill="#704c39"/><path d="m388 113 77-39 83 28-77 40z" fill="#e7c486"/><path d="m411 109 54-27 56 19-55 28z" fill="#536b61"/>
+        <rect x="431" y="101" width="10" height="10" fill="#f0c66d"/><rect x="451" y="94" width="10" height="10" fill="#f0c66d"/><rect x="482" y="104" width="12" height="12" fill="#f4cb78"/><rect x="507" y="96" width="12" height="12" fill="#f4cb78"/>
+        <path d="m275 133 20-26 20 26v26l-20 16-20-16z" fill="#9f754f"/><path d="m295 107 20 26v26l-20 16z" fill="#70533b"/><path d="m271 132 24-32 24 32-24 14z" fill="#52755e"/><rect x="290" y="139" width="10" height="12" fill="#efc56f"/>
+        <path d="m589 128 0-40 12-12 12 12v40z" fill="#7b6046"/><path d="m601 76 12 12v40l-12-6z" fill="#594833"/><rect x="596" y="98" width="10" height="10" fill="#e7bd69"/><path d="m584 87 17-21 17 21-17 9z" fill="#3e6955"/><path d="m584 75 17-19 17 19-17 9z" fill="#52785e"/>
+        <rect x="340" y="133" width="28" height="22" fill="#9a6843"/><rect x="346" y="125" width="16" height="10" fill="#d4aa68"/><rect x="351" y="114" width="6" height="11" fill="#617f69"/>
+        <g class="pixel-firefly"><rect x="366" y="66" width="4" height="4" fill="#ffe09a"/><animateTransform attributeName="transform" type="translate" values="0 0;0 -5;0 0" dur="2.8s" repeatCount="indefinite"/></g>
+      </g>
+    </symbol>
+    <symbol id="world-setup" viewBox="0 0 720 220">
+      <g shape-rendering="crispEdges">
+        <path d="M244 133 475 61 697 128 469 204Z" fill="#83946d"/><path d="m244 133 225 71v16l-225-72z" fill="#445844"/><path d="m469 204 228-76v16l-228 76z" fill="#344839"/>
+        <path d="m427 119 67-31 72 24-68 34z" fill="#cda476"/><path d="m427 119 71 27v41l-71-28z" fill="#a36f4e"/><path d="m498 146 68-34v42l-68 33z" fill="#78513d"/><path d="m418 118 77-42 83 35-80 39z" fill="#cb8f61"/><path d="m447 112 48-26 51 22-50 25z" fill="#e2b97a"/><rect x="456" y="129" width="12" height="14" fill="#f2d18b"/><rect x="514" y="132" width="12" height="14" fill="#f2d18b"/><path d="m485 150 15-7 15 7v31l-15 7-15-7z" fill="#513d32"/>
+        <path d="m574 123 0-39 12-12 12 12v39z" fill="#806145"/><path d="m586 72 12 12v39l-12-5z" fill="#604b37"/><path d="m568 84 18-23 18 23-18 10z" fill="#54775b"/><path d="m568 72 18-20 18 20-18 10z" fill="#6a8c65"/>
+        <path d="m327 135 18-24 18 24v25l-18 14-18-14z" fill="#a5764e"/><path d="m345 111 18 24v25l-18 14z" fill="#78573c"/><path d="m323 134 22-30 22 30-22 13z" fill="#5a7e5e"/>
+        <path d="M393 129v-42" stroke="#584c3d" stroke-width="5"/><path d="m396 89 40 0-10 14h-30z" fill="#d6a74e"/><path d="m396 89 40 0-10 14h-30z" fill="#eac673"/>
+        <g class="pixel-firefly"><rect x="375" y="59" width="4" height="4" fill="#ffdf91"/><animateTransform attributeName="transform" type="translate" values="0 0;0 -6;0 0" dur="3.2s" repeatCount="indefinite"/></g>
+      </g>
+    </symbol>
+    <symbol id="world-trades" viewBox="0 0 720 220">
+      <g shape-rendering="crispEdges">
+        <path d="M225 135 460 61 698 132 462 207Z" fill="#776f58"/><path d="m225 135 237 72v15l-237-73z" fill="#4b4940"/><path d="m462 207 236-75v15l-236 75z" fill="#343c38"/>
+        <path d="m430 120 70-35 74 25-72 36z" fill="#b17b4f"/><path d="m430 120 72 26v37l-72-26z" fill="#79553c"/><path d="m502 146 72-36v38l-72 35z" fill="#573e32"/><path d="m427 119 73-43 79 34-77 40z" fill="#d09a5e"/>
+        <path d="m455 112 45-26 51 22-48 26z" fill="#3f6157"/><path d="m464 111 14-8 9 5 12-18 10 15 11-5 11 9 12-16" fill="none" stroke="#a7c47a" stroke-width="4" stroke-linejoin="miter"/>
+        <rect x="454" y="130" width="12" height="12" fill="#f1cb79"/><rect x="522" y="139" width="12" height="12" fill="#efbd65"/><path d="m491 149 14-7 14 7v25l-14 8-14-8z" fill="#513b31"/>
+        <path d="m365 148 0-50 16-10v60z" fill="#71906f"/><path d="m385 148 0-69 16-10v79z" fill="#d19f55"/><path d="m405 148 0-88 16-10v98z" fill="#9e7660"/>
+        <rect x="369" y="110" width="8" height="8" fill="#cce4ac"/><rect x="389" y="97" width="8" height="8" fill="#ffe097"/><rect x="409" y="84" width="8" height="8" fill="#f1c4a0"/>
+        <path d="m600 131 0-40 12-12 12 12v40z" fill="#7e6144"/><path d="m612 79 12 12v40l-12-6z" fill="#5f4a36"/><path d="m594 90 18-23 18 23-18 10z" fill="#4f7358"/>
+        <g class="pixel-firefly"><rect x="340" y="64" width="4" height="4" fill="#ffe09a"/><animateTransform attributeName="transform" type="translate" values="0 0;0 -5;0 0" dur="2.6s" repeatCount="indefinite"/></g>
+      </g>
+    </symbol>
+    <symbol id="world-vault" viewBox="0 0 720 220">
+      <g shape-rendering="crispEdges">
+        <path d="M235 132 470 58 699 129 463 205Z" fill="#71816a"/><path d="m235 132 228 73v15l-228-73z" fill="#455545"/><path d="m463 205 236-76v15l-236 76z" fill="#33443a"/>
+        <path d="m421 115 67-35 78 27-71 36z" fill="#d0a66c"/><path d="m421 115 74 28v49l-74-29z" fill="#9b7147"/><path d="m495 143 71-36v48l-71 36z" fill="#654c36"/><path d="m414 115 74-45 84 37-77 40z" fill="#dfbb7d"/>
+        <path d="m446 113 42-25 49 21-43 26z" fill="#33493f"/><path d="m451 116 36-21 38 16-37 22z" fill="#4e6658"/><rect x="472" y="111" width="34" height="7" fill="#d8ad64"/><rect x="486" y="103" width="7" height="26" fill="#d8ad64"/><circle cx="490" cy="116" r="4" fill="#ffe3a0"/>
+        <rect x="436" y="137" width="11" height="12" fill="#f2d08c"/><rect x="538" y="133" width="11" height="12" fill="#f2d08c"/><path d="m483 158 13-7 13 7v34l-13 8-13-8z" fill="#513b30"/>
+        <path d="m347 137 0-37 12-12 12 12v37z" fill="#73593d"/><path d="m359 88 12 12v37l-12-6z" fill="#574731"/><path d="m341 100 18-22 18 22-18 10z" fill="#4c7658"/><path d="m341 88 18-21 18 21-18 10z" fill="#638762"/>
+        <g class="pixel-firefly"><rect x="584" y="77" width="5" height="5" fill="#ffe29a"/><animate attributeName="opacity" values=".25;1;.25" dur="2.4s" repeatCount="indefinite"/></g>
+      </g>
+    </symbol>
+    <symbol id="world-stats" viewBox="0 0 720 220">
+      <g shape-rendering="crispEdges">
+        <path d="M222 136 459 62 701 135 463 210Z" fill="#747f62"/><path d="m222 136 241 74v15l-241-74z" fill="#475344"/><path d="m463 210 238-75v15l-238 75z" fill="#34443a"/>
+        <path d="m421 126 75-38 78 27-77 39z" fill="#c5a06b"/><path d="m421 126 76 28v38l-76-29z" fill="#8e6848"/><path d="m497 154 77-39v39l-77 38z" fill="#624a37"/><path d="m416 124 80-48 84 37-82 42z" fill="#dbb77a"/>
+        <rect x="439" y="108" width="18" height="15" fill="#557368"/><rect x="464" y="99" width="18" height="24" fill="#628274"/><rect x="489" y="89" width="18" height="34" fill="#e0bb73"/><rect x="514" y="98" width="18" height="25" fill="#a77958"/><path d="m439 108 9-8 9 8m7-9 9-8 9 8m7-10 9-8 9 8m7 10 9-8 9 8" fill="#e6cf9a"/>
+        <rect x="445" y="114" width="5" height="5" fill="#f5d889"/><rect x="470" y="108" width="5" height="5" fill="#f5d889"/><rect x="495" y="99" width="5" height="5" fill="#f5d889"/><rect x="520" y="108" width="5" height="5" fill="#f5d889"/>
+        <path d="m353 148 0-33 12-10v43z" fill="#5c8265"/><path d="m373 148 0-53 12-10v63z" fill="#d0a050"/><path d="m393 148 0-71 12-10v81z" fill="#a27658"/><rect x="357" y="126" width="5" height="5" fill="#d4e2a1"/><rect x="377" y="112" width="5" height="5" fill="#fff0a6"/><rect x="397" y="96" width="5" height="5" fill="#ffd0a1"/>
+        <path d="m588 135 0-39 12-12 12 12v39z" fill="#785c40"/><path d="m600 84 12 12v39l-12-6z" fill="#594633"/><path d="m582 96 18-22 18 22-18 10z" fill="#527858"/>
+        <g class="pixel-firefly"><rect x="338" y="69" width="4" height="4" fill="#ffe09a"/><animateTransform attributeName="transform" type="translate" values="0 0;0 -6;0 0" dur="3s" repeatCount="indefinite"/></g>
+      </g>
+    </symbol>
+    <symbol id="world-trail" viewBox="0 0 600 190">
+      <g shape-rendering="crispEdges">
+        <path d="M18 131 143 91 277 131 158 171z" fill="#7e9868"/><path d="m18 131 140 40v12L18 143z" fill="#475942"/><path d="m158 171 119-40v12l-119 40z" fill="#344636"/>
+        <path d="m169 111 111-35 116 35-109 36z" fill="#70875f"/><path d="m169 111 118 36v13l-118-37z" fill="#44543e"/><path d="m287 147 109-36v13l-109 36z" fill="#334238"/>
+        <path d="m322 89 111-36 145 44-112 37z" fill="#87986a"/><path d="m322 89 144 45v13L322 102z" fill="#4d5d44"/><path d="m466 134 112-37v13l-112 37z" fill="#36463a"/>
+        <path d="m34 128 118-37m39 20 96-31m46 9 109-36m40 80 87-29" fill="none" stroke="#d5b878" stroke-width="5" stroke-dasharray="7 5"/>
+        <path d="m74 121 16-20 16 20v17l-16 12-16-12z" fill="#9c754e"/><path d="m90 101 16 20v17l-16 12z" fill="#71563d"/><path d="m70 120 20-26 20 26-20 12z" fill="#52785a"/>
+        <path d="m501 121 0-35 11-11 11 11v35z" fill="#825f43"/><path d="m512 75 11 11v35l-11-6z" fill="#624b37"/><path d="m495 86 17-21 17 21-17 10z" fill="#51765b"/>
+      </g>
+    </symbol>
+  </svg>
+
   <!-- ================= MAIN VIEWPORT ================= -->
   <main class="flex-1 max-w-7xl w-full mx-auto px-4 py-6 space-y-6">
 
@@ -66,6 +134,7 @@
     <section id="tabContentTracker" class="tab-content active space-y-6">
       <div class="daily-hero">
         <div class="daily-hero-copy"><span class="daily-kicker">STEP 1 OF 3</span><div class="daily-title-row"><span class="daily-title-icon">▦</span><div><h2>Daily Tracker</h2><p>Log your closing balance, track your progress and stay consistent.</p></div></div></div>
+        <svg class="iso-scene iso-scene--daily" viewBox="0 0 720 220" aria-hidden="true"><use href="#world-daily"></use></svg>
         <div class="daily-landscape" aria-hidden="true"><svg viewBox="0 0 720 170" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="dailySky" x2="0" y2="1"><stop stop-color="#18251d"/><stop offset="1" stop-color="#303a2c"/></linearGradient><linearGradient id="dailyValley" x2="0" y2="1"><stop stop-color="#314a35"/><stop offset="1" stop-color="#18251b"/></linearGradient></defs><rect width="720" height="170" fill="url(#dailySky)"/><circle cx="516" cy="52" r="34" fill="#f7b763"/><path d="M0 112 57 71l48 37 75-73 58 56 73-48 61 55 76-67 54 58 76-41 53 52 59-69v119H0Z" fill="#334333"/><path d="m0 130 74-44 64 45 73-41 57 42 78-42 63 43 68-38 78 45 73-51 92 45v36H0Z" fill="url(#dailyValley)"/><path d="M313 170q83-54 190-55 103 2 217 55" fill="none" stroke="#758759" stroke-width="3" opacity=".65"/><g fill="#142019"><path d="M42 130 58 83l16 47zm23 5 20-58 20 58zm520 4 17-50 17 50zm39 1 20-62 20 62z"/></g><g fill="#80a66a"><path d="M50 115q-22-20-21-43 24 8 31 37zm605-4q18-24 16-43-23 12-27 39z"/></g></svg></div>
         <div class="daily-hero-quote">Small steps<br><span>build big freedom.</span></div>
       </div>
@@ -419,6 +488,7 @@
     <section id="tabContentConfig" class="tab-content space-y-6">
       <div class="setup-hero">
         <div class="setup-hero-copy"><span class="setup-kicker">STEP 1 OF 3</span><div class="setup-title-row"><span class="setup-title-icon">♧</span><div><h2>Setup Your Journey</h2><p>Set your targets, plan your challenge and get everything ready.</p></div></div></div>
+        <svg class="iso-scene iso-scene--setup" viewBox="0 0 720 220" aria-hidden="true"><use href="#world-setup"></use></svg>
         <div class="setup-landscape" aria-hidden="true"><svg viewBox="0 0 720 160" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="setupSky" x2="0" y2="1"><stop stop-color="#17241b"/><stop offset="1" stop-color="#27372b"/></linearGradient></defs><rect width="720" height="160" fill="url(#setupSky)"/><circle cx="514" cy="47" r="31" fill="#e8c88f"/><path d="m0 116 68-46 54 37 78-68 62 58 65-45 68 50 74-68 55 58 73-42 63 44 60-59v125H0Z" fill="#344736"/><path d="m0 134 82-42 67 39 77-45 62 47 75-44 64 44 72-48 71 47 82-46 68 36v38H0Z" fill="#19291f"/><path d="M0 148q119-23 216 1t198-4q127-34 306-1" fill="none" stroke="#748957" stroke-width="3" opacity=".55"/><g fill="#89a878"><path d="M55 130q-22-24-14-48 23 13 25 39zm602 3q22-23 17-46-23 12-27 38z"/></g></svg></div>
         <div class="setup-hero-quote">A clear plan<br><span>makes progress feel lighter.</span></div>
       </div>
@@ -714,6 +784,7 @@
     <section id="tabContentTrades" class="tab-content space-y-6">
       <div class="trade-hero">
         <div class="trade-hero-copy"><span class="trade-kicker">STEP 2 OF 3</span><div class="trade-title-row"><span class="trade-title-icon">▤</span><div><h2>Trading Sessions</h2><p>Log your trades, keep it simple and stay consistent.</p></div></div></div>
+        <svg class="iso-scene iso-scene--trades" viewBox="0 0 720 220" aria-hidden="true"><use href="#world-trades"></use></svg>
         <div class="trade-landscape" aria-hidden="true"><svg viewBox="0 0 720 180" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="tradeSky" x2="0" y2="1"><stop stop-color="#14231c"/><stop offset="1" stop-color="#27372b"/></linearGradient><linearGradient id="tradeDesk" x2="0" y2="1"><stop stop-color="#a45e2c"/><stop offset="1" stop-color="#422c1d"/></linearGradient></defs><rect width="720" height="180" fill="url(#tradeSky)"/><circle cx="570" cy="54" r="34" fill="#f6ad55" opacity=".92"/><path d="M0 105 60 74l45 34 58-56 64 48 53-38 46 52 49-39 52 42 48-48 56 42 54-61 52 48 83-49v131H0Z" fill="#17271d"/><path d="m0 130 90-41 66 42 78-49 65 44 80-37 68 40 82-47 68 38 63-45 60 30v75H0Z" fill="#101b15"/><path d="M0 143h720v37H0Z" fill="url(#tradeDesk)"/><rect x="390" y="20" width="124" height="74" rx="7" fill="#131a18" stroke="#92744a" stroke-width="3"/><rect x="398" y="28" width="108" height="57" rx="3" fill="#152822"/><path d="M402 72 420 62l14 6 15-27 15 19 13-8 12 9 16-21" fill="none" stroke="#29c69d" stroke-width="2"/><path d="M451 94h6v10h-6M430 104h49" stroke="#72553a" stroke-width="4"/><path d="M536 0v78m-10-4h20" stroke="#b4874b" stroke-width="3"/><path d="M551 77q30-14 55 2v19h-58z" fill="#473a27"/><path d="M578 96v19" stroke="#d49a50" stroke-width="2"/><path d="M615 130q7-37 14-5 8-29 16 3 8-44 15 2 9-34 17 3v30h-62z" fill="#0d1912"/></svg></div>
         <div class="trade-hero-quote">Small trades today.<br><span>Bigger tomorrow.</span></div>
       </div>
@@ -848,6 +919,7 @@
           <defs><radialGradient id="vaultGlow"><stop stop-color="#F59E0B" stop-opacity=".32"/><stop offset="1" stop-color="#F59E0B" stop-opacity="0"/></radialGradient><linearGradient id="safeMetal" x2="0" y2="1"><stop stop-color="#334B3D"/><stop offset="1" stop-color="#101A14"/></linearGradient></defs>
           <ellipse cx="112" cy="108" rx="88" ry="14" fill="url(#vaultGlow)"/><path d="M58 102V53a54 54 0 0 1 108 0v49" fill="url(#safeMetal)" stroke="#526B57" stroke-width="3"/><path d="M66 101V55a46 46 0 0 1 92 0v46" fill="#101A14" stroke="#D0AA63" stroke-opacity=".55" stroke-dasharray="3 5" stroke-width="2"/><circle cx="112" cy="66" r="24" fill="#17231B" stroke="#D0AA63" stroke-width="3"/><circle cx="112" cy="66" r="15" fill="none" stroke="#C28B38" stroke-width="2"/><path d="M112 48v36M94 66h36M99 53l26 26M125 53 99 79" stroke="#D0AA63" stroke-width="2.5" stroke-linecap="round"/><circle cx="112" cy="66" r="5" fill="#FFE5A3"/><path d="M45 96q-13-8-9-23 12 4 14 15M49 96q-3-15 8-23 7 13 0 23M177 97q14-9 10-23-12 4-15 15M174 96q3-15-8-23-7 13 0 23" fill="none" stroke="#34D399" stroke-width="3" stroke-linecap="round"/><g fill="#FBBF24"><circle cx="77" cy="96" r="4"/><circle cx="86" cy="101" r="4"/><circle cx="143" cy="98" r="4"/><circle cx="152" cy="103" r="4"/></g><g fill="#FFE5A3"><circle cx="48" cy="30" r="2"/><circle cx="179" cy="38" r="2"/><circle cx="153" cy="17" r="1.5"/><circle cx="77" cy="19" r="1.5"/></g>
         </svg>
+        <svg class="vault-pixel-scene" viewBox="0 0 720 220" aria-hidden="true"><use href="#world-vault"></use></svg>
       </div>
       
       <!-- TOP KPI CARDS -->
@@ -1092,6 +1164,7 @@
     <section id="tabContentStats" class="tab-content space-y-6">
       <div class="stats-hero">
         <div class="stats-hero-copy"><span class="stats-kicker">STEP 4 OF 5</span><div class="stats-title-row"><span class="stats-title-icon">🏆</span><div><h2>Stats &amp; Performance</h2><p>Analyze your performance, understand your progress and trade smarter.</p></div></div></div>
+        <svg class="iso-scene iso-scene--stats" viewBox="0 0 720 220" aria-hidden="true"><use href="#world-stats"></use></svg>
         <div class="stats-landscape" aria-hidden="true"><svg viewBox="0 0 720 160" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="statsSky" x2="0" y2="1"><stop stop-color="#17241b"/><stop offset="1" stop-color="#27372b"/></linearGradient></defs><rect width="720" height="160" fill="url(#statsSky)"/><circle cx="516" cy="44" r="32" fill="#f3b65f"/><path d="m0 111 65-46 56 37 76-69 61 60 65-45 66 49 71-68 55 58 76-42 65 45 64-62v132H0Z" fill="#344736"/><path d="m0 132 84-43 62 39 76-46 64 47 74-44 65 45 73-48 69 48 82-47 71 36v41H0Z" fill="#19291f"/><path d="M0 149q118-24 216 1t199-4q126-35 305-1" fill="none" stroke="#748957" stroke-width="3" opacity=".55"/><g fill="#101b14"><path d="m35 136 18-52 18 52zm603 0 18-57 18 57z"/></g></svg></div>
         <div class="stats-hero-quote">Data today,<br><span>better trades tomorrow.</span></div>
       </div>

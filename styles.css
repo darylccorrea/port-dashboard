@@ -487,3 +487,79 @@ button:not(body>header nav button){border-radius:8px 12px!important}
 :root:not([data-theme="dark"]) #tabContentMilestones .vault-monthly-card #billsRunRateBanner,:root:not([data-theme="dark"]) #tabContentMilestones .vault-monthly-savings{color:#504b40!important}
 :root:not([data-theme="dark"]) #tabContentMilestones .vault-monthly-card #billsRunRateBanner strong,:root:not([data-theme="dark"]) #tabContentMilestones .vault-monthly-card #billsTotalUnfundedText{color:#925d0a!important}
 :root:not([data-theme="dark"]) #tabContentMilestones .vault-monthly-savings>div:first-child span:last-child{color:#6e4c9f!important}
+
+/* Expedition layout: establish a clear page rhythm and put the user's next action in view. */
+#tabContentTracker.active{display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:17px!important;align-content:start}
+#tabContentTracker.active>*{min-width:0;margin:0!important}
+#tabContentTracker.active:before{margin:0 0 -8px 3px}
+#tabContentTracker .daily-hero{grid-column:1;min-height:190px!important}
+#tabContentTracker .daily-route-board{grid-column:1;position:relative;min-height:280px;padding:18px 22px!important;overflow:hidden}
+#tabContentTracker .daily-route-board:after{content:"ROUTE MAP  /  LIVE POSITION";position:absolute;right:20px;bottom:12px;color:var(--muted);font:700 9px 'Space Grotesk',monospace;letter-spacing:.11em;opacity:.75;pointer-events:none}
+#tabContentTracker .daily-progress-heading{position:relative;z-index:1;max-width:560px;margin-bottom:0!important}
+#tabContentTracker .daily-progress-heading h3{font-size:19px!important}
+#tabContentTracker #mountainTrailContainer{width:100%;min-height:150px}
+#tabContentTracker .quest-map{width:100%;height:auto;max-height:260px!important;min-height:150px;object-fit:contain}
+#tabContentTracker .daily-stats{grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:11px!important}
+#tabContentTracker #dailyPaceTargetsSection{grid-column:1;padding:19px!important}
+#tabContentTracker #dailyPaceTargetsSection .grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+#tabContentTracker #subtabDesk.active{display:flex!important;flex-direction:column;gap:15px!important}
+#tabContentTracker #subtabDesk.active>*{width:100%;margin:0!important}
+#tabContentTracker #subtabDesk.active .daily-session-card,#tabContentTracker #subtabDesk.active .daily-progress-card,#tabContentTracker #subtabDesk.active .daily-history-card{grid-column:auto!important;grid-row:auto!important}
+#tabContentTracker #subtabDesk.active .daily-session-card{order:0}
+#tabContentTracker #subtabDesk.active .daily-history-card{order:1}
+
+#tabContentConfig.active{display:flex!important;flex-direction:column;gap:15px!important;align-items:stretch}
+#tabContentConfig.active>*{width:100%;margin:0!important;min-width:0}
+#tabContentConfig.active:before{order:0}
+#tabContentConfig .setup-hero{order:1}
+#tabContentConfig .setup-quickstart{order:2}
+#tabContentConfig #subtabCfgWizard{order:3}
+#tabContentConfig .setup-current-challenge{order:4}
+#tabContentConfig .setup-advanced{order:5}
+#tabContentConfig #subtabCfgWizard{padding:23px!important}
+
+#tabContentTrades.active{display:flex!important;flex-direction:column;gap:16px!important}
+#tabContentTrades.active>*{width:100%;margin:0!important;min-width:0}
+#tabContentTrades .trade-metrics{grid-template-columns:repeat(4,minmax(0,1fr))!important}
+#tabContentTrades #subtabTradesLogger,#tabContentTrades #subtabTradesHistory{width:100%;margin:0!important}
+#tabContentTrades #subtabTradesHistory{overflow:hidden}
+#tabContentTrades #subtabTradesHistory table{min-width:760px}
+
+#tabContentMilestones.active{grid-template-columns:repeat(12,minmax(0,1fr))!important;gap:15px!important;align-content:start}
+#tabContentMilestones.active>*{min-width:0;margin:0!important}
+#tabContentMilestones.active>.vault-hero,#tabContentMilestones.active>.vault-stats,#tabContentMilestones.active>.vault-hero+.grid{grid-column:1/-1}
+#tabContentMilestones.active>.vault-actions-card{grid-column:span 4}
+#tabContentMilestones.active>.vault-monthly-card{grid-column:span 8}
+#tabContentMilestones.active>.vault-allocation-card{grid-column:span 4}
+#tabContentMilestones.active>.vault-bills-card{grid-column:span 8}
+#tabContentMilestones.active>.vault-savings-card{grid-column:span 4}
+#tabContentMilestones.active>.vault-transactions-card,#tabContentMilestones.active>.vault-safety-settings{grid-column:1/-1}
+
+#tabContentStats.active{gap:16px!important}
+#tabContentStats.active>*{min-width:0;margin:0!important}
+#tabContentStats .stats-summary-grid{gap:11px!important}
+#tabContentStats .stats-chart-grid{grid-template-columns:minmax(0,1.65fr) minmax(300px,.9fr)!important;gap:15px!important}
+#tabContentStats .stats-equity-panel{min-height:350px}
+#tabContentStats .stats-lower-grid{gap:15px!important}
+
+@media(max-width:1050px){
+  #tabContentTracker .daily-stats{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+  #tabContentTracker .daily-stat:last-child{grid-column:auto}
+  #tabContentMilestones.active>.vault-actions-card,#tabContentMilestones.active>.vault-monthly-card{grid-column:span 6}
+  #tabContentMilestones.active>.vault-allocation-card{grid-column:span 5}
+  #tabContentMilestones.active>.vault-bills-card{grid-column:span 7}
+  #tabContentMilestones.active>.vault-savings-card{grid-column:span 5}
+  #tabContentStats .stats-chart-grid{grid-template-columns:minmax(0,1fr)!important}
+}
+@media(max-width:700px){
+  #tabContentTracker.active{gap:12px!important}
+  #tabContentTracker .daily-route-board{min-height:225px;padding:14px!important}
+  #tabContentTracker #mountainTrailContainer{min-height:120px}
+  #tabContentTracker .quest-map{min-height:105px;max-height:180px!important}
+  #tabContentTracker .daily-stats{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  #tabContentTracker #dailyPaceTargetsSection .grid{grid-template-columns:1fr!important}
+  #tabContentConfig #subtabCfgWizard{padding:15px!important}
+  #tabContentTrades .trade-metrics{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  #tabContentMilestones.active>.vault-actions-card,#tabContentMilestones.active>.vault-monthly-card,#tabContentMilestones.active>.vault-allocation-card,#tabContentMilestones.active>.vault-bills-card,#tabContentMilestones.active>.vault-savings-card{grid-column:1/-1}
+  #tabContentStats .stats-equity-panel{min-height:270px}
+}

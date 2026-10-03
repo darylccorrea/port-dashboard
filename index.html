@@ -158,6 +158,11 @@
         <div class="daily-hero-quote">Small steps<br><span>build big freedom.</span></div>
       </div>
 
+      <div class="daily-progress-card daily-route-board bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-2">
+        <div class="daily-progress-heading"><span class="daily-progress-icon">✦</span><div><h3>Growth Quest</h3><p>Follow your route from the trailhead to the treasure trove.</p></div><select id="questPaceSelect" aria-label="Growth target pace" onchange="setPace(this.value)"><option value="relaxed">Relaxed pace</option><option value="mid">Mid pace</option><option value="aggressive">Aggressive pace</option><option value="finreq">Financial goal</option></select></div>
+        <div id="mountainTrailContainer" class="quest-map-wrap"><!-- Gamified progress map rendered from challenge state --></div>
+      </div>
+
       <!-- DAILY PERFORMANCE SUMMARY -->
       <div class="daily-stats">
         <article class="daily-stat stat-balance"><span class="daily-stat-icon">◈</span><div><label>Current Balance</label><strong id="posCurrentBal">$0.00</strong><small>Started: <span id="posStartBal">$0.00</span></small></div></article>
@@ -364,12 +369,6 @@
               </button>
             </div>
           </div>
-        </div>
-
-        <!-- GAMIFIED GROWTH QUEST -->
-        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-2 daily-progress-card">
-          <div class="daily-progress-heading"><span class="daily-progress-icon">✦</span><div><h3>Growth Quest</h3><p>Every session moves you closer to the summit.</p></div><select id="questPaceSelect" aria-label="Growth target pace" onchange="setPace(this.value)"><option value="relaxed">Relaxed pace</option><option value="mid">Mid pace</option><option value="aggressive">Aggressive pace</option><option value="finreq">Financial goal</option></select></div>
-          <div id="mountainTrailContainer" class="quest-map-wrap"><!-- Gamified progress map rendered from challenge state --></div>
         </div>
 
         <!-- MASTER SESSION TABLE -->

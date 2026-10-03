@@ -2510,8 +2510,19 @@ function setSetupStep(step) {
   renderSetupChallengePreview();
 }
 
+function selectStrategyCurve(type) {
+  const hiddenInput = document.getElementById('genCurveType');
+  if (hiddenInput) hiddenInput.value = type;
+  handleCurveTypeChange(type);
+}
+
 function handleCurveTypeChange(type) {
   const cashoutBox = document.getElementById('wizardCashoutSettings');
+  const hiddenInput = document.getElementById('genCurveType');
+  if (hiddenInput && hiddenInput.value !== type) {
+    hiddenInput.value = type;
+  }
+
   const descriptions = {
     tri_pace_independent: 'Keeps relaxed, steady and fast target paths separate.',
     smooth: 'Spreads growth evenly from your start to your goal.',
@@ -2520,6 +2531,7 @@ function handleCurveTypeChange(type) {
   };
   const description = document.getElementById('strategyDescription');
   if (description) description.textContent = descriptions[type] || descriptions.tri_pace_independent;
+
   if (cashoutBox) {
     if (type === 'port_target_withdrawal') {
       cashoutBox.classList.remove('hidden');
@@ -2527,6 +2539,14 @@ function handleCurveTypeChange(type) {
       cashoutBox.classList.add('hidden');
     }
   }
+
+  // Update visual state of strategy pills
+  const pills = document.querySelectorAll('.strategy-pill');
+  pills.forEach(pill => {
+    const isMatch = pill.dataset.curve === type;
+    pill.classList.toggle('active', isMatch);
+    pill.setAttribute('aria-checked', isMatch ? 'true' : 'false');
+  });
 }
 
 function renderWizardPreview() {

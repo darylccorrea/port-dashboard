@@ -389,9 +389,6 @@
       <button id="navTrackerBtn" onclick="switchMainTab('tracker')" class="px-4 py-2.5 text-emerald-600 border-b-2 border-emerald-600 whitespace-nowrap active-nav-item">
         <svg class="world-node-sprite" viewBox="0 0 56 56" aria-hidden="true"><use href="#sprite-pine"/></svg> Daily Sessions
       </button>
-      <button id="navConfigBtn" onclick="switchMainTab('config')" class="px-4 py-2.5 text-slate-600 hover:text-slate-900 border-b-2 border-transparent whitespace-nowrap">
-        <svg class="world-node-sprite" viewBox="0 0 54 42" aria-hidden="true"><use href="#sprite-flame"/></svg> Setup
-      </button>
       <button id="navTradesBtn" onclick="switchMainTab('trades')" class="px-4 py-2.5 text-slate-600 hover:text-slate-900 border-b-2 border-transparent whitespace-nowrap">
         <svg class="world-node-sprite" viewBox="0 0 28 24" aria-hidden="true"><use href="#sprite-ledger"/></svg> Trading Sessions
       </button>
@@ -400,6 +397,9 @@
       </button>
       <button id="navStatsBtn" onclick="switchMainTab('stats')" class="px-4 py-2.5 text-slate-600 hover:text-slate-900 border-b-2 border-transparent whitespace-nowrap">
         <svg class="world-node-sprite" viewBox="0 0 56 44" aria-hidden="true"><use href="#sprite-bird"/></svg> Stats
+      </button>
+      <button id="navConfigBtn" onclick="switchMainTab('config')" class="px-4 py-2.5 text-slate-600 hover:text-slate-900 border-b-2 border-transparent whitespace-nowrap">
+        <svg class="world-node-sprite" viewBox="0 0 54 42" aria-hidden="true"><use href="#sprite-flame"/></svg> Setup
       </button>
       <button id="navAccountBtn" onclick="switchMainTab('account')" class="px-4 py-2.5 text-slate-600 hover:text-slate-900 border-b-2 border-transparent whitespace-nowrap">
         <svg class="world-node-sprite" viewBox="0 0 24 24" aria-hidden="true"><use href="#sprite-account"/></svg> Account
@@ -976,14 +976,21 @@
         </div>
       </section>
 
-      <!-- CHALLENGE WIZARD PANEL -->
-      <div id="subtabCfgWizard" class="setup-wizard-panel">
-          <!-- CORE PARAMETERS -->
-          <div id="wizardStep1" class="setup-step-content">
-            <div class="setup-form-panel">
-              <div class="setup-panel-heading"><span class="setup-panel-icon">◎</span><div><h3 id="setupFormTitle">Challenge basics</h3><p id="setupFormHelp">Enter three details, then you’re ready to go.</p></div></div>
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 setup-form-grid">
-            <div class="setup-preview-panel"><div class="setup-panel-heading"><span class="setup-panel-icon setup-icon-amber">ϟ</span><div><h3>Challenge Preview</h3><p>See how your challenge will look.</p></div></div><svg class="challenge-mountain" viewBox="0 0 460 190" role="img" aria-label="Isometric camp and trail showing the challenge from start to summit"><use href="#location-camp" x="0" y="0" width="460" height="190"/><path d="M28 153h400" fill="none" stroke="#513d2d" stroke-width="8" stroke-dasharray="3 9"/><path d="M28 153 129 137 228 146 328 108 428 62" fill="none" stroke="#f0c768" stroke-width="4" stroke-dasharray="4 8"/><path d="M28 142v22m0-22h25l-7 8 7 7H28" fill="#5eb67b" stroke="#293b2c" stroke-width="2"/><path d="M428 51v23m0-23h25l-7 8 7 7h-25" fill="#efbd60" stroke="#443427" stroke-width="2"/></svg><div class="setup-preview-stats"><span>Start <strong id="setupPreviewStart">—</strong></span><span>Target <strong id="setupPreviewTarget">—</strong></span><span>Duration <strong id="setupPreviewDuration">—</strong></span><span>Target date <strong id="setupPreviewDate">—</strong></span></div></div>
+      <!-- CHALLENGE WIZARD PANEL: SPLIT VIEW -->
+      <div id="subtabCfgWizard" class="setup-wizard-panel setup-split-layout">
+        <!-- LEFT COLUMN: CHALLENGE CREATOR -->
+        <div class="setup-creator-column">
+          <div class="setup-form-panel">
+            <div class="setup-panel-heading">
+              <span class="setup-panel-icon">◎</span>
+              <div>
+                <h3 id="setupFormTitle">Challenge basics</h3>
+                <p id="setupFormHelp">Enter three details, then you’re ready to go.</p>
+              </div>
+            </div>
+
+            <!-- CORE 3 PARAMETERS -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 setup-form-grid">
               <div>
                 <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Starting balance</label>
                 <input id="genBase" type="number" min="0" step="0.01" placeholder="Starting amount" oninput="renderSetupChallengePreview()" class="w-full p-2 border border-slate-300 rounded-lg text-sm font-num font-bold">
@@ -997,30 +1004,77 @@
                 <input id="genSessions" type="number" min="2" step="1" placeholder="Number of sessions" oninput="renderSetupChallengePreview()" class="w-full p-2 border border-slate-300 rounded-lg text-sm font-num">
               </div>
             </div>
+
+            <!-- OPTIONAL DETAILS ACCORDION -->
             <details class="setup-optional-details">
               <summary>Optional details <span>Challenge name and start date</span></summary>
               <div class="setup-optional-grid">
-                <div><label for="genName">Challenge name</label><input id="genName" type="text" placeholder="My challenge" oninput="renderSetupChallengePreview()" class="w-full p-2 border border-slate-300 rounded-lg text-sm"></div>
-                <div><label for="genStartDate">Start date</label><input id="genStartDate" type="date" oninput="renderSetupChallengePreview()" class="w-full p-2 border border-slate-300 rounded-lg text-sm"></div>
+                <div>
+                  <label for="genName">Challenge name</label>
+                  <input id="genName" type="text" placeholder="My challenge" oninput="renderSetupChallengePreview()" class="w-full p-2 border border-slate-300 rounded-lg text-sm">
+                </div>
+                <div>
+                  <label for="genStartDate">Start date</label>
+                  <input id="genStartDate" type="date" oninput="renderSetupChallengePreview()" class="w-full p-2 border border-slate-300 rounded-lg text-sm">
+                </div>
               </div>
             </details>
 
-            <!-- ADVANCED STRATEGY & CASHOUT (VISIBLE, NOT COLLAPSIBLE) -->
+            <!-- ADVANCED STRATEGY & CASHOUT -->
             <div class="setup-strategy-section">
-              <div class="setup-panel-heading"><span class="setup-panel-icon">⚖</span><div><h3>Advanced Strategy & Cash-outs</h3><p>Choose your growth curve path and optional target cash-outs.</p></div></div>
+              <div class="setup-panel-heading">
+                <span class="setup-panel-icon">⚖</span>
+                <div>
+                  <h3>Advanced Strategy &amp; Cash-outs</h3>
+                  <p>Choose your growth curve path and optional target cash-outs.</p>
+                </div>
+              </div>
               <div id="wizardStep2" class="setup-more-options-content space-y-4">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Growth strategy</label>
-                    <select id="genCurveType" onchange="handleCurveTypeChange(this.value)" class="w-full p-2 border border-slate-300 rounded-lg text-sm">
-                      <option value="tri_pace_independent">Three pace paths</option>
-                      <option value="smooth">Smooth climb</option>
-                      <option value="decay">Early push</option>
-                      <option value="port_target_withdrawal">Cash-out plan</option>
-                    </select>
-                    <p id="strategyDescription" class="strategy-description" aria-live="polite">Keeps relaxed, steady and fast target paths separate.</p>
+                <div>
+                  <label class="block text-xs font-semibold text-slate-700 uppercase mb-2">Growth strategy</label>
+                  <!-- Hidden input keeping 100% backward compatibility for curve value -->
+                  <input type="hidden" id="genCurveType" value="tri_pace_independent">
+                  
+                  <!-- Strategy Pills Grid -->
+                  <div class="strategy-pills-grid" role="radiogroup" aria-label="Growth Strategy">
+                    <button type="button" class="strategy-pill active" data-curve="tri_pace_independent" onclick="selectStrategyCurve('tri_pace_independent')" role="radio" aria-checked="true">
+                      <div class="strategy-pill-header">
+                        <span class="strategy-pill-title">Three Pace Paths</span>
+                        <span class="strategy-pill-badge">Standard</span>
+                      </div>
+                      <p class="strategy-pill-info">Keeps relaxed, steady and fast target paths separate.</p>
+                    </button>
+
+                    <button type="button" class="strategy-pill" data-curve="smooth" onclick="selectStrategyCurve('smooth')" role="radio" aria-checked="false">
+                      <div class="strategy-pill-header">
+                        <span class="strategy-pill-title">Smooth Climb</span>
+                        <span class="strategy-pill-badge">Steady</span>
+                      </div>
+                      <p class="strategy-pill-info">Spreads growth evenly from start to your summit goal.</p>
+                    </button>
+
+                    <button type="button" class="strategy-pill" data-curve="decay" onclick="selectStrategyCurve('decay')" role="radio" aria-checked="false">
+                      <div class="strategy-pill-header">
+                        <span class="strategy-pill-title">Early Push</span>
+                        <span class="strategy-pill-badge">Front-load</span>
+                      </div>
+                      <p class="strategy-pill-info">Sets bigger early steps, then eases targets later.</p>
+                    </button>
+
+                    <button type="button" class="strategy-pill" data-curve="port_target_withdrawal" onclick="selectStrategyCurve('port_target_withdrawal')" role="radio" aria-checked="false">
+                      <div class="strategy-pill-header">
+                        <span class="strategy-pill-title">Cash-out Plan</span>
+                        <span class="strategy-pill-badge">Harvest</span>
+                      </div>
+                      <p class="strategy-pill-info">Adds planned withdrawal targets to your roadmap.</p>
+                    </button>
                   </div>
-                  <div id="wizardCashoutSettings" class="hidden space-y-2">
+                  <p id="strategyDescription" class="strategy-description sr-only" aria-live="polite">Keeps relaxed, steady and fast target paths separate.</p>
+                </div>
+
+                <!-- Cash-out Settings (revealed if Cash-out Plan selected) -->
+                <div id="wizardCashoutSettings" class="hidden space-y-2">
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
                       <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Withdrawal Target ($)</label>
                       <input id="genWithdrawalTarget" type="number" min="0" step="0.01" placeholder="Optional cash-out" class="w-full p-2 border border-slate-300 rounded-lg text-sm font-num">
@@ -1030,22 +1084,76 @@
                       <input id="genWithdrawalDays" type="number" min="1" step="1" placeholder="Sessions" class="w-full p-2 border border-slate-300 rounded-lg text-sm font-num">
                     </div>
                   </div>
-                  <div class="flex items-center gap-2 pt-2 md:col-span-2">
-                    <input id="genSkimMode" type="checkbox" class="w-4 h-4 text-emerald-600 rounded">
-                    <label for="genSkimMode" class="text-xs font-semibold text-slate-700">Enable Skim Mode (Augment daily targets with cash-out run rate)</label>
-                  </div>
+                </div>
+
+                <!-- THEMED SKIM MODE TOGGLE -->
+                <div class="setup-skim-box">
+                  <label class="setup-skim-label" for="genSkimMode">
+                    <div class="setup-skim-control">
+                      <input id="genSkimMode" type="checkbox" class="setup-skim-checkbox">
+                      <span class="setup-skim-switch" aria-hidden="true"><span class="setup-skim-knob"></span></span>
+                    </div>
+                    <div class="setup-skim-details">
+                      <div class="setup-skim-title-row">
+                        <span class="setup-skim-title">Enable Skim Mode</span>
+                        <span class="setup-skim-tag">Run-rate harvest</span>
+                      </div>
+                      <p class="setup-skim-desc">Augments daily targets with cash-out run rate so trading profits are systematically reserved into capital vault.</p>
+                    </div>
+                  </label>
                 </div>
               </div>
             </div>
 
             <div class="flex justify-end pt-3 border-t border-slate-100 setup-start-row">
-              <button onclick="startChallengeFromSetup()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold sprite-action">
+              <button onclick="startChallengeFromSetup()" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-sm font-bold sprite-action">
                 <svg viewBox="0 0 40 56" aria-hidden="true"><use href="#sprite-hero"/></svg> Start challenge
               </button>
             </div>
+          </div>
+        </div>
+
+        <!-- RIGHT COLUMN: CHALLENGE PREVIEW -->
+        <aside class="setup-preview-column">
+          <div class="setup-preview-panel">
+            <div class="setup-panel-heading">
+              <span class="setup-panel-icon setup-icon-amber">ϟ</span>
+              <div>
+                <h3>Challenge Preview</h3>
+                <p>Live roadmap projection &amp; summit preview</p>
+              </div>
+            </div>
+
+            <div class="setup-preview-visual-card">
+              <svg class="challenge-mountain" viewBox="0 0 460 190" role="img" aria-label="Isometric camp and trail showing the challenge from start to summit">
+                <use href="#location-camp" x="0" y="0" width="460" height="190"/>
+                <path d="M28 153h400" fill="none" stroke="#513d2d" stroke-width="8" stroke-dasharray="3 9"/>
+                <path d="M28 153 129 137 228 146 328 108 428 62" fill="none" stroke="#f0c768" stroke-width="4" stroke-dasharray="4 8"/>
+                <path d="M28 142v22m0-22h25l-7 8 7 7H28" fill="#5eb67b" stroke="#293b2c" stroke-width="2"/>
+                <path d="M428 51v23m0-23h25l-7 8 7 7h-25" fill="#efbd60" stroke="#443427" stroke-width="2"/>
+              </svg>
+            </div>
+
+            <div class="setup-preview-stats">
+              <div class="setup-preview-stat-item">
+                <span class="setup-preview-stat-label">Start</span>
+                <strong id="setupPreviewStart">—</strong>
+              </div>
+              <div class="setup-preview-stat-item">
+                <span class="setup-preview-stat-label">Target</span>
+                <strong id="setupPreviewTarget">—</strong>
+              </div>
+              <div class="setup-preview-stat-item">
+                <span class="setup-preview-stat-label">Duration</span>
+                <strong id="setupPreviewDuration">—</strong>
+              </div>
+              <div class="setup-preview-stat-item">
+                <span class="setup-preview-stat-label">Target date</span>
+                <strong id="setupPreviewDate">—</strong>
+              </div>
             </div>
           </div>
-
+        </aside>
       </div>
 
       <details class="setup-advanced">

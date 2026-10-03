@@ -28,31 +28,33 @@
       </div>
 
       <div class="flex items-center gap-2">
+        <button id="btnMobileMenu" onclick="toggleMobileNav()" class="mobile-menu-btn px-3 py-1.5 text-xs font-medium bg-slate-100 hover:bg-slate-200 rounded-md border border-slate-300 transition" aria-label="Open navigation">☰</button>
         <button id="btnHeaderQuickEdit" onclick="openQuickEditParamsModal()" class="px-3 py-1.5 text-xs font-medium bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-md border border-slate-300 transition">
           ⚡ Quick Edit Parameters
         </button>
         <button id="btnHeaderCloudSync" onclick="openLinkSheetModal()" class="px-3 py-1.5 text-xs font-medium bg-blue-50 hover:bg-blue-100 text-blue-700 rounded-md border border-blue-200 transition">
           ☁️ Cloud / Sheets
         </button>
+        <button id="btnThemeToggle" onclick="toggleTheme()" class="px-3 py-1.5 text-xs font-medium bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-md border border-slate-300 transition" aria-label="Switch to light mode" title="Switch theme"><svg class="theme-toggle-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v2m0 14v2M3 12h2m14 0h2M5.64 5.64l1.42 1.42m9.88 9.88 1.42 1.42m0-12.72-1.42 1.42m-9.88 9.88-1.42 1.42"/><circle cx="12" cy="12" r="4"/></svg><span>Light mode</span></button>
       </div>
     </div>
 
     <!-- PRIMARY APP MODULE NAVIGATION TABS -->
     <nav class="max-w-7xl mx-auto px-4 flex space-x-1 overflow-x-auto border-t border-slate-100 text-sm font-medium">
-      <button id="navTrackerBtn" onclick="switchMainTab('tracker')" class="px-4 py-2.5 text-emerald-600 border-b-2 border-emerald-600 whitespace-nowrap">
-        📈 1. Daily Tracker
+      <button id="navTrackerBtn" onclick="switchMainTab('tracker')" class="px-4 py-2.5 text-emerald-600 border-b-2 border-emerald-600 whitespace-nowrap active-nav-item">
+        <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3v18h18M7 14l4-4 4 3 6-7"/></svg> 1. Daily Tracker
       </button>
       <button id="navConfigBtn" onclick="switchMainTab('config')" class="px-4 py-2.5 text-slate-600 hover:text-slate-900 border-b-2 border-transparent whitespace-nowrap">
-        ⚙️ 2. Setup Plan & Roadmap
+        <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-1.8 3.1-.2-.1a1.7 1.7 0 0 0-1.8.1 1.7 1.7 0 0 0-.9 1.5v.2H9v-.2a1.7 1.7 0 0 0-.9-1.5 1.7 1.7 0 0 0-1.8-.1l-.2.1-1.8-3.1.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-.9H3v-3.6h.2a1.7 1.7 0 0 0 1.5-.9 1.7 1.7 0 0 0-.3-1.9l-.1-.1 1.8-3.1.2.1a1.7 1.7 0 0 0 1.8-.1A1.7 1.7 0 0 0 9 3v-.2h6V3a1.7 1.7 0 0 0 .9 1.5 1.7 1.7 0 0 0 1.8.1l.2-.1 1.8 3.1-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.5.9h.2v3.6h-.2a1.7 1.7 0 0 0-1.4 1z"/></svg> 2. Setup
       </button>
       <button id="navTradesBtn" onclick="switchMainTab('trades')" class="px-4 py-2.5 text-slate-600 hover:text-slate-900 border-b-2 border-transparent whitespace-nowrap">
-        📝 3. Trade Journal
+        <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h8l5 5v13H7z"/><path d="M15 3v5h5M10 13h7M10 17h7"/></svg> 3. Trading Sessions
       </button>
       <button id="navMilestonesBtn" onclick="switchMainTab('milestones')" class="px-4 py-2.5 text-slate-600 hover:text-slate-900 border-b-2 border-transparent whitespace-nowrap">
-        🏦 4. Capital Vault & Bills
+        <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10h18M5 10v10m4-10v10m6-10v10m4-10v10M3 20h18M12 3 2 8h20z"/></svg> 4. Capital Vault
       </button>
       <button id="navStatsBtn" onclick="switchMainTab('stats')" class="px-4 py-2.5 text-slate-600 hover:text-slate-900 border-b-2 border-transparent whitespace-nowrap">
-        📊 5. Stats & Analytics
+        <svg class="nav-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V9m5 10V5m6 14v-7m5 7V3M2 21h20"/></svg> 5. Stats & Analytics
       </button>
     </nav>
   </header>
@@ -62,44 +64,19 @@
 
     <!-- ================= MODULE 1: DAILY TRACKER ================= -->
     <section id="tabContentTracker" class="tab-content active space-y-6">
-      
-      <!-- PERSISTENT TOP POSITION BAR -->
-      <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3 bg-white p-4 rounded-xl border border-slate-200 shadow-sm text-center">
-        <div class="p-2 bg-slate-50 rounded-lg border border-slate-100">
-          <div class="text-[11px] text-slate-500 font-semibold uppercase">Current Balance</div>
-          <div id="posCurrentBal" class="text-base sm:text-lg font-bold font-num text-slate-900">$100.00</div>
-        </div>
-        <div onclick="openQuickEditParamsModal()" class="p-2 bg-slate-50 rounded-lg border border-slate-100 cursor-pointer hover:bg-slate-100 transition group" title="Click to quick-edit starting deposit">
-          <div class="text-[11px] text-slate-500 font-semibold uppercase flex items-center justify-center gap-1">
-            <span>Started Capital</span>
-            <span class="text-[10px] text-slate-400 group-hover:text-slate-700">✏️</span>
-          </div>
-          <div id="posStartBal" class="text-base sm:text-lg font-bold font-num text-slate-700">$100.00</div>
-        </div>
-        <div class="p-2 bg-slate-50 rounded-lg border border-slate-100">
-          <div class="text-[11px] text-slate-500 font-semibold uppercase">Today's P&L</div>
-          <div id="posTodayPnL" class="text-base sm:text-lg font-bold font-num text-emerald-600">+$0.00</div>
-        </div>
-        <div class="p-2 bg-slate-50 rounded-lg border border-slate-100">
-          <div class="text-[11px] text-slate-500 font-semibold uppercase">Today's Return</div>
-          <div id="posTodayReturn" class="text-base sm:text-lg font-bold font-num text-emerald-600">+0.00%</div>
-        </div>
-        <div class="p-2 bg-slate-50 rounded-lg border border-slate-100">
-          <div class="text-[11px] text-slate-500 font-semibold uppercase">All-Time P&L</div>
-          <div id="posOverallPnL" class="text-base sm:text-lg font-bold font-num text-emerald-600">+$0.00</div>
-        </div>
-        <div class="p-2 bg-slate-50 rounded-lg border border-slate-100">
-          <div class="text-[11px] text-slate-500 font-semibold uppercase">All-Time ROI</div>
-          <div id="posOverallReturn" class="text-base sm:text-lg font-bold font-num text-emerald-600">+0.00%</div>
-        </div>
-        <div class="p-2 bg-slate-50 rounded-lg border border-slate-100">
-          <div class="text-[11px] text-slate-500 font-semibold uppercase">Summit Target</div>
-          <div id="posOverallTarget" class="text-base sm:text-lg font-bold font-num text-purple-700">$7,000.00</div>
-        </div>
-        <div class="p-2 bg-slate-50 rounded-lg border border-slate-100">
-          <div class="text-[11px] text-slate-500 font-semibold uppercase">Green Streak</div>
-          <div id="posStreakCount" class="text-base sm:text-lg font-bold font-num text-amber-600">0 🔥</div>
-        </div>
+      <div class="daily-hero">
+        <div class="daily-hero-copy"><span class="daily-kicker">STEP 1 OF 3</span><div class="daily-title-row"><span class="daily-title-icon">▦</span><div><h2>Daily Tracker</h2><p>Log your closing balance, track your progress and stay consistent.</p></div></div></div>
+        <div class="daily-landscape" aria-hidden="true"><svg viewBox="0 0 720 170" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="dailySky" x2="0" y2="1"><stop stop-color="#18251d"/><stop offset="1" stop-color="#303a2c"/></linearGradient><linearGradient id="dailyValley" x2="0" y2="1"><stop stop-color="#314a35"/><stop offset="1" stop-color="#18251b"/></linearGradient></defs><rect width="720" height="170" fill="url(#dailySky)"/><circle cx="516" cy="52" r="34" fill="#f7b763"/><path d="M0 112 57 71l48 37 75-73 58 56 73-48 61 55 76-67 54 58 76-41 53 52 59-69v119H0Z" fill="#334333"/><path d="m0 130 74-44 64 45 73-41 57 42 78-42 63 43 68-38 78 45 73-51 92 45v36H0Z" fill="url(#dailyValley)"/><path d="M313 170q83-54 190-55 103 2 217 55" fill="none" stroke="#758759" stroke-width="3" opacity=".65"/><g fill="#142019"><path d="M42 130 58 83l16 47zm23 5 20-58 20 58zm520 4 17-50 17 50zm39 1 20-62 20 62z"/></g><g fill="#80a66a"><path d="M50 115q-22-20-21-43 24 8 31 37zm605-4q18-24 16-43-23 12-27 39z"/></g></svg></div>
+        <div class="daily-hero-quote">Small steps<br><span>build big freedom.</span></div>
+      </div>
+
+      <!-- DAILY PERFORMANCE SUMMARY -->
+      <div class="daily-stats">
+        <article class="daily-stat stat-balance"><span class="daily-stat-icon">◈</span><div><label>Current Balance</label><strong id="posCurrentBal">$0.00</strong><small>Started: <span id="posStartBal">$0.00</span></small></div></article>
+        <article class="daily-stat stat-pnl"><span class="daily-stat-icon">▥</span><div><label>Today’s P&amp;L</label><strong id="posTodayPnL">$0.00</strong><small id="posTodayReturn">0.0% session</small></div></article>
+        <article class="daily-stat stat-overall"><span class="daily-stat-icon">◎</span><div><label>Overall P&amp;L</label><strong id="posOverallPnL">$0.00</strong><small id="posOverallReturn">0.0% total</small></div></article>
+        <article class="daily-stat stat-target"><span class="daily-stat-icon">⚑</span><div><label>Target Progress</label><strong id="dailyTargetProgress">0.0%</strong><div class="daily-target-track"><span id="dailyTargetFill"></span></div><small>Goal: <span id="posOverallTarget">$0.00</span></small></div></article>
+        <article class="daily-stat stat-streak"><span class="daily-stat-icon">♨</span><div><label>Current Streak</label><strong id="posStreakCount">0</strong><small>days</small></div></article>
       </div>
 
       <!-- STATIC 3-PACE TARGETS SECTION (Above sub-tab switchers) -->
@@ -189,13 +166,13 @@
       <div id="subtabDesk" class="subtab-content active space-y-6">
         
         <!-- ACTIVE SESSION LOGGER CARD -->
-        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-4">
+        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-4 daily-session-card">
           <div class="flex flex-wrap items-center justify-between gap-3">
             <div class="flex items-center gap-3">
               <button onclick="navigateSession(-1)" class="w-8 h-8 rounded-lg border border-slate-300 hover:bg-slate-100 flex items-center justify-center font-bold text-slate-600">‹</button>
               <div>
                 <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
-                  <span id="activeSessionTitle">Session 1 of 28</span>
+                  <span>Log Today’s Session</span><span id="activeSessionTitle" class="session-number-chip">Session 1 of 2</span>
                   <span id="sessionLockBadge" class="badge badge-gray text-[11px]">🔓 Unlocked</span>
                 </h3>
                 <p id="activeSessionDate" class="text-xs text-slate-500">Date: 2026-10-02</p>
@@ -213,7 +190,7 @@
           </div>
 
           <!-- INPUT FORM -->
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2 daily-log-fields">
             <div>
               <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Closing Desk Balance ($)</label>
               <div class="relative">
@@ -223,7 +200,13 @@
               <div id="sessionTimestampText" class="text-[11px] text-slate-400 mt-1">Not logged yet</div>
             </div>
 
-            <div class="flex items-end gap-2">
+            <div class="daily-session-pnl">
+              <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Day P&amp;L (Auto-calculated)</label>
+              <div><strong id="dailySessionPnl">$0.00</strong><span id="dailySessionReturn">0.0%</span></div>
+            </div>
+
+            <div class="flex items-end gap-2 daily-session-actions">
+              <button id="btnSaveDailySession" onclick="saveActiveSession()" class="btn-save-session">✓ Save Today’s Session</button>
               <button id="btnToggleLockSession" onclick="toggleLockActiveSession()" class="flex-1 py-2.5 px-3 rounded-lg border border-slate-300 hover:bg-slate-100 font-semibold text-xs text-slate-700 transition">
                 🔒 Lock Session
               </button>
@@ -232,7 +215,7 @@
               </button>
             </div>
 
-            <div>
+            <div class="daily-session-notes">
               <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Trader Notes & Execution Review</label>
               <textarea id="sessionNotesInput" rows="2" placeholder="Record trade setups, psychological state, market conditions..." oninput="handleSessionNotesChange(this.value)" class="w-full p-2 border border-slate-300 rounded-lg text-xs text-slate-800 focus:outline-none focus:border-emerald-500"></textarea>
             </div>
@@ -295,23 +278,18 @@
           </div>
         </div>
 
-        <!-- GAMIFIED MOUNTAIN TRAIL VISUALIZER -->
-        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-2">
-          <div class="flex items-center justify-between">
-            <h3 class="text-xs font-bold text-slate-700 uppercase tracking-wide">Mountain Trail Roadmap & Checkpoints</h3>
-            <span class="text-[11px] text-slate-500">Interactive: Click node to jump session</span>
-          </div>
-          <div id="mountainTrailContainer" class="w-full overflow-x-auto py-2">
-            <!-- Mountain Trail SVG generated dynamically -->
-          </div>
+        <!-- GAMIFIED GROWTH QUEST -->
+        <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-2 daily-progress-card">
+          <div class="daily-progress-heading"><span class="daily-progress-icon">✦</span><div><h3>Growth Quest</h3><p>Every session moves you closer to the summit.</p></div><select id="questPaceSelect" aria-label="Growth target pace" onchange="setPace(this.value)"><option value="relaxed">Relaxed pace</option><option value="mid">Mid pace</option><option value="aggressive">Aggressive pace</option><option value="finreq">Financial goal</option></select></div>
+          <div id="mountainTrailContainer" class="quest-map-wrap"><!-- Gamified progress map rendered from challenge state --></div>
         </div>
 
         <!-- MASTER SESSION TABLE -->
-        <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+        <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden daily-history-card">
           <div class="p-4 bg-slate-50 border-b border-slate-200 flex flex-wrap items-center justify-between gap-3">
             <div>
-              <h3 class="text-sm font-bold text-slate-800">Master Session Compounding Ledger</h3>
-              <p class="text-xs text-slate-500">Full roadmap from Base Camp to Summit with normalized daily PnL and skims.</p>
+              <h3 class="text-sm font-bold text-slate-800">Session History</h3>
+              <p class="text-xs text-slate-500">Your recorded daily balances and performance.</p>
             </div>
             <button id="btnCopyMasterTable" onclick="copyMasterTableToClipboard()" class="px-3 py-1.5 text-xs font-semibold rounded-md border border-slate-300 bg-white hover:bg-slate-100 text-slate-700 transition">
               📋 Copy Table (TSV / Excel)
@@ -439,29 +417,26 @@
 
     <!-- ================= MODULE 2: SETUP PLAN & CHALLENGE ROADMAP ================= -->
     <section id="tabContentConfig" class="tab-content space-y-6">
-      <!-- SUB-HEADER NAVIGATION -->
-      <div class="flex space-x-2 border-b border-slate-200">
-        <button id="subnavCfgActiveBtn" onclick="switchConfigSubTab('active')" class="px-4 py-2 text-sm font-semibold text-emerald-700 border-b-2 border-emerald-600">
-          🎯 Active Challenge
-        </button>
-        <button id="subnavCfgWizardBtn" onclick="switchConfigSubTab('wizard')" class="px-4 py-2 text-sm font-semibold text-slate-500 hover:text-slate-800 border-b-2 border-transparent">
-          🧙 Challenge Wizard
-        </button>
-        <button id="subnavCfgSyncBtn" onclick="switchConfigSubTab('sync')" class="px-4 py-2 text-sm font-semibold text-slate-500 hover:text-slate-800 border-b-2 border-transparent">
-          ☁️ Cloud & Sheets Sync
-        </button>
-        <button id="subnavCfgResetBtn" onclick="switchConfigSubTab('reset')" class="px-4 py-2 text-sm font-semibold text-slate-500 hover:text-slate-800 border-b-2 border-transparent">
-          🛡️ Safe Reset
-        </button>
+      <div class="setup-hero">
+        <div class="setup-hero-copy"><span class="setup-kicker">STEP 1 OF 3</span><div class="setup-title-row"><span class="setup-title-icon">♧</span><div><h2>Setup Your Journey</h2><p>Set your targets, plan your challenge and get everything ready.</p></div></div></div>
+        <div class="setup-landscape" aria-hidden="true"><svg viewBox="0 0 720 160" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="setupSky" x2="0" y2="1"><stop stop-color="#17241b"/><stop offset="1" stop-color="#27372b"/></linearGradient></defs><rect width="720" height="160" fill="url(#setupSky)"/><circle cx="514" cy="47" r="31" fill="#e8c88f"/><path d="m0 116 68-46 54 37 78-68 62 58 65-45 68 50 74-68 55 58 73-42 63 44 60-59v125H0Z" fill="#344736"/><path d="m0 134 82-42 67 39 77-45 62 47 75-44 64 44 72-48 71 47 82-46 68 36v38H0Z" fill="#19291f"/><path d="M0 148q119-23 216 1t198-4q127-34 306-1" fill="none" stroke="#748957" stroke-width="3" opacity=".55"/><g fill="#89a878"><path d="M55 130q-22-24-14-48 23 13 25 39zm602 3q22-23 17-46-23 12-27 38z"/></g></svg></div>
+        <div class="setup-hero-quote">A clear plan<br><span>makes progress feel lighter.</span></div>
       </div>
 
-      <!-- SUB-TAB 1: ACTIVE CHALLENGE OVERVIEW -->
+      <div class="setup-quickstart">
+        <span class="setup-quickstart-icon">◉</span><div class="setup-quickstart-copy"><h3>Quick Start</h3><p>Set your core portfolio details to begin tracking.</p></div>
+        <div class="setup-stepper"><div><span id="stepIndicator1" class="setup-step-indicator is-current">1</span><small>Portfolio</small></div><i></i><div><span id="stepIndicator2" class="setup-step-indicator">2</span><small>Goals</small></div><i></i><div><span id="stepIndicator3" class="setup-step-indicator">3</span><small>Review</small></div></div>
+      </div>
+
+      <!-- Existing challenge management remains available without crowding the setup flow. -->
+      <details class="setup-current-challenge">
+        <summary>Current challenge &amp; saved plans <span>Manage profiles</span></summary>
       <div id="subtabCfgActive" class="subtab-content active space-y-6">
         <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-4">
           <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-3">
             <div>
-              <h3 id="cfgActiveChallengeName" class="text-lg font-bold text-slate-900">28-Day Challenge (Tri-Pace)</h3>
-              <p id="cfgActiveChallengeDates" class="text-xs text-slate-500">Start: 2026-10-02 • Projected Finish: 2026-10-29</p>
+              <h3 id="cfgActiveChallengeName" class="text-lg font-bold text-slate-900">Current challenge</h3>
+              <p id="cfgActiveChallengeDates" class="text-xs text-slate-500">Challenge dates</p>
             </div>
             <div class="flex items-center gap-2">
               <label for="ladderProfileSelector" class="text-xs text-slate-500 font-semibold">Active Profile:</label>
@@ -478,87 +453,73 @@
           <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
             <div class="p-3 bg-slate-50 rounded-lg border border-slate-100">
               <div class="text-[11px] text-slate-500 uppercase font-semibold">Starting Deposit</div>
-              <div id="cfgMetricBase" class="text-lg font-bold font-num text-slate-900">$100.00</div>
+              <div id="cfgMetricBase" class="text-lg font-bold font-num text-slate-900">—</div>
             </div>
             <div class="p-3 bg-slate-50 rounded-lg border border-slate-100">
               <div class="text-[11px] text-slate-500 uppercase font-semibold">Summit Target</div>
-              <div id="cfgMetricTarget" class="text-lg font-bold font-num text-purple-700">$7,000.00</div>
+              <div id="cfgMetricTarget" class="text-lg font-bold font-num text-purple-700">—</div>
             </div>
             <div class="p-3 bg-slate-50 rounded-lg border border-slate-100">
               <div class="text-[11px] text-slate-500 uppercase font-semibold">Sessions Progress</div>
-              <div id="cfgMetricSessions" class="text-lg font-bold font-num text-emerald-600">1 / 28</div>
+              <div id="cfgMetricSessions" class="text-lg font-bold font-num text-emerald-600">—</div>
             </div>
             <div class="p-3 bg-slate-50 rounded-lg border border-slate-100">
               <div class="text-[11px] text-slate-500 uppercase font-semibold">Growth Multiplier</div>
-              <div id="cfgMetricMultiplier" class="text-lg font-bold font-num text-amber-600">70.0x</div>
+              <div id="cfgMetricMultiplier" class="text-lg font-bold font-num text-amber-600">—</div>
             </div>
           </div>
 
           <!-- SAVED CHALLENGES LIST -->
-          <div class="space-y-3 pt-2">
-            <div class="flex items-center justify-between">
-              <h4 class="text-xs font-bold text-slate-700 uppercase">Saved Challenge Roadmaps</h4>
-              <button onclick="switchConfigSubTab('wizard')" class="text-xs font-semibold text-emerald-600 hover:underline">+ New Challenge</button>
-            </div>
+          <details class="setup-saved-profiles">
+            <summary>Saved challenge roadmaps <span>Manage your saved plans</span></summary>
             <div id="cfgActiveChallengeList" class="grid grid-cols-1 md:grid-cols-2 gap-3">
               <!-- Dynamically populated -->
             </div>
-          </div>
+          </details>
         </div>
       </div>
+      </details>
 
       <!-- SUB-TAB 2: CHALLENGE WIZARD -->
-      <div id="subtabCfgWizard" class="subtab-content space-y-6">
-        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-5">
-          <!-- WIZARD STEP HEADER -->
-          <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-            <div>
-              <h3 class="text-base font-bold text-slate-900">Roadmap Strategy Generator</h3>
-              <p class="text-xs text-slate-500">Configure parameters, compounding mathematics, and cash-out checkpoints.</p>
-            </div>
-            <div class="flex items-center gap-1 text-xs">
-              <span id="stepIndicator1" class="px-2 py-0.5 rounded-full font-bold bg-emerald-600 text-white">1</span>
-              <span class="text-slate-300">›</span>
-              <span id="stepIndicator2" class="px-2 py-0.5 rounded-full font-bold bg-slate-200 text-slate-600">2</span>
-              <span class="text-slate-300">›</span>
-              <span id="stepIndicator3" class="px-2 py-0.5 rounded-full font-bold bg-slate-200 text-slate-600">3</span>
-            </div>
-          </div>
-
+      <div id="subtabCfgWizard" class="subtab-content setup-wizard-panel">
           <!-- STEP 1: CORE PARAMETERS -->
-          <div id="wizardStep1" class="space-y-4">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div id="wizardStep1" class="setup-step-content">
+            <div class="setup-form-panel">
+              <div class="setup-panel-heading"><span class="setup-panel-icon">◎</span><div><h3>Portfolio Details</h3><p>Set your starting point and challenge timeline.</p></div></div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 setup-form-grid">
+            <div class="setup-preview-panel"><div class="setup-panel-heading"><span class="setup-panel-icon setup-icon-amber">ϟ</span><div><h3>Challenge Preview</h3><p>See how your challenge will look.</p></div></div><svg class="challenge-mountain" viewBox="0 0 460 190" role="img" aria-label="Mountain trail showing the challenge from starting balance to target">
+              <defs><linearGradient id="previewBgSky" x2="0" y2="1"><stop stop-color="#0A120D"/><stop offset="1" stop-color="#121914"/></linearGradient><linearGradient id="prevMountainBack" x2="0" y2="1"><stop stop-color="#273B30"/><stop offset="1" stop-color="#18251D"/></linearGradient><linearGradient id="prevMountainMid" x2="0" y2="1"><stop stop-color="#1B3023"/><stop offset="1" stop-color="#101A14"/></linearGradient><linearGradient id="prevMountainFront" x2="0" y2="1"><stop stop-color="#14251A"/><stop offset="1" stop-color="#080D09"/></linearGradient><filter id="trailGlow"><feGaussianBlur stdDeviation="4" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+              <rect width="460" height="190" rx="18" fill="url(#previewBgSky)"/><g fill="#F7E7B1"><circle cx="72" cy="24" r="1.5" opacity=".5"/><circle cx="188" cy="35" r="1.2" opacity=".4"/><circle cx="334" cy="22" r="1.6" opacity=".55"/><circle cx="411" cy="49" r="1.3" opacity=".35"/></g>
+              <path d="M0 125 77 72l39 29 72-62 58 55 68-66 52 47 48-25 46 43v97H0Z" fill="url(#prevMountainBack)"/><path d="m0 144 63-35 44 20 65-48 38 37 67-52 51 35 57-21 75 41v69H0Z" fill="url(#prevMountainMid)"/><path d="m0 159 76-27 44 17 83-36 65 35 58-19 47 14 48-19 39 18v48H0Z" fill="url(#prevMountainFront)"/>
+              <path d="M36 151C102 146 127 119 185 119S258 104 294 90 359 64 414 41" fill="none" stroke="#D97706" stroke-width="2.5" stroke-dasharray="6 5" filter="url(#trailGlow)"/><circle cx="36" cy="151" r="5" fill="#34D399"/><circle cx="185" cy="119" r="5" fill="#D97706"/><circle cx="414" cy="41" r="6" fill="#FBBF24"/><path d="M22 137h48v19H22z" fill="#14532D"/><text x="29" y="150" fill="#D1FAE5" font-size="9" font-family="sans-serif" font-weight="700">START</text><path d="M374 26h65v19h-65z" fill="#78350F"/><text x="382" y="39" fill="#FEF3C7" font-size="9" font-family="sans-serif" font-weight="700">SUMMIT</text>
+            </svg><div class="setup-preview-stats"><span>Start <strong id="setupPreviewStart">—</strong></span><span>Target <strong id="setupPreviewTarget">—</strong></span><span>Duration <strong id="setupPreviewDuration">—</strong></span><span>Target date <strong id="setupPreviewDate">—</strong></span></div></div>
               <div>
                 <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Challenge Name</label>
-                <input id="genName" type="text" value="30-Day Growth Ladder" class="w-full p-2 border border-slate-300 rounded-lg text-sm">
+                <input id="genName" type="text" placeholder="My first challenge" oninput="renderSetupChallengePreview()" class="w-full p-2 border border-slate-300 rounded-lg text-sm">
               </div>
               <div>
                 <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Start Date</label>
-                <input id="genStartDate" type="date" class="w-full p-2 border border-slate-300 rounded-lg text-sm">
+                <input id="genStartDate" type="date" oninput="renderSetupChallengePreview()" class="w-full p-2 border border-slate-300 rounded-lg text-sm">
               </div>
               <div>
                 <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Starting Balance ($ C0)</label>
-                <input id="genBase" type="number" step="1" value="100" class="w-full p-2 border border-slate-300 rounded-lg text-sm font-num font-bold">
+                <input id="genBase" type="number" min="0" step="0.01" placeholder="Starting amount" oninput="renderSetupChallengePreview()" class="w-full p-2 border border-slate-300 rounded-lg text-sm font-num font-bold">
               </div>
               <div>
                 <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Target Summit ($ T)</label>
-                <input id="genTarget" type="number" step="1" value="7000" class="w-full p-2 border border-slate-300 rounded-lg text-sm font-num font-bold">
+                <input id="genTarget" type="number" min="0" step="0.01" placeholder="Target amount" oninput="renderSetupChallengePreview()" class="w-full p-2 border border-slate-300 rounded-lg text-sm font-num font-bold">
               </div>
               <div>
                 <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Total Duration (Sessions N)</label>
-                <input id="genSessions" type="number" step="1" value="28" class="w-full p-2 border border-slate-300 rounded-lg text-sm font-num">
-              </div>
-              <div>
-                <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Quick Apply to Active Challenge</label>
-                <button id="btnQuickSaveStep1" onclick="handleQuickSaveStep1()" class="w-full py-2 px-3 rounded-lg bg-emerald-50 border border-emerald-300 hover:bg-emerald-100 font-semibold text-xs text-emerald-800 transition">
-                  ⚡ Quick Apply Step 1 to Active Challenge
-                </button>
+                <input id="genSessions" type="number" min="2" step="1" placeholder="Number of sessions" oninput="renderSetupChallengePreview()" class="w-full p-2 border border-slate-300 rounded-lg text-sm font-num">
               </div>
             </div>
-            <div class="flex justify-end pt-3 border-t border-slate-100">
-              <button onclick="setSetupStep(2)" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold">
-                Next: Curve Strategy ›
+            <div class="flex justify-end pt-3 border-t border-slate-100 setup-start-row">
+                <button onclick="setSetupStep(2)" class="setup-advanced-button">More strategy options</button>
+                <button onclick="startChallengeFromSetup()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold">
+                Start challenge
               </button>
+            </div>
             </div>
           </div>
 
@@ -577,11 +538,11 @@
               <div id="wizardCashoutSettings" class="hidden space-y-2">
                 <div>
                   <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Withdrawal Target ($)</label>
-                  <input id="genWithdrawalTarget" type="number" step="1" value="1000" class="w-full p-2 border border-slate-300 rounded-lg text-sm font-num">
+                  <input id="genWithdrawalTarget" type="number" min="0" step="0.01" placeholder="Optional cash-out" class="w-full p-2 border border-slate-300 rounded-lg text-sm font-num">
                 </div>
                 <div>
                   <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Withdrawal Window (Sessions)</label>
-                  <input id="genWithdrawalDays" type="number" step="1" value="14" class="w-full p-2 border border-slate-300 rounded-lg text-sm font-num">
+                  <input id="genWithdrawalDays" type="number" min="1" step="1" placeholder="Sessions" class="w-full p-2 border border-slate-300 rounded-lg text-sm font-num">
                 </div>
               </div>
               <div class="flex items-center gap-2 pt-4">
@@ -613,11 +574,11 @@
               </div>
             </div>
           </div>
-        </div>
       </div>
 
-      <!-- SUB-TAB 3: CLOUD & SHEETS SYNC -->
-      <div id="subtabCfgSync" class="subtab-content space-y-6">
+      <details class="setup-advanced">
+        <summary>Advanced tools <span>Cloud sync and data safety</span></summary>
+      <div id="subtabCfgSync" class="setup-advanced-content">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <!-- Firebase Firestore -->
           <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-4">
@@ -683,7 +644,7 @@
       </div>
 
       <!-- SUB-TAB 4: SAFE RESET & DATA MANAGEMENT -->
-      <div id="subtabCfgReset" class="subtab-content space-y-6">
+      <div id="subtabCfgReset" class="setup-advanced-content">
         <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-5">
           <div class="border-b border-slate-100 pb-2">
             <h3 class="text-sm font-bold text-slate-800">Safe Reset & Data Preservation Controls</h3>
@@ -712,7 +673,7 @@
             <!-- Reset 3 -->
             <div class="p-4 rounded-lg border border-slate-300 bg-slate-50 space-y-2">
               <h4 class="text-xs font-bold text-slate-900 uppercase">3. Restore Default Challenge</h4>
-              <p class="text-xs text-slate-600">Resets active profile back to canonical 28-session tri-pace roadmap ($100 to $7,000).</p>
+              <p class="text-xs text-slate-600">Restores the app’s original sample challenge settings for the active profile.</p>
               <button id="btnRestoreDefaultChallenge" onclick="confirmRestoreDefaultChallenge()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-900 text-white rounded-lg text-xs font-bold">
                 Restore Canonical Roadmap
               </button>
@@ -746,12 +707,24 @@
           </div>
         </div>
       </div>
+      </details>
     </section>
 
     <!-- ================= MODULE 3: TRADING SESSIONS & TRADE JOURNAL ================= -->
     <section id="tabContentTrades" class="tab-content space-y-6">
+      <div class="trade-hero">
+        <div class="trade-hero-copy"><span class="trade-kicker">STEP 2 OF 3</span><div class="trade-title-row"><span class="trade-title-icon">▤</span><div><h2>Trading Sessions</h2><p>Log your trades, keep it simple and stay consistent.</p></div></div></div>
+        <div class="trade-landscape" aria-hidden="true"><svg viewBox="0 0 720 180" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="tradeSky" x2="0" y2="1"><stop stop-color="#14231c"/><stop offset="1" stop-color="#27372b"/></linearGradient><linearGradient id="tradeDesk" x2="0" y2="1"><stop stop-color="#a45e2c"/><stop offset="1" stop-color="#422c1d"/></linearGradient></defs><rect width="720" height="180" fill="url(#tradeSky)"/><circle cx="570" cy="54" r="34" fill="#f6ad55" opacity=".92"/><path d="M0 105 60 74l45 34 58-56 64 48 53-38 46 52 49-39 52 42 48-48 56 42 54-61 52 48 83-49v131H0Z" fill="#17271d"/><path d="m0 130 90-41 66 42 78-49 65 44 80-37 68 40 82-47 68 38 63-45 60 30v75H0Z" fill="#101b15"/><path d="M0 143h720v37H0Z" fill="url(#tradeDesk)"/><rect x="390" y="20" width="124" height="74" rx="7" fill="#131a18" stroke="#92744a" stroke-width="3"/><rect x="398" y="28" width="108" height="57" rx="3" fill="#152822"/><path d="M402 72 420 62l14 6 15-27 15 19 13-8 12 9 16-21" fill="none" stroke="#29c69d" stroke-width="2"/><path d="M451 94h6v10h-6M430 104h49" stroke="#72553a" stroke-width="4"/><path d="M536 0v78m-10-4h20" stroke="#b4874b" stroke-width="3"/><path d="M551 77q30-14 55 2v19h-58z" fill="#473a27"/><path d="M578 96v19" stroke="#d49a50" stroke-width="2"/><path d="M615 130q7-37 14-5 8-29 16 3 8-44 15 2 9-34 17 3v30h-62z" fill="#0d1912"/></svg></div>
+        <div class="trade-hero-quote">Small trades today.<br><span>Bigger tomorrow.</span></div>
+      </div>
+      <div class="trade-metrics">
+        <article class="trade-metric metric-mint"><span class="trade-metric-icon">▥</span><div><label>Total Trades</label><strong id="metricTradeCount">0</strong></div></article>
+        <article class="trade-metric metric-amber"><span class="trade-metric-icon">＄</span><div><label>Net P&amp;L (USD)</label><strong id="metricTradeRealizedPnL">$0.00</strong></div></article>
+        <article class="trade-metric metric-lavender"><span class="trade-metric-icon">🏆</span><div><label>Win Rate</label><strong id="metricTradeWinRate">0%</strong><small id="metricTradeOpenClosed">0 / 0 trades</small></div></article>
+        <article class="trade-metric metric-coral"><span class="trade-metric-icon">⌁</span><div><label>Average P&amp;L</label><strong id="metricTradeAvgReturn">$0.00</strong><small>Per trade</small></div></article>
+      </div>
       <!-- SUB-HEADER NAVIGATION -->
-      <div class="flex space-x-2 border-b border-slate-200">
+      <div class="flex space-x-2 border-b border-slate-200 trade-subnav">
         <button id="subnavTradesLoggerBtn" onclick="switchTradesSubTab('logger')" class="px-4 py-2 text-sm font-semibold text-emerald-700 border-b-2 border-emerald-600">
           ⚡ Quick Logger
         </button>
@@ -765,74 +738,36 @@
 
       <!-- SUB-TAB 1: QUICK LOGGER -->
       <div id="subtabTradesLogger" class="subtab-content active space-y-6">
-        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-4">
-          <div class="border-b border-slate-100 pb-2">
-            <h3 class="text-sm font-bold text-slate-800">Quick Trade Logger</h3>
-            <p class="text-xs text-slate-500">Log trade execution metrics independently of session desk balance.</p>
+        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-4 trade-entry-card">
+          <div class="border-b border-slate-100 pb-2 trade-panel-heading">
+            <h3 class="text-sm font-bold text-slate-800">Add Trade</h3>
+            <p class="text-xs text-slate-500">Enter your trade details below.</p>
           </div>
 
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div>
-              <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Session</label>
-              <select id="tradeSessionSelect" class="w-full p-2 border border-slate-300 rounded-lg text-xs">
-                <!-- Dynamically populated -->
-              </select>
-            </div>
-            <div>
-              <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Trade Label / Number</label>
-              <input id="tradeLabelInput" type="text" value="Trade A" class="w-full p-2 border border-slate-300 rounded-lg text-xs">
-            </div>
-            <div>
-              <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Date</label>
-              <input id="tradeDateInput" type="date" class="w-full p-2 border border-slate-300 rounded-lg text-xs">
-            </div>
-            <div>
-              <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Status</label>
-              <select id="tradeStatusSelect" class="w-full p-2 border border-slate-300 rounded-lg text-xs">
-                <option value="closed">Closed</option>
-                <option value="open">Open</option>
-              </select>
-            </div>
-            <div>
-              <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Entry Amount ($)</label>
-              <input id="tradeEntryInput" type="number" step="0.01" placeholder="50.00" oninput="calculateTradePreview()" class="w-full p-2 border border-slate-300 rounded-lg text-sm font-num font-bold">
-            </div>
-            <div>
-              <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Exit Value ($)</label>
-              <input id="tradeExitInput" type="number" step="0.01" placeholder="65.00" oninput="calculateTradePreview()" class="w-full p-2 border border-slate-300 rounded-lg text-sm font-num font-bold">
-            </div>
-            <div>
-              <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Fees & Slippage ($)</label>
-              <input id="tradeFeesInput" type="number" step="0.01" value="0.50" oninput="calculateTradePreview()" class="w-full p-2 border border-slate-300 rounded-lg text-sm font-num">
-            </div>
-            <div class="p-3 bg-slate-50 rounded-lg border border-slate-200 flex flex-col justify-center">
-              <div class="text-[10px] text-slate-500 uppercase font-semibold">Live PnL & Return Preview</div>
-              <div class="flex items-center gap-2">
-                <span id="tradePreviewNetPnL" class="text-base font-bold font-num text-emerald-600">+$0.00</span>
-                <span id="tradePreviewReturn" class="text-xs font-semibold font-num text-emerald-700">(0.00%)</span>
-              </div>
-            </div>
+          <div class="trade-entry-grid">
+            <div><label>Trade No.</label><input id="tradeLabelInput" type="text" placeholder="e.g. 1" autocomplete="off"></div>
+            <div><label>Entry (USD)</label><div class="money-input"><span>$</span><input id="tradeEntryInput" type="number" min="0" step="0.01" placeholder="0.00" oninput="calculateTradePreview()"></div></div>
+            <div><label>Exit (USD)</label><div class="money-input"><span>$</span><input id="tradeExitInput" type="number" min="0" step="0.01" placeholder="0.00" oninput="calculateTradePreview()"></div></div>
+            <div class="trade-pnl-field"><label>P&amp;L (USD)</label><div class="money-input pnl-preview"><span>$</span><span id="tradePreviewNetPnL" class="font-num">$0.00</span></div><small id="tradePreviewReturn">0.00%</small></div>
+            <button id="btnAddTrade" onclick="handleAddTradeSubmit()" class="trade-add-button"><span>＋</span> Add Trade</button>
           </div>
+          <details class="trade-more-details"><summary>Session, fees and notes <span>Optional details</span></summary><div class="trade-details-grid">
+            <div><label>Session</label><select id="tradeSessionSelect"></select></div>
+            <div><label>Date</label><input id="tradeDateInput" type="date"></div>
+            <div><label>Status</label><select id="tradeStatusSelect"><option value="closed">Closed</option><option value="open">Open</option></select></div>
+            <div><label>Fees &amp; Slippage (USD)</label><div class="money-input"><span>$</span><input id="tradeFeesInput" type="number" min="0" step="0.01" placeholder="0.00" oninput="calculateTradePreview()"></div></div>
+            <div class="trade-notes-field"><label>Notes</label><input id="tradeNotesInput" type="text" placeholder="Optional setup or reflection"></div>
+          </div></details>
 
-          <div>
-            <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Trade Notes / Strategy Setup</label>
-            <input id="tradeNotesInput" type="text" placeholder="Breakout pullback on 5m chart, risk 1:3..." class="w-full p-2 border border-slate-300 rounded-lg text-xs">
-          </div>
-
-          <div class="flex justify-end pt-2">
-            <button id="btnAddTrade" onclick="handleAddTradeSubmit()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold shadow-sm">
-              + Log Trade to Journal
-            </button>
-          </div>
         </div>
       </div>
 
       <!-- SUB-TAB 2: TRADE HISTORY -->
       <div id="subtabTradesHistory" class="subtab-content space-y-4">
         <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
-          <div class="p-4 bg-slate-50 border-b border-slate-200 flex flex-wrap items-center justify-between gap-3">
+          <div class="p-4 bg-slate-50 border-b border-slate-200 flex flex-wrap items-center justify-between gap-3 trade-history-heading">
             <div class="flex items-center gap-3">
-              <h3 class="text-sm font-bold text-slate-800">Trade Journal Execution History</h3>
+              <div><h3 class="text-sm font-bold text-slate-800">Trade History</h3><p>All your logged trades.</p></div>
               <div class="flex items-center gap-2">
                 <select id="tradeHistorySessionFilter" onchange="renderTradeHistoryTable()" class="text-xs border border-slate-300 rounded p-1 bg-white">
                   <option value="all">All Sessions</option>
@@ -845,7 +780,7 @@
               </div>
             </div>
             <button onclick="openLogTradeModal()" class="px-3 py-1.5 text-xs font-bold rounded bg-emerald-600 text-white hover:bg-emerald-700">
-              + Add Trade
+              + Add trade
             </button>
           </div>
 
@@ -879,23 +814,23 @@
         <div class="grid grid-cols-2 sm:grid-cols-5 gap-3 text-center">
           <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-sm">
             <div class="text-[11px] text-slate-500 uppercase font-semibold">Total Trades</div>
-            <div id="metricTradeCount" class="text-xl font-bold font-num text-slate-900">0</div>
+            <div id="metricTradeCountAnalytics" class="text-xl font-bold font-num text-slate-900">0</div>
           </div>
           <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-sm">
             <div class="text-[11px] text-slate-500 uppercase font-semibold">Closed vs Open</div>
-            <div id="metricTradeOpenClosed" class="text-xl font-bold font-num text-slate-700">0 / 0</div>
+            <div id="metricTradeOpenClosedAnalytics" class="text-xl font-bold font-num text-slate-700">0 / 0</div>
           </div>
           <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-sm">
             <div class="text-[11px] text-slate-500 uppercase font-semibold">Win Rate</div>
-            <div id="metricTradeWinRate" class="text-xl font-bold font-num text-emerald-600">0.0%</div>
+            <div id="metricTradeWinRateAnalytics" class="text-xl font-bold font-num text-emerald-600">0.0%</div>
           </div>
           <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-sm">
             <div class="text-[11px] text-slate-500 uppercase font-semibold">Avg Return / Trade</div>
-            <div id="metricTradeAvgReturn" class="text-xl font-bold font-num text-emerald-600">0.00%</div>
+            <div id="metricTradeAvgReturnAnalytics" class="text-xl font-bold font-num text-emerald-600">0.00%</div>
           </div>
           <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-sm">
             <div class="text-[11px] text-slate-500 uppercase font-semibold">Realized Net Gain</div>
-            <div id="metricTradeRealizedPnL" class="text-xl font-bold font-num text-emerald-600">+$0.00</div>
+            <div id="metricTradeRealizedPnLAnalytics" class="text-xl font-bold font-num text-emerald-600">+$0.00</div>
           </div>
         </div>
 
@@ -907,6 +842,13 @@
 
     <!-- ================= MODULE 4: CAPITAL VAULT & FINANCIAL PLANNING ================= -->
     <section id="tabContentMilestones" class="tab-content space-y-6">
+      <div class="vault-hero">
+        <div class="vault-hero-copy"><span class="vault-eyebrow">STEP 3 OF 5 · CAPITAL VAULT</span><h2>Capital Vault</h2><p>Manage your bills, savings and capital allocations.</p><span class="vault-quote">“Discipline today, freedom tomorrow.”</span></div>
+        <svg class="vault-art" viewBox="0 0 220 120" role="img" aria-label="Illustration of a secure vault with savings">
+          <defs><radialGradient id="vaultGlow"><stop stop-color="#F59E0B" stop-opacity=".32"/><stop offset="1" stop-color="#F59E0B" stop-opacity="0"/></radialGradient><linearGradient id="safeMetal" x2="0" y2="1"><stop stop-color="#334B3D"/><stop offset="1" stop-color="#101A14"/></linearGradient></defs>
+          <ellipse cx="112" cy="108" rx="88" ry="14" fill="url(#vaultGlow)"/><path d="M58 102V53a54 54 0 0 1 108 0v49" fill="url(#safeMetal)" stroke="#526B57" stroke-width="3"/><path d="M66 101V55a46 46 0 0 1 92 0v46" fill="#101A14" stroke="#D0AA63" stroke-opacity=".55" stroke-dasharray="3 5" stroke-width="2"/><circle cx="112" cy="66" r="24" fill="#17231B" stroke="#D0AA63" stroke-width="3"/><circle cx="112" cy="66" r="15" fill="none" stroke="#C28B38" stroke-width="2"/><path d="M112 48v36M94 66h36M99 53l26 26M125 53 99 79" stroke="#D0AA63" stroke-width="2.5" stroke-linecap="round"/><circle cx="112" cy="66" r="5" fill="#FFE5A3"/><path d="M45 96q-13-8-9-23 12 4 14 15M49 96q-3-15 8-23 7 13 0 23M177 97q14-9 10-23-12 4-15 15M174 96q3-15-8-23-7 13 0 23" fill="none" stroke="#34D399" stroke-width="3" stroke-linecap="round"/><g fill="#FBBF24"><circle cx="77" cy="96" r="4"/><circle cx="86" cy="101" r="4"/><circle cx="143" cy="98" r="4"/><circle cx="152" cy="103" r="4"/></g><g fill="#FFE5A3"><circle cx="48" cy="30" r="2"/><circle cx="179" cy="38" r="2"/><circle cx="153" cy="17" r="1.5"/><circle cx="77" cy="19" r="1.5"/></g>
+        </svg>
+      </div>
       
       <!-- TOP KPI CARDS -->
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
@@ -923,32 +865,16 @@
           <div id="vaultBillsReserveVal" class="text-xl font-bold font-num text-amber-600">$0.00</div>
         </div>
         <div class="p-3.5 bg-white rounded-xl border border-slate-200 shadow-sm">
-          <div class="text-[11px] text-slate-500 uppercase font-semibold">Available on Desk</div>
-          <div id="vaultDeskDisplayVal" class="text-xl font-bold font-num text-slate-900">$100.00</div>
+          <div class="text-[11px] text-slate-500 uppercase font-semibold">Available to Trade</div>
+          <div id="vaultDeskDisplayVal" class="text-xl font-bold font-num text-slate-900">$0.00</div>
         </div>
       </div>
 
-      <!-- SUB-HEADER NAVIGATION -->
-      <div class="flex space-x-2 border-b border-slate-200">
-        <button id="subnavVaultOverviewBtn" onclick="switchVaultSubTab('overview')" class="px-4 py-2 text-sm font-semibold text-emerald-700 border-b-2 border-emerald-600">
-          🏛️ Vault Overview
-        </button>
-        <button id="subnavVaultBillsBtn" onclick="switchVaultSubTab('bills')" class="px-4 py-2 text-sm font-semibold text-slate-500 hover:text-slate-800 border-b-2 border-transparent">
-          🧾 Bills & Schedule
-        </button>
-        <button id="subnavVaultSavingsBtn" onclick="switchVaultSubTab('savings')" class="px-4 py-2 text-sm font-semibold text-slate-500 hover:text-slate-800 border-b-2 border-transparent">
-          💎 Savings Reserve
-        </button>
-        <button id="subnavVaultMilestonesBtn" onclick="switchVaultSubTab('milestones')" class="px-4 py-2 text-sm font-semibold text-slate-500 hover:text-slate-800 border-b-2 border-transparent">
-          🛡️ Safety Milestones & Skims
-        </button>
-      </div>
-
-      <!-- SUB-TAB 1: VAULT OVERVIEW -->
-      <div id="subtabVaultOverview" class="subtab-content active space-y-6">
+      <!-- Quick actions -->
+      <div id="subtabVaultOverview" class="vault-dashboard-card vault-actions-card">
         <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-4">
           <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-3">
-            <h3 class="text-sm font-bold text-slate-800">Quick Actions</h3>
+            <div><h3 class="text-sm font-bold text-slate-800">Quick Actions</h3><p class="text-xs text-slate-500">Manage your money flow.</p></div>
             <div class="flex items-center gap-2">
               <button onclick="openAddSavingsModal()" class="px-3 py-1.5 text-xs font-bold rounded-lg bg-purple-600 text-white hover:bg-purple-700">
                 + Add Savings
@@ -956,55 +882,41 @@
               <button onclick="handleQuickPayNextBill()" class="px-3 py-1.5 text-xs font-bold rounded-lg bg-amber-600 text-white hover:bg-amber-700">
                 ⚡ Pay Next Due Bill
               </button>
-              <button onclick="switchVaultSubTab('milestones')" class="px-3 py-1.5 text-xs font-semibold rounded-lg border border-slate-300 hover:bg-slate-100">
+              <button onclick="document.getElementById('vaultSafetySettings').open=true;document.getElementById('vaultSafetySettings').scrollIntoView({behavior:'smooth',block:'start'})" class="px-3 py-1.5 text-xs font-semibold rounded-lg border border-slate-300 hover:bg-slate-100">
                 Transfer / Skim Funds
               </button>
-            </div>
-          </div>
-
-          <!-- ALLOCATION DISTRIBUTION DONUT / BAR -->
-          <div class="space-y-2">
-            <div class="flex justify-between text-xs font-semibold text-slate-700">
-              <span>Capital Distribution Breakdown</span>
-              <span id="vaultDistributionText">Desk 100% • Savings 0% • Bills 0%</span>
-            </div>
-            <div class="w-full h-3 bg-slate-100 rounded-full overflow-hidden flex">
-              <div id="distBarDesk" class="bg-blue-500 h-full" style="width: 100%" title="Trading Desk"></div>
-              <div id="distBarSavings" class="bg-purple-500 h-full" style="width: 0%" title="Savings Reserve"></div>
-              <div id="distBarBills" class="bg-amber-500 h-full" style="width: 0%" title="Bills Reserved"></div>
-            </div>
-          </div>
-
-          <!-- RECENT VAULT TRANSACTIONS LEDGER -->
-          <div class="space-y-2 pt-2">
-            <h4 class="text-xs font-bold text-slate-700 uppercase">Recent Vault Transactions</h4>
-            <div class="border border-slate-200 rounded-lg overflow-x-auto">
-              <table class="simple-table">
-                <thead>
-                  <tr>
-                    <th>Date</th>
-                    <th>Session</th>
-                    <th>Bucket</th>
-                    <th>Amount ($)</th>
-                    <th>Note</th>
-                  </tr>
-                </thead>
-                <tbody id="vaultRecentLedgerBody">
-                  <!-- Dynamically populated -->
-                </tbody>
-              </table>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- SUB-TAB 2: BILLS & SCHEDULE -->
-      <div id="subtabVaultBills" class="subtab-content space-y-4">
+      <div class="vault-dashboard-card vault-monthly-card">
+        <div class="vault-card-heading"><span class="vault-card-icon">▦</span><div><h3>Monthly Overview</h3><p>Your bills and savings progress.</p></div></div>
+        <div id="billsRunRateBanner" class="p-3 bg-amber-50 border border-amber-200 rounded-lg text-xs text-amber-900 flex justify-between items-center">
+          <span>Required Run-Rate to Cover Unfunded Bills: <strong id="billsRunRateValue">$0.00 / day</strong></span>
+          <span id="billsTotalUnfundedText">Total Unfunded: $0.00</span>
+        </div>
+        <div class="vault-monthly-savings p-4 bg-purple-50 border border-purple-200 rounded-xl space-y-2">
+          <div class="flex justify-between text-xs font-semibold text-purple-900"><span>Milestone Savings Progress</span><span id="savingsProgressPercent" class="font-num">0.0%</span></div>
+          <div class="w-full h-3 bg-purple-200 rounded-full overflow-hidden"><div id="savingsProgressBar" class="h-full bg-purple-600" style="width:0%"></div></div>
+          <div class="flex justify-between text-xs text-purple-800 font-num"><span id="savingsAchievedText">Current: $0.00</span><span id="savingsTargetText">Goal: $0.00</span></div>
+        </div>
+      </div>
+
+      <div class="vault-dashboard-card vault-allocation-card">
+        <div class="vault-card-heading"><span class="vault-card-icon vault-icon-lime">✦</span><div><h3>Allocation Overview</h3><p>How your capital is allocated.</p></div></div>
+        <div class="vault-allocation-labels"><span>Capital distribution</span><strong id="vaultDistributionText">Desk 100% • Savings 0% • Bills 0%</strong></div>
+        <div class="vault-allocation-bar"><span id="distBarDesk" style="width:100%" title="Trading Desk"></span><span id="distBarSavings" style="width:0%" title="Savings Reserve"></span><span id="distBarBills" style="width:0%" title="Bills Reserved"></span></div>
+        <div class="vault-allocation-legend"><span><i></i> Trading desk</span><span><i></i> Savings</span><span><i></i> Bills reserved</span></div>
+      </div>
+
+      <!-- Bills tracker -->
+      <div id="subtabVaultBills" class="vault-dashboard-card vault-bills-card">
         <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-4">
           <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-3">
             <div>
-              <h3 class="text-sm font-bold text-slate-800">Recurring Bills & Liabilities</h3>
-              <p class="text-xs text-slate-500">Track liabilities, set aside reserve funds, and mark paid from the Vault.</p>
+              <h3 class="text-sm font-bold text-slate-800">Bills Tracker</h3>
+              <p class="text-xs text-slate-500">Track and manage your monthly bills.</p>
             </div>
             <div class="flex items-center gap-3">
               <div class="flex items-center gap-1.5 text-xs">
@@ -1016,12 +928,6 @@
                 + Add Bill
               </button>
             </div>
-          </div>
-
-          <!-- RUN RATE METRIC -->
-          <div id="billsRunRateBanner" class="p-3 bg-amber-50 border border-amber-200 rounded-lg text-xs text-amber-900 flex justify-between items-center">
-            <span>Required Run-Rate to Cover Unfunded Bills: <strong id="billsRunRateValue">$0.00 / day</strong></span>
-            <span id="billsTotalUnfundedText">Total Unfunded: $0.00</span>
           </div>
 
           <!-- BILLS TABLE -->
@@ -1047,32 +953,17 @@
         </div>
       </div>
 
-      <!-- SUB-TAB 3: SAVINGS RESERVE -->
-      <div id="subtabVaultSavings" class="subtab-content space-y-4">
+      <!-- Savings tracker -->
+      <div id="subtabVaultSavings" class="vault-dashboard-card vault-savings-card">
         <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-4">
           <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-3">
             <div>
-              <h3 class="text-sm font-bold text-slate-800">Permanent Savings Reserve</h3>
-              <p class="text-xs text-slate-500">Capital banked safely in the vault, isolated from trading drawdowns.</p>
+              <h3 class="text-sm font-bold text-slate-800">Savings Tracker</h3>
+              <p class="text-xs text-slate-500">Build your savings towards your goal.</p>
             </div>
             <button onclick="openAddSavingsModal()" class="px-3 py-1.5 text-xs font-bold rounded-lg bg-purple-600 text-white hover:bg-purple-700">
-              + Deposit to Savings
+              + Add Savings
             </button>
-          </div>
-
-          <!-- SAVINGS PROGRESS -->
-          <div class="p-4 bg-purple-50 border border-purple-200 rounded-xl space-y-2">
-            <div class="flex justify-between text-xs font-semibold text-purple-900">
-              <span>Milestone Savings Progress</span>
-              <span id="savingsProgressPercent" class="font-num">0.0%</span>
-            </div>
-            <div class="w-full h-3 bg-purple-200 rounded-full overflow-hidden">
-              <div id="savingsProgressBar" class="h-full bg-purple-600" style="width: 0%"></div>
-            </div>
-            <div class="flex justify-between text-xs text-purple-800 font-num">
-              <span id="savingsAchievedText">Current: $0.00</span>
-              <span id="savingsTargetText">Goal: $5,000.00</span>
-            </div>
           </div>
 
           <!-- SAVINGS AUDIT TABLE -->
@@ -1097,8 +988,15 @@
         </div>
       </div>
 
-      <!-- SUB-TAB 4: SAFETY MILESTONES & SKIMS -->
-      <div id="subtabVaultMilestones" class="subtab-content space-y-6">
+      <div class="vault-dashboard-card vault-transactions-card">
+        <div class="vault-card-heading"><span class="vault-card-icon vault-icon-sky">⇄</span><div><h3>Transaction History</h3><p>All vault transactions, payments and transfers.</p></div></div>
+        <div class="border border-slate-200 rounded-lg overflow-x-auto"><table class="simple-table"><thead><tr><th>Date</th><th>Session</th><th>Bucket</th><th>Amount ($)</th><th>Note</th></tr></thead><tbody id="vaultRecentLedgerBody"><!-- Dynamically populated --></tbody></table></div>
+      </div>
+
+      <!-- Existing safety and pacing controls, kept available but out of the main dashboard flow. -->
+      <details id="vaultSafetySettings" class="vault-safety-settings">
+        <summary>Safety milestones &amp; vault settings <span>Capital floor, skims and pacing controls</span></summary>
+      <div id="subtabVaultMilestones" class="vault-dashboard-card vault-milestones-card">
         <!-- 3 MILESTONE BADGES -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div id="milestoneStep1Card" class="p-4 rounded-xl border border-slate-200 bg-white shadow-sm space-y-2">
@@ -1166,11 +1064,11 @@
             </div>
             <div>
               <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Milestone Savings Goal ($)</label>
-              <input id="milestoneGoalInput" type="number" step="10" value="5000" class="w-full p-2 border border-slate-300 rounded-lg text-xs font-num font-bold">
+              <input id="milestoneGoalInput" type="number" min="0" step="0.01" placeholder="Savings goal" class="w-full p-2 border border-slate-300 rounded-lg text-xs font-num font-bold">
             </div>
             <div>
               <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Keep on Trading Desk Reserve Floor ($)</label>
-              <input id="milestoneFloorInput" type="number" step="10" value="100" class="w-full p-2 border border-slate-300 rounded-lg text-xs font-num font-bold">
+              <input id="milestoneFloorInput" type="number" min="0" step="0.01" placeholder="Reserve floor" class="w-full p-2 border border-slate-300 rounded-lg text-xs font-num font-bold">
               <p class="text-[10px] text-slate-400 mt-0.5">Floor check blocks skims that would leave desk below this balance.</p>
             </div>
             <div>
@@ -1187,53 +1085,59 @@
           </div>
         </div>
       </div>
+      </details>
     </section>
 
     <!-- ================= MODULE 5: STATS & PERFORMANCE ANALYTICS ================= -->
     <section id="tabContentStats" class="tab-content space-y-6">
+      <div class="stats-hero">
+        <div class="stats-hero-copy"><span class="stats-kicker">STEP 4 OF 5</span><div class="stats-title-row"><span class="stats-title-icon">🏆</span><div><h2>Stats &amp; Performance</h2><p>Analyze your performance, understand your progress and trade smarter.</p></div></div></div>
+        <div class="stats-landscape" aria-hidden="true"><svg viewBox="0 0 720 160" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="statsSky" x2="0" y2="1"><stop stop-color="#17241b"/><stop offset="1" stop-color="#27372b"/></linearGradient></defs><rect width="720" height="160" fill="url(#statsSky)"/><circle cx="516" cy="44" r="32" fill="#f3b65f"/><path d="m0 111 65-46 56 37 76-69 61 60 65-45 66 49 71-68 55 58 76-42 65 45 64-62v132H0Z" fill="#344736"/><path d="m0 132 84-43 62 39 76-46 64 47 74-44 65 45 73-48 69 48 82-47 71 36v41H0Z" fill="#19291f"/><path d="M0 149q118-24 216 1t199-4q126-35 305-1" fill="none" stroke="#748957" stroke-width="3" opacity=".55"/><g fill="#101b14"><path d="m35 136 18-52 18 52zm603 0 18-57 18 57z"/></g></svg></div>
+        <div class="stats-hero-quote">Data today,<br><span>better trades tomorrow.</span></div>
+      </div>
       
       <!-- CORE SUMMARY METRICS -->
-      <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3 text-center">
-        <div class="p-3 bg-white rounded-xl border border-slate-200 shadow-sm">
+      <div class="stats-summary-grid">
+        <div class="stats-summary-card stat-tone-mint">
           <div class="text-[10px] text-slate-500 uppercase font-semibold">All-Time ROI</div>
           <div id="statAllTimeRoi" class="text-base font-bold font-num text-emerald-600">+0.00%</div>
         </div>
-        <div class="p-3 bg-white rounded-xl border border-slate-200 shadow-sm">
+        <div class="stats-summary-card stat-tone-amber">
           <div class="text-[10px] text-slate-500 uppercase font-semibold">Peak Watermark</div>
           <div id="statPeakWatermark" class="text-base font-bold font-num text-slate-900">$100.00</div>
         </div>
-        <div class="p-3 bg-white rounded-xl border border-slate-200 shadow-sm">
+        <div class="stats-summary-card stat-tone-coral">
           <div class="text-[10px] text-slate-500 uppercase font-semibold">Max Drawdown</div>
           <div id="statMaxDrawdown" class="text-base font-bold font-num text-red-600">0.00%</div>
         </div>
-        <div class="p-3 bg-white rounded-xl border border-slate-200 shadow-sm">
+        <div class="stats-summary-card stat-tone-sky">
           <div class="text-[10px] text-slate-500 uppercase font-semibold">Session Record</div>
           <div id="statWinLossRecord" class="text-base font-bold font-num text-slate-800">0W - 0L</div>
         </div>
-        <div class="p-3 bg-white rounded-xl border border-slate-200 shadow-sm">
+        <div class="stats-summary-card stat-tone-amber">
           <div class="text-[10px] text-slate-500 uppercase font-semibold">Win Rate</div>
           <div id="statWinRate" class="text-base font-bold font-num text-emerald-600">0.0%</div>
         </div>
-        <div class="p-3 bg-white rounded-xl border border-slate-200 shadow-sm">
+        <div class="stats-summary-card stat-tone-lavender">
           <div class="text-[10px] text-slate-500 uppercase font-semibold">Profit Factor</div>
           <div id="statProfitFactor" class="text-base font-bold font-num text-emerald-600">0.00</div>
         </div>
-        <div class="p-3 bg-white rounded-xl border border-slate-200 shadow-sm">
+        <div class="stats-summary-card stat-tone-mint">
           <div class="text-[10px] text-slate-500 uppercase font-semibold">Avg Daily Return</div>
           <div id="statAvgDailyReturn" class="text-base font-bold font-num text-emerald-600">+0.00%</div>
         </div>
-        <div class="p-3 bg-white rounded-xl border border-slate-200 shadow-sm">
+        <div class="stats-summary-card stat-tone-coral">
           <div class="text-[10px] text-slate-500 uppercase font-semibold">Best Session PnL</div>
           <div id="statBestSession" class="text-base font-bold font-num text-emerald-600">+$0.00</div>
         </div>
       </div>
 
       <!-- VISUALIZERS GRID -->
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div class="stats-chart-grid">
         <!-- Equity Curve Chart -->
-        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-3">
+        <div class="stats-panel stats-equity-panel">
           <div class="flex items-center justify-between border-b border-slate-100 pb-2">
-            <h3 class="text-xs font-bold text-slate-700 uppercase">True Wealth vs Trading Desk Equity Curve</h3>
+            <div class="stats-panel-heading"><span class="stats-panel-icon">✦</span><div><h3>Portfolio Growth</h3><p>Track your wealth and trading desk over time.</p></div></div>
             <div class="flex items-center gap-3 text-[11px]">
               <span class="flex items-center gap-1 text-purple-700 font-semibold"><span class="w-2.5 h-2.5 bg-purple-600 rounded-full"></span> True Wealth</span>
               <span class="flex items-center gap-1 text-emerald-700 font-semibold"><span class="w-2.5 h-2.5 bg-emerald-500 rounded-full"></span> Trading Desk</span>
@@ -1245,9 +1149,9 @@
         </div>
 
         <!-- Daily PnL Distribution Chart -->
-        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-3">
+        <div class="stats-panel stats-pnl-panel">
           <div class="flex items-center justify-between border-b border-slate-100 pb-2">
-            <h3 class="text-xs font-bold text-slate-700 uppercase">Daily PnL Distribution</h3>
+            <div class="stats-panel-heading"><span class="stats-panel-icon amber-icon">♜</span><div><h3>Daily P&amp;L Journey</h3><p>Wins and losses across your sessions.</p></div></div>
             <span class="text-[11px] text-slate-500">Green = Gains • Red = Losses</span>
           </div>
           <div id="chartDailyPnL" class="w-full h-56 flex items-center justify-center">
@@ -1257,23 +1161,24 @@
       </div>
 
       <!-- TRADE SIZE DISTRIBUTION & CONSISTENCY SCORE -->
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-3">
-          <h3 class="text-xs font-bold text-slate-700 uppercase border-b border-slate-100 pb-2">Trade Journal Size & Frequency Distribution</h3>
+      <div class="stats-lower-grid">
+        <div class="stats-panel stats-distribution-panel">
+          <div class="stats-panel-heading"><span class="stats-panel-icon coral-icon">◉</span><div><h3>Trade Size Distribution</h3><p>Explore your journal's trade-size mix.</p></div></div>
           <div id="chartTradeDistribution" class="space-y-2 text-xs">
             <!-- Dynamically populated -->
           </div>
         </div>
 
-        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-3">
-          <h3 class="text-xs font-bold text-slate-700 uppercase border-b border-slate-100 pb-2">Compounding Consistency Rating</h3>
-          <div class="flex items-center gap-4 py-2">
+        <div class="stats-panel stats-quest-panel">
+          <div class="stats-panel-heading"><span class="stats-panel-icon amber-icon">✧</span><div><h3>Performance Quest</h3><p>Build consistency, earn your next rank.</p></div></div>
+          <div class="stats-quest-content">
             <div id="consistencyScoreCircle" class="w-16 h-16 rounded-full bg-emerald-50 border-4 border-emerald-500 flex items-center justify-center font-bold text-lg text-emerald-700 font-num">
-              95
+              70
             </div>
-            <div>
+            <div class="stats-quest-copy">
               <div id="consistencyBadge" class="text-sm font-bold text-slate-900">Disciplined Compounding</div>
               <p id="consistencyDesc" class="text-xs text-slate-500">Strict adherence to target paces with healthy profit extraction into the Vault.</p>
+              <div class="stats-quest-track"><span id="statsQuestFill"></span></div><small><span id="statsQuestScore">70</span> / 100 XP · consistency score</small>
             </div>
           </div>
         </div>
@@ -1371,7 +1276,7 @@
       </div>
       <div>
         <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Deposit Amount ($)</label>
-        <input id="savingsAmountInput" type="number" step="1" value="50" class="w-full p-2 border border-slate-300 rounded-lg text-sm font-num font-bold">
+        <input id="savingsAmountInput" type="number" min="0" step="0.01" placeholder="Amount" class="w-full p-2 border border-slate-300 rounded-lg text-sm font-num font-bold">
       </div>
       <div class="flex items-center gap-1.5">
         <span class="text-[11px] text-slate-500 font-semibold">Quick Chips:</span>

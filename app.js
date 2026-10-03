@@ -39,10 +39,11 @@ const STORAGE_KEYS = {
  * Relaxed (to T), Mid (to 1.8*T), Aggressive (to 2.5*T)
  */
 function generateIndependentTriPaceLadder(base, target, totalSessions) {
-  const N = Math.max(2, parseInt(totalSessions) || 28);
-  const C0 = Math.max(1, parseFloat(base) || 100);
-  const T = Math.max(C0, parseFloat(target) || 7000);
-  const K = Math.max(2, Math.round(N * 0.25));
+  const N = Math.max(2, parseInt(totalSessions) || 2);
+  const C0 = Math.max(0.01, parseFloat(base) || 0.01);
+  const T = Math.max(C0, parseFloat(target) || C0);
+  if (N === 2) return calculateSmoothSeries(C0, T, N);
+  const K = Math.min(N - 1, Math.max(2, Math.round(N * 0.25)));
 
   const Ck_rel = Math.round(T * 0.10);
   const Ck_mid = Math.round(T * 0.18);
@@ -95,9 +96,9 @@ function generateIndependentTriPaceLadder(base, target, totalSessions) {
  * Smooth Exponential Compounding (Section 3.2.B)
  */
 function calculateSmoothSeries(base, target, totalSessions) {
-  const N = Math.max(2, parseInt(totalSessions) || 28);
-  const C0 = Math.max(1, parseFloat(base) || 100);
-  const T = Math.max(C0, parseFloat(target) || 7000);
+  const N = Math.max(2, parseInt(totalSessions) || 2);
+  const C0 = Math.max(0.01, parseFloat(base) || 0.01);
+  const T = Math.max(C0, parseFloat(target) || C0);
   const sessions = [];
   for (let s = 1; s <= N; s++) {
     const f = (s - 1) / (N - 1);
@@ -120,9 +121,9 @@ function calculateSmoothSeries(base, target, totalSessions) {
  * Front-Loaded Decay Compounding (Section 3.2.C)
  */
 function calculateDecaySeries(base, target, totalSessions) {
-  const N = Math.max(2, parseInt(totalSessions) || 28);
-  const C0 = Math.max(1, parseFloat(base) || 100);
-  const T = Math.max(C0, parseFloat(target) || 7000);
+  const N = Math.max(2, parseInt(totalSessions) || 2);
+  const C0 = Math.max(0.01, parseFloat(base) || 0.01);
+  const T = Math.max(C0, parseFloat(target) || C0);
   const sessions = [];
   for (let s = 1; s <= N; s++) {
     const f = Math.pow((s - 1) / (N - 1), 0.75);
@@ -145,9 +146,9 @@ function calculateDecaySeries(base, target, totalSessions) {
  * Portfolio Target with Scheduled Cash-Out (Section 3.2.D)
  */
 function calculatePortTargetWithdrawal(base, target, totalSessions, withdrawalTarget, withdrawalDays) {
-  const N = Math.max(2, parseInt(totalSessions) || 28);
-  const C0 = Math.max(1, parseFloat(base) || 100);
-  const T = Math.max(C0, parseFloat(target) || 7000);
+  const N = Math.max(2, parseInt(totalSessions) || 2);
+  const C0 = Math.max(0.01, parseFloat(base) || 0.01);
+  const T = Math.max(C0, parseFloat(target) || C0);
   const Dwith = Math.min(N, Math.max(1, parseInt(withdrawalDays) || N));
   const Wtarget = Math.max(0, parseFloat(withdrawalTarget) || 0);
 
@@ -271,23 +272,23 @@ function calculateProfitAllocationPreview(dailyProfit, bills, reserveFloor, desk
  */
 function calculateTotalFinancialGoal(profile, activeDeskBalance, vaultLedger, bills, milestoneCfg) {
   // 1. Trading Component
-  const tradingTarget = profile ? profile.portTarget : 7000;
+  const tradingTarget = profile ? Math.max(0, Number(profile.portTarget) || 0) : 0;
   const tradingAchieved = Math.min(tradingTarget, Math.max(0, activeDeskBalance));
   const tradingRemaining = Math.max(0, tradingTarget - activeDeskBalance);
 
   // 2. Savings Component
-  const savingsTarget = milestoneCfg && milestoneCfg.savingsGoal ? milestoneCfg.savingsGoal : 5000;
+  const savingsTarget = milestoneCfg ? Math.max(0, Number(milestoneCfg.savingsGoal) || 0) : 0;
   const savingsBalance = vaultLedger
     .filter(r => r.bucket === 'savings')
-    .reduce((sum, r) => sum + r.amount, 0);
+    .reduce((sum, r) => sum + (r.bucket === 'savings' ? Math.max(0, Number(r.amount) || 0) : 0), 0);
   const savingsAchieved = Math.min(savingsTarget, Math.max(0, savingsBalance));
   const savingsRemaining = Math.max(0, savingsTarget - savingsBalance);
 
   // 3. Bills Component
-  const billsTarget = bills.reduce((sum, b) => sum + b.amountDue, 0);
+  const billsTarget = bills.reduce((sum, b) => sum + Math.max(0, Number(b.amountDue) || 0), 0);
   const billsAchieved = bills.reduce((sum, b) => {
-    if (b.status === 'paid') return sum + b.amountDue;
-    return sum + (b.amountReserved || 0);
+    if (b.status === 'paid') return sum + Math.max(0, Number(b.amountDue) || 0);
+    return sum + Math.min(Math.max(0, Number(b.amountDue) || 0), Math.max(0, Number(b.amountReserved) || 0));
   }, 0);
   const billsRemaining = Math.max(0, billsTarget - billsAchieved);
 
@@ -308,23 +309,23 @@ function calculateTotalFinancialGoal(profile, activeDeskBalance, vaultLedger, bi
 // ==========================================
 
 const DEFAULT_PROFILE = {
-  id: 'default_28',
-  name: '28-Day Challenge (Tri-Pace)',
-  base: 100,
-  portTarget: 7000,
-  targetBalance: 7000,
-  totalSessions: 28,
+  id: 'default_empty',
+  name: 'New Challenge',
+  base: 0,
+  portTarget: 0,
+  targetBalance: 0,
+  totalSessions: 2,
   startDate: new Date().toISOString().split('T')[0],
   curveType: 'tri_pace_independent',
   withdrawalTarget: 0,
   withdrawalDays: 28,
   skimMode: false,
-  sessions: generateIndependentTriPaceLadder(100, 7000, 28)
+  sessions: generateIndependentTriPaceLadder(0, 0, 2)
 };
 
 const appState = {
   profiles: [DEFAULT_PROFILE],
-  activeProfileId: 'default_28',
+  activeProfileId: 'default_empty',
   activeSession: 1,
   logs: {},
   lockedSessions: {},
@@ -334,9 +335,9 @@ const appState = {
   planViewMode: 'original',
   vaultLedger: [],
   milestoneCfg: {
-    savingsGoal: 5000,
+    savingsGoal: 0,
     deadline: '',
-    reserveFloor: 100,
+    reserveFloor: 0,
     strategy: 'gradual'
   },
   milestoneEnabled: false,
@@ -344,7 +345,7 @@ const appState = {
   bills: [],
   billsBasis: 'days',
   tradeLogs: [],
-  syncKey: 'dcniper_portfolio',
+  syncKey: '',
   webhookUrl: '',
   firebaseCfg: '',
 };
@@ -372,7 +373,7 @@ function loadStateFromStorage() {
       localStorage.setItem(STORAGE_KEYS.PROFILES, JSON.stringify(appState.profiles));
     }
 
-    appState.activeProfileId = localStorage.getItem(STORAGE_KEYS.ACTIVE_PROFILE) || 'default_28';
+    appState.activeProfileId = localStorage.getItem(STORAGE_KEYS.ACTIVE_PROFILE) || DEFAULT_PROFILE.id;
     appState.activeSession = parseInt(localStorage.getItem(STORAGE_KEYS.SESSION)) || 1;
     appState.logs = JSON.parse(localStorage.getItem(STORAGE_KEYS.LOGS) || '{}');
     appState.lockedSessions = JSON.parse(localStorage.getItem(STORAGE_KEYS.LOCKED_SESSIONS) || '{}');
@@ -393,7 +394,7 @@ function loadStateFromStorage() {
 
     // Verify active profile exists
     if (!getActiveProfile()) {
-      appState.activeProfileId = appState.profiles[0]?.id || 'default_28';
+      appState.activeProfileId = appState.profiles[0]?.id || DEFAULT_PROFILE.id;
     }
   } catch (err) {
     console.error('Error loading state from storage, resetting safely:', err);
@@ -644,9 +645,14 @@ function renderHeaderAndTopBar() {
   if (elOverallTarget) {
     elOverallTarget.textContent = formatCurrency(profile.portTarget);
   }
+  const goalProgress = profile.portTarget > 0 ? Math.min(100, Math.max(0, (currentBal / profile.portTarget) * 100)) : 0;
+  const goalPctEl = document.getElementById('dailyTargetProgress');
+  const goalFillEl = document.getElementById('dailyTargetFill');
+  if (goalPctEl) goalPctEl.textContent = `${goalProgress.toFixed(1)}%`;
+  if (goalFillEl) goalFillEl.style.width = `${goalProgress}%`;
   if (elStreakCount) {
     const streak = getStreakCount();
-    elStreakCount.textContent = `${streak} 🔥`;
+    elStreakCount.textContent = `${streak}`;
   }
 }
 
@@ -696,6 +702,18 @@ function render3PaceTargetsSection() {
   if (elDiffMid) elDiffMid.textContent = `Diff: ${formatCurrencyPnL(diffMid)}`;
   if (elDiffAgg) elDiffAgg.textContent = `Diff: ${formatCurrencyPnL(diffAgg)}`;
   if (elDiffFin) elDiffFin.textContent = `Diff: ${formatCurrencyPnL(diffFin)}`;
+  const questPaceSelect = document.getElementById('questPaceSelect');
+  if (questPaceSelect) questPaceSelect.value = appState.pace;
+
+  const paceCardByValue = { relaxed: 'paceCardRelaxed', mid: 'paceCardMid', aggressive: 'paceCardAgg', finreq: 'paceCardFinreq' };
+  Object.entries(paceCardByValue).forEach(([value, id]) => {
+    const card = document.getElementById(id);
+    if (card) {
+      const selected = appState.pace === value;
+      card.classList.toggle('is-selected', selected);
+      card.setAttribute('aria-pressed', String(selected));
+    }
+  });
 
   // Active badges
   const bRel = document.getElementById('badgePaceRel');
@@ -751,6 +769,18 @@ function renderDailyDesk() {
   const dateStr = getDateForSession(profile.startDate, s);
   const currentBal = getCurrentDeskBalance(s);
   const activeTarget = getActiveTargetForSession(s);
+  const dailyPnl = getNormalizedDailyPnL(s);
+  const dailyReturn = getSessionReturnPct(s);
+  const dailyPnlEl = document.getElementById('dailySessionPnl');
+  const dailyReturnEl = document.getElementById('dailySessionReturn');
+  if (dailyPnlEl) {
+    dailyPnlEl.textContent = dailyPnl === 0 ? formatCurrency(0) : formatCurrencyPnL(dailyPnl);
+    dailyPnlEl.className = dailyPnl >= 0 ? 'positive' : 'negative';
+  }
+  if (dailyReturnEl) {
+    dailyReturnEl.textContent = formatPercent(dailyReturn);
+    dailyReturnEl.className = dailyReturn >= 0 ? 'positive' : 'negative';
+  }
 
   // Session header
   const title = document.getElementById('activeSessionTitle');
@@ -884,67 +914,38 @@ function renderMountainTrail() {
   if (!container) return;
 
   const profile = getActiveProfile();
-  const N = profile.totalSessions;
-  const currentS = appState.activeSession;
-
-  const width = Math.max(700, N * 38);
-  const height = 90;
-  const padX = 30;
-  const usableWidth = width - padX * 2;
-  const stepX = usableWidth / (N - 1);
-
-  // Generate SVG path points
-  const points = [];
-  for (let i = 0; i < N; i++) {
-    const s = i + 1;
-    const x = padX + i * stepX;
-    // Altitude increases up the mountain
-    const y = height - 20 - ((i / (N - 1)) * (height - 40));
-    points.push({ s, x, y });
-  }
-
-  let polylineStr = points.map(p => `${p.x},${p.y}`).join(' ');
-
-  let nodesSvg = points.map(p => {
-    const isCompleted = appState.logs[p.s] !== undefined;
-    const isActive = p.s === currentS;
-    const isCheckpoint = p.s % 7 === 0 || p.s === Math.round(N * 0.25) || p.s === N;
-
-    let fillColor = '#94a3b8';
-    let strokeColor = '#cbd5e1';
-    let radius = 6;
-
-    if (isCompleted) {
-      fillColor = '#10b981';
-      strokeColor = '#059669';
-    }
-    if (isActive) {
-      fillColor = '#f59e0b';
-      strokeColor = '#d97706';
-      radius = 8;
-    }
-
-    return `
-      <g class="cursor-pointer" onclick="jumpToSession(${p.s})">
-        <circle cx="${p.x}" cy="${p.y}" r="${radius}" fill="${fillColor}" stroke="${strokeColor}" stroke-width="2" />
-        <text x="${p.x}" y="${p.y + (isActive ? 16 : 14)}" font-size="9" font-family="monospace" text-anchor="middle" fill="#475569">S${p.s}</text>
-        ${isCheckpoint ? `<circle cx="${p.x}" cy="${p.y - 10}" r="2.5" fill="#7c3aed" />` : ''}
-      </g>
-    `;
+  const N = Math.max(2, Number(profile.totalSessions) || 2);
+  const completed = Object.keys(appState.logs).filter(k => Number(k) >= 1 && Number(k) <= N && Number.isFinite(Number(appState.logs[k]))).length;
+  const progress = Math.min(1, completed / N);
+  const target = Math.max(0, Number(profile.portTarget) || 0);
+  const balance = getCurrentDeskBalance();
+  const targetProgress = target > 0 ? Math.min(100, Math.max(0, balance / target * 100)) : 0;
+  const checkpoints = [...new Set([1, Math.ceil(N * .25), Math.ceil(N * .5), Math.ceil(N * .75), N])].sort((a, b) => a - b);
+  const names = ['Trailhead', 'Fernwood', 'Crystal Pass', 'Cloudrest', 'Summit'];
+  const ys = [132, 81, 112, 58, 87];
+  const points = checkpoints.map((session, i) => ({
+    session,
+    x: 38 + (i / Math.max(1, checkpoints.length - 1)) * 524,
+    y: ys[Math.round(i * (ys.length - 1) / Math.max(1, checkpoints.length - 1))],
+    name: names[Math.round(i * (names.length - 1) / Math.max(1, checkpoints.length - 1))],
+    reached: completed >= session
+  }));
+  const route = points.map(p => `${p.x},${p.y}`).join(' ');
+  const currentX = 38 + progress * 524;
+  const segment = Math.min(points.length - 2, Math.floor(progress * Math.max(1, points.length - 1)));
+  const segmentPct = progress >= 1 ? 1 : (progress * Math.max(1, points.length - 1)) - segment;
+  const currentY = points[segment].y + (points[segment + 1].y - points[segment].y) * segmentPct;
+  const reachedCount = points.filter(p => p.reached).length;
+  const currentLevel = Math.floor(completed / 5) + 1;
+  const nextStop = points.find(p => !p.reached) || points[points.length - 1];
+  const checkpointsSvg = points.map((p, i) => {
+    const active = !p.reached && p.session === nextStop.session;
+    const color = p.reached ? '#42d6a4' : (active ? '#ffc45b' : '#77847a');
+    const icon = p.reached ? '✓' : (active ? '✦' : '◆');
+    return `<g class="quest-checkpoint ${p.reached ? 'is-reached' : ''} ${active ? 'is-next' : ''}" role="button" tabindex="0" aria-label="${p.name}, session ${p.session}${p.reached ? ', complete' : ''}" onclick="jumpToSession(${p.session})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();jumpToSession(${p.session})}"><circle cx="${p.x}" cy="${p.y}" r="${active ? 17 : 14}" fill="#10231b" stroke="${color}" stroke-width="${active ? 3 : 2}"/><text x="${p.x}" y="${p.y + 5}" text-anchor="middle" font-size="15" font-weight="700" fill="${color}">${icon}</text><text x="${p.x}" y="${p.y + 35}" text-anchor="middle" font-size="10" font-weight="700" fill="#d7ddcf">${p.name}</text><text x="${p.x}" y="${p.y + 49}" text-anchor="middle" font-size="9" fill="#9ca99c">S${p.session}</text>${p.reached ? `<path d="M${p.x + 15} ${p.y - 20}l2 5 5 1-4 3 1 5-4-3-4 3 1-5-4-3 5-1z" fill="#ffd166"/>` : ''}</g>`;
   }).join('');
-
-  container.innerHTML = `
-    <svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" class="overflow-visible">
-      <defs>
-        <linearGradient id="trailGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stop-color="#10b981" />
-          <stop offset="100%" stop-color="#7c3aed" />
-        </linearGradient>
-      </defs>
-      <polyline fill="none" stroke="url(#trailGrad)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" points="${polylineStr}" />
-      ${nodesSvg}
-    </svg>
-  `;
+  const safeNext = nextStop || { name: 'Summit', session: N };
+  container.innerHTML = `<div class="quest-progress-top"><div><span class="quest-level">LEVEL ${currentLevel}</span><span class="quest-session">${completed} / ${N} sessions logged</span></div><div class="quest-xp-track" role="progressbar" aria-label="Challenge sessions completed" aria-valuenow="${completed}" aria-valuemin="0" aria-valuemax="${N}"><span style="width:${progress * 100}%"></span></div></div><svg class="quest-map" viewBox="0 0 600 190" role="img" aria-label="A trail with ${completed} of ${N} sessions completed and ${reachedCount} checkpoints reached"><defs><linearGradient id="questSky" x2="0" y2="1"><stop stop-color="#14231c"/><stop offset="1" stop-color="#18281e"/></linearGradient><linearGradient id="questPath" x2="1"><stop stop-color="#37d5a1"/><stop offset="1" stop-color="#ffbf58"/></linearGradient><filter id="questGlow"><feGaussianBlur stdDeviation="4" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><rect width="600" height="190" rx="16" fill="url(#questSky)"/><circle cx="513" cy="33" r="17" fill="#f8c86c" opacity=".84"/><path d="M0 111 76 72l57 32 74-68 58 57 61-42 61 49 74-66 57 47 82-38v147H0Z" fill="#263a2c"/><path d="m0 137 89-39 65 42 74-46 67 45 67-43 69 41 79-46 90 40v59H0Z" fill="#17291f"/><path d="M15 150Q90 164 145 126T270 129Q344 140 392 100T580 93" fill="none" stroke="#354d37" stroke-width="16" stroke-linecap="round"/><polyline points="${route}" fill="none" stroke="#0b1610" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/><polyline points="${route}" fill="none" stroke="url(#questPath)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="8 7" stroke-dashoffset="${Math.round((1 - progress) * 72)}" filter="url(#questGlow)"/>${checkpointsSvg}<g class="quest-player" transform="translate(${currentX} ${currentY - 26})"><circle r="13" fill="#12271f" stroke="#39d5a5" stroke-width="2"/><text y="5" text-anchor="middle" font-size="17">🧭</text></g><g fill="#ffd166"><circle cx="101" cy="40" r="2"/><circle cx="323" cy="31" r="2"/><circle cx="466" cy="79" r="1.6"/></g></svg><div class="quest-map-footer"><div class="quest-next-stop"><span class="quest-next-icon">✧</span><div><small>NEXT CHECKPOINT</small><strong>${completed >= N ? 'Summit reached — legendary!' : `${safeNext.name} · Session ${safeNext.session}`}</strong></div></div><div class="quest-goal-progress"><span>Summit balance</span><strong>${targetProgress.toFixed(1)}%</strong></div></div>`;
 }
 
 /**
@@ -1230,6 +1231,22 @@ function renderConfigModule() {
   if (syncKeyInp) syncKeyInp.value = appState.syncKey;
   if (firebaseCfgInp) firebaseCfgInp.value = appState.firebaseCfg;
   if (webhookUrlInp) webhookUrlInp.value = appState.webhookUrl;
+  renderSetupChallengePreview();
+}
+
+function renderSetupChallengePreview() {
+  const base = Number(document.getElementById('genBase')?.value);
+  const target = Number(document.getElementById('genTarget')?.value);
+  const sessions = parseInt(document.getElementById('genSessions')?.value, 10);
+  const startDate = document.getElementById('genStartDate')?.value;
+  const startEl = document.getElementById('setupPreviewStart');
+  const targetEl = document.getElementById('setupPreviewTarget');
+  const durationEl = document.getElementById('setupPreviewDuration');
+  const dateEl = document.getElementById('setupPreviewDate');
+  if (startEl) startEl.textContent = base > 0 ? formatCurrency(base) : '—';
+  if (targetEl) targetEl.textContent = target > 0 ? formatCurrency(target) : '—';
+  if (durationEl) durationEl.textContent = sessions >= 2 ? `${sessions} sessions` : '—';
+  if (dateEl) dateEl.textContent = startDate && sessions >= 2 ? getDateForSession(startDate, sessions) : '—';
 }
 
 /**
@@ -1294,7 +1311,10 @@ function renderTradeHistoryTable() {
   }
 
   if (filtered.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="11" class="text-center py-6 text-slate-400">No trade logs found for selected filter.</td></tr>`;
+    const emptyMessage = appState.tradeLogs.length === 0
+      ? 'Add your first trade above to start tracking your sessions.'
+      : 'No trades match these filters. Try another session or status.';
+    tbody.innerHTML = `<tr><td colspan="11" class="trade-empty-cell"><div class="trade-empty-state"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M10 20h28l4 7v13H6V27l4-7Z"/><path d="m10 20 7-11h14l7 11M6 27h12l3 5h6l3-5h12"/><path d="M24 2v6m-12 2-4-5m28 5 4-5"/></svg><strong>${appState.tradeLogs.length === 0 ? 'No trades yet' : 'No matching trades'}</strong><span>${emptyMessage}</span></div></td></tr>`;
     return;
   }
 
@@ -1361,11 +1381,11 @@ function renderTradeAnalytics() {
   const elRealized = document.getElementById('metricTradeRealizedPnL');
 
   if (elCount) elCount.textContent = a.total;
-  if (elOpenClosed) elOpenClosed.textContent = `${a.closedCount} / ${a.openCount}`;
+  if (elOpenClosed) elOpenClosed.textContent = `${a.closedCount} / ${a.openCount} trades`;
   if (elWinRate) elWinRate.textContent = `${a.winRate.toFixed(1)}%`;
-  if (elAvgReturn) elAvgReturn.textContent = formatPercent(a.avgReturn);
+  if (elAvgReturn) elAvgReturn.textContent = formatCurrency(a.closedCount ? a.totalPnL / a.closedCount : 0);
   if (elRealized) {
-    elRealized.textContent = formatCurrencyPnL(a.totalPnL);
+    elRealized.textContent = formatCurrency(a.totalPnL);
     elRealized.className = `text-xl font-bold font-num ${a.totalPnL >= 0 ? 'text-emerald-600' : 'text-red-600'}`;
   }
 }
@@ -1522,7 +1542,7 @@ function renderBillsBreakdown() {
 }
 
 function renderSavingsReserve() {
-  const goal = appState.milestoneCfg.savingsGoal || 5000;
+  const goal = Math.max(0, Number(appState.milestoneCfg.savingsGoal) || 0);
   const current = getVaultSavingsBalance();
   const pct = goal > 0 ? Math.min(100, (current / goal) * 100) : 0;
 
@@ -1560,8 +1580,8 @@ function renderSafetyMilestones() {
   const profile = getActiveProfile();
   const totalVault = getVaultTotalBalance();
   const base = profile ? profile.base : 100;
-  const floor = appState.milestoneCfg.reserveFloor || 100;
-  const goal = appState.milestoneCfg.savingsGoal || 5000;
+  const floor = Math.max(0, Number(appState.milestoneCfg.reserveFloor) || 0);
+  const goal = Math.max(0, Number(appState.milestoneCfg.savingsGoal) || 0);
 
   // Step 1: Recoup Start Deposit
   const b1 = document.getElementById('milestoneStep1Badge');
@@ -1691,7 +1711,11 @@ function renderStatsModule() {
   }
   const elCircle = document.getElementById('consistencyScoreCircle');
   const elBadge = document.getElementById('consistencyBadge');
+  const questFill = document.getElementById('statsQuestFill');
+  const questScore = document.getElementById('statsQuestScore');
   if (elCircle) elCircle.textContent = score;
+  if (questFill) questFill.style.width = `${score}%`;
+  if (questScore) questScore.textContent = score;
   if (elBadge) {
     if (score >= 85) elBadge.textContent = 'Disciplined Compounding (A+)';
     else if (score >= 70) elBadge.textContent = 'Consistent Execution (B)';
@@ -1735,10 +1759,10 @@ function renderEquityCurveSvg(history) {
 
   container.innerHTML = `
     <svg width="100%" height="100%" viewBox="0 0 ${w} ${h}">
-      <line x1="${pad}" y1="${h - pad}" x2="${w - pad}" y2="${h - pad}" stroke="#e2e8f0" stroke-width="1" />
-      <line x1="${pad}" y1="${pad}" x2="${pad}" y2="${h - pad}" stroke="#e2e8f0" stroke-width="1" />
-      <polyline fill="none" stroke="#7c3aed" stroke-width="2.5" stroke-linecap="round" points="${ptsWealth}" />
-      <polyline fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-dasharray="4,2" points="${ptsDesk}" />
+      <line x1="${pad}" y1="${h - pad}" x2="${w - pad}" y2="${h - pad}" stroke="#536257" stroke-width="1" />
+      <line x1="${pad}" y1="${pad}" x2="${pad}" y2="${h - pad}" stroke="#536257" stroke-width="1" />
+      <polyline fill="none" stroke="#bd7be5" stroke-width="2.5" stroke-linecap="round" points="${ptsWealth}" />
+      <polyline fill="none" stroke="#35d6a4" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="4,2" points="${ptsDesk}" />
     </svg>
   `;
 }
@@ -1765,13 +1789,13 @@ function renderDailyPnLSvg(history) {
     const x = pad + i * ((w - pad * 2) / history.length) + 2;
     const barH = (Math.abs(d.pnl) / maxAbs) * (h / 2 - pad);
     const y = d.pnl >= 0 ? zeroY - barH : zeroY;
-    const color = d.pnl >= 0 ? '#10b981' : '#ef4444';
+    const color = d.pnl >= 0 ? '#35d6a4' : '#f17870';
     return `<rect x="${x}" y="${y}" width="${barWidth}" height="${Math.max(2, barH)}" fill="${color}" rx="2" />`;
   }).join('');
 
   container.innerHTML = `
     <svg width="100%" height="100%" viewBox="0 0 ${w} ${h}">
-      <line x1="${pad}" y1="${zeroY}" x2="${w - pad}" y2="${zeroY}" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="3,3" />
+      <line x1="${pad}" y1="${zeroY}" x2="${w - pad}" y2="${zeroY}" stroke="#536257" stroke-width="1" stroke-dasharray="3,3" />
       ${bars}
     </svg>
   `;
@@ -1825,12 +1849,16 @@ function renderTradeDistribution() {
 // ==========================================
 
 function switchMainTab(tabName) {
+  document.body.classList.remove('mobile-nav-open');
+  const menuButton = document.getElementById('btnMobileMenu');
+  if (menuButton) { menuButton.textContent = '☰'; menuButton.setAttribute('aria-label', 'Open navigation'); }
   const tabs = ['tracker', 'config', 'trades', 'milestones', 'stats'];
   tabs.forEach(t => {
     const content = document.getElementById(`tabContent${capitalize(t)}`);
     const btn = document.getElementById(`nav${capitalize(t)}Btn`);
     if (content) content.classList.remove('active');
     if (btn) {
+      btn.classList.remove('active-nav-item');
       btn.className = 'px-4 py-2.5 text-slate-600 hover:text-slate-900 border-b-2 border-transparent whitespace-nowrap';
     }
   });
@@ -1839,11 +1867,38 @@ function switchMainTab(tabName) {
   const activeBtn = document.getElementById(`nav${capitalize(tabName)}Btn`);
   if (activeContent) activeContent.classList.add('active');
   if (activeBtn) {
-    activeBtn.className = 'px-4 py-2.5 text-emerald-600 border-b-2 border-emerald-600 font-bold whitespace-nowrap';
+    activeBtn.className = 'px-4 py-2.5 text-emerald-600 border-b-2 border-emerald-600 font-bold whitespace-nowrap active-nav-item';
   }
+  if (activeContent) { activeContent.classList.remove('view-transition'); void activeContent.offsetWidth; activeContent.classList.add('view-transition'); }
 
   // Refresh module data
   refreshAllViews();
+}
+
+function applyTheme(theme) {
+  document.documentElement.dataset.theme = theme;
+  localStorage.setItem('pgl_theme_v1', theme);
+  const button = document.getElementById('btnThemeToggle');
+  if (button) {
+    const dark = theme === 'dark';
+    button.innerHTML = dark
+      ? '<svg class="theme-toggle-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg><span>Light mode</span>'
+      : '<svg class="theme-toggle-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5 8.5 8.5 0 1 0 20.5 14.2Z"/></svg><span>Dark mode</span>';
+    button.setAttribute('aria-label', dark ? 'Switch to light theme' : 'Switch to dark theme');
+  }
+}
+
+function toggleTheme() {
+  applyTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark');
+}
+
+function toggleMobileNav() {
+  const open = document.body.classList.toggle('mobile-nav-open');
+  const button = document.getElementById('btnMobileMenu');
+  if (button) {
+    button.textContent = open ? '×' : '☰';
+    button.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
+  }
 }
 
 function switchTrackerSubTab(subtab) {
@@ -1861,8 +1916,9 @@ function switchTrackerSubTab(subtab) {
   const activeBtn = document.getElementById(`subnav${capitalize(subtab)}Btn`);
   if (activeContent) activeContent.classList.add('active');
   if (activeBtn) {
-    activeBtn.className = 'px-3 py-2 text-sm font-semibold text-emerald-700 border-b-2 border-emerald-600';
+    activeBtn.className = 'px-3 py-2 text-sm font-semibold text-emerald-700 border-b-2 border-emerald-600 active-subtab';
   }
+  if (activeContent) { activeContent.classList.remove('view-transition'); void activeContent.offsetWidth; activeContent.classList.add('view-transition'); }
 
   if (subtab === 'calendar') renderCalendarView();
   if (subtab === 'tfg') renderTotalFinancialGoal();
@@ -1883,8 +1939,9 @@ function switchConfigSubTab(subtab) {
   const activeBtn = document.getElementById(`subnavCfg${capitalize(subtab)}Btn`);
   if (activeContent) activeContent.classList.add('active');
   if (activeBtn) {
-    activeBtn.className = 'px-4 py-2 text-sm font-semibold text-emerald-700 border-b-2 border-emerald-600';
+    activeBtn.className = 'px-4 py-2 text-sm font-semibold text-emerald-700 border-b-2 border-emerald-600 active-subtab';
   }
+  if (activeContent) { activeContent.classList.remove('view-transition'); void activeContent.offsetWidth; activeContent.classList.add('view-transition'); }
 }
 
 function switchTradesSubTab(subtab) {
@@ -1902,8 +1959,9 @@ function switchTradesSubTab(subtab) {
   const activeBtn = document.getElementById(`subnavTrades${capitalize(subtab)}Btn`);
   if (activeContent) activeContent.classList.add('active');
   if (activeBtn) {
-    activeBtn.className = 'px-4 py-2 text-sm font-semibold text-emerald-700 border-b-2 border-emerald-600';
+    activeBtn.className = 'px-4 py-2 text-sm font-semibold text-emerald-700 border-b-2 border-emerald-600 active-subtab';
   }
+  if (activeContent) { activeContent.classList.remove('view-transition'); void activeContent.offsetWidth; activeContent.classList.add('view-transition'); }
 
   if (subtab === 'journal') renderTradeHistoryTable();
   if (subtab === 'analytics') renderTradeAnalytics();
@@ -1924,8 +1982,9 @@ function switchVaultSubTab(subtab) {
   const activeBtn = document.getElementById(`subnavVault${capitalize(subtab)}Btn`);
   if (activeContent) activeContent.classList.add('active');
   if (activeBtn) {
-    activeBtn.className = 'px-4 py-2 text-sm font-semibold text-emerald-700 border-b-2 border-emerald-600';
+    activeBtn.className = 'px-4 py-2 text-sm font-semibold text-emerald-700 border-b-2 border-emerald-600 active-subtab';
   }
+  if (activeContent) { activeContent.classList.remove('view-transition'); void activeContent.offsetWidth; activeContent.classList.add('view-transition'); }
 
   if (subtab === 'overview') renderRecentVaultLedger();
   if (subtab === 'bills') renderBillsBreakdown();
@@ -1991,6 +2050,36 @@ function handleSessionBalanceChange(val) {
   renderDailyDesk();
   render3PaceTargetsSection();
   renderHeaderAndTopBar();
+}
+
+function saveActiveSession() {
+  const input = document.getElementById('sessionBalanceInput');
+  const session = appState.activeSession;
+  if (appState.lockedSessions[session]) {
+    openModal({ title: 'Session is locked', message: 'Unlock this session before saving changes.' });
+    return;
+  }
+  if (!input || input.value.trim() === '' || !Number.isFinite(Number(input.value))) {
+    openModal({ title: 'Closing balance needed', message: 'Enter your closing balance to save this session.' });
+    input?.focus();
+    return;
+  }
+  appState.logs[session] = Number(input.value);
+  appState.timestamps[session] = new Date().toISOString();
+  const notes = document.getElementById('sessionNotesInput');
+  if (notes) appState.notes[session] = notes.value;
+  saveStateToStorage();
+  refreshAllViews();
+  const button = document.getElementById('btnSaveDailySession');
+  if (button) {
+    button.textContent = '✓ Session Saved';
+    button.classList.add('is-saved');
+    setTimeout(() => {
+      if (!button.isConnected) return;
+      button.textContent = '✓ Save Today’s Session';
+      button.classList.remove('is-saved');
+    }, 1800);
+  }
 }
 
 function handleSessionNotesChange(val) {
@@ -2151,8 +2240,8 @@ function openQuickEditParamsModal() {
 }
 
 function handleQuickEditApply() {
-  const base = parseFloat(document.getElementById('quickEditBaseInput').value) || 100;
-  const target = parseFloat(document.getElementById('quickEditTargetInput').value) || 7000;
+  const base = Math.max(0, parseFloat(document.getElementById('quickEditBaseInput').value) || 0);
+  const target = Math.max(base, parseFloat(document.getElementById('quickEditTargetInput').value) || base);
 
   const profile = getActiveProfile();
   profile.base = base;
@@ -2173,10 +2262,10 @@ function handleQuickEditApply() {
 }
 
 function handleQuickSaveStep1() {
-  const name = document.getElementById('genName').value || '30-Day Growth Ladder';
-  const base = parseFloat(document.getElementById('genBase').value) || 100;
-  const target = parseFloat(document.getElementById('genTarget').value) || 7000;
-  const sessions = parseInt(document.getElementById('genSessions').value) || 28;
+  const name = document.getElementById('genName').value.trim() || 'My Challenge';
+  const base = Math.max(0, parseFloat(document.getElementById('genBase').value) || 0);
+  const target = Math.max(base, parseFloat(document.getElementById('genTarget').value) || 0);
+  const sessions = Math.max(2, parseInt(document.getElementById('genSessions').value) || 2);
   const startDate = document.getElementById('genStartDate').value || new Date().toISOString().split('T')[0];
 
   const profile = getActiveProfile();
@@ -2197,10 +2286,20 @@ function handleQuickSaveStep1() {
 
   saveStateToStorage();
   refreshAllViews();
-  openModal({
-    title: 'Quick Apply Successful',
-    message: `Updated active challenge "${name}" ($${base} → $${target}, ${sessions} sessions).`
-  });
+}
+
+function startChallengeFromSetup() {
+  const base = parseFloat(document.getElementById('genBase')?.value);
+  const target = parseFloat(document.getElementById('genTarget')?.value);
+  const sessions = parseInt(document.getElementById('genSessions')?.value);
+  if (!(base > 0) || !(target >= base) || !(sessions >= 2)) {
+    switchConfigSubTab('wizard');
+    document.getElementById('genBase')?.focus();
+    openModal({ title: 'Complete the essentials', message: 'Enter a starting amount, a target at least as large, and 2 or more sessions.' });
+    return;
+  }
+  handleQuickSaveStep1();
+  switchMainTab('tracker');
 }
 
 function setSetupStep(step) {
@@ -2208,13 +2307,14 @@ function setSetupStep(step) {
     const el = document.getElementById(`wizardStep${s}`);
     const ind = document.getElementById(`stepIndicator${s}`);
     if (el) el.classList.add('hidden');
-    if (ind) ind.className = 'px-2 py-0.5 rounded-full font-bold bg-slate-200 text-slate-600';
+    if (ind) ind.className = 'setup-step-indicator';
   });
 
   const activeEl = document.getElementById(`wizardStep${step}`);
   const activeInd = document.getElementById(`stepIndicator${step}`);
   if (activeEl) activeEl.classList.remove('hidden');
-  if (activeInd) activeInd.className = 'px-2 py-0.5 rounded-full font-bold bg-emerald-600 text-white';
+  if (activeInd) activeInd.className = 'setup-step-indicator is-current';
+  renderSetupChallengePreview();
 
   if (step === 3) {
     renderWizardPreview();
@@ -2236,9 +2336,9 @@ function renderWizardPreview() {
   const previewBox = document.getElementById('wizardCheckpointsPreview');
   if (!previewBox) return;
 
-  const base = parseFloat(document.getElementById('genBase').value) || 100;
-  const target = parseFloat(document.getElementById('genTarget').value) || 7000;
-  const sessions = parseInt(document.getElementById('genSessions').value) || 28;
+  const base = Math.max(0, parseFloat(document.getElementById('genBase').value) || 0);
+  const target = Math.max(base, parseFloat(document.getElementById('genTarget').value) || 0);
+  const sessions = Math.max(2, parseInt(document.getElementById('genSessions').value) || 2);
   const curveType = document.getElementById('genCurveType').value || 'tri_pace_independent';
   const withdrawalTarget = parseFloat(document.getElementById('genWithdrawalTarget')?.value) || 0;
   const withdrawalDays = parseInt(document.getElementById('genWithdrawalDays')?.value) || sessions;
@@ -2276,10 +2376,10 @@ function renderWizardPreview() {
 }
 
 function handleSaveProfile(updateActive = true) {
-  const name = document.getElementById('genName').value || 'Custom Challenge';
-  const base = parseFloat(document.getElementById('genBase').value) || 100;
-  const target = parseFloat(document.getElementById('genTarget').value) || 7000;
-  const sessions = parseInt(document.getElementById('genSessions').value) || 28;
+  const name = document.getElementById('genName').value.trim() || 'My Challenge';
+  const base = Math.max(0, parseFloat(document.getElementById('genBase').value) || 0);
+  const target = Math.max(base, parseFloat(document.getElementById('genTarget').value) || 0);
+  const sessions = Math.max(2, parseInt(document.getElementById('genSessions').value) || 2);
   const startDate = document.getElementById('genStartDate').value || new Date().toISOString().split('T')[0];
   const curveType = document.getElementById('genCurveType').value || 'tri_pace_independent';
   const withdrawalTarget = parseFloat(document.getElementById('genWithdrawalTarget')?.value) || 0;
@@ -2398,11 +2498,11 @@ function calculateTradePreview() {
   const elRet = document.getElementById('tradePreviewReturn');
 
   if (elNet) {
-    elNet.textContent = formatCurrencyPnL(net);
+    elNet.textContent = formatCurrency(net);
     elNet.className = `text-base font-bold font-num ${net >= 0 ? 'text-emerald-600' : 'text-red-600'}`;
   }
   if (elRet) {
-    elRet.textContent = `(${formatPercent(ret)})`;
+    elRet.textContent = formatPercent(ret);
     elRet.className = `text-xs font-semibold font-num ${ret >= 0 ? 'text-emerald-700' : 'text-red-700'}`;
   }
 }
@@ -2451,7 +2551,7 @@ function openLogTradeModal() {
   document.getElementById('modalTradeStatusSelect').value = 'closed';
   document.getElementById('modalTradeEntryInput').value = '';
   document.getElementById('modalTradeExitInput').value = '';
-  document.getElementById('modalTradeFeesInput').value = '0.50';
+  document.getElementById('modalTradeFeesInput').value = '';
   document.getElementById('modalTradeNotesInput').value = '';
 
   openModalDialog('tradeModal');
@@ -2727,7 +2827,7 @@ function handleManualSkimSubmit() {
   if (amt <= 0) return;
 
   const currentBal = getCurrentDeskBalance();
-  const floor = appState.milestoneCfg.reserveFloor || 100;
+  const floor = Math.max(0, Number(appState.milestoneCfg.reserveFloor) || 0);
   const postBal = currentBal - amt;
 
   const executeSkim = () => {
@@ -2767,8 +2867,8 @@ function handleManualSkimSubmit() {
 }
 
 function handleSaveMilestoneConfig() {
-  appState.milestoneCfg.savingsGoal = parseFloat(document.getElementById('milestoneGoalInput').value) || 5000;
-  appState.milestoneCfg.reserveFloor = parseFloat(document.getElementById('milestoneFloorInput').value) || 100;
+  appState.milestoneCfg.savingsGoal = Math.max(0, parseFloat(document.getElementById('milestoneGoalInput').value) || 0);
+  appState.milestoneCfg.reserveFloor = Math.max(0, parseFloat(document.getElementById('milestoneFloorInput').value) || 0);
   appState.milestoneCfg.strategy = document.getElementById('milestoneStrategySelect').value || 'gradual';
 
   saveStateToStorage();
@@ -3054,13 +3154,13 @@ function confirmRestoreDefaultChallenge() {
     message: 'Reset active challenge profile to canonical 28-day Tri-Pace Roadmap ($100 to $7,000)?',
     confirmText: 'Restore Default',
     onConfirm: () => {
-      const idx = appState.profiles.findIndex(p => p.id === 'default_28');
+      const idx = appState.profiles.findIndex(p => p.id === DEFAULT_PROFILE.id);
       if (idx !== -1) {
         appState.profiles[idx] = Object.assign({}, DEFAULT_PROFILE);
       } else {
         appState.profiles.unshift(Object.assign({}, DEFAULT_PROFILE));
       }
-      appState.activeProfileId = 'default_28';
+      appState.activeProfileId = DEFAULT_PROFILE.id;
       saveStateToStorage();
       refreshAllViews();
       openModal({ title: 'Default Restored', message: 'Canonical 28-day challenge restored.' });
@@ -3247,6 +3347,7 @@ function refreshAllViews() {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
+  applyTheme(localStorage.getItem('pgl_theme_v1') || 'dark');
   loadStateFromStorage();
   refreshAllViews();
   initFirebaseSync();

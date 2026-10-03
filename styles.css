@@ -297,18 +297,213 @@ input:focus,select:focus,textarea:focus { outline:2px solid var(--gold)!importan
 #dailyPaceTargetsSection p { color:#64573f!important;font-size:9px!important; }
 #dailyPaceTargetsSection>.grid { display:grid;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:8px!important; }
 #dailyPaceTargetsSection #paceCardFinreq { display:none!important; }
-#dailyPaceTargetsSection [id^="paceCard"] { min-height:100px;padding:11px!important;border:3px solid var(--pace-edge)!important;border-left:7px solid var(--pace-strong)!important;border-radius:0!important;background:var(--pace-soft)!important;color:var(--pace-text)!important;box-shadow:3px 3px 0 #796749!important;cursor:pointer;transition:transform .14s steps(2,end),background .14s!important; }
-#dailyPaceTargetsSection #paceCardRelaxed { --pace-strong:#21804c;--pace-edge:#426d4b;--pace-soft:#e0f2df;--pace-fill:#54b875;--pace-text:#102c1b; }
-#dailyPaceTargetsSection #paceCardMid { --pace-strong:#b87808;--pace-edge:#9a6b20;--pace-soft:#fff0c8;--pace-fill:#edb33e;--pace-text:#382708; }
-#dailyPaceTargetsSection #paceCardAgg { --pace-strong:#7441a2;--pace-edge:#684784;--pace-soft:#efe3fa;--pace-fill:#a272d0;--pace-text:#271338; }
-#dailyPaceTargetsSection [id^="paceCard"]:hover { transform:translateY(-3px)!important; }
-#dailyPaceTargetsSection [id^="paceCard"].is-selected { outline:3px solid #fff0be;outline-offset:-6px; }
-#dailyPaceTargetsSection [id^="paceCard"].is-complete { background:var(--pace-fill)!important;color:var(--pace-text)!important;box-shadow:inset 0 0 0 3px var(--pace-strong),4px 4px 0 #59492f!important; }
-#dailyPaceTargetsSection [id^="paceCard"]>div:first-child>span:first-child { color:var(--pace-strong)!important;font:700 14px 'Roboto Condensed',Arial,sans-serif!important; }
-#dailyPaceTargetsSection [id$="Val"] { color:var(--pace-text)!important;font:700 19px 'DM Mono',monospace!important; }
-#dailyPaceTargetsSection [id^="diff"] { color:var(--pace-text)!important;font:12px 'DM Mono',monospace!important; }
-#dailyPaceTargetsSection [id^="paceCard"]>div:last-child { color:var(--pace-text)!important;font-size:12px!important; }
-#dailyPaceTargetsSection [id^="paceCard"].is-complete [id$="Val"],#dailyPaceTargetsSection [id^="paceCard"].is-complete>div:first-child>span:first-child,#dailyPaceTargetsSection [id^="paceCard"].is-complete [id^="diff"],#dailyPaceTargetsSection [id^="paceCard"].is-complete>div:last-child { color:var(--pace-text)!important; }
+#dailyPaceTargetsSection [id^="paceCard"] {
+  min-height: 100px;
+  padding: 11px !important;
+  border-radius: 8px !important;
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+#dailyPaceTargetsSection [id^="paceCard"]:hover {
+  transform: translateY(-2px) !important;
+}
+#dailyPaceTargetsSection [id^="paceCard"].is-selected {
+  outline: 2px solid #f59e0b;
+  outline-offset: 2px;
+}
+#dailyPaceTargetsSection [id^="paceCard"]>div:first-child>span:first-child {
+  font: 700 13px 'Roboto Condensed', Arial, sans-serif !important;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+#dailyPaceTargetsSection [id$="Val"] {
+  font: 700 20px 'DM Mono', monospace !important;
+}
+#dailyPaceTargetsSection [id^="diff"] {
+  font: 600 12px 'DM Mono', monospace !important;
+}
+#dailyPaceTargetsSection [id^="paceCard"]>div:last-child {
+  font-size: 11px !important;
+}
+
+/* ====================================================================
+   DAILY PACE CARDS: NOT COMPLETED (Outline with Low Fill)
+   ==================================================================== */
+/* Light Mode - Incomplete */
+#dailyPaceTargetsSection #paceCardRelaxed:not(.is-complete) {
+  background: rgba(16, 185, 129, 0.08) !important;
+  border: 2px solid #10b981 !important;
+  border-left: 6px solid #059669 !important;
+  box-shadow: 0 2px 6px rgba(16, 185, 129, 0.08) !important;
+}
+#dailyPaceTargetsSection #paceCardRelaxed:not(.is-complete) > div:first-child > span:first-child {
+  color: #047857 !important;
+}
+#dailyPaceTargetsSection #paceCardRelaxed:not(.is-complete) #targetRelVal {
+  color: #064e3b !important;
+}
+#dailyPaceTargetsSection #paceCardRelaxed:not(.is-complete) #diffRelVal,
+#dailyPaceTargetsSection #paceCardRelaxed:not(.is-complete) > div:last-child {
+  color: #047857 !important;
+}
+
+#dailyPaceTargetsSection #paceCardMid:not(.is-complete) {
+  background: rgba(245, 158, 11, 0.08) !important;
+  border: 2px solid #f59e0b !important;
+  border-left: 6px solid #d97706 !important;
+  box-shadow: 0 2px 6px rgba(245, 158, 11, 0.08) !important;
+}
+#dailyPaceTargetsSection #paceCardMid:not(.is-complete) > div:first-child > span:first-child {
+  color: #b45309 !important;
+}
+#dailyPaceTargetsSection #paceCardMid:not(.is-complete) #targetMidVal {
+  color: #78350f !important;
+}
+#dailyPaceTargetsSection #paceCardMid:not(.is-complete) #diffMidVal,
+#dailyPaceTargetsSection #paceCardMid:not(.is-complete) > div:last-child {
+  color: #92400e !important;
+}
+
+#dailyPaceTargetsSection #paceCardAgg:not(.is-complete) {
+  background: rgba(168, 85, 247, 0.08) !important;
+  border: 2px solid #a855f7 !important;
+  border-left: 6px solid #7c3aed !important;
+  box-shadow: 0 2px 6px rgba(168, 85, 247, 0.08) !important;
+}
+#dailyPaceTargetsSection #paceCardAgg:not(.is-complete) > div:first-child > span:first-child {
+  color: #7c3aed !important;
+}
+#dailyPaceTargetsSection #paceCardAgg:not(.is-complete) #targetAggVal {
+  color: #581c87 !important;
+}
+#dailyPaceTargetsSection #paceCardAgg:not(.is-complete) #diffAggVal,
+#dailyPaceTargetsSection #paceCardAgg:not(.is-complete) > div:last-child {
+  color: #6b21a8 !important;
+}
+
+/* Dark Mode - Incomplete */
+[data-theme="dark"] #dailyPaceTargetsSection #paceCardRelaxed:not(.is-complete) {
+  background: rgba(16, 185, 129, 0.10) !important;
+  border: 2px solid rgba(16, 185, 129, 0.6) !important;
+  border-left: 6px solid #34d399 !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25) !important;
+}
+[data-theme="dark"] #dailyPaceTargetsSection #paceCardRelaxed:not(.is-complete) > div:first-child > span:first-child {
+  color: #34d399 !important;
+}
+[data-theme="dark"] #dailyPaceTargetsSection #paceCardRelaxed:not(.is-complete) #targetRelVal {
+  color: #ecfdf5 !important;
+}
+[data-theme="dark"] #dailyPaceTargetsSection #paceCardRelaxed:not(.is-complete) #diffRelVal,
+[data-theme="dark"] #dailyPaceTargetsSection #paceCardRelaxed:not(.is-complete) > div:last-child {
+  color: #a7f3d0 !important;
+}
+
+[data-theme="dark"] #dailyPaceTargetsSection #paceCardMid:not(.is-complete) {
+  background: rgba(245, 158, 11, 0.10) !important;
+  border: 2px solid rgba(245, 158, 11, 0.6) !important;
+  border-left: 6px solid #fbbf24 !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25) !important;
+}
+[data-theme="dark"] #dailyPaceTargetsSection #paceCardMid:not(.is-complete) > div:first-child > span:first-child {
+  color: #fbbf24 !important;
+}
+[data-theme="dark"] #dailyPaceTargetsSection #paceCardMid:not(.is-complete) #targetMidVal {
+  color: #fffbeb !important;
+}
+[data-theme="dark"] #dailyPaceTargetsSection #paceCardMid:not(.is-complete) #diffMidVal,
+[data-theme="dark"] #dailyPaceTargetsSection #paceCardMid:not(.is-complete) > div:last-child {
+  color: #fde68a !important;
+}
+
+[data-theme="dark"] #dailyPaceTargetsSection #paceCardAgg:not(.is-complete) {
+  background: rgba(168, 85, 247, 0.10) !important;
+  border: 2px solid rgba(168, 85, 247, 0.6) !important;
+  border-left: 6px solid #c084fc !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25) !important;
+}
+[data-theme="dark"] #dailyPaceTargetsSection #paceCardAgg:not(.is-complete) > div:first-child > span:first-child {
+  color: #c084fc !important;
+}
+[data-theme="dark"] #dailyPaceTargetsSection #paceCardAgg:not(.is-complete) #targetAggVal {
+  color: #faf5ff !important;
+}
+[data-theme="dark"] #dailyPaceTargetsSection #paceCardAgg:not(.is-complete) #diffAggVal,
+[data-theme="dark"] #dailyPaceTargetsSection #paceCardAgg:not(.is-complete) > div:last-child {
+  color: #e9d5ff !important;
+}
+
+/* ====================================================================
+   DAILY PACE CARDS: COMPLETED (Outline with Heavy Fill)
+   ==================================================================== */
+/* Shared text properties for all completed cards */
+#dailyPaceTargetsSection [id^="paceCard"].is-complete {
+  color: #ffffff !important;
+}
+#dailyPaceTargetsSection [id^="paceCard"].is-complete [id$="Val"] {
+  color: #ffffff !important;
+  font-weight: 800 !important;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+}
+#dailyPaceTargetsSection [id^="paceCard"].is-complete > div:first-child > span:first-child {
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+}
+#dailyPaceTargetsSection [id^="paceCard"].is-complete [id^="diff"],
+#dailyPaceTargetsSection [id^="paceCard"].is-complete > div:last-child {
+  color: rgba(255, 255, 255, 0.94) !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+#dailyPaceTargetsSection [id^="paceCard"].is-complete [id^="badgePace"] {
+  background: rgba(255, 255, 255, 0.25) !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.45) !important;
+}
+
+/* Light Mode - Completed (Heavy saturated fill) */
+#dailyPaceTargetsSection #paceCardRelaxed.is-complete {
+  background: linear-gradient(135deg, #059669 0%, #10b981 100%) !important;
+  border: 2px solid #047857 !important;
+  border-left: 6px solid #34d399 !important;
+  box-shadow: 0 4px 14px rgba(5, 150, 105, 0.35) !important;
+}
+#dailyPaceTargetsSection #paceCardMid.is-complete {
+  background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%) !important;
+  border: 2px solid #b45309 !important;
+  border-left: 6px solid #fbbf24 !important;
+  box-shadow: 0 4px 14px rgba(217, 119, 6, 0.35) !important;
+}
+#dailyPaceTargetsSection #paceCardAgg.is-complete {
+  background: linear-gradient(135deg, #7c3aed 0%, #8b5cf6 100%) !important;
+  border: 2px solid #6d28d9 !important;
+  border-left: 6px solid #c084fc !important;
+  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.35) !important;
+}
+
+/* Dark Mode - Completed (Heavy jewel-toned glowing fill) */
+[data-theme="dark"] #dailyPaceTargetsSection #paceCardRelaxed.is-complete {
+  background: linear-gradient(135deg, #047857 0%, #059669 100%) !important;
+  border: 2px solid #34d399 !important;
+  border-left: 6px solid #6ee7b7 !important;
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.5), 0 2px 6px rgba(0, 0, 0, 0.3) !important;
+}
+[data-theme="dark"] #dailyPaceTargetsSection #paceCardMid.is-complete {
+  background: linear-gradient(135deg, #b45309 0%, #d97706 100%) !important;
+  border: 2px solid #fbbf24 !important;
+  border-left: 6px solid #fde047 !important;
+  box-shadow: 0 0 20px rgba(245, 158, 11, 0.5), 0 2px 6px rgba(0, 0, 0, 0.3) !important;
+}
+[data-theme="dark"] #dailyPaceTargetsSection #paceCardAgg.is-complete {
+  background: linear-gradient(135deg, #7e22ce 0%, #9333ea 100%) !important;
+  border: 2px solid #c084fc !important;
+  border-left: 6px solid #e9d5ff !important;
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.5), 0 2px 6px rgba(0, 0, 0, 0.3) !important;
+}
+
 
 /* Journal, camp ledger and optional calculations. */
 body>main section>div:has(>button[id^="subnav"]) { display:flex;width:max-content;max-width:100%;gap:3px!important;padding:4px;margin:0!important;background:#544631!important;border:3px solid #302a20!important;box-shadow:3px 3px 0 var(--shadow);overflow:auto; }
@@ -809,59 +1004,7 @@ body :is(.vault-actions-card td,.vault-bills-card td,.vault-savings-card td,.vau
 [data-theme="dark"] body :is(.daily-stat-icon,.trade-metric-icon,.vault-card-icon,.stats-panel-icon,.setup-panel-icon,.setup-quickstart-icon) { background:var(--surface-soft)!important;color:var(--primary)!important; }
 #dailyPaceTargetsSection h2 { color:var(--ink)!important;font-size:17px!important; }
 #dailyPaceTargetsSection p { color:var(--muted)!important;font-size:13px!important; }
-#dailyPaceTargetsSection #paceCardRelaxed { --pace-strong:#047857;--pace-edge:#10b981;--pace-soft:#d1fae5;--pace-fill:#34d399;--pace-text:#064e3b; }
-#dailyPaceTargetsSection #paceCardMid { --pace-strong:#a16207;--pace-edge:#eab308;--pace-soft:#fef3c7;--pace-fill:#facc15;--pace-text:#422006; }
-#dailyPaceTargetsSection #paceCardAgg { --pace-strong:#7e22ce;--pace-edge:#a855f7;--pace-soft:#f3e8ff;--pace-fill:#c084fc;--pace-text:#3b0764; }
-[data-theme="dark"] #dailyPaceTargetsSection #paceCardRelaxed { --pace-strong:#34d399;--pace-edge:#10b981;--pace-soft:#0f2e22;--pace-fill:#065f46;--pace-text:#ecfdf5; }
-[data-theme="dark"] #dailyPaceTargetsSection #paceCardMid { --pace-strong:#fbbf24;--pace-edge:#f59e0b;--pace-soft:#33220c;--pace-fill:#78350f;--pace-text:#fffbeb; }
-[data-theme="dark"] #dailyPaceTargetsSection #paceCardAgg { --pace-strong:#c084fc;--pace-edge:#a855f7;--pace-soft:#2b183d;--pace-fill:#581c87;--pace-text:#faf5ff; }
 
-/* Dark mode completed pace cards: jewel-toned, glowing, high contrast white text */
-[data-theme="dark"] #dailyPaceTargetsSection [id^="paceCard"].is-complete {
-  color: #ffffff!important;
-}
-[data-theme="dark"] #dailyPaceTargetsSection #paceCardRelaxed.is-complete {
-  background: linear-gradient(135deg, #0d3525 0%, #175a40 100%)!important;
-  border: 2px solid #10b981!important;
-  border-left: 7px solid #34d399!important;
-  box-shadow: 0 0 16px rgba(16, 185, 129, 0.3), 3px 3px 0 var(--shadow)!important;
-}
-[data-theme="dark"] #dailyPaceTargetsSection #paceCardMid.is-complete {
-  background: linear-gradient(135deg, #352309 0%, #523710 100%)!important;
-  border: 2px solid #f59e0b!important;
-  border-left: 7px solid #fbbf24!important;
-  box-shadow: 0 0 16px rgba(245, 158, 11, 0.3), 3px 3px 0 var(--shadow)!important;
-}
-[data-theme="dark"] #dailyPaceTargetsSection #paceCardAgg.is-complete {
-  background: linear-gradient(135deg, #2c1443 0%, #4a2175 100%)!important;
-  border: 2px solid #a855f7!important;
-  border-left: 7px solid #c084fc!important;
-  box-shadow: 0 0 16px rgba(168, 85, 247, 0.3), 3px 3px 0 var(--shadow)!important;
-}
-[data-theme="dark"] #dailyPaceTargetsSection [id^="paceCard"].is-complete [id$="Val"] {
-  color: #ffffff!important;
-}
-[data-theme="dark"] #dailyPaceTargetsSection #paceCardRelaxed.is-complete > div:first-child > span:first-child {
-  color: #6ee7b7!important;
-}
-[data-theme="dark"] #dailyPaceTargetsSection #paceCardMid.is-complete > div:first-child > span:first-child {
-  color: #fde047!important;
-}
-[data-theme="dark"] #dailyPaceTargetsSection #paceCardAgg.is-complete > div:first-child > span:first-child {
-  color: #d8b4fe!important;
-}
-[data-theme="dark"] #dailyPaceTargetsSection #paceCardRelaxed.is-complete [id^="diff"],
-[data-theme="dark"] #dailyPaceTargetsSection #paceCardRelaxed.is-complete > div:last-child {
-  color: #a7f3d0!important;
-}
-[data-theme="dark"] #dailyPaceTargetsSection #paceCardMid.is-complete [id^="diff"],
-[data-theme="dark"] #dailyPaceTargetsSection #paceCardMid.is-complete > div:last-child {
-  color: #fde68a!important;
-}
-[data-theme="dark"] #dailyPaceTargetsSection #paceCardAgg.is-complete [id^="diff"],
-[data-theme="dark"] #dailyPaceTargetsSection #paceCardAgg.is-complete > div:last-child {
-  color: #e9d5ff!important;
-}
 
 /* A single earthy palette for light, dark, and semantic UI states. */
 body,

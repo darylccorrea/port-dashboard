@@ -904,7 +904,9 @@ function renderDailyDesk() {
   const timestampText = document.getElementById('sessionTimestampText');
 
   if (balInput) {
-    balInput.value = appState.logs[s] !== undefined ? appState.logs[s] : '';
+    if (document.activeElement !== balInput) {
+      balInput.value = appState.logs[s] !== undefined ? appState.logs[s] : '';
+    }
     balInput.disabled = isLocked || !profile;
     if (isLocked || !profile) {
       balInput.classList.add('bg-slate-100', 'text-slate-600', 'cursor-not-allowed');
@@ -2261,11 +2263,12 @@ function handleSessionBalanceChange(val) {
   const s = appState.activeSession;
   if (appState.lockedSessions[s]) return; // Protected
 
-  if (val === '' || isNaN(val)) {
+  const raw = typeof val === 'string' ? val.trim() : (val !== null && val !== undefined ? String(val).trim() : '');
+  if (raw === '' || isNaN(Number(raw))) {
     delete appState.logs[s];
     delete appState.timestamps[s];
   } else {
-    appState.logs[s] = parseFloat(val);
+    appState.logs[s] = parseFloat(raw);
     appState.timestamps[s] = new Date().toISOString();
   }
 
@@ -2282,12 +2285,37 @@ function saveActiveSession() {
     openModal({ title: 'Session is locked', message: 'Unlock this session before saving changes.' });
     return;
   }
-  if (!input || input.value.trim() === '' || !Number.isFinite(Number(input.value))) {
-    openModal({ title: 'Closing balance needed', message: 'Enter your closing balance to save this session.' });
-    input?.focus();
+  if (!input) return;
+
+  const rawVal = input.value.trim();
+  if (rawVal === '') {
+    // Gracefully clear session balance if input is emptied
+    delete appState.logs[session];
+    delete appState.timestamps[session];
+    const notes = document.getElementById('sessionNotesInput');
+    if (notes) appState.notes[session] = notes.value;
+    saveStateToStorage();
+    refreshAllViews();
+    const button = document.getElementById('btnSaveDailySession');
+    if (button) {
+      button.textContent = '✓ Cleared';
+      button.classList.add('is-saved');
+      setTimeout(() => {
+        if (!button.isConnected) return;
+        button.innerHTML = '<svg viewBox="0 0 40 56" aria-hidden="true"><use href="#sprite-hero"/></svg>Save session';
+        button.classList.remove('is-saved');
+      }, 1800);
+    }
     return;
   }
-  appState.logs[session] = Number(input.value);
+
+  if (!Number.isFinite(Number(rawVal))) {
+    openModal({ title: 'Valid balance needed', message: 'Please enter a valid numeric closing balance.' });
+    input.focus();
+    return;
+  }
+
+  appState.logs[session] = Number(rawVal);
   appState.timestamps[session] = new Date().toISOString();
   const notes = document.getElementById('sessionNotesInput');
   if (notes) appState.notes[session] = notes.value;
@@ -2330,6 +2358,8 @@ function fillTargetForActiveSession() {
   const target = getActiveTargetForSession(s);
   appState.logs[s] = target;
   appState.timestamps[s] = new Date().toISOString();
+  const balInput = document.getElementById('sessionBalanceInput');
+  if (balInput) balInput.value = target;
   saveStateToStorage();
   renderDailyDesk();
   render3PaceTargetsSection();
@@ -3353,7 +3383,7 @@ function pushStateToCloud() {
     updatedAt: new Date().toISOString()
   };
 
-  firestoreDb.collection('users').doc(docId).set(payload, { merge: true })
+  firestoreDb.collection('users').doc(docId).set(payload)
     .then(() => {
       appState.lastSyncedAt = new Date().toISOString();
       updateCloudStatus('online');
@@ -3696,10 +3726,10 @@ function attachFirestoreListener() {
             }
             if (data.activeProfileId) appState.activeProfileId = data.activeProfileId;
             if (data.activeSession) appState.activeSession = data.activeSession;
-            if (data.logs) appState.logs = Object.assign({}, appState.logs, data.logs);
-            if (data.lockedSessions) appState.lockedSessions = Object.assign({}, appState.lockedSessions, data.lockedSessions);
-            if (data.notes) appState.notes = Object.assign({}, appState.notes, data.notes);
-            if (data.timestamps) appState.timestamps = Object.assign({}, appState.timestamps, data.timestamps);
+            if (data.logs) appState.logs = data.logs;
+            if (data.lockedSessions) appState.lockedSessions = data.lockedSessions;
+            if (data.notes) appState.notes = data.notes;
+            if (data.timestamps) appState.timestamps = data.timestamps;
             if (data.vaultLedger && Array.isArray(data.vaultLedger)) appState.vaultLedger = data.vaultLedger;
             if (data.bills && Array.isArray(data.bills)) appState.bills = data.bills;
             if (data.tradeLogs && Array.isArray(data.tradeLogs)) appState.tradeLogs = data.tradeLogs;

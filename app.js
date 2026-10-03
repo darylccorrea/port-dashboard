@@ -291,11 +291,16 @@ function calculateTotalFinancialGoal(profile, activeDeskBalance, vaultLedger, bi
   const tradingRemaining = Math.max(0, tradingTarget - activeDeskBalance);
 
   // 2. Savings Component
-  const savingsTarget = milestoneCfg ? Math.max(0, Number(milestoneCfg.savingsGoal) || 0) : 0;
+  let savingsTarget = 0;
+  if (milestoneCfg && Number(milestoneCfg.savingsGoal) > 0 && Number(milestoneCfg.savingsGoal) !== 5000) {
+    savingsTarget = Number(milestoneCfg.savingsGoal);
+  } else if (profile && Number(profile.withdrawalTarget) > 0) {
+    savingsTarget = Number(profile.withdrawalTarget);
+  }
   const savingsBalance = vaultLedger
     .filter(r => r.bucket === 'savings')
     .reduce((sum, r) => sum + (r.bucket === 'savings' ? Math.max(0, Number(r.amount) || 0) : 0), 0);
-  const savingsAchieved = Math.min(savingsTarget, Math.max(0, savingsBalance));
+  const savingsAchieved = savingsTarget > 0 ? Math.min(savingsTarget, Math.max(0, savingsBalance)) : savingsBalance;
   const savingsRemaining = Math.max(0, savingsTarget - savingsBalance);
 
   // 3. Bills Component
@@ -349,7 +354,7 @@ const appState = {
   planViewMode: 'original',
   vaultLedger: [],
   milestoneCfg: {
-    savingsGoal: 5000,
+    savingsGoal: 0,
     deadline: '',
     reserveFloor: 100,
     strategy: 'gradual'
@@ -442,7 +447,11 @@ function loadStateFromStorage() {
     appState.pace = localStorage.getItem(STORAGE_KEYS.PACE) || 'relaxed';
     appState.planViewMode = localStorage.getItem(STORAGE_KEYS.PLAN_VIEW_MODE) || 'original';
     appState.vaultLedger = JSON.parse(localStorage.getItem(STORAGE_KEYS.VAULT_LEDGER) || '[]');
-    appState.milestoneCfg = JSON.parse(localStorage.getItem(STORAGE_KEYS.MILESTONE_CFG) || '{"savingsGoal":5000,"deadline":"","reserveFloor":100,"strategy":"gradual"}');
+    appState.milestoneCfg = JSON.parse(localStorage.getItem(STORAGE_KEYS.MILESTONE_CFG) || '{"savingsGoal":0,"deadline":"","reserveFloor":100,"strategy":"gradual"}');
+    if (appState.milestoneCfg && appState.milestoneCfg.savingsGoal === 5000) {
+      appState.milestoneCfg.savingsGoal = 0;
+      localStorage.setItem(STORAGE_KEYS.MILESTONE_CFG, JSON.stringify(appState.milestoneCfg));
+    }
     appState.milestoneEnabled = localStorage.getItem(STORAGE_KEYS.MILESTONE_ENABLED) === 'true';
     appState.skimMode = localStorage.getItem(STORAGE_KEYS.SKIM_MODE) === 'true';
     appState.bills = JSON.parse(localStorage.getItem(STORAGE_KEYS.BILLS_BREAKDOWN) || '[]');
@@ -1765,7 +1774,13 @@ function renderBillsBreakdown() {
 }
 
 function renderSavingsReserve() {
-  const goal = Math.max(0, Number(appState.milestoneCfg.savingsGoal) || 0);
+  const profile = getActiveProfile();
+  let goal = 0;
+  if (appState.milestoneCfg && Number(appState.milestoneCfg.savingsGoal) > 0 && Number(appState.milestoneCfg.savingsGoal) !== 5000) {
+    goal = Number(appState.milestoneCfg.savingsGoal);
+  } else if (profile && Number(profile.withdrawalTarget) > 0) {
+    goal = Number(profile.withdrawalTarget);
+  }
   const current = getVaultSavingsBalance();
   const pct = goal > 0 ? Math.min(100, (current / goal) * 100) : 0;
 
@@ -3733,7 +3748,12 @@ function attachFirestoreListener() {
             if (data.vaultLedger && Array.isArray(data.vaultLedger)) appState.vaultLedger = data.vaultLedger;
             if (data.bills && Array.isArray(data.bills)) appState.bills = data.bills;
             if (data.tradeLogs && Array.isArray(data.tradeLogs)) appState.tradeLogs = data.tradeLogs;
-            if (data.milestoneCfg) appState.milestoneCfg = data.milestoneCfg;
+            if (data.milestoneCfg) {
+              appState.milestoneCfg = data.milestoneCfg;
+              if (appState.milestoneCfg && appState.milestoneCfg.savingsGoal === 5000) {
+                appState.milestoneCfg.savingsGoal = 0;
+              }
+            }
             if (data.milestoneEnabled !== undefined) appState.milestoneEnabled = !!data.milestoneEnabled;
             if (data.skimMode !== undefined) appState.skimMode = !!data.skimMode;
             if (data.spreadsheetUrl) appState.spreadsheetUrl = data.spreadsheetUrl;
@@ -4357,7 +4377,12 @@ function handleImportJsonBackup(event) {
         if (data.vaultLedger) appState.vaultLedger = data.vaultLedger;
         if (data.bills) appState.bills = data.bills;
         if (data.tradeLogs) appState.tradeLogs = data.tradeLogs;
-        if (data.milestoneCfg) appState.milestoneCfg = data.milestoneCfg;
+        if (data.milestoneCfg) {
+          appState.milestoneCfg = data.milestoneCfg;
+          if (appState.milestoneCfg && appState.milestoneCfg.savingsGoal === 5000) {
+            appState.milestoneCfg.savingsGoal = 0;
+          }
+        }
         if (data.pace) appState.pace = data.pace;
 
         saveStateToStorage();

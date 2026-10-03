@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portfolio Growth Ladder & Capital Vault</title>
+  <title>Trove Expedition — Portfolio Growth &amp; Capital Vault</title>
   <link rel="stylesheet" href="styles.css">
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Firebase Compat for Cloud Sync -->
@@ -16,9 +16,10 @@
   <header class="bg-white border-b border-slate-200 sticky top-0 z-40">
     <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
       <div class="flex items-center gap-3">
-        <div class="w-8 h-8 rounded-lg bg-emerald-600 text-white flex items-center justify-center font-bold text-lg">🌿</div>
+        <div class="w-8 h-8 rounded-lg bg-emerald-600 text-white flex items-center justify-center font-bold text-lg">🧭</div>
         <div>
-          <h1 class="text-base sm:text-lg font-bold text-slate-800 leading-tight">Portfolio Growth Ladder & Capital Vault</h1>
+          <h1 class="text-base sm:text-lg font-bold text-slate-800 leading-tight">Trove Expedition</h1>
+          <div class="brand-caption">PORTFOLIO GROWTH · CAPITAL VAULT</div>
           <div class="flex items-center gap-2 text-xs text-slate-500">
             <span>Challenge: <strong id="headerProfileName" class="text-slate-700">28-Day Challenge</strong></span>
             <span>•</span>
@@ -61,6 +62,19 @@
 
   <!-- Shared isometric pixel-art sprite atlas. Decorative art only; app controls remain standard UI. -->
   <svg class="pixel-world-atlas" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+    <defs>
+      <g id="pixel-adventurer" shape-rendering="crispEdges">
+        <rect x="4" y="20" width="7" height="12" fill="#8b5136"/><rect x="2" y="22" width="4" height="8" fill="#d6a05d"/>
+        <rect x="7" y="9" width="8" height="8" fill="#edc88a"/><rect x="6" y="7" width="10" height="4" fill="#594332"/><rect x="9" y="13" width="2" height="2" fill="#26362c"/>
+        <path d="M6 18h11v12H5z" fill="#496b57"/><rect x="7" y="29" width="4" height="8" fill="#544534"/><rect x="13" y="29" width="4" height="8" fill="#70523a"/>
+        <path d="M19 5v27m-4-19 5-7 5 7m-9 0h9" fill="none" stroke="#a47a49" stroke-width="2"/><rect x="3" y="37" width="16" height="2" fill="#e7cf9c"/>
+      </g>
+      <g id="pixel-treasure" shape-rendering="crispEdges">
+        <path d="m0 8 14-7 18 7-14 8z" fill="#f0ca72"/><path d="m0 8 18 8v13L0 21z" fill="#a96532"/><path d="m18 16 14-8v13l-14 8z" fill="#75452d"/>
+        <path d="m3 9 11-5 14 5-11 7z" fill="#ffdf8d"/><path d="M5 12v8l13 6v-9z" fill="#bd7939"/><path d="m18 17 11-6v8l-11 7z" fill="#8c542d"/>
+        <rect x="14" y="13" width="5" height="8" fill="#e7bb5e"/><rect x="15" y="15" width="3" height="3" fill="#fff0b0"/><rect x="4" y="10" width="2" height="2" fill="#fff0b0"/>
+      </g>
+    </defs>
     <symbol id="world-daily" viewBox="0 0 720 220">
       <g shape-rendering="crispEdges">
         <path d="M214 126 455 53 701 127 464 205Z" fill="#72896a"/><path d="m214 126 250 79v16l-250-80z" fill="#394d41"/><path d="m464 205 237-78v16l-237 78z" fill="#293e34"/>
@@ -69,6 +83,7 @@
         <path d="m275 133 20-26 20 26v26l-20 16-20-16z" fill="#9f754f"/><path d="m295 107 20 26v26l-20 16z" fill="#70533b"/><path d="m271 132 24-32 24 32-24 14z" fill="#52755e"/><rect x="290" y="139" width="10" height="12" fill="#efc56f"/>
         <path d="m589 128 0-40 12-12 12 12v40z" fill="#7b6046"/><path d="m601 76 12 12v40l-12-6z" fill="#594833"/><rect x="596" y="98" width="10" height="10" fill="#e7bd69"/><path d="m584 87 17-21 17 21-17 9z" fill="#3e6955"/><path d="m584 75 17-19 17 19-17 9z" fill="#52785e"/>
         <rect x="340" y="133" width="28" height="22" fill="#9a6843"/><rect x="346" y="125" width="16" height="10" fill="#d4aa68"/><rect x="351" y="114" width="6" height="11" fill="#617f69"/>
+        <g transform="translate(315 112) scale(1.45)"><use href="#pixel-adventurer"/></g><g transform="translate(555 116) scale(1.08)"><use href="#pixel-treasure"/><animateTransform attributeName="transform" type="translate" values="555 116;555 112;555 116" dur="3.4s" repeatCount="indefinite"/></g>
         <g class="pixel-firefly"><rect x="366" y="66" width="4" height="4" fill="#ffe09a"/><animateTransform attributeName="transform" type="translate" values="0 0;0 -5;0 0" dur="2.8s" repeatCount="indefinite"/></g>
       </g>
     </symbol>
@@ -79,6 +94,7 @@
         <path d="m574 123 0-39 12-12 12 12v39z" fill="#806145"/><path d="m586 72 12 12v39l-12-5z" fill="#604b37"/><path d="m568 84 18-23 18 23-18 10z" fill="#54775b"/><path d="m568 72 18-20 18 20-18 10z" fill="#6a8c65"/>
         <path d="m327 135 18-24 18 24v25l-18 14-18-14z" fill="#a5764e"/><path d="m345 111 18 24v25l-18 14z" fill="#78573c"/><path d="m323 134 22-30 22 30-22 13z" fill="#5a7e5e"/>
         <path d="M393 129v-42" stroke="#584c3d" stroke-width="5"/><path d="m396 89 40 0-10 14h-30z" fill="#d6a74e"/><path d="m396 89 40 0-10 14h-30z" fill="#eac673"/>
+        <g transform="translate(365 114) scale(1.4)"><use href="#pixel-adventurer"/></g><g transform="translate(575 119) scale(1.02)"><use href="#pixel-treasure"/></g>
         <g class="pixel-firefly"><rect x="375" y="59" width="4" height="4" fill="#ffdf91"/><animateTransform attributeName="transform" type="translate" values="0 0;0 -6;0 0" dur="3.2s" repeatCount="indefinite"/></g>
       </g>
     </symbol>
@@ -91,6 +107,7 @@
         <path d="m365 148 0-50 16-10v60z" fill="#71906f"/><path d="m385 148 0-69 16-10v79z" fill="#d19f55"/><path d="m405 148 0-88 16-10v98z" fill="#9e7660"/>
         <rect x="369" y="110" width="8" height="8" fill="#cce4ac"/><rect x="389" y="97" width="8" height="8" fill="#ffe097"/><rect x="409" y="84" width="8" height="8" fill="#f1c4a0"/>
         <path d="m600 131 0-40 12-12 12 12v40z" fill="#7e6144"/><path d="m612 79 12 12v40l-12-6z" fill="#5f4a36"/><path d="m594 90 18-23 18 23-18 10z" fill="#4f7358"/>
+        <g transform="translate(330 118) scale(1.42)"><use href="#pixel-adventurer"/></g><g transform="translate(570 122) scale(1.02)"><use href="#pixel-treasure"/></g>
         <g class="pixel-firefly"><rect x="340" y="64" width="4" height="4" fill="#ffe09a"/><animateTransform attributeName="transform" type="translate" values="0 0;0 -5;0 0" dur="2.6s" repeatCount="indefinite"/></g>
       </g>
     </symbol>
@@ -101,6 +118,7 @@
         <path d="m446 113 42-25 49 21-43 26z" fill="#33493f"/><path d="m451 116 36-21 38 16-37 22z" fill="#4e6658"/><rect x="472" y="111" width="34" height="7" fill="#d8ad64"/><rect x="486" y="103" width="7" height="26" fill="#d8ad64"/><circle cx="490" cy="116" r="4" fill="#ffe3a0"/>
         <rect x="436" y="137" width="11" height="12" fill="#f2d08c"/><rect x="538" y="133" width="11" height="12" fill="#f2d08c"/><path d="m483 158 13-7 13 7v34l-13 8-13-8z" fill="#513b30"/>
         <path d="m347 137 0-37 12-12 12 12v37z" fill="#73593d"/><path d="m359 88 12 12v37l-12-6z" fill="#574731"/><path d="m341 100 18-22 18 22-18 10z" fill="#4c7658"/><path d="m341 88 18-21 18 21-18 10z" fill="#638762"/>
+        <g transform="translate(365 118) scale(1.35)"><use href="#pixel-adventurer"/></g><g transform="translate(575 120) scale(1.02)"><use href="#pixel-treasure"/><animate attributeName="opacity" values=".8;1;.8" dur="2.8s" repeatCount="indefinite"/></g>
         <g class="pixel-firefly"><rect x="584" y="77" width="5" height="5" fill="#ffe29a"/><animate attributeName="opacity" values=".25;1;.25" dur="2.4s" repeatCount="indefinite"/></g>
       </g>
     </symbol>
@@ -112,6 +130,7 @@
         <rect x="445" y="114" width="5" height="5" fill="#f5d889"/><rect x="470" y="108" width="5" height="5" fill="#f5d889"/><rect x="495" y="99" width="5" height="5" fill="#f5d889"/><rect x="520" y="108" width="5" height="5" fill="#f5d889"/>
         <path d="m353 148 0-33 12-10v43z" fill="#5c8265"/><path d="m373 148 0-53 12-10v63z" fill="#d0a050"/><path d="m393 148 0-71 12-10v81z" fill="#a27658"/><rect x="357" y="126" width="5" height="5" fill="#d4e2a1"/><rect x="377" y="112" width="5" height="5" fill="#fff0a6"/><rect x="397" y="96" width="5" height="5" fill="#ffd0a1"/>
         <path d="m588 135 0-39 12-12 12 12v39z" fill="#785c40"/><path d="m600 84 12 12v39l-12-6z" fill="#594633"/><path d="m582 96 18-22 18 22-18 10z" fill="#527858"/>
+        <g transform="translate(330 123) scale(1.35)"><use href="#pixel-adventurer"/></g><g transform="translate(560 128) scale(1.02)"><use href="#pixel-treasure"/></g>
         <g class="pixel-firefly"><rect x="338" y="69" width="4" height="4" fill="#ffe09a"/><animateTransform attributeName="transform" type="translate" values="0 0;0 -6;0 0" dur="3s" repeatCount="indefinite"/></g>
       </g>
     </symbol>
@@ -133,7 +152,7 @@
     <!-- ================= MODULE 1: DAILY TRACKER ================= -->
     <section id="tabContentTracker" class="tab-content active space-y-6">
       <div class="daily-hero">
-        <div class="daily-hero-copy"><span class="daily-kicker">STEP 1 OF 3</span><div class="daily-title-row"><span class="daily-title-icon">▦</span><div><h2>Daily Tracker</h2><p>Log your closing balance, track your progress and stay consistent.</p></div></div></div>
+        <div class="daily-hero-copy"><span class="daily-kicker">STEP 1 OF 3</span><div class="daily-title-row"><span class="daily-title-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m15.8 8.2-2.4 5.2-5.2 2.4 2.4-5.2z"/><path d="M12 3v2m0 14v2"/></svg></span><div><h2>Daily Tracker</h2><p>Log your closing balance, track your progress and stay consistent.</p></div></div></div>
         <svg class="iso-scene iso-scene--daily" viewBox="0 0 720 220" aria-hidden="true"><use href="#world-daily"></use></svg>
         <div class="daily-landscape" aria-hidden="true"><svg viewBox="0 0 720 170" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="dailySky" x2="0" y2="1"><stop stop-color="#18251d"/><stop offset="1" stop-color="#303a2c"/></linearGradient><linearGradient id="dailyValley" x2="0" y2="1"><stop stop-color="#314a35"/><stop offset="1" stop-color="#18251b"/></linearGradient></defs><rect width="720" height="170" fill="url(#dailySky)"/><circle cx="516" cy="52" r="34" fill="#f7b763"/><path d="M0 112 57 71l48 37 75-73 58 56 73-48 61 55 76-67 54 58 76-41 53 52 59-69v119H0Z" fill="#334333"/><path d="m0 130 74-44 64 45 73-41 57 42 78-42 63 43 68-38 78 45 73-51 92 45v36H0Z" fill="url(#dailyValley)"/><path d="M313 170q83-54 190-55 103 2 217 55" fill="none" stroke="#758759" stroke-width="3" opacity=".65"/><g fill="#142019"><path d="M42 130 58 83l16 47zm23 5 20-58 20 58zm520 4 17-50 17 50zm39 1 20-62 20 62z"/></g><g fill="#80a66a"><path d="M50 115q-22-20-21-43 24 8 31 37zm605-4q18-24 16-43-23 12-27 39z"/></g></svg></div>
         <div class="daily-hero-quote">Small steps<br><span>build big freedom.</span></div>
@@ -487,7 +506,7 @@
     <!-- ================= MODULE 2: SETUP PLAN & CHALLENGE ROADMAP ================= -->
     <section id="tabContentConfig" class="tab-content space-y-6">
       <div class="setup-hero">
-        <div class="setup-hero-copy"><span class="setup-kicker">STEP 1 OF 3</span><div class="setup-title-row"><span class="setup-title-icon">♧</span><div><h2>Setup Your Journey</h2><p>Set your targets, plan your challenge and get everything ready.</p></div></div></div>
+        <div class="setup-hero-copy"><span class="setup-kicker">STEP 1 OF 3</span><div class="setup-title-row"><span class="setup-title-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21V11m0 3c-4 0-6-2-6-6 4 0 6 2 6 6Zm0-3c0-4 2-6 6-6 0 4-2 6-6 6Z"/><path d="M5 21h14"/><circle cx="12" cy="4" r="1"/></svg></span><div><h2>Setup Your Journey</h2><p>Set your targets, plan your challenge and get everything ready.</p></div></div></div>
         <svg class="iso-scene iso-scene--setup" viewBox="0 0 720 220" aria-hidden="true"><use href="#world-setup"></use></svg>
         <div class="setup-landscape" aria-hidden="true"><svg viewBox="0 0 720 160" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="setupSky" x2="0" y2="1"><stop stop-color="#17241b"/><stop offset="1" stop-color="#27372b"/></linearGradient></defs><rect width="720" height="160" fill="url(#setupSky)"/><circle cx="514" cy="47" r="31" fill="#e8c88f"/><path d="m0 116 68-46 54 37 78-68 62 58 65-45 68 50 74-68 55 58 73-42 63 44 60-59v125H0Z" fill="#344736"/><path d="m0 134 82-42 67 39 77-45 62 47 75-44 64 44 72-48 71 47 82-46 68 36v38H0Z" fill="#19291f"/><path d="M0 148q119-23 216 1t198-4q127-34 306-1" fill="none" stroke="#748957" stroke-width="3" opacity=".55"/><g fill="#89a878"><path d="M55 130q-22-24-14-48 23 13 25 39zm602 3q22-23 17-46-23 12-27 38z"/></g></svg></div>
         <div class="setup-hero-quote">A clear plan<br><span>makes progress feel lighter.</span></div>
@@ -783,7 +802,7 @@
     <!-- ================= MODULE 3: TRADING SESSIONS & TRADE JOURNAL ================= -->
     <section id="tabContentTrades" class="tab-content space-y-6">
       <div class="trade-hero">
-        <div class="trade-hero-copy"><span class="trade-kicker">STEP 2 OF 3</span><div class="trade-title-row"><span class="trade-title-icon">▤</span><div><h2>Trading Sessions</h2><p>Log your trades, keep it simple and stay consistent.</p></div></div></div>
+        <div class="trade-hero-copy"><span class="trade-kicker">STEP 2 OF 3</span><div class="trade-title-row"><span class="trade-title-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 12h7M9 16h7"/></svg></span><div><h2>Trading Sessions</h2><p>Log your trades, keep it simple and stay consistent.</p></div></div></div>
         <svg class="iso-scene iso-scene--trades" viewBox="0 0 720 220" aria-hidden="true"><use href="#world-trades"></use></svg>
         <div class="trade-landscape" aria-hidden="true"><svg viewBox="0 0 720 180" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="tradeSky" x2="0" y2="1"><stop stop-color="#14231c"/><stop offset="1" stop-color="#27372b"/></linearGradient><linearGradient id="tradeDesk" x2="0" y2="1"><stop stop-color="#a45e2c"/><stop offset="1" stop-color="#422c1d"/></linearGradient></defs><rect width="720" height="180" fill="url(#tradeSky)"/><circle cx="570" cy="54" r="34" fill="#f6ad55" opacity=".92"/><path d="M0 105 60 74l45 34 58-56 64 48 53-38 46 52 49-39 52 42 48-48 56 42 54-61 52 48 83-49v131H0Z" fill="#17271d"/><path d="m0 130 90-41 66 42 78-49 65 44 80-37 68 40 82-47 68 38 63-45 60 30v75H0Z" fill="#101b15"/><path d="M0 143h720v37H0Z" fill="url(#tradeDesk)"/><rect x="390" y="20" width="124" height="74" rx="7" fill="#131a18" stroke="#92744a" stroke-width="3"/><rect x="398" y="28" width="108" height="57" rx="3" fill="#152822"/><path d="M402 72 420 62l14 6 15-27 15 19 13-8 12 9 16-21" fill="none" stroke="#29c69d" stroke-width="2"/><path d="M451 94h6v10h-6M430 104h49" stroke="#72553a" stroke-width="4"/><path d="M536 0v78m-10-4h20" stroke="#b4874b" stroke-width="3"/><path d="M551 77q30-14 55 2v19h-58z" fill="#473a27"/><path d="M578 96v19" stroke="#d49a50" stroke-width="2"/><path d="M615 130q7-37 14-5 8-29 16 3 8-44 15 2 9-34 17 3v30h-62z" fill="#0d1912"/></svg></div>
         <div class="trade-hero-quote">Small trades today.<br><span>Bigger tomorrow.</span></div>
@@ -914,7 +933,7 @@
     <!-- ================= MODULE 4: CAPITAL VAULT & FINANCIAL PLANNING ================= -->
     <section id="tabContentMilestones" class="tab-content space-y-6">
       <div class="vault-hero">
-        <div class="vault-hero-copy"><span class="vault-eyebrow">STEP 3 OF 5 · CAPITAL VAULT</span><h2>Capital Vault</h2><p>Manage your bills, savings and capital allocations.</p><span class="vault-quote">“Discipline today, freedom tomorrow.”</span></div>
+        <div class="vault-hero-copy"><span class="vault-eyebrow">STEP 3 OF 5 · CAPITAL VAULT</span><div class="vault-title-row"><span class="vault-title-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h16v11H4zM3 6h18v4H3z"/><path d="M8 6V4h8v2m-4 3v11m-3-7h2m2 0h2"/></svg></span><h2>Capital Vault</h2></div><p>Manage your bills, savings and capital allocations.</p><span class="vault-quote">“Discipline today, freedom tomorrow.”</span></div>
         <svg class="vault-art" viewBox="0 0 220 120" role="img" aria-label="Illustration of a secure vault with savings">
           <defs><radialGradient id="vaultGlow"><stop stop-color="#F59E0B" stop-opacity=".32"/><stop offset="1" stop-color="#F59E0B" stop-opacity="0"/></radialGradient><linearGradient id="safeMetal" x2="0" y2="1"><stop stop-color="#334B3D"/><stop offset="1" stop-color="#101A14"/></linearGradient></defs>
           <ellipse cx="112" cy="108" rx="88" ry="14" fill="url(#vaultGlow)"/><path d="M58 102V53a54 54 0 0 1 108 0v49" fill="url(#safeMetal)" stroke="#526B57" stroke-width="3"/><path d="M66 101V55a46 46 0 0 1 92 0v46" fill="#101A14" stroke="#D0AA63" stroke-opacity=".55" stroke-dasharray="3 5" stroke-width="2"/><circle cx="112" cy="66" r="24" fill="#17231B" stroke="#D0AA63" stroke-width="3"/><circle cx="112" cy="66" r="15" fill="none" stroke="#C28B38" stroke-width="2"/><path d="M112 48v36M94 66h36M99 53l26 26M125 53 99 79" stroke="#D0AA63" stroke-width="2.5" stroke-linecap="round"/><circle cx="112" cy="66" r="5" fill="#FFE5A3"/><path d="M45 96q-13-8-9-23 12 4 14 15M49 96q-3-15 8-23 7 13 0 23M177 97q14-9 10-23-12 4-15 15M174 96q3-15-8-23-7 13 0 23" fill="none" stroke="#34D399" stroke-width="3" stroke-linecap="round"/><g fill="#FBBF24"><circle cx="77" cy="96" r="4"/><circle cx="86" cy="101" r="4"/><circle cx="143" cy="98" r="4"/><circle cx="152" cy="103" r="4"/></g><g fill="#FFE5A3"><circle cx="48" cy="30" r="2"/><circle cx="179" cy="38" r="2"/><circle cx="153" cy="17" r="1.5"/><circle cx="77" cy="19" r="1.5"/></g>
@@ -1163,7 +1182,7 @@
     <!-- ================= MODULE 5: STATS & PERFORMANCE ANALYTICS ================= -->
     <section id="tabContentStats" class="tab-content space-y-6">
       <div class="stats-hero">
-        <div class="stats-hero-copy"><span class="stats-kicker">STEP 4 OF 5</span><div class="stats-title-row"><span class="stats-title-icon">🏆</span><div><h2>Stats &amp; Performance</h2><p>Analyze your performance, understand your progress and trade smarter.</p></div></div></div>
+        <div class="stats-hero-copy"><span class="stats-kicker">STEP 4 OF 5</span><div class="stats-title-row"><span class="stats-title-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4h8v5a4 4 0 0 1-8 0zm0 2H4v2a4 4 0 0 0 4 4m8-6h4v2a4 4 0 0 1-4 4m-4 1v5m-4 2h8m-7-5h6"/></svg></span><div><h2>Stats &amp; Performance</h2><p>Analyze your performance, understand your progress and trade smarter.</p></div></div></div>
         <svg class="iso-scene iso-scene--stats" viewBox="0 0 720 220" aria-hidden="true"><use href="#world-stats"></use></svg>
         <div class="stats-landscape" aria-hidden="true"><svg viewBox="0 0 720 160" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="statsSky" x2="0" y2="1"><stop stop-color="#17241b"/><stop offset="1" stop-color="#27372b"/></linearGradient></defs><rect width="720" height="160" fill="url(#statsSky)"/><circle cx="516" cy="44" r="32" fill="#f3b65f"/><path d="m0 111 65-46 56 37 76-69 61 60 65-45 66 49 71-68 55 58 76-42 65 45 64-62v132H0Z" fill="#344736"/><path d="m0 132 84-43 62 39 76-46 64 47 74-44 65 45 73-48 69 48 82-47 71 36v41H0Z" fill="#19291f"/><path d="M0 149q118-24 216 1t199-4q126-35 305-1" fill="none" stroke="#748957" stroke-width="3" opacity=".55"/><g fill="#101b14"><path d="m35 136 18-52 18 52zm603 0 18-57 18 57z"/></g></svg></div>
         <div class="stats-hero-quote">Data today,<br><span>better trades tomorrow.</span></div>

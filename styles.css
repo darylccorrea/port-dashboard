@@ -373,3 +373,117 @@ body>header nav button:hover .nav-icon{transform:rotate(-5deg) scale(1.06);backg
 @media(max-width:600px){.iso-scene,.vault-pixel-scene{right:-4%;width:68%;opacity:.48}.daily-hero-copy,.setup-hero-copy,.trade-hero-copy,.stats-hero-copy,.vault-hero-copy{max-width:100%}.quest-map{max-height:175px}}
 :root:not([data-theme="dark"]) .iso-scene,:root:not([data-theme="dark"]) .vault-pixel-scene{filter:drop-shadow(0 10px 11px rgba(79,67,43,.16))}
 @media(prefers-reduced-motion:reduce){.iso-scene,.vault-pixel-scene,.quest-map .quest-checkpoint.is-next,.quest-player{animation:none!important}.quest-map .quest-checkpoint{transition:none!important}}
+
+/* THE TROVE EXPEDITION — art-directed field journal skin */
+:root{
+  --exp-ink:#27352b;--exp-moss:#587454;--exp-leaf:#98a879;--exp-gold:#c58d3d;--exp-clay:#a86b48;
+  --exp-paper:#f3ead7;--exp-paper-light:#fbf5e8;--exp-paper-edge:#dac9a8;--exp-shadow:0 12px 30px rgba(61,48,29,.1);
+}
+[data-theme="dark"]{
+  --exp-ink:#e8e2d1;--exp-moss:#9eb483;--exp-leaf:#627c5c;--exp-gold:#e4b76c;--exp-clay:#d18a65;
+  --exp-paper:#18251d;--exp-paper-light:#1c2b21;--exp-paper-edge:#3b4c3b;--exp-shadow:0 16px 38px rgba(0,0,0,.24);
+}
+html{background:var(--app-bg)}
+body{position:relative;isolation:isolate;background-color:var(--app-bg)!important;background-image:radial-gradient(ellipse at 83% 5%,rgba(196,153,84,.12),transparent 28%),radial-gradient(ellipse at 6% 90%,rgba(83,122,79,.1),transparent 32%),linear-gradient(90deg,rgba(127,104,70,.025) 1px,transparent 1px),linear-gradient(rgba(127,104,70,.025) 1px,transparent 1px)!important;background-size:auto,auto,24px 24px,24px 24px!important;background-attachment:fixed!important}
+[data-theme="dark"] body{background-image:radial-gradient(ellipse at 84% 3%,rgba(164,126,67,.12),transparent 30%),radial-gradient(ellipse at 8% 85%,rgba(72,124,83,.13),transparent 36%),linear-gradient(90deg,rgba(201,190,150,.018) 1px,transparent 1px),linear-gradient(rgba(201,190,150,.018) 1px,transparent 1px)!important}
+body>main{position:relative;z-index:1;max-width:1540px!important;padding-top:32px!important;padding-bottom:56px!important}
+body>main:before{content:"";position:fixed;z-index:-1;pointer-events:none;inset:0 0 0 288px;opacity:.18;background:radial-gradient(ellipse at 25% 38%,transparent 0 23%,color-mix(in srgb,var(--exp-moss) 28%,transparent) 23.1% 23.35%,transparent 23.5% 32%,color-mix(in srgb,var(--exp-moss) 22%,transparent) 32.1% 32.35%,transparent 32.5% 41%,color-mix(in srgb,var(--exp-moss) 16%,transparent) 41.1% 41.35%,transparent 41.5%);mask-image:linear-gradient(90deg,#000,transparent 72%)}
+body>header{background-color:var(--sidebar-bg)!important;background-image:linear-gradient(165deg,color-mix(in srgb,var(--exp-paper-light) 90%,transparent),transparent 46%),repeating-linear-gradient(0deg,transparent 0 31px,color-mix(in srgb,var(--exp-paper-edge) 17%,transparent) 32px)!important;border-right:1px solid var(--exp-paper-edge)!important}
+body>header>div:first-child{gap:16px!important}
+body>header>div:first-child>div:first-child{padding-bottom:16px;border-bottom:1px dashed var(--exp-paper-edge)}
+body>header>div:first-child>div:first-child>div:first-child{position:relative;border-radius:9px!important;background:linear-gradient(145deg,#496d50,#263e30)!important;color:#f7e6b6!important;box-shadow:inset -4px -4px 0 rgba(7,23,15,.18),0 4px 0 #b68b50!important}
+body>header>div:first-child>div:first-child>div:first-child:after{content:"✦";position:absolute;right:-7px;top:-8px;color:var(--exp-gold);font-size:13px;text-shadow:0 1px 0 #fff}
+body>header h1{font-family:'Space Grotesk',sans-serif!important;letter-spacing:-.045em!important}
+.brand-caption{margin:2px 0 6px;color:var(--exp-moss);font:700 8px/1.2 'Space Grotesk',monospace;letter-spacing:.11em}
+body>header nav{gap:7px!important}
+body>header nav button{position:relative!important;border-radius:8px 14px 8px 14px!important;transition:transform .2s steps(3,end),background .2s,border-color .2s!important}
+body>header nav button:after{content:"";position:absolute;right:12px;top:50%;width:5px;height:5px;background:var(--exp-gold);opacity:0;transform:translateY(-50%) rotate(45deg);transition:opacity .18s}
+body>header nav button:hover:after,body>header nav button.active-nav-item:after{opacity:1}
+body>header nav button.active-nav-item{background:color-mix(in srgb,var(--exp-moss) 12%,var(--surface))!important;border-color:color-mix(in srgb,var(--exp-moss) 26%,var(--border))!important}
+.nav-icon{border-radius:8px!important;image-rendering:pixelated}
+.tab-content.active{animation:journalPageEnter .32s cubic-bezier(.16,1,.3,1) both}
+@keyframes journalPageEnter{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+#tabContentTracker.active:before,#tabContentConfig.active:before,#tabContentTrades.active:before,#tabContentMilestones.active:before,#tabContentStats.active:before{display:block;width:max-content;max-width:100%;white-space:nowrap;margin:0 0 -11px 3px;color:var(--exp-moss);font:700 10px/1.2 'Space Grotesk',monospace;letter-spacing:.15em;text-transform:uppercase}
+#tabContentTracker.active:before{content:"FIELD JOURNAL  /  ROUTE 01"}#tabContentConfig.active:before{content:"EXPEDITION PREPARATION  /  ROUTE 00"}#tabContentTrades.active:before{content:"FIELD NOTES  /  TRADE LOG"}#tabContentMilestones.active:before{content:"THE TROVE  /  PROVISIONS & RESERVES"}#tabContentStats.active:before{content:"CARTOGRAPHER'S RECORD  /  PERFORMANCE"}
+.daily-hero,.setup-hero,#tabContentTrades .trade-hero,#tabContentStats .stats-hero,#tabContentMilestones .vault-hero{position:relative;min-height:204px!important;display:flex!important;align-items:center;justify-content:flex-start;overflow:hidden;padding:28px 34px!important;border:1px solid var(--exp-paper-edge)!important;border-radius:12px 24px 12px 24px!important;background-color:var(--surface)!important;background-image:linear-gradient(100deg,var(--surface) 0%,color-mix(in srgb,var(--surface) 86%,transparent) 50%,color-mix(in srgb,var(--surface) 30%,transparent) 100%),repeating-linear-gradient(0deg,transparent 0 7px,color-mix(in srgb,var(--exp-moss) 5%,transparent) 8px)!important;box-shadow:var(--exp-shadow),inset 0 0 0 4px color-mix(in srgb,var(--exp-paper-edge) 15%,transparent)!important}
+.daily-hero:before,.setup-hero:before,#tabContentTrades .trade-hero:before,#tabContentStats .stats-hero:before,#tabContentMilestones .vault-hero:before{content:"";position:absolute;inset:8px;z-index:0;border:1px dashed color-mix(in srgb,var(--exp-paper-edge) 66%,transparent);border-radius:7px 18px 7px 18px;pointer-events:none}
+.daily-hero-copy,.setup-hero-copy,.trade-hero-copy,.stats-hero-copy,.vault-hero-copy{max-width:min(44%,650px)!important}
+.daily-kicker,.setup-kicker,.trade-kicker,.stats-kicker,.vault-eyebrow{margin:0 0 12px 73px!important;padding:5px 9px!important;border-radius:4px!important;background:color-mix(in srgb,var(--exp-moss) 12%,var(--surface))!important;color:var(--exp-moss)!important;font:700 10px/1.1 'Space Grotesk',monospace!important;letter-spacing:.1em!important}
+.daily-title-icon,.setup-title-icon,.trade-title-icon,.stats-title-icon{width:62px!important;height:66px!important;border:1px solid color-mix(in srgb,var(--exp-gold) 42%,var(--exp-paper-edge));border-radius:10px 16px 10px 16px!important;box-shadow:inset 0 -5px rgba(20,30,20,.08),4px 4px 0 color-mix(in srgb,var(--exp-paper-edge) 50%,transparent)!important}
+.daily-title-icon svg,.setup-title-icon svg,.trade-title-icon svg,.stats-title-icon svg,.vault-title-icon svg{width:30px;height:30px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.vault-title-row{display:flex;align-items:center;gap:14px;margin:1px 0 4px}
+.vault-title-icon{width:54px;height:56px;display:grid;place-items:center;flex:none;border:1px solid color-mix(in srgb,var(--exp-gold) 42%,var(--exp-paper-edge));border-radius:10px 16px;background:linear-gradient(145deg,#496d50,#263e30);color:#f0ca72;box-shadow:inset 0 -4px rgba(10,20,12,.16),4px 4px 0 color-mix(in srgb,var(--exp-paper-edge) 50%,transparent)}
+#tabContentMilestones .vault-title-row h2{margin:0!important}
+.daily-title-row h2,.setup-title-row h2,.trade-title-row h2,.stats-title-row h2,.vault-hero h2{font-family:'Space Grotesk','Plus Jakarta Sans',sans-serif!important;font-size:clamp(27px,3.1vw,40px)!important;letter-spacing:-.055em!important}
+#tabContentConfig .setup-title-row h2{font-size:clamp(25px,2.6vw,34px)!important;white-space:nowrap}
+#tabContentStats .stats-title-row h2{font-size:clamp(25px,2.6vw,34px)!important;white-space:nowrap}
+.daily-title-row p,.setup-title-row p,.trade-title-row p,.stats-title-row p,.vault-hero p{max-width:430px;font-size:14px!important;line-height:1.65!important}
+.iso-scene,.vault-pixel-scene{right:2%!important;bottom:-10px!important;width:min(72%,820px)!important;height:112%!important;filter:drop-shadow(0 16px 12px rgba(44,54,37,.24))!important;animation:sceneFloat 6.5s ease-in-out infinite!important}
+.iso-scene use,.vault-pixel-scene use{overflow:visible}
+.iso-scene--setup{animation-delay:-2s!important}.iso-scene--trades{animation-delay:-4s!important}.iso-scene--stats{animation-delay:-1s!important}.vault-pixel-scene{animation-delay:-3s!important}
+@keyframes sceneFloat{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-5px) rotate(.25deg)}}
+.daily-stats{gap:12px!important}
+.daily-stat,.trade-metric{position:relative;overflow:hidden;min-height:104px!important;padding:18px!important;border:1px solid var(--exp-paper-edge)!important;border-radius:10px 18px 10px 18px!important;background-color:var(--surface)!important;background-image:linear-gradient(145deg,color-mix(in srgb,var(--surface) 93%,var(--exp-paper-light)),var(--surface))!important;box-shadow:0 5px 0 color-mix(in srgb,var(--exp-paper-edge) 40%,transparent),var(--shadow-card)!important}
+.daily-stat:after,.trade-metric:after{content:"";position:absolute;right:-16px;top:-17px;width:62px;height:62px;border:1px solid color-mix(in srgb,var(--exp-moss) 12%,transparent);transform:rotate(45deg);box-shadow:0 0 0 8px color-mix(in srgb,var(--exp-moss) 3%,transparent),0 0 0 16px color-mix(in srgb,var(--exp-moss) 2%,transparent);pointer-events:none}
+.daily-stat-icon,.trade-metric-icon,.stats-panel-icon,.vault-card-icon,.setup-panel-icon{border-radius:9px 14px 9px 14px!important;box-shadow:inset 0 -4px rgba(10,24,15,.11),3px 3px 0 color-mix(in srgb,var(--exp-paper-edge) 42%,transparent)!important}
+#dailyPaceTargetsSection{padding:18px!important;border:1px solid var(--exp-paper-edge)!important;border-radius:12px 20px 12px 20px!important;background:color-mix(in srgb,var(--surface) 94%,var(--exp-paper))!important;box-shadow:var(--exp-shadow)!important}
+#dailyPaceTargetsSection>div:first-child{padding-bottom:12px!important;border-bottom:1px dashed var(--exp-paper-edge)!important}
+#dailyPaceTargetsSection h2{font:700 13px 'Space Grotesk',sans-serif!important;letter-spacing:.05em!important}
+#dailyPaceTargetsSection #paceCardRelaxed,#dailyPaceTargetsSection #paceCardMid,#dailyPaceTargetsSection #paceCardAgg,#dailyPaceTargetsSection #paceCardFinreq{position:relative;min-height:148px;padding:16px!important;border-width:1px!important;border-radius:8px 16px 8px 16px!important;box-shadow:inset 0 -4px rgba(0,0,0,.04),0 3px 0 color-mix(in srgb,var(--border-strong) 65%,transparent)!important;transition:transform .18s steps(3,end),box-shadow .2s!important}
+#dailyPaceTargetsSection #paceCardRelaxed:hover,#dailyPaceTargetsSection #paceCardMid:hover,#dailyPaceTargetsSection #paceCardAgg:hover,#dailyPaceTargetsSection #paceCardFinreq:hover{transform:translateY(-3px)!important}
+body>main section>div:has(>button[id^="subnav"]){margin:4px 0!important;padding:5px!important;border:1px solid var(--exp-paper-edge)!important;border-radius:8px 14px!important;background:color-mix(in srgb,var(--exp-paper) 42%,var(--surface))!important}
+body>main section>div:has(>button[id^="subnav"]) button{font-size:12px!important;font-weight:700!important;letter-spacing:.01em}
+.bg-white,.bento-card,.daily-session-card,.daily-progress-card,.daily-history-card,.stats-panel,.stats-summary-card,.vault-dashboard-card,#tabContentConfig .setup-quickstart,#tabContentConfig .setup-current-challenge,#tabContentConfig .setup-advanced{border:1px solid var(--exp-paper-edge)!important;border-radius:10px 18px 10px 18px!important;background-color:var(--surface)!important;background-image:linear-gradient(145deg,color-mix(in srgb,var(--surface) 94%,var(--exp-paper-light)),var(--surface))!important;box-shadow:0 4px 0 color-mix(in srgb,var(--exp-paper-edge) 28%,transparent),var(--shadow-card)!important}
+.daily-session-card,.daily-progress-card,.daily-history-card,.stats-panel,.vault-dashboard-card{padding:22px!important}
+.daily-session-card h3,.daily-progress-card h3,.daily-history-card h3,.stats-panel h3,.vault-dashboard-card h3,#tabContentConfig h3{font-family:'Space Grotesk',sans-serif!important;letter-spacing:-.035em}
+input,select,textarea{border-radius:7px 12px!important;background:color-mix(in srgb,var(--surface-subtle) 78%,var(--exp-paper))!important}
+button:not(body>header nav button){border-radius:8px 12px!important}
+.btn-save-session,.trade-add-button,.setup-start-row button:not(.setup-advanced-button){box-shadow:0 4px 0 color-mix(in srgb,var(--accent) 50%,#263d2d),0 8px 18px color-mix(in srgb,var(--accent) 14%,transparent)!important;font-weight:800!important;letter-spacing:.01em}
+.quest-map{border:4px solid color-mix(in srgb,var(--exp-paper-edge) 48%,transparent);border-radius:8px!important;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08),0 5px 0 color-mix(in srgb,var(--exp-paper-edge) 48%,transparent);image-rendering:pixelated}
+.quest-progress-top{padding:0 2px}
+.quest-level{border-radius:4px!important;background:#ba8b42!important;color:#fff2cf!important;box-shadow:inset 0 -2px rgba(91,58,21,.24)}
+.quest-xp-track{height:9px!important;border:1px solid var(--exp-paper-edge);border-radius:3px!important;background:color-mix(in srgb,var(--exp-paper) 65%,var(--surface))!important}
+.quest-xp-track span{border-radius:2px!important;background:repeating-linear-gradient(90deg,#5e8b5b 0 12px,#80a86a 12px 16px)!important;box-shadow:none!important}
+.quest-map-footer{border-radius:7px 12px!important;background:color-mix(in srgb,var(--exp-paper) 44%,var(--surface))!important;border-color:var(--exp-paper-edge)!important}
+.quest-next-icon{border-radius:6px!important;background:#c59245!important;color:#fff0bf!important;box-shadow:inset 0 -3px rgba(75,45,14,.22)}
+.quest-next-stop small{color:var(--exp-moss)!important;font-family:'Space Grotesk',monospace;letter-spacing:.08em}
+.quest-next-stop strong,.quest-goal-progress,.quest-session{color:var(--text-secondary)!important}
+.quest-goal-progress strong{color:var(--exp-moss)!important}
+.setup-quickstart{padding:18px 22px!important}
+.setup-step-indicator{border-radius:5px!important;box-shadow:inset 0 -3px rgba(0,0,0,.13),0 3px 0 var(--exp-paper-edge)}
+.setup-wizard-panel,.setup-form-grid>div{border-radius:10px 18px!important}
+#tabContentTrades .trade-metric{background-image:linear-gradient(145deg,color-mix(in srgb,var(--surface) 90%,var(--exp-paper)),var(--surface))!important}
+#tabContentTrades .trade-entry-card,#tabContentTrades #subtabTradesHistory>.bg-white{padding:22px!important}
+#tabContentTrades .trade-panel-heading:before{border-radius:9px 15px!important;box-shadow:inset 0 -4px rgba(0,0,0,.14),3px 3px 0 var(--exp-paper-edge)}
+#tabContentTrades .trade-history-heading{border-bottom:1px dashed var(--exp-paper-edge)!important}
+#tabContentTrades .simple-table th,#tabContentStats table th,#tabContentMilestones table th{font-family:'Space Grotesk',monospace!important;letter-spacing:.06em}
+#tabContentMilestones .vault-hero{min-height:204px!important}
+#tabContentMilestones .vault-hero-copy{max-width:49%!important}
+#tabContentMilestones .vault-eyebrow{margin-left:0!important}
+#tabContentMilestones .vault-quote{color:var(--exp-gold)!important}
+#tabContentMilestones .vault-dashboard-card{overflow:hidden}
+#tabContentMilestones.active>.vault-actions-card,#tabContentMilestones.active>.vault-monthly-card,#tabContentMilestones.active>.vault-allocation-card{grid-column:span 4}
+#tabContentMilestones .vault-card-heading p{color:var(--text-secondary)!important}
+#tabContentMilestones .vault-monthly-card #billsRunRateBanner{background:color-mix(in srgb,var(--amber-tint) 76%,var(--surface))!important;border-color:color-mix(in srgb,var(--amber) 24%,var(--border))!important}
+#tabContentMilestones .vault-monthly-card #billsRunRateBanner>span:first-child{color:var(--text-secondary)!important}
+#tabContentMilestones .vault-monthly-card #billsRunRateBanner strong,#tabContentMilestones .vault-monthly-card #billsTotalUnfundedText{color:var(--amber)!important}
+#tabContentMilestones .vault-monthly-savings{background:color-mix(in srgb,var(--lavender-tint) 80%,var(--surface))!important;border-color:color-mix(in srgb,var(--lavender) 26%,var(--border))!important}
+#tabContentMilestones .vault-monthly-savings>div:first-child span:first-child,#tabContentMilestones .vault-monthly-savings>div:last-child{color:var(--text-secondary)!important}
+#tabContentMilestones .vault-monthly-savings>div:first-child span:last-child{color:var(--lavender)!important}
+#tabContentMilestones .vault-allocation-labels,#tabContentMilestones .vault-allocation-legend{color:var(--text-secondary)!important}
+#tabContentMilestones .vault-allocation-labels strong{color:var(--text-primary)!important}
+#tabContentTrades .metric-mint strong{color:var(--exp-moss)!important}
+#tabContentTrades .metric-amber strong{color:#a66c12!important}
+#tabContentTrades .metric-lavender strong{color:#7453a5!important}
+#tabContentTrades .metric-coral strong{color:#bc574b!important}
+#tabContentStats .stats-summary-grid{gap:12px!important}
+#tabContentStats .stats-summary-card{position:relative;overflow:hidden;min-height:90px;padding:16px!important}
+#tabContentStats .stats-panel-heading{padding-bottom:14px!important;border-bottom:1px dashed var(--exp-paper-edge)!important}
+.stats-panel-icon{flex:none}
+::selection{background:color-mix(in srgb,var(--exp-gold) 36%,transparent);color:var(--text-primary)}
+@media(max-width:1100px){.daily-hero,.setup-hero,#tabContentTrades .trade-hero,#tabContentStats .stats-hero,#tabContentMilestones .vault-hero{min-height:184px!important;padding:23px!important}.iso-scene,.vault-pixel-scene{right:-5%!important;width:71%!important}.daily-hero-copy,.setup-hero-copy,.trade-hero-copy,.stats-hero-copy{max-width:44%!important}}
+@media(max-width:700px){body>main{padding-top:19px!important}.daily-hero,.setup-hero,#tabContentTrades .trade-hero,#tabContentStats .stats-hero,#tabContentMilestones .vault-hero{min-height:158px!important;padding:18px!important}.daily-hero-copy,.setup-hero-copy,.trade-hero-copy,.stats-hero-copy,#tabContentMilestones .vault-hero-copy{max-width:100%!important}.daily-title-row h2,.setup-title-row h2,.trade-title-row h2,.stats-title-row h2,.vault-hero h2{font-size:25px!important}#tabContentConfig .setup-title-row h2,#tabContentStats .stats-title-row h2{font-size:23px!important}.daily-title-row p,.setup-title-row p,.trade-title-row p,.stats-title-row p,.vault-hero p{max-width:52%;font-size:11px!important}.daily-title-icon,.setup-title-icon,.trade-title-icon,.stats-title-icon{width:46px!important;height:50px!important}.vault-title-icon{width:44px;height:46px}.vault-title-icon svg{width:25px;height:25px}.iso-scene,.vault-pixel-scene{right:-9%!important;bottom:-18px!important;width:79%!important;height:96%!important;opacity:.67}.daily-kicker,.setup-kicker,.trade-kicker,.stats-kicker{margin-left:59px!important;font-size:8px!important}.daily-stats{grid-template-columns:repeat(2,minmax(0,1fr))!important}.daily-stat:last-child{grid-column:span 2}.daily-session-card,.daily-progress-card,.daily-history-card,.stats-panel,.vault-dashboard-card{padding:15px!important}#tabContentTracker.active:before,#tabContentConfig.active:before,#tabContentTrades.active:before,#tabContentMilestones.active:before,#tabContentStats.active:before{font-size:8px}.quest-map{max-height:180px}}
+@media(prefers-reduced-motion:reduce){.tab-content.active{animation:none!important}.iso-scene,.vault-pixel-scene{animation:none!important}}
+:root:not([data-theme="dark"]) #tabContentMilestones .vault-monthly-card #billsRunRateBanner,:root:not([data-theme="dark"]) #tabContentMilestones .vault-monthly-savings{color:#504b40!important}
+:root:not([data-theme="dark"]) #tabContentMilestones .vault-monthly-card #billsRunRateBanner strong,:root:not([data-theme="dark"]) #tabContentMilestones .vault-monthly-card #billsTotalUnfundedText{color:#925d0a!important}
+:root:not([data-theme="dark"]) #tabContentMilestones .vault-monthly-savings>div:first-child span:last-child{color:#6e4c9f!important}

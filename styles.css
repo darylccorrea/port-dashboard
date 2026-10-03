@@ -525,11 +525,29 @@ body button:not(.world-node-sprite) { font-size:13px!important;line-height:1.25!
 #tabContentTracker #trackerSubnav button { padding:8px 10px!important;white-space:nowrap; }
 #tabContentTracker .btn-save-session,#tabContentTracker #btnToggleLockSession,#tabContentTracker #btnAutoFillTarget { font:700 13px 'Roboto Condensed',Arial,sans-serif!important; }
 
-/* Pack the vault actions and ledger into clean, balanced rows. */
-#tabContentMilestones .vault-actions-card>.bg-white>div:first-child { align-items:flex-start!important;flex-direction:column; }
-#tabContentMilestones .vault-actions-card>.bg-white>div:first-child>.flex.items-center.gap-2 { width:100%;display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px!important; }
-#tabContentMilestones .vault-actions-card button { min-height:42px!important;justify-content:center;font:700 13px 'Roboto Condensed',Arial,sans-serif!important; }
-#tabContentMilestones .vault-actions-card button:last-child { grid-column:1/-1; }
+/* Pack the vault actions into clean, balanced side-by-side cards. */
+.vault-actions-card { padding:14px!important; }
+.vault-actions-grid { display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:12px; margin-top:12px; }
+@media (max-width: 640px) { .vault-actions-grid { grid-template-columns:1fr; } }
+body .vault-actions-card .vault-action-btn { display:flex; align-items:center; gap:14px; padding:14px 18px!important; border-radius:10px!important; border:2px solid var(--panel-edge)!important; background:var(--surface-soft)!important; color:var(--ink)!important; cursor:pointer; text-align:left; transition:transform .15s ease, box-shadow .15s ease, border-color .15s ease, background-color .15s ease; width:100%; box-shadow:2px 2px 0 var(--shadow)!important; }
+body .vault-actions-card .vault-action-btn:hover { transform:translateY(-2px)!important; box-shadow:3px 3px 0 var(--shadow)!important; }
+body .vault-actions-card .vault-action-btn--stow { border-color:#9333ea!important; }
+body .vault-actions-card .vault-action-btn--stow:hover { border-color:#a855f7!important; background:color-mix(in srgb, #9333ea 8%, var(--surface-soft))!important; }
+body .vault-actions-card .vault-action-btn--bill { border-color:#d97706!important; }
+body .vault-actions-card .vault-action-btn--bill:hover { border-color:#f59e0b!important; background:color-mix(in srgb, #d97706 8%, var(--surface-soft))!important; }
+
+[data-theme="dark"] body .vault-actions-card .vault-action-btn--stow { border-color:#a855f7!important; }
+[data-theme="dark"] body .vault-actions-card .vault-action-btn--stow:hover { border-color:#c084fc!important; background:color-mix(in srgb, #a855f7 14%, var(--surface-soft))!important; }
+[data-theme="dark"] body .vault-actions-card .vault-action-btn--bill { border-color:#f59e0b!important; }
+[data-theme="dark"] body .vault-actions-card .vault-action-btn--bill:hover { border-color:#fbbf24!important; background:color-mix(in srgb, #f59e0b 14%, var(--surface-soft))!important; }
+
+.vault-action-icon-wrap { width:46px; height:46px; min-width:46px; flex:none; display:flex; align-items:center; justify-content:center; border-radius:8px; border:2px solid currentColor; }
+.vault-action-icon-wrap svg { width:30px; height:30px; display:block; }
+.vault-icon-purple { background:rgba(168,85,247,0.15)!important; color:#a855f7!important; border-color:#a855f7!important; }
+.vault-icon-amber { background:rgba(245,158,11,0.15)!important; color:#f59e0b!important; border-color:#f59e0b!important; }
+.vault-action-content { display:flex; flex-direction:column; gap:2px; flex:1; min-width:0; }
+.vault-action-title { font-family:'Roboto Condensed',sans-serif; font-size:14px!important; font-weight:700!important; color:var(--ink)!important; line-height:1.2; }
+.vault-action-desc { font-size:11px!important; color:var(--muted)!important; line-height:1.25; }
 #tabContentMilestones .vault-card-heading h3,
 #tabContentMilestones .vault-actions-card h3,
 #tabContentMilestones .vault-bills-card h3,
@@ -698,10 +716,56 @@ body :is(.vault-actions-card td,.vault-bills-card td,.vault-savings-card td,.vau
 #dailyPaceTargetsSection #paceCardRelaxed { --pace-strong:#047857;--pace-edge:#10b981;--pace-soft:#d1fae5;--pace-fill:#34d399;--pace-text:#064e3b; }
 #dailyPaceTargetsSection #paceCardMid { --pace-strong:#a16207;--pace-edge:#eab308;--pace-soft:#fef3c7;--pace-fill:#facc15;--pace-text:#422006; }
 #dailyPaceTargetsSection #paceCardAgg { --pace-strong:#7e22ce;--pace-edge:#a855f7;--pace-soft:#f3e8ff;--pace-fill:#c084fc;--pace-text:#3b0764; }
-[data-theme="dark"] #dailyPaceTargetsSection #paceCardRelaxed { --pace-strong:#6ee7b7;--pace-edge:#10b981;--pace-soft:#123d3b;--pace-fill:#34d399;--pace-text:#f0fdf4; }
-[data-theme="dark"] #dailyPaceTargetsSection #paceCardMid { --pace-strong:#fde047;--pace-edge:#eab308;--pace-soft:#463511;--pace-fill:#facc15;--pace-text:#fffbeb; }
-[data-theme="dark"] #dailyPaceTargetsSection #paceCardAgg { --pace-strong:#d8b4fe;--pace-edge:#a855f7;--pace-soft:#35204d;--pace-fill:#c084fc;--pace-text:#faf5ff; }
-[data-theme="dark"] #dailyPaceTargetsSection [id^="paceCard"].is-complete { --pace-text:#24133a; }
+[data-theme="dark"] #dailyPaceTargetsSection #paceCardRelaxed { --pace-strong:#34d399;--pace-edge:#10b981;--pace-soft:#0f2e22;--pace-fill:#065f46;--pace-text:#ecfdf5; }
+[data-theme="dark"] #dailyPaceTargetsSection #paceCardMid { --pace-strong:#fbbf24;--pace-edge:#f59e0b;--pace-soft:#33220c;--pace-fill:#78350f;--pace-text:#fffbeb; }
+[data-theme="dark"] #dailyPaceTargetsSection #paceCardAgg { --pace-strong:#c084fc;--pace-edge:#a855f7;--pace-soft:#2b183d;--pace-fill:#581c87;--pace-text:#faf5ff; }
+
+/* Dark mode completed pace cards: jewel-toned, glowing, high contrast white text */
+[data-theme="dark"] #dailyPaceTargetsSection [id^="paceCard"].is-complete {
+  color: #ffffff!important;
+}
+[data-theme="dark"] #dailyPaceTargetsSection #paceCardRelaxed.is-complete {
+  background: linear-gradient(135deg, #0d3525 0%, #175a40 100%)!important;
+  border: 2px solid #10b981!important;
+  border-left: 7px solid #34d399!important;
+  box-shadow: 0 0 16px rgba(16, 185, 129, 0.3), 3px 3px 0 var(--shadow)!important;
+}
+[data-theme="dark"] #dailyPaceTargetsSection #paceCardMid.is-complete {
+  background: linear-gradient(135deg, #352309 0%, #523710 100%)!important;
+  border: 2px solid #f59e0b!important;
+  border-left: 7px solid #fbbf24!important;
+  box-shadow: 0 0 16px rgba(245, 158, 11, 0.3), 3px 3px 0 var(--shadow)!important;
+}
+[data-theme="dark"] #dailyPaceTargetsSection #paceCardAgg.is-complete {
+  background: linear-gradient(135deg, #2c1443 0%, #4a2175 100%)!important;
+  border: 2px solid #a855f7!important;
+  border-left: 7px solid #c084fc!important;
+  box-shadow: 0 0 16px rgba(168, 85, 247, 0.3), 3px 3px 0 var(--shadow)!important;
+}
+[data-theme="dark"] #dailyPaceTargetsSection [id^="paceCard"].is-complete [id$="Val"] {
+  color: #ffffff!important;
+}
+[data-theme="dark"] #dailyPaceTargetsSection #paceCardRelaxed.is-complete > div:first-child > span:first-child {
+  color: #6ee7b7!important;
+}
+[data-theme="dark"] #dailyPaceTargetsSection #paceCardMid.is-complete > div:first-child > span:first-child {
+  color: #fde047!important;
+}
+[data-theme="dark"] #dailyPaceTargetsSection #paceCardAgg.is-complete > div:first-child > span:first-child {
+  color: #d8b4fe!important;
+}
+[data-theme="dark"] #dailyPaceTargetsSection #paceCardRelaxed.is-complete [id^="diff"],
+[data-theme="dark"] #dailyPaceTargetsSection #paceCardRelaxed.is-complete > div:last-child {
+  color: #a7f3d0!important;
+}
+[data-theme="dark"] #dailyPaceTargetsSection #paceCardMid.is-complete [id^="diff"],
+[data-theme="dark"] #dailyPaceTargetsSection #paceCardMid.is-complete > div:last-child {
+  color: #fde68a!important;
+}
+[data-theme="dark"] #dailyPaceTargetsSection #paceCardAgg.is-complete [id^="diff"],
+[data-theme="dark"] #dailyPaceTargetsSection #paceCardAgg.is-complete > div:last-child {
+  color: #e9d5ff!important;
+}
 
 /* A single earthy palette for light, dark, and semantic UI states. */
 body,
@@ -764,24 +828,11 @@ body .quest-map-footer { background:var(--surface-soft)!important; }
 [data-theme="dark"] #tabContentTracker .daily-route-board .quest-map-footer { background:var(--surface-soft)!important;border-color:var(--panel-edge)!important;color:var(--ink)!important; }
 #dailyPaceTargetsSection { background:var(--surface-soft)!important;border-color:var(--panel-edge)!important; }
 #dailyPaceTargetsSection>div:first-child { border-color:var(--line)!important; }
-#dailyPaceTargetsSection #paceCardRelaxed { --pace-strong:#42684a;--pace-edge:#789174;--pace-soft:var(--pace-relaxed-soft);--pace-fill:var(--pace-relaxed-fill);--pace-text:var(--pace-relaxed-ink); }
-#dailyPaceTargetsSection #paceCardMid { --pace-strong:#80611f;--pace-edge:#b69a58;--pace-soft:var(--pace-mid-soft);--pace-fill:var(--pace-mid-fill);--pace-text:var(--pace-mid-ink); }
-#dailyPaceTargetsSection #paceCardAgg { --pace-strong:#655574;--pace-edge:#9782a1;--pace-soft:var(--pace-aggressive-soft);--pace-fill:var(--pace-aggressive-fill);--pace-text:var(--pace-aggressive-ink); }
 [data-theme="dark"] body [class*="text-emerald-"] { color:var(--green)!important; }
 [data-theme="dark"] body [class*="text-blue-"] { color:var(--blue)!important; }
 [data-theme="dark"] body [class*="text-purple-"] { color:var(--purple)!important; }
 [data-theme="dark"] body [class*="text-red-"] { color:var(--red)!important; }
 [data-theme="dark"] body [class*="text-amber-"] { color:var(--gold)!important; }
-[data-theme="dark"] body [class*="bg-emerald-50"],[data-theme="dark"] body [class*="bg-emerald-100"] { background:var(--green-soft)!important;color:var(--green-soft-ink)!important; }
-[data-theme="dark"] body [class*="bg-blue-50"],[data-theme="dark"] body [class*="bg-blue-100"] { background:var(--blue-soft)!important;color:var(--blue-soft-ink)!important; }
-[data-theme="dark"] body [class*="bg-purple-50"],[data-theme="dark"] body [class*="bg-purple-200"] { background:var(--purple-soft)!important;color:var(--purple-soft-ink)!important; }
-[data-theme="dark"] body [class*="bg-amber-50"],[data-theme="dark"] body [class*="bg-amber-200"] { background:var(--gold-soft)!important;color:var(--gold-soft-ink)!important; }
-[data-theme="dark"] body [class*="bg-red-50"] { background:var(--red-soft)!important;color:var(--red-soft-ink)!important; }
-[data-theme="dark"] body [class*="bg-emerald-600"],[data-theme="dark"] body [class*="bg-emerald-700"],[data-theme="dark"] body [class*="bg-emerald-500"] { background:var(--green-solid)!important;color:var(--green-solid-ink)!important; }
-[data-theme="dark"] body [class*="bg-blue-600"],[data-theme="dark"] body [class*="bg-blue-700"] { background:var(--blue-solid)!important;color:var(--blue-solid-ink)!important; }
-[data-theme="dark"] body [class*="bg-purple-600"],[data-theme="dark"] body [class*="bg-purple-700"] { background:var(--purple-solid)!important;color:var(--purple-solid-ink)!important; }
-[data-theme="dark"] body [class*="bg-amber-600"],[data-theme="dark"] body [class*="bg-amber-700"] { background:var(--gold-solid)!important;color:var(--gold-solid-ink)!important; }
-[data-theme="dark"] body [class*="bg-red-600"],[data-theme="dark"] body [class*="bg-red-700"] { background:var(--red-solid)!important;color:var(--red-solid-ink)!important; }
 [data-theme="dark"] body [class*="bg-emerald-50"],[data-theme="dark"] body [class*="bg-emerald-100"] { background:var(--green-soft)!important;color:var(--green-soft-ink)!important; }
 [data-theme="dark"] body [class*="bg-blue-50"],[data-theme="dark"] body [class*="bg-blue-100"] { background:var(--blue-soft)!important;color:var(--blue-soft-ink)!important; }
 [data-theme="dark"] body [class*="bg-purple-50"],[data-theme="dark"] body [class*="bg-purple-200"] { background:var(--purple-soft)!important;color:var(--purple-soft-ink)!important; }
@@ -796,10 +847,6 @@ body .quest-map-footer { background:var(--surface-soft)!important; }
 [data-theme="dark"] body :is(.daily-stats,.trade-metrics,.stats-summary-grid,#dailyPaceTargetsSection,.setup-panel-heading,.trade-history-heading,.vault-card-heading,.stats-panel-heading) { background:var(--surface-soft)!important;color:var(--ink)!important;border-color:var(--panel-edge)!important; }
 [data-theme="dark"] body :is(.daily-stat-icon,.trade-metric-icon,.vault-card-icon,.stats-panel-icon,.setup-panel-icon,.setup-quickstart-icon) { background:var(--surface-soft)!important;color:var(--green)!important;border-color:var(--panel-edge)!important; }
 [data-theme="dark"] .btn-save-session,[data-theme="dark"] .trade-add-button,[data-theme="dark"] .setup-start-row button:not(.setup-advanced-button),[data-theme="dark"] #btnExecuteProfitAlloc,[data-theme="dark"] #btnSubmitManualSkim,[data-theme="dark"] #btnSaveMilestoneConfig { background:var(--primary)!important;border-color:var(--panel-edge)!important;color:var(--primary-ink)!important; }
-[data-theme="dark"] #dailyPaceTargetsSection #paceCardRelaxed { --pace-strong:#a8c292;--pace-edge:#708a6b;--pace-soft:var(--pace-relaxed-soft);--pace-fill:var(--pace-relaxed-fill);--pace-text:var(--pace-relaxed-ink); }
-[data-theme="dark"] #dailyPaceTargetsSection #paceCardMid { --pace-strong:#e2cb8d;--pace-edge:#9f8951;--pace-soft:var(--pace-mid-soft);--pace-fill:var(--pace-mid-fill);--pace-text:var(--pace-mid-ink); }
-[data-theme="dark"] #dailyPaceTargetsSection #paceCardAgg { --pace-strong:#c5b1d0;--pace-edge:#82718d;--pace-soft:var(--pace-aggressive-soft);--pace-fill:var(--pace-aggressive-fill);--pace-text:var(--pace-aggressive-ink); }
-[data-theme="dark"] #dailyPaceTargetsSection [id^="paceCard"].is-complete { --pace-text:#1e1a20; }
 [data-theme="dark"] #tabContentTracker .daily-stats,[data-theme="dark"] #tabContentTrades .trade-metrics,[data-theme="dark"] .stats-summary-grid { background:var(--surface-soft)!important;border-color:var(--panel-edge)!important; }
 [data-theme="dark"] #tabContentTracker .daily-stat,[data-theme="dark"] #tabContentTrades .trade-metric,[data-theme="dark"] .stats-summary-card { background:var(--paper-hi)!important;border-color:var(--panel-edge)!important;color:var(--ink)!important; }
 [data-theme="dark"] #tabContentTracker .daily-stat strong,[data-theme="dark"] #tabContentTrades .trade-metric strong,[data-theme="dark"] .stats-summary-card>div:last-child { color:var(--ink)!important; }

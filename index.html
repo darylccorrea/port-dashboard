@@ -1956,18 +1956,32 @@
 
       <!-- Quick actions -->
       <div id="subtabVaultOverview" class="vault-dashboard-card vault-actions-card">
-        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-4">
-          <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-3">
-            <div><h3 class="text-sm font-bold text-slate-800">Quick Actions</h3><p class="text-xs text-slate-500">Manage your money flow.</p></div>
-            <div class="flex items-center gap-2">
-              <button onclick="openAddSavingsModal()" class="px-3 py-1.5 text-xs font-bold rounded-lg bg-purple-600 text-white hover:bg-purple-700 sprite-action">
-                <svg viewBox="0 0 54 42" aria-hidden="true"><use href="#sprite-chest"/></svg>Stow treasure
-              </button>
-              <button onclick="handleQuickPayNextBill()" class="px-3 py-1.5 text-xs font-bold rounded-lg bg-amber-600 text-white hover:bg-amber-700 sprite-action">
-                <svg viewBox="0 0 30 40" aria-hidden="true"><use href="#sprite-flame"/></svg>Pay bill
-              </button>
-            </div>
+        <div class="vault-card-heading">
+          <span class="vault-card-icon vault-icon-amber">⚡</span>
+          <div>
+            <h3>Quick Actions</h3>
+            <p>Manage your vault reserves and disbursements.</p>
           </div>
+        </div>
+        <div class="vault-actions-grid">
+          <button type="button" onclick="openAddSavingsModal()" class="vault-action-btn vault-action-btn--stow">
+            <span class="vault-action-icon-wrap vault-icon-purple">
+              <svg viewBox="0 0 40 32" aria-hidden="true"><use href="#sprite-chest"/></svg>
+            </span>
+            <div class="vault-action-content">
+              <strong class="vault-action-title">Stow Treasure</strong>
+              <span class="vault-action-desc">Bank profits into savings reserve</span>
+            </div>
+          </button>
+          <button type="button" onclick="handleQuickPayNextBill()" class="vault-action-btn vault-action-btn--bill">
+            <span class="vault-action-icon-wrap vault-icon-amber">
+              <svg viewBox="0 0 30 40" aria-hidden="true"><use href="#sprite-flame"/></svg>
+            </span>
+            <div class="vault-action-content">
+              <strong class="vault-action-title">Pay Bill</strong>
+              <span class="vault-action-desc">Disburse payment from bills reserve</span>
+            </div>
+          </button>
         </div>
       </div>
 

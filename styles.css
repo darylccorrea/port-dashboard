@@ -241,3 +241,28 @@ body>main section>div:has(>button[id^="subnav"]) button.active-subtab{background
 :root:not([data-theme="dark"]) .trade-more-details,:root:not([data-theme="dark"]) .trade-history-heading{border-color:#e5ddcf!important}:root:not([data-theme="dark"]) .trade-more-details summary{color:#5c5549}:root:not([data-theme="dark"]) .setup-preview-stats strong{font-family:'Space Grotesk',monospace}
 :root:not([data-theme="dark"]) .stats-summary-card label,:root:not([data-theme="dark"]) .stats-summary-card small,:root:not([data-theme="dark"]) .stats-panel{color:#514d43}:root:not([data-theme="dark"]) .stats-summary-card strong{color:#292820}
 :root:not([data-theme="dark"]) .stats-panel svg text{fill:#655f54!important}
+
+/* Repair the tracker surfaces whose original selectors include ID-level specificity. */
+.nav-icon{width:17px;height:17px;display:inline-block;vertical-align:-3px;margin-right:5px;fill:none!important;stroke:currentColor!important;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+:root:not([data-theme="dark"]) #tabContentTracker #dailyPaceTargetsSection{border-color:#e5ddcf!important;background:#fffdf8!important;color:#39372f!important}
+:root:not([data-theme="dark"]) #tabContentTracker #dailyPaceTargetsSection>div:first-child{border-color:#e5ddcf!important}
+:root:not([data-theme="dark"]) #tabContentTracker #dailyPaceTargetsSection h2{color:#302e27!important}
+:root:not([data-theme="dark"]) #tabContentTracker #dailyPaceTargetsSection p,:root:not([data-theme="dark"]) #tabContentTracker #dailyPaceTargetsSection .text-slate-500{color:#716a5e!important}
+:root:not([data-theme="dark"]) #tabContentTracker #dailyPaceTargetsSection [id^="paceCard"]{border-color:#e5ddcf!important;background:#f8f3e9!important;color:#302e27!important;box-shadow:0 3px 10px rgba(74,57,34,.045)}
+:root:not([data-theme="dark"]) #tabContentTracker #dailyPaceTargetsSection [id^="paceCard"].is-selected{background:#edf7ef!important;border-color:#48aa78!important;box-shadow:inset 0 0 0 1px rgba(72,170,120,.18)}
+:root:not([data-theme="dark"]) #tabContentTracker #dailyPaceTargetsSection [id^="paceCard"]>div:first-child>span:first-child{color:#514d43!important}
+:root:not([data-theme="dark"]) #tabContentTracker #dailyPaceTargetsSection [id^="paceCard"] [id$="Val"]{color:#8a641d!important}
+:root:not([data-theme="dark"]) #tabContentTracker #dailyPaceTargetsSection [id^="paceCard"] [id^="diff"]{color:#716a5e!important}
+:root:not([data-theme="dark"]) #tabContentTracker #dailyPaceTargetsSection [id^="paceCard"]>div:last-child{color:#397956!important}
+:root:not([data-theme="dark"]) #tabContentTracker #dailyPaceTargetsSection #paceCardMid>div:last-child{color:#9b651a!important}
+:root:not([data-theme="dark"]) #tabContentTracker #dailyPaceTargetsSection #paceCardAgg>div:last-child{color:#7258a0!important}
+:root:not([data-theme="dark"]) #tabContentTracker .daily-session-card,:root:not([data-theme="dark"]) #tabContentTracker .daily-progress-card,:root:not([data-theme="dark"]) #tabContentTracker .daily-history-card{border-color:#e5ddcf!important;background:#fffdf8!important;color:#39372f!important;box-shadow:0 5px 18px rgba(74,57,34,.055)}
+:root:not([data-theme="dark"]) #tabContentTracker .daily-log-fields label{color:#514d43!important}
+:root:not([data-theme="dark"]) #tabContentTracker .daily-log-fields input,:root:not([data-theme="dark"]) #tabContentTracker .daily-log-fields textarea{background:#f7f1e7!important;border-color:#ddd3c1!important;color:#302e27!important}
+:root:not([data-theme="dark"]) #tabContentTracker .daily-session-pnl>div{border-color:#acd8bd;background:#edf7ef}
+:root:not([data-theme="dark"]) #tabContentTracker .daily-history-card>div:first-child{background:#f2ecdf!important;border-color:#e5ddcf!important}
+:root:not([data-theme="dark"]) #tabContentTracker .daily-progress-heading h3{color:#292820!important}
+:root:not([data-theme="dark"]) #tabContentTracker .daily-progress-heading p{color:#746d62!important}
+:root:not([data-theme="dark"]) #tabContentTracker .quest-map-footer{background:#f4efe5;border-color:#e2d9c9}
+:root:not([data-theme="dark"]) #tabContentTracker .quest-session,:root:not([data-theme="dark"]) #tabContentTracker .quest-next-stop strong,:root:not([data-theme="dark"]) #tabContentTracker .quest-goal-progress{color:#504b40}
+:root:not([data-theme="dark"]) #tabContentTracker .quest-xp-track{background:#e1dacd}

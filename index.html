@@ -961,13 +961,13 @@
         </div>
         <p id="cfgActiveChallengeDates" class="setup-challenge-dates">Challenge dates</p>
         <div class="setup-challenge-actions">
-          <button id="btnEditActiveChallenge" type="button" class="setup-icon-action" aria-label="Edit selected challenge" title="Edit challenge"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 16.5-.8 4.3 4.3-.8L19.7 7.8a2.1 2.1 0 0 0-3-3z"/><path d="m14.8 6.7 3 3M4 21h16"/></svg></button>
-          <button id="btnDeleteActiveChallenge" type="button" class="setup-icon-action is-danger" aria-label="Delete selected challenge" title="Delete challenge"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3m3 0-.8 13H6.8L6 7m4 4v5m4-5v5"/></svg></button>
+          <button id="btnEditActiveChallenge" type="button" class="setup-icon-action" aria-label="Edit selected challenge" title="Edit challenge" onclick="handleEditActiveChallenge()"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 16.5-.8 4.3 4.3-.8L19.7 7.8a2.1 2.1 0 0 0-3-3z"/><path d="m14.8 6.7 3 3M4 21h16"/></svg></button>
+          <button id="btnDeleteActiveChallenge" type="button" class="setup-icon-action is-danger" aria-label="Delete selected challenge" title="Delete challenge" onclick="handleDeleteActiveChallenge()"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3m3 0-.8 13H6.8L6 7m4 4v5m4-5v5"/></svg></button>
         </div>
       </section>
 
-      <!-- SUB-TAB 2: CHALLENGE WIZARD -->
-      <div id="subtabCfgWizard" class="subtab-content setup-wizard-panel">
+      <!-- CHALLENGE WIZARD PANEL -->
+      <div id="subtabCfgWizard" class="setup-wizard-panel">
           <!-- STEP 1: CORE PARAMETERS -->
           <div id="wizardStep1" class="setup-step-content">
             <div class="setup-form-panel">
@@ -1716,84 +1716,6 @@
             <button type="button" class="account-export-button" onclick="exportJsonBackup()">
               📥 Export JSON
             </button>
-          </div>
-        </section>
-
-        <!-- 4. FIREBASE & CLOUD SETUP PANEL (Full width) -->
-        <section class="account-panel account-config-panel" aria-labelledby="accountConfigHeading">
-          <div class="account-panel-heading">
-            <span class="account-panel-icon account-panel-icon--blue">☁</span>
-            <div>
-              <h3 id="accountConfigHeading">Firebase & Cloud Integration</h3>
-              <p>Connect your private Firebase project to enable cross-device cloud sync and Google sign-in.</p>
-            </div>
-          </div>
-
-          <div class="account-config-status-bar">
-            <div class="flex items-center gap-2">
-              <span id="firebaseStatusBadge" class="badge badge-gray">Not Configured</span>
-              <span id="firebaseStatusHint" class="text-xs text-slate-500">Add web configuration JSON to connect.</span>
-            </div>
-            <button type="button" class="account-copy-rules-btn" onclick="copyFirestoreRulesToClipboard()" title="Copy recommended security rules for Firestore">
-              📋 Copy Security Rules
-            </button>
-          </div>
-
-          <div class="account-config-form space-y-3 pt-2">
-            <div>
-              <label for="firebaseCfgInput" class="block text-xs font-semibold text-slate-700 uppercase mb-1">
-                Firebase Web Config (JSON or JavaScript Object)
-              </label>
-              <textarea id="firebaseCfgInput" rows="4" placeholder='{\n  "apiKey": "AIzaSy...",\n  "authDomain": "your-app.firebaseapp.com",\n  "projectId": "your-app",\n  "storageBucket": "your-app.appspot.com",\n  "messagingSenderId": "...",\n  "appId": "..."\n}' class="w-full p-2.5 border border-slate-300 rounded-lg text-xs font-num font-mono bg-slate-50"></textarea>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-              <div>
-                <label for="syncKeyInput" class="block text-xs font-semibold text-slate-700 uppercase mb-1">
-                  Custom Sync Key / Portfolio ID (Optional)
-                </label>
-                <input id="syncKeyInput" type="text" placeholder="Defaults to Google user UID when signed in" class="w-full p-2 border border-slate-300 rounded-lg text-xs font-num">
-              </div>
-              <div>
-                <label for="webhookUrlInput" class="block text-xs font-semibold text-slate-700 uppercase mb-1">
-                  Google Apps Script Webhook URL (Optional)
-                </label>
-                <input id="webhookUrlInput" type="url" placeholder="https://script.google.com/macros/s/.../exec" class="w-full p-2 border border-slate-300 rounded-lg text-xs">
-              </div>
-            </div>
-
-            <div class="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-slate-100">
-              <div class="flex flex-wrap gap-2">
-                <button id="btnSaveFirebaseCfg" type="button" class="account-btn-primary" onclick="handleSaveFirebaseConfig()">
-                  Save & Connect Firebase
-                </button>
-                <button id="btnManualSync" type="button" class="account-btn-secondary" onclick="handleManualCloudSync()">
-                  Sync Now
-                </button>
-                <button id="btnSaveWebhook" type="button" class="account-btn-secondary" onclick="handleSaveWebhookUrl()">
-                  Save Webhook
-                </button>
-                <button type="button" class="account-btn-secondary" onclick="openAppsScriptModal()">
-                  📄 Apps Script Code
-                </button>
-              </div>
-              <div>
-                <button id="btnDisconnectFirebase" type="button" class="account-btn-danger" onclick="handleDisconnectFirebase()">
-                  Disconnect
-                </button>
-              </div>
-            </div>
-
-            <!-- Quick Firebase Setup Guide -->
-            <details class="account-setup-guide">
-              <summary>Quick Setup Guide (3 minutes to private cloud)</summary>
-              <div class="account-guide-steps text-xs text-slate-600 space-y-2 pt-2">
-                <p>1. Open <a href="https://console.firebase.google.com" target="_blank" rel="noopener" class="text-emerald-700 underline font-semibold">Firebase Console</a> and click <strong>Add project</strong> (free Spark tier).</p>
-                <p>2. Go to <strong>Build &gt; Authentication &gt; Sign-in method</strong>, and enable <strong>Google</strong>.</p>
-                <p>3. Go to <strong>Build &gt; Firestore Database &gt; Create database</strong>. In the <strong>Rules</strong> tab, click <em>Copy Security Rules</em> above, paste, and click <strong>Publish</strong>.</p>
-                <p>4. Go to <strong>Project Settings (gear icon) &gt; General &gt; Your apps</strong>, click <strong>&lt;/&gt; Web</strong>, copy the config object, and paste it into the box above.</p>
-              </div>
-            </details>
           </div>
         </section>
       </div>

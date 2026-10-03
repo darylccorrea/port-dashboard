@@ -323,23 +323,23 @@ function calculateTotalFinancialGoal(profile, activeDeskBalance, vaultLedger, bi
 // ==========================================
 
 const DEFAULT_PROFILE = {
-  id: 'default_empty',
-  name: 'New Challenge',
-  base: 0,
-  portTarget: 0,
-  targetBalance: 0,
-  totalSessions: 2,
+  id: 'challenge_1',
+  name: '28-Day Challenge',
+  base: 100,
+  portTarget: 7000,
+  targetBalance: 7000,
+  totalSessions: 28,
   startDate: new Date().toISOString().split('T')[0],
   curveType: 'tri_pace_independent',
   withdrawalTarget: 0,
   withdrawalDays: 28,
   skimMode: false,
-  sessions: generateIndependentTriPaceLadder(0, 0, 2)
+  sessions: generateIndependentTriPaceLadder(100, 7000, 28)
 };
 
 const appState = {
   profiles: [DEFAULT_PROFILE],
-  activeProfileId: 'default_empty',
+  activeProfileId: 'challenge_1',
   activeSession: 1,
   logs: {},
   lockedSessions: {},
@@ -349,9 +349,9 @@ const appState = {
   planViewMode: 'original',
   vaultLedger: [],
   milestoneCfg: {
-    savingsGoal: 0,
+    savingsGoal: 5000,
     deadline: '',
-    reserveFloor: 0,
+    reserveFloor: 100,
     strategy: 'gradual'
   },
   milestoneEnabled: false,
@@ -392,6 +392,28 @@ let isApplyingRemoteSync = false;
 
 function loadStateFromStorage() {
   try {
+    // One-time clean fresh start migration for production release
+    const CLEAN_SLATE_KEY = 'trove_clean_slate_2026_prod_v1';
+    if (localStorage.getItem(CLEAN_SLATE_KEY) !== 'done') {
+      const keysToReset = [
+        STORAGE_KEYS.PROFILES,
+        STORAGE_KEYS.ACTIVE_PROFILE,
+        STORAGE_KEYS.SESSION,
+        STORAGE_KEYS.LOGS,
+        STORAGE_KEYS.LOCKED_SESSIONS,
+        STORAGE_KEYS.NOTES,
+        STORAGE_KEYS.TIMESTAMPS,
+        STORAGE_KEYS.PACE,
+        STORAGE_KEYS.VAULT_LEDGER,
+        STORAGE_KEYS.TRADE_LOGS,
+        STORAGE_KEYS.BILLS_BREAKDOWN,
+        STORAGE_KEYS.MILESTONE_CFG,
+        STORAGE_KEYS.MILESTONE_ENABLED
+      ];
+      keysToReset.forEach(k => localStorage.removeItem(k));
+      localStorage.setItem(CLEAN_SLATE_KEY, 'done');
+    }
+
     const rawProfiles = localStorage.getItem(STORAGE_KEYS.PROFILES);
     if (rawProfiles) {
       appState.profiles = JSON.parse(rawProfiles);
@@ -2534,47 +2556,90 @@ function handleSwitchProfile(profileId) {
   refreshAllViews();
 }
 
+function handleEditActiveChallenge() {
+  handleLoadProfileIntoWizard(appState.activeProfileId);
+}
+
+function handleDeleteActiveChallenge() {
+  handleDeleteProfile(appState.activeProfileId);
+}
+
 function handleLoadProfileIntoWizard(profileId) {
-  const p = appState.profiles.find(pr => pr.id === profileId);
+  const p = appState.profiles.find(pr => pr.id === profileId) || getActiveProfile();
   if (!p) return;
   setupNewProfileDraft = false;
 
-  document.getElementById('genName').value = p.name;
-  document.getElementById('genBase').value = p.base;
-  document.getElementById('genTarget').value = p.portTarget;
-  document.getElementById('genSessions').value = p.totalSessions;
-  document.getElementById('genStartDate').value = p.startDate;
-  document.getElementById('genCurveType').value = p.curveType || 'tri_pace_independent';
+  const nameEl = document.getElementById('genName');
+  const baseEl = document.getElementById('genBase');
+  const targetEl = document.getElementById('genTarget');
+  const sessionsEl = document.getElementById('genSessions');
+  const dateEl = document.getElementById('genStartDate');
+  const curveEl = document.getElementById('genCurveType');
+
+  if (nameEl) nameEl.value = p.name || '';
+  if (baseEl) baseEl.value = p.base || '';
+  if (targetEl) targetEl.value = p.portTarget || p.targetBalance || '';
+  if (sessionsEl) sessionsEl.value = p.totalSessions || 28;
+  if (dateEl) dateEl.value = p.startDate || new Date().toISOString().split('T')[0];
+  if (curveEl) curveEl.value = p.curveType || 'tri_pace_independent';
 
   handleCurveTypeChange(p.curveType || 'tri_pace_independent');
   if (document.getElementById('genWithdrawalTarget')) document.getElementById('genWithdrawalTarget').value = p.withdrawalTarget || 0;
   if (document.getElementById('genWithdrawalDays')) document.getElementById('genWithdrawalDays').value = p.withdrawalDays || p.totalSessions;
   if (document.getElementById('genSkimMode')) document.getElementById('genSkimMode').checked = !!p.skimMode;
 
-  switchConfigSubTab('wizard');
-  setSetupStep(1);
+  const setupTitle = document.getElementById('setupFormTitle');
+  const setupHelp = document.getElementById('setupFormHelp');
+  if (setupTitle) setupTitle.textContent = `Edit "${p.name || 'Challenge'}"`;
+  if (setupHelp) setupHelp.textContent = 'Modify your parameters below and click Start Challenge to save your changes.';
+
+  const wizardPanel = document.getElementById('subtabCfgWizard');
+  if (wizardPanel) {
+    wizardPanel.style.display = 'block';
+  }
   document.querySelector('#subtabCfgWizard .setup-optional-details')?.setAttribute('open', '');
-  document.querySelector('#subtabCfgWizard .setup-more-options')?.setAttribute('open', '');
-  document.getElementById('subtabCfgWizard')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  renderSetupChallengePreview();
+  wizardPanel?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 function handleDeleteProfile(profileId) {
+  const p = appState.profiles.find(pr => pr.id === profileId) || getActiveProfile();
+  const challengeName = p ? p.name : 'this challenge';
+
   if (appState.profiles.length <= 1) {
-    openModal({ title: 'Cannot Delete', message: 'You must have at least one challenge profile.' });
+    openModal({
+      title: 'Reset Challenge',
+      message: `"${challengeName}" is your only challenge profile. Would you like to reset it to default starting parameters and clear session logs?`,
+      confirmText: 'Reset Challenge',
+      onConfirm: () => {
+        appState.profiles = [Object.assign({}, DEFAULT_PROFILE)];
+        appState.activeProfileId = DEFAULT_PROFILE.id;
+        appState.activeSession = 1;
+        appState.logs = {};
+        appState.lockedSessions = {};
+        appState.notes = {};
+        appState.timestamps = {};
+        saveStateToStorage();
+        refreshAllViews();
+        openModal({ title: 'Challenge Reset', message: 'The challenge has been reset to starting defaults.' });
+      }
+    });
     return;
   }
 
   openModal({
     title: 'Confirm Profile Deletion',
-    message: 'Are you sure you want to delete this challenge profile? Historical logs will be preserved.',
+    message: `Are you sure you want to delete "${challengeName}"? This action will remove this challenge roadmap.`,
     confirmText: 'Delete Profile',
     onConfirm: () => {
-      appState.profiles = appState.profiles.filter(p => p.id !== profileId);
+      appState.profiles = appState.profiles.filter(pr => pr.id !== profileId);
       if (appState.activeProfileId === profileId) {
         appState.activeProfileId = appState.profiles[0].id;
+        appState.activeSession = 1;
       }
       saveStateToStorage();
       refreshAllViews();
+      openModal({ title: 'Challenge Deleted', message: `"${challengeName}" has been removed.` });
     }
   });
 }

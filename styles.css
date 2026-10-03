@@ -293,3 +293,27 @@ body>main section>div:has(>button[id^="subnav"]) button.active-subtab{background
 :root:not([data-theme="dark"]) #tabContentConfig #subtabCfgWizard,:root:not([data-theme="dark"]) #tabContentConfig #subtabCfgActive>.bg-white{border-color:#e5ddcf!important;background:#fffdf8!important;color:#39372f!important}
 :root:not([data-theme="dark"]) #tabContentConfig #subtabCfgWizard .setup-start-row{border-color:#e5ddcf!important}
 :root:not([data-theme="dark"]) #tabContentConfig .setup-advanced-content>.bg-white,:root:not([data-theme="dark"]) #tabContentConfig .setup-advanced-content>.grid>div{background:#fffdf8!important;color:#39372f!important;border-color:#e5ddcf!important}
+
+/* Clear pace identities; completed targets become solid, unmistakable tier colors. */
+#tabContentTracker #dailyPaceTargetsSection #paceCardRelaxed{--pace-ink:#29c98b;--pace-fill:#14885d;--pace-copy:#f4fff9;border-color:#279c70!important}
+#tabContentTracker #dailyPaceTargetsSection #paceCardMid{--pace-ink:#f0b83f;--pace-fill:#e5aa2e;--pace-copy:#332507;border-color:#d99c20!important}
+#tabContentTracker #dailyPaceTargetsSection #paceCardAgg{--pace-ink:#b18af4;--pace-fill:#7951bd;--pace-copy:#fbf7ff;border-color:#9168d3!important}
+#tabContentTracker #dailyPaceTargetsSection #paceCardRelaxed>div:first-child>span:first-child{color:#38d89a!important}
+#tabContentTracker #dailyPaceTargetsSection #paceCardMid>div:first-child>span:first-child{color:#f2bd4c!important}
+#tabContentTracker #dailyPaceTargetsSection #paceCardAgg>div:first-child>span:first-child{color:#bd98ff!important}
+#tabContentTracker #dailyPaceTargetsSection #paceCardRelaxed [id$="Val"]{color:#42d69b!important}
+#tabContentTracker #dailyPaceTargetsSection #paceCardMid [id$="Val"]{color:#f3bd4b!important}
+#tabContentTracker #dailyPaceTargetsSection #paceCardAgg [id$="Val"]{color:#bd98ff!important}
+#tabContentTracker #dailyPaceTargetsSection #paceCardRelaxed.is-selected{border-color:#2bd69b!important;box-shadow:inset 0 0 0 1px rgba(43,214,155,.38),0 0 0 2px rgba(43,214,155,.12)!important}
+#tabContentTracker #dailyPaceTargetsSection #paceCardMid.is-selected{border-color:#f0b83f!important;box-shadow:inset 0 0 0 1px rgba(240,184,63,.4),0 0 0 2px rgba(240,184,63,.13)!important}
+#tabContentTracker #dailyPaceTargetsSection #paceCardAgg.is-selected{border-color:#aa7df0!important;box-shadow:inset 0 0 0 1px rgba(170,125,240,.42),0 0 0 2px rgba(170,125,240,.14)!important}
+#tabContentTracker #dailyPaceTargetsSection #paceCardRelaxed.is-complete,#tabContentTracker #dailyPaceTargetsSection #paceCardMid.is-complete,#tabContentTracker #dailyPaceTargetsSection #paceCardAgg.is-complete{background:var(--pace-fill)!important;border-color:var(--pace-fill)!important;color:var(--pace-copy)!important;box-shadow:0 5px 18px color-mix(in srgb,var(--pace-fill) 30%,transparent)!important}
+#tabContentTracker #dailyPaceTargetsSection #paceCardRelaxed.is-complete>div:first-child>span:first-child,#tabContentTracker #dailyPaceTargetsSection #paceCardMid.is-complete>div:first-child>span:first-child,#tabContentTracker #dailyPaceTargetsSection #paceCardAgg.is-complete>div:first-child>span:first-child,#tabContentTracker #dailyPaceTargetsSection #paceCardRelaxed.is-complete [id$="Val"],#tabContentTracker #dailyPaceTargetsSection #paceCardMid.is-complete [id$="Val"],#tabContentTracker #dailyPaceTargetsSection #paceCardAgg.is-complete [id$="Val"],#tabContentTracker #dailyPaceTargetsSection #paceCardRelaxed.is-complete [id^="diff"],#tabContentTracker #dailyPaceTargetsSection #paceCardMid.is-complete [id^="diff"],#tabContentTracker #dailyPaceTargetsSection #paceCardAgg.is-complete>div:last-child{color:var(--pace-copy)!important}
+#tabContentTracker #dailyPaceTargetsSection #paceCardMid.is-complete [id^="diff"]{color:#49370c!important}
+#tabContentTracker #dailyPaceTargetsSection #paceCardRelaxed.is-complete .badge,#tabContentTracker #dailyPaceTargetsSection #paceCardMid.is-complete .badge,#tabContentTracker #dailyPaceTargetsSection #paceCardAgg.is-complete .badge{background:rgba(255,255,255,.25)!important;color:inherit!important;border-color:rgba(255,255,255,.28)!important}
+:root:not([data-theme="dark"]) #tabContentTracker #dailyPaceTargetsSection #paceCardRelaxed:not(.is-complete){background:#e9f6ee!important}
+:root:not([data-theme="dark"]) #tabContentTracker #dailyPaceTargetsSection #paceCardMid:not(.is-complete){background:#fff4d9!important}
+:root:not([data-theme="dark"]) #tabContentTracker #dailyPaceTargetsSection #paceCardAgg:not(.is-complete){background:#f1eaff!important}
+:root:not([data-theme="dark"]) #tabContentTracker #dailyPaceTargetsSection #paceCardRelaxed:not(.is-complete)>div:first-child>span:first-child,:root:not([data-theme="dark"]) #tabContentTracker #dailyPaceTargetsSection #paceCardRelaxed:not(.is-complete)>div:last-child{color:#147448!important}
+:root:not([data-theme="dark"]) #tabContentTracker #dailyPaceTargetsSection #paceCardMid:not(.is-complete)>div:first-child>span:first-child,:root:not([data-theme="dark"]) #tabContentTracker #dailyPaceTargetsSection #paceCardMid:not(.is-complete)>div:last-child{color:#8c5c00!important}
+:root:not([data-theme="dark"]) #tabContentTracker #dailyPaceTargetsSection #paceCardAgg:not(.is-complete)>div:first-child>span:first-child,:root:not([data-theme="dark"]) #tabContentTracker #dailyPaceTargetsSection #paceCardAgg:not(.is-complete)>div:last-child{color:#6741a8!important}

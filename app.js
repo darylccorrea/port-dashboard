@@ -706,12 +706,17 @@ function render3PaceTargetsSection() {
   if (questPaceSelect) questPaceSelect.value = appState.pace;
 
   const paceCardByValue = { relaxed: 'paceCardRelaxed', mid: 'paceCardMid', aggressive: 'paceCardAgg', finreq: 'paceCardFinreq' };
+  const paceTargets = { relaxed: targetRel, mid: targetMid, aggressive: targetAgg, finreq: targetFinreq };
+  const paceLabels = { relaxed: 'Relaxed', mid: 'Mid', aggressive: 'Aggressive', finreq: 'Financial requirement' };
   Object.entries(paceCardByValue).forEach(([value, id]) => {
     const card = document.getElementById(id);
     if (card) {
       const selected = appState.pace === value;
+      const completed = currentBal >= paceTargets[value];
       card.classList.toggle('is-selected', selected);
+      card.classList.toggle('is-complete', completed);
       card.setAttribute('aria-pressed', String(selected));
+      card.setAttribute('aria-label', `${paceLabels[value]} pace: ${formatCurrency(paceTargets[value])}${completed ? ', target reached' : ''}`);
     }
   });
 

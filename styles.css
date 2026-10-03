@@ -317,3 +317,33 @@ body>main section>div:has(>button[id^="subnav"]) button.active-subtab{background
 :root:not([data-theme="dark"]) #tabContentTracker #dailyPaceTargetsSection #paceCardRelaxed:not(.is-complete)>div:first-child>span:first-child,:root:not([data-theme="dark"]) #tabContentTracker #dailyPaceTargetsSection #paceCardRelaxed:not(.is-complete)>div:last-child{color:#147448!important}
 :root:not([data-theme="dark"]) #tabContentTracker #dailyPaceTargetsSection #paceCardMid:not(.is-complete)>div:first-child>span:first-child,:root:not([data-theme="dark"]) #tabContentTracker #dailyPaceTargetsSection #paceCardMid:not(.is-complete)>div:last-child{color:#8c5c00!important}
 :root:not([data-theme="dark"]) #tabContentTracker #dailyPaceTargetsSection #paceCardAgg:not(.is-complete)>div:first-child>span:first-child,:root:not([data-theme="dark"]) #tabContentTracker #dailyPaceTargetsSection #paceCardAgg:not(.is-complete)>div:last-child{color:#6741a8!important}
+
+/* Shared finish: playful polish, soft depth, and a little motion across every tab. */
+:root{--ease-spring:cubic-bezier(.2,.8,.2,1);--surface-glow:rgba(46,157,104,.12)}
+[data-theme="dark"]{--surface-glow:rgba(78,186,136,.13)}
+body{background-image:radial-gradient(ellipse at 88% 3%,rgba(83,153,107,.09),transparent 30%),radial-gradient(ellipse at 70% 88%,rgba(216,150,71,.055),transparent 34%)!important;background-attachment:fixed}
+[data-theme="dark"] body{background-image:radial-gradient(ellipse at 88% 3%,rgba(48,119,77,.17),transparent 30%),radial-gradient(ellipse at 72% 90%,rgba(150,97,43,.08),transparent 36%)!important}
+body>header{backdrop-filter:blur(18px) saturate(1.15)}
+body>header>div:first-child>div:first-child>div:first-child{width:42px!important;height:42px!important;border-radius:14px!important;box-shadow:0 5px 16px rgba(29,157,115,.22),inset 0 1px rgba(255,255,255,.25)}
+body>header nav button{transition:background-color .2s ease,border-color .2s ease,color .2s ease,transform .2s var(--ease-spring),box-shadow .2s ease!important}
+body>header nav button.active-nav-item{box-shadow:0 5px 18px rgba(35,70,48,.07),inset 0 1px rgba(255,255,255,.16)!important}
+.nav-icon{width:32px!important;height:32px!important;padding:7px;margin-right:8px!important;border:1px solid color-mix(in srgb,currentColor 16%,transparent);border-radius:10px;background:color-mix(in srgb,currentColor 9%,transparent);vertical-align:middle!important;transition:transform .2s var(--ease-spring),background-color .2s ease}
+body>header nav button:hover .nav-icon{transform:rotate(-5deg) scale(1.06);background:color-mix(in srgb,currentColor 14%,transparent)}
+.trade-hero,.daily-hero,.vault-hero,.stats-hero,.setup-hero{isolation:isolate}
+.trade-landscape,.daily-landscape,.stats-landscape,.setup-landscape{transform-origin:center;animation:landscapeFloat 24s ease-in-out infinite alternate}
+@keyframes landscapeFloat{from{transform:scale(1) translateX(0)}to{transform:scale(1.035) translateX(-.5%)}}
+.trade-title-icon,.daily-title-icon,.stats-title-icon,.setup-title-icon,.vault-art{filter:drop-shadow(0 8px 16px rgba(0,0,0,.16))}
+.trade-metric,.daily-stat,.vault-dashboard-card,.stats-panel,.stats-summary-card,.daily-session-card,.daily-progress-card,.daily-history-card,#tabContentConfig .setup-quickstart,#tabContentConfig #subtabCfgWizard,#tabContentConfig .setup-current-challenge,#tabContentConfig .setup-advanced{transition:transform .24s var(--ease-spring),box-shadow .24s ease,border-color .24s ease}
+.trade-metric:hover,.daily-stat:hover,.vault-dashboard-card:hover,.stats-summary-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lift)!important;border-color:var(--border-strong)!important}
+.trade-entry-card:hover,.daily-session-card:hover,.daily-progress-card:hover,.daily-history-card:hover,.stats-panel:hover,#tabContentConfig #subtabCfgWizard:hover{box-shadow:var(--shadow-card)!important;border-color:var(--border-strong)!important}
+.trade-metric-icon,.daily-stat-icon,.vault-card-icon,.stats-panel-icon,.setup-panel-icon,.daily-progress-icon{box-shadow:inset 0 1px rgba(255,255,255,.14),0 4px 12px rgba(0,0,0,.08)}
+.badge{letter-spacing:.015em;box-shadow:inset 0 1px rgba(255,255,255,.2)}
+.btn-save-session,.trade-add-button,.setup-start-row button:not(.setup-advanced-button){position:relative;overflow:hidden;transition:transform .2s var(--ease-spring),box-shadow .2s ease,filter .2s ease}
+.btn-save-session:hover,.trade-add-button:hover,.setup-start-row button:not(.setup-advanced-button):hover{transform:translateY(-2px);filter:saturate(1.13);box-shadow:0 8px 22px rgba(32,190,145,.25)}
+.btn-save-session:after,.trade-add-button:after,.setup-start-row button:not(.setup-advanced-button):after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(115deg,transparent 20%,rgba(255,255,255,.18) 48%,transparent 72%);transform:translateX(-120%);transition:transform .55s ease}
+.btn-save-session:hover:after,.trade-add-button:hover:after,.setup-start-row button:not(.setup-advanced-button):hover:after{transform:translateX(120%)}
+.quest-xp-track,.daily-target-track,.stats-quest-track{box-shadow:inset 0 1px 2px rgba(0,0,0,.12)}
+.quest-xp-track span,.daily-target-track span,.stats-quest-track span{background-size:180% 100%;animation:progressShimmer 4s linear infinite}
+@keyframes progressShimmer{0%{background-position:100% 0}100%{background-position:-80% 0}}
+::selection{background:rgba(59,196,146,.28);color:inherit}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}

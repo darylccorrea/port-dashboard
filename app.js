@@ -2496,13 +2496,12 @@ function startNewChallengeDraft() {
   if (curveType) curveType.value = 'tri_pace_independent';
   const skimMode = document.getElementById('genSkimMode');
   if (skimMode) skimMode.checked = false;
-  document.querySelector('#subtabCfgWizard .setup-optional-details')?.removeAttribute('open');
-  document.querySelector('#subtabCfgWizard .setup-more-options')?.removeAttribute('open');
+  handleCurveTypeChange('tri_pace_independent');
   renderSetupChallengePreview();
   const setupTitle = document.getElementById('setupFormTitle');
   const setupHelp = document.getElementById('setupFormHelp');
   if (setupTitle) setupTitle.textContent = 'New challenge';
-  if (setupHelp) setupHelp.textContent = 'Set the starting balance, goal and session count.';
+  if (setupHelp) setupHelp.textContent = 'Set your challenge parameters, roadmap goals and session schedule.';
   document.getElementById('subtabCfgWizard')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
@@ -2701,7 +2700,6 @@ function handleLoadProfileIntoWizard(profileId) {
   if (wizardPanel) {
     wizardPanel.style.display = '';
   }
-  document.querySelector('#subtabCfgWizard .setup-optional-details')?.setAttribute('open', '');
   renderSetupChallengePreview();
   wizardPanel?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }

@@ -6,11 +6,354 @@
   <title>Trove — Expedition Ledger</title>
   <link rel="stylesheet" href="styles.css">
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Firebase Compat for Cloud Sync -->
+  <!-- Firebase Compat SDK for Cloud Sync & Authentication -->
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
 </head>
 <body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col">
+
+  <!-- ================= WELCOME SCREEN ================= -->
+  <div id="authGateOverlay" class="welcome-screen-overlay" role="dialog" aria-modal="true" aria-labelledby="welcomeTitle">
+    <div class="welcome-screen-wrapper">
+      <div class="welcome-card">
+        <!-- Animated Pixel Art Treasure Cave Scene -->
+        <div class="welcome-scene-container" aria-hidden="true">
+          <svg class="welcome-pixel-scene" viewBox="0 0 720 220" preserveAspectRatio="xMidYMid slice" shape-rendering="crispEdges">
+            <defs>
+              <linearGradient id="caveBgGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#080e0a"/>
+                <stop offset="50%" stop-color="#101912"/>
+                <stop offset="100%" stop-color="#18241b"/>
+              </linearGradient>
+              <radialGradient id="caveTreasureGlow" cx="50%" cy="60%" r="55%">
+                <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.7"/>
+                <stop offset="45%" stop-color="#d97706" stop-opacity="0.38"/>
+                <stop offset="80%" stop-color="#b45309" stop-opacity="0.12"/>
+                <stop offset="100%" stop-color="#18241b" stop-opacity="0"/>
+              </radialGradient>
+              <radialGradient id="torchGlowL" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.6"/>
+                <stop offset="60%" stop-color="#d97706" stop-opacity="0.2"/>
+                <stop offset="100%" stop-color="#d97706" stop-opacity="0"/>
+              </radialGradient>
+              <radialGradient id="torchGlowR" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.6"/>
+                <stop offset="60%" stop-color="#d97706" stop-opacity="0.2"/>
+                <stop offset="100%" stop-color="#d97706" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+
+            <!-- Cave Stone Background -->
+            <rect width="720" height="220" fill="url(#caveBgGrad)"/>
+
+            <!-- Ambient Treasure Radiance Across Cave Floor -->
+            <ellipse cx="360" cy="155" rx="320" ry="70" fill="url(#caveTreasureGlow)" class="iso-treasure-glow"/>
+
+            <!-- Rocky Cave Stalactites (Hanging from ceiling) -->
+            <polygon points="0,0 720,0 720,24 685,16 655,30 625,14 590,26 550,12 510,28 470,14 430,26 390,12 350,28 310,14 270,26 230,12 190,28 150,14 110,28 75,15 40,28 0,18" fill="#111a13"/>
+            <!-- Hanging Sharp Stalactite Clusters -->
+            <polygon points="70,0 88,48 102,0" fill="#1b281d"/>
+            <polygon points="88,48 102,0 95,0" fill="#141f17"/>
+            <polygon points="170,0 185,38 198,0" fill="#223225"/>
+            <polygon points="265,0 278,34 290,0" fill="#1c2a1e"/>
+            <polygon points="350,0 364,44 378,0" fill="#243427"/>
+            <polygon points="364,44 378,0 372,0" fill="#18241b"/>
+            <polygon points="445,0 458,36 470,0" fill="#1e2c20"/>
+            <polygon points="535,0 550,50 564,0" fill="#243427"/>
+            <polygon points="550,50 564,0 558,0" fill="#18231a"/>
+            <polygon points="630,0 644,40 656,0" fill="#1a271c"/>
+
+            <!-- Left Cavern Rock Wall & Torch Sconce -->
+            <polygon points="0,18 48,25 65,75 42,130 60,185 0,220" fill="#141e16"/>
+            <polygon points="0,45 35,50 48,95 28,145 42,195 0,220" fill="#1d2a1f"/>
+            <!-- Left Torch Sconce -->
+            <ellipse cx="54" cy="95" rx="38" ry="32" fill="url(#torchGlowL)" class="cave-torch-glow"/>
+            <polygon points="45,108 58,103 58,115 45,118" fill="#384337"/>
+            <g transform="translate(43, 80) scale(1.05)" class="iso-flame"><use href="#sprite-flame"/></g>
+
+            <!-- Right Cavern Rock Wall & Torch Sconce -->
+            <polygon points="720,18 672,25 655,75 678,130 660,185 720,220" fill="#141e16"/>
+            <polygon points="720,45 685,50 672,95 692,145 678,195 720,220" fill="#1d2a1f"/>
+            <!-- Right Torch Sconce -->
+            <ellipse cx="666" cy="95" rx="38" ry="32" fill="url(#torchGlowR)" class="cave-torch-glow"/>
+            <polygon points="675,108 662,103 662,115 675,118" fill="#384337"/>
+            <g transform="translate(658, 80) scale(1.05)" class="iso-flame"><use href="#sprite-flame"/></g>
+
+            <!-- Rocky Cavern Foundation Steps & Pillars -->
+            <polygon points="60,140 180,118 240,132 120,158" fill="#253424"/>
+            <polygon points="120,158 240,132 240,142 120,168" fill="#182318"/>
+
+            <!-- Center-Back Raised Altar Pedestal -->
+            <polygon points="325,102 360,94 395,102 360,110" fill="#445242"/>
+            <polygon points="325,102 360,110 360,122 325,114" fill="#2d372c"/>
+            <polygon points="360,110 395,102 395,114 360,122" fill="#1f271e"/>
+
+            <!-- ================= VAST CARPET OF GOLD (MOUNDS & DUNES) ================= -->
+            <!-- Left Gold Mound under Chest 1 -->
+            <polygon points="85,148 155,130 195,144 125,166" fill="#b45309"/>
+            <polygon points="90,145 156,128 190,141 126,161" fill="#d97706"/>
+            <polygon points="98,142 158,126 182,138 128,156" fill="#f59e0b"/>
+            <polygon points="106,138 160,124 176,134 130,150" fill="#fbbf24"/>
+            <polygon points="114,134 162,122 170,130 132,145" fill="#fef08a"/>
+
+            <!-- Center-Left Huge Gold Dune under Chest 2 & Altar -->
+            <polygon points="170,164 260,138 375,148 430,162 315,188 185,178" fill="#92400e"/>
+            <polygon points="180,161 262,136 372,145 422,158 318,183 192,174" fill="#b45309"/>
+            <polygon points="190,158 265,134 368,143 415,154 320,178 200,169" fill="#d97706"/>
+            <polygon points="205,154 270,131 362,140 405,150 324,172 212,164" fill="#f59e0b"/>
+            <polygon points="220,149 278,128 354,137 395,146 328,166 226,159" fill="#fbbf24"/>
+            <polygon points="235,145 288,125 344,134 382,142 332,160 242,153" fill="#fef08a"/>
+
+            <!-- Right Huge Gold Dune under Chest 4 & 5 -->
+            <polygon points="415,166 490,142 590,146 640,165 525,190 430,180" fill="#92400e"/>
+            <polygon points="422,163 492,140 585,144 634,162 528,185 436,176" fill="#b45309"/>
+            <polygon points="432,160 495,138 580,142 626,158 530,181 444,172" fill="#d97706"/>
+            <polygon points="445,156 500,135 572,139 615,154 534,176 456,167" fill="#f59e0b"/>
+            <polygon points="460,151 510,132 562,136 602,150 538,170 470,162" fill="#fbbf24"/>
+            <polygon points="475,147 520,129 552,133 588,145 540,164 485,157" fill="#fef08a"/>
+
+            <!-- ================= MULTIPLE TREASURE CHESTS ================= -->
+            <!-- CHEST #1: Left Ledge Iron-Banded Vault Chest (x=115, y=118) -->
+            <ellipse cx="140" cy="144" rx="26" ry="8" fill="#0d140e" opacity="0.6"/>
+            <polygon points="115,116 138,109 138,97 115,103" fill="#52525b"/>
+            <polygon points="138,109 168,117 168,105 138,97" fill="#71717a"/>
+            <polygon points="115,116 138,109 168,117 145,124" fill="#f59e0b"/>
+            <polygon points="115,116 145,124 145,138 115,130" fill="#3f3f46"/>
+            <polygon points="145,124 168,117 168,131 145,138" fill="#27272a"/>
+            <line x1="125" y1="119" x2="125" y2="133" stroke="#9ca3af" stroke-width="1.8"/>
+            <line x1="158" y1="121" x2="158" y2="135" stroke="#9ca3af" stroke-width="1.8"/>
+            <rect x="142" y="123" width="6" height="7" fill="#fbbf24"/>
+
+            <!-- CHEST #2: Center-Left Grand Royal Chest (x=235, y=124) -->
+            <ellipse cx="265" cy="152" rx="32" ry="11" fill="#0d140e" opacity="0.6"/>
+            <polygon points="235,114 265,105 265,91 235,99" fill="#78350f"/>
+            <polygon points="265,105 302,115 302,101 265,91" fill="#92400e"/>
+            <line x1="245" y1="110" x2="245" y2="96" stroke="#f59e0b" stroke-width="2.2"/>
+            <line x1="290" y1="112" x2="290" y2="98" stroke="#f59e0b" stroke-width="2.2"/>
+            <polygon points="235,114 265,105 302,115 272,124" fill="#fbbf24"/>
+            <polygon points="239,113 266,106 298,114 271,121" fill="#fef08a"/>
+            <polygon points="235,114 272,124 272,142 235,132" fill="#854d0e"/>
+            <polygon points="272,124 302,115 302,133 272,142" fill="#451a03"/>
+            <polygon points="268,123 276,125 276,135 268,133" fill="#fbbf24"/>
+            <circle cx="272" cy="129" r="1.3" fill="#18181b"/>
+
+            <!-- CHEST #3: Back-Center Altar Chest (x=345, y=92) -->
+            <ellipse cx="360" cy="108" rx="20" ry="6" fill="#0d140e" opacity="0.6"/>
+            <polygon points="345,94 362,88 362,78 345,83" fill="#ca8a04"/>
+            <polygon points="362,88 380,94 380,84 362,78" fill="#eab308"/>
+            <polygon points="345,94 362,88 380,94 363,100" fill="#fef08a"/>
+            <polygon points="345,94 363,100 363,110 345,104" fill="#d97706"/>
+            <polygon points="363,100 380,94 380,104 363,110" fill="#b45309"/>
+
+            <!-- CHEST #4: Center-Right Massive Open Vault Chest (x=430, y=118) -->
+            <ellipse cx="465" cy="146" rx="36" ry="12" fill="#0d140e" opacity="0.6"/>
+            <polygon points="432,111 465,103 465,89 432,97" fill="#713f12"/>
+            <polygon points="465,103 505,113 505,99 465,89" fill="#854d0e"/>
+            <line x1="444" y1="108" x2="444" y2="94" stroke="#f59e0b" stroke-width="2.5"/>
+            <line x1="492" y1="110" x2="492" y2="96" stroke="#f59e0b" stroke-width="2.5"/>
+            <polygon points="432,111 465,103 505,113 472,121" fill="#f59e0b"/>
+            <polygon points="436,110 466,104 500,112 470,118" fill="#fde047"/>
+            <polygon points="432,111 472,121 472,139 432,129" fill="#78350f"/>
+            <polygon points="472,121 505,113 505,131 472,139" fill="#451a03"/>
+            <polygon points="468,120 476,122 476,131 468,129" fill="#fbbf24"/>
+            <circle cx="472" cy="126" r="1.4" fill="#18181b"/>
+
+            <!-- CHEST #5: Right Gold Dune Chest (x=545, y=126) -->
+            <ellipse cx="572" cy="152" rx="28" ry="10" fill="#0d140e" opacity="0.6"/>
+            <polygon points="545,118 570,111 570,100 545,107" fill="#694119"/>
+            <polygon points="570,111 600,119 600,108 570,100" fill="#7c4f22"/>
+            <polygon points="545,118 570,111 600,119 575,126" fill="#fbbf24"/>
+            <polygon points="545,118 575,126 575,141 545,133" fill="#583515"/>
+            <polygon points="575,126 600,119 600,134 575,141" fill="#38210b"/>
+            <polygon points="572,125 578,127 578,135 572,133" fill="#facc15"/>
+
+            <!-- CHEST #6: Center Sunken Open Chest (x=370, y=150) -->
+            <polygon points="370,145 388,139 406,146 388,152" fill="#fde047"/>
+            <polygon points="370,145 388,152 388,159 370,152" fill="#854d0e"/>
+            <polygon points="388,152 406,146 406,153 388,159" fill="#5c340c"/>
+
+            <!-- ================= PYRAMIDS OF GOLD BULLION (INGOTS) ================= -->
+            <!-- Left Stack (Near Chest 1) -->
+            <polygon points="182,152 199,147 212,150 195,155" fill="#fef08a"/>
+            <polygon points="182,152 195,155 195,159 182,155" fill="#eab308"/>
+            <polygon points="195,155 212,150 212,154 195,159" fill="#ca8a04"/>
+            <polygon points="198,155 215,150 228,153 211,158" fill="#fef08a"/>
+            <polygon points="198,155 211,158 211,162 198,158" fill="#eab308"/>
+            <polygon points="211,158 228,153 228,157 211,162" fill="#ca8a04"/>
+            <!-- Top stacked ingot -->
+            <polygon points="190,147 207,142 220,145 203,150" fill="#fffbeb"/>
+            <polygon points="190,147 203,150 203,154 190,150" fill="#facc15"/>
+            <polygon points="203,150 220,145 220,149 203,154" fill="#d97706"/>
+
+            <!-- Center Stack (Pyramid) -->
+            <polygon points="330,164 348,159 361,162 343,168" fill="#fef08a"/>
+            <polygon points="330,164 343,168 343,172 330,168" fill="#eab308"/>
+            <polygon points="343,168 361,162 361,166 343,172" fill="#ca8a04"/>
+            <polygon points="346,167 364,162 377,165 359,171" fill="#fef08a"/>
+            <polygon points="346,167 359,171 359,175 346,171" fill="#eab308"/>
+            <polygon points="359,171 377,165 377,169 359,175" fill="#ca8a04"/>
+            <polygon points="338,159 356,154 369,157 351,163" fill="#fffbeb"/>
+            <polygon points="338,159 351,163 351,167 338,163" fill="#facc15"/>
+            <polygon points="351,163 369,157 369,161 351,167" fill="#d97706"/>
+
+            <!-- Right Stack -->
+            <polygon points="496,158 514,153 527,156 509,162" fill="#fef08a"/>
+            <polygon points="496,158 509,162 509,166 496,162" fill="#eab308"/>
+            <polygon points="509,162 527,156 527,160 509,166" fill="#ca8a04"/>
+            <polygon points="504,153 522,148 535,151 517,157" fill="#fffbeb"/>
+            <polygon points="504,153 517,157 517,161 504,157" fill="#facc15"/>
+            <polygon points="517,157 535,151 535,155 517,161" fill="#d97706"/>
+
+            <!-- Scattered Individual Gold Coins on Foreground -->
+            <ellipse cx="160" cy="168" rx="4.5" ry="2.2" fill="#fde047" stroke="#b45309" stroke-width="0.7"/>
+            <ellipse cx="178" cy="172" rx="5" ry="2.4" fill="#facc15" stroke="#b45309" stroke-width="0.7"/>
+            <ellipse cx="215" cy="175" rx="5.5" ry="2.6" fill="#fde047" stroke="#b45309" stroke-width="0.7"/>
+            <ellipse cx="270" cy="172" rx="5" ry="2.4" fill="#facc15" stroke="#b45309" stroke-width="0.7"/>
+            <ellipse cx="305" cy="178" rx="5.5" ry="2.6" fill="#fde047" stroke="#b45309" stroke-width="0.7"/>
+            <ellipse cx="385" cy="175" rx="5" ry="2.4" fill="#facc15" stroke="#b45309" stroke-width="0.7"/>
+            <ellipse cx="420" cy="180" rx="5.5" ry="2.6" fill="#fde047" stroke="#b45309" stroke-width="0.7"/>
+            <ellipse cx="468" cy="174" rx="5" ry="2.4" fill="#facc15" stroke="#b45309" stroke-width="0.7"/>
+            <ellipse cx="548" cy="175" rx="5.5" ry="2.6" fill="#fde047" stroke="#b45309" stroke-width="0.7"/>
+            <ellipse cx="585" cy="168" rx="4.5" ry="2.2" fill="#facc15" stroke="#b45309" stroke-width="0.7"/>
+            <ellipse cx="615" cy="162" rx="4" ry="2" fill="#fde047" stroke="#b45309" stroke-width="0.7"/>
+
+            <!-- Golden Crown Relic & Goblet -->
+            <polygon points="305,152 308,143 312,148 316,142 320,148 324,143 327,152" fill="#fde047" stroke="#b45309" stroke-width="0.8"/>
+            <circle cx="316" cy="147" r="1.3" fill="#ef4444"/>
+            <!-- Golden Goblet tipped on gold -->
+            <polygon points="405,156 414,152 417,159 408,163" fill="#fde047" stroke="#ca8a04" stroke-width="0.7"/>
+
+            <!-- Sparkling Multi-Colored Gemstones Scattered in Gold -->
+            <!-- Large Cut Diamond -->
+            <polygon points="458,129 465,125 470,130 463,134" fill="#ffffff" stroke="#38bdf8" stroke-width="0.8"/>
+            <polygon points="288,131 294,127 298,132 292,136" fill="#ffffff" stroke="#38bdf8" stroke-width="0.8"/>
+            <!-- Crimson Rubies -->
+            <polygon points="214,146 221,142 226,147 219,151" fill="#ef4444" stroke="#991b1b" stroke-width="0.8"/>
+            <polygon points="526,146 533,142 538,147 531,151" fill="#ef4444" stroke="#991b1b" stroke-width="0.8"/>
+            <!-- Vivid Emeralds -->
+            <polygon points="274,139 281,135 285,140 278,144" fill="#10b981" stroke="#065f46" stroke-width="0.8"/>
+            <polygon points="598,152 605,148 609,153 602,157" fill="#10b981" stroke="#065f46" stroke-width="0.8"/>
+            <!-- Royal Sapphires -->
+            <polygon points="156,143 163,139 168,144 161,148" fill="#3b82f6" stroke="#1e40af" stroke-width="0.8"/>
+            <polygon points="484,140 491,136 496,141 489,145" fill="#3b82f6" stroke="#1e40af" stroke-width="0.8"/>
+            <!-- Mystic Amethysts -->
+            <polygon points="242,156 248,152 252,157 246,161" fill="#a855f7" stroke="#6b21a8" stroke-width="0.8"/>
+            <polygon points="508,158 514,154 518,159 512,163" fill="#a855f7" stroke="#6b21a8" stroke-width="0.8"/>
+
+            <!-- ================= ANIMATED FLOATING GOLD COINS (LEVITATING & SPINNING) ================= -->
+            <!-- Coin 1 over Chest 1 -->
+            <g class="iso-coin-a" transform="translate(142, 94)">
+              <ellipse cx="0" cy="0" rx="6.5" ry="4.6" fill="#fef08a" stroke="#ca8a04" stroke-width="1.2"/>
+              <rect x="-1.8" y="-2.5" width="3.6" height="5.2" fill="#f59e0b"/>
+            </g>
+            <!-- Coin 2 over Chest 2 -->
+            <g class="iso-coin-b" transform="translate(268, 90)">
+              <ellipse cx="0" cy="0" rx="7" ry="5" fill="#fef08a" stroke="#ca8a04" stroke-width="1.2"/>
+              <rect x="-2" y="-3" width="4" height="6" fill="#f59e0b"/>
+            </g>
+            <!-- Coin 3 over Altar Chest 3 -->
+            <g class="iso-coin-c" transform="translate(362, 66)">
+              <ellipse cx="0" cy="0" rx="7.5" ry="5.2" fill="#fffbeb" stroke="#d97706" stroke-width="1.3"/>
+              <rect x="-2.2" y="-3.2" width="4.4" height="6.4" fill="#fbbf24"/>
+            </g>
+            <!-- Coin 4 over Vault Chest 4 -->
+            <g class="iso-coin-a" transform="translate(468, 84)">
+              <ellipse cx="0" cy="0" rx="7" ry="5" fill="#fef08a" stroke="#ca8a04" stroke-width="1.2"/>
+              <rect x="-2" y="-3" width="4" height="6" fill="#f59e0b"/>
+            </g>
+            <!-- Coin 5 over Chest 5 -->
+            <g class="iso-coin-b" transform="translate(572, 96)">
+              <ellipse cx="0" cy="0" rx="6.5" ry="4.6" fill="#fde047" stroke="#b45309" stroke-width="1.2"/>
+              <rect x="-1.8" y="-2.5" width="3.6" height="5.2" fill="#d97706"/>
+            </g>
+
+            <!-- ================= TWINKLING STAR GLINTS / SPARKLES ================= -->
+            <g class="iso-sparkles">
+              <path class="iso-sparkle iso-sp-1" d="M464,128 l1,3 l3,1 l-3,1 l-1,3 l-1,-3 l-3,-1 l3,-1 Z" fill="#ffffff"/>
+              <path class="iso-sparkle iso-sp-2" d="M218,144 l1,2.5 l2.5,1 l-2.5,1 l-1,2.5 l-1,-2.5 l-2.5,-1 l2.5,-1 Z" fill="#fef08a"/>
+              <path class="iso-sparkle iso-sp-3" d="M362,66 l1.5,3.5 l3.5,1.5 l-3.5,1.5 l-1.5,3.5 l-1.5,-3.5 l-3.5,-1.5 l3.5,-1.5 Z" fill="#ffffff"/>
+              <path class="iso-sparkle iso-sp-4" d="M142,122 l1,2.5 l2.5,1 l-2.5,1 l-1,2.5 l-1,-2.5 l-2.5,-1 l2.5,-1 Z" fill="#ffffff"/>
+              <path class="iso-sparkle iso-sp-5" d="M575,124 l1,2.5 l2.5,1 l-2.5,1 l-1,2.5 l-1,-2.5 l-2.5,-1 l2.5,-1 Z" fill="#fef08a"/>
+              <path class="iso-sparkle iso-sp-6" d="M276,137 l1,2.5 l2.5,1 l-2.5,1 l-1,2.5 l-1,-2.5 l-2.5,-1 l2.5,-1 Z" fill="#67e8f9"/>
+              <path class="iso-sparkle iso-sp-7" d="M528,144 l1,2.5 l2.5,1 l-2.5,1 l-1,2.5 l-1,-2.5 l-2.5,-1 l2.5,-1 Z" fill="#f43f5e"/>
+              <path class="iso-sparkle iso-sp-8" d="M316,145 l1,2.5 l2.5,1 l-2.5,1 l-1,2.5 l-1,-2.5 l-2.5,-1 l2.5,-1 Z" fill="#fef08a"/>
+            </g>
+
+            <!-- ================= RISING GOLDEN TREASURE AURA MOTES ================= -->
+            <g class="iso-motes">
+              <rect class="iso-mote iso-m-1" x="250" y="132" width="2.5" height="2.5" fill="#fef08a"/>
+              <rect class="iso-mote iso-m-2" x="460" y="125" width="3" height="3" fill="#fde047"/>
+              <rect class="iso-mote iso-m-3" x="355" y="115" width="2" height="2" fill="#fed7aa"/>
+              <rect class="iso-mote iso-m-4" x="145" y="135" width="2.5" height="2.5" fill="#fef08a"/>
+              <rect class="iso-mote iso-m-5" x="560" y="130" width="3" height="3" fill="#fde047"/>
+              <rect class="iso-mote iso-m-6" x="385" y="142" width="2" height="2" fill="#fffbeb"/>
+            </g>
+          </svg>
+
+          <!-- Golden Star Badge -->
+          <div class="welcome-badge-floating">
+            <svg viewBox="0 0 24 24"><path d="M12 2l2.6 6.9 7.4.6-5.6 4.9 1.7 7.2L12 17.8 5.9 21.6 7.6 14.4 2 9.5l7.4-.6L12 2z" fill="#d4a34b" stroke="#3e2910" stroke-width="1.8"/></svg>
+          </div>
+        </div>
+
+        <div class="welcome-content">
+          <span class="welcome-kicker">✦ A NEW QUEST AWAITS ✦</span>
+          <h1 id="welcomeTitle" class="welcome-title">Welcome Adventurer,</h1>
+          
+          <p class="welcome-lore">
+            Your trading journey begins here. Step forward to claim your personal ledger, gather your treasure, and conquer every milestone. Every trade is logged, every victory is celebrated, and all your progress is saved automatically.
+          </p>
+
+          <div class="welcome-perks-grid">
+            <div class="welcome-perk-card">
+              <span class="welcome-perk-sprite"><svg viewBox="0 0 56 86"><use href="#sprite-pine"/></svg></span>
+              <div>
+                <strong>Chart Your Path</strong>
+                <span>Clear daily targets to guide your journey step by step.</span>
+              </div>
+            </div>
+            <div class="welcome-perk-card">
+              <span class="welcome-perk-sprite"><svg viewBox="0 0 54 42"><use href="#sprite-chest"/></svg></span>
+              <div>
+                <strong>Stack The Treasure</strong>
+                <span>Lock in your gains and watch your personal vault expand.</span>
+              </div>
+            </div>
+            <div class="welcome-perk-card">
+              <span class="welcome-perk-sprite"><svg viewBox="0 0 28 24"><use href="#sprite-ledger"/></svg></span>
+              <div>
+                <strong>Auto-Saved Cloud Sheet</strong>
+                <span>Your private Google Sheet is ready and updated in real-time.</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Prominent Sign In Button -->
+          <div class="welcome-cta-container">
+            <button id="btnGateSignIn" type="button" class="welcome-signin-button" onclick="startGoogleSignIn()">
+              <span class="google-mark" aria-hidden="true">G</span>
+              <div class="welcome-btn-text">
+                <strong>Sign in with Google</strong>
+                <small>Instant entry · Your private adventure ledger unlocks immediately</small>
+              </div>
+              <span class="welcome-btn-arrow" aria-hidden="true">➔</span>
+            </button>
+          </div>
+
+          <!-- Loading & Progress Status -->
+          <div id="authGateStatus" class="welcome-status hidden" aria-live="polite">
+            <div class="welcome-spinner"></div>
+            <span id="authGateStatusText">Preparing your expedition...</span>
+          </div>
+
+          <p class="welcome-quote">
+            “Fortune favors the bold.”
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- ================= TOP HEADER ================= -->
   <header class="bg-white border-b border-slate-200 sticky top-0 z-40">
@@ -23,18 +366,18 @@
           <div class="flex items-center gap-2 text-xs text-slate-500">
             <span>Challenge: <strong id="headerProfileName" class="text-slate-700">28-Day Challenge</strong></span>
             <span>•</span>
-            <span id="headerSyncStatus" class="badge badge-gray">Cloud: Offline</span>
+            <span id="headerSyncStatus" class="badge badge-gray cursor-pointer" onclick="switchMainTab('account')" title="Click to view Account & Cloud status">Cloud: Offline</span>
           </div>
         </div>
       </div>
 
       <div class="header-actions flex items-center gap-2">
+        <a id="btnHeaderViewSheet" href="#" target="_blank" class="hidden header-view-sheet-btn" title="Open your personal Google Sheet">
+          <span>📊</span> <span>View Sheet</span>
+        </a>
         <button id="btnMobileMenu" onclick="toggleMobileNav()" class="mobile-menu-btn px-3 py-1.5 text-xs font-medium bg-slate-100 hover:bg-slate-200 rounded-md border border-slate-300 transition" aria-label="Open navigation">☰</button>
         <button id="btnHeaderQuickEdit" onclick="openQuickEditParamsModal()" class="px-3 py-1.5 text-xs font-medium bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-md border border-slate-300 transition">
           ✦ Tune plan
-        </button>
-        <button id="btnHeaderCloudSync" onclick="openLinkSheetModal()" class="px-3 py-1.5 text-xs font-medium bg-blue-50 hover:bg-blue-100 text-blue-700 rounded-md border border-blue-200 transition">
-          ☁ Sync &amp; backup
         </button>
         <button id="btnThemeToggle" onclick="toggleTheme()" class="px-3 py-1.5 text-xs font-medium bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-md border border-slate-300 transition" aria-label="Switch to light mode" title="Switch theme"><svg class="theme-toggle-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v2m0 14v2M3 12h2m14 0h2M5.64 5.64l1.42 1.42m9.88 9.88 1.42 1.42m0-12.72-1.42 1.42m-9.88 9.88-1.42 1.42"/><circle cx="12" cy="12" r="4"/></svg><span>Light mode</span></button>
       </div>
@@ -50,13 +393,16 @@
         <svg class="world-node-sprite" viewBox="0 0 54 42" aria-hidden="true"><use href="#sprite-flame"/></svg> Setup
       </button>
       <button id="navTradesBtn" onclick="switchMainTab('trades')" class="px-4 py-2.5 text-slate-600 hover:text-slate-900 border-b-2 border-transparent whitespace-nowrap">
-        <svg class="world-node-sprite" viewBox="0 0 56 44" aria-hidden="true"><use href="#sprite-chest"/></svg> Trading Sessions
+        <svg class="world-node-sprite" viewBox="0 0 28 24" aria-hidden="true"><use href="#sprite-ledger"/></svg> Trading Sessions
       </button>
       <button id="navMilestonesBtn" onclick="switchMainTab('milestones')" class="px-4 py-2.5 text-slate-600 hover:text-slate-900 border-b-2 border-transparent whitespace-nowrap">
         <svg class="world-node-sprite" viewBox="0 0 56 44" aria-hidden="true"><use href="#sprite-chest"/></svg> Capital Vault
       </button>
       <button id="navStatsBtn" onclick="switchMainTab('stats')" class="px-4 py-2.5 text-slate-600 hover:text-slate-900 border-b-2 border-transparent whitespace-nowrap">
         <svg class="world-node-sprite" viewBox="0 0 56 44" aria-hidden="true"><use href="#sprite-bird"/></svg> Stats
+      </button>
+      <button id="navAccountBtn" onclick="switchMainTab('account')" class="px-4 py-2.5 text-slate-600 hover:text-slate-900 border-b-2 border-transparent whitespace-nowrap">
+        <svg class="world-node-sprite" viewBox="0 0 24 24" aria-hidden="true"><use href="#sprite-account"/></svg> Account
       </button>
     </nav>
   </header>
@@ -74,6 +420,11 @@
         <path d="m0 8 14-7 18 7-14 8z" fill="#f0ca72"/><path d="m0 8 18 8v13L0 21z" fill="#a96532"/><path d="m18 16 14-8v13l-14 8z" fill="#75452d"/>
         <path d="m3 9 11-5 14 5-11 7z" fill="#ffdf8d"/><path d="M5 12v8l13 6v-9z" fill="#bd7939"/><path d="m18 17 11-6v8l-11 7z" fill="#8c542d"/>
         <rect x="14" y="13" width="5" height="8" fill="#e7bb5e"/><rect x="15" y="15" width="3" height="3" fill="#fff0b0"/><rect x="4" y="10" width="2" height="2" fill="#fff0b0"/>
+      </g>
+      <g id="sprite-account" shape-rendering="crispEdges">
+        <rect x="9" y="3" width="6" height="6" fill="#f0ca72"/><rect x="7" y="9" width="10" height="2" fill="#594631"/>
+        <path d="M5 21v-5l3-4h8l3 4v5z" fill="#6e936e"/><rect x="9" y="14" width="6" height="7" fill="#edc88a"/>
+        <rect x="3" y="16" width="3" height="5" fill="#a96532"/><rect x="18" y="16" width="3" height="5" fill="#a96532"/>
       </g>
     </defs>
     <symbol id="world-daily" viewBox="0 0 720 220">
@@ -159,6 +510,9 @@
     </symbol>
     <symbol id="sprite-pine" viewBox="0 0 56 86" shape-rendering="crispEdges">
       <path d="M24 51h9v29h-9z" fill="#765239"/><path d="m28 3 22 28H38l15 19H34l14 18H9l13-18H4l15-19H7z" fill="#466c50"/><path d="m28 13 15 18h-9l15 17H33l12 15H19l11-15H15l14-17h-8z" fill="#66895e"/><rect x="25" y="30" width="5" height="5" fill="#8aa16a"/>
+    </symbol>
+    <symbol id="sprite-ledger" viewBox="0 0 28 24" shape-rendering="crispEdges">
+      <path d="M5 2h18v20H5z" fill="#6a7655" stroke="#302b20" stroke-width="2"/><path d="M8 5h12v14H8z" fill="#e4cf9b"/><path d="M2 4h4v3H2zm0 7h4v3H2zm0 7h4v3H2z" fill="#bd8b4b"/><path d="M10 8h8M10 11h8M10 14h6" stroke="#71583a" stroke-width="1.5"/><path d="M18 4v3h3" fill="#f4e6bb"/>
     </symbol>
     <symbol id="sprite-chest" viewBox="0 0 54 42" shape-rendering="crispEdges">
       <path d="M5 12h44v25H5z" fill="#925a35"/><path d="M5 12h44v8H5z" fill="#d0a454"/><path d="M10 6h34v10H10z" fill="#e0bb6c"/><path d="M5 20h44v5H5z" fill="#583d2b"/><path d="M24 17h8v13h-8z" fill="#f4d879"/><rect x="26" y="20" width="4" height="4" fill="#fff1ae"/><path d="M10 27h8v5h-8zm27 0h8v5h-8z" fill="#bc8245"/>
@@ -586,109 +940,71 @@
     <section id="tabContentConfig" class="tab-content space-y-6">
       <div class="setup-hero">
         <svg class="world-panorama world-panorama--camp" viewBox="0 0 960 380" preserveAspectRatio="xMidYMid meet" role="img" aria-label="The adventurer's forest camp with a tent, cabin and a crackling campfire"><use href="#location-camp"/></svg>
-        <div class="setup-hero-copy"><span class="setup-kicker">SAFE CAMP · EXPEDITION PREP</span><div class="setup-title-row"><span class="setup-title-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21V11m0 3c-4 0-6-2-6-6 4 0 6 2 6 6Zm0-3c0-4 2-6 6-6 0 4-2 6-6 6Z"/><path d="M5 21h14"/><circle cx="12" cy="4" r="1"/></svg></span><div><h2>Base Camp</h2><p>Choose your starting provisions and the summit you’re aiming for.</p></div></div></div>
+        <div class="setup-hero-copy"><span class="setup-kicker">SAFE CAMP · EXPEDITION PREP</span><div class="setup-title-row"><span class="setup-title-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21V11m0 3c-4 0-6-2-6-6 4 0 6 2 6 6Zm0-3c0-4 2-6 6-6 0 4-2 6-6 6Z"/><path d="M5 21h14"/><circle cx="12" cy="4" r="1"/></svg></span><div><h2>Setup</h2><p>Three details. Start your challenge.</p></div></div></div>
         <svg class="iso-scene iso-scene--setup" viewBox="0 0 720 220" aria-hidden="true"><use href="#world-setup"></use></svg>
         <div class="setup-landscape" aria-hidden="true"><svg viewBox="0 0 720 160" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="setupSky" x2="0" y2="1"><stop stop-color="#17241b"/><stop offset="1" stop-color="#27372b"/></linearGradient></defs><rect width="720" height="160" fill="url(#setupSky)"/><circle cx="514" cy="47" r="31" fill="#e8c88f"/><path d="m0 116 68-46 54 37 78-68 62 58 65-45 68 50 74-68 55 58 73-42 63 44 60-59v125H0Z" fill="#344736"/><path d="m0 134 82-42 67 39 77-45 62 47 75-44 64 44 72-48 71 47 82-46 68 36v38H0Z" fill="#19291f"/><path d="M0 148q119-23 216 1t198-4q127-34 306-1" fill="none" stroke="#748957" stroke-width="3" opacity=".55"/><g fill="#89a878"><path d="M55 130q-22-24-14-48 23 13 25 39zm602 3q22-23 17-46-23 12-27 38z"/></g></svg></div>
         <div class="setup-hero-quote">A clear plan<br><span>makes progress feel lighter.</span></div>
       </div>
 
       <div class="setup-quickstart">
-        <span class="setup-quickstart-icon">◉</span><div class="setup-quickstart-copy"><h3>Quick Start</h3><p>Set your core portfolio details to begin tracking.</p></div>
-        <div class="setup-stepper"><div><span id="stepIndicator1" class="setup-step-indicator is-current">1</span><small>Portfolio</small></div><i></i><div><span id="stepIndicator2" class="setup-step-indicator">2</span><small>Goals</small></div><i></i><div><span id="stepIndicator3" class="setup-step-indicator">3</span><small>Review</small></div></div>
+        <span class="setup-quickstart-icon">1·2·3</span><div class="setup-quickstart-copy"><h3>Quick setup</h3><p>Set your starting balance, goal and number of sessions. Name and start date are optional.</p></div>
       </div>
 
-      <!-- Existing challenge management remains available without crowding the setup flow. -->
-      <details class="setup-current-challenge">
-        <summary>Current challenge &amp; saved plans <span>Manage profiles</span></summary>
-      <div id="subtabCfgActive" class="subtab-content active space-y-6">
-        <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-4">
-          <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-100 pb-3">
-            <div>
-              <h3 id="cfgActiveChallengeName" class="text-lg font-bold text-slate-900">Current challenge</h3>
-              <p id="cfgActiveChallengeDates" class="text-xs text-slate-500">Challenge dates</p>
-            </div>
-            <div class="flex items-center gap-2">
-              <label for="ladderProfileSelector" class="text-xs text-slate-500 font-semibold">Active Profile:</label>
-              <select id="ladderProfileSelector" onchange="handleProfileSelect(this.value)" class="text-xs border border-slate-300 rounded-md p-1.5 bg-slate-50 font-semibold">
-                <!-- Dynamically populated -->
-              </select>
-              <button onclick="openQuickEditParamsModal()" class="px-2.5 py-1.5 text-xs font-semibold rounded bg-slate-100 hover:bg-slate-200 border border-slate-300">
-                ⚡ Quick Edit
-              </button>
-            </div>
-          </div>
-
-          <!-- KEY METRICS -->
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
-            <div class="p-3 bg-slate-50 rounded-lg border border-slate-100">
-              <div class="text-[11px] text-slate-500 uppercase font-semibold">Starting Deposit</div>
-              <div id="cfgMetricBase" class="text-lg font-bold font-num text-slate-900">—</div>
-            </div>
-            <div class="p-3 bg-slate-50 rounded-lg border border-slate-100">
-              <div class="text-[11px] text-slate-500 uppercase font-semibold">Summit Target</div>
-              <div id="cfgMetricTarget" class="text-lg font-bold font-num text-purple-700">—</div>
-            </div>
-            <div class="p-3 bg-slate-50 rounded-lg border border-slate-100">
-              <div class="text-[11px] text-slate-500 uppercase font-semibold">Sessions Progress</div>
-              <div id="cfgMetricSessions" class="text-lg font-bold font-num text-emerald-600">—</div>
-            </div>
-            <div class="p-3 bg-slate-50 rounded-lg border border-slate-100">
-              <div class="text-[11px] text-slate-500 uppercase font-semibold">Growth Multiplier</div>
-              <div id="cfgMetricMultiplier" class="text-lg font-bold font-num text-amber-600">—</div>
-            </div>
-          </div>
-
-          <!-- SAVED CHALLENGES LIST -->
-          <details class="setup-saved-profiles">
-            <summary>Saved challenge roadmaps <span>Manage your saved plans</span></summary>
-            <div id="cfgActiveChallengeList" class="grid grid-cols-1 md:grid-cols-2 gap-3">
-              <!-- Dynamically populated -->
-            </div>
-          </details>
+      <section class="setup-current-challenge" aria-labelledby="setupChallengeHeading">
+        <div class="setup-challenges-heading"><div><h3 id="setupChallengeHeading">Your challenges</h3><p>Pick a tab to switch plans. Edit or remove a plan with the icons.</p></div><div class="setup-challenge-heading-actions"><span id="setupChallengeCount" class="setup-challenge-count">1 challenge</span><button id="btnNewChallenge" type="button" class="setup-new-challenge" onclick="startNewChallengeDraft()">＋ New challenge</button></div></div>
+        <div id="cfgChallengeTabs" class="setup-challenge-tabs" role="tablist" aria-label="Your challenges"></div>
+        <div id="cfgActiveStats" class="setup-challenge-stats" aria-label="Selected challenge stats">
+          <div><span>Starting balance</span><strong id="cfgMetricBase">—</strong></div>
+          <div><span>Goal balance</span><strong id="cfgMetricTarget">—</strong></div>
+          <div><span>Progress</span><strong id="cfgMetricSessions">—</strong></div>
+          <div><span>Growth multiple</span><strong id="cfgMetricMultiplier">—</strong></div>
         </div>
-      </div>
-      </details>
+        <p id="cfgActiveChallengeDates" class="setup-challenge-dates">Challenge dates</p>
+        <div class="setup-challenge-actions">
+          <button id="btnEditActiveChallenge" type="button" class="setup-icon-action" aria-label="Edit selected challenge" title="Edit challenge"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 16.5-.8 4.3 4.3-.8L19.7 7.8a2.1 2.1 0 0 0-3-3z"/><path d="m14.8 6.7 3 3M4 21h16"/></svg></button>
+          <button id="btnDeleteActiveChallenge" type="button" class="setup-icon-action is-danger" aria-label="Delete selected challenge" title="Delete challenge"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3m3 0-.8 13H6.8L6 7m4 4v5m4-5v5"/></svg></button>
+        </div>
+      </section>
 
       <!-- SUB-TAB 2: CHALLENGE WIZARD -->
       <div id="subtabCfgWizard" class="subtab-content setup-wizard-panel">
           <!-- STEP 1: CORE PARAMETERS -->
           <div id="wizardStep1" class="setup-step-content">
             <div class="setup-form-panel">
-              <div class="setup-panel-heading"><span class="setup-panel-icon">◎</span><div><h3>Portfolio Details</h3><p>Set your starting point and challenge timeline.</p></div></div>
+              <div class="setup-panel-heading"><span class="setup-panel-icon">◎</span><div><h3 id="setupFormTitle">Challenge basics</h3><p id="setupFormHelp">Enter three details, then you’re ready to go.</p></div></div>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4 setup-form-grid">
             <div class="setup-preview-panel"><div class="setup-panel-heading"><span class="setup-panel-icon setup-icon-amber">ϟ</span><div><h3>Challenge Preview</h3><p>See how your challenge will look.</p></div></div><svg class="challenge-mountain" viewBox="0 0 460 190" role="img" aria-label="Isometric camp and trail showing the challenge from start to summit"><use href="#location-camp" x="0" y="0" width="460" height="190"/><path d="M28 153h400" fill="none" stroke="#513d2d" stroke-width="8" stroke-dasharray="3 9"/><path d="M28 153 129 137 228 146 328 108 428 62" fill="none" stroke="#f0c768" stroke-width="4" stroke-dasharray="4 8"/><path d="M28 142v22m0-22h25l-7 8 7 7H28" fill="#5eb67b" stroke="#293b2c" stroke-width="2"/><path d="M428 51v23m0-23h25l-7 8 7 7h-25" fill="#efbd60" stroke="#443427" stroke-width="2"/></svg><div class="setup-preview-stats"><span>Start <strong id="setupPreviewStart">—</strong></span><span>Target <strong id="setupPreviewTarget">—</strong></span><span>Duration <strong id="setupPreviewDuration">—</strong></span><span>Target date <strong id="setupPreviewDate">—</strong></span></div></div>
               <div>
-                <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Challenge Name</label>
-                <input id="genName" type="text" placeholder="My first challenge" oninput="renderSetupChallengePreview()" class="w-full p-2 border border-slate-300 rounded-lg text-sm">
-              </div>
-              <div>
-                <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Start Date</label>
-                <input id="genStartDate" type="date" oninput="renderSetupChallengePreview()" class="w-full p-2 border border-slate-300 rounded-lg text-sm">
-              </div>
-              <div>
-                <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Starting Balance ($ C0)</label>
+                <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Starting balance</label>
                 <input id="genBase" type="number" min="0" step="0.01" placeholder="Starting amount" oninput="renderSetupChallengePreview()" class="w-full p-2 border border-slate-300 rounded-lg text-sm font-num font-bold">
               </div>
               <div>
-                <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Target Summit ($ T)</label>
+                <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Goal balance</label>
                 <input id="genTarget" type="number" min="0" step="0.01" placeholder="Target amount" oninput="renderSetupChallengePreview()" class="w-full p-2 border border-slate-300 rounded-lg text-sm font-num font-bold">
               </div>
               <div>
-                <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Total Duration (Sessions N)</label>
+                <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Number of sessions</label>
                 <input id="genSessions" type="number" min="2" step="1" placeholder="Number of sessions" oninput="renderSetupChallengePreview()" class="w-full p-2 border border-slate-300 rounded-lg text-sm font-num">
               </div>
             </div>
+            <details class="setup-optional-details">
+              <summary>Optional details <span>Challenge name and start date</span></summary>
+              <div class="setup-optional-grid">
+                <div><label for="genName">Challenge name</label><input id="genName" type="text" placeholder="My challenge" oninput="renderSetupChallengePreview()" class="w-full p-2 border border-slate-300 rounded-lg text-sm"></div>
+                <div><label for="genStartDate">Start date</label><input id="genStartDate" type="date" oninput="renderSetupChallengePreview()" class="w-full p-2 border border-slate-300 rounded-lg text-sm"></div>
+              </div>
+            </details>
             <div class="flex justify-end pt-3 border-t border-slate-100 setup-start-row">
-              <button onclick="setSetupStep(2)" class="setup-advanced-button">Advanced</button>
                 <button onclick="startChallengeFromSetup()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold sprite-action">
-                <svg viewBox="0 0 40 56" aria-hidden="true"><use href="#sprite-hero"/></svg> Start
+                <svg viewBox="0 0 40 56" aria-hidden="true"><use href="#sprite-hero"/></svg> Start challenge
               </button>
             </div>
             </div>
           </div>
 
-          <!-- STEP 2: GROWTH STRATEGY & PACING -->
-          <div id="wizardStep2" class="hidden space-y-4">
+          <details class="setup-more-options">
+            <summary>Advanced settings <span>Strategy and cash-outs</span></summary>
+            <div id="wizardStep2" class="setup-more-options-content space-y-4">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Growth strategy</label>
@@ -715,99 +1031,13 @@
                 <label for="genSkimMode" class="text-xs font-semibold text-slate-700">Enable Skim Mode (Augment daily targets with cash-out run rate)</label>
               </div>
             </div>
-            <div class="flex justify-between pt-3 border-t border-slate-100">
-              <button onclick="setSetupStep(1)" class="px-4 py-2 border border-slate-300 rounded-lg text-xs font-semibold">‹ Back</button>
-              <button onclick="setSetupStep(3)" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold">Next: Verification ›</button>
             </div>
-          </div>
+          </details>
 
-          <!-- STEP 3: VERIFICATION & ACTIVATION -->
-          <div id="wizardStep3" class="hidden space-y-4">
-            <h4 class="text-xs font-bold text-slate-700 uppercase">Checkpoints Preview</h4>
-            <div id="wizardCheckpointsPreview" class="border border-slate-200 rounded-lg overflow-x-auto text-xs">
-              <!-- Dynamically populated -->
-            </div>
-            <div class="flex flex-wrap justify-between gap-2 pt-3 border-t border-slate-100">
-              <button onclick="setSetupStep(2)" class="px-4 py-2 border border-slate-300 rounded-lg text-xs font-semibold">‹ Back</button>
-              <div class="flex gap-2">
-                <button onclick="handleSaveProfile(false)" class="px-4 py-2 bg-white border border-emerald-600 text-emerald-700 hover:bg-emerald-50 rounded-lg text-xs font-bold">
-                  Save as New Profile
-                </button>
-                <button onclick="handleSaveProfile(true)" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold">
-                  ✓ Update & Activate Active Profile
-                </button>
-              </div>
-            </div>
-          </div>
       </div>
 
       <details class="setup-advanced">
-        <summary>Advanced tools <span>Cloud sync and data safety</span></summary>
-      <div id="subtabCfgSync" class="setup-advanced-content">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <!-- Firebase Firestore -->
-          <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-4">
-            <div class="flex items-center justify-between border-b border-slate-100 pb-2">
-              <div class="flex items-center gap-2">
-                <span class="text-lg">🔥</span>
-                <h3 class="text-sm font-bold text-slate-800">Firebase Firestore Real-Time Sync</h3>
-              </div>
-              <span id="firebaseStatusBadge" class="badge badge-gray text-[10px]">Disconnected</span>
-            </div>
-            <p class="text-xs text-slate-500">Sync all your balances, sessions, and vault transactions live across multiple devices for free.</p>
-            <div>
-              <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Firebase Config JSON</label>
-              <textarea id="firebaseCfgInput" rows="4" placeholder='{ "apiKey": "...", "projectId": "..." }' class="w-full p-2 border border-slate-300 rounded-lg text-xs font-num"></textarea>
-            </div>
-            <div>
-              <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Sync Key (Unique Portfolio Identifier)</label>
-              <input id="syncKeyInput" type="text" placeholder="e.g. my_trading_portfolio" class="w-full p-2 border border-slate-300 rounded-lg text-xs">
-            </div>
-            <div class="flex flex-wrap gap-2 pt-1">
-              <button onclick="handleSaveFirebaseConfig()" class="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-bold">
-                Connect Firestore
-              </button>
-              <button onclick="handleManualCloudSync()" class="px-3 py-1.5 border border-slate-300 hover:bg-slate-100 rounded-lg text-xs font-semibold">
-                Sync Now
-              </button>
-              <button onclick="copyFirestoreRulesToClipboard()" class="px-3 py-1.5 border border-slate-300 hover:bg-slate-100 rounded-lg text-xs font-semibold">
-                📋 Copy Rules
-              </button>
-            </div>
-          </div>
-
-          <!-- Google Sheets Webhook -->
-          <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-4">
-            <div class="flex items-center justify-between border-b border-slate-100 pb-2">
-              <div class="flex items-center gap-2">
-                <span class="text-lg">📊</span>
-                <h3 class="text-sm font-bold text-slate-800">Google Sheets Webhook Sync</h3>
-              </div>
-              <span id="sheetsStatusBadge" class="badge badge-gray text-[10px]">Ready</span>
-            </div>
-            <p class="text-xs text-slate-500">Export session balances and vault skims to your private Google Spreadsheet automatically.</p>
-            <div>
-              <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Google Apps Script Web App URL</label>
-              <input id="webhookUrlInput" type="url" placeholder="https://script.google.com/macros/s/.../exec" class="w-full p-2 border border-slate-300 rounded-lg text-xs">
-            </div>
-            <div class="flex flex-wrap gap-2 pt-1">
-              <button onclick="handleSaveWebhookUrl()" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold">
-                Save Webhook
-              </button>
-              <button onclick="handleSyncToSheets()" class="px-3 py-1.5 border border-slate-300 hover:bg-slate-100 rounded-lg text-xs font-semibold">
-                Push to Sheet
-              </button>
-              <button onclick="openAppsScriptModal()" class="px-3 py-1.5 border border-slate-300 hover:bg-slate-100 rounded-lg text-xs font-semibold">
-                📄 View Apps Script Code
-              </button>
-              <button onclick="exportDataToCsv()" class="px-3 py-1.5 border border-slate-300 hover:bg-slate-100 rounded-lg text-xs font-semibold">
-                💾 Export CSV
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
+        <summary>Advanced tools <span>Data safety and reset</span></summary>
       <!-- SUB-TAB 4: SAFE RESET & DATA MANAGEMENT -->
       <div id="subtabCfgReset" class="setup-advanced-content">
         <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-5">
@@ -1356,6 +1586,219 @@
       </div>
     </section>
 
+    <section id="tabContentAccount" class="tab-content account-page" aria-labelledby="accountHeading">
+      <header class="account-hero">
+        <div class="account-hero-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><use href="#sprite-account"/></svg></div>
+        <div>
+          <span class="account-kicker">YOUR EXPEDITION ID</span>
+          <h2 id="accountHeading">Account & Cloud Hub</h2>
+          <p>Sign in with Google to keep your journey synchronized and private across all your devices.</p>
+        </div>
+      </header>
+
+      <div class="account-grid">
+        <!-- 1. IDENTITY & GOOGLE SIGN-IN PANEL -->
+        <section class="account-panel account-signin-panel" aria-labelledby="accountSignInHeading">
+          <div class="account-panel-heading">
+            <span class="account-panel-icon">✦</span>
+            <div>
+              <h3 id="accountSignInHeading">Expedition Identity</h3>
+              <p>Your Google account connects your personal ledger and Google Drive.</p>
+            </div>
+          </div>
+          
+          <div class="account-status-row">
+            <span id="accountStatusDot" class="account-status-dot" aria-hidden="true"></span>
+            <div>
+              <strong id="accountStatusTitle">Google Account Required</strong>
+              <span id="accountStatusDetail">Sign in to unlock your expedition ledger and Google Sheet.</span>
+            </div>
+          </div>
+
+          <!-- Active User Profile Card (shown when signed in) -->
+          <div id="accountUserCard" class="account-user-card hidden">
+            <div id="accountUserAvatar" class="account-user-avatar">?</div>
+            <div class="account-user-info">
+              <strong id="accountUserName">—</strong>
+              <span id="accountUserEmail">—</span>
+              <small id="accountUserUid" class="font-num text-[11px] text-slate-400">UID: —</small>
+            </div>
+          </div>
+
+          <!-- Signed-In Google Drive & Sheet Card -->
+          <div id="accountDriveCard" class="account-drive-card hidden">
+            <div class="account-drive-header">
+              <span class="account-drive-icon">📊</span>
+              <div>
+                <strong>Google Drive Ledger Sheet</strong>
+                <span id="accountDriveSheetTitle">Trove - Expedition Ledger</span>
+              </div>
+            </div>
+            <p class="text-xs text-slate-500">Your folder &amp; Google Sheet were auto-created. All challenges, session logs, and vault records update automatically in the background.</p>
+            <div class="pt-2">
+              <a id="btnAccountViewSheet" href="#" target="_blank" class="account-google-button account-view-sheet-btn">
+                <span>📊</span> <span>View Sheet</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Sign-In Button Area (shown when signed out) -->
+          <div id="accountSignOutArea">
+            <button id="btnGoogleSignIn" class="account-google-button" type="button" onclick="startGoogleSignIn()">
+              <span class="google-mark" aria-hidden="true">G</span>
+              <span id="btnGoogleSignInLabel">Sign in with Google</span>
+            </button>
+            <p id="accountSetupNote" class="account-setup-note">Signs you in, syncs all devices, and auto-generates your Google Drive spreadsheet.</p>
+          </div>
+
+          <!-- Signed-In Action Buttons (shown when signed in) -->
+          <div id="accountSignedInActions" class="account-auth-actions hidden">
+            <button id="btnAccountSignOut" type="button" class="account-action-button is-danger" onclick="handleGoogleSignOut()">
+              Sign Out
+            </button>
+          </div>
+        </section>
+
+        <!-- 2. ACCOUNT & STORAGE DETAILS PANEL -->
+        <section class="account-panel" aria-labelledby="accountDetailsHeading">
+          <div class="account-panel-heading">
+            <span class="account-panel-icon account-panel-icon--gold">▣</span>
+            <div>
+              <h3 id="accountDetailsHeading">Storage & Cloud Details</h3>
+              <p>Real-time status of your persistent storage.</p>
+            </div>
+          </div>
+          <dl class="account-details-list">
+            <div>
+              <dt>Signed in as</dt>
+              <dd id="accountEmail">Not signed in</dd>
+            </div>
+            <div>
+              <dt>Data storage</dt>
+              <dd id="accountStorageStatus">Private Firestore &amp; Local cache</dd>
+            </div>
+            <div>
+              <dt>Sync engine</dt>
+              <dd id="accountSyncStatus"><span id="accountSyncBadge" class="badge badge-green">100% Automated</span></dd>
+            </div>
+            <div>
+              <dt>Google Drive Folder</dt>
+              <dd id="accountDriveFolder">Trove - Expedition Ledger</dd>
+            </div>
+            <div>
+              <dt>Google Sheet</dt>
+              <dd id="accountSheetStatus"><a id="accountSheetLink" href="#" target="_blank" class="text-emerald-600 underline font-bold">Auto-created on sign-in</a></dd>
+            </div>
+            <div>
+              <dt>Last synced</dt>
+              <dd id="accountLastSync" class="font-num">Never</dd>
+            </div>
+          </dl>
+        </section>
+
+        <!-- 3. DATA ARCHIVE & EXPORTS PANEL -->
+        <section class="account-panel account-data-panel" aria-labelledby="accountDataHeading">
+          <div class="account-panel-heading">
+            <span class="account-panel-icon account-panel-icon--green">⇩</span>
+            <div>
+              <h3 id="accountDataHeading">Offline Backups</h3>
+              <p>Download portable archives or view your live Sheet.</p>
+            </div>
+          </div>
+          <p class="account-data-desc">Your Google Sheet updates live in the cloud. You can also download local CSV or JSON snapshots anytime.</p>
+          <div class="account-export-grid">
+            <a id="btnDataViewSheet" href="#" target="_blank" class="account-export-button">
+              📊 View Sheet
+            </a>
+            <button type="button" class="account-export-button" onclick="exportDataToCsv()">
+              💾 Export CSV
+            </button>
+            <button type="button" class="account-export-button" onclick="exportJsonBackup()">
+              📥 Export JSON
+            </button>
+          </div>
+        </section>
+
+        <!-- 4. FIREBASE & CLOUD SETUP PANEL (Full width) -->
+        <section class="account-panel account-config-panel" aria-labelledby="accountConfigHeading">
+          <div class="account-panel-heading">
+            <span class="account-panel-icon account-panel-icon--blue">☁</span>
+            <div>
+              <h3 id="accountConfigHeading">Firebase & Cloud Integration</h3>
+              <p>Connect your private Firebase project to enable cross-device cloud sync and Google sign-in.</p>
+            </div>
+          </div>
+
+          <div class="account-config-status-bar">
+            <div class="flex items-center gap-2">
+              <span id="firebaseStatusBadge" class="badge badge-gray">Not Configured</span>
+              <span id="firebaseStatusHint" class="text-xs text-slate-500">Add web configuration JSON to connect.</span>
+            </div>
+            <button type="button" class="account-copy-rules-btn" onclick="copyFirestoreRulesToClipboard()" title="Copy recommended security rules for Firestore">
+              📋 Copy Security Rules
+            </button>
+          </div>
+
+          <div class="account-config-form space-y-3 pt-2">
+            <div>
+              <label for="firebaseCfgInput" class="block text-xs font-semibold text-slate-700 uppercase mb-1">
+                Firebase Web Config (JSON or JavaScript Object)
+              </label>
+              <textarea id="firebaseCfgInput" rows="4" placeholder='{\n  "apiKey": "AIzaSy...",\n  "authDomain": "your-app.firebaseapp.com",\n  "projectId": "your-app",\n  "storageBucket": "your-app.appspot.com",\n  "messagingSenderId": "...",\n  "appId": "..."\n}' class="w-full p-2.5 border border-slate-300 rounded-lg text-xs font-num font-mono bg-slate-50"></textarea>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <div>
+                <label for="syncKeyInput" class="block text-xs font-semibold text-slate-700 uppercase mb-1">
+                  Custom Sync Key / Portfolio ID (Optional)
+                </label>
+                <input id="syncKeyInput" type="text" placeholder="Defaults to Google user UID when signed in" class="w-full p-2 border border-slate-300 rounded-lg text-xs font-num">
+              </div>
+              <div>
+                <label for="webhookUrlInput" class="block text-xs font-semibold text-slate-700 uppercase mb-1">
+                  Google Apps Script Webhook URL (Optional)
+                </label>
+                <input id="webhookUrlInput" type="url" placeholder="https://script.google.com/macros/s/.../exec" class="w-full p-2 border border-slate-300 rounded-lg text-xs">
+              </div>
+            </div>
+
+            <div class="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-slate-100">
+              <div class="flex flex-wrap gap-2">
+                <button id="btnSaveFirebaseCfg" type="button" class="account-btn-primary" onclick="handleSaveFirebaseConfig()">
+                  Save & Connect Firebase
+                </button>
+                <button id="btnManualSync" type="button" class="account-btn-secondary" onclick="handleManualCloudSync()">
+                  Sync Now
+                </button>
+                <button id="btnSaveWebhook" type="button" class="account-btn-secondary" onclick="handleSaveWebhookUrl()">
+                  Save Webhook
+                </button>
+                <button type="button" class="account-btn-secondary" onclick="openAppsScriptModal()">
+                  📄 Apps Script Code
+                </button>
+              </div>
+              <div>
+                <button id="btnDisconnectFirebase" type="button" class="account-btn-danger" onclick="handleDisconnectFirebase()">
+                  Disconnect
+                </button>
+              </div>
+            </div>
+
+            <!-- Quick Firebase Setup Guide -->
+            <details class="account-setup-guide">
+              <summary>Quick Setup Guide (3 minutes to private cloud)</summary>
+              <div class="account-guide-steps text-xs text-slate-600 space-y-2 pt-2">
+                <p>1. Open <a href="https://console.firebase.google.com" target="_blank" rel="noopener" class="text-emerald-700 underline font-semibold">Firebase Console</a> and click <strong>Add project</strong> (free Spark tier).</p>
+                <p>2. Go to <strong>Build &gt; Authentication &gt; Sign-in method</strong>, and enable <strong>Google</strong>.</p>
+                <p>3. Go to <strong>Build &gt; Firestore Database &gt; Create database</strong>. In the <strong>Rules</strong> tab, click <em>Copy Security Rules</em> above, paste, and click <strong>Publish</strong>.</p>
+                <p>4. Go to <strong>Project Settings (gear icon) &gt; General &gt; Your apps</strong>, click <strong>&lt;/&gt; Web</strong>, copy the config object, and paste it into the box above.</p>
+              </div>
+            </details>
+          </div>
+        </section>
+      </div>
+    </section>
+
   </main>
 
   <!-- ================= MODALS ================= -->
@@ -1523,40 +1966,14 @@
     </div>
   </div>
 
-  <!-- 5. SHEET / CLOUD SYNC MODAL -->
-  <div id="sheetSyncModal" class="modal-overlay">
-    <div class="bg-white rounded-xl border border-slate-200 shadow-xl max-w-md w-full p-5 space-y-4">
-      <div class="flex justify-between items-center border-b border-slate-100 pb-2">
-        <h3 class="text-sm font-bold text-slate-900">☁️ Cloud & Google Sheets Sync Hub</h3>
-        <button onclick="closeModal('sheetSyncModal')" class="text-slate-400 hover:text-slate-600 text-lg leading-none">✕</button>
-      </div>
-      <div>
-        <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Sync Key (Portfolio ID)</label>
-        <input id="modalSyncKeyInput" type="text" placeholder="dcniper_portfolio" class="w-full p-2 border border-slate-300 rounded-lg text-xs">
-      </div>
-      <div>
-        <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Firebase Project Config (JSON)</label>
-        <textarea id="modalFirebaseCfgInput" rows="3" placeholder='{ "apiKey": "...", "projectId": "..." }' class="w-full p-2 border border-slate-300 rounded-lg text-xs font-num"></textarea>
-      </div>
-      <div>
-        <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Google Sheets Webhook URL</label>
-        <input id="modalWebhookUrlInput" type="url" placeholder="https://script.google.com/macros/s/.../exec" class="w-full p-2 border border-slate-300 rounded-lg text-xs">
-      </div>
-      <div class="flex justify-between gap-2 pt-2">
-        <button onclick="handleManualCloudSync()" class="px-3 py-1.5 border border-slate-300 rounded-lg text-xs font-semibold">Sync to Cloud Now</button>
-        <button onclick="handleSaveSyncModal()" class="px-4 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-bold">Save & Connect</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- 6. APPS SCRIPT CODE GENERATOR MODAL -->
+  <!-- 6. APPS SCRIPT CODE MODAL -->
   <div id="appsScriptModal" class="modal-overlay">
     <div class="bg-white rounded-xl border border-slate-200 shadow-xl max-w-2xl w-full p-5 space-y-4">
       <div class="flex justify-between items-center border-b border-slate-100 pb-2">
         <h3 class="text-sm font-bold text-slate-900">Google Apps Script Generator</h3>
         <button onclick="closeModal('appsScriptModal')" class="text-slate-400 hover:text-slate-600 text-lg leading-none">✕</button>
       </div>
-      <p class="text-xs text-slate-600">Copy this code into <strong>Extensions > Apps Script</strong> in your Google Sheet, then click <strong>Deploy > New deployment > Web app</strong> (Access: Anyone).</p>
+      <p class="text-xs text-slate-600">Copy this code into <strong>Extensions &gt; Apps Script</strong> in your Google Sheet, then click <strong>Deploy &gt; New deployment &gt; Web app</strong> (Who has access: Anyone).</p>
       <textarea id="appsScriptCodeText" readonly rows="12" class="w-full p-2.5 bg-slate-900 text-emerald-400 font-num text-xs rounded-lg"></textarea>
       <div class="flex justify-end gap-2">
         <button onclick="copyAppsScriptCode()" class="px-4 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold">📋 Copy Code to Clipboard</button>

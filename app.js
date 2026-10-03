@@ -27,6 +27,20 @@ const STORAGE_KEYS = {
   SYNC_KEY: 'pgl_sync_key_v10',
   WEBHOOK_URL: 'pgl_webhook_url_v10',
   FIREBASE_CFG: 'pgl_firebase_cfg_v10',
+  LAST_SYNCED: 'pgl_last_synced_v10',
+  SPREADSHEET_ID: 'pgl_spreadsheet_id_v10',
+  SPREADSHEET_URL: 'pgl_spreadsheet_url_v10',
+  FOLDER_ID: 'pgl_folder_id_v10',
+};
+
+// Built-in Firebase Project Configuration (Zero-configuration live cloud sync)
+const BUILTIN_FIREBASE_CONFIG = {
+  apiKey: "AIzaSyDv3bRZGKMAyew6iuascU4l2V7TqarHZdI",
+  authDomain: "port-growth-tracker.firebaseapp.com",
+  projectId: "port-growth-tracker",
+  storageBucket: "port-growth-tracker.firebasestorage.app",
+  messagingSenderId: "845323309196",
+  appId: "1:845323309196:web:14f21bdc4cb7d961066ba9"
 };
 
 // ==========================================
@@ -345,19 +359,32 @@ const appState = {
   bills: [],
   billsBasis: 'days',
   tradeLogs: [],
+  // Cloud & Firebase sync state
   syncKey: '',
   webhookUrl: '',
-  firebaseCfg: '',
+  firebaseCfg: JSON.stringify(BUILTIN_FIREBASE_CONFIG, null, 2),
+  currentUser: null,
+  cloudStatus: 'offline', // 'offline' | 'connecting' | 'online' | 'syncing' | 'error'
+  lastSyncedAt: null,
+  spreadsheetId: '',
+  spreadsheetUrl: '',
+  folderId: '',
+  googleAccessToken: null,
 };
 
 // Calendar navigation state
 let calendarViewYear = new Date().getFullYear();
 let calendarViewMonth = new Date().getMonth();
 
-// Cloud sync debounce timers
+let setupNewProfileDraft = false;
+
+// Cloud synchronization runtime state
 let cloudSyncTimeout = null;
+let sheetSyncTimeout = null;
 let firestoreDb = null;
 let firestoreUnsubscribe = null;
+let firebaseAuthUnsubscribe = null;
+let isApplyingRemoteSync = false;
 
 // ==========================================
 // 4. STATE PERSISTENCE & LOAD ENGINE
@@ -388,9 +415,13 @@ function loadStateFromStorage() {
     appState.bills = JSON.parse(localStorage.getItem(STORAGE_KEYS.BILLS_BREAKDOWN) || '[]');
     appState.billsBasis = localStorage.getItem(STORAGE_KEYS.BILLS_BASIS) || 'days';
     appState.tradeLogs = JSON.parse(localStorage.getItem(STORAGE_KEYS.TRADE_LOGS) || '[]');
-    appState.syncKey = localStorage.getItem(STORAGE_KEYS.SYNC_KEY) || 'dcniper_portfolio';
+    appState.syncKey = localStorage.getItem(STORAGE_KEYS.SYNC_KEY) || '';
     appState.webhookUrl = localStorage.getItem(STORAGE_KEYS.WEBHOOK_URL) || '';
-    appState.firebaseCfg = localStorage.getItem(STORAGE_KEYS.FIREBASE_CFG) || '';
+    appState.firebaseCfg = localStorage.getItem(STORAGE_KEYS.FIREBASE_CFG) || JSON.stringify(BUILTIN_FIREBASE_CONFIG, null, 2);
+    appState.lastSyncedAt = localStorage.getItem(STORAGE_KEYS.LAST_SYNCED) || null;
+    appState.spreadsheetId = localStorage.getItem(STORAGE_KEYS.SPREADSHEET_ID) || '';
+    appState.spreadsheetUrl = localStorage.getItem(STORAGE_KEYS.SPREADSHEET_URL) || '';
+    appState.folderId = localStorage.getItem(STORAGE_KEYS.FOLDER_ID) || '';
 
     // Verify active profile exists
     if (!getActiveProfile()) {
@@ -419,12 +450,19 @@ function saveStateToStorage(skipCloudSync = false) {
     localStorage.setItem(STORAGE_KEYS.BILLS_BREAKDOWN, JSON.stringify(appState.bills));
     localStorage.setItem(STORAGE_KEYS.BILLS_BASIS, appState.billsBasis);
     localStorage.setItem(STORAGE_KEYS.TRADE_LOGS, JSON.stringify(appState.tradeLogs));
-    localStorage.setItem(STORAGE_KEYS.SYNC_KEY, appState.syncKey);
-    localStorage.setItem(STORAGE_KEYS.WEBHOOK_URL, appState.webhookUrl);
-    localStorage.setItem(STORAGE_KEYS.FIREBASE_CFG, appState.firebaseCfg);
+    localStorage.setItem(STORAGE_KEYS.SYNC_KEY, appState.syncKey || '');
+    localStorage.setItem(STORAGE_KEYS.WEBHOOK_URL, appState.webhookUrl || '');
+    localStorage.setItem(STORAGE_KEYS.FIREBASE_CFG, appState.firebaseCfg || '');
+    localStorage.setItem(STORAGE_KEYS.SPREADSHEET_ID, appState.spreadsheetId || '');
+    localStorage.setItem(STORAGE_KEYS.SPREADSHEET_URL, appState.spreadsheetUrl || '');
+    localStorage.setItem(STORAGE_KEYS.FOLDER_ID, appState.folderId || '');
+    if (appState.lastSyncedAt) {
+      localStorage.setItem(STORAGE_KEYS.LAST_SYNCED, appState.lastSyncedAt);
+    }
 
-    if (!skipCloudSync) {
+    if (!skipCloudSync && !isApplyingRemoteSync) {
       debounceCloudSync();
+      debounceSheetSync();
     }
   } catch (err) {
     console.error('Error saving state to storage:', err);
@@ -1166,6 +1204,15 @@ function renderTotalFinancialGoal() {
  */
 function renderConfigModule() {
   const profile = getActiveProfile();
+  const setupTitle = document.getElementById('setupFormTitle');
+  const setupHelp = document.getElementById('setupFormHelp');
+  if (setupTitle) setupTitle.textContent = setupNewProfileDraft ? 'New challenge' : 'Challenge basics';
+  if (setupHelp) setupHelp.textContent = setupNewProfileDraft ? 'Set the starting balance, goal and session count.' : 'Enter three details, then you’re ready to go.';
+  const setupDate = document.getElementById('genStartDate');
+  if (setupDate && !setupDate.value) {
+    const today = new Date();
+    setupDate.value = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+  }
 
   // Active Challenge Overview
   const nameEl = document.getElementById('cfgActiveChallengeName');
@@ -1174,66 +1221,56 @@ function renderConfigModule() {
   const mTarget = document.getElementById('cfgMetricTarget');
   const mSessions = document.getElementById('cfgMetricSessions');
   const mMultiplier = document.getElementById('cfgMetricMultiplier');
+  const challengeTabs = document.getElementById('cfgChallengeTabs');
+  const challengeCount = document.getElementById('setupChallengeCount');
+  const editActiveButton = document.getElementById('btnEditActiveChallenge');
+  const deleteActiveButton = document.getElementById('btnDeleteActiveChallenge');
 
   if (nameEl) nameEl.textContent = profile.name;
   if (datesEl) {
     const endDate = getDateForSession(profile.startDate, profile.totalSessions);
-    datesEl.textContent = `Start: ${profile.startDate} • Projected Summit: ${endDate}`;
+    datesEl.textContent = `Starts ${profile.startDate} · Goal date ${endDate}`;
   }
   if (mBase) mBase.textContent = formatCurrency(profile.base);
   if (mTarget) mTarget.textContent = formatCurrency(profile.portTarget);
-  if (mSessions) mSessions.textContent = `${appState.activeSession} / ${profile.totalSessions}`;
+  if (mSessions) mSessions.textContent = `${Math.min(appState.activeSession, profile.totalSessions)} / ${profile.totalSessions} sessions`;
   if (mMultiplier) {
     const mult = profile.base > 0 ? (profile.portTarget / profile.base).toFixed(1) : '0.0';
     mMultiplier.textContent = `${mult}x`;
   }
 
-  // Profile Selector
-  const selector = document.getElementById('ladderProfileSelector');
-  if (selector) {
-    selector.innerHTML = '';
-    appState.profiles.forEach(p => {
-      const opt = document.createElement('option');
-      opt.value = p.id;
-      opt.textContent = `${p.name} ($${p.base} → $${p.portTarget})`;
-      if (p.id === appState.activeProfileId) opt.selected = true;
-      selector.appendChild(opt);
+  if (challengeCount) challengeCount.textContent = `${appState.profiles.length} ${appState.profiles.length === 1 ? 'challenge' : 'challenges'}`;
+  if (challengeTabs) {
+    challengeTabs.replaceChildren();
+    appState.profiles.forEach((challenge, index) => {
+      const isActive = challenge.id === appState.activeProfileId;
+      const tab = document.createElement('button');
+      const tabId = `challengeTab${index}`;
+      tab.type = 'button';
+      tab.id = tabId;
+      tab.className = `setup-challenge-tab${isActive ? ' is-active' : ''}`;
+      tab.setAttribute('role', 'tab');
+      tab.setAttribute('aria-selected', String(isActive));
+      tab.setAttribute('aria-controls', 'cfgActiveStats');
+      tab.addEventListener('click', () => handleSwitchProfile(challenge.id));
+
+      const tabName = document.createElement('strong');
+      tabName.textContent = challenge.name || 'My Challenge';
+      const tabGoal = document.createElement('span');
+      tabGoal.textContent = `${formatCurrency(challenge.base)} → ${formatCurrency(challenge.portTarget)}`;
+      const tabDuration = document.createElement('small');
+      tabDuration.textContent = `${challenge.totalSessions} sessions`;
+      tab.append(tabName, tabGoal, tabDuration);
+      challengeTabs.appendChild(tab);
     });
   }
-
-  // Saved Challenges List
-  const listEl = document.getElementById('cfgActiveChallengeList');
-  if (listEl) {
-    listEl.innerHTML = appState.profiles.map(p => {
-      const isActive = p.id === appState.activeProfileId;
-      return `
-        <div class="p-3.5 rounded-lg border ${isActive ? 'border-emerald-500 bg-emerald-50/50' : 'border-slate-200 bg-white'} space-y-2">
-          <div class="flex items-center justify-between">
-            <h5 class="font-bold text-xs text-slate-900">${p.name}</h5>
-            <span class="badge ${isActive ? 'badge-green' : 'badge-gray'} text-[10px]">${isActive ? 'Active' : 'Saved'}</span>
-          </div>
-          <div class="flex justify-between text-xs text-slate-600 font-num">
-            <span>$${p.base} → $${p.portTarget}</span>
-            <span>${p.totalSessions} Sessions</span>
-          </div>
-          <div class="flex gap-2 pt-1 border-t border-slate-100 text-xs">
-            ${!isActive ? `<button onclick="handleSwitchProfile('${p.id}')" class="px-2 py-1 bg-slate-800 text-white rounded font-semibold text-[11px]">Select Active</button>` : ''}
-            <button onclick="handleLoadProfileIntoWizard('${p.id}')" class="px-2 py-1 border border-slate-300 rounded font-semibold text-[11px]">Edit in Wizard</button>
-            ${appState.profiles.length > 1 ? `<button onclick="handleDeleteProfile('${p.id}')" class="px-2 py-1 text-red-600 hover:bg-red-50 rounded font-semibold text-[11px]">Delete</button>` : ''}
-          </div>
-        </div>
-      `;
-    }).join('');
+  if (editActiveButton) editActiveButton.onclick = () => handleLoadProfileIntoWizard(appState.activeProfileId);
+  if (deleteActiveButton) {
+    deleteActiveButton.disabled = appState.profiles.length <= 1;
+    deleteActiveButton.title = deleteActiveButton.disabled ? 'Keep at least one challenge' : 'Delete selected challenge';
+    deleteActiveButton.onclick = () => handleDeleteProfile(appState.activeProfileId);
   }
 
-  // Sync inputs
-  const syncKeyInp = document.getElementById('syncKeyInput');
-  const firebaseCfgInp = document.getElementById('firebaseCfgInput');
-  const webhookUrlInp = document.getElementById('webhookUrlInput');
-
-  if (syncKeyInp) syncKeyInp.value = appState.syncKey;
-  if (firebaseCfgInp) firebaseCfgInp.value = appState.firebaseCfg;
-  if (webhookUrlInp) webhookUrlInp.value = appState.webhookUrl;
   renderSetupChallengePreview();
   handleCurveTypeChange(document.getElementById('genCurveType')?.value || 'tri_pace_independent');
 }
@@ -1856,7 +1893,7 @@ function switchMainTab(tabName) {
   document.body.classList.remove('mobile-nav-open');
   const menuButton = document.getElementById('btnMobileMenu');
   if (menuButton) { menuButton.textContent = '☰'; menuButton.setAttribute('aria-label', 'Open navigation'); }
-  const tabs = ['tracker', 'config', 'trades', 'milestones', 'stats'];
+  const tabs = ['tracker', 'config', 'trades', 'milestones', 'stats', 'account'];
   tabs.forEach(t => {
     const content = document.getElementById(`tabContent${capitalize(t)}`);
     const btn = document.getElementById(`nav${capitalize(t)}Btn`);
@@ -1929,7 +1966,7 @@ function switchTrackerSubTab(subtab) {
 }
 
 function switchConfigSubTab(subtab) {
-  const subtabs = ['active', 'wizard', 'sync', 'reset'];
+  const subtabs = ['active', 'wizard', 'reset'];
   subtabs.forEach(st => {
     const content = document.getElementById(`subtabCfg${capitalize(st)}`);
     const btn = document.getElementById(`subnavCfg${capitalize(st)}Btn`);
@@ -2271,58 +2308,100 @@ function handleQuickSaveStep1() {
   const target = Math.max(base, parseFloat(document.getElementById('genTarget').value) || 0);
   const sessions = Math.max(2, parseInt(document.getElementById('genSessions').value) || 2);
   const startDate = document.getElementById('genStartDate').value || new Date().toISOString().split('T')[0];
+  const curveType = document.getElementById('genCurveType')?.value || 'tri_pace_independent';
+  const withdrawalTarget = parseFloat(document.getElementById('genWithdrawalTarget')?.value) || 0;
+  const withdrawalDays = parseInt(document.getElementById('genWithdrawalDays')?.value) || sessions;
+  const skimMode = !!document.getElementById('genSkimMode')?.checked;
 
-  const profile = getActiveProfile();
+  let profile;
+  if (setupNewProfileDraft) {
+    profile = {
+      id: `prof_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`,
+      name,
+      base,
+      portTarget: target,
+      targetBalance: target,
+      totalSessions: sessions,
+      startDate,
+      curveType,
+      withdrawalTarget,
+      withdrawalDays,
+      skimMode,
+      sessions: generateRoadmapSessions(curveType, base, target, sessions, withdrawalTarget, withdrawalDays)
+    };
+    appState.profiles.push(profile);
+    appState.activeProfileId = profile.id;
+    appState.activeSession = 1;
+    setupNewProfileDraft = false;
+  } else {
+    profile = getActiveProfile();
+  }
   profile.name = name;
   profile.base = base;
   profile.portTarget = target;
   profile.targetBalance = target;
   profile.totalSessions = sessions;
   profile.startDate = startDate;
-  profile.sessions = generateRoadmapSessions(
-    profile.curveType || 'tri_pace_independent',
-    base,
-    target,
-    sessions,
-    profile.withdrawalTarget,
-    profile.withdrawalDays
-  );
+  profile.curveType = curveType;
+  profile.withdrawalTarget = withdrawalTarget;
+  profile.withdrawalDays = withdrawalDays;
+  profile.skimMode = skimMode;
+  profile.sessions = generateRoadmapSessions(curveType, base, target, sessions, withdrawalTarget, withdrawalDays);
 
   saveStateToStorage();
   refreshAllViews();
 }
 
 function startChallengeFromSetup() {
-  const base = parseFloat(document.getElementById('genBase')?.value);
-  const target = parseFloat(document.getElementById('genTarget')?.value);
-  const sessions = parseInt(document.getElementById('genSessions')?.value);
-  if (!(base > 0) || !(target >= base) || !(sessions >= 2)) {
-    switchConfigSubTab('wizard');
-    document.getElementById('genBase')?.focus();
-    openModal({ title: 'Complete the essentials', message: 'Enter a starting amount, a target at least as large, and 2 or more sessions.' });
+  const baseInput = document.getElementById('genBase');
+  const targetInput = document.getElementById('genTarget');
+  const sessionsInput = document.getElementById('genSessions');
+  const base = parseFloat(baseInput?.value);
+  const target = parseFloat(targetInput?.value);
+  const sessions = parseInt(sessionsInput?.value, 10);
+  const invalid = [
+    [baseInput, base > 0, 'Enter a starting balance above zero.'],
+    [targetInput, target >= base, 'Your goal must be at least your starting balance.'],
+    [sessionsInput, sessions >= 2, 'Enter at least 2 sessions.']
+  ].find(([input, valid]) => input && !valid);
+  if (invalid) {
+    const [input, , message] = invalid;
+    input.setCustomValidity(message);
+    input.addEventListener('input', () => input.setCustomValidity(''), { once: true });
+    input.focus();
+    input.reportValidity();
     return;
   }
   handleQuickSaveStep1();
   switchMainTab('tracker');
 }
 
-function setSetupStep(step) {
-  [1, 2, 3].forEach(s => {
-    const el = document.getElementById(`wizardStep${s}`);
-    const ind = document.getElementById(`stepIndicator${s}`);
-    if (el) el.classList.add('hidden');
-    if (ind) ind.className = 'setup-step-indicator';
+function startNewChallengeDraft() {
+  setupNewProfileDraft = true;
+  const today = new Date();
+  const dateValue = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+  ['genName', 'genBase', 'genTarget', 'genSessions', 'genWithdrawalTarget', 'genWithdrawalDays'].forEach(id => {
+    const input = document.getElementById(id);
+    if (input) input.value = '';
   });
-
-  const activeEl = document.getElementById(`wizardStep${step}`);
-  const activeInd = document.getElementById(`stepIndicator${step}`);
-  if (activeEl) activeEl.classList.remove('hidden');
-  if (activeInd) activeInd.className = 'setup-step-indicator is-current';
+  const startDate = document.getElementById('genStartDate');
+  if (startDate) startDate.value = dateValue;
+  const curveType = document.getElementById('genCurveType');
+  if (curveType) curveType.value = 'tri_pace_independent';
+  const skimMode = document.getElementById('genSkimMode');
+  if (skimMode) skimMode.checked = false;
+  document.querySelector('#subtabCfgWizard .setup-optional-details')?.removeAttribute('open');
+  document.querySelector('#subtabCfgWizard .setup-more-options')?.removeAttribute('open');
   renderSetupChallengePreview();
+  const setupTitle = document.getElementById('setupFormTitle');
+  const setupHelp = document.getElementById('setupFormHelp');
+  if (setupTitle) setupTitle.textContent = 'New challenge';
+  if (setupHelp) setupHelp.textContent = 'Set the starting balance, goal and session count.';
+  document.getElementById('subtabCfgWizard')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
 
-  if (step === 3) {
-    renderWizardPreview();
-  }
+function setSetupStep(step) {
+  renderSetupChallengePreview();
 }
 
 function handleCurveTypeChange(type) {
@@ -2448,6 +2527,8 @@ function handleProfileSelect(profileId) {
 }
 
 function handleSwitchProfile(profileId) {
+  if (!profileId || profileId === appState.activeProfileId) return;
+  setupNewProfileDraft = false;
   appState.activeProfileId = profileId;
   saveStateToStorage();
   refreshAllViews();
@@ -2456,6 +2537,7 @@ function handleSwitchProfile(profileId) {
 function handleLoadProfileIntoWizard(profileId) {
   const p = appState.profiles.find(pr => pr.id === profileId);
   if (!p) return;
+  setupNewProfileDraft = false;
 
   document.getElementById('genName').value = p.name;
   document.getElementById('genBase').value = p.base;
@@ -2471,6 +2553,9 @@ function handleLoadProfileIntoWizard(profileId) {
 
   switchConfigSubTab('wizard');
   setSetupStep(1);
+  document.querySelector('#subtabCfgWizard .setup-optional-details')?.setAttribute('open', '');
+  document.querySelector('#subtabCfgWizard .setup-more-options')?.setAttribute('open', '');
+  document.getElementById('subtabCfgWizard')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 function handleDeleteProfile(profileId) {
@@ -2892,116 +2977,756 @@ function handleSaveMilestoneConfig() {
 // 11. CLOUD SYNC & DATA INTEGRATIONS
 // ==========================================
 
+function parseFirebaseConfigInput(inputStr) {
+  if (!inputStr || !inputStr.trim()) return null;
+  let str = inputStr.trim();
+  str = str.replace(/^(const|let|var)\s+\w+\s*=\s*/, '').replace(/;\s*$/, '');
+  try {
+    return JSON.parse(str);
+  } catch (e1) {
+    try {
+      const jsonified = str
+        .replace(/(['"])?([a-zA-Z0-9_]+)(['"])?:/g, '"$2":')
+        .replace(/'/g, '"');
+      return JSON.parse(jsonified);
+    } catch (e2) {
+      try {
+        const fn = new Function('return ' + str);
+        const obj = fn();
+        if (typeof obj === 'object' && obj !== null && (obj.apiKey || obj.projectId)) {
+          return obj;
+        }
+      } catch (e3) {}
+      throw new Error('Please ensure you pasted a valid Firebase configuration JSON or JavaScript object.');
+    }
+  }
+}
+
+function getCloudSyncDocId() {
+  if (appState.currentUser && appState.currentUser.uid) {
+    return appState.currentUser.uid;
+  }
+  if (appState.syncKey && appState.syncKey.trim()) {
+    return appState.syncKey.trim();
+  }
+  return null;
+}
+
+function updateCloudStatus(status) {
+  appState.cloudStatus = status;
+  renderCloudStatusBadges();
+}
+
+function formatTimeAgo(isoString) {
+  if (!isoString) return 'Never';
+  const diffMs = Date.now() - new Date(isoString).getTime();
+  const diffSec = Math.floor(diffMs / 1000);
+  if (diffSec < 10) return 'Just now';
+  if (diffSec < 60) return `${diffSec}s ago`;
+  const diffMin = Math.floor(diffSec / 60);
+  if (diffMin < 60) return `${diffMin}m ago`;
+  const diffHr = Math.floor(diffMin / 60);
+  if (diffHr < 24) return `${diffHr}h ago`;
+  return new Date(isoString).toLocaleDateString();
+}
+
+function renderCloudStatusBadges() {
+  const headerBadge = document.getElementById('headerSyncStatus');
+  const accountSyncBadge = document.getElementById('accountSyncBadge');
+  const accountStatusDot = document.getElementById('accountStatusDot');
+  const firebaseStatusBadge = document.getElementById('firebaseStatusBadge');
+  const firebaseStatusHint = document.getElementById('firebaseStatusHint');
+
+  const statusMap = {
+    online: { text: 'Cloud: Online', badgeClass: 'badge badge-green', dotColor: 'var(--green)' },
+    syncing: { text: 'Cloud: Syncing...', badgeClass: 'badge badge-amber', dotColor: 'var(--gold)' },
+    connecting: { text: 'Cloud: Connecting...', badgeClass: 'badge badge-amber', dotColor: 'var(--gold)' },
+    offline: { text: 'Cloud: Offline', badgeClass: 'badge badge-gray', dotColor: 'var(--muted)' },
+    error: { text: 'Cloud: Error', badgeClass: 'badge badge-red', dotColor: 'var(--red)' }
+  };
+
+  const current = statusMap[appState.cloudStatus] || statusMap.offline;
+
+  if (headerBadge) {
+    headerBadge.textContent = current.text;
+    headerBadge.className = `${current.badgeClass} cursor-pointer`;
+  }
+  if (accountSyncBadge) {
+    accountSyncBadge.textContent = capitalize(appState.cloudStatus);
+    accountSyncBadge.className = current.badgeClass;
+  }
+  if (accountStatusDot && appState.currentUser) {
+    accountStatusDot.style.background = current.dotColor;
+  }
+  if (firebaseStatusBadge) {
+    if (!appState.firebaseCfg) {
+      firebaseStatusBadge.textContent = 'Not Configured';
+      firebaseStatusBadge.className = 'badge badge-gray';
+      if (firebaseStatusHint) firebaseStatusHint.textContent = 'Add web configuration JSON to connect.';
+    } else if (appState.cloudStatus === 'error') {
+      firebaseStatusBadge.textContent = 'Connection Error';
+      firebaseStatusBadge.className = 'badge badge-red';
+      if (firebaseStatusHint) firebaseStatusHint.textContent = 'Check Firebase credentials or security rules.';
+    } else {
+      firebaseStatusBadge.textContent = 'Configured & Ready';
+      firebaseStatusBadge.className = 'badge badge-green';
+      if (firebaseStatusHint) firebaseStatusHint.textContent = 'Firebase connected. Cloud sync is active.';
+    }
+  }
+}
+
 function debounceCloudSync() {
   if (cloudSyncTimeout) clearTimeout(cloudSyncTimeout);
   cloudSyncTimeout = setTimeout(() => {
     pushStateToCloud();
-  }, 500);
+  }, 600);
 }
 
 function pushStateToCloud() {
-  // 1. Firebase sync if active
-  if (firestoreDb && appState.syncKey) {
-    const statusBadge = document.getElementById('firebaseStatusBadge');
-    const headerBadge = document.getElementById('headerSyncStatus');
-    if (statusBadge) { statusBadge.textContent = 'Syncing...'; statusBadge.className = 'badge badge-amber text-[10px]'; }
-    if (headerBadge) { headerBadge.textContent = 'Cloud: Syncing...'; headerBadge.className = 'badge badge-amber'; }
+  if (!firestoreDb) return;
+  const docId = getCloudSyncDocId();
+  if (!docId) return;
 
-    const payload = {
-      profiles: appState.profiles,
-      activeProfileId: appState.activeProfileId,
-      activeSession: appState.activeSession,
-      logs: appState.logs,
-      lockedSessions: appState.lockedSessions,
-      notes: appState.notes,
-      timestamps: appState.timestamps,
-      vaultLedger: appState.vaultLedger,
-      bills: appState.bills,
-      tradeLogs: appState.tradeLogs,
-      milestoneCfg: appState.milestoneCfg,
-      updatedAt: new Date().toISOString()
-    };
+  updateCloudStatus('syncing');
 
-    firestoreDb.collection('users').doc(appState.syncKey).set(payload, { merge: true })
-      .then(() => {
-        if (statusBadge) { statusBadge.textContent = 'Online'; statusBadge.className = 'badge badge-green text-[10px]'; }
-        if (headerBadge) { headerBadge.textContent = 'Cloud: Online'; headerBadge.className = 'badge badge-green'; }
+  const payload = {
+    profiles: appState.profiles,
+    activeProfileId: appState.activeProfileId,
+    activeSession: appState.activeSession,
+    logs: appState.logs,
+    lockedSessions: appState.lockedSessions,
+    notes: appState.notes,
+    timestamps: appState.timestamps,
+    pace: appState.pace,
+    planViewMode: appState.planViewMode,
+    vaultLedger: appState.vaultLedger,
+    milestoneCfg: appState.milestoneCfg,
+    milestoneEnabled: appState.milestoneEnabled,
+    skimMode: appState.skimMode,
+    bills: appState.bills,
+    billsBasis: appState.billsBasis,
+    tradeLogs: appState.tradeLogs,
+    userEmail: appState.currentUser ? appState.currentUser.email : null,
+    syncKey: appState.syncKey || docId,
+    updatedAt: new Date().toISOString()
+  };
+
+  firestoreDb.collection('users').doc(docId).set(payload, { merge: true })
+    .then(() => {
+      appState.lastSyncedAt = new Date().toISOString();
+      updateCloudStatus('online');
+      const lastSyncEl = document.getElementById('accountLastSync');
+      if (lastSyncEl) lastSyncEl.textContent = formatTimeAgo(appState.lastSyncedAt);
+    })
+    .catch(err => {
+      console.warn('Firestore write failed:', err);
+      updateCloudStatus('error');
+    });
+}
+
+function initFirebaseSync() {
+  if (!window.firebase) {
+    console.warn('Firebase compat library not loaded.');
+    updateCloudStatus('offline');
+    return;
+  }
+
+  if (!appState.firebaseCfg || !appState.firebaseCfg.trim()) {
+    appState.firebaseCfg = JSON.stringify(BUILTIN_FIREBASE_CONFIG, null, 2);
+  }
+
+  try {
+    const config = parseFirebaseConfigInput(appState.firebaseCfg);
+    if (!config || (!config.apiKey && !config.projectId)) {
+      console.warn('Firebase config missing essential properties.');
+      updateCloudStatus('error');
+      return;
+    }
+
+    if (!firebase.apps || !firebase.apps.length) {
+      firebase.initializeApp(config);
+    }
+    firestoreDb = firebase.firestore();
+
+    updateCloudStatus('connecting');
+
+    // Register Auth state listener
+    if (firebase.auth) {
+      if (firebaseAuthUnsubscribe) firebaseAuthUnsubscribe();
+      firebaseAuthUnsubscribe = firebase.auth().onAuthStateChanged(user => {
+        if (user) {
+          appState.currentUser = {
+            uid: user.uid,
+            email: user.email || '',
+            displayName: user.displayName || user.email || 'Adventurer',
+            photoURL: user.photoURL || ''
+          };
+          document.body.classList.add('is-authenticated');
+          const gate = document.getElementById('authGateOverlay');
+          if (gate) gate.classList.add('hidden');
+        } else {
+          appState.currentUser = null;
+          appState.googleAccessToken = null;
+          document.body.classList.remove('is-authenticated');
+          const gate = document.getElementById('authGateOverlay');
+          if (gate) gate.classList.remove('hidden');
+        }
+        renderAccountModule();
+        updateSheetUI();
+        attachFirestoreListener();
+      }, err => {
+        console.warn('Firebase Auth state observer error:', err);
+      });
+    }
+
+    attachFirestoreListener();
+  } catch (err) {
+    console.error('Failed to initialize Firebase sync:', err);
+    updateCloudStatus('error');
+  }
+}
+
+function updateSheetUI() {
+  const url = appState.spreadsheetUrl;
+  const headerBtn = document.getElementById('btnHeaderViewSheet');
+  const accountBtn = document.getElementById('btnAccountViewSheet');
+  const dataBtn = document.getElementById('btnDataViewSheet');
+  const driveCard = document.getElementById('accountDriveCard');
+  const sheetLink = document.getElementById('accountSheetLink');
+  const sheetStatus = document.getElementById('accountSheetStatus');
+  const driveFolder = document.getElementById('accountDriveFolder');
+
+  if (url && appState.currentUser) {
+    if (headerBtn) {
+      headerBtn.href = url;
+      headerBtn.classList.remove('hidden');
+    }
+    if (accountBtn) {
+      accountBtn.href = url;
+    }
+    if (dataBtn) {
+      dataBtn.href = url;
+      dataBtn.classList.remove('opacity-50', 'pointer-events-none');
+    }
+    if (driveCard) driveCard.classList.remove('hidden');
+    if (sheetLink) {
+      sheetLink.href = url;
+      sheetLink.textContent = 'View Google Sheet ↗';
+    }
+    if (driveFolder) driveFolder.textContent = 'Trove - Expedition Ledger';
+  } else {
+    if (headerBtn) headerBtn.classList.add('hidden');
+    if (driveCard) driveCard.classList.add('hidden');
+    if (dataBtn) dataBtn.classList.add('opacity-50', 'pointer-events-none');
+    if (sheetLink) {
+      sheetLink.href = '#';
+      sheetLink.textContent = 'Auto-created on sign-in';
+    }
+  }
+}
+
+async function ensureGoogleDriveSheet(accessToken, user) {
+  if (!accessToken || !user) return;
+
+  // If already provisioned, update UI and return
+  if (appState.spreadsheetId && appState.spreadsheetUrl) {
+    updateSheetUI();
+    return;
+  }
+
+  const statusText = document.getElementById('authGateStatusText');
+  const statusArea = document.getElementById('authGateStatus');
+  if (statusArea) statusArea.classList.remove('hidden');
+
+  try {
+    if (statusText) statusText.textContent = 'Checking Google Drive for your expedition folder...';
+
+    // 1. Search for 'Trove - Expedition Ledger' folder
+    const folderQuery = encodeURIComponent("name = 'Trove - Expedition Ledger' and mimeType = 'application/vnd.google-apps.folder' and trashed = false");
+    const folderSearchRes = await fetch(`https://www.googleapis.com/drive/v3/files?q=${folderQuery}&fields=files(id,name)`, {
+      headers: { Authorization: `Bearer ${accessToken}` }
+    });
+    const folderSearchData = await folderSearchRes.json();
+    let folderId = null;
+
+    if (folderSearchData.files && folderSearchData.files.length > 0) {
+      folderId = folderSearchData.files[0].id;
+    } else {
+      if (statusText) statusText.textContent = 'Creating "Trove - Expedition Ledger" folder in Google Drive...';
+      const createFolderRes = await fetch('https://www.googleapis.com/drive/v3/files', {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: 'Trove - Expedition Ledger',
+          mimeType: 'application/vnd.google-apps.folder'
+        })
+      });
+      const newFolder = await createFolderRes.json();
+      folderId = newFolder.id;
+    }
+
+    // 2. Search for existing sheet inside the folder
+    if (statusText) statusText.textContent = 'Preparing pre-made Google Sheet...';
+    const sheetQuery = encodeURIComponent(`'${folderId}' in parents and mimeType = 'application/vnd.google-apps.spreadsheet' and trashed = false`);
+    const sheetSearchRes = await fetch(`https://www.googleapis.com/drive/v3/files?q=${sheetQuery}&fields=files(id,name,webViewLink)`, {
+      headers: { Authorization: `Bearer ${accessToken}` }
+    });
+    const sheetSearchData = await sheetSearchRes.json();
+
+    let spreadsheetId = null;
+    let spreadsheetUrl = null;
+
+    if (sheetSearchData.files && sheetSearchData.files.length > 0) {
+      spreadsheetId = sheetSearchData.files[0].id;
+      spreadsheetUrl = sheetSearchData.files[0].webViewLink || `https://docs.google.com/spreadsheets/d/${spreadsheetId}/edit`;
+    } else {
+      // 3. Create fresh Google Sheet with structured tabs
+      if (statusText) statusText.textContent = 'Creating personal Google Sheet ledger...';
+      const sheetTitle = `Trove Expedition Ledger - ${user.displayName || 'Personal'}`;
+      const createSheetRes = await fetch('https://sheets.googleapis.com/v4/spreadsheets', {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          properties: { title: sheetTitle },
+          sheets: [
+            { properties: { title: 'Daily Sessions', gridProperties: { frozenRowCount: 1 } } },
+            { properties: { title: 'Capital Vault', gridProperties: { frozenRowCount: 1 } } },
+            { properties: { title: 'Trades Journal', gridProperties: { frozenRowCount: 1 } } }
+          ]
+        })
+      });
+      const newSheet = await createSheetRes.json();
+      spreadsheetId = newSheet.spreadsheetId;
+      spreadsheetUrl = newSheet.spreadsheetUrl || `https://docs.google.com/spreadsheets/d/${spreadsheetId}/edit`;
+
+      // Move into folder
+      if (folderId && spreadsheetId) {
+        await fetch(`https://www.googleapis.com/drive/v3/files/${spreadsheetId}?addParents=${folderId}&enforceSingleParent=true`, {
+          method: 'PATCH',
+          headers: { Authorization: `Bearer ${accessToken}` }
+        });
+      }
+
+      // Populate initial values
+      await populateInitialGoogleSheetData(accessToken, spreadsheetId);
+    }
+
+    // 4. Save to appState and Firestore
+    appState.folderId = folderId;
+    appState.spreadsheetId = spreadsheetId;
+    appState.spreadsheetUrl = spreadsheetUrl;
+    saveStateToStorage(true);
+
+    if (firestoreDb && user.uid) {
+      firestoreDb.collection('users').doc(user.uid).set({
+        folderId: folderId,
+        spreadsheetId: spreadsheetId,
+        spreadsheetUrl: spreadsheetUrl,
+        sheetCreatedAt: new Date().toISOString()
+      }, { merge: true });
+    }
+
+    updateSheetUI();
+  } catch (err) {
+    console.warn('Google Drive / Sheets auto-creation notice:', err);
+  } finally {
+    if (statusArea) statusArea.classList.add('hidden');
+  }
+}
+
+async function populateInitialGoogleSheetData(accessToken, spreadsheetId) {
+  if (!accessToken || !spreadsheetId) return;
+
+  try {
+    const profile = getActiveProfile();
+    const sessionRows = [
+      ["Session #", "Date", "Relaxed Target", "Balanced Target", "Aggressive Target", "Closing Balance", "Vault Skims", "Daily PnL", "Return %", "Notes"]
+    ];
+
+    const total = profile ? profile.totalSessions : 28;
+    for (let s = 1; s <= total; s++) {
+      const row = (profile && profile.sessions && profile.sessions[s - 1]) ? profile.sessions[s - 1] : { r: 0, m: 0, a: 0 };
+      const dateStr = getDateForSession(profile ? profile.startDate : '2026-10-01', s);
+      const bal = appState.logs[s] !== undefined ? appState.logs[s] : '';
+      const skims = getSessionVaultSkims(s);
+      const pnl = getNormalizedDailyPnL(s);
+      const ret = getSessionReturnPct(s);
+      const notes = appState.notes[s] || '';
+      sessionRows.push([s, dateStr, row.r, row.m, row.a, bal, skims, pnl, `${ret.toFixed(2)}%`, notes]);
+    }
+
+    const vaultRows = [
+      ["Timestamp", "Type", "Bucket", "Amount ($)", "Note", "Desk Balance ($)"]
+    ];
+    appState.vaultLedger.forEach(v => {
+      vaultRows.push([v.timestamp, v.type, v.bucket, v.amount, v.note, v.postBal || '']);
+    });
+
+    const tradeRows = [
+      ["Timestamp", "Session", "Pair", "Type", "Entry ($)", "Exit ($)", "Fees ($)", "PnL ($)", "Status", "Notes"]
+    ];
+    appState.tradeLogs.forEach(t => {
+      tradeRows.push([t.timestamp, t.session, t.pair, t.type, t.entry, t.exit, t.fees, t.pnl, t.status, t.notes]);
+    });
+
+    await fetch(`https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values:batchUpdate`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        valueInputOption: 'USER_ENTERED',
+        data: [
+          { range: 'Daily Sessions!A1', values: sessionRows },
+          { range: 'Capital Vault!A1', values: vaultRows },
+          { range: 'Trades Journal!A1', values: tradeRows }
+        ]
+      })
+    });
+  } catch (err) {
+    console.warn('Google Sheet batch update error:', err);
+  }
+}
+
+function debounceSheetSync() {
+  if (sheetSyncTimeout) clearTimeout(sheetSyncTimeout);
+  sheetSyncTimeout = setTimeout(() => {
+    syncDataToGoogleSheet();
+  }, 1200);
+}
+
+async function syncDataToGoogleSheet() {
+  const token = appState.googleAccessToken;
+  const sheetId = appState.spreadsheetId;
+  if (!token || !sheetId) return;
+
+  try {
+    await populateInitialGoogleSheetData(token, sheetId);
+  } catch (err) {
+    console.warn('Background Google Sheet sync notice:', err);
+  }
+}
+
+function attachFirestoreListener() {
+  if (!firestoreDb) return;
+  const docId = getCloudSyncDocId();
+  if (!docId) {
+    updateCloudStatus(appState.firebaseCfg ? 'offline' : 'offline');
+    return;
+  }
+
+  if (firestoreUnsubscribe) {
+    firestoreUnsubscribe();
+    firestoreUnsubscribe = null;
+  }
+
+  updateCloudStatus('connecting');
+
+  firestoreUnsubscribe = firestoreDb.collection('users').doc(docId).onSnapshot(doc => {
+    if (doc.exists) {
+      const data = doc.data();
+
+      // Sync Google Sheet URL and ID across devices automatically
+      if (data.spreadsheetUrl && !appState.spreadsheetUrl) {
+        appState.spreadsheetUrl = data.spreadsheetUrl;
+        appState.spreadsheetId = data.spreadsheetId || appState.spreadsheetId;
+        appState.folderId = data.folderId || appState.folderId;
+        saveStateToStorage(true);
+        updateSheetUI();
+      }
+
+      if (data && data.updatedAt) {
+        const remoteTime = new Date(data.updatedAt).getTime();
+        const localTime = appState.lastSyncedAt ? new Date(appState.lastSyncedAt).getTime() : 0;
+
+        if (remoteTime > localTime) {
+          isApplyingRemoteSync = true;
+          try {
+            if (data.profiles && Array.isArray(data.profiles) && data.profiles.length) {
+              appState.profiles = data.profiles;
+            }
+            if (data.activeProfileId) appState.activeProfileId = data.activeProfileId;
+            if (data.activeSession) appState.activeSession = data.activeSession;
+            if (data.logs) appState.logs = Object.assign({}, appState.logs, data.logs);
+            if (data.lockedSessions) appState.lockedSessions = Object.assign({}, appState.lockedSessions, data.lockedSessions);
+            if (data.notes) appState.notes = Object.assign({}, appState.notes, data.notes);
+            if (data.timestamps) appState.timestamps = Object.assign({}, appState.timestamps, data.timestamps);
+            if (data.vaultLedger && Array.isArray(data.vaultLedger)) appState.vaultLedger = data.vaultLedger;
+            if (data.bills && Array.isArray(data.bills)) appState.bills = data.bills;
+            if (data.tradeLogs && Array.isArray(data.tradeLogs)) appState.tradeLogs = data.tradeLogs;
+            if (data.milestoneCfg) appState.milestoneCfg = data.milestoneCfg;
+            if (data.milestoneEnabled !== undefined) appState.milestoneEnabled = !!data.milestoneEnabled;
+            if (data.skimMode !== undefined) appState.skimMode = !!data.skimMode;
+            if (data.spreadsheetUrl) appState.spreadsheetUrl = data.spreadsheetUrl;
+            if (data.spreadsheetId) appState.spreadsheetId = data.spreadsheetId;
+            if (data.folderId) appState.folderId = data.folderId;
+
+            appState.lastSyncedAt = data.updatedAt;
+            saveStateToStorage(true);
+            refreshAllViews();
+            updateSheetUI();
+          } finally {
+            isApplyingRemoteSync = false;
+          }
+        }
+      }
+    } else {
+      pushStateToCloud();
+    }
+    updateCloudStatus('online');
+    appState.lastSyncedAt = new Date().toISOString();
+    const lastSyncEl = document.getElementById('accountLastSync');
+    if (lastSyncEl) lastSyncEl.textContent = formatTimeAgo(appState.lastSyncedAt);
+  }, err => {
+    console.warn('Firestore subscription error:', err);
+    updateCloudStatus('error');
+  });
+}
+
+function startGoogleSignIn() {
+  if (!window.firebase || !firebase.auth) {
+    openModal({
+      title: 'Firebase Library Loading',
+      message: 'The Firebase SDK is not ready yet. Please check your network connection and reload the page.'
+    });
+    return;
+  }
+
+  if (!appState.firebaseCfg || !appState.firebaseCfg.trim()) {
+    appState.firebaseCfg = JSON.stringify(BUILTIN_FIREBASE_CONFIG, null, 2);
+  }
+
+  if (!firebase.apps || !firebase.apps.length) {
+    initFirebaseSync();
+  }
+
+  try {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    provider.addScope('https://www.googleapis.com/auth/drive.file');
+    provider.addScope('https://www.googleapis.com/auth/spreadsheets');
+    provider.setCustomParameters({ prompt: 'select_account' });
+
+    const statusArea = document.getElementById('authGateStatus');
+    const statusText = document.getElementById('authGateStatusText');
+    if (statusArea) statusArea.classList.remove('hidden');
+    if (statusText) statusText.textContent = 'Connecting to Google Authentication...';
+
+    firebase.auth().signInWithPopup(provider)
+      .then(async result => {
+        const token = result.credential ? result.credential.accessToken : null;
+        appState.googleAccessToken = token;
+        appState.currentUser = {
+          uid: result.user.uid,
+          email: result.user.email || '',
+          displayName: result.user.displayName || result.user.email || 'Adventurer',
+          photoURL: result.user.photoURL || ''
+        };
+
+        document.body.classList.add('is-authenticated');
+        const gate = document.getElementById('authGateOverlay');
+        if (gate) gate.classList.add('hidden');
+
+        if (statusText) statusText.textContent = 'Setting up your Google Drive ledger sheet...';
+        await ensureGoogleDriveSheet(token, result.user);
+
+        renderAccountModule();
+        updateSheetUI();
+        refreshAllViews();
+
+        openModal({
+          title: 'Welcome Adventurer!',
+          message: `Signed in as ${result.user.displayName || result.user.email}.\n\nYour private Google Drive folder and Google Sheet have been prepared. Automatic cloud sync is active across all devices!`
+        });
       })
       .catch(err => {
-        console.warn('Firestore sync failed:', err);
-        if (statusBadge) { statusBadge.textContent = 'Error'; statusBadge.className = 'badge badge-red text-[10px]'; }
+        console.error('Google Sign-In Error:', err);
+        if (statusArea) statusArea.classList.add('hidden');
+
+        if (err.code === 'auth/popup-blocked') {
+          firebase.auth().signInWithRedirect(provider);
+        } else if (err.code === 'auth/configuration-not-found' || err.code === 'auth/operation-not-allowed') {
+          openModal({
+            title: 'Enable Google Sign-In',
+            message: 'Google Sign-in is not enabled in your Firebase console. Go to Firebase Console > Authentication > Sign-in method, click Google, and enable it.'
+          });
+        } else if (err.code === 'auth/unauthorized-domain') {
+          openModal({
+            title: 'Authorize This Domain',
+            message: `Please add "${window.location.hostname}" to Authorized Domains in Firebase Console > Authentication > Settings > Authorized domains.`
+          });
+        } else if (err.code === 'auth/popup-closed-by-user') {
+          // User closed popup
+        } else {
+          openModal({
+            title: 'Sign-In Failed',
+            message: err.message || 'An error occurred during Google sign-in.'
+          });
+        }
       });
+  } catch (err) {
+    openModal({
+      title: 'Sign-In Error',
+      message: err.message || 'Could not initiate Google sign-in.'
+    });
   }
+}
+
+function handleSaveGateFirebaseConfig() {
+  const inp = document.getElementById('gateFirebaseCfgInput');
+  if (!inp || !inp.value.trim()) return;
+  const cfgStr = inp.value.trim();
+  try {
+    const parsed = parseFirebaseConfigInput(cfgStr);
+    appState.firebaseCfg = JSON.stringify(parsed, null, 2);
+    saveStateToStorage(true);
+    initFirebaseSync();
+    renderAccountModule();
+    openModal({ title: 'Config Saved', message: 'Firebase configuration saved! Click "Continue with Google" to sign in.' });
+  } catch (err) {
+    openModal({ title: 'Config Error', message: 'Invalid configuration format: ' + err.message });
+  }
+}
+
+function handleGoogleSignOut() {
+  openModal({
+    title: 'Sign Out Confirmation',
+    message: 'Sign out from Google? Data will remain stored safely in your cloud database and Google Sheet. Signing in on any device restores your full session.',
+    confirmText: 'Sign Out',
+    onConfirm: () => {
+      if (window.firebase && firebase.auth) {
+        firebase.auth().signOut().then(() => {
+          appState.currentUser = null;
+          appState.googleAccessToken = null;
+          if (firestoreUnsubscribe) {
+            firestoreUnsubscribe();
+            firestoreUnsubscribe = null;
+          }
+          updateCloudStatus('offline');
+          document.body.classList.remove('is-authenticated');
+          const gate = document.getElementById('authGateOverlay');
+          if (gate) gate.classList.remove('hidden');
+          updateSheetUI();
+          renderAccountModule();
+        }).catch(err => {
+          openModal({ title: 'Sign Out Error', message: err.message });
+        });
+      } else {
+        appState.currentUser = null;
+        document.body.classList.remove('is-authenticated');
+        renderAccountModule();
+      }
+    }
+  });
 }
 
 function handleSaveFirebaseConfig() {
   const cfgStr = document.getElementById('firebaseCfgInput').value;
   const syncKey = document.getElementById('syncKeyInput').value;
 
-  appState.firebaseCfg = cfgStr;
-  appState.syncKey = syncKey || 'dcniper_portfolio';
-  saveStateToStorage(true);
-
-  initFirebaseSync();
-}
-
-function initFirebaseSync() {
-  if (!appState.firebaseCfg || !window.firebase) return;
+  if (!cfgStr || !cfgStr.trim()) {
+    openModal({
+      title: 'Configuration Missing',
+      message: 'Please paste your Firebase web config JSON in the text area.'
+    });
+    return;
+  }
 
   try {
-    const config = JSON.parse(appState.firebaseCfg);
-    if (!firebase.apps.length) {
-      firebase.initializeApp(config);
+    const parsed = parseFirebaseConfigInput(cfgStr);
+    if (!parsed || (!parsed.apiKey && !parsed.projectId)) {
+      throw new Error('Config missing "apiKey" or "projectId".');
     }
-    firestoreDb = firebase.firestore();
 
-    const statusBadge = document.getElementById('firebaseStatusBadge');
-    const headerBadge = document.getElementById('headerSyncStatus');
-    if (statusBadge) { statusBadge.textContent = 'Connecting...'; statusBadge.className = 'badge badge-amber text-[10px]'; }
+    appState.firebaseCfg = JSON.stringify(parsed, null, 2);
+    appState.syncKey = syncKey ? syncKey.trim() : '';
+    saveStateToStorage(true);
 
-    if (firestoreUnsubscribe) firestoreUnsubscribe();
+    initFirebaseSync();
+    renderAccountModule();
 
-    firestoreUnsubscribe = firestoreDb.collection('users').doc(appState.syncKey).onSnapshot(doc => {
-      if (doc.exists) {
-        const data = doc.data();
-        if (data && data.updatedAt) {
-          // If remote is newer, merge safely
-          if (data.profiles) appState.profiles = data.profiles;
-          if (data.activeProfileId) appState.activeProfileId = data.activeProfileId;
-          if (data.logs) appState.logs = Object.assign({}, appState.logs, data.logs);
-          if (data.vaultLedger) appState.vaultLedger = data.vaultLedger;
-          if (data.bills) appState.bills = data.bills;
-          if (data.tradeLogs) appState.tradeLogs = data.tradeLogs;
-          saveStateToStorage(true);
-          refreshAllViews();
-        }
-      }
-      if (statusBadge) { statusBadge.textContent = 'Online'; statusBadge.className = 'badge badge-green text-[10px]'; }
-      if (headerBadge) { headerBadge.textContent = 'Cloud: Online'; headerBadge.className = 'badge badge-green'; }
-    }, err => {
-      console.warn('Firestore listener error:', err);
-      if (statusBadge) { statusBadge.textContent = 'Error'; statusBadge.className = 'badge badge-red text-[10px]'; }
+    openModal({
+      title: 'Firebase Connected',
+      message: 'Firebase configuration saved and initialized! You can now sign in with Google or sync your portfolio.'
     });
   } catch (err) {
-    console.error('Invalid Firebase JSON config:', err);
-    openModal({ title: 'Config Error', message: 'The provided Firebase config is not valid JSON.' });
+    openModal({
+      title: 'Invalid Config Format',
+      message: 'The configuration provided is invalid: ' + err.message + '\n\nPlease ensure you copied the web config object from Firebase Console.'
+    });
   }
 }
 
+function handleDisconnectFirebase() {
+  openModal({
+    title: 'Disconnect Firebase?',
+    message: 'This will remove the saved Firebase configuration and pause cloud sync. All local browser data is kept safe.',
+    confirmText: 'Disconnect',
+    onConfirm: () => {
+      if (window.firebase && firebase.auth && appState.currentUser) {
+        firebase.auth().signOut().catch(() => {});
+      }
+      if (firestoreUnsubscribe) {
+        firestoreUnsubscribe();
+        firestoreUnsubscribe = null;
+      }
+      appState.firebaseCfg = '';
+      appState.syncKey = '';
+      appState.currentUser = null;
+      firestoreDb = null;
+      saveStateToStorage(true);
+      updateCloudStatus('offline');
+      renderAccountModule();
+      openModal({
+        title: 'Firebase Disconnected',
+        message: 'Firebase has been disconnected. The application is now running in offline local mode.'
+      });
+    }
+  });
+}
+
 function handleManualCloudSync() {
+  if (!firestoreDb) {
+    if (!appState.firebaseCfg) {
+      openModal({
+        title: 'Cloud Sync Setup Needed',
+        message: 'No Firebase project is connected yet. Please add your Firebase configuration in the setup panel below.'
+      });
+      return;
+    }
+    initFirebaseSync();
+  }
+
   pushStateToCloud();
-  openModal({ title: 'Cloud Sync', message: 'Manual sync dispatched to remote cloud storage.' });
+  openModal({
+    title: 'Sync Dispatched',
+    message: 'Latest challenge balances, logs, and vault records dispatched to your cloud database.'
+  });
 }
 
 function handleSaveWebhookUrl() {
-  appState.webhookUrl = document.getElementById('webhookUrlInput').value;
-  saveStateToStorage();
-  openModal({ title: 'Webhook Saved', message: 'Google Sheets webhook URL has been saved.' });
+  const url = document.getElementById('webhookUrlInput').value.trim();
+  appState.webhookUrl = url;
+  saveStateToStorage(true);
+  renderAccountModule();
+  openModal({
+    title: 'Webhook Saved',
+    message: url ? 'Google Sheets webhook URL has been saved.' : 'Google Sheets webhook cleared.'
+  });
 }
 
 function handleSyncToSheets() {
   if (!appState.webhookUrl) {
-    openModal({ title: 'Missing Webhook URL', message: 'Enter a valid Google Apps Script Web App URL first.' });
+    openModal({
+      title: 'Missing Webhook URL',
+      message: 'Enter your Google Apps Script Web App URL in the setup panel first.'
+    });
     return;
   }
 
@@ -3011,6 +3736,7 @@ function handleSyncToSheets() {
     activeSession: appState.activeSession,
     currentDeskBalance: getCurrentDeskBalance(),
     vaultTotal: getVaultTotalBalance(),
+    totalWealth: getTrueTotalWealth(),
     logs: appState.logs,
     timestamp: new Date().toISOString()
   };
@@ -3021,10 +3747,80 @@ function handleSyncToSheets() {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload)
   }).then(() => {
-    openModal({ title: 'Pushed to Google Sheets', message: 'Data dispatched successfully to your Google Sheet webhook!' });
+    openModal({
+      title: 'Dispatched to Google Sheet',
+      message: 'Portfolio snapshot sent successfully to your Google Sheet webhook!'
+    });
   }).catch(err => {
-    openModal({ title: 'Sync Failed', message: 'Error pushing to Google Sheets webhook: ' + err.message });
+    openModal({
+      title: 'Sheet Sync Failed',
+      message: 'Error sending data to Google Sheet webhook: ' + err.message
+    });
   });
+}
+
+function copyFirestoreRulesToClipboard() {
+  const rules = `rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+  }
+}`;
+  navigator.clipboard.writeText(rules).then(() => {
+    openModal({
+      title: 'Security Rules Copied',
+      message: 'Firestore security rules copied to clipboard! Paste them into the Rules tab in your Firebase Console.'
+    });
+  }).catch(() => {
+    openModal({
+      title: 'Security Rules',
+      message: rules
+    });
+  });
+}
+
+function openAppsScriptModal() {
+  const code = `function doPost(e) {
+  try {
+    var data = JSON.parse(e.postData.contents);
+    var ss = SpreadsheetApp.getActiveSpreadsheet();
+    var sheet = ss.getSheetByName("Trove_Ledger") || ss.insertSheet("Trove_Ledger");
+    
+    if (sheet.getLastRow() === 0) {
+      sheet.appendRow(["Timestamp", "Challenge Name", "Active Session", "Desk Balance ($)", "Vault Total ($)", "Total Wealth ($)"]);
+      sheet.getRange(1, 1, 1, 6).setFontWeight("bold");
+    }
+    
+    sheet.appendRow([
+      new Date(),
+      data.profileName,
+      data.activeSession,
+      data.currentDeskBalance,
+      data.vaultTotal,
+      data.totalWealth
+    ]);
+    
+    return ContentService.createTextOutput(JSON.stringify({ status: "success" }))
+      .setMimeType(ContentService.MimeType.JSON);
+  } catch (err) {
+    return ContentService.createTextOutput(JSON.stringify({ status: "error", message: err.toString() }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}`;
+  const codeEl = document.getElementById('appsScriptCodeText');
+  if (codeEl) codeEl.value = code;
+  openModalDialog('appsScriptModal');
+}
+
+function copyAppsScriptCode() {
+  const codeEl = document.getElementById('appsScriptCodeText');
+  if (codeEl) {
+    navigator.clipboard.writeText(codeEl.value).then(() => {
+      openModal({ title: 'Code Copied', message: 'Google Apps Script code copied to clipboard!' });
+    });
+  }
 }
 
 function exportDataToCsv() {
@@ -3053,71 +3849,118 @@ function exportDataToCsv() {
   document.body.removeChild(link);
 }
 
-function copyFirestoreRulesToClipboard() {
-  const rules = `rules_version = '2';
-service cloud.firestore {
-  match /databases/{database}/documents {
-    match /{document=**} {
-      allow read, write: if true;
+function renderAccountModule() {
+  const user = appState.currentUser;
+  const statusDot = document.getElementById('accountStatusDot');
+  const statusTitle = document.getElementById('accountStatusTitle');
+  const statusDetail = document.getElementById('accountStatusDetail');
+  const userCard = document.getElementById('accountUserCard');
+  const userName = document.getElementById('accountUserName');
+  const userEmail = document.getElementById('accountUserEmail');
+  const userUid = document.getElementById('accountUserUid');
+  const userAvatar = document.getElementById('accountUserAvatar');
+  const signOutArea = document.getElementById('accountSignOutArea');
+  const signedInActions = document.getElementById('accountSignedInActions');
+  const setupNote = document.getElementById('accountSetupNote');
+
+  if (user) {
+    if (statusDot) {
+      statusDot.className = 'account-status-dot is-online';
+      statusDot.style.background = 'var(--green)';
+    }
+    if (statusTitle) statusTitle.textContent = 'Google Account Connected';
+    if (statusDetail) statusDetail.textContent = 'Data syncing privately to your cloud database.';
+
+    if (userCard) userCard.classList.remove('hidden');
+    if (userName) userName.textContent = user.displayName || 'Adventurer';
+    if (userEmail) userEmail.textContent = user.email || 'Google User';
+    if (userUid) userUid.textContent = `UID: ${user.uid.slice(0, 14)}...`;
+
+    if (userAvatar) {
+      if (user.photoURL) {
+        userAvatar.innerHTML = `<img src="${user.photoURL}" alt="Avatar" class="w-full h-full object-cover" onerror="this.parentElement.textContent='${(user.displayName || user.email || 'U')[0].toUpperCase()}'">`;
+      } else {
+        userAvatar.textContent = (user.displayName || user.email || 'U')[0].toUpperCase();
+      }
+    }
+
+    if (signOutArea) signOutArea.classList.add('hidden');
+    if (signedInActions) signedInActions.classList.remove('hidden');
+    if (setupNote) setupNote.classList.add('hidden');
+  } else {
+    if (statusDot) {
+      statusDot.className = 'account-status-dot';
+      statusDot.style.background = appState.firebaseCfg ? 'var(--gold)' : 'var(--muted)';
+    }
+    if (statusTitle) statusTitle.textContent = 'Local account';
+    if (statusDetail) {
+      statusDetail.textContent = appState.firebaseCfg
+        ? 'Firebase connected. Sign in with Google to enable cloud sync.'
+        : 'Your data is saved in this browser only.';
+    }
+
+    if (userCard) userCard.classList.add('hidden');
+    if (signOutArea) signOutArea.classList.remove('hidden');
+    if (signedInActions) signedInActions.classList.add('hidden');
+    if (setupNote) {
+      setupNote.classList.remove('hidden');
+      setupNote.textContent = appState.firebaseCfg
+        ? 'Firebase project connected. Click button above to sign in.'
+        : 'Requires your Firebase Web Configuration in the panel below.';
     }
   }
-}`;
-  navigator.clipboard.writeText(rules).then(() => {
-    openModal({ title: 'Rules Copied', message: 'Firestore security rules copied to clipboard!' });
-  });
-}
 
-function openAppsScriptModal() {
-  const code = `function doPost(e) {
-  try {
-    var data = JSON.parse(e.postData.contents);
-    var ss = SpreadsheetApp.getActiveSpreadsheet();
-    var sheet = ss.getSheetByName("Portfolio_Logs") || ss.insertSheet("Portfolio_Logs");
-    
-    if (sheet.getLastRow() === 0) {
-      sheet.appendRow(["Timestamp", "Profile", "Session", "Desk Balance", "Vault Total"]);
-    }
-    
-    sheet.appendRow([
-      new Date(),
-      data.profileName,
-      data.activeSession,
-      data.currentDeskBalance,
-      data.vaultTotal
-    ]);
-    
-    return ContentService.createTextOutput(JSON.stringify({ status: "success" }))
-      .setMimeType(ContentService.MimeType.JSON);
-  } catch (err) {
-    return ContentService.createTextOutput(JSON.stringify({ status: "error", message: err.toString() }))
-      .setMimeType(ContentService.MimeType.JSON);
+  // Account details
+  const accountEmail = document.getElementById('accountEmail');
+  const accountStorageStatus = document.getElementById('accountStorageStatus');
+  const accountSheetStatus = document.getElementById('accountSheetStatus');
+  const accountSheetLink = document.getElementById('accountSheetLink');
+  const accountLastSync = document.getElementById('accountLastSync');
+  const accountDriveFolder = document.getElementById('accountDriveFolder');
+
+  if (accountEmail) accountEmail.textContent = user ? user.email : 'Not signed in';
+  if (accountStorageStatus) {
+    accountStorageStatus.textContent = user
+      ? 'Private Firestore & Local cache'
+      : (appState.syncKey && appState.firebaseCfg ? 'Cloud (Sync Key) & Local cache' : 'This browser (Local)');
   }
-}`;
-  document.getElementById('appsScriptCodeText').value = code;
-  openModalDialog('appsScriptModal');
-}
+  if (accountDriveFolder) {
+    accountDriveFolder.textContent = 'Trove - Expedition Ledger';
+  }
+  if (accountSheetLink) {
+    if (appState.spreadsheetUrl) {
+      accountSheetLink.href = appState.spreadsheetUrl;
+      accountSheetLink.textContent = 'View Google Sheet ↗';
+    } else {
+      accountSheetLink.href = '#';
+      accountSheetLink.textContent = user ? 'Creating in Google Drive...' : 'Auto-created on sign-in';
+    }
+  }
+  if (accountLastSync) {
+    accountLastSync.textContent = formatTimeAgo(appState.lastSyncedAt);
+  }
 
-function copyAppsScriptCode() {
-  const text = document.getElementById('appsScriptCodeText').value;
-  navigator.clipboard.writeText(text).then(() => {
-    openModal({ title: 'Code Copied', message: 'Google Apps Script code copied to clipboard!' });
-  });
-}
+  // Setup inputs
+  const cfgInput = document.getElementById('firebaseCfgInput');
+  const gateCfgInput = document.getElementById('gateFirebaseCfgInput');
+  const syncKeyInput = document.getElementById('syncKeyInput');
+  const webhookInput = document.getElementById('webhookUrlInput');
 
-function openLinkSheetModal() {
-  document.getElementById('modalSyncKeyInput').value = appState.syncKey;
-  document.getElementById('modalFirebaseCfgInput').value = appState.firebaseCfg;
-  document.getElementById('modalWebhookUrlInput').value = appState.webhookUrl;
-  openModalDialog('sheetSyncModal');
-}
+  if (cfgInput && !cfgInput.value && appState.firebaseCfg) {
+    cfgInput.value = appState.firebaseCfg;
+  }
+  if (gateCfgInput && !gateCfgInput.value && appState.firebaseCfg) {
+    gateCfgInput.value = appState.firebaseCfg;
+  }
+  if (syncKeyInput && !syncKeyInput.value && appState.syncKey) {
+    syncKeyInput.value = appState.syncKey;
+  }
+  if (webhookInput && !webhookInput.value && appState.webhookUrl) {
+    webhookInput.value = appState.webhookUrl;
+  }
 
-function handleSaveSyncModal() {
-  appState.syncKey = document.getElementById('modalSyncKeyInput').value;
-  appState.firebaseCfg = document.getElementById('modalFirebaseCfgInput').value;
-  appState.webhookUrl = document.getElementById('modalWebhookUrlInput').value;
-  saveStateToStorage(true);
-  initFirebaseSync();
-  closeModal('sheetSyncModal');
+  updateSheetUI();
+  renderCloudStatusBadges();
 }
 
 // ==========================================
@@ -3356,6 +4199,7 @@ function refreshAllViews() {
   renderMilestonesModule();
   renderStatsModule();
   renderTotalFinancialGoal();
+  renderAccountModule();
 }
 
 window.addEventListener('DOMContentLoaded', () => {

@@ -1,276 +1,248 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Press+Start+2P&family=Silkscreen:wght@400;700&display=swap');
 
 :root {
   color-scheme: light;
-  --paper: #f3efe5;
-  --paper-grid: rgba(92, 104, 75, .055);
-  --surface: #fffdf7;
-  --surface-2: #f8f4e9;
-  --surface-3: #eee8da;
-  --ink: #252a22;
-  --ink-2: #555b4d;
-  --ink-3: #828675;
-  --line: #ded8c8;
-  --line-strong: #c9c1ae;
-  --forest: #38624b;
-  --forest-deep: #264635;
-  --leaf: #759366;
-  --gold: #c79245;
-  --gold-soft: #f4e7c9;
-  --coral: #b96755;
-  --violet: #79649d;
-  --blue: #568091;
-  --shadow: 0 3px 0 rgba(69, 76, 57, .07), 0 14px 38px rgba(59, 63, 45, .07);
-  --shadow-small: 0 2px 0 rgba(69, 76, 57, .06), 0 6px 18px rgba(59, 63, 45, .05);
-  --radius: 17px;
+  --sky: #a9c9c2; --far: #8da891; --grass: #81946c; --earth: #67533d;
+  --paper: #efe0ba; --paper-hi: #f8edcf; --paper-shadow: #c9ae79;
+  --world: #8b9f7b; --wood: #815536; --wood-dark: #4a382b; --gold: #efc565;
+  --ink: #30291f; --muted: #675b49; --green: #386347; --green-bright: #4e8056;
+  --red: #984c3b; --blue: #426c79; --purple: #725293; --line: #725f42;
+  --panel-edge: #43372a; --field: #fff6dd; --shadow: #352b20;
 }
 [data-theme="dark"] {
   color-scheme: dark;
-  --paper: #171e19;
-  --paper-grid: rgba(188, 178, 140, .045);
-  --surface: #202a23;
-  --surface-2: #27332a;
-  --surface-3: #303c32;
-  --ink: #f1ecde;
-  --ink-2: #c5c2b1;
-  --ink-3: #929583;
-  --line: #39443a;
-  --line-strong: #4e5c4d;
-  --forest: #92b083;
-  --forest-deep: #395740;
-  --leaf: #aec38a;
-  --gold: #e2b568;
-  --gold-soft: #403722;
-  --coral: #e18b75;
-  --violet: #baa2d5;
-  --blue: #86b9c5;
-  --shadow: 0 3px 0 rgba(0,0,0,.14), 0 16px 42px rgba(0,0,0,.18);
-  --shadow-small: 0 2px 0 rgba(0,0,0,.12), 0 8px 20px rgba(0,0,0,.12);
+  --sky: #273e3b; --far: #364e3d; --grass: #536349; --earth: #332b25;
+  --paper: #414334; --paper-hi: #53513a; --paper-shadow: #252d26;
+  --world: #344639; --wood: #60432f; --wood-dark: #292722; --gold: #f0c768;
+  --ink: #f3e6c2; --muted: #c4b998; --green: #8eaf7b; --green-bright: #a0c283;
+  --red: #e29579; --blue: #8cc2c8; --purple: #bea0df; --line: #bba36d;
+  --panel-edge: #171e19; --field: #30382e; --shadow: #101712;
 }
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-body { margin: 0; min-height: 100vh; background-color: var(--paper)!important; color: var(--ink)!important; font-family: Manrope, system-ui, sans-serif; background-image: linear-gradient(var(--paper-grid) 1px, transparent 1px), linear-gradient(90deg, var(--paper-grid) 1px, transparent 1px)!important; background-size: 32px 32px!important; }
-body, body * { border-color: var(--line); }
-body > header { position: sticky!important; top: 0; z-index: 50; width: 100%; display: block!important; overflow: visible!important; background: color-mix(in srgb,var(--paper) 93%,transparent)!important; border: 0!important; border-bottom: 1px solid var(--line)!important; box-shadow: 0 6px 24px rgba(40,44,33,.06)!important; backdrop-filter: blur(16px); }
-body > header:after { display:none!important; }
-body > header > div:first-child { width: min(1500px,100%); min-height: 78px; padding: 12px clamp(18px,3vw,44px)!important; margin: 0 auto!important; display:flex; align-items:center; justify-content:space-between; gap:18px!important; }
-body > header > div:first-child > div:first-child { display:flex; align-items:center; gap:12px; }
-.brand-mark { width:44px;height:44px; flex:none;display:grid;place-items:center;border-radius:13px 13px 13px 5px;background:var(--forest-deep);color:#f6e4b8;box-shadow:inset 0 -4px rgba(0,0,0,.15),3px 3px 0 var(--gold); }
-.brand-mark svg { width:27px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:square;stroke-linejoin:round; }
-body > header h1 { margin:0;color:var(--ink)!important;font:700 22px/1 Space Grotesk,sans-serif!important;letter-spacing:-.06em!important; }
-.brand-caption { margin:5px 0 0;color:var(--forest)!important;font:700 9px/1.2 'DM Mono',monospace;letter-spacing:.16em; }
-body > header > div:first-child > div:first-child > div:last-child > div:last-child { margin-top:5px;color:var(--ink-3)!important;font-size:10px; }
-body > header > div:first-child > div:first-child > div:last-child > div:last-child strong { color:var(--ink)!important; }
-.badge { display:inline-flex;align-items:center;gap:5px;padding:4px 9px;border:1px solid var(--line);border-radius:999px;background:var(--surface-2);color:var(--ink-2);font-size:10px;font-weight:700; }
-.header-actions { display:flex;align-items:center;gap:8px!important; }
+body { margin:0;min-height:100vh;color:var(--ink)!important;background-color:var(--world)!important;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath fill='%23000' fill-opacity='.035' d='M0 0h16v16H0zm16 16h16v16H16z'/%3E%3C/svg%3E")!important;font:500 14px/1.55 Manrope,system-ui,sans-serif; }
+body,body * { border-color:var(--line); }
+body>header { position:sticky!important;top:0;z-index:50;width:100%;display:block!important;overflow:visible!important;background:var(--wood-dark)!important;border:0!important;border-bottom:5px solid #a7844c!important;box-shadow:0 5px 0 var(--panel-edge)!important; }
+body>header:after { display:none!important; }
+body>header>div:first-child { width:min(1440px,100%);min-height:76px;padding:9px clamp(14px,3vw,38px)!important;margin:0 auto!important;display:flex;align-items:center;justify-content:space-between;gap:14px!important; }
+body>header>div:first-child>div:first-child { display:flex;align-items:center;gap:12px; }
+.brand-mark { width:45px;height:45px;flex:none;display:grid;place-items:center;background:#526f4e;border:4px solid #d6b260;box-shadow:4px 4px 0 #221f19;color:#f7e9bf;image-rendering:pixelated; }
+.brand-mark svg { width:30px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:square;stroke-linejoin:miter; }
+body>header h1 { margin:0;color:#f5e8c6!important;font:700 21px/1 Silkscreen,monospace!important;letter-spacing:-.04em!important; }
+.brand-caption { margin-top:5px;color:#d9bc79!important;font:700 9px/1.2 'DM Mono',monospace;letter-spacing:.15em; }
+body>header>div:first-child>div:first-child>div:last-child>div:last-child { margin-top:4px;color:#c1b69d!important;font:10px 'DM Mono',monospace; }
+body>header>div:first-child>div:first-child>div:last-child>div:last-child strong { color:#f5e8c6!important; }
+.badge { display:inline-flex;align-items:center;gap:5px;padding:3px 8px;border:2px solid #6e6148;background:#39372c;color:#e9d7a8;font:10px 'DM Mono',monospace; }
+.header-actions { display:flex;align-items:center;gap:7px!important; }
+.header-actions button { min-height:36px;padding:6px 10px!important;border:2px solid #b69960!important;border-radius:0!important;background:#594631!important;color:#f1e4bf!important;font:700 9px 'Silkscreen',monospace!important;box-shadow:2px 2px 0 #1e211b; }
+.header-actions button:hover { background:#6d5535!important; }
+.header-actions button svg { width:14px;height:14px;margin-right:4px;vertical-align:-3px;fill:none;stroke:currentColor;stroke-width:2; }
+#btnThemeToggle { color:#1e2c23!important;background:#d7b963!important;border-color:#f4d98d!important; }
 .mobile-menu-btn { display:none!important; }
-.header-actions button { min-height:37px;padding:8px 12px!important;border:1px solid var(--line)!important;border-radius:10px!important;background:var(--surface)!important;color:var(--ink-2)!important;font-size:11px!important;font-weight:700!important; }
-.header-actions button svg { width:15px;height:15px;margin-right:5px;vertical-align:-3px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round; }
-#btnThemeToggle { background:var(--forest-deep)!important;color:#fff5d9!important;border-color:var(--forest-deep)!important; }
-body > header nav { width:min(1500px,100%);padding:0 clamp(18px,3vw,44px) 12px!important;margin:0 auto!important;display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px!important;overflow:visible!important;border:0!important; }
-.nav-caption { display:none; }
-body > header nav button { position:relative;min-height:45px;padding:9px 12px!important;display:flex;align-items:center;justify-content:flex-start;gap:10px;border:1px solid transparent!important;border-radius:11px!important;background:transparent!important;color:var(--ink-2)!important;text-align:left;font-size:12px!important;font-weight:700!important;transition:background .16s,border .16s,transform .16s; }
-body > header nav button:hover { transform:translateY(-2px);background:var(--surface-2)!important; }
-body > header nav button.active-nav-item { color:var(--ink)!important;background:var(--surface)!important;border-color:var(--line)!important;box-shadow:var(--shadow-small)!important; }
-body > header nav button.active-nav-item:before { content:"";position:absolute;left:9px;right:9px;bottom:-13px;height:3px;background:var(--gold);border-radius:3px 3px 0 0; }
-.nav-icon { width:27px;height:27px;flex:none;padding:6px;border-radius:8px;background:var(--surface-3);color:var(--forest);fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round; }
-body > main { width:min(1500px,100%)!important;max-width:1500px!important;margin:0 auto!important;padding:26px clamp(18px,3vw,44px) 56px!important; }
+
+/* The route ribbon is the app navigation: each stop is an animated map object. */
+body>header nav { position:relative;width:min(1440px,100%);padding:5px clamp(14px,3vw,38px) 10px!important;margin:0 auto!important;display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr));gap:0!important;overflow:visible!important;border:0!important; }
+.nav-caption { position:absolute;left:clamp(14px,3vw,38px);top:-12px;padding:1px 7px;color:#ddc88e;font:7px 'Press Start 2P',monospace;letter-spacing:.02em; }
+body>header nav:after { content:"";position:absolute;z-index:0;left:8%;right:8%;top:34px;height:0;border-top:4px dotted #a38a56;pointer-events:none; }
+body>header nav button { position:relative;z-index:1;min-height:52px;padding:4px 7px!important;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:0;border:0!important;border-radius:0!important;background:transparent!important;color:#d1c4a5!important;text-align:center;font:700 9px 'Silkscreen',monospace!important;transition:transform .2s steps(3,end),color .2s; }
+body>header nav button:hover { color:#fff0bf!important;transform:translateY(-4px); }
+body>header nav button.active-nav-item { color:#fff1c7!important; }
+body>header nav button.active-nav-item:before { content:"";position:absolute;top:-2px;left:50%;width:8px;height:8px;transform:translateX(-50%) rotate(45deg);background:#ffe08b;border:2px solid #493b2b;box-shadow:0 0 0 3px #bd9148; }
+.world-node-sprite { width:45px;height:36px;object-fit:contain;overflow:visible;filter:drop-shadow(2px 3px 0 rgba(0,0,0,.32));image-rendering:pixelated;transition:transform .2s steps(3,end); }
+body>header nav button:hover .world-node-sprite,body>header nav button.active-nav-item .world-node-sprite { transform:translateY(-3px) scale(1.12); }
+body>main { width:min(1440px,100%)!important;max-width:1440px!important;margin:0 auto!important;padding:20px clamp(14px,3vw,38px) 64px!important; }
 
 button,input,select,textarea { font:inherit; }
-button { color:var(--ink);cursor:pointer;transition:transform .16s,background .16s,border-color .16s,box-shadow .16s; }
-button:hover:not(:disabled) { transform:translateY(-1px); }
-button:active:not(:disabled) { transform:translateY(0) scale(.985); }
-button:disabled { opacity:.55;cursor:not-allowed; }
-button:focus-visible,[role=button]:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible { outline:3px solid color-mix(in srgb,var(--gold) 60%,transparent);outline-offset:2px; }
-input,select,textarea { color:var(--ink)!important;background:var(--surface)!important;border:1px solid var(--line-strong)!important;border-radius:9px!important; }
-input::placeholder,textarea::placeholder { color:var(--ink-3)!important; }
-input:focus,select:focus,textarea:focus { border-color:var(--forest)!important;box-shadow:0 0 0 3px color-mix(in srgb,var(--forest) 16%,transparent)!important;outline:0!important; }
+button { cursor:pointer;color:var(--ink);transition:transform .14s steps(2,end),filter .14s; }
+button:hover:not(:disabled) { filter:brightness(1.08); }
+button:active:not(:disabled) { transform:translate(2px,2px)!important; }
+button:disabled { opacity:.58;cursor:not-allowed; }
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,[role=button]:focus-visible { outline:3px solid var(--gold)!important;outline-offset:3px; }
+input,select,textarea { color:var(--ink)!important;background:var(--field)!important;border:3px solid var(--panel-edge)!important;border-radius:0!important;box-shadow:inset 2px 2px 0 rgba(0,0,0,.12);font:12px 'DM Mono',monospace!important; }
+input::placeholder,textarea::placeholder { color:var(--muted)!important;opacity:.8; }
+input:focus,select:focus,textarea:focus { outline:2px solid var(--gold)!important;outline-offset:1px; }
 .font-num { font-family:'DM Mono',monospace!important;font-variant-numeric:tabular-nums; }
 .tab-content,.subtab-content { display:none; }
-.tab-content.active,.subtab-content.active { display:block;animation:pageIn .28s ease-out both; }
-@keyframes pageIn { from { opacity:0;transform:translateY(7px) } to { opacity:1;transform:none } }
-.bg-white,.bento-card,.daily-stat,.trade-metric,.stats-summary-card,.daily-session-card,.daily-progress-card,.daily-history-card,.stats-panel,.vault-dashboard-card,#tabContentConfig .setup-quickstart,#tabContentConfig .setup-current-challenge,#tabContentConfig .setup-advanced,#tabContentConfig #subtabCfgWizard { color:var(--ink)!important;background:var(--surface)!important;border:1px solid var(--line)!important;border-radius:var(--radius)!important;box-shadow:var(--shadow-small)!important; }
-.bg-slate-50,.bg-slate-100,.bg-slate-200 { background:var(--surface-2)!important; }
+.tab-content.active { display:block;animation:enterRegion .34s steps(6,end) both; }
+.subtab-content.active { display:block; }
+@keyframes enterRegion { from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none} }
+@keyframes torchFlicker { 0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-2px) scale(1.07)} }
+@keyframes idleSprite { 0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)} }
+@keyframes mapSpark { 0%,100%{opacity:.3}45%{opacity:1} }
+@keyframes waterScroll { to{stroke-dashoffset:-48} }
+@keyframes spriteStep { 0%,100%{translate:0 0}50%{translate:0 -3px} }
+
+/* Pixel environments are the page header, not a miniature illustration. */
+.daily-hero,.setup-hero,#tabContentTrades .trade-hero,#tabContentStats .stats-hero,#tabContentMilestones .vault-hero { position:relative;isolation:isolate;height:clamp(300px,34vw,390px)!important;min-height:300px!important;display:block!important;overflow:hidden;padding:0!important;border:5px solid var(--panel-edge)!important;border-radius:0!important;background:#77917b!important;box-shadow:0 7px 0 var(--shadow)!important;image-rendering:pixelated; }
+.world-panorama { position:absolute;inset:0;width:100%;height:100%;z-index:0;object-fit:cover;shape-rendering:crispEdges;image-rendering:pixelated; }
+.iso-scene,.vault-pixel-scene,.vault-art,.daily-landscape,.setup-landscape,.trade-landscape,.stats-landscape { display:none!important; }
+.daily-hero-copy,.setup-hero-copy,.trade-hero-copy,.stats-hero-copy,.vault-hero-copy { position:absolute;left:17px;bottom:18px;z-index:2;max-width:min(490px,70%)!important;padding:13px 16px 14px;background:var(--paper-hi);border:4px solid var(--panel-edge);outline:3px solid var(--paper-shadow);box-shadow:5px 5px 0 #18231d; }
+.daily-hero-copy:before,.setup-hero-copy:before,.trade-hero-copy:before,.stats-hero-copy:before,.vault-hero-copy:before { content:"";position:absolute;top:-13px;left:24px;width:15px;height:13px;background:var(--paper-shadow);clip-path:polygon(0 0,100% 0,100% 55%,50% 100%,0 55%); }
+.daily-kicker,.setup-kicker,.trade-kicker,.stats-kicker,.vault-eyebrow { display:block;margin:0 0 8px!important;color:var(--green)!important;font:700 8px 'Press Start 2P',monospace!important;letter-spacing:0!important; }
+.daily-title-row,.setup-title-row,.trade-title-row,.stats-title-row,.vault-title-row { display:flex;align-items:center;gap:10px; }
+.daily-title-icon,.setup-title-icon,.trade-title-icon,.stats-title-icon,.vault-title-icon { width:42px!important;height:44px!important;flex:none;display:grid;place-items:center;background:#d0b46e!important;border:3px solid var(--panel-edge)!important;border-radius:0!important;box-shadow:3px 3px 0 var(--paper-shadow)!important;color:#2d4635!important; }
+.daily-title-icon svg,.setup-title-icon svg,.trade-title-icon svg,.stats-title-icon svg,.vault-title-icon svg { width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linejoin:miter; }
+.daily-title-row h2,.setup-title-row h2,.trade-title-row h2,.stats-title-row h2,.vault-title-row h2 { margin:0!important;color:#2b3428!important;font:700 clamp(16px,2.1vw,23px)/1.3 Silkscreen,monospace!important;letter-spacing:-.04em!important; }
+.daily-title-row p,.setup-title-row p,.trade-title-row p,.stats-title-row p,.vault-hero p { max-width:370px;margin:4px 0 0!important;color:#574c39!important;font-size:11px!important;font-weight:700; }
+.daily-hero-quote,.setup-hero-quote,.trade-hero-quote,.stats-hero-quote,.vault-quote { position:absolute;top:13px;right:16px;z-index:2;max-width:175px;padding:7px 9px;background:#ead9aa;border:3px solid var(--panel-edge);color:#4c402d!important;text-align:center;font:700 9px/1.5 'DM Mono',monospace!important;box-shadow:3px 3px 0 rgba(0,0,0,.35); }
+.daily-hero-quote span,.setup-hero-quote span,.trade-hero-quote span,.vault-quote { color:#855a36!important; }
+.world-panorama--route { object-position:center 55%; }
+.world-panorama--camp { object-position:center 57%; }
+.world-panorama--market { object-position:center 62%; }
+.world-panorama--vault { object-position:center 60%; }
+.world-panorama--lookout { object-position:center 54%; }
+.world-walker { transform-box:fill-box;transform-origin:center bottom;animation:spriteStep .72s steps(2,end) infinite; }
+.world-bird { animation:idleSprite 1.1s steps(3,end) infinite; }
+.world-bird--two { animation-delay:-.5s; }
+.world-bat { animation:idleSprite .4s steps(2,end) infinite; }
+
+/* World map route markers and all repeated game parts share this pixel grammar. */
+.pixel-world-atlas { position:absolute;width:0;height:0;overflow:hidden; }
+.pixel-panel,.bg-white,.bento-card,.daily-stat,.trade-metric,.stats-summary-card,.daily-session-card,.daily-progress-card,.daily-history-card,.stats-panel,.vault-dashboard-card,#tabContentConfig .setup-quickstart,#tabContentConfig .setup-current-challenge,#tabContentConfig .setup-advanced,#tabContentConfig #subtabCfgWizard { color:var(--ink)!important;background-color:var(--paper-hi)!important;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Cpath fill='%23000' fill-opacity='.035' d='M0 0h2v2H0zm4 2h2v2H4zM2 6h2v2H2z'/%3E%3C/svg%3E")!important;border:3px solid var(--panel-edge)!important;border-radius:0!important;box-shadow:4px 4px 0 var(--shadow)!important; }
+.bg-slate-50,.bg-slate-100,.bg-slate-200 { background-color:var(--paper)!important; }
 .text-slate-900,.text-slate-800,.text-slate-700 { color:var(--ink)!important; }
-.text-slate-600,.text-slate-500 { color:var(--ink-2)!important; }
-.text-slate-400 { color:var(--ink-3)!important; }
+.text-slate-600,.text-slate-500 { color:var(--muted)!important; }
+.text-slate-400 { color:#867755!important; }
 .border-slate-100,.border-slate-200,.border-slate-300 { border-color:var(--line)!important; }
-.text-emerald-600,.text-emerald-700,.text-emerald-800,.text-emerald-900 { color:var(--forest)!important; }
-.bg-emerald-600 { background:var(--forest-deep)!important;color:#fff6df!important; }
-.bg-emerald-50,.bg-emerald-50\/40,.bg-emerald-50\/50,.bg-emerald-50\/60 { background:color-mix(in srgb,var(--forest) 12%,var(--surface))!important; }
-.border-emerald-200,.border-emerald-300,.border-emerald-500 { border-color:color-mix(in srgb,var(--forest) 38%,var(--line))!important; }
-.text-amber-600,.text-amber-700,.text-amber-800,.text-amber-900 { color:#9d6b27!important; }
-[data-theme="dark"] .text-amber-600,[data-theme="dark"] .text-amber-700,[data-theme="dark"] .text-amber-800,[data-theme="dark"] .text-amber-900 { color:#e8bd70!important; }
-.bg-amber-50,.bg-amber-50\/50,.bg-amber-50\/60,.bg-amber-100,.bg-amber-200 { background:color-mix(in srgb,var(--gold) 16%,var(--surface))!important; }
-.text-purple-600,.text-purple-700,.text-purple-800,.text-purple-900 { color:var(--violet)!important; }
-.bg-purple-50,.bg-purple-50\/50,.bg-purple-50\/60,.bg-purple-100,.bg-purple-200 { background:color-mix(in srgb,var(--violet) 13%,var(--surface))!important; }
-.text-red-600,.text-red-700,.text-red-800,.text-red-900 { color:var(--coral)!important; }
-.bg-red-50,.bg-red-50\/40 { background:color-mix(in srgb,var(--coral) 12%,var(--surface))!important; }
+.text-emerald-600,.text-emerald-700,.text-emerald-800,.text-emerald-900 { color:var(--green)!important; }
+.bg-emerald-600 { background:var(--green)!important;color:#fff3d2!important; }
+.bg-emerald-50,.bg-emerald-50\/40,.bg-emerald-50\/50,.bg-emerald-50\/60 { background:#d6e0bf!important; }
+.border-emerald-200,.border-emerald-300,.border-emerald-500 { border-color:var(--green)!important; }
+.text-amber-600,.text-amber-700,.text-amber-800,.text-amber-900 { color:#805a24!important; }
+.bg-amber-50,.bg-amber-50\/50,.bg-amber-50\/60,.bg-amber-100,.bg-amber-200 { background:#f0dfb5!important; }
+.text-purple-600,.text-purple-700,.text-purple-800,.text-purple-900 { color:var(--purple)!important; }
+.bg-purple-50,.bg-purple-50\/50,.bg-purple-50\/60,.bg-purple-100,.bg-purple-200 { background:#e1d3ea!important; }
+.text-red-600,.text-red-700,.text-red-800,.text-red-900 { color:var(--red)!important; }
+.bg-red-50,.bg-red-50\/40 { background:#edd0bb!important; }
 .text-blue-600,.text-blue-700,.text-blue-800,.text-blue-900 { color:var(--blue)!important; }
-.bg-blue-50 { background:color-mix(in srgb,var(--blue) 12%,var(--surface))!important; }
-.badge-green { background:color-mix(in srgb,var(--forest) 12%,var(--surface));color:var(--forest); }
-.badge-amber { background:var(--gold-soft);color:var(--gold); }
-.badge-red { background:color-mix(in srgb,var(--coral) 12%,var(--surface));color:var(--coral); }
-.badge-blue { background:color-mix(in srgb,var(--blue) 12%,var(--surface));color:var(--blue); }
-.badge-purple { background:color-mix(in srgb,var(--violet) 12%,var(--surface));color:var(--violet); }
+.bg-blue-50 { background:#ccdfd9!important; }
+[data-theme="dark"] .bg-emerald-50,[data-theme="dark"] .bg-emerald-50\/40,[data-theme="dark"] .bg-emerald-50\/50,[data-theme="dark"] .bg-emerald-50\/60 { background:#34483a!important; }
+[data-theme="dark"] .bg-amber-50,[data-theme="dark"] .bg-amber-50\/50,[data-theme="dark"] .bg-amber-50\/60 { background:#4c422d!important; }
+[data-theme="dark"] .bg-purple-50,[data-theme="dark"] .bg-purple-50\/50,[data-theme="dark"] .bg-purple-50\/60 { background:#443850!important; }
+[data-theme="dark"] .text-amber-600,[data-theme="dark"] .text-amber-700,[data-theme="dark"] .text-amber-800,[data-theme="dark"] .text-amber-900 { color:#efc66e!important; }
+[data-theme="dark"] .text-emerald-600,[data-theme="dark"] .text-emerald-700,[data-theme="dark"] .text-emerald-800,[data-theme="dark"] .text-emerald-900 { color:#a9c58c!important; }
+.badge { display:inline-block;padding:3px 7px;border:2px solid var(--line);border-radius:0;background:var(--paper);color:var(--ink);font:9px 'DM Mono',monospace; }
 
-/* Expedition headers become landscape panels, not another row of tiles. */
-.daily-hero,.setup-hero,#tabContentTrades .trade-hero,#tabContentStats .stats-hero,#tabContentMilestones .vault-hero { position:relative;isolation:isolate;min-height:190px!important;display:flex!important;align-items:center;overflow:hidden;padding:27px 32px!important;border:1px solid var(--line-strong)!important;border-radius:22px 22px 22px 7px!important;background:linear-gradient(105deg,var(--surface) 0%,color-mix(in srgb,var(--surface) 88%,var(--forest) 12%) 58%,color-mix(in srgb,var(--gold-soft) 65%,var(--surface)) 100%)!important;box-shadow:var(--shadow)!important; }
-.daily-hero:after,.setup-hero:after,#tabContentTrades .trade-hero:after,#tabContentStats .stats-hero:after,#tabContentMilestones .vault-hero:after { content:"";position:absolute;z-index:-1;inset:9px;border:1px dashed color-mix(in srgb,var(--gold) 45%,var(--line));border-radius:16px 16px 16px 5px;pointer-events:none; }
-.daily-hero-copy,.setup-hero-copy,.trade-hero-copy,.stats-hero-copy,.vault-hero-copy { position:relative;z-index:2;max-width:52%!important; }
-.daily-kicker,.setup-kicker,.trade-kicker,.stats-kicker,.vault-eyebrow { display:inline-flex;margin:0 0 9px!important;padding:5px 8px;border-radius:4px;background:var(--forest-deep);color:#fff1d0!important;font:700 9px/1 'DM Mono',monospace!important;letter-spacing:.13em;text-transform:uppercase; }
-.daily-title-row,.setup-title-row,.trade-title-row,.stats-title-row,.vault-title-row { display:flex;align-items:center;gap:14px; }
-.daily-title-icon,.setup-title-icon,.trade-title-icon,.stats-title-icon,.vault-title-icon { width:52px!important;height:55px!important;flex:none;display:grid;place-items:center;border:1px solid color-mix(in srgb,var(--gold) 55%,var(--line))!important;border-radius:12px 12px 12px 4px!important;background:var(--gold-soft)!important;color:var(--forest-deep)!important;box-shadow:inset 0 -4px color-mix(in srgb,var(--gold) 18%,transparent),3px 3px 0 color-mix(in srgb,var(--line-strong) 65%,transparent)!important; }
-.daily-title-icon svg,.setup-title-icon svg,.trade-title-icon svg,.stats-title-icon svg,.vault-title-icon svg { width:27px;height:27px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round; }
-.daily-title-row h2,.setup-title-row h2,.trade-title-row h2,.stats-title-row h2,.vault-title-row h2 { margin:0!important;color:var(--ink)!important;font:700 clamp(27px,3.2vw,40px)/1.08 Space Grotesk,sans-serif!important;letter-spacing:-.065em!important; }
-.daily-title-row p,.setup-title-row p,.trade-title-row p,.stats-title-row p,.vault-hero p { max-width:430px;margin:7px 0 0!important;color:var(--ink-2)!important;font-size:13px!important;line-height:1.6!important; }
-.daily-landscape,.setup-landscape,.trade-landscape,.stats-landscape { display:none!important; }
-.iso-scene,.vault-pixel-scene { position:absolute;z-index:1;right:3%!important;bottom:-10px!important;width:min(52%,700px)!important;height:118%!important;opacity:.96;filter:drop-shadow(0 9px 8px rgba(32,39,29,.16));animation:sceneBob 6s ease-in-out infinite;pointer-events:none; }
-.iso-scene--setup { animation-delay:-1.2s; }.iso-scene--trades { animation-delay:-2.6s; }.iso-scene--stats { animation-delay:-3.5s; }.vault-pixel-scene { animation-delay:-4s; }
-.vault-art { display:none!important; }
-.daily-hero-quote,.setup-hero-quote,.trade-hero-quote,.stats-hero-quote,.vault-quote { position:absolute;z-index:3;right:23px;top:17px;max-width:145px;color:var(--forest-deep)!important;text-align:right;font:600 italic 13px/1.45 Georgia,serif!important; }
-.daily-hero-quote span,.setup-hero-quote span,.trade-hero-quote span { color:var(--gold)!important; }
-@keyframes sceneBob { 0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)} }
-
-/* Daily route: map canvas, three pace cards, then the actual desk. */
-#tabContentTracker.active { display:grid!important;grid-template-columns:minmax(0,1fr);gap:17px!important;align-content:start; }
+/* Daily journey: animated route map and field-journal instruments. */
+#tabContentTracker.active { display:grid!important;grid-template-columns:minmax(0,1fr);gap:15px!important; }
 #tabContentTracker.active>* { min-width:0;margin:0!important; }
-#tabContentTracker .daily-route-board { position:relative;overflow:hidden;min-height:300px;padding:19px 22px!important;background:linear-gradient(120deg,var(--surface),color-mix(in srgb,var(--forest) 8%,var(--surface)))!important; }
-#tabContentTracker .daily-progress-heading { position:relative;z-index:2;display:flex!important;align-items:center;gap:12px;margin-bottom:6px!important; }
-.daily-progress-icon { width:38px;height:38px;flex:none;display:grid;place-items:center;border:1px solid var(--line);border-radius:10px 10px 10px 3px;background:var(--gold-soft);color:var(--gold);font-size:21px; }
-#tabContentTracker .daily-progress-heading h3 { margin:0!important;font:700 18px Space Grotesk,sans-serif!important; }
-#tabContentTracker .daily-progress-heading p { margin:3px 0 0;color:var(--ink-2);font-size:11px; }
-#questPaceSelect { margin-left:auto;min-width:145px;padding:9px 30px 9px 11px!important;font-size:11px; }
-#mountainTrailContainer { width:100%; }
-.quest-progress-top { margin:10px 0 8px; }
-.quest-level { display:inline-block;padding:4px 7px;border-radius:4px;background:var(--gold-soft);color:var(--gold);font:700 9px 'DM Mono',monospace; }
-.quest-session { float:right;color:var(--ink-2);font-size:10px; }
-.quest-xp-track { height:7px;margin-top:7px;overflow:hidden;border-radius:4px;background:var(--surface-3); }
-.quest-xp-track span { display:block;height:100%;background:linear-gradient(90deg,var(--forest),var(--gold));transition:width .5s; }
-.quest-map { display:block;width:100%;height:auto;max-height:250px;object-fit:contain;border:1px solid var(--line-strong);border-radius:8px;background:#24392d;image-rendering:pixelated; }
-.quest-map-footer { display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px;margin-top:9px;border:1px solid var(--line);border-radius:9px;background:var(--surface-2); }
-.quest-next-stop { display:flex;align-items:center;gap:9px; }.quest-next-icon { width:27px;height:27px;display:grid;place-items:center;border-radius:7px;background:var(--gold-soft);color:var(--gold); }
-.quest-next-stop small { display:block;color:var(--ink-3);font:700 8px 'DM Mono',monospace;letter-spacing:.1em; }
-.quest-next-stop strong,.quest-goal-progress strong { color:var(--ink);font-size:11px; }
-.quest-goal-progress { color:var(--ink-3);font-size:10px;text-align:right; }
-.daily-stats { display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px!important; }
-.daily-stat { min-width:0;min-height:100px!important;display:flex;align-items:center;gap:11px;padding:14px!important;border-radius:12px!important; }
-.daily-stat-icon { width:38px;height:38px;flex:none;display:grid;place-items:center;border:1px solid var(--line);border-radius:10px 10px 10px 3px;background:var(--surface-2);color:var(--forest);font-size:20px; }
-.daily-stat label,.trade-metric label { display:block;margin-bottom:5px;color:var(--ink-2);font-size:10px; }
-.daily-stat strong,.trade-metric strong { display:block;color:var(--ink)!important;font:700 20px/1.15 'DM Mono',monospace!important;letter-spacing:-.05em; }
-.daily-stat small,.trade-metric small { display:block;margin-top:4px;color:var(--ink-3);font-size:9px; }
-.stat-pnl .daily-stat-icon,.metric-amber .trade-metric-icon { color:#9d6b27;background:var(--gold-soft); }
-.stat-overall .daily-stat-icon,.metric-lavender .trade-metric-icon { color:var(--violet);background:color-mix(in srgb,var(--violet) 13%,var(--surface)); }
-.stat-target .daily-stat-icon { color:var(--blue);background:color-mix(in srgb,var(--blue) 12%,var(--surface)); }
-.stat-streak .daily-stat-icon,.metric-coral .trade-metric-icon { color:var(--coral);background:color-mix(in srgb,var(--coral) 12%,var(--surface)); }
-.daily-target-track { width:100%;height:5px;margin-top:7px;overflow:hidden;border-radius:5px;background:var(--surface-3); }.daily-target-track span { display:block;height:100%;border-radius:5px;background:var(--blue);transition:width .4s; }
-#dailyPaceTargetsSection { padding:18px!important;border:1px solid var(--line-strong)!important;border-radius:12px 12px 12px 4px!important;background:var(--surface-2)!important;box-shadow:none!important; }
-#dailyPaceTargetsSection>div:first-child { padding-bottom:12px!important;border-color:var(--line)!important; }
-#dailyPaceTargetsSection h2 { color:var(--ink)!important;font:700 12px Space Grotesk,sans-serif!important;letter-spacing:0!important;text-transform:none!important; }
-#dailyPaceTargetsSection p { color:var(--ink-2)!important;font-size:10px!important; }
-#dailyPaceTargetsSection>.grid { display:grid;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:10px!important; }
+#tabContentTracker .daily-route-board { position:relative;padding:14px!important;overflow:hidden;background-color:#c4ad74!important;border-color:#322d22!important;box-shadow:6px 6px 0 #393125!important; }
+#tabContentTracker .daily-progress-heading { position:relative;z-index:1;display:flex!important;align-items:center;gap:10px;margin:0 0 8px!important; }
+.daily-progress-icon { width:34px;height:34px;flex:none;display:grid;place-items:center;background:#e9d58c;border:3px solid #58432e;color:#735132;font:700 16px Silkscreen;box-shadow:2px 2px 0 #58432e; }
+#tabContentTracker .daily-progress-heading h3 { margin:0!important;color:#332c20!important;font:700 14px Silkscreen,monospace!important; }
+#tabContentTracker .daily-progress-heading p { margin:2px 0 0;color:#57492f;font-size:10px;font-weight:700; }
+#questPaceSelect { margin-left:auto;min-width:140px;padding:6px 28px 6px 8px!important;background:#f2e5c3!important;border:3px solid #56432d!important;color:#352c1f!important;font:10px 'DM Mono',monospace!important; }
+.quest-progress-top { margin:7px 1px 8px; }.quest-level { display:inline-block;padding:4px 6px;background:#f1d27a;border:2px solid #604c32;color:#43351e;font:8px 'Press Start 2P',monospace; }.quest-session { float:right;color:#392e20;font:10px 'DM Mono',monospace; }
+.quest-xp-track { height:10px;margin-top:7px;overflow:hidden;background:#8b7952;border:2px solid #4b3d29; }.quest-xp-track span { display:block;height:100%;background:#71975a;border-right:3px solid #e8d080; }
+.quest-map { display:block;width:100%;height:auto;max-height:350px;border:3px solid #322d22;border-radius:0!important;background:#769779;image-rendering:pixelated;shape-rendering:crispEdges; }
+.quest-checkpoint { cursor:pointer; }.quest-checkpoint:focus-visible { outline:3px solid #fff1ad;outline-offset:3px; }.quest-checkpoint:hover .checkpoint-banner { transform:translateY(-4px); }
+.quest-player-sprite { animation:playerIdle 1.1s steps(2,end) infinite;transform-box:fill-box;transform-origin:center bottom; }
+@keyframes playerIdle { 0%,100%{translate:0 0}50%{translate:0 -3px} }
+.quest-map-footer { display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px;margin-top:7px;background:#e4d3a5;border:3px solid #52432f;color:#3e3424; }
+.quest-next-stop { display:flex;align-items:center;gap:7px; }.quest-next-icon { width:25px;height:25px;display:grid;place-items:center;background:#d4b75f;border:2px solid #57432c;color:#45331f;font:12px Silkscreen; }
+.quest-next-stop small { display:block;color:#6c5735;font:7px 'Press Start 2P',monospace; }.quest-next-stop strong,.quest-goal-progress strong { color:#332c20;font:700 10px 'DM Mono',monospace; }.quest-goal-progress { color:#675434;font:9px 'DM Mono',monospace;text-align:right; }
+#tabContentTracker .daily-stats { display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0!important;padding:7px 5px!important;background:#eee0b9!important;border:3px solid #453826!important;box-shadow:4px 4px 0 var(--shadow); }
+#tabContentTracker .daily-stat { min-height:66px!important;display:flex;align-items:center;gap:8px;padding:8px!important;border:0!important;border-right:2px dashed #a98e5a!important;background:transparent!important;box-shadow:none!important; }
+#tabContentTracker .daily-stat:last-child { border:0!important; }
+.daily-stat-icon { width:32px;height:32px;flex:none;display:grid;place-items:center;background:#d9c68f;border:2px solid #776040;color:#426547;font:700 16px Silkscreen; }
+.daily-stat label,.trade-metric label { display:block;margin-bottom:2px;color:#69593e!important;font:8px 'Press Start 2P',monospace!important;line-height:1.6; }
+.daily-stat strong,.trade-metric strong { display:block;color:#30291f!important;font:700 15px/1.2 'DM Mono',monospace!important;letter-spacing:-.04em; }
+.daily-stat small,.trade-metric small { display:block;margin-top:2px;color:#726348!important;font:9px 'DM Mono',monospace!important; }
+.stat-pnl .daily-stat-icon,.metric-amber .trade-metric-icon { color:#855a21;background:#f0d28a; }.stat-overall .daily-stat-icon,.metric-lavender .trade-metric-icon{color:#725293;background:#ddd0e7}.stat-target .daily-stat-icon{color:#426c79;background:#c8d9d4}.stat-streak .daily-stat-icon,.metric-coral .trade-metric-icon{color:#984c3b;background:#e5c0aa}
+.daily-target-track { width:100%;height:6px;margin-top:4px;background:#c1b28a;border:1px solid #8c7950; }.daily-target-track span { display:block;height:100%;background:#507b59; }
+#dailyPaceTargetsSection { padding:13px!important;border:3px solid #463926!important;border-radius:0!important;background:#ddc99b!important;box-shadow:4px 4px 0 var(--shadow)!important; }
+#dailyPaceTargetsSection>div:first-child { padding-bottom:8px!important;border-color:#ac9260!important; }
+#dailyPaceTargetsSection h2 { color:#352e22!important;font:700 10px Silkscreen,monospace!important;letter-spacing:0!important;text-transform:none!important; }
+#dailyPaceTargetsSection p { color:#64573f!important;font-size:9px!important; }
+#dailyPaceTargetsSection>.grid { display:grid;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:8px!important; }
 #dailyPaceTargetsSection #paceCardFinreq { display:none!important; }
-#dailyPaceTargetsSection [id^="paceCard"] { position:relative;min-height:125px;padding:15px!important;border:1px solid var(--line)!important;border-left:4px solid var(--pace-color)!important;border-radius:10px!important;background:var(--surface)!important;color:var(--ink)!important;cursor:pointer;transition:transform .16s,box-shadow .16s,background .16s!important; }
-#dailyPaceTargetsSection #paceCardRelaxed { --pace-color:#38805b;--pace-fill:#dcecdf;--pace-text:#244e37; }
-#dailyPaceTargetsSection #paceCardMid { --pace-color:#bc841e;--pace-fill:#f4e6c1;--pace-text:#604513; }
-#dailyPaceTargetsSection #paceCardAgg { --pace-color:#7956a2;--pace-fill:#e9def2;--pace-text:#49336b; }
-[data-theme="dark"] #dailyPaceTargetsSection #paceCardRelaxed { --pace-fill:#304a37;--pace-text:#e6f3df; }
-[data-theme="dark"] #dailyPaceTargetsSection #paceCardMid { --pace-fill:#514326;--pace-text:#fff0cd; }
-[data-theme="dark"] #dailyPaceTargetsSection #paceCardAgg { --pace-fill:#47365d;--pace-text:#f1e5ff; }
-#dailyPaceTargetsSection [id^="paceCard"]:hover { transform:translateY(-2px);box-shadow:var(--shadow-small)!important; }
-#dailyPaceTargetsSection [id^="paceCard"].is-selected { background:var(--pace-fill)!important;border-color:var(--pace-color)!important;box-shadow:inset 0 0 0 1px var(--pace-color)!important; }
-#dailyPaceTargetsSection [id^="paceCard"]>div:first-child>span:first-child { color:var(--pace-color)!important;font:700 11px 'DM Mono',monospace!important; }
-#dailyPaceTargetsSection [id$="Val"] { color:var(--pace-color)!important;font:700 22px 'DM Mono',monospace!important; }
-#dailyPaceTargetsSection [id^="diff"] { color:var(--ink-2)!important; }
-#dailyPaceTargetsSection [id^="paceCard"]>div:last-child { color:var(--pace-text)!important;font-size:10px!important; }
-#dailyPaceTargetsSection #paceCardRelaxed.is-complete { --pace-fill:#83b88e;--pace-text:#142c1b; }
-#dailyPaceTargetsSection #paceCardMid.is-complete { --pace-fill:#e7b64e;--pace-text:#3a2909; }
-#dailyPaceTargetsSection #paceCardAgg.is-complete { --pace-fill:#9e7ac5;--pace-text:#211332; }
-[data-theme="dark"] #dailyPaceTargetsSection #paceCardRelaxed.is-complete { --pace-fill:#4d8a61;--pace-text:#f2fff2; }
-[data-theme="dark"] #dailyPaceTargetsSection #paceCardMid.is-complete { --pace-fill:#a87721;--pace-text:#fff8e6; }
-[data-theme="dark"] #dailyPaceTargetsSection #paceCardAgg.is-complete { --pace-fill:#7752a0;--pace-text:#fff7ff; }
-#dailyPaceTargetsSection [id^="paceCard"].is-complete { background:var(--pace-fill)!important;border-color:var(--pace-color)!important;color:var(--pace-text)!important;box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--pace-color) 70%,transparent),var(--shadow-small)!important; }
-#dailyPaceTargetsSection [id^="paceCard"].is-complete [id$="Val"],#dailyPaceTargetsSection [id^="paceCard"].is-complete>div:first-child>span:first-child,#dailyPaceTargetsSection [id^="paceCard"].is-complete [id^="diff"] { color:var(--pace-text)!important; }
+#dailyPaceTargetsSection [id^="paceCard"] { min-height:100px;padding:11px!important;border:3px solid #423625!important;border-left:7px solid var(--pace-color)!important;border-radius:0!important;background:#ebdfbf!important;color:#342d22!important;box-shadow:3px 3px 0 #796749!important;cursor:pointer;transition:transform .14s steps(2,end),background .14s!important; }
+#dailyPaceTargetsSection #paceCardRelaxed { --pace-color:#38805b;--pace-fill:#83b88e;--pace-text:#142c1b; }
+#dailyPaceTargetsSection #paceCardMid { --pace-color:#bc841e;--pace-fill:#e7b64e;--pace-text:#3a2909; }
+#dailyPaceTargetsSection #paceCardAgg { --pace-color:#7956a2;--pace-fill:#9e7ac5;--pace-text:#211332; }
+#dailyPaceTargetsSection [id^="paceCard"]:hover { transform:translateY(-3px)!important; }
+#dailyPaceTargetsSection [id^="paceCard"].is-selected { outline:3px solid #fff0be;outline-offset:-6px; }
+#dailyPaceTargetsSection [id^="paceCard"].is-complete { background:var(--pace-fill)!important;color:var(--pace-text)!important;box-shadow:inset 0 0 0 3px var(--pace-color),4px 4px 0 #59492f!important; }
+#dailyPaceTargetsSection [id^="paceCard"]>div:first-child>span:first-child { color:var(--pace-color)!important;font:700 9px 'Press Start 2P',monospace!important; }
+#dailyPaceTargetsSection [id$="Val"] { color:#342d22!important;font:700 19px 'DM Mono',monospace!important; }
+#dailyPaceTargetsSection [id^="diff"] { color:#514735!important;font:10px 'DM Mono',monospace!important; }
+#dailyPaceTargetsSection [id^="paceCard"]>div:last-child { color:#48402f!important;font-size:9px!important; }
+#dailyPaceTargetsSection [id^="paceCard"].is-complete [id$="Val"],#dailyPaceTargetsSection [id^="paceCard"].is-complete>div:first-child>span:first-child,#dailyPaceTargetsSection [id^="paceCard"].is-complete [id^="diff"],#dailyPaceTargetsSection [id^="paceCard"].is-complete>div:last-child { color:var(--pace-text)!important; }
+[data-theme="dark"] #dailyPaceTargetsSection #paceCardRelaxed.is-complete { --pace-fill:#42684b;--pace-text:#efffe9; }
+[data-theme="dark"] #dailyPaceTargetsSection #paceCardMid.is-complete { --pace-fill:#795b24;--pace-text:#fff3cd; }
+[data-theme="dark"] #dailyPaceTargetsSection #paceCardAgg.is-complete { --pace-fill:#61427f;--pace-text:#fff3ff; }
 
-/* Values read as a shared instrument strip, rather than five more floating tiles. */
-#tabContentTracker .daily-stats { padding:6px 3px;border-block:1px solid var(--line);background:color-mix(in srgb,var(--surface) 48%,transparent); }
-#tabContentTracker .daily-stat { border:0!important;border-right:1px solid var(--line)!important;border-radius:0!important;background:transparent!important;box-shadow:none!important; }
-#tabContentTracker .daily-stat:last-child { border-right:0!important; }
-#tabContentTrades .trade-metric { border:0!important;border-right:1px solid var(--line)!important;border-radius:0!important;background:transparent!important;box-shadow:none!important; }
-#tabContentTrades .trade-metric:last-child { border-right:0!important; }
-#tabContentStats .stats-summary-grid { padding:5px 0;border-block:1px solid var(--line);background:color-mix(in srgb,var(--surface) 48%,transparent); }
-#tabContentStats .stats-summary-card { min-height:58px;padding:9px 13px!important;border:0!important;border-right:1px solid var(--line)!important;border-radius:0!important;background:transparent!important;box-shadow:none!important; }
-#tabContentMilestones.active>.vault-hero+.grid>div { border:0!important;border-right:1px solid var(--line)!important;border-radius:0!important;background:transparent!important;box-shadow:none!important; }
-#tabContentMilestones.active>.vault-hero+.grid>div:last-child { border-right:0!important; }
-body>main section>div:has(>button[id^="subnav"]) { width:max-content;max-width:100%;display:flex;gap:4px!important;padding:4px;margin:2px 0!important;border:1px solid var(--line)!important;border-radius:11px!important;background:var(--surface-2)!important;overflow-x:auto; }
-body>main section>div:has(>button[id^="subnav"]) button { padding:8px 11px!important;border:1px solid transparent!important;border-radius:7px!important;background:transparent!important;color:var(--ink-2)!important;font-size:10px!important;font-weight:700!important;white-space:nowrap; }
-body>main section>div:has(>button[id^="subnav"]) button.active-subtab { border-color:var(--line)!important;background:var(--surface)!important;color:var(--ink)!important;box-shadow:var(--shadow-small); }
-#tabContentTracker #subtabDesk.active { display:grid!important;grid-template-columns:minmax(0,1fr);gap:15px!important; }
+/* Journal, camp ledger and optional calculations. */
+body>main section>div:has(>button[id^="subnav"]) { display:flex;width:max-content;max-width:100%;gap:3px!important;padding:4px;margin:0!important;background:#544631!important;border:3px solid #302a20!important;box-shadow:3px 3px 0 var(--shadow);overflow:auto; }
+body>main section>div:has(>button[id^="subnav"]) button { padding:7px 10px!important;border:2px solid transparent!important;border-radius:0!important;background:transparent!important;color:#e4d6ad!important;font:700 9px Silkscreen,monospace!important;white-space:nowrap; }
+body>main section>div:has(>button[id^="subnav"]) button.active-subtab { background:#d4bb7b!important;border-color:#282820!important;color:#2d3025!important;box-shadow:2px 2px 0 #161c17; }
+#tabContentTracker #subtabDesk.active { display:grid!important;grid-template-columns:minmax(0,1fr);gap:13px!important; }
 #tabContentTracker #subtabDesk.active>* { min-width:0;margin:0!important; }
-.daily-session-card,.daily-history-card { padding:21px!important; }
-.daily-session-card h3,.daily-history-card h3,.vault-dashboard-card h3,.stats-panel h3 { color:var(--ink)!important;font-family:Space Grotesk,sans-serif!important; }
-.daily-session-card>div:first-child { padding-bottom:14px;border-bottom:1px solid var(--line); }
-.session-number-chip { display:inline-block;padding:4px 7px;border-radius:5px;background:var(--gold-soft);color:var(--gold);font:700 9px 'DM Mono',monospace; }
-.daily-log-fields { grid-template-columns:minmax(0,1fr) minmax(0,.7fr) auto!important;align-items:end;gap:13px!important; }
-.daily-log-fields label,.trade-entry-grid label,.trade-details-grid label { display:block;margin:0 0 6px;color:var(--ink-2)!important;font-size:10px!important;font-weight:700; }
-.daily-log-fields input,.daily-log-fields textarea { width:100%;min-height:42px;padding:10px!important;background:var(--surface-2)!important;color:var(--ink)!important; }
-.daily-session-pnl>div { min-height:43px;display:flex;align-items:center;justify-content:space-between;padding:9px 12px;border:1px solid color-mix(in srgb,var(--forest) 26%,var(--line));border-radius:9px;background:color-mix(in srgb,var(--forest) 8%,var(--surface)); }
-.daily-session-pnl strong { color:var(--forest);font:700 18px 'DM Mono',monospace; }.daily-session-pnl span { color:var(--ink-2);font-size:10px; }
-.daily-session-actions { gap:8px!important; }
-.btn-save-session,#btnExecuteProfitAlloc,#btnSubmitManualSkim { min-height:42px;padding:10px 17px!important;border:0!important;border-radius:8px!important;background:var(--forest-deep)!important;color:#fff6df!important;font-size:11px!important;font-weight:800!important; }
-#btnToggleLockSession,#btnAutoFillTarget { min-height:38px;border:1px solid var(--line)!important;border-radius:8px!important;background:var(--surface-2)!important;color:var(--ink-2)!important;font-size:10px!important; }
-#shortfallCard,#profitAllocationCard { border-radius:12px!important; }
+.daily-session-card,.daily-history-card { padding:17px!important; }
+.daily-session-card h3,.daily-history-card h3,.vault-dashboard-card h3,.stats-panel h3 { color:var(--ink)!important;font:700 13px Silkscreen,monospace!important; }
+.daily-session-card>div:first-child { padding-bottom:10px;border-bottom:3px dashed var(--paper-shadow); }
+.session-number-chip { display:inline-block;padding:3px 6px;background:#dbbd6a;border:2px solid #51432b;color:#332b1e;font:8px 'Press Start 2P',monospace; }
+.daily-log-fields { grid-template-columns:minmax(0,1fr) minmax(0,.7fr) auto!important;align-items:end;gap:11px!important; }
+.daily-log-fields label,.trade-entry-grid label,.trade-details-grid label { display:block;margin:0 0 5px;color:var(--muted)!important;font:700 8px 'Press Start 2P',monospace!important;line-height:1.7; }
+.daily-log-fields input,.daily-log-fields textarea { width:100%;min-height:40px;padding:8px!important;background:var(--field)!important;color:var(--ink)!important; }
+.daily-session-pnl>div { min-height:42px;display:flex;align-items:center;justify-content:space-between;padding:7px 10px;background:#dce4c6;border:3px solid #354c37; }
+.daily-session-pnl strong { color:#315c3f;font:700 17px 'DM Mono',monospace; }.daily-session-pnl span{color:#405a42;font:10px 'DM Mono',monospace}
+.daily-session-actions { display:flex;gap:6px!important; }
+.btn-save-session,#btnExecuteProfitAlloc,#btnSubmitManualSkim { min-height:42px;padding:8px 12px!important;border:3px solid #1d3423!important;border-radius:0!important;background:#4c7954!important;color:#fff0c4!important;font:700 9px Silkscreen,monospace!important;box-shadow:3px 3px 0 #1c251d!important; }
+#btnToggleLockSession,#btnAutoFillTarget { min-height:36px;border:3px solid #67563a!important;border-radius:0!important;background:#ddc78f!important;color:#392f20!important;font:700 8px Silkscreen,monospace!important; }
+.sprite-action { display:inline-flex!important;align-items:center;justify-content:center;gap:7px; }
+.sprite-action svg { width:24px;height:28px;flex:none;shape-rendering:crispEdges;image-rendering:pixelated; }
+#shortfallCard,#profitAllocationCard { border:3px solid #5a452c!important;border-radius:0!important;box-shadow:3px 3px 0 #493721; }
 .daily-history-card { overflow:hidden; }
 .daily-history-card table,.simple-table { width:100%;border-collapse:separate;border-spacing:0;background:transparent!important; }
-.daily-history-card th,.simple-table th { padding:11px 10px!important;background:var(--surface-2)!important;color:var(--ink-3)!important;border-bottom:1px solid var(--line)!important;font:700 9px 'DM Mono',monospace!important;letter-spacing:.07em;text-transform:uppercase;white-space:nowrap; }
-.daily-history-card td,.simple-table td { padding:11px 10px!important;color:var(--ink-2)!important;border-bottom:1px solid var(--line)!important;font-size:10px!important; }
-.simple-table tr:hover td { background:color-mix(in srgb,var(--forest) 5%,var(--surface)); }
+.daily-history-card th,.simple-table th { padding:9px!important;background:#d8c79a!important;color:#55472e!important;border-bottom:3px solid #8a744b!important;font:8px 'Press Start 2P',monospace!important;line-height:1.7;white-space:nowrap; }
+.daily-history-card td,.simple-table td { padding:9px!important;color:var(--ink)!important;border-bottom:1px solid var(--paper-shadow)!important;font:10px 'DM Mono',monospace!important; }
+.simple-table tr:hover td { background:#e7d9af!important; }
 
-/* Setup: a three-step launch surface with one prominent working area. */
-#tabContentConfig.active { display:grid!important;grid-template-columns:repeat(12,minmax(0,1fr));gap:15px!important;align-content:start; }
+/* Camp setup: equipment laid out on a readable quest parchment. */
+#tabContentConfig.active { display:grid!important;grid-template-columns:repeat(12,minmax(0,1fr));gap:13px!important;align-content:start; }
 #tabContentConfig.active>* { min-width:0;margin:0!important; }
 #tabContentConfig .setup-hero,#tabContentConfig .setup-quickstart,#tabContentConfig #subtabCfgWizard,#tabContentConfig .setup-current-challenge,#tabContentConfig .setup-advanced { grid-column:1/-1; }
-#tabContentConfig .setup-quickstart { min-height:78px;display:flex;align-items:center;gap:12px;padding:13px 18px!important;background:var(--forest-deep)!important;border:0!important;color:#fff7e6!important; }
-.setup-quickstart-icon { width:40px;height:40px;flex:none;display:grid;place-items:center;border-radius:10px;background:rgba(255,255,255,.12);color:#f5d991;font-size:21px; }
-.setup-quickstart-copy h3,.setup-quickstart-copy p { margin:0;color:#fff7e6!important; }.setup-quickstart-copy h3{font:700 15px Space Grotesk,sans-serif}.setup-quickstart-copy p{margin-top:3px;color:#d5d9c7!important;font-size:10px}
-.setup-stepper { display:flex;align-items:center;gap:9px;margin-left:auto; }.setup-stepper>div{display:grid;justify-items:center;gap:4px}.setup-stepper>i{width:clamp(20px,5vw,62px);height:1px;background:rgba(255,255,255,.24)}.setup-stepper small{color:#d4ddc9;font-size:9px}.setup-step-indicator{width:27px;height:27px;display:grid;place-items:center;border:1px solid rgba(255,255,255,.35);border-radius:50%;color:#fff;background:transparent;font-size:10px;font-style:normal}.setup-step-indicator.is-current{background:var(--gold);border-color:var(--gold);color:#302610}
-#tabContentConfig #subtabCfgWizard { display:block!important;padding:23px!important; }
-#tabContentConfig #subtabCfgWizard h3 { font:700 17px Space Grotesk,sans-serif!important; }
-.setup-panel-heading { display:flex;align-items:center;gap:11px;margin-bottom:15px; }
-.setup-panel-icon { width:39px;height:39px;flex:none;display:grid;place-items:center;border:1px solid var(--line);border-radius:10px 10px 10px 3px;background:var(--surface-2);color:var(--forest);font-size:20px; }
-.setup-panel-heading h3,.setup-panel-heading p { margin:0; }.setup-panel-heading p{margin-top:3px;color:var(--ink-2);font-size:10px}
-.setup-form-grid { display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px!important; }
-.setup-form-grid label,#tabContentConfig #subtabCfgWizard label { display:block;margin:0 0 6px;color:var(--ink-2)!important;font-size:10px!important;font-weight:700; }
-.setup-form-grid input,#tabContentConfig #subtabCfgWizard input:not([type="checkbox"]),#tabContentConfig #subtabCfgWizard select { width:100%;min-height:42px;padding:9px 11px!important;background:var(--surface-2)!important;color:var(--ink)!important; }
-.setup-preview-panel { grid-column:2;grid-row:1/4;min-width:0;padding:15px;border:1px solid var(--line)!important;border-radius:13px;background:var(--surface-2)!important; }
-.setup-preview-panel .challenge-mountain { width:100%;height:auto;border:1px solid var(--line);border-radius:9px; }
-.setup-preview-stats { display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:10px; }.setup-preview-stats span{display:grid;gap:4px;color:var(--ink-3);font-size:9px}.setup-preview-stats strong{color:var(--ink);font:700 11px 'DM Mono',monospace}
-.setup-start-row { margin-top:15px;gap:10px;border-color:var(--line)!important; }.setup-start-row button { min-height:43px;padding:10px 16px!important;border:0;border-radius:8px!important;background:var(--forest-deep)!important;color:#fff6df!important;font-size:11px!important;font-weight:800!important; }.setup-start-row .setup-advanced-button { border:1px solid var(--line)!important;background:var(--surface-2)!important;color:var(--ink-2)!important; }
-#tabContentConfig .setup-current-challenge,#tabContentConfig .setup-advanced { overflow:hidden; }.setup-current-challenge>summary,.setup-advanced>summary { padding:13px 16px;color:var(--ink);font-size:11px;font-weight:800;cursor:pointer;list-style:none; }.setup-current-challenge>summary::-webkit-details-marker,.setup-advanced>summary::-webkit-details-marker{display:none}.setup-current-challenge>summary span,.setup-advanced>summary span{float:right;color:var(--ink-3);font-size:9px;font-weight:500}.setup-saved-profiles>summary{padding:12px 0;color:var(--ink);font-size:11px;font-weight:700;cursor:pointer;}
+#tabContentConfig .setup-quickstart { min-height:64px;display:flex;align-items:center;gap:10px;padding:10px 14px!important;background:#51442f!important;border:3px solid #231f19!important;color:#fff0c5!important;box-shadow:4px 4px 0 #201c17!important; }
+.setup-quickstart-icon { width:35px;height:35px;flex:none;display:grid;place-items:center;background:#dfbd67;border:3px solid #332b20;color:#513d22;font:12px Silkscreen; }
+.setup-quickstart-copy h3,.setup-quickstart-copy p { margin:0;color:#fff0c5!important; }.setup-quickstart-copy h3{font:700 11px 'Press Start 2P',monospace!important;line-height:1.6}.setup-quickstart-copy p{color:#e2d2a9!important;font-size:9px}
+.setup-stepper { display:flex;align-items:center;gap:8px;margin-left:auto; }.setup-stepper>div{display:grid;justify-items:center;gap:3px}.setup-stepper>i{width:clamp(16px,5vw,58px);height:0;border-top:3px dotted #b7a275}.setup-stepper small{color:#e2d2a9;font:8px Silkscreen,monospace}.setup-step-indicator{width:25px;height:25px;display:grid;place-items:center;border:3px solid #c1a961;background:#413a2b;color:#f4e7c4;font:9px 'Press Start 2P',monospace;font-style:normal}.setup-step-indicator.is-current{background:#e4c46d;color:#31291d;box-shadow:0 0 0 3px #81683c}
+#tabContentConfig #subtabCfgWizard { display:block!important;padding:18px!important; }
+#tabContentConfig #subtabCfgWizard h3 { font:700 13px Silkscreen,monospace!important; }
+.setup-panel-heading { display:flex;align-items:center;gap:9px;margin-bottom:13px; }.setup-panel-icon{width:34px;height:34px;flex:none;display:grid;place-items:center;background:#d3c18b;border:3px solid #564630;color:#405b43;font:15px Silkscreen}.setup-panel-heading h3,.setup-panel-heading p{margin:0}.setup-panel-heading p{margin-top:3px;color:var(--muted);font-size:9px}
+.setup-form-grid { display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px!important; }
+.setup-form-grid label,#tabContentConfig #subtabCfgWizard label { display:block;margin:0 0 5px;color:var(--muted)!important;font:700 8px 'Press Start 2P',monospace!important;line-height:1.7; }
+.setup-form-grid input,#tabContentConfig #subtabCfgWizard input:not([type="checkbox"]),#tabContentConfig #subtabCfgWizard select { width:100%;min-height:40px;padding:8px!important;background:var(--field)!important;color:var(--ink)!important; }
+.setup-preview-panel { grid-column:2;grid-row:1/4;min-width:0;padding:12px;background:#d8c493!important;border:3px solid #5a472e!important;box-shadow:3px 3px 0 #625034; }
+.setup-preview-panel .challenge-mountain { width:100%;height:auto;border:3px solid #403629;border-radius:0!important;image-rendering:pixelated; }
+.setup-preview-stats { display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-top:8px; }.setup-preview-stats span{display:grid;gap:3px;color:#5c5038;font-size:8px}.setup-preview-stats strong{color:#332c20;font:700 10px 'DM Mono',monospace}
+.setup-start-row { margin-top:12px;gap:8px;border-color:#aa9260!important; }.setup-start-row button { min-height:42px;padding:8px 12px!important;border:3px solid #223827!important;border-radius:0!important;background:#4b7651!important;color:#fff2ca!important;font:700 9px Silkscreen,monospace!important;box-shadow:3px 3px 0 #27251c!important; }.setup-start-row .setup-advanced-button { border:3px solid #655338!important;background:#e4d09d!important;color:#372e20!important; }
+#tabContentConfig .setup-current-challenge,#tabContentConfig .setup-advanced { overflow:hidden; }.setup-current-challenge>summary,.setup-advanced>summary{padding:11px 13px;color:var(--ink);font:700 9px Silkscreen,monospace;cursor:pointer;list-style:none}.setup-current-challenge>summary::-webkit-details-marker,.setup-advanced>summary::-webkit-details-marker{display:none}.setup-current-challenge>summary span,.setup-advanced>summary span{float:right;color:var(--muted);font:9px 'DM Mono',monospace}.setup-saved-profiles>summary{padding:10px 0;color:var(--ink);font:9px Silkscreen,monospace;cursor:pointer}
 
-/* Trade journal: quick entry first; the ledger stays directly below it. */
-#tabContentTrades.active { display:grid!important;grid-template-columns:minmax(0,1fr);gap:15px!important;align-content:start; }
+/* Market stalls, an actual trade counter, and the bound journal ledger. */
+#tabContentTrades.active { display:grid!important;grid-template-columns:minmax(0,1fr);gap:13px!important;align-content:start; }
 #tabContentTrades.active>* { min-width:0;margin:0!important; }
 #tabContentTrades .trade-subnav,#tabContentTrades #subtabTradesAnalytics { display:none!important; }
 #tabContentTrades #subtabTradesLogger,#tabContentTrades #subtabTradesHistory { display:block!important;grid-column:1; }
-#tabContentTrades .trade-metrics { display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px; }
-#tabContentTrades .trade-metric { min-height:86px!important;display:flex;align-items:center;gap:12px;padding:13px!important;border-radius:12px!important; }
-.trade-metric-icon { width:36px;height:36px;flex:none;display:grid;place-items:center;border:1px solid var(--line);border-radius:9px;background:var(--surface-2);color:var(--forest);font-size:18px; }
-#tabContentTrades .trade-entry-card,#tabContentTrades #subtabTradesHistory>.bg-white { padding:20px!important; }
-.trade-panel-heading { min-height:47px;display:flex;align-items:center;gap:10px;padding-bottom:12px!important;border-bottom:1px solid var(--line)!important; }
-.trade-panel-heading:before { content:"↗";width:37px;height:37px;flex:none;display:grid;place-items:center;border-radius:10px 10px 10px 3px;background:var(--gold-soft);color:var(--gold);font-size:21px; }
-.trade-panel-heading h3,.trade-panel-heading p { margin:0!important; }.trade-panel-heading h3{font:700 16px Space Grotesk,sans-serif!important}.trade-panel-heading p{color:var(--ink-2)!important;font-size:10px!important}
-.trade-entry-grid { display:grid;grid-template-columns:repeat(4,minmax(0,1fr)) minmax(125px,.8fr);gap:11px!important;align-items:end;margin-top:14px; }
-.trade-entry-grid>div { min-width:0; }.trade-entry-grid input,.trade-details-grid input,.trade-details-grid select{width:100%;min-height:41px;padding:8px 10px!important;background:var(--surface-2)!important;color:var(--ink)!important;}
-.money-input { min-height:41px;display:flex;align-items:center;overflow:hidden;border:1px solid var(--line-strong);border-radius:9px;background:var(--surface-2); }.money-input>span:first-child{align-self:stretch;min-width:35px;display:grid;place-items:center;border-right:1px solid var(--line);color:var(--ink-2);font:600 13px 'DM Mono',monospace}.money-input input{min-height:39px;border:0!important;background:transparent!important;box-shadow:none!important}.money-input #tradePreviewNetPnL{padding:0 10px;color:var(--forest);font:700 12px 'DM Mono',monospace}.trade-pnl-field small,.trade-pnl-field>small{display:block;margin-top:4px;color:var(--ink-3);font-size:9px}
-.trade-add-button { min-height:41px;align-self:end;padding:9px 14px!important;border:0;border-radius:8px!important;background:var(--forest-deep)!important;color:#fff5dc!important;font-size:11px;font-weight:800; }.trade-add-button span{font-size:16px;margin-right:4px}
-.trade-more-details { margin-top:13px;border-top:1px solid var(--line)!important;padding-top:9px; }.trade-more-details summary{color:var(--ink-2);font-size:10px;font-weight:700;cursor:pointer;}.trade-more-details summary span{margin-left:7px;color:var(--ink-3);font-weight:400}.trade-details-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px;padding-top:12px}.trade-notes-field{grid-column:1/-1}
-.trade-history-heading { min-height:65px;padding:12px 16px!important;background:var(--surface-2)!important;border-bottom:1px solid var(--line)!important; }.trade-history-heading h3{margin:0;color:var(--ink)!important;font:700 15px Space Grotesk,sans-serif!important}.trade-history-heading p{margin:3px 0 0;color:var(--ink-2);font-size:10px}.trade-history-heading select{min-height:35px;padding:6px 27px 6px 8px!important;background:var(--surface)!important;color:var(--ink)!important;font-size:10px}
-.simple-table { min-width:760px; }.trade-empty-cell{height:190px!important}.trade-empty-state{min-height:150px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--ink-2);text-align:center}.trade-empty-state svg{width:38px;height:38px;fill:none;stroke:var(--forest);stroke-width:1.8}.trade-empty-state strong{color:var(--ink);font-size:13px}.trade-empty-state span{font-size:10px}
+#tabContentTrades .trade-metrics { display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0!important;padding:5px!important;background:#eee0b9!important;border:3px solid #453826!important;box-shadow:4px 4px 0 var(--shadow); }
+#tabContentTrades .trade-metric { min-height:61px!important;display:flex;align-items:center;gap:9px;padding:7px!important;border:0!important;border-right:2px dashed #a98e5a!important;background:transparent!important;box-shadow:none!important; }
+#tabContentTrades .trade-metric:last-child { border-right:0!important; }
+.trade-metric-icon { width:31px;height:31px;flex:none;display:grid;place-items:center;background:#d9c68f;border:2px solid #776040;color:#426547;font:14px Silkscreen; }
+#tabContentTrades .trade-entry-card,#tabContentTrades #subtabTradesHistory>.bg-white { padding:14px!important; }
+.trade-panel-heading { min-height:44px;display:flex;align-items:center;gap:9px;padding-bottom:8px!important;border-bottom:3px dashed var(--paper-shadow)!important; }
+.trade-panel-heading:before { content:"";width:34px;height:34px;flex:none;display:block;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 54 42'%3E%3Cpath fill='%23925a35' d='M5 12h44v25H5z'/%3E%3Cpath fill='%23d0a454' d='M5 12h44v8H5z'/%3E%3Cpath fill='%23e0bb6c' d='M10 6h34v10H10z'/%3E%3Cpath fill='%23f4d879' d='M24 17h8v13h-8z'/%3E%3C/svg%3E") center/contain no-repeat;image-rendering:pixelated; }
+.trade-panel-heading h3,.trade-panel-heading p{margin:0!important}.trade-panel-heading h3{font:700 11px Silkscreen,monospace!important}.trade-panel-heading p{color:var(--muted)!important;font-size:9px!important}
+.trade-entry-grid { display:grid;grid-template-columns:repeat(4,minmax(0,1fr)) minmax(112px,.8fr);gap:9px!important;align-items:end;margin-top:12px; }
+.trade-entry-grid>div{min-width:0}.trade-entry-grid input,.trade-details-grid input,.trade-details-grid select{width:100%;min-height:38px;padding:7px!important;background:var(--field)!important;color:var(--ink)!important;}
+.money-input { min-height:38px;display:flex;align-items:center;overflow:hidden;border:3px solid var(--panel-edge);background:var(--field); }.money-input>span:first-child{align-self:stretch;min-width:29px;display:grid;place-items:center;border-right:2px solid var(--line);color:var(--muted);font:11px 'DM Mono',monospace}.money-input input{min-height:32px;border:0!important;background:transparent!important;box-shadow:none!important}.money-input #tradePreviewNetPnL{padding:0 8px;color:var(--green);font:700 11px 'DM Mono',monospace}.trade-pnl-field small,.trade-pnl-field>small{display:block;margin-top:3px;color:var(--muted);font:8px 'DM Mono',monospace}
+.trade-add-button { min-height:39px;align-self:end;padding:5px 8px!important;border:3px solid #253729!important;border-radius:0!important;background:#4b7651!important;color:#fff2ca!important;font:700 9px Silkscreen,monospace!important;box-shadow:3px 3px 0 #27251c!important; }.trade-add-button svg{width:26px;height:24px}.trade-add-button span{display:none}
+.trade-more-details { margin-top:11px;border-top:3px dashed var(--paper-shadow)!important;padding-top:8px; }.trade-more-details summary{color:var(--muted);font:9px Silkscreen,monospace;cursor:pointer}.trade-more-details summary span{margin-left:7px;font:9px 'DM Mono',monospace}.trade-details-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;padding-top:10px}.trade-notes-field{grid-column:1/-1}
+.trade-history-heading { min-height:56px;padding:10px 13px!important;background:#ddc998!important;border-bottom:3px solid #856c43!important; }.trade-history-heading h3{margin:0;color:var(--ink)!important;font:700 11px Silkscreen,monospace!important}.trade-history-heading p{margin:2px 0 0;color:var(--muted);font-size:9px}.trade-history-heading select{min-height:32px;padding:5px 24px 5px 7px!important;background:var(--field)!important;color:var(--ink)!important;font:9px 'DM Mono',monospace!important}
+.simple-table { min-width:740px; }.trade-empty-cell{height:145px!important}.trade-empty-state{min-height:115px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;color:var(--muted);text-align:center}.trade-empty-state svg{width:33px;height:33px;fill:none;stroke:#5b7952;stroke-width:2.4;shape-rendering:crispEdges}.trade-empty-state strong{color:var(--ink);font:10px Silkscreen,monospace}.trade-empty-state span{font-size:9px}
 
-/* Vault becomes an inventory desk: balance, allocations, bills and ledger. */
-#tabContentMilestones.active { display:grid!important;grid-template-columns:repeat(12,minmax(0,1fr));gap:14px!important;align-content:start; }
+/* The Underkeep: treasure is organized into room shelves, caches and a ledger. */
+#tabContentMilestones.active { display:grid!important;grid-template-columns:repeat(12,minmax(0,1fr));gap:12px!important;align-content:start; }
 #tabContentMilestones.active>* { min-width:0;margin:0!important; }
 #tabContentMilestones.active>.vault-hero,#tabContentMilestones.active>.vault-hero+.grid { grid-column:1/-1; }
 #tabContentMilestones.active>.vault-actions-card { grid-column:span 4; }
@@ -279,43 +251,47 @@ body>main section>div:has(>button[id^="subnav"]) button.active-subtab { border-c
 #tabContentMilestones.active>.vault-bills-card { grid-column:span 8; }
 #tabContentMilestones.active>.vault-savings-card { grid-column:span 4; }
 #tabContentMilestones.active>.vault-transactions-card,#tabContentMilestones.active>.vault-safety-settings { grid-column:1/-1; }
-#tabContentMilestones.active>.vault-hero+.grid { display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px!important; }
-#tabContentMilestones.active>.vault-hero+.grid>div { min-height:83px;padding:14px!important;border-radius:12px!important;text-align:left!important; }
-#tabContentMilestones.active>.vault-hero+.grid>div>div:first-child { color:var(--ink-3)!important;font:700 9px 'DM Mono',monospace;letter-spacing:.06em;text-transform:uppercase; }
-#tabContentMilestones.active>.vault-hero+.grid>div>div:last-child { margin-top:6px;font:700 20px 'DM Mono',monospace; }
-.vault-dashboard-card { padding:17px!important;overflow:hidden; }
-.vault-card-heading { display:flex;align-items:center;gap:10px;margin-bottom:13px; }.vault-card-heading h3,.vault-card-heading p{margin:0}.vault-card-heading h3{font:700 15px Space Grotesk,sans-serif}.vault-card-heading p{margin-top:3px;color:var(--ink-2);font-size:10px}
-.vault-card-icon { width:35px;height:35px;flex:none;display:grid;place-items:center;border-radius:9px 9px 9px 3px;background:var(--gold-soft);color:var(--gold);font-size:18px; }
+#tabContentMilestones.active>.vault-hero+.grid { display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0!important;padding:6px!important;background:#eee0b9!important;border:3px solid #453826!important;box-shadow:4px 4px 0 var(--shadow); }
+#tabContentMilestones.active>.vault-hero+.grid>div { min-height:66px;padding:9px!important;border:0!important;border-right:2px dashed #a98e5a!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;text-align:left!important; }
+#tabContentMilestones.active>.vault-hero+.grid>div:last-child { border-right:0!important; }
+#tabContentMilestones.active>.vault-hero+.grid>div>div:first-child { color:#685a3f!important;font:7px 'Press Start 2P',monospace!important;line-height:1.6;text-transform:uppercase; }
+#tabContentMilestones.active>.vault-hero+.grid>div>div:last-child { margin-top:5px;font:700 16px 'DM Mono',monospace!important; }
+.vault-dashboard-card { padding:13px!important;overflow:hidden; }
+.vault-card-heading { display:flex;align-items:center;gap:8px;margin-bottom:10px; }.vault-card-heading h3,.vault-card-heading p{margin:0}.vault-card-heading h3{font:700 10px Silkscreen,monospace!important}.vault-card-heading p{margin-top:3px;color:var(--muted);font-size:9px}
+.vault-card-icon { width:32px;height:32px;flex:none;display:grid;place-items:center;background:#ddc484;border:3px solid #52422d;color:#69522d;font:14px Silkscreen; }
 #tabContentMilestones .vault-actions-card>.bg-white,#tabContentMilestones .vault-bills-card>.bg-white,#tabContentMilestones .vault-savings-card>.bg-white { padding:0!important;border:0!important;background:transparent!important;box-shadow:none!important; }
-#tabContentMilestones .vault-actions-card>.bg-white>div:first-child,#tabContentMilestones .vault-bills-card>.bg-white>div:first-child,#tabContentMilestones .vault-savings-card>.bg-white>div:first-child { align-items:center;gap:8px;border-bottom:1px solid var(--line)!important; }
-#tabContentMilestones .vault-actions-card h3,#tabContentMilestones .vault-bills-card h3,#tabContentMilestones .vault-savings-card h3 { margin:0;color:var(--ink)!important;font:700 15px Space Grotesk,sans-serif!important; }
-#tabContentMilestones .vault-actions-card p,#tabContentMilestones .vault-bills-card p,#tabContentMilestones .vault-savings-card p { color:var(--ink-2)!important;font-size:10px!important; }
-#tabContentMilestones .vault-actions-card button,#tabContentMilestones .vault-bills-card button,#tabContentMilestones .vault-savings-card button { min-height:35px;border-radius:8px!important;font-size:10px!important;font-weight:700!important; }
-.vault-monthly-card #billsRunRateBanner { border-radius:9px!important;background:var(--gold-soft)!important;border-color:color-mix(in srgb,var(--gold) 35%,var(--line))!important;color:var(--ink-2)!important; }
-.vault-monthly-savings { border-radius:10px!important;background:color-mix(in srgb,var(--violet) 10%,var(--surface-2))!important;border-color:color-mix(in srgb,var(--violet) 28%,var(--line))!important; }
-.vault-monthly-card .rounded-full.overflow-hidden { background:var(--surface-3)!important; }.vault-monthly-card .rounded-full.overflow-hidden>div{background:var(--violet)!important}
-.vault-allocation-labels,.vault-allocation-legend { color:var(--ink-2)!important;font-size:10px; }.vault-allocation-labels strong{color:var(--ink)!important;font-size:10px}.vault-allocation-bar{height:16px;display:flex;overflow:hidden;margin:14px 0 10px;border:2px solid var(--surface);border-radius:6px;background:var(--surface-3)}.vault-allocation-bar span{display:block;height:100%}.vault-allocation-bar span:first-child{background:var(--forest)}.vault-allocation-bar span:nth-child(2){background:var(--violet)}.vault-allocation-bar span:nth-child(3){background:var(--gold)}.vault-allocation-legend{display:flex;flex-wrap:wrap;gap:10px}.vault-allocation-legend span{display:flex;align-items:center;gap:5px}.vault-allocation-legend i{width:8px;height:8px;border-radius:2px;background:var(--forest)}.vault-allocation-legend span:nth-child(2) i{background:var(--violet)}.vault-allocation-legend span:nth-child(3) i{background:var(--gold)}
-.vault-safety-settings { overflow:hidden;border:1px solid var(--line)!important;border-radius:12px!important;background:var(--surface)!important; }.vault-safety-settings>summary{padding:13px 15px;color:var(--ink);font-size:11px;font-weight:800;cursor:pointer;list-style:none}.vault-safety-settings>summary::-webkit-details-marker{display:none}.vault-safety-settings>summary span{float:right;color:var(--ink-3);font-size:9px;font-weight:500}
+#tabContentMilestones .vault-actions-card>.bg-white>div:first-child,#tabContentMilestones .vault-bills-card>.bg-white>div:first-child,#tabContentMilestones .vault-savings-card>.bg-white>div:first-child { align-items:center;gap:7px;border-bottom:3px dashed var(--paper-shadow)!important; }
+#tabContentMilestones .vault-actions-card h3,#tabContentMilestones .vault-bills-card h3,#tabContentMilestones .vault-savings-card h3 { margin:0;color:var(--ink)!important;font:700 10px Silkscreen,monospace!important; }
+#tabContentMilestones .vault-actions-card p,#tabContentMilestones .vault-bills-card p,#tabContentMilestones .vault-savings-card p { color:var(--muted)!important;font-size:9px!important; }
+#tabContentMilestones .vault-actions-card button,#tabContentMilestones .vault-bills-card button,#tabContentMilestones .vault-savings-card button { min-height:32px;border:3px solid #51432c!important;border-radius:0!important;font:700 8px Silkscreen,monospace!important;box-shadow:2px 2px 0 #30291f; }
+#tabContentMilestones .vault-actions-card .sprite-action svg { width:24px;height:23px; }
+.vault-monthly-card #billsRunRateBanner { border:3px solid #725c36!important;border-radius:0!important;background:#efdfb7!important;color:#4d412b!important; }
+.vault-monthly-savings { border:3px solid #65507c!important;border-radius:0!important;background:#e3d5e9!important; }
+.vault-monthly-card .rounded-full.overflow-hidden { border:2px solid #5a4d37;background:#c4b58c!important;border-radius:0!important; }.vault-monthly-card .rounded-full.overflow-hidden>div{background:#9073aa!important}
+.vault-allocation-labels,.vault-allocation-legend { color:var(--muted)!important;font:9px 'DM Mono',monospace; }.vault-allocation-labels strong{color:var(--ink)!important;font:9px 'DM Mono',monospace}.vault-allocation-bar{height:16px;display:flex;overflow:hidden;margin:11px 0 9px;border:3px solid #4a3c2a;background:#b8a477}.vault-allocation-bar span{display:block;height:100%}.vault-allocation-bar span:first-child{background:#59815d}.vault-allocation-bar span:nth-child(2){background:#9474a9}.vault-allocation-bar span:nth-child(3){background:#d2a64c}.vault-allocation-legend{display:flex;flex-wrap:wrap;gap:8px}.vault-allocation-legend span{display:flex;align-items:center;gap:4px}.vault-allocation-legend i{width:9px;height:9px;background:#59815d;border:1px solid #403525}.vault-allocation-legend span:nth-child(2) i{background:#9474a9}.vault-allocation-legend span:nth-child(3) i{background:#d2a64c}
+.vault-safety-settings { overflow:hidden;border:3px solid var(--panel-edge)!important;border-radius:0!important;background:var(--paper)!important;box-shadow:4px 4px 0 var(--shadow); }.vault-safety-settings>summary{padding:10px 12px;color:var(--ink);font:9px Silkscreen,monospace;cursor:pointer;list-style:none}.vault-safety-settings>summary::-webkit-details-marker{display:none}.vault-safety-settings>summary span{float:right;color:var(--muted);font:9px 'DM Mono',monospace}
 
-/* Field report: chart-led, with the session indicators as supporting context. */
-#tabContentStats.active { display:flex!important;flex-direction:column;gap:14px!important; }
+/* Lookout: the charts live in a cartographer's field report, never tiny tiles. */
+#tabContentStats.active { display:flex!important;flex-direction:column;gap:12px!important; }
 #tabContentStats.active>* { min-width:0;margin:0!important; }
-.stats-summary-grid { display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px!important; }
-.stats-summary-card { min-height:72px;padding:12px 14px!important;border-radius:11px!important; }.stats-summary-card>div:first-child{color:var(--ink-3)!important;font:700 8px 'DM Mono',monospace!important;letter-spacing:.06em}.stats-summary-card>div:last-child{margin-top:6px;font:700 17px 'DM Mono',monospace!important}
-.stats-chart-grid { display:grid;grid-template-columns:minmax(0,1.65fr) minmax(280px,.85fr);gap:13px!important; }
-.stats-panel { min-width:0;padding:18px!important; }.stats-panel-heading{display:flex;align-items:center;gap:10px}.stats-panel-heading h3{margin:0;font:700 14px Space Grotesk,sans-serif!important}.stats-panel-heading p{margin:3px 0 0;color:var(--ink-2);font-size:10px}
-.stats-panel-icon { width:34px;height:34px;flex:none;display:grid;place-items:center;border:1px solid var(--line);border-radius:9px 9px 9px 3px;background:var(--gold-soft);color:var(--gold);font-size:16px; }
-.stats-panel .border-b { border-color:var(--line)!important; }.stats-panel [id^="chart"]{min-height:230px;color:var(--ink-2)}
-.stats-lower-grid { display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px!important; }
-.stats-quest-content { display:flex;align-items:center;gap:13px; }.stats-quest-track{height:7px;overflow:hidden;border-radius:5px;background:var(--surface-3)}.stats-quest-track span{display:block;height:100%;background:var(--forest)}.stats-quest-content small{color:var(--ink-3);font-size:9px}
+.stats-summary-grid { display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0!important;padding:5px 3px;background:#eee0b9!important;border:3px solid #453826!important;box-shadow:4px 4px 0 var(--shadow); }
+.stats-summary-card { min-height:52px;padding:6px 10px!important;border:0!important;border-right:2px dashed #a98e5a!important;border-radius:0!important;background:transparent!important;box-shadow:none!important; }.stats-summary-card>div:first-child{color:#695a3f!important;font:7px 'Press Start 2P',monospace!important;line-height:1.6}.stats-summary-card>div:last-child{margin-top:4px;color:#342d22!important;font:700 15px 'DM Mono',monospace!important}
+.stats-chart-grid { display:grid;grid-template-columns:minmax(0,1.65fr) minmax(260px,.85fr);gap:12px!important; }
+.stats-panel { min-width:0;padding:14px!important; }.stats-panel-heading{display:flex;align-items:center;gap:8px}.stats-panel-heading h3{margin:0;font:700 10px Silkscreen,monospace!important}.stats-panel-heading p{margin:3px 0 0;color:var(--muted);font-size:9px}
+.stats-panel-icon { width:31px;height:31px;flex:none;display:grid;place-items:center;background:#dec780;border:3px solid #564630;color:#77592a;font:13px Silkscreen; }
+.stats-panel .border-b { border-color:#a98e5a!important;border-bottom-width:3px!important; }.stats-panel [id^="chart"]{min-height:215px;color:var(--ink)}
+.stats-lower-grid { display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px!important; }
+.stats-quest-content { display:flex;align-items:center;gap:12px; }.stats-quest-content>div:first-child{border-radius:0!important;background:#d1dfbb!important;border-color:#456849!important;color:#315337!important;image-rendering:pixelated}.stats-quest-track{height:8px;overflow:hidden;background:#c5b58a;border:2px solid #5d4b31}.stats-quest-track span{display:block;height:100%;background:#648d5b}.stats-quest-content small{color:var(--muted);font:9px 'DM Mono',monospace}
 
-/* Tables, modal surfaces, scroll regions and generated charts. */
-.overflow-x-auto { max-width:100%;overscroll-behavior-x:contain;scrollbar-color:var(--line-strong) transparent; }
-.overflow-x-auto::-webkit-scrollbar{height:8px}.overflow-x-auto::-webkit-scrollbar-thumb{border-radius:8px;background:var(--line-strong)}
-.modal-overlay { background:rgba(22,30,23,.62)!important;backdrop-filter:blur(5px); }
-.modal-content,.modal-overlay>div,.modal-overlay form { color:var(--ink)!important;background:var(--surface)!important;border:1px solid var(--line-strong)!important;border-radius:17px!important;box-shadow:0 25px 80px rgba(0,0,0,.28)!important; }
-.pixel-world-atlas { position:absolute;width:0;height:0;overflow:hidden; }
-::selection { background:var(--gold-soft);color:var(--ink); }
+/* Sprites act as buttons; the sprite and the financial number are both legible. */
+.btn-save-session,.trade-add-button,.setup-start-row button:not(.setup-advanced-button) { transition:filter .15s,transform .15s steps(2,end)!important; }
+.btn-save-session:hover,.trade-add-button:hover,.setup-start-row button:not(.setup-advanced-button):hover { filter:brightness(1.14);transform:translateY(-3px)!important; }
+.overflow-x-auto { max-width:100%;overscroll-behavior-x:contain;scrollbar-color:#8b754d transparent; }
+.overflow-x-auto::-webkit-scrollbar{height:9px}.overflow-x-auto::-webkit-scrollbar-thumb{background:#8b754d;border:2px solid #e6d5a8}
+.modal-overlay { display:none;position:fixed;inset:0;z-index:100;align-items:center;justify-content:center;padding:16px;background:rgba(25,29,22,.78)!important; }
+.modal-overlay.active { display:flex; }
+.modal-content,.modal-overlay>div,.modal-overlay form { color:var(--ink)!important;background:var(--paper-hi)!important;border:4px solid #463927!important;border-radius:0!important;box-shadow:7px 7px 0 #171b15!important; }
+::selection { background:#d5b75f;color:#292519; }
 
 @media(max-width:1100px) {
   #tabContentTracker .daily-stats { grid-template-columns:repeat(3,minmax(0,1fr)); }
@@ -323,56 +299,67 @@ body>main section>div:has(>button[id^="subnav"]) button.active-subtab { border-c
   #tabContentMilestones.active>.vault-allocation-card,#tabContentMilestones.active>.vault-savings-card { grid-column:span 5; }
   #tabContentMilestones.active>.vault-bills-card { grid-column:span 7; }
   #tabContentStats .stats-chart-grid { grid-template-columns:minmax(0,1fr); }
-  .iso-scene,.vault-pixel-scene { width:54%!important; }
 }
 @media(max-width:760px) {
-  body>header { position:sticky!important; }
-  body>header>div:first-child { min-height:66px;padding:9px 14px!important; }
-  .brand-mark { width:37px;height:37px; }.brand-mark svg{width:23px}body>header h1{font-size:18px!important}.brand-caption{font-size:8px}
+  body>header>div:first-child { min-height:62px;padding:7px 11px!important; }
+  .brand-mark { width:36px;height:36px;border-width:3px; }.brand-mark svg{width:24px}body>header h1{font-size:16px!important}.brand-caption{font-size:7px}
   body>header>div:first-child>div:first-child>div:last-child>div:last-child { display:none; }
   #btnHeaderQuickEdit,#btnHeaderCloudSync { display:none; }
-  #btnMobileMenu { display:inline-flex!important;align-items:center;gap:5px;padding:8px 10px!important;border:1px solid var(--line)!important;border-radius:9px!important;background:var(--surface)!important;color:var(--ink)!important;font-size:11px!important; }
-  body>header nav { display:none!important;position:fixed;z-index:60;inset:66px 0 auto 0;width:100%;padding:10px 12px 14px!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px!important;background:var(--paper)!important;border-bottom:1px solid var(--line)!important;box-shadow:var(--shadow)!important; }
+  #btnMobileMenu { display:inline-flex!important;align-items:center;gap:4px;padding:7px 8px!important;border:3px solid #b69960!important;border-radius:0!important;background:#594631!important;color:#f1e4bf!important;font:8px Silkscreen,monospace!important; }
+  body>header nav { display:none!important;position:fixed;z-index:60;top:62px;left:0;right:0;width:100%;padding:14px 8px 8px!important;grid-template-columns:repeat(5,minmax(0,1fr));gap:0!important;background:#332c23!important;border-bottom:4px solid #a7844c!important;box-shadow:0 5px 0 #191b16!important; }
   body.mobile-nav-open>header nav { display:grid!important; }
-  body>header nav button { min-height:42px;padding:7px!important;font-size:10px!important; }
-  body>header nav button.active-nav-item:before { left:7px;right:auto;top:8px;bottom:8px;width:3px;height:auto;border-radius:3px; }
-  body>main { padding:17px 13px 36px!important; }
-  .daily-hero,.setup-hero,#tabContentTrades .trade-hero,#tabContentStats .stats-hero,#tabContentMilestones .vault-hero { min-height:158px!important;padding:20px 17px!important; }
-  .daily-title-row,.setup-title-row,.trade-title-row,.stats-title-row,.vault-title-row { gap:10px; }
-  .daily-title-icon,.setup-title-icon,.trade-title-icon,.stats-title-icon,.vault-title-icon { width:42px!important;height:44px!important; }
-  .daily-title-row h2,.setup-title-row h2,.trade-title-row h2,.stats-title-row h2,.vault-title-row h2 { font-size:25px!important; }
-  .daily-title-row p,.setup-title-row p,.trade-title-row p,.stats-title-row p,.vault-hero p { max-width:48%;font-size:10px!important; }
-  .daily-hero-copy,.setup-hero-copy,.trade-hero-copy,.stats-hero-copy,.vault-hero-copy { max-width:72%!important; }
-  .daily-hero-quote,.setup-hero-quote,.trade-hero-quote,.stats-hero-quote,.vault-quote { display:none!important; }
-  .iso-scene,.vault-pixel-scene { right:-10%!important;bottom:-15px!important;width:64%!important;height:96%!important;opacity:.72; }
+  .nav-caption { left:8px;top:1px;font-size:5px; }
+  body>header nav:after { left:8%;right:8%;top:32px; }
+  body>header nav button { min-height:47px;padding:8px 1px 2px!important;font-size:7px!important; }
+  .world-node-sprite { width:34px;height:27px; }
+  body>main { padding:12px 9px 38px!important; }
+  .daily-hero,.setup-hero,#tabContentTrades .trade-hero,#tabContentStats .stats-hero,#tabContentMilestones .vault-hero { height:260px!important;min-height:260px!important;border-width:4px!important; }
+  .daily-hero-copy,.setup-hero-copy,.trade-hero-copy,.stats-hero-copy,.vault-hero-copy { left:10px;bottom:11px;max-width:84%!important;padding:9px 10px; }
+  .daily-kicker,.setup-kicker,.trade-kicker,.stats-kicker,.vault-eyebrow { font-size:6px!important; }
+  .daily-title-icon,.setup-title-icon,.trade-title-icon,.stats-title-icon,.vault-title-icon { width:32px!important;height:34px!important; }
+  .daily-title-icon svg,.setup-title-icon svg,.trade-title-icon svg,.stats-title-icon svg,.vault-title-icon svg { width:21px;height:21px; }
+  .daily-title-row h2,.setup-title-row h2,.trade-title-row h2,.stats-title-row h2,.vault-title-row h2 { font-size:14px!important; }
+  .daily-title-row p,.setup-title-row p,.trade-title-row p,.stats-title-row p,.vault-hero p { max-width:100%;font-size:9px!important; }
+  .daily-hero-quote,.setup-hero-quote,.trade-hero-quote,.stats-hero-quote,.vault-quote { top:8px;right:7px;padding:4px 5px;font-size:7px!important; }
   #tabContentTracker .daily-stats { grid-template-columns:repeat(2,minmax(0,1fr)); }
-  .daily-stat:last-child { grid-column:1/-1; }
-  #tabContentTracker .daily-route-board { min-height:0;padding:14px!important; }
-  #questPaceSelect { min-width:112px;max-width:42%;font-size:9px; }
-  .quest-map { max-height:175px; }
-  #dailyPaceTargetsSection { padding:13px!important; }
-  #dailyPaceTargetsSection>.grid { grid-template-columns:1fr!important; }
-  #dailyPaceTargetsSection [id^="paceCard"] { min-height:95px; }
-  .daily-log-fields { grid-template-columns:1fr 1fr!important; }
-  .daily-log-fields>div:first-child { grid-column:1/-1; }
-  .daily-session-actions { flex-wrap:wrap; }.daily-session-actions>*{flex:1 1 140px!important;}
-  #tabContentConfig.active { display:flex!important;flex-direction:column;gap:11px!important; }
-  #tabContentConfig.active>* { width:100%; }
-  #tabContentConfig .setup-quickstart { flex-wrap:wrap;padding:12px!important; }.setup-stepper{width:100%;margin:4px 0 0;justify-content:center}.setup-stepper>i{flex:1}
-  #tabContentConfig #subtabCfgWizard { padding:15px!important; }.setup-form-grid{grid-template-columns:1fr!important}.setup-preview-panel{grid-column:1;grid-row:auto}
-  .setup-start-row { flex-wrap:wrap; }.setup-start-row button{width:100%}
-  #tabContentTrades .trade-metrics { grid-template-columns:repeat(2,minmax(0,1fr)); }
-  #tabContentTrades .trade-entry-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
-  #tabContentTrades .trade-entry-grid>div:first-child,#tabContentTrades .trade-add-button { grid-column:1/-1; }
-  .trade-details-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
-  #tabContentMilestones.active>.vault-actions-card,#tabContentMilestones.active>.vault-monthly-card,#tabContentMilestones.active>.vault-allocation-card,#tabContentMilestones.active>.vault-bills-card,#tabContentMilestones.active>.vault-savings-card { grid-column:1/-1; }
-  #tabContentMilestones.active>.vault-hero+.grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
-  .vault-dashboard-card { padding:14px!important; }
-  .stats-summary-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
-  .stats-lower-grid { grid-template-columns:1fr; }
-  .stats-panel { padding:14px!important; }.stats-panel [id^="chart"]{min-height:185px}
-  .daily-session-card,.daily-history-card { padding:14px!important; }
+  #tabContentTracker .daily-stat { border-bottom:1px dashed #a98e5a!important; }.daily-stat:last-child{grid-column:1/-1;border-bottom:0!important}
+  #tabContentTracker .daily-route-board { padding:8px!important; }
+  #tabContentTracker .daily-progress-heading { flex-wrap:wrap; }.daily-progress-icon{width:28px;height:28px}#tabContentTracker .daily-progress-heading h3{font-size:10px!important}#tabContentTracker .daily-progress-heading p{font-size:8px}
+  #questPaceSelect { min-width:104px;max-width:42%;font-size:8px!important; }
+  .quest-map { max-height:240px; }.quest-map-footer{padding:6px}.quest-goal-progress{font-size:8px}
+  #dailyPaceTargetsSection { padding:9px!important; }#dailyPaceTargetsSection>.grid { grid-template-columns:1fr!important; }#dailyPaceTargetsSection [id^="paceCard"]{min-height:79px;padding:8px!important}
+  .daily-log-fields { grid-template-columns:1fr 1fr!important; }.daily-log-fields>div:first-child{grid-column:1/-1}.daily-session-actions{flex-wrap:wrap}.daily-session-actions>*{flex:1 1 120px!important}
+  #tabContentConfig.active { display:flex!important;flex-direction:column;gap:10px!important; }#tabContentConfig.active>*{width:100%}
+  #tabContentConfig .setup-quickstart { flex-wrap:wrap;padding:8px!important; }.setup-stepper{width:100%;margin:3px 0 0;justify-content:center}.setup-stepper>i{flex:1}
+  #tabContentConfig #subtabCfgWizard { padding:11px!important; }.setup-form-grid{grid-template-columns:1fr!important}.setup-preview-panel{grid-column:1;grid-row:auto}.setup-start-row{flex-wrap:wrap}.setup-start-row button{width:100%}
+  #tabContentTrades .trade-metrics { grid-template-columns:repeat(2,minmax(0,1fr)); }.trade-entry-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}#tabContentTrades .trade-entry-grid>div:first-child,#tabContentTrades .trade-add-button{grid-column:1/-1}.trade-details-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  #tabContentMilestones.active>.vault-actions-card,#tabContentMilestones.active>.vault-monthly-card,#tabContentMilestones.active>.vault-allocation-card,#tabContentMilestones.active>.vault-bills-card,#tabContentMilestones.active>.vault-savings-card{grid-column:1/-1}#tabContentMilestones.active>.vault-hero+.grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .stats-summary-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.stats-lower-grid{grid-template-columns:1fr}.stats-panel{padding:10px!important}.stats-panel [id^="chart"]{min-height:175px}
+  .daily-session-card,.daily-history-card{padding:11px!important}
 }
-@media(prefers-reduced-motion:reduce) {
-  *,*::before,*::after { scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important; }
-}
+/* Financial controls keep ordinary reading sizes; pixel type is reserved for short labels. */
+.daily-stat label,.trade-metric label,.daily-log-fields label,.trade-entry-grid label,.trade-details-grid label,.setup-form-grid label,#tabContentConfig #subtabCfgWizard label { font-size:10px!important;line-height:1.55!important; }
+.daily-stat strong,.trade-metric strong { font-size:18px!important; }
+.daily-stat small,.trade-metric small,.daily-session-pnl span,.setup-preview-stats span { font-size:11px!important; }
+.daily-session-card h3,.daily-history-card h3,.vault-dashboard-card h3,.stats-panel h3,.trade-panel-heading h3,.setup-panel-heading h3 { font-size:15px!important; }
+.daily-progress-heading p,.setup-panel-heading p,.trade-panel-heading p,.daily-title-row p,.setup-title-row p,.trade-title-row p,.stats-title-row p,.vault-hero p { font-size:12px!important; }
+.daily-history-card th,.simple-table th { font-size:9px!important; }
+.daily-history-card td,.simple-table td { font-size:12px!important; }
+.quest-checkpoint text { font-family:'DM Mono',monospace; }
+[data-theme="dark"] body { background-color:#202c25!important;color:#f1e4c5!important; }
+[data-theme="dark"] .pixel-panel,[data-theme="dark"] .bg-white,[data-theme="dark"] .bento-card,[data-theme="dark"] .daily-stat,[data-theme="dark"] .trade-metric,[data-theme="dark"] .stats-summary-card,[data-theme="dark"] .daily-session-card,[data-theme="dark"] .daily-progress-card,[data-theme="dark"] .daily-history-card,[data-theme="dark"] .stats-panel,[data-theme="dark"] .vault-dashboard-card,[data-theme="dark"] #tabContentConfig .setup-current-challenge,[data-theme="dark"] #tabContentConfig .setup-advanced,[data-theme="dark"] #tabContentConfig #subtabCfgWizard { background-color:#354239!important;color:#f1e4c5!important;border-color:#1e2a22!important; }
+[data-theme="dark"] #tabContentTracker .daily-stats,[data-theme="dark"] #tabContentTrades .trade-metrics,[data-theme="dark"] .stats-summary-grid { background:#303b32!important;border-color:#17251c!important; }
+[data-theme="dark"] #tabContentTracker .daily-stat,[data-theme="dark"] #tabContentTrades .trade-metric,[data-theme="dark"] .stats-summary-card { border-color:#68745d!important; }
+[data-theme="dark"] .daily-stat label,[data-theme="dark"] .trade-metric label,[data-theme="dark"] .stats-summary-card>div:first-child,[data-theme="dark"] .daily-stat small,[data-theme="dark"] .trade-metric small { color:#d1c5a5!important; }
+[data-theme="dark"] .daily-stat strong,[data-theme="dark"] .trade-metric strong,[data-theme="dark"] .stats-summary-card>div:last-child { color:#fff0c7!important; }
+[data-theme="dark"] #tabContentTracker .daily-route-board { background-color:#39483a!important;border-color:#18271e!important; }
+[data-theme="dark"] #tabContentTracker .daily-session-card,[data-theme="dark"] #tabContentTracker .daily-history-card,[data-theme="dark"] #tabContentTrades .trade-entry-card,[data-theme="dark"] #tabContentTrades #subtabTradesHistory>.bg-white,[data-theme="dark"] .setup-preview-panel { background:#354239!important;color:#f1e4c5!important; }
+[data-theme="dark"] .daily-session-card h3,[data-theme="dark"] .daily-history-card h3,[data-theme="dark"] .vault-dashboard-card h3,[data-theme="dark"] .stats-panel h3,[data-theme="dark"] .trade-panel-heading h3,[data-theme="dark"] .setup-panel-heading h3,[data-theme="dark"] .setup-panel-heading p,[data-theme="dark"] .trade-panel-heading p { color:#f1e4c5!important; }
+[data-theme="dark"] .daily-session-card p,[data-theme="dark"] .daily-history-card p,[data-theme="dark"] .setup-preview-stats span,[data-theme="dark"] .setup-preview-stats strong { color:#d1c5a5!important; }
+[data-theme="dark"] #dailyPaceTargetsSection [id^="paceCard"]:not(.is-complete) { background:#354239!important;color:#f1e4c5!important;border-color:#1e2a22!important; }
+[data-theme="dark"] #dailyPaceTargetsSection [id^="paceCard"]>div:last-child { color:#d1c5a5!important; }
+[data-theme="dark"] .daily-title-row h2,[data-theme="dark"] .setup-title-row h2,[data-theme="dark"] .trade-title-row h2,[data-theme="dark"] .stats-title-row h2,[data-theme="dark"] .vault-title-row h2 { color:#f4e7c6!important; }
+[data-theme="dark"] .daily-title-row p,[data-theme="dark"] .setup-title-row p,[data-theme="dark"] .trade-title-row p,[data-theme="dark"] .stats-title-row p,[data-theme="dark"] .vault-hero p { color:#dfd3b3!important; }
+[data-theme="dark"] .daily-hero-copy,[data-theme="dark"] .setup-hero-copy,[data-theme="dark"] .trade-hero-copy,[data-theme="dark"] .stats-hero-copy,[data-theme="dark"] .vault-hero-copy { background:#344237!important;outline-color:#1d2b22!important; }
+[data-theme="dark"] .daily-hero-quote,[data-theme="dark"] .setup-hero-quote,[data-theme="dark"] .trade-hero-quote,[data-theme="dark"] .stats-hero-quote,[data-theme="dark"] .vault-quote { background:#354339!important;color:#f0e0b4!important; }
+@media(prefers-reduced-motion:reduce) { *,*::before,*::after { scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important; } }

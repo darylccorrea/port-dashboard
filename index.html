@@ -951,7 +951,17 @@
       </div>
 
       <section class="setup-current-challenge" aria-labelledby="setupChallengeHeading">
-        <div class="setup-challenges-heading"><div><h3 id="setupChallengeHeading">Your challenges</h3><p>Pick a tab to switch plans. Edit or remove a plan with the icons.</p></div><div class="setup-challenge-heading-actions"><span id="setupChallengeCount" class="setup-challenge-count">1 challenge</span><button id="btnNewChallenge" type="button" class="setup-new-challenge" onclick="startNewChallengeDraft()">＋ New challenge</button></div></div>
+        <div class="setup-challenges-heading"><div><h3 id="setupChallengeHeading">Your challenges</h3><p>Pick a tab to switch plans. Edit or remove a plan with the icons.</p></div><div class="setup-challenge-heading-actions"><span id="setupChallengeCount" class="setup-challenge-count">0 challenges</span><button id="btnNewChallenge" type="button" class="setup-new-challenge" onclick="startNewChallengeDraft()">＋ New challenge</button></div></div>
+        
+        <!-- Empty Challenge Notification -->
+        <div id="cfgNoChallengesNotice" class="setup-empty-notice hidden">
+          <span class="setup-empty-icon">✦</span>
+          <div>
+            <strong>No active challenges yet.</strong>
+            <span>Use the setup form below to enter your starting balance and goal, then click "Start challenge" to begin.</span>
+          </div>
+        </div>
+
         <div id="cfgChallengeTabs" class="setup-challenge-tabs" role="tablist" aria-label="Your challenges"></div>
         <div id="cfgActiveStats" class="setup-challenge-stats" aria-label="Selected challenge stats">
           <div><span>Starting balance</span><strong id="cfgMetricBase">—</strong></div>
@@ -968,7 +978,7 @@
 
       <!-- CHALLENGE WIZARD PANEL -->
       <div id="subtabCfgWizard" class="setup-wizard-panel">
-          <!-- STEP 1: CORE PARAMETERS -->
+          <!-- CORE PARAMETERS -->
           <div id="wizardStep1" class="setup-step-content">
             <div class="setup-form-panel">
               <div class="setup-panel-heading"><span class="setup-panel-icon">◎</span><div><h3 id="setupFormTitle">Challenge basics</h3><p id="setupFormHelp">Enter three details, then you’re ready to go.</p></div></div>
@@ -994,45 +1004,47 @@
                 <div><label for="genStartDate">Start date</label><input id="genStartDate" type="date" oninput="renderSetupChallengePreview()" class="w-full p-2 border border-slate-300 rounded-lg text-sm"></div>
               </div>
             </details>
+
+            <!-- ADVANCED STRATEGY & CASHOUT (VISIBLE, NOT COLLAPSIBLE) -->
+            <div class="setup-strategy-section">
+              <div class="setup-panel-heading"><span class="setup-panel-icon">⚖</span><div><h3>Advanced Strategy & Cash-outs</h3><p>Choose your growth curve path and optional target cash-outs.</p></div></div>
+              <div id="wizardStep2" class="setup-more-options-content space-y-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Growth strategy</label>
+                    <select id="genCurveType" onchange="handleCurveTypeChange(this.value)" class="w-full p-2 border border-slate-300 rounded-lg text-sm">
+                      <option value="tri_pace_independent">Three pace paths</option>
+                      <option value="smooth">Smooth climb</option>
+                      <option value="decay">Early push</option>
+                      <option value="port_target_withdrawal">Cash-out plan</option>
+                    </select>
+                    <p id="strategyDescription" class="strategy-description" aria-live="polite">Keeps relaxed, steady and fast target paths separate.</p>
+                  </div>
+                  <div id="wizardCashoutSettings" class="hidden space-y-2">
+                    <div>
+                      <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Withdrawal Target ($)</label>
+                      <input id="genWithdrawalTarget" type="number" min="0" step="0.01" placeholder="Optional cash-out" class="w-full p-2 border border-slate-300 rounded-lg text-sm font-num">
+                    </div>
+                    <div>
+                      <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Withdrawal Window (Sessions)</label>
+                      <input id="genWithdrawalDays" type="number" min="1" step="1" placeholder="Sessions" class="w-full p-2 border border-slate-300 rounded-lg text-sm font-num">
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-2 pt-2 md:col-span-2">
+                    <input id="genSkimMode" type="checkbox" class="w-4 h-4 text-emerald-600 rounded">
+                    <label for="genSkimMode" class="text-xs font-semibold text-slate-700">Enable Skim Mode (Augment daily targets with cash-out run rate)</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <div class="flex justify-end pt-3 border-t border-slate-100 setup-start-row">
-                <button onclick="startChallengeFromSetup()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold sprite-action">
+              <button onclick="startChallengeFromSetup()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold sprite-action">
                 <svg viewBox="0 0 40 56" aria-hidden="true"><use href="#sprite-hero"/></svg> Start challenge
               </button>
             </div>
             </div>
           </div>
-
-          <details class="setup-more-options">
-            <summary>Advanced settings <span>Strategy and cash-outs</span></summary>
-            <div id="wizardStep2" class="setup-more-options-content space-y-4">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Growth strategy</label>
-                <select id="genCurveType" onchange="handleCurveTypeChange(this.value)" class="w-full p-2 border border-slate-300 rounded-lg text-sm">
-                  <option value="tri_pace_independent">Three pace paths</option>
-                  <option value="smooth">Smooth climb</option>
-                  <option value="decay">Early push</option>
-                  <option value="port_target_withdrawal">Cash-out plan</option>
-                </select>
-                <p id="strategyDescription" class="strategy-description" aria-live="polite">Keeps relaxed, steady and fast target paths separate.</p>
-              </div>
-              <div id="wizardCashoutSettings" class="hidden space-y-2">
-                <div>
-                  <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Withdrawal Target ($)</label>
-                  <input id="genWithdrawalTarget" type="number" min="0" step="0.01" placeholder="Optional cash-out" class="w-full p-2 border border-slate-300 rounded-lg text-sm font-num">
-                </div>
-                <div>
-                  <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Withdrawal Window (Sessions)</label>
-                  <input id="genWithdrawalDays" type="number" min="1" step="1" placeholder="Sessions" class="w-full p-2 border border-slate-300 rounded-lg text-sm font-num">
-                </div>
-              </div>
-              <div class="flex items-center gap-2 pt-4">
-                <input id="genSkimMode" type="checkbox" class="w-4 h-4 text-emerald-600 rounded">
-                <label for="genSkimMode" class="text-xs font-semibold text-slate-700">Enable Skim Mode (Augment daily targets with cash-out run rate)</label>
-              </div>
-            </div>
-            </div>
-          </details>
 
       </div>
 

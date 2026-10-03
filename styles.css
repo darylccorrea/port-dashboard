@@ -793,6 +793,15 @@ body .quest-map-footer { background:var(--surface-soft)!important; }
 #tabContentConfig .setup-preview-stats { grid-template-columns:repeat(4,minmax(0,1fr));margin:0!important; }
 #tabContentConfig .setup-preview-stats span { font-size:11px!important; }
 #tabContentConfig .setup-preview-stats strong { font-size:12px!important; }
+#tabContentConfig .setup-empty-notice { display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--surface-soft);border:1px dashed var(--line);color:var(--ink);font-size:13px;margin-bottom:12px; }
+#tabContentConfig .setup-empty-notice.hidden { display:none!important; }
+#tabContentConfig .setup-empty-notice .setup-empty-icon { font-size:20px;color:var(--primary);flex-shrink:0; }
+#tabContentConfig .setup-empty-notice strong { display:block;font-weight:700;margin-bottom:2px;color:var(--ink); }
+#tabContentConfig .setup-empty-notice span { color:var(--muted);font-size:12px; }
+#tabContentConfig .setup-strategy-section { margin-top:14px;padding-top:14px;border-top:1px dashed var(--line); }
+#tabContentConfig .setup-strategy-section .setup-panel-heading { margin-bottom:10px!important; }
+#tabContentConfig .setup-strategy-section label { font-size:13px!important; }
+#tabContentConfig .setup-strategy-section select,#tabContentConfig .setup-strategy-section input:not([type="checkbox"]) { min-height:42px!important; }
 #tabContentConfig .setup-more-options { margin-top:12px;border-top:1px dashed var(--line);border-bottom:1px dashed var(--line); }
 #tabContentConfig .setup-more-options>summary { padding:11px 2px;color:var(--ink);font:700 14px 'Roboto Condensed','Segoe UI',Arial,sans-serif;cursor:pointer;list-style:none; }
 #tabContentConfig .setup-more-options>summary::-webkit-details-marker { display:none; }
@@ -810,7 +819,7 @@ body .quest-map-footer { background:var(--surface-soft)!important; }
 #tabContentConfig .setup-optional-grid input { min-height:42px!important; }
 #tabContentConfig .setup-more-options-content label { font-size:13px!important; }
 #tabContentConfig .setup-more-options-content select,#tabContentConfig .setup-more-options-content input:not([type="checkbox"]) { min-height:42px!important; }
-#tabContentConfig .setup-start-row { justify-content:flex-end!important;margin-top:10px!important;padding-top:12px!important; }
+#tabContentConfig .setup-start-row { justify-content:flex-end!important;margin-top:14px!important;padding-top:12px!important; }
 #tabContentConfig .setup-start-row button:not(.setup-advanced-button) { min-height:48px!important;min-width:190px;font-size:16px!important; }
 @media(max-width:720px) {
   #tabContentConfig .setup-form-grid { grid-template-columns:repeat(2,minmax(0,1fr))!important; }

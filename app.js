@@ -338,8 +338,8 @@ const DEFAULT_PROFILE = {
 };
 
 const appState = {
-  profiles: [DEFAULT_PROFILE],
-  activeProfileId: 'challenge_1',
+  profiles: [],
+  activeProfileId: null,
   activeSession: 1,
   logs: {},
   lockedSessions: {},
@@ -376,7 +376,7 @@ const appState = {
 let calendarViewYear = new Date().getFullYear();
 let calendarViewMonth = new Date().getMonth();
 
-let setupNewProfileDraft = false;
+let setupNewProfileDraft = true;
 
 // Cloud synchronization runtime state
 let cloudSyncTimeout = null;
@@ -392,8 +392,8 @@ let isApplyingRemoteSync = false;
 
 function loadStateFromStorage() {
   try {
-    // One-time clean fresh start migration for production release
-    const CLEAN_SLATE_KEY = 'trove_clean_slate_2026_prod_v1';
+    // One-time clean fresh start migration for production release with 0 default challenges
+    const CLEAN_SLATE_KEY = 'trove_clean_slate_2026_zero_challenges_v2';
     if (localStorage.getItem(CLEAN_SLATE_KEY) !== 'done') {
       const keysToReset = [
         STORAGE_KEYS.PROFILES,
@@ -416,13 +416,24 @@ function loadStateFromStorage() {
 
     const rawProfiles = localStorage.getItem(STORAGE_KEYS.PROFILES);
     if (rawProfiles) {
-      appState.profiles = JSON.parse(rawProfiles);
+      try {
+        const parsed = JSON.parse(rawProfiles);
+        appState.profiles = Array.isArray(parsed) ? parsed : [];
+      } catch (e) {
+        appState.profiles = [];
+      }
     } else {
-      appState.profiles = [DEFAULT_PROFILE];
+      appState.profiles = [];
       localStorage.setItem(STORAGE_KEYS.PROFILES, JSON.stringify(appState.profiles));
     }
 
-    appState.activeProfileId = localStorage.getItem(STORAGE_KEYS.ACTIVE_PROFILE) || DEFAULT_PROFILE.id;
+    const savedActive = localStorage.getItem(STORAGE_KEYS.ACTIVE_PROFILE);
+    if (savedActive && appState.profiles.some(p => p.id === savedActive)) {
+      appState.activeProfileId = savedActive;
+    } else {
+      appState.activeProfileId = appState.profiles[0]?.id || null;
+    }
+
     appState.activeSession = parseInt(localStorage.getItem(STORAGE_KEYS.SESSION)) || 1;
     appState.logs = JSON.parse(localStorage.getItem(STORAGE_KEYS.LOGS) || '{}');
     appState.lockedSessions = JSON.parse(localStorage.getItem(STORAGE_KEYS.LOCKED_SESSIONS) || '{}');
@@ -447,7 +458,7 @@ function loadStateFromStorage() {
 
     // Verify active profile exists
     if (!getActiveProfile()) {
-      appState.activeProfileId = appState.profiles[0]?.id || DEFAULT_PROFILE.id;
+      appState.activeProfileId = appState.profiles[0]?.id || null;
     }
   } catch (err) {
     console.error('Error loading state from storage, resetting safely:', err);
@@ -457,7 +468,7 @@ function loadStateFromStorage() {
 function saveStateToStorage(skipCloudSync = false) {
   try {
     localStorage.setItem(STORAGE_KEYS.PROFILES, JSON.stringify(appState.profiles));
-    localStorage.setItem(STORAGE_KEYS.ACTIVE_PROFILE, appState.activeProfileId);
+    localStorage.setItem(STORAGE_KEYS.ACTIVE_PROFILE, appState.activeProfileId || '');
     localStorage.setItem(STORAGE_KEYS.SESSION, appState.activeSession.toString());
     localStorage.setItem(STORAGE_KEYS.LOGS, JSON.stringify(appState.logs));
     localStorage.setItem(STORAGE_KEYS.LOCKED_SESSIONS, JSON.stringify(appState.lockedSessions));
@@ -496,7 +507,8 @@ function saveStateToStorage(skipCloudSync = false) {
 // ==========================================
 
 function getActiveProfile() {
-  return appState.profiles.find(p => p.id === appState.activeProfileId) || appState.profiles[0] || DEFAULT_PROFILE;
+  if (!appState.profiles || appState.profiles.length === 0) return null;
+  return appState.profiles.find(p => p.id === appState.activeProfileId) || appState.profiles[0] || null;
 }
 
 /**
@@ -517,7 +529,7 @@ function getCurrentDeskBalance(sessionIndex) {
     }
   }
 
-  return profile ? profile.base : 100;
+  return profile ? profile.base : 0;
 }
 
 function getPreviousDeskBalance(sessionIndex) {
@@ -525,7 +537,7 @@ function getPreviousDeskBalance(sessionIndex) {
   const s = sessionIndex || appState.activeSession;
 
   if (s <= 1) {
-    return profile ? profile.base : 100;
+    return profile ? profile.base : 0;
   }
 
   // Walk backward to find highest logged session < s
@@ -588,7 +600,8 @@ function getTrueTotalWealth() {
 function getStreakCount() {
   let streak = 0;
   const profile = getActiveProfile();
-  const maxSession = profile ? profile.totalSessions : 28;
+  const maxSession = profile ? profile.totalSessions : 0;
+  if (maxSession === 0) return 0;
 
   // Find all logged sessions in ascending order
   const logged = [];
@@ -648,12 +661,12 @@ function getDateForSession(startDateStr, sessionNum) {
 function renderHeaderAndTopBar() {
   const profile = getActiveProfile();
   const currentBal = getCurrentDeskBalance();
-  const startBal = profile ? profile.base : 100;
+  const startBal = profile ? profile.base : 0;
   const s = appState.activeSession;
 
   // Header profile name
   const headerName = document.getElementById('headerProfileName');
-  if (headerName) headerName.textContent = profile.name;
+  if (headerName) headerName.textContent = profile ? profile.name : 'No active challenge';
 
   // Top Position Bar Elements
   const elCurrentBal = document.getElementById('posCurrentBal');
@@ -666,9 +679,9 @@ function renderHeaderAndTopBar() {
   const elStreakCount = document.getElementById('posStreakCount');
 
   if (elCurrentBal) elCurrentBal.textContent = formatCurrency(currentBal);
-  if (elStartBal) elStartBal.textContent = formatCurrency(startBal);
+  if (elStartBal) elStartBal.textContent = profile ? formatCurrency(startBal) : '—';
 
-  if (appState.logs[s] !== undefined && appState.logs[s] !== null) {
+  if (profile && appState.logs[s] !== undefined && appState.logs[s] !== null) {
     const pnl = getNormalizedDailyPnL(s);
     const ret = getSessionReturnPct(s);
     if (elTodayPnL) {
@@ -691,21 +704,21 @@ function renderHeaderAndTopBar() {
   }
 
   const totalWealth = getTrueTotalWealth();
-  const overallPnL = totalWealth - startBal;
-  const overallReturn = startBal > 0 ? (overallPnL / startBal) * 100 : 0;
+  const overallPnL = profile ? (totalWealth - startBal) : 0;
+  const overallReturn = (profile && startBal > 0) ? (overallPnL / startBal) * 100 : 0;
 
   if (elOverallPnL) {
-    elOverallPnL.textContent = formatCurrencyPnL(overallPnL);
+    elOverallPnL.textContent = profile ? formatCurrencyPnL(overallPnL) : '+$0.00';
     elOverallPnL.className = `text-base sm:text-lg font-bold font-num ${overallPnL >= 0 ? 'text-emerald-600' : 'text-red-600'}`;
   }
   if (elOverallReturn) {
-    elOverallReturn.textContent = formatPercent(overallReturn);
+    elOverallReturn.textContent = profile ? formatPercent(overallReturn) : '+0.00%';
     elOverallReturn.className = `text-base sm:text-lg font-bold font-num ${overallReturn >= 0 ? 'text-emerald-600' : 'text-red-600'}`;
   }
   if (elOverallTarget) {
-    elOverallTarget.textContent = formatCurrency(profile.portTarget);
+    elOverallTarget.textContent = profile ? formatCurrency(profile.portTarget) : '—';
   }
-  const goalProgress = profile.portTarget > 0 ? Math.min(100, Math.max(0, (currentBal / profile.portTarget) * 100)) : 0;
+  const goalProgress = (profile && profile.portTarget > 0) ? Math.min(100, Math.max(0, (currentBal / profile.portTarget) * 100)) : 0;
   const goalPctEl = document.getElementById('dailyTargetProgress');
   const goalFillEl = document.getElementById('dailyTargetFill');
   if (goalPctEl) goalPctEl.textContent = `${goalProgress.toFixed(1)}%`;
@@ -722,19 +735,19 @@ function renderHeaderAndTopBar() {
 function render3PaceTargetsSection() {
   const profile = getActiveProfile();
   const s = appState.activeSession;
-  const row = profile.sessions[s - 1] || profile.sessions[0];
+  const row = (profile && profile.sessions) ? (profile.sessions[s - 1] || profile.sessions[0]) : null;
   const currentBal = getCurrentDeskBalance(s);
 
   // Targets
-  const targetRel = row ? row.r : 100;
-  const targetMid = row ? row.m : 180;
-  const targetAgg = row ? row.a : 250;
+  const targetRel = row ? row.r : 0;
+  const targetMid = row ? row.m : 0;
+  const targetAgg = row ? row.a : 0;
 
   // Finreq target calculation: desk needed to pace toward total obligations
   const tfg = calculateTotalFinancialGoal(profile, currentBal, appState.vaultLedger, appState.bills, appState.milestoneCfg);
   const remainingObligations = tfg.bills.remaining + tfg.savings.remaining;
-  const sessionsLeft = Math.max(1, profile.totalSessions - s + 1);
-  const targetFinreq = Math.round((currentBal + (remainingObligations / sessionsLeft)) * 100) / 100;
+  const sessionsLeft = profile ? Math.max(1, profile.totalSessions - s + 1) : 1;
+  const targetFinreq = profile ? Math.round((currentBal + (remainingObligations / sessionsLeft)) * 100) / 100 : 0;
 
   // Set card contents
   const elRel = document.getElementById('targetRelVal');
@@ -742,10 +755,10 @@ function render3PaceTargetsSection() {
   const elAgg = document.getElementById('targetAggVal');
   const elFin = document.getElementById('targetFinreqVal');
 
-  if (elRel) elRel.textContent = formatCurrency(targetRel);
-  if (elMid) elMid.textContent = formatCurrency(targetMid);
-  if (elAgg) elAgg.textContent = formatCurrency(targetAgg);
-  if (elFin) elFin.textContent = formatCurrency(targetFinreq);
+  if (elRel) elRel.textContent = profile ? formatCurrency(targetRel) : '—';
+  if (elMid) elMid.textContent = profile ? formatCurrency(targetMid) : '—';
+  if (elAgg) elAgg.textContent = profile ? formatCurrency(targetAgg) : '—';
+  if (elFin) elFin.textContent = profile ? formatCurrency(targetFinreq) : '—';
 
   // Diffs
   const diffRel = currentBal - targetRel;
@@ -758,10 +771,10 @@ function render3PaceTargetsSection() {
   const elDiffAgg = document.getElementById('diffAggVal');
   const elDiffFin = document.getElementById('diffFinreqVal');
 
-  if (elDiffRel) elDiffRel.textContent = `Diff: ${formatCurrencyPnL(diffRel)}`;
-  if (elDiffMid) elDiffMid.textContent = `Diff: ${formatCurrencyPnL(diffMid)}`;
-  if (elDiffAgg) elDiffAgg.textContent = `Diff: ${formatCurrencyPnL(diffAgg)}`;
-  if (elDiffFin) elDiffFin.textContent = `Diff: ${formatCurrencyPnL(diffFin)}`;
+  if (elDiffRel) elDiffRel.textContent = profile ? `Diff: ${formatCurrencyPnL(diffRel)}` : 'Diff: —';
+  if (elDiffMid) elDiffMid.textContent = profile ? `Diff: ${formatCurrencyPnL(diffMid)}` : 'Diff: —';
+  if (elDiffAgg) elDiffAgg.textContent = profile ? `Diff: ${formatCurrencyPnL(diffAgg)}` : 'Diff: —';
+  if (elDiffFin) elDiffFin.textContent = profile ? `Diff: ${formatCurrencyPnL(diffFin)}` : 'Diff: —';
   const questPaceSelect = document.getElementById('questPaceSelect');
   if (questPaceSelect) questPaceSelect.value = appState.pace;
 
@@ -772,11 +785,11 @@ function render3PaceTargetsSection() {
     const card = document.getElementById(id);
     if (card) {
       const selected = appState.pace === value;
-      const completed = currentBal >= paceTargets[value];
+      const completed = profile ? (currentBal >= paceTargets[value]) : false;
       card.classList.toggle('is-selected', selected);
       card.classList.toggle('is-complete', completed);
       card.setAttribute('aria-pressed', String(selected));
-      card.setAttribute('aria-label', `${paceLabels[value]} pace: ${formatCurrency(paceTargets[value])}${completed ? ', target reached' : ''}`);
+      card.setAttribute('aria-label', profile ? `${paceLabels[value]} pace: ${formatCurrency(paceTargets[value])}${completed ? ', target reached' : ''}` : `${paceLabels[value]} pace: No active challenge`);
     }
   });
 
@@ -809,8 +822,9 @@ function render3PaceTargetsSection() {
  */
 function getActiveTargetForSession(sessionNum) {
   const profile = getActiveProfile();
+  if (!profile || !profile.sessions) return 0;
   const row = profile.sessions[sessionNum - 1] || profile.sessions[0];
-  if (!row) return 100;
+  if (!row) return 0;
 
   if (appState.pace === 'mid') return row.m;
   if (appState.pace === 'aggressive') return row.a;
@@ -831,7 +845,7 @@ function renderDailyDesk() {
   const profile = getActiveProfile();
   const s = appState.activeSession;
   const isLocked = !!appState.lockedSessions[s];
-  const dateStr = getDateForSession(profile.startDate, s);
+  const dateStr = profile ? getDateForSession(profile.startDate, s) : '—';
   const currentBal = getCurrentDeskBalance(s);
   const activeTarget = getActiveTargetForSession(s);
   const dailyPnl = getNormalizedDailyPnL(s);
@@ -853,26 +867,35 @@ function renderDailyDesk() {
   const lockBadge = document.getElementById('sessionLockBadge');
   const lockBtn = document.getElementById('btnToggleLockSession');
 
-  if (title) title.textContent = `Session ${s} of ${profile.totalSessions}`;
-  if (dateEl) dateEl.textContent = `Date: ${dateStr}`;
+  if (title) title.textContent = profile ? `Session ${s} of ${profile.totalSessions}` : 'No active challenge';
+  if (dateEl) dateEl.textContent = profile ? `Date: ${dateStr}` : 'Create a challenge in Setup to begin';
   if (lockBadge) {
     lockBadge.textContent = isLocked ? '🔒 Locked' : '🔓 Unlocked';
     lockBadge.className = isLocked ? 'badge badge-amber text-[11px]' : 'badge badge-gray text-[11px]';
   }
   if (lockBtn) {
     lockBtn.textContent = isLocked ? '🔓 Unlock' : '🔒 Lock';
+    lockBtn.disabled = !profile;
   }
 
   // Session selector dropdown
   const dropdown = document.getElementById('sessionSelectDropdown');
   if (dropdown) {
     dropdown.innerHTML = '';
-    for (let i = 1; i <= profile.totalSessions; i++) {
+    const totalSessions = profile ? profile.totalSessions : 0;
+    if (totalSessions === 0) {
       const opt = document.createElement('option');
-      opt.value = i;
-      opt.textContent = `Session ${i}${appState.logs[i] !== undefined ? ' ✓' : ''}`;
-      if (i === s) opt.selected = true;
+      opt.value = '';
+      opt.textContent = 'No active sessions';
       dropdown.appendChild(opt);
+    } else {
+      for (let i = 1; i <= totalSessions; i++) {
+        const opt = document.createElement('option');
+        opt.value = i;
+        opt.textContent = `Session ${i}${appState.logs[i] !== undefined ? ' ✓' : ''}`;
+        if (i === s) opt.selected = true;
+        dropdown.appendChild(opt);
+      }
     }
   }
 
@@ -882,8 +905,8 @@ function renderDailyDesk() {
 
   if (balInput) {
     balInput.value = appState.logs[s] !== undefined ? appState.logs[s] : '';
-    balInput.disabled = isLocked;
-    if (isLocked) {
+    balInput.disabled = isLocked || !profile;
+    if (isLocked || !profile) {
       balInput.classList.add('bg-slate-100', 'text-slate-600', 'cursor-not-allowed');
     } else {
       balInput.classList.remove('bg-slate-100', 'text-slate-600', 'cursor-not-allowed');
@@ -895,7 +918,7 @@ function renderDailyDesk() {
       const d = new Date(appState.timestamps[s]);
       timestampText.textContent = `Recorded: ${d.toLocaleDateString()} ${d.toLocaleTimeString()}`;
     } else {
-      timestampText.textContent = 'Not logged yet';
+      timestampText.textContent = profile ? 'Not logged yet' : 'No active challenge';
     }
   }
 
@@ -903,31 +926,36 @@ function renderDailyDesk() {
   const notesInput = document.getElementById('sessionNotesInput');
   if (notesInput) {
     notesInput.value = appState.notes[s] || '';
+    notesInput.disabled = !profile;
   }
 
   // Shortfall & Rebase card
   const shortfallCard = document.getElementById('shortfallCard');
   if (shortfallCard) {
-    const shortfall = activeTarget - currentBal;
-    if (shortfall > 0) {
-      shortfallCard.classList.remove('hidden');
-      const badge = document.getElementById('shortfallAmountBadge');
-      if (badge) badge.textContent = `-${formatCurrency(shortfall)}`;
+    if (profile) {
+      const shortfall = activeTarget - currentBal;
+      if (shortfall > 0) {
+        shortfallCard.classList.remove('hidden');
+        const badge = document.getElementById('shortfallAmountBadge');
+        if (badge) badge.textContent = `-${formatCurrency(shortfall)}`;
 
-      const rebase = calculateRebasedPlan(s, currentBal, profile.portTarget, profile.totalSessions);
-      const rateText = document.getElementById('rebasedRateNeeded');
-      if (rateText) rateText.textContent = `${(rebase.requiredRate * 100).toFixed(2)}%`;
+        const rebase = calculateRebasedPlan(s, currentBal, profile.portTarget, profile.totalSessions);
+        const rateText = document.getElementById('rebasedRateNeeded');
+        if (rateText) rateText.textContent = `${(rebase.requiredRate * 100).toFixed(2)}%`;
 
-      const btnOrig = document.getElementById('btnPlanModeOriginal');
-      const btnRebase = document.getElementById('btnPlanModeRebased');
-      if (btnOrig && btnRebase) {
-        if (appState.planViewMode === 'rebased') {
-          btnRebase.className = 'px-2.5 py-1 text-xs font-semibold rounded bg-amber-600 text-white shadow-sm';
-          btnOrig.className = 'px-2.5 py-1 text-xs font-semibold rounded bg-white border border-amber-300 text-amber-900 shadow-sm';
-        } else {
-          btnOrig.className = 'px-2.5 py-1 text-xs font-semibold rounded bg-amber-600 text-white shadow-sm';
-          btnRebase.className = 'px-2.5 py-1 text-xs font-semibold rounded bg-white border border-amber-300 text-amber-900 shadow-sm';
+        const btnOrig = document.getElementById('btnPlanModeOriginal');
+        const btnRebase = document.getElementById('btnPlanModeRebased');
+        if (btnOrig && btnRebase) {
+          if (appState.planViewMode === 'rebased') {
+            btnRebase.className = 'px-2.5 py-1 text-xs font-semibold rounded bg-amber-600 text-white shadow-sm';
+            btnOrig.className = 'px-2.5 py-1 text-xs font-semibold rounded bg-white border border-amber-300 text-amber-900 shadow-sm';
+          } else {
+            btnOrig.className = 'px-2.5 py-1 text-xs font-semibold rounded bg-amber-600 text-white shadow-sm';
+            btnRebase.className = 'px-2.5 py-1 text-xs font-semibold rounded bg-white border border-amber-300 text-amber-900 shadow-sm';
+          }
         }
+      } else {
+        shortfallCard.classList.add('hidden');
       }
     } else {
       shortfallCard.classList.add('hidden');
@@ -938,7 +966,7 @@ function renderDailyDesk() {
   const profitCard = document.getElementById('profitAllocationCard');
   if (profitCard) {
     const dailyPnL = getNormalizedDailyPnL(s);
-    if (dailyPnL > 0 && appState.logs[s] !== undefined) {
+    if (profile && dailyPnL > 0 && appState.logs[s] !== undefined) {
       const preview = calculateProfitAllocationPreview(dailyPnL, appState.bills, appState.milestoneCfg.reserveFloor, currentBal);
       if (preview) {
         profitCard.classList.remove('hidden');
@@ -977,6 +1005,15 @@ function renderMountainTrail() {
   if (!container) return;
 
   const profile = getActiveProfile();
+  if (!profile) {
+    container.innerHTML = `
+      <div class="p-8 text-center text-slate-400 bg-slate-50/50 rounded-xl border border-dashed border-slate-200">
+        <p class="font-bold text-slate-600 mb-1">No active challenge</p>
+        <p class="text-xs">Head to the <button onclick="switchMainTab('config')" class="text-emerald-700 underline font-semibold">Setup</button> tab to create your first challenge!</p>
+      </div>`;
+    return;
+  }
+
   const N = Math.max(2, Number(profile.totalSessions) || 2);
   const completed = Object.keys(appState.logs).filter(k => Number(k) >= 1 && Number(k) <= N && Number.isFinite(Number(appState.logs[k]))).length;
   const progress = Math.min(1, completed / N);
@@ -1019,6 +1056,11 @@ function renderMasterTable() {
   if (!tbody) return;
 
   const profile = getActiveProfile();
+  if (!profile) {
+    tbody.innerHTML = `<tr><td colspan="10" class="text-center py-8 text-slate-400">No active challenge. Set up a challenge in the Setup tab to generate your roadmap.</td></tr>`;
+    return;
+  }
+
   const N = profile.totalSessions;
   const currentS = appState.activeSession;
 
@@ -1104,9 +1146,11 @@ function renderCalendarView() {
 
   // Map dates to sessions
   const dateToSession = {};
-  for (let s = 1; s <= profile.totalSessions; s++) {
-    const dStr = getDateForSession(profile.startDate, s);
-    dateToSession[dStr] = s;
+  if (profile) {
+    for (let s = 1; s <= profile.totalSessions; s++) {
+      const dStr = getDateForSession(profile.startDate, s);
+      dateToSession[dStr] = s;
+    }
   }
 
   // Days in month
@@ -1228,8 +1272,8 @@ function renderConfigModule() {
   const profile = getActiveProfile();
   const setupTitle = document.getElementById('setupFormTitle');
   const setupHelp = document.getElementById('setupFormHelp');
-  if (setupTitle) setupTitle.textContent = setupNewProfileDraft ? 'New challenge' : 'Challenge basics';
-  if (setupHelp) setupHelp.textContent = setupNewProfileDraft ? 'Set the starting balance, goal and session count.' : 'Enter three details, then you’re ready to go.';
+  if (setupTitle) setupTitle.textContent = (setupNewProfileDraft || !profile) ? 'New challenge' : `Edit "${profile.name}"`;
+  if (setupHelp) setupHelp.textContent = (setupNewProfileDraft || !profile) ? 'Set the starting balance, goal and session count.' : 'Modify your parameters below and click Start challenge to save your changes.';
   const setupDate = document.getElementById('genStartDate');
   if (setupDate && !setupDate.value) {
     const today = new Date();
@@ -1247,18 +1291,36 @@ function renderConfigModule() {
   const challengeCount = document.getElementById('setupChallengeCount');
   const editActiveButton = document.getElementById('btnEditActiveChallenge');
   const deleteActiveButton = document.getElementById('btnDeleteActiveChallenge');
+  const noChallengesNotice = document.getElementById('cfgNoChallengesNotice');
+  const activeStats = document.getElementById('cfgActiveStats');
+  const challengeActions = document.querySelector('.setup-challenge-actions');
 
-  if (nameEl) nameEl.textContent = profile.name;
-  if (datesEl) {
-    const endDate = getDateForSession(profile.startDate, profile.totalSessions);
-    datesEl.textContent = `Starts ${profile.startDate} · Goal date ${endDate}`;
-  }
-  if (mBase) mBase.textContent = formatCurrency(profile.base);
-  if (mTarget) mTarget.textContent = formatCurrency(profile.portTarget);
-  if (mSessions) mSessions.textContent = `${Math.min(appState.activeSession, profile.totalSessions)} / ${profile.totalSessions} sessions`;
-  if (mMultiplier) {
-    const mult = profile.base > 0 ? (profile.portTarget / profile.base).toFixed(1) : '0.0';
-    mMultiplier.textContent = `${mult}x`;
+  if (profile) {
+    if (noChallengesNotice) noChallengesNotice.classList.add('hidden');
+    if (activeStats) activeStats.classList.remove('hidden');
+    if (datesEl) {
+      datesEl.classList.remove('hidden');
+      const endDate = getDateForSession(profile.startDate, profile.totalSessions);
+      datesEl.textContent = `Starts ${profile.startDate} · Goal date ${endDate}`;
+    }
+    if (challengeActions) challengeActions.classList.remove('hidden');
+    if (nameEl) nameEl.textContent = profile.name;
+    if (mBase) mBase.textContent = formatCurrency(profile.base);
+    if (mTarget) mTarget.textContent = formatCurrency(profile.portTarget);
+    if (mSessions) mSessions.textContent = `${Math.min(appState.activeSession, profile.totalSessions)} / ${profile.totalSessions} sessions`;
+    if (mMultiplier) {
+      const mult = profile.base > 0 ? (profile.portTarget / profile.base).toFixed(1) : '0.0';
+      mMultiplier.textContent = `${mult}x`;
+    }
+  } else {
+    if (noChallengesNotice) noChallengesNotice.classList.remove('hidden');
+    if (activeStats) activeStats.classList.add('hidden');
+    if (datesEl) datesEl.classList.add('hidden');
+    if (challengeActions) challengeActions.classList.add('hidden');
+    if (mBase) mBase.textContent = '—';
+    if (mTarget) mTarget.textContent = '—';
+    if (mSessions) mSessions.textContent = '—';
+    if (mMultiplier) mMultiplier.textContent = '0.0x';
   }
 
   if (challengeCount) challengeCount.textContent = `${appState.profiles.length} ${appState.profiles.length === 1 ? 'challenge' : 'challenges'}`;
@@ -1286,10 +1348,13 @@ function renderConfigModule() {
       challengeTabs.appendChild(tab);
     });
   }
-  if (editActiveButton) editActiveButton.onclick = () => handleLoadProfileIntoWizard(appState.activeProfileId);
+  if (editActiveButton) {
+    editActiveButton.disabled = !profile;
+    editActiveButton.onclick = () => handleLoadProfileIntoWizard(appState.activeProfileId);
+  }
   if (deleteActiveButton) {
-    deleteActiveButton.disabled = appState.profiles.length <= 1;
-    deleteActiveButton.title = deleteActiveButton.disabled ? 'Keep at least one challenge' : 'Delete selected challenge';
+    deleteActiveButton.disabled = !profile;
+    deleteActiveButton.title = !profile ? 'No active challenge' : 'Delete selected challenge';
     deleteActiveButton.onclick = () => handleDeleteProfile(appState.activeProfileId);
   }
 
@@ -1317,6 +1382,7 @@ function renderSetupChallengePreview() {
  */
 function renderTradeJournalModule() {
   const profile = getActiveProfile();
+  const totalSessions = profile ? profile.totalSessions : 0;
 
   // Populate session selectors
   const sessionSel = document.getElementById('tradeSessionSelect');
@@ -1326,12 +1392,19 @@ function renderTradeJournalModule() {
   [sessionSel, modalSessionSel].forEach(sel => {
     if (sel) {
       sel.innerHTML = '';
-      for (let s = 1; s <= profile.totalSessions; s++) {
+      if (totalSessions === 0) {
         const opt = document.createElement('option');
-        opt.value = s;
-        opt.textContent = `Session ${s}`;
-        if (s === appState.activeSession) opt.selected = true;
+        opt.value = '';
+        opt.textContent = 'No active challenge';
         sel.appendChild(opt);
+      } else {
+        for (let s = 1; s <= totalSessions; s++) {
+          const opt = document.createElement('option');
+          opt.value = s;
+          opt.textContent = `Session ${s}`;
+          if (s === appState.activeSession) opt.selected = true;
+          sel.appendChild(opt);
+        }
       }
     }
   });
@@ -1339,7 +1412,7 @@ function renderTradeJournalModule() {
   if (filterSel) {
     const currentVal = filterSel.value || 'all';
     filterSel.innerHTML = '<option value="all">All Sessions</option>';
-    for (let s = 1; s <= profile.totalSessions; s++) {
+    for (let s = 1; s <= totalSessions; s++) {
       const opt = document.createElement('option');
       opt.value = s;
       opt.textContent = `Session ${s}`;
@@ -1555,7 +1628,7 @@ function renderBillsBreakdown() {
     .filter(b => b.status !== 'paid')
     .reduce((sum, b) => sum + Math.max(0, b.amountDue - (b.amountReserved || 0)), 0);
 
-  const sessionsLeft = Math.max(1, profile.totalSessions - appState.activeSession + 1);
+  const sessionsLeft = profile ? Math.max(1, profile.totalSessions - appState.activeSession + 1) : 30;
   const runRate = basis === 'days' ? (totalUnfunded / 30) : (totalUnfunded / sessionsLeft);
 
   const elRunRate = document.getElementById('billsRunRateValue');
@@ -1642,7 +1715,7 @@ function renderSavingsReserve() {
 function renderSafetyMilestones() {
   const profile = getActiveProfile();
   const totalVault = getVaultTotalBalance();
-  const base = profile ? profile.base : 100;
+  const base = profile ? profile.base : 0;
   const floor = Math.max(0, Number(appState.milestoneCfg.reserveFloor) || 0);
   const goal = Math.max(0, Number(appState.milestoneCfg.savingsGoal) || 0);
 
@@ -1651,7 +1724,7 @@ function renderSafetyMilestones() {
   const p1 = document.getElementById('milestoneStep1Progress');
   if (p1) p1.textContent = `${formatCurrency(totalVault)} / ${formatCurrency(base)}`;
   if (b1) {
-    if (totalVault >= base) {
+    if (totalVault >= base && base > 0) {
       b1.textContent = '✓ Unlocked';
       b1.className = 'badge badge-green text-[10px]';
     } else {
@@ -1665,7 +1738,7 @@ function renderSafetyMilestones() {
   const p2 = document.getElementById('milestoneStep2Progress');
   if (p2) p2.textContent = `${formatCurrency(totalVault)} / ${formatCurrency(floor)}`;
   if (b2) {
-    if (totalVault >= floor) {
+    if (totalVault >= floor && floor > 0) {
       b2.textContent = '✓ Unlocked';
       b2.className = 'badge badge-green text-[10px]';
     } else {
@@ -1679,7 +1752,7 @@ function renderSafetyMilestones() {
   const p3 = document.getElementById('milestoneStep3Progress');
   if (p3) p3.textContent = `${formatCurrency(totalVault)} / ${formatCurrency(goal)}`;
   if (b3) {
-    if (totalVault >= goal) {
+    if (totalVault >= goal && goal > 0) {
       b3.textContent = '✓ Cleared';
       b3.className = 'badge badge-green text-[10px]';
     } else {
@@ -1702,8 +1775,8 @@ function renderSafetyMilestones() {
  */
 function renderStatsModule() {
   const profile = getActiveProfile();
-  const N = profile.totalSessions;
-  const startBal = profile.base;
+  const N = profile ? profile.totalSessions : 0;
+  const startBal = profile ? profile.base : 0;
   const totalWealth = getTrueTotalWealth();
 
   // All-time ROI
@@ -2076,6 +2149,7 @@ function setBillsBasis(basis) {
 
 function navigateSession(delta) {
   const profile = getActiveProfile();
+  if (!profile) return;
   const next = appState.activeSession + delta;
   if (next >= 1 && next <= profile.totalSessions) {
     appState.activeSession = next;
@@ -2088,6 +2162,7 @@ function navigateSession(delta) {
 
 function jumpToSession(sessionNum) {
   const profile = getActiveProfile();
+  if (!profile) return;
   if (sessionNum >= 1 && sessionNum <= profile.totalSessions) {
     appState.activeSession = sessionNum;
     saveStateToStorage();
@@ -2251,6 +2326,10 @@ function executeProfitAllocation() {
 
 function copyMasterTableToClipboard() {
   const profile = getActiveProfile();
+  if (!profile) {
+    openModal({ title: 'No Challenge', message: 'There is no active challenge to copy.' });
+    return;
+  }
   let tsv = "Session\tDate\tRelaxed\tMid\tAggressive\tClosing Balance\tVault Skims\tDaily PnL\tReturn %\tNotes\n";
 
   for (let s = 1; s <= profile.totalSessions; s++) {
@@ -2297,16 +2376,21 @@ function setCalendarToday() {
 
 function openQuickEditParamsModal() {
   const profile = getActiveProfile();
+  if (!profile) {
+    openModal({ title: 'No Challenge', message: 'No active challenge found to edit.' });
+    return;
+  }
   document.getElementById('quickEditBaseInput').value = profile.base;
   document.getElementById('quickEditTargetInput').value = profile.portTarget;
   openModalDialog('quickEditParamsModal');
 }
 
 function handleQuickEditApply() {
+  const profile = getActiveProfile();
+  if (!profile) return;
   const base = Math.max(0, parseFloat(document.getElementById('quickEditBaseInput').value) || 0);
   const target = Math.max(base, parseFloat(document.getElementById('quickEditTargetInput').value) || base);
 
-  const profile = getActiveProfile();
   profile.base = base;
   profile.portTarget = target;
   profile.targetBalance = target;
@@ -2336,7 +2420,7 @@ function handleQuickSaveStep1() {
   const skimMode = !!document.getElementById('genSkimMode')?.checked;
 
   let profile;
-  if (setupNewProfileDraft) {
+  if (setupNewProfileDraft || !getActiveProfile()) {
     profile = {
       id: `prof_${Date.now()}_${Math.random().toString(36).slice(2, 7)}`,
       name,
@@ -2357,18 +2441,18 @@ function handleQuickSaveStep1() {
     setupNewProfileDraft = false;
   } else {
     profile = getActiveProfile();
+    profile.name = name;
+    profile.base = base;
+    profile.portTarget = target;
+    profile.targetBalance = target;
+    profile.totalSessions = sessions;
+    profile.startDate = startDate;
+    profile.curveType = curveType;
+    profile.withdrawalTarget = withdrawalTarget;
+    profile.withdrawalDays = withdrawalDays;
+    profile.skimMode = skimMode;
+    profile.sessions = generateRoadmapSessions(curveType, base, target, sessions, withdrawalTarget, withdrawalDays);
   }
-  profile.name = name;
-  profile.base = base;
-  profile.portTarget = target;
-  profile.targetBalance = target;
-  profile.totalSessions = sessions;
-  profile.startDate = startDate;
-  profile.curveType = curveType;
-  profile.withdrawalTarget = withdrawalTarget;
-  profile.withdrawalDays = withdrawalDays;
-  profile.skimMode = skimMode;
-  profile.sessions = generateRoadmapSessions(curveType, base, target, sessions, withdrawalTarget, withdrawalDays);
 
   saveStateToStorage();
   refreshAllViews();
@@ -2501,7 +2585,7 @@ function handleSaveProfile(updateActive = true) {
 
   const newSessions = generateRoadmapSessions(curveType, base, target, sessions, withdrawalTarget, withdrawalDays);
 
-  if (updateActive) {
+  if (updateActive && getActiveProfile()) {
     const profile = getActiveProfile();
     profile.name = name;
     profile.base = base;
@@ -2604,39 +2688,29 @@ function handleLoadProfileIntoWizard(profileId) {
 
 function handleDeleteProfile(profileId) {
   const p = appState.profiles.find(pr => pr.id === profileId) || getActiveProfile();
-  const challengeName = p ? p.name : 'this challenge';
+  if (!p) return;
+  const challengeName = p.name || 'this challenge';
 
-  if (appState.profiles.length <= 1) {
-    openModal({
-      title: 'Reset Challenge',
-      message: `"${challengeName}" is your only challenge profile. Would you like to reset it to default starting parameters and clear session logs?`,
-      confirmText: 'Reset Challenge',
-      onConfirm: () => {
-        appState.profiles = [Object.assign({}, DEFAULT_PROFILE)];
-        appState.activeProfileId = DEFAULT_PROFILE.id;
+  openModal({
+    title: 'Delete Challenge',
+    message: `Are you sure you want to delete "${challengeName}"? This action will remove this challenge roadmap and its logged session history.`,
+    confirmText: 'Delete Challenge',
+    onConfirm: () => {
+      appState.profiles = appState.profiles.filter(pr => pr.id !== p.id);
+      if (appState.profiles.length > 0) {
+        if (appState.activeProfileId === p.id) {
+          appState.activeProfileId = appState.profiles[0].id;
+          appState.activeSession = 1;
+        }
+      } else {
+        appState.activeProfileId = null;
         appState.activeSession = 1;
         appState.logs = {};
         appState.lockedSessions = {};
         appState.notes = {};
         appState.timestamps = {};
-        saveStateToStorage();
-        refreshAllViews();
-        openModal({ title: 'Challenge Reset', message: 'The challenge has been reset to starting defaults.' });
       }
-    });
-    return;
-  }
-
-  openModal({
-    title: 'Confirm Profile Deletion',
-    message: `Are you sure you want to delete "${challengeName}"? This action will remove this challenge roadmap.`,
-    confirmText: 'Delete Profile',
-    onConfirm: () => {
-      appState.profiles = appState.profiles.filter(pr => pr.id !== profileId);
-      if (appState.activeProfileId === profileId) {
-        appState.activeProfileId = appState.profiles[0].id;
-        appState.activeSession = 1;
-      }
+      startNewChallengeDraft();
       saveStateToStorage();
       refreshAllViews();
       openModal({ title: 'Challenge Deleted', message: `"${challengeName}" has been removed.` });
@@ -3797,7 +3871,7 @@ function handleSyncToSheets() {
 
   const profile = getActiveProfile();
   const payload = {
-    profileName: profile.name,
+    profileName: profile ? profile.name : 'No active challenge',
     activeSession: appState.activeSession,
     currentDeskBalance: getCurrentDeskBalance(),
     vaultTotal: getVaultTotalBalance(),
@@ -3890,6 +3964,10 @@ function copyAppsScriptCode() {
 
 function exportDataToCsv() {
   const profile = getActiveProfile();
+  if (!profile) {
+    openModal({ title: 'No Challenge', message: 'There is no active challenge to export.' });
+    return;
+  }
   let csv = "data:text/csv;charset=utf-8,";
   csv += "Session,Date,Target_Relaxed,Target_Mid,Target_Aggressive,Closing_Balance,Vault_Skims,Daily_PnL,Return_Pct,Notes\n";
 

@@ -1966,9 +1966,6 @@
               <button onclick="handleQuickPayNextBill()" class="px-3 py-1.5 text-xs font-bold rounded-lg bg-amber-600 text-white hover:bg-amber-700 sprite-action">
                 <svg viewBox="0 0 30 40" aria-hidden="true"><use href="#sprite-flame"/></svg>Pay bill
               </button>
-              <button onclick="document.getElementById('vaultSafetySettings').open=true;document.getElementById('vaultSafetySettings').scrollIntoView({behavior:'smooth',block:'start'})" class="px-3 py-1.5 text-xs font-semibold rounded-lg border border-slate-300 hover:bg-slate-100">
-                Transfer
-              </button>
             </div>
           </div>
         </div>
@@ -2076,100 +2073,6 @@
         <div class="vault-card-heading"><span class="vault-card-icon vault-icon-sky">⇄</span><div><h3>Transaction History</h3><p>All vault transactions, payments and transfers.</p></div></div>
         <div class="border border-slate-200 rounded-lg overflow-x-auto"><table class="simple-table"><thead><tr><th>Date</th><th>Session</th><th>Bucket</th><th>Amount ($)</th><th>Note</th></tr></thead><tbody id="vaultRecentLedgerBody"><!-- Dynamically populated --></tbody></table></div>
       </div>
-
-      <!-- Existing safety and pacing controls, kept available but out of the main dashboard flow. -->
-      <details id="vaultSafetySettings" class="vault-safety-settings">
-        <summary>Safety milestones &amp; vault settings <span>Capital floor, skims and pacing controls</span></summary>
-      <div id="subtabVaultMilestones" class="vault-dashboard-card vault-milestones-card">
-        <!-- 3 MILESTONE BADGES -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div id="milestoneStep1Card" class="p-4 rounded-xl border border-slate-200 bg-white shadow-sm space-y-2">
-            <div class="flex items-center justify-between">
-              <span class="text-xs font-bold text-slate-600 uppercase">Step 1: Recoup Start Deposit</span>
-              <span id="milestoneStep1Badge" class="badge badge-gray text-[10px]">In Progress</span>
-            </div>
-            <div class="text-lg font-bold font-num text-slate-900" id="milestoneStep1Progress">$0 / $100</div>
-            <p class="text-[11px] text-slate-500">Unlocked when total vault banked ≥ initial seed capital $C0.</p>
-          </div>
-
-          <div id="milestoneStep2Card" class="p-4 rounded-xl border border-slate-200 bg-white shadow-sm space-y-2">
-            <div class="flex items-center justify-between">
-              <span class="text-xs font-bold text-slate-600 uppercase">Step 2: Safety Cushion</span>
-              <span id="milestoneStep2Badge" class="badge badge-gray text-[10px]">In Progress</span>
-            </div>
-            <div class="text-lg font-bold font-num text-slate-900" id="milestoneStep2Progress">$0 / $1,000</div>
-            <p class="text-[11px] text-slate-500">Unlocked when total vault banked ≥ configured reserve floor.</p>
-          </div>
-
-          <div id="milestoneStep3Card" class="p-4 rounded-xl border border-slate-200 bg-white shadow-sm space-y-2">
-            <div class="flex items-center justify-between">
-              <span class="text-xs font-bold text-slate-600 uppercase">Step 3: Target Goal Cleared</span>
-              <span id="milestoneStep3Badge" class="badge badge-gray text-[10px]">In Progress</span>
-            </div>
-            <div class="text-lg font-bold font-num text-slate-900" id="milestoneStep3Progress">$0 / $5,000</div>
-            <p class="text-[11px] text-slate-500">Unlocked when total vault banked ≥ milestone savings goal.</p>
-          </div>
-        </div>
-
-        <!-- MANUAL PROFIT SKIM FORM & PACING CONTROLS -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <!-- Manual Skim -->
-          <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-4">
-            <div class="border-b border-slate-100 pb-2">
-              <h3 class="text-sm font-bold text-slate-800">Manual Profit Skim & Transfer</h3>
-              <p class="text-xs text-slate-500">Transfer trading profits from desk to vault with capital floor protection.</p>
-            </div>
-            <div>
-              <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Destination Bucket</label>
-              <select id="manualSkimBucket" class="w-full p-2 border border-slate-300 rounded-lg text-xs">
-                <option value="bills">Bills Reserve Bucket</option>
-                <option value="savings">Savings Reserve Bucket</option>
-                <option value="general">General Vault Holding</option>
-              </select>
-            </div>
-            <div>
-              <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Skim Amount ($)</label>
-              <input id="manualSkimAmount" type="number" step="0.01" placeholder="50.00" class="w-full p-2 border border-slate-300 rounded-lg text-sm font-num font-bold">
-            </div>
-            <div>
-              <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Transfer Note</label>
-              <input id="manualSkimNote" type="text" placeholder="Weekly surplus skim..." class="w-full p-2 border border-slate-300 rounded-lg text-xs">
-            </div>
-            <button id="btnSubmitManualSkim" onclick="handleManualSkimSubmit()" class="w-full py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-xs font-bold">
-              Execute Skim to Vault
-            </button>
-          </div>
-
-          <!-- Milestone Pacing Settings -->
-          <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-4">
-            <div class="border-b border-slate-100 pb-2">
-              <h3 class="text-sm font-bold text-slate-800">Milestone Pacing & Reserve Floor Controls</h3>
-              <p class="text-xs text-slate-500">Set capital floor protection and automated savings suggestions.</p>
-            </div>
-            <div>
-              <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Milestone Savings Goal ($)</label>
-              <input id="milestoneGoalInput" type="number" min="0" step="0.01" placeholder="Savings goal" class="w-full p-2 border border-slate-300 rounded-lg text-xs font-num font-bold">
-            </div>
-            <div>
-              <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Keep on Trading Desk Reserve Floor ($)</label>
-              <input id="milestoneFloorInput" type="number" min="0" step="0.01" placeholder="Reserve floor" class="w-full p-2 border border-slate-300 rounded-lg text-xs font-num font-bold">
-              <p class="text-[10px] text-slate-400 mt-0.5">Floor check blocks skims that would leave desk below this balance.</p>
-            </div>
-            <div>
-              <label class="block text-xs font-semibold text-slate-700 uppercase mb-1">Savings Suggestion Pacing Strategy</label>
-              <select id="milestoneStrategySelect" class="w-full p-2 border border-slate-300 rounded-lg text-xs">
-                <option value="gradual">Gradual (Suggests 25% of gain when daily PnL > $30)</option>
-                <option value="checkpoints">Checkpoints (Suggests skims at weekly checkpoints)</option>
-                <option value="manual">Manual (No automatic suggestions)</option>
-              </select>
-            </div>
-            <button id="btnSaveMilestoneConfig" onclick="handleSaveMilestoneConfig()" class="w-full py-2 bg-slate-800 hover:bg-slate-900 text-white rounded-lg text-xs font-bold">
-              Save Pacing Settings
-            </button>
-          </div>
-        </div>
-      </div>
-      </details>
     </section>
 
     <!-- ================= MODULE 5: STATS & PERFORMANCE ANALYTICS ================= -->

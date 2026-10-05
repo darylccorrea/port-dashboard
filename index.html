@@ -332,7 +332,7 @@
           </div>
 
           <!-- Prominent Sign In Button -->
-          <div class="welcome-cta-container">
+          <div class="welcome-cta-container space-y-2.5">
             <button id="btnGateSignIn" type="button" class="welcome-signin-button" onclick="startGoogleSignIn()">
               <span class="google-mark" aria-hidden="true">G</span>
               <div class="welcome-btn-text">
@@ -340,6 +340,10 @@
                 <small>Instant entry · Your private adventure ledger unlocks immediately</small>
               </div>
               <span class="welcome-btn-arrow" aria-hidden="true">➔</span>
+            </button>
+            <button id="btnGateGuest" type="button" class="welcome-guest-button" onclick="continueAsGuest()">
+              <span>Explore Offline / Demo Mode</span>
+              <span class="text-xs opacity-70">➔</span>
             </button>
           </div>
 

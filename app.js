@@ -3562,6 +3562,35 @@ function initFirebaseSync() {
     // Register Auth state listener
     if (firebase.auth) {
       if (firebaseAuthUnsubscribe) firebaseAuthUnsubscribe();
+
+      // Handle redirect sign-in results (crucial for mobile safari/chrome popup blocks)
+      firebase.auth().getRedirectResult().then(result => {
+        if (result && result.user) {
+          const token = result.credential ? result.credential.accessToken : null;
+          if (token) appState.googleAccessToken = token;
+          appState.currentUser = {
+            uid: result.user.uid,
+            email: result.user.email || '',
+            displayName: result.user.displayName || result.user.email || 'Adventurer',
+            photoURL: result.user.photoURL || ''
+          };
+          document.body.classList.add('is-authenticated');
+          const gate = document.getElementById('authGateOverlay');
+          if (gate) {
+            gate.classList.add('hidden');
+            gate.style.display = 'none';
+          }
+          renderAccountModule();
+          updateSheetUI();
+          refreshAllViews();
+          if (token) {
+            ensureGoogleDriveSheet(token, result.user).catch(err => console.warn('Drive sync warning:', err));
+          }
+        }
+      }).catch(err => {
+        console.warn('Firebase getRedirectResult error:', err);
+      });
+
       firebaseAuthUnsubscribe = firebase.auth().onAuthStateChanged(user => {
         if (user) {
           appState.currentUser = {
@@ -3572,13 +3601,21 @@ function initFirebaseSync() {
           };
           document.body.classList.add('is-authenticated');
           const gate = document.getElementById('authGateOverlay');
-          if (gate) gate.classList.add('hidden');
+          if (gate) {
+            gate.classList.add('hidden');
+            gate.style.display = 'none';
+          }
         } else {
-          appState.currentUser = null;
-          appState.googleAccessToken = null;
-          document.body.classList.remove('is-authenticated');
-          const gate = document.getElementById('authGateOverlay');
-          if (gate) gate.classList.remove('hidden');
+          // Only clear if not in guest session
+          if (!document.body.classList.contains('is-authenticated')) {
+            appState.currentUser = null;
+            appState.googleAccessToken = null;
+            const gate = document.getElementById('authGateOverlay');
+            if (gate) {
+              gate.classList.remove('hidden');
+              gate.style.display = '';
+            }
+          }
         }
         renderAccountModule();
         updateSheetUI();
@@ -3652,96 +3689,129 @@ async function ensureGoogleDriveSheet(accessToken, user) {
 
     // 1. Search for 'Trove - Expedition Ledger' folder
     const folderQuery = encodeURIComponent("name = 'Trove - Expedition Ledger' and mimeType = 'application/vnd.google-apps.folder' and trashed = false");
-    const folderSearchRes = await fetch(`https://www.googleapis.com/drive/v3/files?q=${folderQuery}&fields=files(id,name)`, {
-      headers: { Authorization: `Bearer ${accessToken}` }
-    });
-    const folderSearchData = await folderSearchRes.json();
     let folderId = null;
 
-    if (folderSearchData.files && folderSearchData.files.length > 0) {
-      folderId = folderSearchData.files[0].id;
-    } else {
-      if (statusText) statusText.textContent = 'Creating "Trove - Expedition Ledger" folder in Google Drive...';
-      const createFolderRes = await fetch('https://www.googleapis.com/drive/v3/files', {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          name: 'Trove - Expedition Ledger',
-          mimeType: 'application/vnd.google-apps.folder'
-        })
+    try {
+      const folderSearchRes = await fetch(`https://www.googleapis.com/drive/v3/files?q=${folderQuery}&fields=files(id,name)`, {
+        headers: { Authorization: `Bearer ${accessToken}` }
       });
-      const newFolder = await createFolderRes.json();
-      folderId = newFolder.id;
+      if (folderSearchRes.ok) {
+        const folderSearchData = await folderSearchRes.json();
+        if (folderSearchData.files && folderSearchData.files.length > 0) {
+          folderId = folderSearchData.files[0].id;
+        }
+      }
+    } catch (e) {
+      console.warn('Folder search error:', e);
+    }
+
+    if (!folderId) {
+      if (statusText) statusText.textContent = 'Creating "Trove - Expedition Ledger" folder in Google Drive...';
+      try {
+        const createFolderRes = await fetch('https://www.googleapis.com/drive/v3/files', {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            name: 'Trove - Expedition Ledger',
+            mimeType: 'application/vnd.google-apps.folder'
+          })
+        });
+        if (createFolderRes.ok) {
+          const newFolder = await createFolderRes.json();
+          folderId = newFolder.id || null;
+        }
+      } catch (e) {
+        console.warn('Folder creation error:', e);
+      }
     }
 
     // 2. Search for existing sheet inside the folder
-    if (statusText) statusText.textContent = 'Preparing pre-made Google Sheet...';
-    const sheetQuery = encodeURIComponent(`'${folderId}' in parents and mimeType = 'application/vnd.google-apps.spreadsheet' and trashed = false`);
-    const sheetSearchRes = await fetch(`https://www.googleapis.com/drive/v3/files?q=${sheetQuery}&fields=files(id,name,webViewLink)`, {
-      headers: { Authorization: `Bearer ${accessToken}` }
-    });
-    const sheetSearchData = await sheetSearchRes.json();
-
     let spreadsheetId = null;
     let spreadsheetUrl = null;
 
-    if (sheetSearchData.files && sheetSearchData.files.length > 0) {
-      spreadsheetId = sheetSearchData.files[0].id;
-      spreadsheetUrl = sheetSearchData.files[0].webViewLink || `https://docs.google.com/spreadsheets/d/${spreadsheetId}/edit`;
-    } else {
+    if (folderId) {
+      if (statusText) statusText.textContent = 'Preparing pre-made Google Sheet...';
+      try {
+        const sheetQuery = encodeURIComponent(`'${folderId}' in parents and mimeType = 'application/vnd.google-apps.spreadsheet' and trashed = false`);
+        const sheetSearchRes = await fetch(`https://www.googleapis.com/drive/v3/files?q=${sheetQuery}&fields=files(id,name,webViewLink)`, {
+          headers: { Authorization: `Bearer ${accessToken}` }
+        });
+        if (sheetSearchRes.ok) {
+          const sheetSearchData = await sheetSearchRes.json();
+          if (sheetSearchData.files && sheetSearchData.files.length > 0) {
+            spreadsheetId = sheetSearchData.files[0].id;
+            spreadsheetUrl = sheetSearchData.files[0].webViewLink || `https://docs.google.com/spreadsheets/d/${spreadsheetId}/edit`;
+          }
+        }
+      } catch (e) {
+        console.warn('Sheet search error:', e);
+      }
+    }
+
+    if (!spreadsheetId) {
       // 3. Create fresh Google Sheet with structured tabs
       if (statusText) statusText.textContent = 'Creating personal Google Sheet ledger...';
       const sheetTitle = `Trove Expedition Ledger - ${user.displayName || 'Personal'}`;
-      const createSheetRes = await fetch('https://sheets.googleapis.com/v4/spreadsheets', {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          properties: { title: sheetTitle },
-          sheets: [
-            { properties: { title: 'Daily Sessions', gridProperties: { frozenRowCount: 1 } } },
-            { properties: { title: 'Capital Vault', gridProperties: { frozenRowCount: 1 } } },
-            { properties: { title: 'Trades Journal', gridProperties: { frozenRowCount: 1 } } }
-          ]
-        })
-      });
-      const newSheet = await createSheetRes.json();
-      spreadsheetId = newSheet.spreadsheetId;
-      spreadsheetUrl = newSheet.spreadsheetUrl || `https://docs.google.com/spreadsheets/d/${spreadsheetId}/edit`;
-
-      // Move into folder
-      if (folderId && spreadsheetId) {
-        await fetch(`https://www.googleapis.com/drive/v3/files/${spreadsheetId}?addParents=${folderId}&enforceSingleParent=true`, {
-          method: 'PATCH',
-          headers: { Authorization: `Bearer ${accessToken}` }
+      try {
+        const createSheetRes = await fetch('https://sheets.googleapis.com/v4/spreadsheets', {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            properties: { title: sheetTitle },
+            sheets: [
+              { properties: { title: 'Daily Sessions', gridProperties: { frozenRowCount: 1 } } },
+              { properties: { title: 'Capital Vault', gridProperties: { frozenRowCount: 1 } } },
+              { properties: { title: 'Trades Journal', gridProperties: { frozenRowCount: 1 } } }
+            ]
+          })
         });
+        if (createSheetRes.ok) {
+          const newSheet = await createSheetRes.json();
+          spreadsheetId = newSheet.spreadsheetId || null;
+          spreadsheetUrl = newSheet.spreadsheetUrl || (spreadsheetId ? `https://docs.google.com/spreadsheets/d/${spreadsheetId}/edit` : null);
+
+          // Move into folder
+          if (folderId && spreadsheetId) {
+            await fetch(`https://www.googleapis.com/drive/v3/files/${spreadsheetId}?addParents=${folderId}&enforceSingleParent=true`, {
+              method: 'PATCH',
+              headers: { Authorization: `Bearer ${accessToken}` }
+            }).catch(() => {});
+          }
+
+          // Populate initial values
+          if (spreadsheetId) {
+            await populateInitialGoogleSheetData(accessToken, spreadsheetId).catch(() => {});
+          }
+        }
+      } catch (e) {
+        console.warn('Sheet creation error:', e);
+      }
+    }
+
+    // 4. Save to appState and Firestore if provisioned
+    if (spreadsheetId) {
+      appState.folderId = folderId || '';
+      appState.spreadsheetId = spreadsheetId;
+      appState.spreadsheetUrl = spreadsheetUrl || `https://docs.google.com/spreadsheets/d/${spreadsheetId}/edit`;
+      saveStateToStorage(true);
+
+      if (firestoreDb && user.uid) {
+        firestoreDb.collection('users').doc(user.uid).set({
+          folderId: folderId,
+          spreadsheetId: spreadsheetId,
+          spreadsheetUrl: appState.spreadsheetUrl,
+          sheetCreatedAt: new Date().toISOString()
+        }, { merge: true }).catch(() => {});
       }
 
-      // Populate initial values
-      await populateInitialGoogleSheetData(accessToken, spreadsheetId);
+      updateSheetUI();
     }
-
-    // 4. Save to appState and Firestore
-    appState.folderId = folderId;
-    appState.spreadsheetId = spreadsheetId;
-    appState.spreadsheetUrl = spreadsheetUrl;
-    saveStateToStorage(true);
-
-    if (firestoreDb && user.uid) {
-      firestoreDb.collection('users').doc(user.uid).set({
-        folderId: folderId,
-        spreadsheetId: spreadsheetId,
-        spreadsheetUrl: spreadsheetUrl,
-        sheetCreatedAt: new Date().toISOString()
-      }, { merge: true });
-    }
-
-    updateSheetUI();
   } catch (err) {
     console.warn('Google Drive / Sheets auto-creation notice:', err);
   } finally {
@@ -3947,7 +4017,7 @@ function startGoogleSignIn() {
     if (statusText) statusText.textContent = 'Connecting to Google Authentication...';
 
     firebase.auth().signInWithPopup(provider)
-      .then(async result => {
+      .then(result => {
         const token = result.credential ? result.credential.accessToken : null;
         appState.googleAccessToken = token;
         appState.currentUser = {
@@ -3957,21 +4027,27 @@ function startGoogleSignIn() {
           photoURL: result.user.photoURL || ''
         };
 
+        // Immediately unlock user interface - never leave user stuck at gate
         document.body.classList.add('is-authenticated');
         const gate = document.getElementById('authGateOverlay');
-        if (gate) gate.classList.add('hidden');
-
-        if (statusText) statusText.textContent = 'Setting up your Google Drive ledger sheet...';
-        await ensureGoogleDriveSheet(token, result.user);
+        if (gate) {
+          gate.classList.add('hidden');
+          gate.style.display = 'none';
+        }
 
         renderAccountModule();
         updateSheetUI();
         refreshAllViews();
 
-        openModal({
-          title: 'Welcome Adventurer!',
-          message: `Signed in as ${result.user.displayName || result.user.email}.\n\nYour private Google Drive folder and Google Sheet have been prepared. Automatic cloud sync is active across all devices!`
-        });
+        // Run Google Drive sheet check/provisioning asynchronously in background
+        if (token && result.user) {
+          ensureGoogleDriveSheet(token, result.user).then(() => {
+            renderAccountModule();
+            updateSheetUI();
+          }).catch(driveErr => {
+            console.warn('Background Google Drive ledger sync notice:', driveErr);
+          });
+        }
       })
       .catch(err => {
         console.error('Google Sign-In Error:', err);
@@ -4004,6 +4080,16 @@ function startGoogleSignIn() {
       message: err.message || 'Could not initiate Google sign-in.'
     });
   }
+}
+
+function continueAsGuest() {
+  document.body.classList.add('is-authenticated');
+  const gate = document.getElementById('authGateOverlay');
+  if (gate) {
+    gate.classList.add('hidden');
+    gate.style.display = 'none';
+  }
+  refreshAllViews();
 }
 
 function handleSaveGateFirebaseConfig() {

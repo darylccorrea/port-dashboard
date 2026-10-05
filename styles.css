@@ -1631,6 +1631,8 @@ body.is-authenticated .welcome-screen-overlay { display:none!important; }
 .welcome-btn-text strong { display:block;font:700 16px 'Roboto Condensed',sans-serif;color:var(--ink); }
 .welcome-btn-text small { font:500 11px 'Roboto Condensed',sans-serif;color:var(--muted);display:block;margin-top:1px; }
 .welcome-btn-arrow { font-size:18px;color:var(--green);font-weight:700; }
+.welcome-guest-button { width:100%;padding:8px 14px;display:flex;align-items:center;justify-content:center;gap:8px;background:transparent;color:var(--muted);border:1px dashed var(--line);border-radius:4px;cursor:pointer;font:600 12px 'Roboto Condensed',sans-serif;transition:all .15s ease; }
+.welcome-guest-button:hover { color:var(--ink);border-color:var(--green);background:var(--green-soft); }
 
 .welcome-status { display:flex;align-items:center;justify-content:center;gap:10px;margin:12px 0;font:600 12px 'Roboto Condensed',sans-serif;color:var(--ink); }
 .welcome-spinner { width:16px;height:16px;border:2px solid var(--line);border-top-color:var(--green);border-radius:50%;animation:spin .8s linear infinite; }

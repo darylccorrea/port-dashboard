@@ -982,15 +982,31 @@ function renderDailyDesk() {
         const rateText = document.getElementById('rebasedRateNeeded');
         if (rateText) rateText.textContent = `${(rebase.requiredRate * 100).toFixed(2)}%`;
 
+        const noticeEl = document.getElementById('rebasedActiveNotice');
+        const noticeText = document.getElementById('rebasedNoticeText');
+        const noticeNext = document.getElementById('rebasedNoticeNext');
+        if (noticeEl) {
+          if (appState.planViewMode === 'rebased' && s < profile.totalSessions) {
+            noticeEl.classList.remove('hidden');
+            if (noticeText) noticeText.textContent = `✓ Adjusted pace active (${(rebase.requiredRate * 100).toFixed(2)}% daily)`;
+            if (noticeNext) {
+              const nextTarget = profile.sessions[s] ? profile.sessions[s].r : profile.portTarget;
+              noticeNext.textContent = `Next (S${s + 1}) Target: ${formatCurrency(nextTarget)}`;
+            }
+          } else {
+            noticeEl.classList.add('hidden');
+          }
+        }
+
         const btnOrig = document.getElementById('btnPlanModeOriginal');
         const btnRebase = document.getElementById('btnPlanModeRebased');
         if (btnOrig && btnRebase) {
           if (appState.planViewMode === 'rebased') {
-            btnRebase.className = 'px-2.5 py-1 text-xs font-semibold rounded bg-amber-600 text-white shadow-sm';
-            btnOrig.className = 'px-2.5 py-1 text-xs font-semibold rounded bg-white border border-amber-300 text-amber-900 shadow-sm';
+            btnRebase.className = 'px-2.5 py-1 text-xs font-semibold rounded bg-amber-700 text-white shadow-sm ring-2 ring-amber-400';
+            btnOrig.className = 'px-2.5 py-1 text-xs font-semibold rounded bg-white border border-amber-300 text-amber-900 shadow-sm hover:bg-amber-100 transition';
           } else {
-            btnOrig.className = 'px-2.5 py-1 text-xs font-semibold rounded bg-amber-600 text-white shadow-sm';
-            btnRebase.className = 'px-2.5 py-1 text-xs font-semibold rounded bg-white border border-amber-300 text-amber-900 shadow-sm';
+            btnOrig.className = 'px-2.5 py-1 text-xs font-semibold rounded bg-amber-700 text-white shadow-sm ring-2 ring-amber-400';
+            btnRebase.className = 'px-2.5 py-1 text-xs font-semibold rounded bg-white border border-amber-300 text-amber-900 shadow-sm hover:bg-amber-100 transition';
           }
         }
       } else {
@@ -1217,7 +1233,10 @@ function renderMasterTable() {
           </div>
         </td>
         <td class="text-xs text-slate-500">${dateStr}</td>
-        <td class="font-num">${formatCurrency(row ? row.r : 0)}</td>
+        <td class="font-num">
+          ${formatCurrency(row ? row.r : 0)}
+          ${row && row.isRebased ? '<span class="badge badge-amber text-[9px] ml-1" title="Adjusted pace target">Adj</span>' : ''}
+        </td>
         <td class="font-num text-amber-700">${formatCurrency(row ? row.m : 0)}</td>
         <td class="font-num text-purple-700">${formatCurrency(row ? row.a : 0)}</td>
         <td class="font-num font-bold">
@@ -2266,9 +2285,84 @@ function setPace(pace) {
 }
 
 function setPlanViewMode(mode) {
+  const profile = getActiveProfile();
+  const s = appState.activeSession;
   appState.planViewMode = mode;
+
+  if (profile) {
+    if (mode === 'rebased') {
+      const curBal = getCurrentDeskBalance(s);
+      const N = profile.totalSessions;
+      const remaining = N - s;
+
+      if (remaining <= 0) {
+        saveStateToStorage();
+        refreshAllViews();
+        openModal({
+          title: 'Final Session',
+          message: `You are on the final session (S${N}) of the challenge. There are no remaining sessions to adjust.`
+        });
+        return;
+      }
+
+      if (curBal <= 0) {
+        saveStateToStorage();
+        refreshAllViews();
+        openModal({
+          title: 'Balance Depleted',
+          message: 'Current desk balance is $0 or negative. Cannot compound from a zero balance.'
+        });
+        return;
+      }
+
+      if (!profile.originalSessions) {
+        profile.originalSessions = JSON.parse(JSON.stringify(profile.sessions));
+      }
+
+      const T_rel = Math.max(curBal, profile.portTarget);
+      const T_mid = Math.round(T_rel * 1.8);
+      const T_agg = Math.round(T_rel * 2.5);
+      const rebase = calculateRebasedPlan(s, curBal, profile.portTarget, N);
+
+      for (let i = s + 1; i <= N; i++) {
+        const f = (i - s) / remaining;
+        const r = curBal * Math.pow(T_rel / curBal, f);
+        const m = curBal * Math.pow(T_mid / curBal, f);
+        const a = curBal * Math.pow(T_agg / curBal, f);
+        if (profile.sessions[i - 1]) {
+          profile.sessions[i - 1].r = Math.round(r * 100) / 100;
+          profile.sessions[i - 1].m = Math.round(m * 100) / 100;
+          profile.sessions[i - 1].a = Math.round(a * 100) / 100;
+          profile.sessions[i - 1].target = Math.round(r * 100) / 100;
+          profile.sessions[i - 1].isRebased = true;
+        }
+      }
+
+      saveStateToStorage();
+      refreshAllViews();
+
+      const nextTarget = profile.sessions[s] ? profile.sessions[s].r : profile.portTarget;
+      openModal({
+        title: '✓ Plan Adjusted',
+        message: `Your challenge roadmap for remaining sessions (Session ${s + 1} to Session ${N}) has been recalibrated to compound from your current balance of ${formatCurrency(curBal)} to reach your ${formatCurrency(profile.portTarget)} goal at ${(rebase.requiredRate * 100).toFixed(2)}% per session.\n\nNext session (Session ${s + 1}) target is now ${formatCurrency(nextTarget)}.`
+      });
+      return;
+    } else if (mode === 'original') {
+      if (profile.originalSessions) {
+        profile.sessions = JSON.parse(JSON.stringify(profile.originalSessions));
+      }
+      saveStateToStorage();
+      refreshAllViews();
+      openModal({
+        title: 'Original Pace Restored',
+        message: 'Your challenge roadmap has been reverted to the original pace ladder.'
+      });
+      return;
+    }
+  }
+
   saveStateToStorage();
-  renderDailyDesk();
+  refreshAllViews();
 }
 
 function setBillsBasis(basis) {

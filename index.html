@@ -1260,12 +1260,16 @@
             <p id="shortfallDescription" class="text-xs text-amber-800">
               Your desk balance is below target. Required daily compounding rate to reach trove goal from current balance is <strong id="rebasedRateNeeded">14.2%</strong> per session.
             </p>
+            <div id="rebasedActiveNotice" class="hidden text-xs text-amber-900 bg-amber-100/90 p-2.5 rounded border border-amber-300 font-semibold flex items-center justify-between">
+              <span id="rebasedNoticeText">✓ Adjusted Pace Active</span>
+              <span id="rebasedNoticeNext" class="font-num font-bold"></span>
+            </div>
             <div class="flex items-center gap-2 pt-1">
-              <button id="btnPlanModeOriginal" onclick="setPlanViewMode('original')" class="px-2.5 py-1 text-xs font-semibold rounded bg-white border border-amber-300 text-amber-900 shadow-sm">
+              <button id="btnPlanModeOriginal" type="button" onclick="setPlanViewMode('original')" class="px-2.5 py-1 text-xs font-semibold rounded bg-white border border-amber-300 text-amber-900 shadow-sm hover:bg-amber-100 transition">
                 Original pace
               </button>
-              <button id="btnPlanModeRebased" onclick="setPlanViewMode('rebased')" class="px-2.5 py-1 text-xs font-semibold rounded bg-amber-200 border border-amber-400 text-amber-950 shadow-sm">
-                New pace
+              <button id="btnPlanModeRebased" type="button" onclick="setPlanViewMode('rebased')" class="px-2.5 py-1 text-xs font-semibold rounded bg-amber-600 text-white shadow-sm hover:bg-amber-700 transition">
+                Adjust to new pace
               </button>
             </div>
           </div>

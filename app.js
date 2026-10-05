@@ -57,19 +57,24 @@ function generateIndependentTriPaceLadder(base, target, totalSessions) {
   const C0 = Math.max(0.01, parseFloat(base) || 0.01);
   const T = Math.max(C0, parseFloat(target) || C0);
   if (N === 2) return calculateSmoothSeries(C0, T, N);
-  const K = Math.min(N - 1, Math.max(2, Math.round(N * 0.25)));
-
-  const Ck_rel = Math.round(T * 0.10);
-  const Ck_mid = Math.round(T * 0.18);
-  const Ck_agg = Math.round(T * 0.25);
+  const K = Math.min(N - 1, Math.max(1, Math.round(N * 0.25)));
 
   const T_rel = T;
   const T_mid = Math.round(T * 1.8);
   const T_agg = Math.round(T * 2.5);
 
-  const r1_rel = Math.pow(Ck_rel / C0, 1 / (K - 1));
-  const r1_mid = Math.pow(Ck_mid / C0, 1 / (K - 1));
-  const r1_agg = Math.pow(Ck_agg / C0, 1 / (K - 1));
+  // Checkpoints at session K: ensure strictly greater than base C0 and properly paced toward T
+  const smoothK_rel = C0 * Math.pow(T_rel / C0, K / N);
+  const smoothK_mid = C0 * Math.pow(T_mid / C0, K / N);
+  const smoothK_agg = C0 * Math.pow(T_agg / C0, K / N);
+
+  const Ck_rel = Math.min(T_rel * 0.95, Math.max(Math.round(smoothK_rel), Math.round(T * 0.10), Math.round(C0 * 1.05)));
+  const Ck_mid = Math.min(T_mid * 0.95, Math.max(Math.round(smoothK_mid), Math.round(T * 0.18), Math.round(C0 * 1.10)));
+  const Ck_agg = Math.min(T_agg * 0.95, Math.max(Math.round(smoothK_agg), Math.round(T * 0.25), Math.round(C0 * 1.15)));
+
+  const r1_rel = Math.pow(Ck_rel / C0, 1 / K);
+  const r1_mid = Math.pow(Ck_mid / C0, 1 / K);
+  const r1_agg = Math.pow(Ck_agg / C0, 1 / K);
 
   const r2_rel = Math.pow(T_rel / Ck_rel, 1 / (N - K));
   const r2_mid = Math.pow(T_mid / Ck_mid, 1 / (N - K));
@@ -79,9 +84,9 @@ function generateIndependentTriPaceLadder(base, target, totalSessions) {
   for (let s = 1; s <= N; s++) {
     let bal_rel, bal_mid, bal_agg;
     if (s <= K) {
-      bal_rel = C0 * Math.pow(r1_rel, s - 1);
-      bal_mid = C0 * Math.pow(r1_mid, s - 1);
-      bal_agg = C0 * Math.pow(r1_agg, s - 1);
+      bal_rel = C0 * Math.pow(r1_rel, s);
+      bal_mid = C0 * Math.pow(r1_mid, s);
+      bal_agg = C0 * Math.pow(r1_agg, s);
     } else {
       bal_rel = Ck_rel * Math.pow(r2_rel, s - K);
       bal_mid = Ck_mid * Math.pow(r2_mid, s - K);
@@ -115,7 +120,7 @@ function calculateSmoothSeries(base, target, totalSessions) {
   const T = Math.max(C0, parseFloat(target) || C0);
   const sessions = [];
   for (let s = 1; s <= N; s++) {
-    const f = (s - 1) / (N - 1);
+    const f = s / N;
     const r = C0 * Math.pow(T / C0, f);
     const m = C0 * Math.pow((T * 1.8) / C0, f);
     const a = C0 * Math.pow((T * 2.5) / C0, f);
@@ -140,7 +145,7 @@ function calculateDecaySeries(base, target, totalSessions) {
   const T = Math.max(C0, parseFloat(target) || C0);
   const sessions = [];
   for (let s = 1; s <= N; s++) {
-    const f = Math.pow((s - 1) / (N - 1), 0.75);
+    const f = Math.pow(s / N, 0.75);
     const r = C0 * Math.pow(T / C0, f);
     const m = C0 * Math.pow((T * 1.8) / C0, f);
     const a = C0 * Math.pow((T * 2.5) / C0, f);
@@ -168,10 +173,10 @@ function calculatePortTargetWithdrawal(base, target, totalSessions, withdrawalTa
 
   const sessions = [];
   for (let s = 1; s <= N; s++) {
-    const deskTarget = C0 * Math.pow(T / C0, (s - 1) / (N - 1));
+    const deskTarget = C0 * Math.pow(T / C0, s / N);
     let withdrawalGoal = 0;
     if (s <= Dwith) {
-      withdrawalGoal = Dwith > 1 ? Wtarget * ((s - 1) / (Dwith - 1)) : Wtarget;
+      withdrawalGoal = Wtarget * (s / Dwith);
     } else {
       withdrawalGoal = Wtarget;
     }
@@ -424,6 +429,25 @@ function loadStateFromStorage() {
       try {
         const parsed = JSON.parse(rawProfiles);
         appState.profiles = Array.isArray(parsed) ? parsed : [];
+        let profilesMigrated = false;
+        appState.profiles.forEach(p => {
+          if (p && p.base > 0 && (p.portTarget || p.targetBalance) > p.base) {
+            if (!p.sessions || !p.sessions.length || p.sessions[0].r <= p.base) {
+              p.sessions = generateRoadmapSessions(
+                p.curveType || 'tri_pace_independent',
+                p.base,
+                p.portTarget || p.targetBalance,
+                p.totalSessions,
+                p.withdrawalTarget,
+                p.withdrawalDays
+              );
+              profilesMigrated = true;
+            }
+          }
+        });
+        if (profilesMigrated) {
+          localStorage.setItem(STORAGE_KEYS.PROFILES, JSON.stringify(appState.profiles));
+        }
       } catch (e) {
         appState.profiles = [];
       }
@@ -756,7 +780,11 @@ function render3PaceTargetsSection() {
   const tfg = calculateTotalFinancialGoal(profile, currentBal, appState.vaultLedger, appState.bills, appState.milestoneCfg);
   const remainingObligations = tfg.bills.remaining + tfg.savings.remaining;
   const sessionsLeft = profile ? Math.max(1, profile.totalSessions - s + 1) : 1;
-  const targetFinreq = profile ? Math.round((currentBal + (remainingObligations / sessionsLeft)) * 100) / 100 : 0;
+  const targetFinreq = profile 
+    ? (remainingObligations > 0 
+        ? Math.round((currentBal + (remainingObligations / sessionsLeft)) * 100) / 100 
+        : targetRel)
+    : 0;
 
   // Set card contents
   const elRel = document.getElementById('targetRelVal');
@@ -842,7 +870,7 @@ function getActiveTargetForSession(sessionNum) {
     const tfg = calculateTotalFinancialGoal(profile, cur, appState.vaultLedger, appState.bills, appState.milestoneCfg);
     const remaining = tfg.bills.remaining + tfg.savings.remaining;
     const sLeft = Math.max(1, profile.totalSessions - sessionNum + 1);
-    return Math.round((cur + (remaining / sLeft)) * 100) / 100;
+    return remaining > 0 ? Math.round((cur + (remaining / sLeft)) * 100) / 100 : row.r;
   }
   return row.r;
 }
@@ -3737,6 +3765,20 @@ function attachFirestoreListener() {
           isApplyingRemoteSync = true;
           try {
             if (data.profiles && Array.isArray(data.profiles) && data.profiles.length) {
+              data.profiles.forEach(p => {
+                if (p && p.base > 0 && (p.portTarget || p.targetBalance) > p.base) {
+                  if (!p.sessions || !p.sessions.length || p.sessions[0].r <= p.base) {
+                    p.sessions = generateRoadmapSessions(
+                      p.curveType || 'tri_pace_independent',
+                      p.base,
+                      p.portTarget || p.targetBalance,
+                      p.totalSessions,
+                      p.withdrawalTarget,
+                      p.withdrawalDays
+                    );
+                  }
+                }
+              });
               appState.profiles = data.profiles;
             }
             if (data.activeProfileId) appState.activeProfileId = data.activeProfileId;
@@ -4367,6 +4409,20 @@ function handleImportJsonBackup(event) {
     try {
       const data = JSON.parse(e.target.result);
       if (data && data.profiles && Array.isArray(data.profiles)) {
+        data.profiles.forEach(p => {
+          if (p && p.base > 0 && (p.portTarget || p.targetBalance) > p.base) {
+            if (!p.sessions || !p.sessions.length || p.sessions[0].r <= p.base) {
+              p.sessions = generateRoadmapSessions(
+                p.curveType || 'tri_pace_independent',
+                p.base,
+                p.portTarget || p.targetBalance,
+                p.totalSessions,
+                p.withdrawalTarget,
+                p.withdrawalDays
+              );
+            }
+          }
+        });
         appState.profiles = data.profiles;
         if (data.activeProfileId) appState.activeProfileId = data.activeProfileId;
         if (data.activeSession) appState.activeSession = data.activeSession;

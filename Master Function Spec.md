@@ -172,27 +172,27 @@ To guarantee that capital transferred to the Vault is **never penalized as a tra
 #### A. Tri-Pace Independent Ladder Generator (`generateIndependentTriPaceLadder`)
 Generates three concurrent compounding paths across $N$ sessions from starting capital $C_0$ to target $T$:
 1. **Checkpoint Target ($C_k$):** Set at session $K = \text{round}(N \times 0.25)$.
-   * Relaxed Checkpoint: $C_{k,\text{rel}} = \text{round}(T \times 0.10)$
-   * Mid Checkpoint: $C_{k,\text{mid}} = \text{round}(T \times 0.18)$
-   * Aggressive Checkpoint: $C_{k,\text{agg}} = \text{round}(T \times 0.25)$
+   * Relaxed Checkpoint: $C_{k,\text{rel}} = \max(\text{round}(C_0 \times (T_{\text{rel}}/C_0)^{K/N}), \text{round}(T \times 0.10), \text{round}(C_0 \times 1.05))$
+   * Mid Checkpoint: $C_{k,\text{mid}} = \max(\text{round}(C_0 \times (T_{\text{mid}}/C_0)^{K/N}), \text{round}(T \times 0.18), \text{round}(C_0 \times 1.10))$
+   * Aggressive Checkpoint: $C_{k,\text{agg}} = \max(\text{round}(C_0 \times (T_{\text{agg}}/C_0)^{K/N}), \text{round}(T \times 0.25), \text{round}(C_0 \times 1.15))$
 2. **Segment 1 Growth Rate ($s \le K$):**
-   $$r_1 = \left(\frac{C_k}{C_0}\right)^{\frac{1}{K-1}}, \quad \text{Balance}(s) = C_0 \times r_1^{s-1}$$
+   $$r_1 = \left(\frac{C_k}{C_0}\right)^{\frac{1}{K}}, \quad \text{Balance}(s) = C_0 \times r_1^{s}$$
 3. **Segment 2 Growth Rate ($s > K$):**
    $$r_2 = \left(\frac{T}{C_k}\right)^{\frac{1}{N-K}}, \quad \text{Balance}(s) = C_k \times r_2^{s-K}$$
 
 #### B. Smooth Exponential Compounding (`calculateSmoothSeries`)
-$$B(s) = C_0 \times \left(\frac{T}{C_0}\right)^{\frac{s-1}{N-1}}$$
+$$B(s) = C_0 \times \left(\frac{T}{C_0}\right)^{\frac{s}{N}}$$
 
 #### C. Front-Loaded Decay Compounding (`calculateDecaySeries`)
 Models aggressive compounding early with decelerating risk near the summit:
-$$f(s) = \left(\frac{s-1}{N-1}\right)^{0.75}, \quad B(s) = C_0 \times \left(\frac{T}{C_0}\right)^{f(s)}$$
+$$f(s) = \left(\frac{s}{N}\right)^{0.75}, \quad B(s) = C_0 \times \left(\frac{T}{C_0}\right)^{f(s)}$$
 
 #### D. Portfolio Target with Scheduled Cash-Out (`port_target_withdrawal`)
 Separates daily targets into Desk Compounding and Cumulative Banked Cash:
-1. Desk target compounds smoothly from $C_0$ to $T$.
+1. Desk target compounds smoothly from $C_0$ to $T$: $B_{\text{desk}}(s) = C_0 \times \left(\frac{T}{C_0}\right)^{\frac{s}{N}}$.
 2. Withdrawal target $W_{\text{target}}$ accumulates linearly over $D_{\text{with}}$ sessions:
    $$W(s) = \begin{cases}
-   W_{\text{target}} \times \left(\frac{s-1}{D_{\text{with}}-1}\right) & \text{if } s \le D_{\text{with}} \\
+   W_{\text{target}} \times \left(\frac{s}{D_{\text{with}}}\right) & \text{if } s \le D_{\text{with}} \\
    W_{\text{target}} & \text{if } s > D_{\text{with}}
    \end{cases}$$
 3. Total Roadmap Target: $\text{Target}(s) = B_{\text{desk}}(s) + W(s)$.
